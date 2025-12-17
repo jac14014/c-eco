@@ -344,6 +344,77 @@
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
+    /* --- c-ECO: layout + typography refresh (Baskerville + paper) --- */
+
+:root{
+  --paper: #f6f1e7;      /* ivory */
+  --ink: #111827;        /* near-black */
+  --muted: #4b5563;      /* gray */
+  --card: rgba(255,255,255,0.72);
+  --border: rgba(17,24,39,0.10);
+}
+
+html, body { height: 100%; }
+
+body{
+  background: radial-gradient(1200px 600px at 20% -10%, rgba(255,255,255,0.70), transparent 60%),
+              radial-gradient(900px 500px at 90% 0%, rgba(255,255,255,0.50), transparent 55%),
+              var(--paper);
+  color: var(--ink);
+  font-family: "Libre Baskerville", "Baskerville Old Face", Baskerville, Georgia, "Times New Roman", serif;
+  line-height: 1.6;
+}
+
+main, .container{
+  max-width: 1120px;      /* usa melhor a tela */
+  margin: 0 auto;
+  padding: 44px 28px 72px;
+}
+
+h1, h2, h3{
+  letter-spacing: -0.02em;
+}
+
+.tag, .subtitle, .lead{
+  color: var(--muted);
+  max-width: 74ch;
+}
+
+.card{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  backdrop-filter: blur(6px);
+}
+
+.grid{
+  grid-template-columns: repeat(12, 1fr); /* deixa a grade mais “editorial” */
+  gap: 18px;
+}
+
+/* Deixa as seções menos “verticais” em telas grandes */
+@media (min-width: 980px){
+  .hero{
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: 22px;
+    align-items: start;
+  }
+}
+
+/* Logo discreta (se estiver usando) */
+.brand-with-logo{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo{
+  height: 44px;
+  width: auto;
+  opacity: 0.92;
+}
+
   </script>
 </body>
 </html>
