@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>c-ECO — Contractual Equity & Ecological Co-Responsibility</title>
+  <meta name="description" content="c-ECO is a research framework and institutional platform on contractual governance, systemic risk, and ecological co-responsibility in a planetary economy." />
+  <meta name="robots" content="index,follow" />
+
+  <!-- Minimal, academic typography (system + fallbacks) -->
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#111827;      /* near-black */
+      --muted:#4b5563;     /* gray */
+      --subtle:#6b7280;    /* lighter gray */
+      --line:#e5e7eb;      /* light line */
+      --card:#ffffff;
+      --shadow: 0 10px 30px rgba(0,0,0,.06);
+      --max: 980px;
+      --radius: 18px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+      line-height:1.55;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    a.underline{ text-decoration:underline; text-underline-offset:3px; }
+
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding: 44px 22px 70px;
+    }
+
+    header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:20px;
+      padding: 14px 0 26px;
+      border-bottom:1px solid var(--line);
+    }
+
+    .brand{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .brand h1{
+      margin:0;
+      font-size: 34px;
+      letter-spacing: .2px;
+      font-weight: 650;
+    }
+
+    .brand .tag{
+      margin:0;
+      font-size: 15px;
+      color:var(--muted);
+      max-width: 62ch;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+    }
+
+    nav{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      padding-top: 6px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    nav a{
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+    }
+    nav a:hover{ box-shadow: var(--shadow); }
+
+    main{ padding-top: 28px; }
+
+    .hero{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+      align-items:stretch;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 900px){
+      .hero{ grid-template-columns:1fr; }
+    }
+
+    .panel{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      padding: 18px 18px 16px;
+    }
+
+    .panel h2{
+      margin:0 0 10px;
+      font-size: 16px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      letter-spacing: .2px;
+      font-weight: 700;
+    }
+
+    .lead{
+      margin:0;
+      font-size: 18px;
+    }
+
+    .muted{
+      color:var(--muted);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background:#fff;
+      padding: 16px 16px 14px;
+    }
+
+    .card h3{
+      margin:0 0 8px;
+      font-size: 14px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      letter-spacing: .2px;
+      font-weight: 750;
+    }
+
+    .card p{ margin:0; color:var(--muted); font-size: 14px; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif; }
+
+    section{
+      margin-top: 20px;
+    }
+
+    .section-title{
+      margin: 18px 0 10px;
+      font-size: 15px;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      letter-spacing: .2px;
+      font-weight: 800;
+    }
+
+    .bullets{
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .bullets li{ margin: 6px 0; }
+
+    .foot{
+      margin-top: 28px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      color: var(--subtle);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      font-size: 12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .pill{
+      display:inline-block;
+      padding: 6px 10px;
+      border:1px solid var(--line);
+      border-radius: 999px;
+      background:#fff;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .smalllink a{ text-decoration: underline; text-underline-offset: 3px; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <h1>c-ECO</h1>
+        <p class="tag">
+          Contractual Equity &amp; Ecological Co-Responsibility (c-ECO) — a research framework and institutional platform on
+          contractual governance, systemic risk, and ecological co-responsibility in a planetary economy.
+        </p>
+      </div>
+
+      <nav aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#pillars">Pillars</a>
+        <a href="#work">Work</a>
+        <a href="#contact">Contact</a>
+        <a href="https://github.com/jac14014/c-eco" class="underline" target="_blank" rel="noopener">Repository</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="hero">
+        <div class="panel">
+          <h2>Institutional Statement</h2>
+          <p class="lead">
+            c-ECO reframes contracts as <strong>micro-governance architectures</strong> capable of allocating authority, responsibility,
+            and adaptive decision-points <em>ex ante</em>—before systemic risk and ecological impacts become irreversible.
+          </p>
+          <p class="muted" style="margin-top:10px;">
+            The framework is designed for complex socio-ecological and techno-economic systems, where conventional legal categories—
+            oriented primarily toward retrospective attribution—often fail to match the temporal, distributed, and cumulative character of contemporary harms.
+          </p>
+        </div>
+
+        <div class="panel">
+          <h2>Focus Areas</h2>
+          <ul class="bullets" style="margin-top:0;">
+            <li>Critical infrastructure and resource systems (water, energy, logistics).</li>
+            <li>Supply-chain governance and risk redistribution.</li>
+            <li>Planetary due diligence and material thresholds.</li>
+            <li>Hybrid decision environments (technical systems, algorithmic mediation, institutional fragmentation).</li>
+          </ul>
+          <div style="margin-top:12px;">
+            <span class="pill">Research</span>
+            <span class="pill">Doctrine</span>
+            <span class="pill">Applied templates</span>
+          </div>
+        </div>
+      </div>
+
+      <section id="pillars">
+        <div class="section-title">Three Pillars</div>
+        <div class="grid">
+          <div class="card">
+            <h3>Systemic Risk (Ex Ante)</h3>
+            <p>
+              Identifies distributed risk pathways and embeds decision triggers, escalation rules, and early-warning duties in contractual design—
+              shifting governance from post-damage reaction to anticipatory structure.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Planetary Due Diligence</h3>
+            <p>
+              Integrates scientific and technical signals (thresholds, indicators, operational constraints) without collapsing governance into technocracy—
+              enabling adaptive reassessment when material conditions change.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Contractual Governance</h3>
+            <p>
+              Treats contracts as decision architectures: who decides, when, on what basis, under which constraints—and with which consequences—
+              including multi-scalar co-responsibility beyond the immediate parties.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="about">
+        <div class="section-title">About c-ECO</div>
+        <p class="muted" style="margin:0;">
+          The c-ECO Doctrine (Contractual Equity &amp; Ecological Co-Responsibility) is an interdisciplinary legal framework developed to address
+          governance gaps in the Anthropocene. It examines how private-law instruments—especially contracts—can be deliberately designed to perform
+          governance functions under conditions of complexity, uncertainty, and cumulative ecological risk.
+        </p>
+
+        <ul class="bullets" style="margin-top:10px;">
+          <li><strong>Equity</strong> is treated as a structural requirement: the distribution of decision authority and risk must remain justifiable under changing conditions.</li>
+          <li><strong>Co-responsibility</strong> is treated as multi-scalar: the contractual relation is embedded within broader systems and must account for indirect impacts.</li>
+          <li><strong>Governance</strong> is treated as operational: obligations include procedures, triggers, and review mechanisms—not only promises of performance.</li>
+        </ul>
+      </section>
+
+      <section id="work">
+        <div class="section-title">Current Work (selected)</div>
+        <div class="grid">
+          <div class="card">
+            <h3>Applied Concept Notes</h3>
+            <p>Short, practice-oriented papers for professionals in infrastructure, governance, and compliance.</p>
+          </div>
+          <div class="card">
+            <h3>Clause &amp; Template Library</h3>
+            <p>Contractual clause modules for early-warning triggers, escalation duties, adaptive review, and role differentiation.</p>
+          </div>
+          <div class="card">
+            <h3>Research Agenda</h3>
+            <p>Foundations, dogmatic architecture, applications, and implementation pathways for contractual governance under Earth-system constraints.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="section-title">Contact</div>
+        <p class="muted" style="margin:0;">
+          For academic collaboration, institutional partnerships, or invited talks, please use the repository contact channel for now.
+          (A dedicated domain email can be added once <code>c-eco.org</code> is connected.)
+        </p>
+        <p class="muted smalllink" style="margin-top:10px;">
+          Repository: <a href="https://github.com/jac14014/c-eco" target="_blank" rel="noopener">github.com/jac14014/c-eco</a>
+        </p>
+      </section>
+
+      <div class="foot">
+        <div>© <span id="y"></span> c-ECO. All rights reserved.</div>
+        <div class="smalllink">
+          <a href="#about">About</a> · <a href="#pillars">Pillars</a> · <a href="#work">Work</a> · <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
