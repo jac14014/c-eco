@@ -19,6 +19,35 @@
       max-width: 820px;
       margin: 6rem auto;
       padding: 0 1.5rem;
+      position: relative;
+    }
+
+    /* ===== Language Switcher ===== */
+    .lang-switcher {
+      position: absolute;
+      top: 1.6rem;
+      right: 1.5rem;
+    }
+
+    .lang-switcher select {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      padding: 0.25rem 0.4rem;
+      border: 1px solid rgba(0,0,0,0.2);
+      background: transparent;
+      color: #000;
+      opacity: 0.6;
+      cursor: pointer;
+    }
+
+    .lang-switcher select:hover {
+      opacity: 0.85;
+    }
+
+    .lang-switcher select:focus {
+      outline: none;
+      border-color: rgba(0,0,0,0.45);
+      opacity: 0.9;
     }
 
     h1 {
@@ -70,6 +99,12 @@
 
     li { margin: 0.35rem 0; }
 
+    ol {
+      margin: 0.4rem 0 1.2rem 1.2rem;
+      line-height: 1.7;
+      font-size: 0.98rem;
+    }
+
     .callout {
       margin: 1.6rem 0;
       padding: 1rem 1.1rem;
@@ -95,10 +130,70 @@
     }
 
     a:hover { opacity: 0.75; }
+
+    /* ===== Footer ===== */
+    footer {
+      margin-top: 3.5rem;
+      padding-top: 1.6rem;
+      border-top: 1px solid rgba(0,0,0,0.10);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    .footer-nav {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      opacity: 0.65;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .footer-nav a {
+      text-decoration: none;
+    }
+
+    .footer-nav a:hover {
+      opacity: 0.85;
+    }
+
+    .footer-nav span {
+      opacity: 0.4;
+    }
+
+    .copyright {
+      font-size: 13px;
+      opacity: 0.65;
+    }
+
+    @media (max-width: 520px) {
+      .lang-switcher {
+        position: static;
+        margin-bottom: 1.4rem;
+      }
+      footer {
+        align-items: flex-start;
+      }
+    }
   </style>
 </head>
 
 <body>
+
+  <!-- Language Selector -->
+  <div class="lang-switcher">
+    <select onchange="location = this.value;">
+      <option selected disabled>English</option>
+      <option value="pt/policy-brief.html">Português</option>
+      <option value="es/policy-brief.html">Español</option>
+      <option value="fr/policy-brief.html">Français</option>
+      <option value="de/policy-brief.html">Deutsch</option>
+      <option value="zh-cn/policy-brief.html">中文（简体）</option>
+      <option value="ja/policy-brief.html">日本語</option>
+    </select>
+  </div>
 
   <h1>Policy Brief</h1>
   <p class="small" style="margin-top:0.2rem; margin-bottom:0.35rem;">
@@ -113,6 +208,8 @@
   </div>
 
   <hr>
+
+  <!-- ===== CONTENT (UNCHANGED) ===== -->
 
   <h3>Executive Summary</h3>
   <p>
@@ -165,7 +262,6 @@
     <li>intervene after decision-space has already collapsed.</li>
   </ul>
 
-  <p>They do not answer the core question:</p>
   <div class="callout">
     <p style="margin:0;">
       <em>Should this contract remain legally effective once its execution foreseeably consumes the future?</em>
@@ -206,7 +302,7 @@
   </p>
 
   <p>The license verifies that the contract:</p>
-  <ol style="margin:0.4rem 0 1.2rem 1.2rem; line-height:1.7; font-size:0.98rem;">
+  <ol>
     <li>Identifies relevant material thresholds (ecological, infrastructural, systemic);</li>
     <li>Recognizes time as state, not mere sequence;</li>
     <li>Includes monitoring and adaptive governance mechanisms;</li>
@@ -300,6 +396,26 @@
     📧 info@c-eco.org<br>
     🌐 www.c-eco.org
   </p>
+
+  <footer>
+    <div class="footer-nav">
+      <a href="index.html">Home</a>
+      <span>|</span>
+      <a href="info.html">Info</a>
+      <span>|</span>
+      <a href="global-signals.html">Global Signals</a>
+      <span>|</span>
+      <a href="policy-brief.html">Policy Brief</a>
+    </div>
+
+    <div class="copyright">
+      © <span id="y"></span> c-ECO. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 
 </body>
 </html>
