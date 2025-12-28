@@ -12,6 +12,8 @@
       --fg-muted: rgba(255,255,255,.85);
       --card: rgba(255,255,255,.08);
       --border: rgba(255,255,255,.14);
+      --ui: rgba(255,255,255,.72);
+      --ui-hover: rgba(255,255,255,.92);
     }
 
     html, body {
@@ -22,11 +24,39 @@
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
 
-    /* scale 4 – institutional, not marketing */
     .wrap {
       max-width: 960px;
       margin: 0 auto;
       padding: 32px 24px 28px;
+      position: relative;
+    }
+
+    /* ===== Language Switcher ===== */
+    .lang-switcher {
+      position: absolute;
+      top: 28px;
+      right: 24px;
+    }
+
+    .lang-switcher select{
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      padding: 0.28rem 0.42rem;
+      border: 1px solid rgba(255,255,255,.18);
+      background: transparent;
+      color: var(--ui);
+      cursor: pointer;
+    }
+
+    .lang-switcher select:hover{
+      color: var(--ui-hover);
+      border-color: rgba(255,255,255,.30);
+    }
+
+    .lang-switcher select:focus{
+      outline: none;
+      border-color: rgba(255,255,255,.40);
+      color: var(--ui-hover);
     }
 
     a.back {
@@ -34,6 +64,8 @@
       text-decoration: none;
       font-weight: 600;
       opacity: 0.9;
+      display: inline-block;
+      padding-right: 170px;
     }
 
     a.back:hover {
@@ -51,11 +83,9 @@
       margin-top: 6px;
       font-size: 15px;
       font-weight: 600;
-      color: var(--fg);
       opacity: 0.95;
     }
 
-    /* soft wrap */
     .card {
       margin-top: 20px;
       padding: 22px;
@@ -80,23 +110,75 @@
       color: var(--fg);
     }
 
+    /* ===== Footer ===== */
     footer {
       margin-top: 40px;
-      padding-top: 20px;
+      padding-top: 18px;
       border-top: 1px solid var(--border);
       display: flex;
-      justify-content: flex-end;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    .footer-nav {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      opacity: 0.65;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .footer-nav a {
+      color: var(--fg);
+      text-decoration: none;
+    }
+
+    .footer-nav a:hover {
+      opacity: 0.85;
+    }
+
+    .footer-nav span {
+      opacity: 0.4;
     }
 
     .copyright {
       font-size: 13px;
       color: var(--fg-muted);
     }
+
+    @media (max-width: 520px) {
+      .lang-switcher{
+        position: static;
+        margin-bottom: 14px;
+      }
+      a.back{
+        padding-right: 0;
+      }
+      footer{
+        align-items: flex-start;
+      }
+    }
   </style>
 </head>
 
 <body>
   <div class="wrap">
+
+    <!-- Language Selector -->
+    <div class="lang-switcher">
+      <select onchange="location = this.value;">
+        <option selected disabled>English</option>
+        <option value="pt/info.html">Português</option>
+        <option value="es/info.html">Español</option>
+        <option value="fr/info.html">Français</option>
+        <option value="de/info.html">Deutsch</option>
+        <option value="zh-cn/info.html">中文（简体）</option>
+        <option value="ja/info.html">日本語</option>
+      </select>
+    </div>
+
     <a class="back" href="index.html">← Home</a>
 
     <h1>c-ECO</h1>
@@ -138,10 +220,19 @@
     </div>
 
     <footer>
+      <div class="footer-nav">
+        <a href="index.html">Home</a>
+        <span>|</span>
+        <a href="global-signals.html">Global Signals</a>
+        <span>|</span>
+        <a href="policy-brief.html">Policy Brief</a>
+      </div>
+
       <div class="copyright">
         © <span id="y"></span> c-ECO. All rights reserved.
       </div>
     </footer>
+
   </div>
 
   <script>
