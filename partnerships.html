@@ -15,7 +15,7 @@
   <link rel="alternate" hreflang="es" href="https://c-eco.org/es/partnerships.html" />
   <link rel="alternate" hreflang="fr" href="https://c-eco.org/fr/partnerships.html" />
   <link rel="alternate" hreflang="de" href="https://c-eco.org/de/partnerships.html" />
-  <link rel="alternate" hreflang="zh-cn" href="https://c-eco.org/zh-cn/partnerships.html" />
+  <link rel="alternate" hreflang="zh-CN" href="https://c-eco.org/zh-cn/partnerships.html" />
   <link rel="alternate" hreflang="ja" href="https://c-eco.org/ja/partnerships.html" />
 
   <style>
@@ -49,6 +49,7 @@
       position: absolute;
       top: 28px;
       right: 24px;
+      background: transparent;
     }
 
     .lang-switcher select{
@@ -57,12 +58,20 @@
       padding: 0.28rem 0.42rem;
       border: 1px solid rgba(255,255,255,.18);
       background: transparent;
+      background-color: transparent;
       color: var(--ui);
       cursor: pointer;
 
       appearance: none;
       -webkit-appearance: none;
       -moz-appearance: none;
+    }
+
+    /* Force dark rendering for dropdown menu in some browsers */
+    .lang-switcher select,
+    .lang-switcher option{
+      background-color: var(--bg);
+      color: var(--ui);
     }
 
     .lang-switcher select:hover{
@@ -154,6 +163,7 @@
       margin-top: 4px;
       font-size: 0.8rem;
       opacity: 0.75;
+      color: var(--fg-muted);
     }
 
     .callout {
@@ -161,6 +171,18 @@
       padding: 14px;
       border-left: 3px solid rgba(255,255,255,.30);
       background: rgba(255,255,255,.04);
+    }
+
+    .subtle-link {
+      color: var(--fg-muted);
+      font-style: italic;
+      text-decoration: none;
+      opacity: 0.85;
+    }
+
+    .subtle-link:hover {
+      opacity: 1;
+      text-decoration: underline;
     }
 
     /* Footer */
@@ -204,33 +226,23 @@
       footer { align-items: flex-start; }
       .copyright { text-align: left; }
     }
-
-    .subtle-link {
-  color: var(--fg-muted);
-  font-style: italic;
-  text-decoration: none;
-  opacity: 0.85;
-}
-
-.subtle-link:hover {
-  opacity: 1;
-  text-decoration: underline;
-}
   </style>
 </head>
 
 <body>
   <div class="wrap">
 
-    <select onchange="location = this.value;">
-  <option selected disabled>English</option>
-  <option value="pt/partnerships.html">Português</option>
-  <option value="es/partnerships.html">Español</option>
-  <option value="fr/partnerships.html">Français</option>
-  <option value="de/partnerships.html">Deutsch</option>
-  <option value="zh-cn/partnerships.html">中文（简体）</option>
-  <option value="ja/partnerships.html">日本語</option>
-</select>
+    <!-- Language Selector -->
+    <div class="lang-switcher">
+      <select onchange="location = this.value;">
+        <option selected disabled>English</option>
+        <option value="pt/partnerships.html">Português</option>
+        <option value="es/partnerships.html">Español</option>
+        <option value="fr/partnerships.html">Français</option>
+        <option value="de/partnerships.html">Deutsch</option>
+        <option value="zh-cn/partnerships.html">中文（简体）</option>
+        <option value="ja/partnerships.html">日本語</option>
+      </select>
     </div>
 
     <a class="back" href="index.html">← Home</a>
@@ -289,10 +301,8 @@
         the c-ECO research team.
       </p>
 
-      <<p class="small">
-      <a href="applied-study.html" class="subtle-link">
-      Participate in the c-ECO Applied Study
-      </a>
+      <p class="small" style="margin-top:10px;">
+        <a href="applied-study.html" class="subtle-link">Participate in the c-ECO Applied Study</a>
       </p>
     </div>
 
