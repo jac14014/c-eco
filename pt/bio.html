@@ -1,7 +1,12 @@
 <!-- =========================================
      FILE: bio.html
-     c-eco.org — Bio (PT) — Jacqueline A. Ennis
-     FULL PAGE — copiar/selecionar tudo e substituir o arquivo.
+     c-eco.org — Bio (PT)
+     FULL PAGE (complete). Copy/select all and replace the entire file.
+
+     Style:
+     - Same layout as info.html
+     - Charcoal / editorial palette
+     - Minimal, institutional, Harvard-style
 ========================================== -->
 <!doctype html>
 <html lang="pt-BR">
@@ -11,398 +16,297 @@
   <title>Jacqueline A. Ennis — Bio | c-ECO</title>
 
   <!-- SEO / Sharing -->
-  <meta name="description" content="Jacqueline A. Ennis — Fundadora e Autora da Doutrina c-ECO. Jurista | Direito Contratual | Risco Sistêmico e Governança Ecológica." />
+  <meta name="description" content="Jacqueline A. Ennis — Fundadora e Autora da Doutrina c-ECO. Jurista em Direito Contratual, Risco Sistêmico e Governança Ecológica." />
   <link rel="canonical" href="https://c-eco.org/bio.html" />
   <meta property="og:title" content="Jacqueline A. Ennis — Bio | c-ECO" />
   <meta property="og:description" content="Fundadora e Autora da Doutrina c-ECO (Contractual Equity & Ecological Co-Responsibility)." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://c-eco.org/bio.html" />
 
-  <!-- Optional: set an OG image if you have one -->
-  <!-- <meta property="og:image" content="https://c-eco.org/assets/og-bio.jpg" /> -->
-     
   <style>
     :root{
-      --bg: #1F2328;         /* charcoal base */
-      --ink: #ECEDE8;        /* off-white */
-      --muted: #B8BCC2;      /* secondary text */
-      --line: rgba(236,237,232,.14);
-      --accent: #0F766E;     /* emerald */
-      --serif: ui-serif, Georgia, "Times New Roman", Times, serif;
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      --max: 1040px;
-      --radius: 18px;
-      --shadow: 0 16px 48px rgba(0,0,0,.35);
+      --bg:#1F2328;          /* charcoal */
+      --fg:#FFFFFF;
+      --fg-muted: rgba(255,255,255,.82);
+      --card: rgba(255,255,255,.06);
+      --border: rgba(255,255,255,.14);
+      --ui: rgba(255,255,255,.70);
+      --ui-hover: rgba(255,255,255,.92);
     }
 
-    /* Page base */
-    html, body { height: 100%; }
-    body{
-      margin:0;
-      color: var(--ink);
+    html, body {
+      margin: 0;
+      padding: 0;
       background: var(--bg);
-      font-family: var(--sans);
-      line-height: 1.55;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
+      color: var(--fg);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
 
-    /* Subtle texture overlay (editorial grain) */
-    body::before{
-      content:"";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: .075; /* adjust 0.04–0.10 to taste */
-      mix-blend-mode: overlay;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
-      background-size: 220px 220px;
-    }
-
-    a{
-      color: var(--ink);
-      text-decoration: none;
-      border-bottom: 1px solid rgba(236,237,232,.35);
-    }
-    a:hover{ border-bottom-color: var(--accent); color: #ffffff; }
-
-    /* Topbar */
-    .topbar{
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(10px);
-      background: rgba(31,35,40,.65);
-      border-bottom: 1px solid var(--line);
-    }
-    .topbar-inner{
-      max-width: var(--max);
+    .wrap {
+      max-width: 960px;
       margin: 0 auto;
-      padding: 12px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      white-space: nowrap;
-    }
-    .brand .dot{
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 3px rgba(15,118,110,.18);
-    }
-    .brand a{
-      border-bottom: none;
-      font-weight: 650;
-      letter-spacing: .2px;
-    }
-
-    .nav{
-      display:flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-    .nav a{
-      border-bottom: none;
-      color: var(--muted);
-      font-size: 14px;
-      padding: 6px 8px;
-      border-radius: 10px;
-    }
-    .nav a:hover{
-      color: var(--ink);
-      background: rgba(236,237,232,.06);
-    }
-    .nav a.active{
-      color: var(--ink);
-      background: rgba(15,118,110,.14);
-    }
-
-    /* Layout */
-    .wrap{
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 34px 18px 54px;
-    }
-
-    .hero{
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      gap: 26px;
-      align-items: start;
-    }
-
-    @media (max-width: 900px){
-      .hero{ grid-template-columns: 1fr; }
-    }
-
-    .portrait{
+      padding: 32px 24px 28px;
       position: relative;
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(236,237,232,.12);
-      background: rgba(236,237,232,.03);
     }
-    .portrait img{
+
+    /* ===== Language Switcher ===== */
+    .lang-switcher {
+      position: absolute;
+      top: 28px;
+      right: 24px;
+    }
+
+    .lang-switcher select{
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      padding: 0.28rem 0.42rem;
+      border: 1px solid rgba(255,255,255,.18);
+      background: transparent;
+      color: var(--ui);
+      cursor: pointer;
+    }
+
+    .lang-switcher select:hover{
+      color: var(--ui-hover);
+      border-color: rgba(255,255,255,.30);
+    }
+
+    .lang-switcher select:focus{
+      outline: none;
+      border-color: rgba(255,255,255,.40);
+      color: var(--ui-hover);
+    }
+
+    a.back {
+      color: var(--fg);
+      text-decoration: none;
+      font-weight: 600;
+      opacity: 0.9;
+      display: inline-block;
+      padding-right: 170px;
+    }
+
+    a.back:hover { text-decoration: underline; opacity: 1; }
+
+    h1 {
+      margin-top: 12px;
+      font-size: 28px;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      margin-top: 6px;
+      font-size: 15px;
+      font-weight: 600;
+      opacity: 0.95;
+    }
+
+    .card {
+      margin-top: 20px;
+      padding: 22px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      max-width: 760px;
+    }
+
+    .portrait {
+      margin-bottom: 18px;
+      max-width: 280px;
+    }
+
+    .portrait img {
       width: 100%;
       height: auto;
+      border-radius: 14px;
+      border: 1px solid var(--border);
       display: block;
     }
-    .portrait .caption{
-      padding: 10px 12px 12px;
-      color: var(--muted);
-      font-size: 12.5px;
-      border-top: 1px solid rgba(236,237,232,.10);
-      background: rgba(31,35,40,.35);
+
+    p {
+      margin: 12px 0;
+      color: var(--fg-muted);
+      line-height: 1.65;
     }
 
-    /* Title hierarchy: serif for name & role */
-    .name{
-      font-family: var(--serif);
-      font-size: 42px;
-      line-height: 1.08;
-      letter-spacing: .1px;
-      margin: 0 0 10px;
-    }
-    .role{
-      font-family: var(--serif);
-      font-size: 18px;
-      margin: 0 0 6px;
-      color: var(--ink);
-      opacity: .95;
-    }
-    .meta{
-      margin: 0 0 18px;
-      color: var(--muted);
-      font-size: 14.5px;
-    }
+    .small { font-size: 0.92rem; opacity: 0.88; }
 
-    .rule{
-      height:1px;
-      background: var(--line);
-      margin: 18px 0 22px;
-    }
-
-    .bio p{
-      margin: 0 0 14px;
-      font-size: 16.2px;
-    }
-
-    .bio strong{
-      color: #ffffff;
-      font-weight: 650;
-    }
-
-    /* Info box for institutions */
-    .facts{
-      margin-top: 18px;
-      border: 1px solid rgba(236,237,232,.12);
-      border-radius: 14px;
-      background: rgba(236,237,232,.035);
-      padding: 14px 16px;
-    }
-    .facts h3{
-      margin: 0 0 8px;
-      font-size: 13px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-weight: 700;
-    }
-    .facts ul{
-      margin: 0;
-      padding-left: 18px;
-      color: var(--ink);
-      opacity: .95;
-    }
-    .facts li{ margin: 6px 0; }
-
-    /* Footer */
-    footer{
-      border-top: 1px solid var(--line);
-      background: rgba(31,35,40,.55);
-    }
-    .footer-inner{
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 18px 18px 22px;
+    .links-inline {
+      margin-top: 14px;
+      font-size: 0.78rem;
+      letter-spacing: 0.10em;
+      opacity: 0.78;
       display: flex;
       flex-wrap: wrap;
-      gap: 12px 16px;
+      gap: 8px 12px;
       align-items: center;
-      justify-content: space-between;
-      color: var(--muted);
-      font-size: 13px;
     }
-    .footer-links{
-      display:flex;
-      gap: 12px;
+
+    .links-inline a{
+      color: var(--fg);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,.25);
+      padding-bottom: 2px;
+      opacity: 0.92;
+    }
+
+    .links-inline a:hover{
+      opacity: 1;
+      border-bottom-color: rgba(255,255,255,.45);
+    }
+
+    .links-inline span{ opacity: 0.45; }
+
+    footer {
+      margin-top: 40px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    .footer-nav {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      opacity: 0.65;
+      display: flex;
+      align-items: center;
+      gap: 6px;
       flex-wrap: wrap;
     }
-    .footer-links a{
-      border-bottom: none;
-      color: var(--muted);
-    }
-    .footer-links a:hover{ color: var(--ink); }
 
-    /* Small helper badge */
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(236,237,232,.12);
-      background: rgba(15,118,110,.10);
-      color: var(--ink);
-      font-size: 13px;
-      margin-top: 10px;
+    .footer-nav a {
+      color: var(--fg);
+      text-decoration: none;
     }
-    .badge span{
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: var(--accent);
+
+    .footer-nav a:hover { opacity: 0.85; }
+
+    .footer-nav span { opacity: 0.4; }
+
+    .copyright {
+      font-size: 13px;
+      color: var(--fg-muted);
+      line-height: 1.55;
+      text-align: right;
+    }
+
+    @media (max-width: 520px) {
+      .lang-switcher{ position: static; margin-bottom: 14px; }
+      a.back{ padding-right: 0; }
+      footer{ align-items: flex-start; }
+      .copyright{ text-align: left; }
     }
   </style>
 </head>
 
 <body>
-  <!-- Topbar -->
-  <div class="topbar">
-    <div class="topbar-inner">
-      <div class="brand">
-        <span class="dot" aria-hidden="true"></span>
-        <a href="https://c-eco.org/">c-eco.org</a>
+  <div class="wrap">
+
+    <!-- Language Selector -->
+    <div class="lang-switcher">
+      <select onchange="location = this.value;">
+        <option selected disabled>Português</option>
+        <option value="bio.html">English</option>
+        <option value="es/bio.html">Español</option>
+        <option value="fr/bio.html">Français</option>
+        <option value="de/bio.html">Deutsch</option>
+      </select>
+    </div>
+
+    <a class="back" href="index.html">← Início</a>
+
+    <h1>Jacqueline A. Ennis</h1>
+    <div class="subtitle">Fundadora e Autora da Doutrina c-ECO</div>
+
+    <div class="card">
+      <!-- PHOTO -->
+      <div class="portrait">
+        <img src="jacqueline-ennis.PNG" alt="Jacqueline A. Ennis">
       </div>
 
-      <nav class="nav" aria-label="Site navigation">
-        <a href="https://c-eco.org/" >Home</a>
-        <a href="https://c-eco.org/info.html">Info</a>
-        <a href="https://c-eco.org/policy-brief.html">Policy Brief</a>
-        <a class="active" href="https://c-eco.org/bio.html" aria-current="page">Bio</a>
-      </nav>
+      <p>
+        Jacqueline A. Ennis é jurista luso-brasileira, radicada nos Estados Unidos, e autora da
+        <strong>doutrina c-ECO (Contractual Equity &amp; Ecological Co-Responsibility)</strong>.
+        Sua pesquisa formula uma estrutura jurídico-contratual de <strong>governança pré-limiar</strong>,
+        desenvolvida para enfrentar uma limitação crítica do direito contemporâneo:
+        a prevalência de mecanismos <em>ex post</em> que operam apenas após a consolidação de estados
+        sistêmicos irreversíveis sob plena legalidade formal.
+      </p>
+
+      <p>
+        Seu trabalho reconceitua contratos como <strong>arquiteturas temporais de decisão</strong>.
+        Em sistemas socioecológicos, tecnológicos e infraestruturais complexos,
+        decisões juridicamente consequentes tendem a ocorrer durante períodos de conformidade normativa,
+        consumindo progressivamente o espaço decisório futuro sem acionar as categorias clássicas
+        de inadimplemento ou responsabilidade.
+      </p>
+
+      <p>
+        A contribuição central da c-ECO reside na introdução dos conceitos de
+        <strong>validade temporal</strong> e <strong>responsabilidade pré-limiar</strong>,
+        condicionando a eficácia contratual à preservação da reversibilidade sistêmica
+        por meio de monitoramento, gatilhos e recalibragem adaptativa.
+      </p>
+
+      <p>
+        A formulação da doutrina é empiricamente ancorada em mais de
+        <strong>duas décadas de liderança empreendedora na Amazônia brasileira (1993–2014)</strong>,
+        onde Ennis fundou e conduziu iniciativas pioneiras em territórios marcados por
+        alta sensibilidade ecológica e assimetria estrutural.
+      </p>
+
+      <p>
+        Ennis possui <strong>LL.M. em Business Law</strong> pela
+        <a href="https://law.washu.edu/" target="_blank" rel="noopener noreferrer">Washington University in St. Louis</a>,
+        formação jurídica complementar pela
+        <a href="https://www.bu.edu/" target="_blank" rel="noopener noreferrer">Boston University</a>
+        e bacharelado em Direito no Brasil.
+        O desenvolvimento institucional e a pesquisa doutrinária da c-ECO contam com o apoio estratégico do
+        <a href="https://institutosilviomeira.net.br/" target="_blank" rel="noopener noreferrer"><strong>Instituto Silvio Meira (ISM)</strong></a>.
+      </p>
+
+      <p>
+        Atualmente, dedica-se à <strong>sistematização da Doutrina c-ECO em livro de caráter monográfico</strong>
+        e ao desenvolvimento de modelos jurídicos aplicados à governança de riscos sistêmicos,
+        com foco em contratos de infraestrutura, tecnologia e resiliência ecológica.
+      </p>
+
+      <div class="links-inline">
+        <a href="info.html">Info</a>
+        <span>•</span>
+        <a href="observatory.html">Observatório</a>
+        <span>•</span>
+        <a href="policy-brief.html">Policy Brief</a>
+      </div>
     </div>
-  </div>
 
-  <main class="wrap">
-    <section class="hero" aria-label="Biography">
-      <!-- PHOTO -->
-      <aside class="portrait">
-        <!-- Replace the src with your real image path (recommended: /assets/jacqueline-ennis.jpg) -->
-        <img src="jacqueline-ennis.PNG" alt="Retrato de Jacqueline A. Ennis" />
-        <div class="caption">
-          Retrato institucional — substituir o arquivo em <strong>assets/jacqueline-ennis.jpg</strong>.
-        </div>
-      </aside>
-
-      <!-- TEXT -->
-      <article class="bio">
-        <h1 class="name">Jacqueline A. Ennis</h1>
-        <p class="role">Fundadora e Autora da Doutrina c-ECO</p>
-        <p class="meta">Jurista | Direito Contratual | Risco Sistêmico e Governança Ecológica</p>
-
-        <div class="rule"></div>
-
-        <p>
-          Jacqueline A. Ennis é jurista luso-brasileira, radicada nos Estados Unidos, e autora da
-          <strong>doutrina c-ECO (Contractual Equity &amp; Ecological Co-Responsibility)</strong>.
-          Sua pesquisa formula uma <strong>estrutura jurídico-contratual de governança pré-limiar</strong>,
-          desenvolvida para enfrentar uma limitação crítica do direito contemporâneo: a prevalência de
-          mecanismos de intervenção <strong>ex post</strong>, que frequentemente operam apenas após a consolidação
-          de estados sistêmicos irreversíveis sob condições de plena legalidade formal.
-        </p>
-
-        <p>
-          O trabalho de Ennis reconceitua os contratos como <strong>arquiteturas temporais de decisão</strong>.
-          Sua tese demonstra que, em sistemas socioecológicos e tecnológicos complexos, decisões juridicamente
-          consequentes ocorrem majoritariamente durante períodos de conformidade normativa, exaurindo
-          progressivamente o espaço decisório futuro sem acionar as doutrinas clássicas de inadimplemento
-          ou responsabilidade civil. Nesse contexto, a doutrina c-ECO introduz os conceitos de
-          <strong>validade temporal</strong> e <strong>responsabilidade pré-limiar</strong>, condicionando a eficácia jurídica
-          dos instrumentos à <strong>preservação da reversibilidade sistêmica</strong>, por meio de mecanismos de
-          monitoramento e recalibragem adaptativa.
-        </p>
-
-        <p>
-          A formulação da c-ECO é empiricamente ancorada em mais de <strong>duas décadas de liderança empreendedora
-          na Amazônia brasileira (1993–2014)</strong>, período no qual Ennis fundou e conduziu iniciativas pioneiras
-          em territórios marcados por alta sensibilidade ecológica e assimetria estrutural. Essa experiência
-          informa sua abordagem dos contratos como <strong>estruturas de governança dinâmica</strong>, situadas em ecologias
-          sociais e territoriais concretas.
-        </p>
-
-        <p>
-          Ennis possui <strong>LL.M. em Business Law</strong> pela
-          <a href="https://law.washu.edu/" target="_blank" rel="noopener noreferrer">Washington University in St. Louis</a>,
-          formação jurídica complementar pela
-          <a href="https://www.bu.edu/" target="_blank" rel="noopener noreferrer">Boston University</a>
-          e bacharelado em Direito no Brasil. O desenvolvimento institucional e a pesquisa doutrinária da c-ECO
-          contam com o apoio estratégico do
-          <a href="https://www.institutosilviomeira.org/" target="_blank" rel="noopener noreferrer">Instituto Silvio Meira (ISM)</a>,
-          instituição de interesse público dedicada à intersecção entre direito, inovação e governança sistêmica.
-        </p>
-
-        <p>
-          Atualmente, dedica-se à <strong>sistematização da Doutrina c-ECO em livro de caráter monográfico</strong>
-          e ao desenvolvimento de <strong>modelos jurídicos aplicados</strong> à governança de riscos sistêmicos, com ênfase
-          em contratos de infraestrutura, tecnologia e resiliência ecológica.
-        </p>
-
-        <div class="badge" aria-label="Publication note">
-          <span aria-hidden="true"></span>
-          Tipografia: <strong>Serif</strong> no nome/cargo · <strong>Sans</strong> no corpo.
-        </div>
-
-        <div class="facts" aria-label="Quick facts">
-          <h3>Referências institucionais</h3>
-          <ul>
-            <li><a href="https://law.washu.edu/" target="_blank" rel="noopener noreferrer">Washington University in St. Louis — School of Law</a></li>
-            <li><a href="https://www.bu.edu/" target="_blank" rel="noopener noreferrer">Boston University</a></li>
-            <li><a href="https://www.institutosilviomeira.net.br/" target="_blank" rel="noopener noreferrer">Instituto Silvio Meira (ISM)</a></li>
-          </ul>
-        </div>
-      </article>
-    </section>
-  </main>
-
-   <footer>
+    <footer>
       <div class="footer-nav">
-        <a href="../pt/index.html">Início</a>
+        <a href="index.html">Início</a>
         <span>|</span>
-        <a href="../pt/info.html">Info</a>
+        <a href="info.html">Info</a>
         <span>|</span>
-        <a href="../pt/bio.html">Bio</a>
+        <a href="bio.html">Bio</a>
         <span>|</span>
-        <a href="../pt/observatory.html">Observatório</a>
+        <a href="observatory.html">Observatório</a>
         <span>|</span>
-        <a href="../pt/policy-brief.html">Memorando de Políticas</a>
-        <span>|</span>
-        <a href="../pt/license.html">Licença</a>
-        <span>|</span>
-        <a href="../pt/applied-study.html">Estudo Aplicado</a>
-        <span>|</span>
-        <a href="../pt/partnerships.html">Parcerias</a>
+        <a href="policy-brief.html">Policy Brief</a>
       </div>
 
       <div class="copyright">
-        © <span id="y"></span> c-ECO. Todos os direitos reservados.<br>
+        © <span id="y"></span> c-ECO.<br>
         Nenhuma parte desta publicação pode ser reproduzida ou distribuída sem autorização prévia por escrito,
-        exceto para breves citações com atribuição.
+        exceto por breves citações com atribuição.
       </div>
     </footer>
 
   </div>
+
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
   </script>
-
 </body>
 </html>
