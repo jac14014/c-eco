@@ -3,13 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Núcleo Empírico — Observatório c-ECO</title>
+  <title>Núcleo Empírico — Case Studies | Observatório c-ECO</title>
 
-  <!-- SEO / Sharing -->
-  <meta name="description" content="Núcleo Empírico do Observatório c-ECO: estudos de caso, playbooks e análises aplicadas (base empírica) para governança pré-limiar e risco sistêmico." />
+  <!-- SEO -->
+  <meta name="description" content="Núcleo Empírico do Observatório c-ECO: índice de Case Studies (working papers) — estudos aplicados sobre contrato como arquitetura decisória, risco sistêmico e governança pré-limiar." />
   <link rel="canonical" href="https://c-eco.org/pt/observatory/case-studies/index.html" />
-  <meta property="og:title" content="Núcleo Empírico — Observatório c-ECO" />
-  <meta property="og:description" content="Estudos de caso, playbooks e análises aplicadas (base empírica) para governança pré-limiar e risco sistêmico." />
+
+  <meta property="og:title" content="Núcleo Empírico — Case Studies | Observatório c-ECO" />
+  <meta property="og:description" content="Índice de Case Studies (working papers) do Observatório c-ECO." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://c-eco.org/pt/observatory/case-studies/index.html" />
 
@@ -19,258 +20,140 @@
 
   <style>
     :root{
-      --bg:#0A1C26;
-      --fg:#FFFFFF;
-      --fg-muted: rgba(255,255,255,.85);
-      --card: rgba(255,255,255,.08);
-      --border: rgba(255,255,255,.14);
-      --ui: rgba(255,255,255,.72);
-      --ui-hover: rgba(255,255,255,.92);
+      --bg:#F4F2EE;
+      --panel:#FFFFFF;
+      --text:#1F2A28;
+      --muted:#4E5B58;
+      --line:rgba(0,0,0,.10);
+      --soft:rgba(0,0,0,.05);
+      --accent:#2F8F83;
     }
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: var(--bg);
-      color: var(--fg);
+    *{ box-sizing:border-box; }
+
+    html,body{
+      margin:0;
+      padding:0;
+      background:var(--bg);
+      color:var(--text);
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
 
-    .wrap {
-      max-width: 960px;
+    .wrap{
+      max-width: 940px;
       margin: 0 auto;
-      padding: 32px 24px 28px;
-      position: relative;
+      padding: 34px 22px 72px;
     }
 
-    /* Language switcher */
-    .lang-switcher {
-      position: absolute;
-      top: 28px;
-      right: 24px;
+    a{
+      color:var(--accent);
+      text-decoration:none;
+      border-bottom: 1px solid rgba(47,143,131,.35);
+      padding-bottom: 1px;
+    }
+    a:hover{ border-bottom-color: rgba(47,143,131,.75); }
+
+    header{
+      margin-bottom: 18px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
     }
 
-    .lang-switcher select{
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      padding: 0.28rem 0.42rem;
-      border: 1px solid rgba(255,255,255,.18);
-      background: transparent;
-      color: var(--ui);
-      cursor: pointer;
+    .back{
+      display:inline-block;
+      font-size: 14px;
+      color: var(--muted);
+      border-bottom: 1px solid rgba(0,0,0,.15);
     }
+    .back:hover{ border-bottom-color: rgba(0,0,0,.35); }
 
-    .lang-switcher select:hover{
-      color: var(--ui-hover);
-      border-color: rgba(255,255,255,.30);
-    }
-
-    .lang-switcher select:focus{
-      outline: none;
-      border-color: rgba(255,255,255,.40);
-      color: var(--ui-hover);
-    }
-
-    a.back {
-      color: var(--fg);
-      text-decoration: none;
-      font-weight: 600;
-      opacity: 0.9;
-      display: inline-block;
-      padding-right: 170px;
-    }
-    a.back:hover { text-decoration: underline; opacity: 1; }
-
-    h1 {
-      margin-top: 12px;
+    h1{
+      margin: 12px 0 6px;
       font-size: 28px;
-      letter-spacing: -0.02em;
+      letter-spacing:-0.02em;
     }
 
-    .subtitle {
-      margin-top: 6px;
+    .subtitle{
+      margin: 0;
+      color: var(--muted);
       font-size: 15px;
-      font-weight: 600;
-      opacity: 0.95;
+      line-height:1.5;
+      max-width: 780px;
     }
 
-    .card {
-      margin-top: 20px;
-      padding: 22px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      max-width: 820px;
-    }
-
-    p {
-      margin: 12px 0;
-      color: var(--fg-muted);
-      line-height: 1.65;
-    }
-
-    .small {
-      font-size: 0.9rem;
-      opacity: 0.85;
-    }
-
-    .links-inline {
-      margin-top: 14px;
-      font-size: 0.78rem;
-      letter-spacing: 0.10em;
-      opacity: 0.78;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 12px;
-      align-items: center;
-    }
-
-    .links-inline a{
-      color: var(--fg);
-      text-decoration: none;
-      border-bottom: 1px solid rgba(255,255,255,.25);
-      padding-bottom: 2px;
-      opacity: 0.92;
-    }
-
-    .links-inline a:hover{
-      opacity: 1;
-      border-bottom-color: rgba(255,255,255,.45);
-    }
-
-    .links-inline span{ opacity: 0.45; }
-
-    /* Pills */
-    .pills{
+    .meta{
       margin-top: 10px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      opacity: 0.95;
-    }
-    .pill{
-      font-size: 0.70rem;
-      letter-spacing: 0.10em;
+      font-size: 12px;
+      letter-spacing: .10em;
       text-transform: uppercase;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.18);
-      background: rgba(255,255,255,.06);
-      color: rgba(255,255,255,.86);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      color: rgba(31,42,40,.65);
     }
 
-    /* Index list */
-    .index-grid{
-      margin-top: 14px;
-      display: grid;
-      grid-template-columns: 1fr;
+    .card{
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 16px;
+    }
+
+    .list{
+      display:grid;
       gap: 12px;
+      margin-top: 12px;
     }
 
     .item{
-      padding: 16px 16px 14px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.05);
-      border-radius: 16px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(0,0,0,.01);
     }
 
-    .item h2{
-      margin: 0;
+    .item-title{
+      margin:0;
       font-size: 16px;
       letter-spacing: -0.01em;
     }
 
-    .item .meta{
-      margin-top: 6px;
-      font-size: 0.78rem;
-      letter-spacing: 0.08em;
-      opacity: 0.70;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .item .desc{
-      margin-top: 10px;
-      color: var(--fg-muted);
+    .item-meta{
+      margin-top: 8px;
+      font-size: 12px;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      color: rgba(31,42,40,.62);
       line-height: 1.6;
-      font-size: 0.98rem;
     }
 
-    .item .actions{
-      margin-top: 12px;
-      display: flex;
-      flex-wrap: wrap;
+    .item-desc{
+      margin-top: 10px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .actions{
+      margin-top: 10px;
+      font-size: 13px;
+      color: rgba(31,42,40,.70);
+      display:flex;
+      flex-wrap:wrap;
       gap: 10px 14px;
-      align-items: center;
-      font-size: 0.78rem;
-      letter-spacing: 0.10em;
-      opacity: 0.86;
+      align-items:center;
     }
 
-    .item .actions a{
-      color: var(--fg);
-      text-decoration: none;
-      border-bottom: 1px solid rgba(255,255,255,.25);
-      padding-bottom: 2px;
-    }
-
-    .item .actions a:hover{
-      border-bottom-color: rgba(255,255,255,.45);
-    }
-
-    hr.sep{
-      margin: 18px 0;
-      opacity: 0.35;
-      border: none;
-      border-top: 1px solid rgba(255,255,255,.18);
-    }
-
-    footer {
+    footer{
       margin-top: 40px;
       padding-top: 18px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 10px;
-    }
-
-    .footer-nav {
-      font-size: 0.72rem;
-      letter-spacing: 0.14em;
-      opacity: 0.65;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .footer-nav a {
-      color: var(--fg);
-      text-decoration: none;
-    }
-
-    .footer-nav a:hover { opacity: 0.85; }
-
-    .footer-nav span { opacity: 0.4; }
-
-    .copyright {
+      border-top: 1px solid var(--line);
+      color: rgba(31,42,40,.70);
       font-size: 13px;
-      color: var(--fg-muted);
       line-height: 1.55;
-      text-align: right;
     }
 
-    @media (max-width: 520px) {
-      .lang-switcher{ position: static; margin-bottom: 14px; }
-      a.back{ padding-right: 0; }
-      footer{ align-items: flex-start; }
-      .copyright{ text-align: left; }
+    @media (max-width: 560px){
+      h1{ font-size: 24px; }
+      .wrap{ padding: 28px 16px 64px; }
+      .card{ padding: 18px; }
     }
   </style>
 </head>
@@ -278,130 +161,75 @@
 <body>
   <div class="wrap">
 
-    <!-- Language Selector -->
-    <div class="lang-switcher">
-      <select onchange="location = this.value;">
-        <option selected disabled>Português</option>
-        <option value="/en/observatory/case-studies/index.html">English</option>
-      </select>
-    </div>
+    <header>
+      <a class="back" href="/pt/observatory.html">← Observatório</a>
 
-    <a class="back" href="/pt/observatory.html">← Observatório</a>
-
-    <h1>Núcleo Empírico</h1>
-    <div class="subtitle">Estudos de caso · Playbooks · Evidência aplicada</div>
-
-    <!-- ====== INTRO ====== -->
-    <div class="card">
-      <p>
-        Este índice reúne materiais empíricos da c-ECO: <strong>estudos de caso</strong>, <strong>playbooks</strong> e análises aplicadas
-        baseadas em eventos observáveis, regimes jurídicos existentes e impactos cumulativos mensuráveis.
-        O objetivo é documentar <em>padrões de validade</em> e <em>lacunas de governabilidade</em> em contextos reais, sem caráter prescritivo.
+      <h1>Núcleo Empírico — Case Studies</h1>
+      <p class="subtitle">
+        Índice dos estudos aplicados (working papers) do Observatório c-ECO.
+        Cada case study documenta padrões empíricos de validade formal vs. governabilidade material,
+        com foco em risco sistêmico e governança pré-limiar.
       </p>
 
-      <div class="pills">
-        <span class="pill">Case studies</span>
-        <span class="pill">Playbooks</span>
-        <span class="pill">Risco sistêmico</span>
-        <span class="pill">Pré-limiar</span>
-      </div>
+      <div class="meta">Observatório c-ECO · Núcleo Empírico · Janeiro 2026</div>
+    </header>
 
-      <div class="links-inline">
-        <a href="/pt/observatory.html">Voltar ao Observatório</a>
-        <span>•</span>
-        <a href="/pt/index.html">Início</a>
-      </div>
+    <section class="card">
+      <h2 style="margin:0 0 10px; font-size:18px;">Índice</h2>
 
-      <hr class="sep">
+      <div class="list">
 
-      <p class="small">
-        <strong>Nota:</strong> este índice é modular. Você pode adicionar novos itens copiando um bloco “item” abaixo e ajustando o link.
-      </p>
-    </div>
-
-    <!-- ====== INDEX LIST ====== -->
-    <div class="card">
-      <p><strong>Índice</strong><br>
-      <span class="small">Itens disponíveis (atualize links conforme você publicar)</span></p>
-
-      <div class="index-grid">
-
-        <!-- ITEM 01 -->
         <div class="item">
-          <h2>Case Study — Validity Trap (2025)</h2>
-          <div class="meta">
-            <span>Tipo: Case Study</span><span>•</span><span>Ano: 2025</span><span>•</span><span>Tema: legalidade sem governabilidade</span>
-          </div>
-          <div class="desc">
-            Mapeamento empírico de um padrão recorrente: decisões juridicamente válidas que consolidam estados irreversíveis
-            enquanto a conformidade formal permanece intacta.
+          <p class="item-title">Case Study No. 1 — Belo Monte (Brasil)</p>
+          <div class="item-meta">Working Paper · v1.2 · Janeiro 2026</div>
+          <div class="item-desc">
+            Contrato como arquitetura decisória; lock-in temporal; sinais pré-limiar e consumo da agência futura.
           </div>
           <div class="actions">
-            <a href="/pt/validity-trap.html">Abrir publicação base</a>
-            <span>•</span>
-            <a href="#">Abrir estudo de caso (link)</a>
+            <a href="./case-01-belo-monte.html">Abrir</a>
           </div>
         </div>
 
-        <!-- ITEM 02 -->
         <div class="item">
-          <h2>Case Study — Da Órbita ao Alto-Mar (BBNJ)</h2>
-          <div class="meta">
-            <span>Tipo: Case Study</span><span>•</span><span>Ano: 2026</span><span>•</span><span>Tema: cumulatividade interdomínios</span>
-          </div>
-          <div class="desc">
-            Evidência e estrutura de análise para impactos cumulativos entre órbita/reentrada e biodiversidade além da jurisdição nacional,
-            com foco em prova de conformidade e auditabilidade contratual.
+          <p class="item-title">Case Study No. 2 — Níobio na Amazônia (Brasil)</p>
+          <div class="item-meta">Working Paper · v1.0 · Janeiro 2026</div>
+          <div class="item-desc">
+            Mineração estratégica e risco sistêmico “silencioso”; estabilidade contratual com irreversibilidade territorial de longo prazo.
           </div>
           <div class="actions">
-            <a href="/pt/from-orbit-to-the-high-seas.html">Abrir publicação base</a>
-            <span>•</span>
-            <a href="#">Abrir estudo de caso (link)</a>
+            <a href="./case-02-niobio-amazonia.html">Abrir</a>
           </div>
         </div>
 
-        <!-- ITEM 03 (MODELO/PLACEHOLDER) -->
         <div class="item">
-          <h2>Playbook — Template de Due Diligence Pré-Limiar</h2>
-          <div class="meta">
-            <span>Tipo: Playbook</span><span>•</span><span>Status: rascunho</span><span>•</span><span>Tema: diligência auditável</span>
-          </div>
-          <div class="desc">
-            Estrutura operacional para transformar obrigações dispersas em condições contratuais verificáveis: escopo,
-            gatilhos, métricas mínimas, registros e procedimentos de revisão temporal.
+          <p class="item-title">Case Study No. 3 — M&A Transnacional (Brasil–EUA)</p>
+          <div class="item-meta">Working Paper · v1.0 · Janeiro 2026</div>
+          <div class="item-desc">
+            Due diligence tradicional, closing como congelamento decisório e riscos pós-closing sem governança adaptativa.
           </div>
           <div class="actions">
-            <a href="#">Abrir playbook (link)</a>
+            <a href="./case-03-ma-transnacional.html">Abrir</a>
+          </div>
+        </div>
+
+        <div class="item">
+          <p class="item-title">Case Study No. 4 — Supply Chain, IA e Governança Contratual</p>
+          <div class="item-meta">Working Paper · Janeiro 2026</div>
+          <div class="item-desc">
+            Decisão contratual mediada por algoritmos; otimização contínua; opacidade e ausência de gatilhos de revisão pré-limiar.
+          </div>
+          <div class="actions">
+            <a href="./case-04-supply-chain-ai.html">Abrir</a>
           </div>
         </div>
 
       </div>
-    </div>
+    </section>
 
     <footer>
-      <div class="footer-nav">
-        <a href="/pt/index.html">Início</a>
-        <span>|</span>
-        <a href="/pt/info.html">Info</a>
-        <span>|</span>
-        <a href="/pt/bio.html">Bio</a>
-        <span>|</span>
-        <a href="/pt/observatory.html">Observatório</a>
-        <span>|</span>
-        <a href="/pt/policy-brief.html">Memorando de Políticas</a>
-        <span>|</span>
-        <a href="/pt/license.html">Licença</a>
-        <span>|</span>
-        <a href="/pt/applied-study.html">Estudo Aplicado</a>
-        <span>|</span>
-        <a href="/pt/partnerships.html">Parcerias</a>
-      </div>
-
-      <div class="copyright">
-        © <span id="y"></span> c-ECO. Todos os direitos reservados.<br>
-        Nenhuma parte desta publicação pode ser reproduzida ou distribuída sem autorização prévia por escrito,
-        exceto para breves citações com atribuição.
-      </div>
+      © <span id="y"></span> c-ECO. Todos os direitos reservados.<br>
+      Nenhuma parte desta publicação pode ser reproduzida ou distribuída sem autorização prévia por escrito,
+      exceto para breves citações com atribuição.
     </footer>
 
   </div>
