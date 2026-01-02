@@ -1,3 +1,8 @@
+<!-- =========================================
+     FILE: /pt/observatory/case-studies/index.html
+     c-eco.org — Observatório / Núcleo Empírico (Plum governance #5C4750)
+     FULL PAGE — copy/select all and replace the entire file.
+========================================== -->
 <!doctype html>
 <html lang="pt">
 <head>
@@ -5,10 +10,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Núcleo Empírico — Case Studies | Observatório c-ECO</title>
 
-  <!-- SEO -->
-  <meta name="description" content="Núcleo Empírico do Observatório c-ECO: índice de Case Studies (working papers) — estudos aplicados sobre contrato como arquitetura decisória, risco sistêmico e governança pré-limiar." />
+  <!-- SEO / Sharing -->
+  <meta name="description" content="Núcleo Empírico do Observatório c-ECO: índice de Case Studies (working papers) sobre contrato como arquitetura decisória, risco sistêmico e governança pré-limiar." />
   <link rel="canonical" href="https://c-eco.org/pt/observatory/case-studies/index.html" />
-
   <meta property="og:title" content="Núcleo Empírico — Case Studies | Observatório c-ECO" />
   <meta property="og:description" content="Índice de Case Studies (working papers) do Observatório c-ECO." />
   <meta property="og:type" content="website" />
@@ -19,7 +23,7 @@
   <link rel="alternate" hreflang="en" href="https://c-eco.org/en/observatory/case-studies/index.html" />
 
   <style>
-   :root{
+    :root{
       --bg:#5C4750;
       --fg:#FFFFFF;
       --fg-muted: rgba(255,255,255,.85);
@@ -29,131 +33,210 @@
       --ui-hover: rgba(255,255,255,.96);
     }
 
-    *{ box-sizing:border-box; }
-
-    html,body{
-      margin:0;
-      padding:0;
-      background:var(--bg);
-      color:var(--text);
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--fg);
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
 
-    .wrap{
-      max-width: 940px;
+    .wrap {
+      max-width: 960px;
       margin: 0 auto;
-      padding: 34px 22px 72px;
+      padding: 32px 24px 28px;
+      position: relative;
     }
 
-    a{
-      color:var(--accent);
-      text-decoration:none;
-      border-bottom: 1px solid rgba(47,143,131,.35);
-      padding-bottom: 1px;
-    }
-    a:hover{ border-bottom-color: rgba(47,143,131,.75); }
-
-    header{
-      margin-bottom: 18px;
-      padding-bottom: 18px;
-      border-bottom: 1px solid var(--line);
+    /* ===== Language Switcher (same as applied-study.html) ===== */
+    .lang-switcher {
+      position: absolute;
+      top: 28px;
+      right: 24px;
     }
 
-    .back{
-      display:inline-block;
-      font-size: 14px;
-      color: var(--muted);
-      border-bottom: 1px solid rgba(0,0,0,.15);
-    }
-    .back:hover{ border-bottom-color: rgba(0,0,0,.35); }
-
-    h1{
-      margin: 12px 0 6px;
-      font-size: 28px;
-      letter-spacing:-0.02em;
+    .lang-switcher select{
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      padding: 0.28rem 0.42rem;
+      border: 1px solid rgba(255,255,255,.18);
+      background: transparent;
+      color: var(--ui);
+      cursor: pointer;
     }
 
-    .subtitle{
-      margin: 0;
-      color: var(--muted);
-      font-size: 15px;
-      line-height:1.5;
-      max-width: 780px;
+    .lang-switcher select:hover{
+      color: var(--ui-hover);
+      border-color: rgba(255,255,255,.30);
     }
 
-    .meta{
-      margin-top: 10px;
-      font-size: 12px;
-      letter-spacing: .10em;
-      text-transform: uppercase;
-      color: rgba(31,42,40,.65);
+    .lang-switcher select:focus{
+      outline: none;
+      border-color: rgba(255,255,255,.40);
+      color: var(--ui-hover);
     }
 
-    .card{
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 20px;
-      margin-top: 16px;
+    a.back {
+      color: var(--fg);
+      text-decoration: none;
+      font-weight: 600;
+      opacity: 0.9;
+      display: inline-block;
+      padding-right: 170px;
     }
 
-    .list{
-      display:grid;
-      gap: 12px;
+    a.back:hover { text-decoration: underline; opacity: 1; }
+
+    h1 {
       margin-top: 12px;
+      font-size: 28px;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      margin-top: 6px;
+      font-size: 15px;
+      font-weight: 600;
+      opacity: 0.95;
+    }
+
+    .meta {
+      margin-top: 10px;
+      font-size: 0.78rem;
+      letter-spacing: 0.10em;
+      opacity: 0.85;
+      line-height: 1.55;
+      color: var(--fg-muted);
+    }
+
+    .card {
+      margin-top: 20px;
+      padding: 22px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      max-width: 760px;
+    }
+
+    p {
+      margin: 12px 0;
+      color: var(--fg-muted);
+      line-height: 1.65;
+    }
+
+    .small { font-size: 0.92rem; opacity: 0.88; }
+
+    hr.inline{
+      margin: 22px 0;
+      border: 0;
+      border-top: 1px solid rgba(255,255,255,.30);
+      opacity: 0.9;
+    }
+
+    /* ===== Index list (in the same style) ===== */
+    .list{
+      margin-top: 12px;
+      display: grid;
+      gap: 14px;
     }
 
     .item{
-      padding: 16px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: rgba(0,0,0,.01);
+      padding: 14px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 12px;
+      opacity: 0.98;
     }
 
-    .item-title{
-      margin:0;
-      font-size: 16px;
-      letter-spacing: -0.01em;
+    .item h3{
+      margin: 0 0 6px 0;
+      font-size: 0.95rem;
+      color: var(--fg);
     }
 
-    .item-meta{
-      margin-top: 8px;
-      font-size: 12px;
-      letter-spacing: .10em;
-      text-transform: uppercase;
-      color: rgba(31,42,40,.62);
-      line-height: 1.6;
-    }
-
-    .item-desc{
-      margin-top: 10px;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .actions{
-      margin-top: 10px;
-      font-size: 13px;
-      color: rgba(31,42,40,.70);
-      display:flex;
-      flex-wrap:wrap;
-      gap: 10px 14px;
-      align-items:center;
-    }
-
-    footer{
-      margin-top: 40px;
-      padding-top: 18px;
-      border-top: 1px solid var(--line);
-      color: rgba(31,42,40,.70);
-      font-size: 13px;
+    .item .meta2{
+      font-size: 0.78rem;
+      letter-spacing: 0.10em;
+      opacity: 0.78;
+      color: var(--fg-muted);
       line-height: 1.55;
     }
 
-    @media (max-width: 560px){
-      h1{ font-size: 24px; }
-      .wrap{ padding: 28px 16px 64px; }
-      .card{ padding: 18px; }
+    .item .desc{
+      margin-top: 10px;
+      font-size: 0.92rem;
+      color: var(--fg-muted);
+      line-height: 1.55;
+    }
+
+    .links-inline {
+      margin-top: 12px;
+      font-size: 0.78rem;
+      letter-spacing: 0.10em;
+      opacity: 0.82;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 12px;
+      align-items: center;
+    }
+
+    .links-inline a{
+      color: var(--fg);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,.35);
+      padding-bottom: 2px;
+      opacity: 0.92;
+    }
+
+    .links-inline a:hover{
+      opacity: 1;
+      border-bottom-color: rgba(255,255,255,.65);
+    }
+
+    .links-inline span{ opacity: 0.45; }
+
+    /* ===== Footer (same as applied-study.html) ===== */
+    footer {
+      margin-top: 40px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    .footer-nav {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      opacity: 0.65;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .footer-nav a {
+      color: var(--fg);
+      text-decoration: none;
+    }
+
+    .footer-nav a:hover { opacity: 0.85; }
+
+    .footer-nav span { opacity: 0.4; }
+
+    .copyright {
+      font-size: 13px;
+      color: var(--fg-muted);
+      line-height: 1.55;
+      text-align: right;
+    }
+
+    @media (max-width: 520px) {
+      .lang-switcher{ position: static; margin-bottom: 14px; }
+      a.back{ padding-right: 0; }
+      footer{ align-items: flex-start; }
+      .copyright{ text-align: left; }
     }
   </style>
 </head>
@@ -161,75 +244,116 @@
 <body>
   <div class="wrap">
 
-    <header>
-      <a class="back" href="/pt/observatory.html">← Observatório</a>
+    <!-- Language Selector -->
+    <div class="lang-switcher">
+      <select onchange="location = this.value;">
+        <option selected disabled>Português</option>
+        <option value="/en/observatory/case-studies/index.html">English</option>
+      </select>
+    </div>
 
-      <h1>Núcleo Empírico — Case Studies</h1>
-      <p class="subtitle">
-        Índice dos estudos aplicados (working papers) do Observatório c-ECO.
-        Cada case study documenta padrões empíricos de validade formal vs. governabilidade material,
-        com foco em risco sistêmico e governança pré-limiar.
+    <a class="back" href="/pt/observatory.html">← Observatório</a>
+
+    <h1>Núcleo Empírico</h1>
+    <div class="subtitle">Case Studies · Working Papers · Evidência aplicada</div>
+
+    <div class="meta">
+      Observatório c-ECO — índice de estudos empíricos aplicados<br>
+      Arquiteturas contratuais sob risco sistêmico · governança pré-limiar
+    </div>
+
+    <div class="card">
+      <p>
+        Esta página reúne os <strong>Case Studies</strong> do Núcleo Empírico.  
+        Cada documento é um <em>working paper</em> e pode ser atualizado por versão.
       </p>
 
-      <div class="meta">Observatório c-ECO · Núcleo Empírico · Janeiro 2026</div>
-    </header>
+      <hr class="inline">
 
-    <section class="card">
-      <h2 style="margin:0 0 10px; font-size:18px;">Índice</h2>
+      <p class="small">
+        <strong>Índice</strong>
+      </p>
 
       <div class="list">
 
         <div class="item">
-          <p class="item-title">Case Study No. 1 — Belo Monte (Brasil)</p>
-          <div class="item-meta">Working Paper · v1.2 · Janeiro 2026</div>
-          <div class="item-desc">
+          <h3>Case Study No. 1 — Belo Monte (Brasil)</h3>
+          <div class="meta2">Working Paper · v1.2 · Janeiro 2026</div>
+          <div class="desc">
             Contrato como arquitetura decisória; lock-in temporal; sinais pré-limiar e consumo da agência futura.
           </div>
-          <div class="actions">
-            <a href="./case-01-belo-monte.html">Abrir</a>
+          <div class="links-inline">
+            <a href="/pt/observatory/case-studies/case-01-belo-monte.html">Abrir</a>
           </div>
         </div>
 
         <div class="item">
-          <p class="item-title">Case Study No. 2 — Níobio na Amazônia (Brasil)</p>
-          <div class="item-meta">Working Paper · v1.0 · Janeiro 2026</div>
-          <div class="item-desc">
-            Mineração estratégica e risco sistêmico “silencioso”; estabilidade contratual com irreversibilidade territorial de longo prazo.
+          <h3>Case Study No. 2 — Níobio na Amazônia (Brasil)</h3>
+          <div class="meta2">Working Paper · v1.0 · Janeiro 2026</div>
+          <div class="desc">
+            Risco sistêmico silencioso; estabilidade contratual com irreversibilidade territorial de longo prazo.
           </div>
-          <div class="actions">
-            <a href="./case-02-niobio-amazonia.html">Abrir</a>
-          </div>
-        </div>
-
-        <div class="item">
-          <p class="item-title">Case Study No. 3 — M&A Transnacional (Brasil–EUA)</p>
-          <div class="item-meta">Working Paper · v1.0 · Janeiro 2026</div>
-          <div class="item-desc">
-            Due diligence tradicional, closing como congelamento decisório e riscos pós-closing sem governança adaptativa.
-          </div>
-          <div class="actions">
-            <a href="./case-03-ma-transnacional.html">Abrir</a>
+          <div class="links-inline">
+            <a href="/pt/observatory/case-studies/case-02-niobio-amazonia.html">Abrir</a>
           </div>
         </div>
 
         <div class="item">
-          <p class="item-title">Case Study No. 4 — Supply Chain, IA e Governança Contratual</p>
-          <div class="item-meta">Working Paper · Janeiro 2026</div>
-          <div class="item-desc">
-            Decisão contratual mediada por algoritmos; otimização contínua; opacidade e ausência de gatilhos de revisão pré-limiar.
+          <h3>Case Study No. 3 — M&A Transnacional (Brasil–EUA)</h3>
+          <div class="meta2">Working Paper · v1.0 · Janeiro 2026</div>
+          <div class="desc">
+            Due diligence tradicional; closing como congelamento decisório; risco pós-closing sem governança adaptativa.
           </div>
-          <div class="actions">
-            <a href="./case-04-supply-chain-ai.html">Abrir</a>
+          <div class="links-inline">
+            <a href="/pt/observatory/case-studies/case-03-ma-transnacional.html">Abrir</a>
+          </div>
+        </div>
+
+        <div class="item">
+          <h3>Case Study No. 4 — Supply Chain, IA e Governança Contratual</h3>
+          <div class="meta2">Working Paper · Janeiro 2026</div>
+          <div class="desc">
+            Decisão contratual mediada por IA; otimização contínua; opacidade e ausência de gatilhos de revisão pré-limiar.
+          </div>
+          <div class="links-inline">
+            <a href="/pt/observatory/case-studies/case-04-supply-chain-ai.html">Abrir</a>
           </div>
         </div>
 
       </div>
-    </section>
+
+      <hr class="inline">
+
+      <p class="small">
+        <a style="color:rgba(255,255,255,.9); text-decoration:none; border-bottom:1px solid rgba(255,255,255,.35); padding-bottom:2px;"
+           href="/pt/observatory.html">Voltar ao Observatório</a>
+      </p>
+    </div>
 
     <footer>
-      © <span id="y"></span> c-ECO. Todos os direitos reservados.<br>
-      Nenhuma parte desta publicação pode ser reproduzida ou distribuída sem autorização prévia por escrito,
-      exceto para breves citações com atribuição.
+      <div class="footer-nav">
+        <a href="/pt/index.html">Início</a>
+        <span>|</span>
+        <a href="/pt/info.html">Info</a>
+        <span>|</span>
+        <a href="/pt/bio.html">Bio</a>
+        <span>|</span>
+        <a href="/pt/observatory.html">Observatório</a>
+        <span>|</span>
+        <a href="/pt/policy-brief.html">Memorando de Políticas</a>
+        <span>|</span>
+        <a href="/pt/license.html">Licença</a>
+        <span>|</span>
+        <a href="/pt/applied-study.html">Estudo Aplicado</a>
+        <span>|</span>
+        <a href="/pt/partnerships.html">Parcerias</a>
+      </div>
+
+      <div class="copyright">
+        © <span id="y"></span> c-ECO. Todos os direitos reservados.<br>
+        Nenhuma parte desta publicação pode ser reproduzida ou distribuída sem autorização prévia por escrito,
+        exceto para breves citações com atribuição.
+      </div>
     </footer>
 
   </div>
