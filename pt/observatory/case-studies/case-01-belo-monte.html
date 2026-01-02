@@ -2,180 +2,255 @@
      FILE: /pt/observatory/case-studies/case-01-belo-monte.html
      c-eco.org — Observatório / Case Studies
      Case Study No. 1 — Belo Monte (Brasil)
-     Working Paper v1.2 — Janeiro 2026
+     Working Paper (Documento de Trabalho) v1.2 — Janeiro 2026
+     STYLE: Applied Studies layout, Beige/Brown palette, minimal callouts
+     FULL PAGE — copy/select all and replace the entire file.
 ========================================== -->
 <!doctype html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Case Study No. 1 — Belo Monte | Observatório c-ECO</title>
 
-  <!-- SEO -->
+  <!-- SEO / Sharing -->
   <meta name="description" content="Case Study No. 1 — Belo Monte (Brasil): contrato como arquitetura decisória, risco sistêmico e consumo da agência futura. Working Paper c-ECO, 2026." />
   <link rel="canonical" href="https://c-eco.org/pt/observatory/case-studies/case-01-belo-monte.html" />
+  <meta property="og:title" content="Case Study No. 1 — Belo Monte | Observatório c-ECO" />
+  <meta property="og:description" content="Contrato como arquitetura decisória, risco sistêmico e consumo da agência futura. Working Paper (Documento de Trabalho) c-ECO, 2026." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://c-eco.org/pt/observatory/case-studies/case-01-belo-monte.html" />
+
+  <!-- hreflang -->
+  <link rel="alternate" hreflang="pt" href="https://c-eco.org/pt/observatory/case-studies/case-01-belo-monte.html" />
+  <link rel="alternate" hreflang="en" href="https://c-eco.org/en/observatory/case-studies/case-01-belo-monte.html" />
 
   <style>
     :root{
-      /* OFF-WHITE (estudos) */
-      --bg:#F4F2EE;
-      --panel:#FFFFFF;
-      --text:#1F2A28;     /* preto orgânico */
-      --muted:#4E5B58;    /* cinza editorial */
-      --line:rgba(0,0,0,.10);
-      --soft:rgba(0,0,0,.05);
-      --accent:#2F8F83;   /* verde contido */
+      /* Beige/Brown editorial palette (approved) */
+      --bg:#F6EEDF;        /* paper */
+      --fg:#2F2017;        /* headings */
+      --fg-muted:#3E2E22;  /* body */
+      --meta:#6A5546;      /* meta/secondary */
+      --card:#EFE4D2;      /* soft panel */
+      --border: rgba(62,46,34,.18);
+      --ui: rgba(62,46,34,.78);
+      --ui-hover: rgba(62,46,34,.95);
+      --link:#7A4A2E;
+      --link-hover:#5C3621;
+      --divider: rgba(62,46,34,.18);
+      --callout-bg:#E7D9A8;     /* warm emphasis */
+      --callout-border: rgba(62,46,34,.22);
     }
 
-    *{ box-sizing:border-box; }
-
-    html,body{
-      margin:0;
-      padding:0;
-      background:var(--bg);
-      color:var(--text);
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--fg-muted);
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
 
-    .wrap{
-      max-width: 940px;
+    .wrap {
+      max-width: 960px;
       margin: 0 auto;
-      padding: 34px 22px 72px;
+      padding: 32px 24px 28px;
+      position: relative;
     }
 
-    a{
-      color:var(--accent);
-      text-decoration:none;
-      border-bottom: 1px solid rgba(47,143,131,.35);
-      padding-bottom: 1px;
-    }
-    a:hover{ border-bottom-color: rgba(47,143,131,.75); }
-
-    header{
-      margin-bottom: 18px;
-      padding-bottom: 18px;
-      border-bottom: 1px solid var(--line);
+    /* ===== Language Switcher (same layout pattern as Applied Study) ===== */
+    .lang-switcher {
+      position: absolute;
+      top: 28px;
+      right: 24px;
     }
 
-    .back{
-      display:inline-block;
-      font-size: 14px;
-      color: var(--muted);
-      border-bottom: 1px solid rgba(0,0,0,.15);
+    .lang-switcher select{
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      padding: 0.28rem 0.42rem;
+      border: 1px solid rgba(62,46,34,.22);
+      background: transparent;
+      color: var(--ui);
+      cursor: pointer;
     }
-    .back:hover{ border-bottom-color: rgba(0,0,0,.35); }
 
-    h1{
-      margin: 12px 0 6px;
+    .lang-switcher select:hover{
+      color: var(--ui-hover);
+      border-color: rgba(62,46,34,.35);
+    }
+
+    .lang-switcher select:focus{
+      outline: none;
+      border-color: rgba(62,46,34,.45);
+      color: var(--ui-hover);
+    }
+
+    a.back {
+      color: var(--fg-muted);
+      text-decoration: none;
+      font-weight: 650;
+      opacity: 0.92;
+      display: inline-block;
+      padding-right: 170px;
+    }
+
+    a.back:hover { text-decoration: underline; opacity: 1; }
+
+    h1 {
+      margin-top: 12px;
+      margin-bottom: 6px;
       font-size: 28px;
-      letter-spacing:-0.02em;
+      letter-spacing: -0.02em;
+      color: var(--fg);
     }
 
-    .subtitle{
-      margin: 0;
-      color: var(--muted);
-      font-size: 15px;
-      line-height:1.5;
-      max-width: 780px;
-    }
-
-    .meta{
-      margin-top: 10px;
-      font-size: 12px;
-      letter-spacing: .10em;
-      text-transform: uppercase;
-      color: rgba(31,42,40,.65);
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-      margin-top: 18px;
-    }
-
-    .card{
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 20px;
-    }
-
-    h2{
-      margin:0 0 10px;
-      font-size: 18px;
-      letter-spacing: -0.01em;
-    }
-
-    h3{
-      margin: 16px 0 8px;
-      font-size: 14.5px;
-      letter-spacing: .02em;
-      text-transform: uppercase;
-      color: rgba(31,42,40,.78);
-    }
-
-    p{
-      margin: 10px 0;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    ul{
-      margin: 10px 0 10px 18px;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .callout{
-      margin-top: 12px;
-      padding: 14px 14px;
-      background: rgba(47,143,131,.08);
-      border: 1px solid rgba(47,143,131,.22);
-      border-radius: 14px;
-      color: rgba(31,42,40,.85);
-      line-height: 1.65;
-    }
-
-    .pillrow{
-      display:flex;
-      flex-wrap:wrap;
-      gap: 8px;
-      margin-top: 12px;
-    }
-    .pill{
-      font-size: 11px;
-      letter-spacing: .10em;
-      text-transform: uppercase;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(0,0,0,.12);
-      background: rgba(0,0,0,.03);
-      color: rgba(31,42,40,.72);
-    }
-
-    .refs{
+    .subtitle {
       margin-top: 6px;
-      border-top: 1px solid var(--soft);
-      padding-top: 12px;
-      font-size: 13px;
-      color: rgba(31,42,40,.72);
-      line-height: 1.6;
-    }
-
-    footer{
-      margin-top: 40px;
-      padding-top: 18px;
-      border-top: 1px solid var(--line);
-      color: rgba(31,42,40,.70);
-      font-size: 13px;
+      font-size: 15px;
+      font-weight: 650;
+      opacity: 0.95;
+      color: var(--fg-muted);
+      max-width: 780px;
       line-height: 1.55;
     }
 
-    @media (max-width: 560px){
-      h1{ font-size: 24px; }
-      .wrap{ padding: 28px 16px 64px; }
-      .card{ padding: 18px; }
+    .meta {
+      margin-top: 10px;
+      font-size: 0.78rem;
+      letter-spacing: 0.10em;
+      opacity: 0.92;
+      line-height: 1.55;
+      color: var(--meta);
+      text-transform: uppercase;
+    }
+
+    .card {
+      margin-top: 20px;
+      padding: 22px;
+      background: rgba(239,228,210,.70);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      max-width: 760px; /* same rhythm as Applied Study */
+    }
+
+    p {
+      margin: 12px 0;
+      color: var(--fg-muted);
+      line-height: 1.68;
+    }
+
+    ul {
+      margin: 0.35rem 0 0.9rem 1.15rem;
+      padding: 0;
+      line-height: 1.68;
+      color: var(--fg-muted);
+    }
+
+    li { margin: 0.35rem 0; }
+
+    a{
+      color: var(--link);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(122,74,46,.35);
+      padding-bottom: 1px;
+    }
+    a:hover{
+      color: var(--link-hover);
+      border-bottom-color: rgba(92,54,33,.55);
+    }
+
+    hr.inline{
+      margin: 22px 0;
+      border: 0;
+      border-top: 1px solid var(--divider);
+      opacity: 1;
+    }
+
+    .section-title{
+      margin-top: 18px;
+      font-weight: 750;
+      color: var(--fg);
+    }
+
+    /* Only 1–2 callouts, subtle */
+    .callout{
+      margin: 18px 0;
+      padding: 14px;
+      border-left: 3px solid rgba(62,46,34,.40);
+      background: rgba(231,217,168,.55);
+      border: 1px solid var(--callout-border);
+      border-radius: 12px;
+    }
+    .callout p{ margin: 0; }
+
+    .small{
+      font-size: 0.92rem;
+      color: var(--meta);
+    }
+
+    /* Harvard references */
+    .refs-title{
+      margin-top: 6px;
+      font-weight: 750;
+      color: var(--fg);
+    }
+    ol.refs{
+      margin: 10px 0 0 1.15rem;
+      padding: 0;
+      color: var(--fg-muted);
+      line-height: 1.68;
+    }
+    ol.refs li{
+      margin: 10px 0;
+    }
+
+    /* ===== Footer (same structure as Applied Study) ===== */
+    footer {
+      margin-top: 40px;
+      padding-top: 18px;
+      border-top: 1px solid var(--divider);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+      max-width: 760px;
+    }
+
+    .footer-nav {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      opacity: 0.72;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      color: var(--meta);
+      text-transform: uppercase;
+    }
+
+    .footer-nav a {
+      color: var(--meta);
+      text-decoration: none;
+      border-bottom: none;
+    }
+
+    .footer-nav a:hover { opacity: 0.85; }
+
+    .footer-nav span { opacity: 0.45; }
+
+    .copyright {
+      font-size: 13px;
+      color: var(--meta);
+      line-height: 1.55;
+      text-align: right;
+    }
+
+    @media (max-width: 520px) {
+      .lang-switcher{ position: static; margin-bottom: 14px; }
+      a.back{ padding-right: 0; }
+      footer{ align-items: flex-start; }
+      .copyright{ text-align: left; }
     }
   </style>
 </head>
@@ -183,219 +258,207 @@
 <body>
   <div class="wrap">
 
-    <header>
-      <a class="back" href="../">← Voltar ao Observatório</a>
+    <!-- Language Selector -->
+    <div class="lang-switcher">
+      <select onchange="location = this.value;">
+        <option selected disabled>Português</option>
+        <option value="/en/observatory/case-studies/case-01-belo-monte.html">English</option>
+      </select>
+    </div>
 
-      <h1>Case Study No. 1 — Belo Monte (Brasil)</h1>
-      <p class="subtitle">
-        Este estudo aplica a lente c-ECO para demonstrar como um contrato pode permanecer formalmente válido
-        enquanto perde governabilidade material, consumindo agência decisória antes da irreversibilidade.
+    <a class="back" href="/pt/observatory.html">← Voltar ao Observatório</a>
+
+    <h1>Case Study No. 1 — Belo Monte (Brasil)</h1>
+    <div class="subtitle">
+      Este estudo aplica a lente c-ECO para demonstrar como um contrato pode permanecer formalmente válido
+      enquanto perde governabilidade material, consumindo agência decisória antes da irreversibilidade.
+    </div>
+
+    <div class="meta">
+      Observatório c-ECO · Working Paper (Documento de Trabalho) · v1.2 · Janeiro 2026
+    </div>
+
+    <!-- SINGLE FLOWING BODY (no nested cards) -->
+    <div class="card">
+
+      <p class="section-title">Resumo executivo</p>
+      <p>
+        Belo Monte é um caso emblemático de <strong>contrato como arquitetura decisória</strong>:
+        decisões críticas foram concentradas na fase inicial (design, financiamento e cronograma),
+        e a etapa de execução passou a operar como um sistema de continuidade.
+      </p>
+      <p>
+        Na prática, isso significa que o projeto manteve <strong>validade formal</strong>, mas reduziu progressivamente
+        a capacidade de recalibrar obrigações diante de sinais ecológicos e territoriais.
+        O Direito atuou sobretudo de forma <em>ex post</em> — quando o custo de mudar a trajetória já era proibitivo.
       </p>
 
-      <div class="meta">Observatório c-ECO · Working Paper · v1.2 · Janeiro 2026</div>
-    </header>
-
-    <div class="grid">
-
-      <!-- RESUMO EXECUTIVO -->
-      <section class="card">
-        <h2>Resumo executivo</h2>
+      <!-- Callout 1 (only) -->
+      <div class="callout">
         <p>
-          Belo Monte é um caso emblemático de <strong>contrato como arquitetura decisória</strong>:
-          decisões críticas foram concentradas na fase inicial (design + financiamento + cronograma),
-          e a etapa de execução passou a operar como um sistema de continuidade.
-        </p>
-        <p>
-          Na prática, isso significa que o projeto manteve <strong>validade formal</strong>, mas reduziu
-          progressivamente a capacidade de recalibrar obrigações diante de sinais ecológicos e territoriais.
-          O Direito atuou sobretudo de forma <em>ex post</em> — quando o custo de mudar a trajetória já era proibitivo.
-        </p>
-
-        <div class="callout">
-          **Tese c-ECO verificada no caso:** o problema não é falta de norma, nem falta de informação.
+          <strong>Tese c-ECO verificada no caso:</strong> o problema não é falta de norma, nem falta de informação.
           É o <strong>tempo</strong> do contrato: quando a decisão deveria ser reaberta, ela já foi consumida pela execução.
-        </div>
-
-        <div class="pillrow">
-          <span class="pill">Infraestrutura</span>
-          <span class="pill">Amazônia</span>
-          <span class="pill">Risco sistêmico</span>
-          <span class="pill">Penúltima etapa</span>
-          <span class="pill">Agência futura</span>
-        </div>
-      </section>
-
-      <!-- 1. ARRANJO CONTRATUAL -->
-      <section class="card">
-        <h2>1. Identificação do arranjo contratual</h2>
-        <p>
-          Belo Monte envolve uma arquitetura contratual fragmentada e multiator, tipicamente composta por:
         </p>
-        <ul>
-          <li><strong>Contrato de concessão</strong> (geração por longo prazo);</li>
-          <li><strong>Contratos EPC</strong> (engenharia, compras e construção);</li>
-          <li><strong>Estrutura de financiamento</strong> com marcos físico-financeiros e incentivos de performance.</li>
-        </ul>
+      </div>
+
+      <hr class="inline">
+
+      <p class="section-title">1. Identificação do arranjo contratual</p>
+      <p>
+        Belo Monte envolve uma arquitetura contratual fragmentada e multiator, tipicamente composta por instrumentos
+        de longo prazo que combinam concessão, construção e financiamento.
+      </p>
+      <ul>
+        <li><strong>Contrato de concessão</strong> (geração por longo prazo);</li>
+        <li><strong>Contratos EPC</strong> (engenharia, compras e construção);</li>
+        <li><strong>Estrutura de financiamento</strong> com marcos físico-financeiros e incentivos de performance.</li>
+      </ul>
+      <p>
+        Para fins metodológicos, este estudo trata o “contrato” como o <strong>conjunto de instrumentos</strong>
+        que disciplina poderes decisórios, cronogramas, incentivos e condições de continuidade.
+      </p>
+
+      <hr class="inline">
+
+      <p class="section-title">2. Arquitetura decisória e lock-in temporal</p>
+      <p>
+        A arquitetura concentrou poderes decisórios na etapa pré-operacional: parâmetros técnicos, premissas de desempenho,
+        metas de cronograma e condições de desembolso. Depois disso, a execução passou a ser governada por
+        <strong>cumprimento de marcos</strong>, e não por reabertura deliberativa das premissas.
+      </p>
+      <p class="section-title" style="margin-top:14px;">2.1 Mecanismos de congelamento</p>
+      <ul>
+        <li><strong>Assimetria temporal:</strong> a avaliação formal ocorre <em>ex ante</em>; a dinâmica ecológica se manifesta <em>ex post</em>.</li>
+        <li><strong>Lock-in econômico:</strong> custos afundados e penalidades tornam a continuidade a escolha “racional”.</li>
+        <li><strong>Fragmentação institucional:</strong> licenciamento vira “porta de entrada”, não governança contínua.</li>
+      </ul>
+
+      <hr class="inline">
+
+      <p class="section-title">3. Sinais pré-limiar e perda de reversibilidade</p>
+      <p>
+        Antes de um colapso “juridicamente incontestável”, casos desse tipo tendem a apresentar sinais observáveis
+        de instabilidade: alterações de vazão, estresse ecossistêmico, pressão territorial e escalada de conflito institucional.
+      </p>
+      <p>
+        O ponto decisivo para a c-ECO é simples: <strong>mesmo quando sinais existem, eles não entram no contrato</strong>
+        como gatilhos procedimentais de revisão. Sem gatilho, o sistema não “vê” o risco no tempo certo — e a trajetória segue.
+      </p>
+
+      <!-- Callout 2 (optional, kept minimal) -->
+      <div class="callout">
         <p>
-          Para fins metodológicos, este estudo trata o “contrato” como o <strong>conjunto de instrumentos</strong>
-          que disciplina poderes decisórios, cronogramas, incentivos e condições de continuidade.
+          <strong>Tradução c-ECO:</strong> risco não é “externalidade”. É atributo material do sistema que deveria ser
+          contratualmente relevante <em>antes</em> da última etapa.
         </p>
-      </section>
+      </div>
 
-      <!-- 2. ARQUITETURA DECISÓRIA -->
-      <section class="card">
-        <h2>2. Arquitetura decisória e lock-in temporal</h2>
+      <hr class="inline">
 
-        <h3>2.1 O que foi decidido “uma vez”</h3>
-        <p>
-          A arquitetura concentrou poderes decisórios na etapa pré-operacional: parâmetros técnicos,
-          premissas de desempenho, metas de cronograma e condições de desembolso.
-          Depois disso, a execução passou a ser governada por <strong>cumprimento de marcos</strong>
-          e não por reabertura deliberativa das premissas.
-        </p>
+      <p class="section-title">4. Atuação do Direito: padrão ex post</p>
+      <p>
+        A intervenção jurídica tende a assumir forma remediadora: compensações, obrigações de reparar, ajustes pontuais
+        e decisões que reconhecem violações sem reabrir o núcleo decisório que sustenta a continuidade do empreendimento.
+      </p>
+      <p>
+        Esse padrão é consistente com a hipótese c-ECO: quando a governabilidade material já foi consumida, o Direito passa
+        a administrar danos e conflitos, não a recalibrar a trajetória.
+      </p>
 
-        <h3>2.2 Mecanismos de congelamento</h3>
-        <ul>
-          <li><strong>Assimetria temporal:</strong> a avaliação formal ocorre ex ante; a dinâmica ecológica se manifesta ex post.</li>
-          <li><strong>Lock-in econômico:</strong> custos afundados e penalidades tornam continuidade a escolha “racional”.</li>
-          <li><strong>Fragmentação institucional:</strong> licenciamento vira “porta de entrada”, não governança contínua.</li>
-        </ul>
+      <hr class="inline">
 
-        <div class="callout">
-          **Resultado estrutural:** preserva-se a validade do contrato, mas elimina-se o espaço de decisão
-          necessário para adaptar obrigações quando o sistema começa a perder reversibilidade.
-        </div>
-      </section>
+      <p class="section-title">5. Contrafactual c-ECO: governança na “penúltima etapa”</p>
+      <p>
+        A cláusula c-ECO não exige invalidar o contrato. Ela altera o <strong>tempo da decisão</strong>.
+        Operando na penúltima etapa, cria um mecanismo interno que aciona revisão antes que o colapso se torne inevitável.
+      </p>
+      <ul>
+        <li><strong>Gatilhos auditáveis:</strong> sinais objetivos que obrigam reavaliação procedimental.</li>
+        <li><strong>Deveres ampliados:</strong> diligência, mitigação e justificativa documentada da continuidade.</li>
+        <li><strong>Calibração adaptativa:</strong> modulação da execução para preservar integridade ecológica sem romper o contrato.</li>
+      </ul>
 
-      <!-- 3. SINAIS PRÉ-LIMIAR -->
-      <section class="card">
-        <h2>3. Sinais pré-limiar e perda de reversibilidade</h2>
-        <p>
-          Antes de um colapso “juridicamente incontestável”, casos desse tipo tendem a apresentar sinais
-          observáveis de instabilidade: alterações de vazão, estresse ecossistêmico, pressão territorial,
-          e escalada de conflito institucional.
-        </p>
-        <p>
-          O ponto decisivo para a c-ECO é simples:
-          <strong>mesmo quando sinais existem, eles não entram no contrato</strong> como gatilhos de revisão.
-          Sem gatilho, o sistema não “vê” o risco no tempo certo — e a trajetória segue.
-        </p>
+      <hr class="inline">
 
-        <div class="callout">
-          **Tradução c-ECO:** risco não é “externalidade”. É atributo material do sistema que deveria ser
-          contratualmente relevante antes da última etapa.
-        </div>
-      </section>
+      <p class="section-title">Conclusão</p>
+      <p>
+        Belo Monte ilustra a lacuna entre validade formal e governabilidade material.
+        A doutrina c-ECO oferece uma técnica contratual para tornar riscos sistêmicos juridicamente relevantes no tempo certo,
+        preservando reversibilidade e espaço de decisão.
+      </p>
 
-      <!-- 4. PADRÃO EX POST -->
-      <section class="card">
-        <h2>4. Atuação do Direito: padrão ex post</h2>
-        <p>
-          A intervenção jurídica tende a assumir forma remediadora: compensações, obrigações de reparar,
-          ajustes pontuais e decisões que reconhecem violações sem reabrir o núcleo decisório
-          que sustenta a continuidade do empreendimento.
-        </p>
-        <p>
-          Esse padrão é consistente com a hipótese c-ECO: quando a governabilidade material já foi consumida,
-          o Direito passa a administrar danos e conflitos, não a recalibrar a trajetória.
-        </p>
-      </section>
+      <p class="small">
+        <strong>Nota de uso:</strong> Este é um documento de trabalho (v1.2). A seção de referências e documentos-fonte pode ser expandida
+        à medida que o Núcleo Empírico incorporar novos casos e padrões redacionais.
+      </p>
 
-      <!-- 5. CONTRAFACTUAL c-ECO -->
-      <section class="card">
-        <h2>5. Contrafactual c-ECO: governança na “penúltima etapa”</h2>
-        <p>
-          A cláusula c-ECO não exige invalidar o contrato. Ela altera o <strong>tempo da decisão</strong>.
-          Operando na penúltima etapa, a cláusula cria um mecanismo interno que aciona revisão
-          antes que o colapso se torne inevitável.
-        </p>
+      <hr class="inline">
 
-        <h3>5.1 Três componentes mínimos</h3>
-        <ul>
-          <li><strong>Gatilhos auditáveis:</strong> sinais objetivos que obrigam reavaliação procedimental.</li>
-          <li><strong>Deveres ampliados:</strong> diligência, mitigação e justificativa documentada da continuidade.</li>
-          <li><strong>Calibração adaptativa:</strong> modulação da execução para preservar integridade ecológica sem romper o contrato.</li>
-        </ul>
+      <p class="refs-title">Referências (Harvard)</p>
+      <ol class="refs">
+        <li>
+          AIDA Americas (2025) <em>Holding Brazil accountable for the Belo Monte Dam</em>. Available at:
+          <a href="https://aida-americas.org" target="_blank" rel="noopener">aida-americas.org</a>
+          (Accessed: 1 January 2026).
+        </li>
+        <li>
+          Business &amp; Human Rights Resource Centre (2025) <em>Brazil: Supreme Court orders Indigenous communities to receive Belo Monte royalties</em>.
+          Available at: <a href="https://www.business-humanrights.org" target="_blank" rel="noopener">business-humanrights.org</a>
+          (Accessed: 1 January 2026).
+        </li>
+        <li>
+          International Work Group for Indigenous Affairs (IWGIA) (2011) <em>Landmark vote upholds Indigenous rights on Belo Monte</em>.
+          Available at: <a href="https://www.iwgia.org" target="_blank" rel="noopener">iwgia.org</a>
+          (Accessed: 1 January 2026).
+        </li>
+        <li>
+          Norte Energia S.A. (2025) <em>Relatório de Sustentabilidade 2024 e Projeções 2025</em>. Available at:
+          <a href="https://www.norteenergiasa.com.br" target="_blank" rel="noopener">norteenergiasa.com.br</a>
+          (Accessed: 1 January 2026).
+        </li>
+        <li>
+          Tribunal de Contas da União (TCU) (2016) <em>Auditoria operacional sobre o licenciamento e execução da UHE Belo Monte</em>.
+          Available at: <a href="https://portal.tcu.gov.br" target="_blank" rel="noopener">portal.tcu.gov.br</a>
+          (Accessed: 1 January 2026).
+        </li>
+        <li>
+          Supremo Tribunal Federal (STF) (2025) <em>Decisões relativas aos impactos da UHE Belo Monte sobre povos indígenas</em>.
+          Available at: <a href="https://portal.stf.jus.br" target="_blank" rel="noopener">portal.stf.jus.br</a>
+          (Accessed: 1 January 2026).
+        </li>
+        <li>
+          Yale Environment 360 (2025) <em>On a dammed river, Amazon villagers fight to restore the flow</em>. Available at:
+          <a href="https://e360.yale.edu" target="_blank" rel="noopener">e360.yale.edu</a>
+          (Accessed: 1 January 2026).
+        </li>
+      </ol>
 
-        <div class="callout">
-          **Diferença central:** a c-ECO governa <strong>quando</strong> a decisão deve ser reaberta,
-          preservando agência decisória antes da irreversibilidade.
-        </div>
-      </section>
+    </div>
 
-      <!-- 6. CONCLUSÃO -->
-      <section class="card">
-        <h2>Conclusão</h2>
-        <p>
-          Belo Monte ilustra a lacuna entre validade formal e governabilidade material.
-          A doutrina c-ECO oferece uma técnica contratual para tornar riscos sistêmicos juridicamente
-          relevantes no tempo certo, preservando reversibilidade e espaço de decisão.
-        </p>
-
-        <div class="refs">
-          <strong>Nota de uso:</strong> Este é um working paper (v1.2). A seção de referências e documentos-fonte
-          pode ser expandida à medida que o Núcleo Empírico incorporar novos casos e padrões redacionais.
-        irreversibilidade.
-        </div>
-      </section>
-           
-    <!-- REFERENCES -->
-<section class="card">
-  <h2>Referências </h2>
-
-  <div class="refs">
-    <p>
-      AIDA Americas (2025) <em>Holding Brazil accountable for the Belo Monte Dam</em>. Available at:
-      <a href="https://aida-americas.org" target="_blank" rel="noopener">https://aida-americas.org</a>
-      (Accessed: 1 January 2026).
-    </p>
-
-    <p>
-      Business & Human Rights Resource Centre (2025) <em>Brazil: Supreme Court orders Indigenous communities to receive Belo Monte royalties</em>. Available at:
-      <a href="https://www.business-humanrights.org" target="_blank" rel="noopener">https://www.business-humanrights.org</a>
-      (Accessed: 1 January 2026).
-    </p>
-
-    <p>
-      International Work Group for Indigenous Affairs – IWGIA (2011)
-      <em>Landmark vote upholds Indigenous rights on Belo Monte</em>. Available at:
-      <a href="https://www.iwgia.org" target="_blank" rel="noopener">https://www.iwgia.org</a>
-      (Accessed: 1 January 2026).
-    </p>
-
-    <p>
-      Norte Energia S.A. (2025) <em>Relatório de Sustentabilidade 2024 e Projeções 2025</em>. Available at:
-      <a href="https://www.norteenergiasa.com.br" target="_blank" rel="noopener">https://www.norteenergiasa.com.br</a>
-      (Accessed: 1 January 2026).
-    </p>
-
-    <p>
-      Tribunal de Contas da União – TCU (2016)
-      <em>Auditoria operacional sobre o licenciamento e execução da UHE Belo Monte</em>. Available at:
-      <a href="https://portal.tcu.gov.br" target="_blank" rel="noopener">https://portal.tcu.gov.br</a>
-      (Accessed: 1 January 2026).
-    </p>
-
-    <p>
-      Supremo Tribunal Federal – STF (2025)
-      <em>Decisões relativas aos impactos da UHE Belo Monte sobre povos indígenas</em>. Available at:
-      <a href="https://portal.stf.jus.br" target="_blank" rel="noopener">https://portal.stf.jus.br</a>
-      (Accessed: 1 January 2026).
-    </p>
-
-    <p>
-      Yale Environment 360 (2025)
-      <em>On a dammed river, Amazon villagers fight to restore the flow</em>. Available at:
-      <a href="https://e360.yale.edu" target="_blank" rel="noopener">https://e360.yale.edu</a>
-      (Accessed: 1 January 2026).
-    </p>
-  </div>
-</section>
-       
     <footer>
-      © <span id="y"></span> c-ECO. Todos os direitos reservados.<br>
-      Nenhuma parte desta publicação pode ser reproduzida ou distribuída sem autorização prévia por escrito,
-      exceto para breves citações com atribuição.
+      <div class="footer-nav">
+        <a href="/pt/index.html">Início</a>
+        <span>|</span>
+        <a href="/pt/info.html">Info</a>
+        <span>|</span>
+        <a href="/pt/bio.html">Bio</a>
+        <span>|</span>
+        <a href="/pt/observatory.html">Observatório</a>
+        <span>|</span>
+        <a href="/pt/policy-brief.html">Memorando de Políticas</a>
+        <span>|</span>
+        <a href="/pt/license.html">Licença</a>
+        <span>|</span>
+        <a href="/pt/applied-study.html">Estudo Aplicado</a>
+        <span>|</span>
+        <a href="/pt/partnerships.html">Parcerias</a>
+      </div>
+
+      <div class="copyright">
+        © <span id="y"></span> c-ECO. Todos os direitos reservados.<br>
+        Nenhuma parte desta publicação pode ser reproduzida ou distribuída sem autorização prévia por escrito,
+        exceto para breves citações com atribuição.
+      </div>
     </footer>
 
   </div>
