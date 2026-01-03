@@ -1,14 +1,13 @@
 <!-- =========================================
      FILE: info.html
-     c-eco.org — Info (EDITORIAL–INSTITUTIONAL)
+     c-eco.org — Info (EDITORIAL–INSTITUTIONAL v3)
      FULL PAGE — replace entire file
 
-     Goals:
-     - Remove “form/card” look (no rounded light box)
-     - Reduce repetition + visual noise
-     - Keep content dense but guided (editorial rhythm)
-     - Wider page + controlled reading column
-     - Minimal, durable, institute-grade
+     Focus:
+     - True centered composition (topbar aligns to the same reading column)
+     - Clean proportions + consistent rhythm
+     - Warm dark (no blue)
+     - No bold inside body paragraphs
 ========================================== -->
 <!doctype html>
 <html lang="en">
@@ -36,20 +35,26 @@
 
   <style>
     :root{
-      /* c-ECO editorial palette (warm-dark, paper-light) */
-      --bg: #161514;   /* preto papel / livro */
+      /* warm editorial dark */
+      --bg: #141414;
       --text: #E6DDD0;
-      --text-muted: rgba(230,221,208,.82);
-      --text-faint: rgba(230,221,208,.64);
+      --muted: rgba(230,221,208,.82);
+      --faint: rgba(230,221,208,.62);
 
-      --rule: rgba(230,221,208,.18);
-      --rule-strong: rgba(230,221,208,.28);
+      --rule: rgba(230,221,208,.16);
+      --rule2: rgba(230,221,208,.26);
 
-      --accent: #5C4750; /* rare use */
-      --ui: rgba(230,221,208,.78);
-      --ui-hover: rgba(230,221,208,.95);
+      /* composition */
+      --read: 760px;
+      --padX: clamp(18px, 4vw, 40px);
+      --padY: clamp(34px, 6vh, 56px);
 
-      --shadow: rgba(0,0,0,.28);
+      /* rhythm */
+      --gap1: 10px;
+      --gap2: 16px;
+      --gap3: 22px;
+      --gap4: 30px;
+      --gap5: 44px;
     }
 
     html, body{
@@ -57,49 +62,43 @@
       margin: 0;
       background: var(--bg);
       color: var(--text);
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       text-rendering: optimizeLegibility;
     }
 
-    /* Presence via light, not cards */
+    /* background presence (subtle, not "effect") */
     .stage{
       min-height: 100vh;
-      padding: 44px 24px 40px;
+      padding: var(--padY) var(--padX);
       background:
-        radial-gradient(900px 520px at 18% 14%, rgba(230,221,208,.06), transparent 55%),
-        radial-gradient(900px 520px at 86% 18%, rgba(230,221,208,.035), transparent 60%),
-        linear-gradient(180deg, rgba(0,0,0,.16), transparent 44%),
+        radial-gradient(950px 560px at 20% 12%, rgba(230,221,208,.05), transparent 56%),
+        radial-gradient(900px 520px at 80% 16%, rgba(230,221,208,.03), transparent 62%),
+        linear-gradient(180deg, rgba(0,0,0,.18), transparent 46%),
         var(--bg);
     }
 
-    .wrap{
-      max-width: 1160px;   /* wider presence */
+    /* ONE centered column that controls EVERYTHING */
+    .center{
+      width: min(var(--read), 100%);
       margin: 0 auto;
-      position: relative;
     }
 
-    /* controlled reading column */
-    .read{
-      max-width: 760px;
-    }
-
-    /* Topbar (no hacks) */
+    /* topbar aligns to the same centered column */
     .topbar{
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 22px;
+      gap: 14px;
+      margin-bottom: var(--gap4);
     }
 
-    a.back{
+    .back{
       color: var(--text);
       text-decoration: none;
       font-weight: 600;
-      letter-spacing: 0.01em;
-      opacity: 0.90;
+      opacity: .9;
     }
-    a.back:hover{ opacity: 1; text-decoration: underline; }
+    .back:hover{ opacity: 1; text-decoration: underline; }
 
     .lang-switcher select{
       font-size: 0.72rem;
@@ -107,223 +106,184 @@
       padding: 0.28rem 0.42rem;
       border: 1px solid rgba(230,221,208,.20);
       background: transparent;
-      color: var(--ui);
+      color: rgba(230,221,208,.78);
       cursor: pointer;
     }
     .lang-switcher select:hover{
-      color: var(--ui-hover);
-      border-color: rgba(230,221,208,.32);
+      color: rgba(230,221,208,.95);
+      border-color: rgba(230,221,208,.34);
     }
     .lang-switcher select:focus{
       outline: none;
-      border-color: rgba(230,221,208,.44);
-      color: var(--ui-hover);
+      color: rgba(230,221,208,.95);
+      border-color: rgba(230,221,208,.46);
     }
 
-    /* Headings: editorial */
+    /* header proportion */
     h1{
-      margin: 6px 0 0;
-      font-family: Georgia, "Times New Roman", Times, serif;
-      font-size: 34px;
+      margin: 0;
+      font-family: Georgia,"Times New Roman",Times,serif;
+      font-size: clamp(32px, 3.2vw, 38px);
       font-weight: 600;
       letter-spacing: -0.02em;
-      line-height: 1.08;
+      line-height: 1.05;
     }
 
     .subtitle{
-      margin-top: 10px;
+      margin-top: var(--gap2);
       font-size: 12px;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--text-faint);
+      color: var(--faint);
     }
 
-    .rule{
-      height: 1px;
-      background: var(--rule);
-      margin: 22px 0;
-      border: 0;
+    /* the spine creates the “form” without a box */
+    .spine{
+      margin-top: var(--gap5);
+      border-top: 1px solid var(--rule);
+      padding-top: var(--gap4);
     }
 
-    /* Editorial spine (structure without a box) */
-    .panel{
-      margin-top: 18px;
-      padding-top: 18px;
+    .spine-inner{
+      border-left: 1px solid var(--rule2);
+      padding-left: 18px;
+    }
+
+    .section{
+      padding: var(--gap3) 0;
       border-top: 1px solid var(--rule);
     }
-
-    .panel-inner{
-      padding-left: 18px;
-      border-left: 1px solid var(--rule-strong);
+    .section:first-child{
+      border-top: none;
+      padding-top: 0;
     }
 
-    .kicker{
+    .label{
       font-size: 12px;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--text-faint);
-      margin-bottom: 10px;
+      color: var(--faint);
+      margin-bottom: var(--gap2);
     }
 
+    /* body: no bold emphasis inside paragraphs */
     p{
-      margin: 12px 0;
-      color: var(--text-muted);
-      line-height: 1.75;
+      margin: 0 0 var(--gap2);
+      color: var(--muted);
+      line-height: 1.78;
       font-size: 16px;
+      font-weight: 420;
     }
+    p:last-child{ margin-bottom: 0; }
 
-    p strong{ color: var(--text); font-weight: 650; }
+    em{ color: var(--text); }
 
-    .note{
-      font-size: 0.95rem;
-      color: var(--text-faint);
-      margin-top: 14px;
-    }
-
-    /* Links: draw underline like the home */
     a{
       color: var(--text);
       text-decoration: none;
+      opacity: .92;
+      border-bottom: 1px solid rgba(230,221,208,.22);
+      padding-bottom: 2px;
+      transition: opacity 160ms ease, border-color 160ms ease;
     }
-
-    .link{
-      position: relative;
-      opacity: 0.90;
-      transition: opacity 180ms ease;
-      white-space: nowrap;
-    }
-
-    .link:hover,
-    .link:focus-visible{
+    a:hover,
+    a:focus-visible{
       opacity: 1;
+      border-bottom-color: rgba(230,221,208,.46);
       outline: none;
     }
 
-    .link::after{
-      content:"";
-      position:absolute;
-      left:0;
-      bottom:-6px;
-      width:100%;
-      height:1px;
-      background: currentColor;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 220ms ease;
-      opacity: 0.55;
-    }
-
-    .link:hover::after,
-    .link:focus-visible::after{
-      transform: scaleX(1);
-    }
-
-    /* Key links: minimal, no bullets spam */
-    .key-links{
-      margin-top: 14px;
+    /* key links: centered + calm */
+    .keylinks{
+      margin-top: var(--gap2);
       display: flex;
       flex-wrap: wrap;
-      gap: 10px 16px;
+      gap: 10px 14px;
       font-size: 0.80rem;
       letter-spacing: 0.10em;
-      color: var(--text-faint);
+      color: var(--faint);
     }
-
-    .key-links span{
-      opacity: 0.35;
+    .keylinks .dot{
+      opacity: .35;
+      border-bottom: none;
+      padding: 0;
     }
-
-    /* Section headings */
-    .section-title{
-      margin-top: 22px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      color: var(--text);
+    .keylinks a{
+      border-bottom: none;
+      opacity: .90;
     }
+    .keylinks a:hover{ opacity: 1; }
 
-    /* Partner placeholders: institutional, not dashed cards */
+    /* partners: aligned grid, no boxes */
     .partners{
-      margin-top: 14px;
+      margin-top: var(--gap3);
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 12px 18px;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap3) var(--gap5);
     }
-
     .partner{
-      padding: 12px 0;
       border-top: 1px solid var(--rule);
+      padding-top: var(--gap2);
     }
-
     .partner .name{
-      font-weight: 700;
       color: var(--text);
+      font-weight: 650;
+      margin-bottom: 6px;
     }
-
     .partner .sub{
-      display:block;
-      margin-top: 6px;
-      font-size: 0.9rem;
-      color: var(--text-faint);
+      color: var(--faint);
+      font-size: 0.95rem;
       line-height: 1.45;
     }
 
     .contact{
-      margin-top: 18px;
-      font-weight: 650;
+      margin-top: var(--gap3);
       color: var(--text);
+      font-weight: 650;
     }
 
-    /* Footer: stop repeating everything */
     footer{
-      margin-top: 44px;
-      padding-top: 18px;
+      margin-top: var(--gap5);
+      padding-top: var(--gap3);
       border-top: 1px solid var(--rule);
     }
 
     .footer-nav{
       font-size: 0.74rem;
       letter-spacing: 0.14em;
-      color: var(--text-faint);
+      color: var(--faint);
       display: flex;
       flex-wrap: wrap;
       gap: 8px 12px;
       align-items: center;
     }
+    .footer-nav a{
+      border-bottom: none;
+      opacity: .88;
+    }
+    .footer-nav a:hover{ opacity: 1; }
 
     .copyright{
-      margin-top: 12px;
+      margin-top: var(--gap2);
       font-size: 13px;
-      color: var(--text-faint);
+      color: var(--faint);
       line-height: 1.55;
     }
 
-    /* Subtle reveal (same spirit as your home) */
-    .reveal{
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 750ms ease, transform 750ms ease;
-    }
-    .reveal.on{
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @media (max-width: 620px){
-      .stage{ padding: 34px 18px 34px; }
-      .read{ max-width: 100%; }
-      h1{ font-size: 30px; }
+    @media (max-width: 760px){
+      .partners{ grid-template-columns: 1fr; gap: var(--gap3); }
+      .topbar{ margin-bottom: var(--gap3); }
     }
 
     @media (prefers-reduced-motion: reduce){
-      .reveal{ opacity: 1 !important; transform: none !important; transition: none !important; }
-      .link::after{ transition: none !important; }
+      *{ transition: none !important; }
     }
   </style>
 </head>
 
 <body>
   <div class="stage">
-    <div class="wrap">
+    <div class="center">
 
       <div class="topbar">
         <a class="back" href="index.html">← Home</a>
@@ -341,118 +301,109 @@
         </div>
       </div>
 
-      <div class="read">
-        <h1 class="reveal">c-ECO</h1>
-        <div class="subtitle reveal">Contractual Equity &amp; Ecological Co-Responsibility</div>
+      <h1>c-ECO</h1>
+      <div class="subtitle">Contractual Equity &amp; Ecological Co-Responsibility</div>
 
-        <div class="panel reveal">
-          <div class="panel-inner">
+      <div class="spine">
+        <div class="spine-inner">
 
-            <div class="kicker">Framework</div>
+          <div class="section">
+            <div class="label">Framework</div>
 
             <p>
-              c-ECO is an original research framework and institutional platform focused on
-              <strong>pre-threshold contractual governance</strong> under conditions of systemic risk and potential irreversibility.
-              It examines how contracts allocate authority over time — and how legality can remain formally compliant while decision-space quietly collapses.
+              c-ECO is an original research framework and institutional platform focused on pre-threshold contractual governance
+              under conditions of systemic risk and potential irreversibility. It examines how contracts allocate authority over time —
+              and how legality can remain formally compliant while decision-space quietly collapses.
             </p>
 
             <p>
-              The framework reconceptualizes contracts as <strong>temporal governance architectures</strong>:
-              they do not merely unfold over time; they stabilize trajectories, distribute tolerances, and shape what future interventions remain legally and materially possible.
-              c-ECO focuses on preserving reversibility <em>before</em> thresholds consolidate — where ex post remedies arrive too late.
+              The framework reconceptualizes contracts as temporal governance architectures: they do not merely unfold over time; they stabilize
+              trajectories, distribute tolerances, and shape what future interventions remain legally and materially possible. c-ECO focuses on
+              preserving reversibility <em>before</em> thresholds consolidate — where ex post remedies arrive too late.
             </p>
 
-            <p class="note">
+            <p>
               For institutional partnerships and research inquiries, a detailed Concept Note is available upon request.
             </p>
 
             <p>
-              Founded by <strong>Jacqueline A. Ennis</strong>, with institutional support from
-              <a class="link" href="https://institutosilviomeira.net.br/" target="_blank" rel="noopener noreferrer"><strong>Instituto Silvio Meira (ISM)</strong></a>.
+              Founded by Jacqueline A. Ennis, with institutional support from
+              <a href="https://institutosilviomeira.net.br/" target="_blank" rel="noopener noreferrer">Instituto Silvio Meira (ISM)</a>.
             </p>
 
-            <div class="key-links" aria-label="Key c-ECO links">
-              <a class="link" href="observatory.html">Observatory</a>
-              <span>·</span>
-              <a class="link" href="policy-brief.html">Policy Brief (2025)</a>
-              <span>·</span>
-              <a class="link" href="license.html">License</a>
-              <span>·</span>
-              <a class="link" href="applied-study.html">Applied Study</a>
-              <span>·</span>
-              <a class="link" href="partnerships.html">Partnerships</a>
+            <div class="keylinks" aria-label="Key c-ECO links">
+              <a href="observatory.html">Observatory</a>
+              <span class="dot">·</span>
+              <a href="policy-brief.html">Policy Brief (2025)</a>
+              <span class="dot">·</span>
+              <a href="license.html">License</a>
+              <span class="dot">·</span>
+              <a href="applied-study.html">Applied Study</a>
+              <span class="dot">·</span>
+              <a href="partnerships.html">Partnerships</a>
             </div>
+          </div>
 
-            <hr class="rule" />
-
-            <div class="kicker">Partnerships</div>
+          <div class="section">
+            <div class="label">Partnerships</div>
 
             <p>
-              c-ECO develops institutional and academic partnerships to refine legal architectures and applied study design for
-              pre-threshold decision-making under systemic risk.
-              Partnerships at this stage are <strong>non-commercial</strong>, <strong>non-certifying</strong>, and research-oriented.
+              c-ECO develops institutional and academic partnerships to refine legal architectures and applied study design for pre-threshold
+              decision-making under systemic risk. Partnerships at this stage are non-commercial, non-certifying, and research-oriented.
             </p>
 
-            <div class="section-title">Partner Institutions</div>
-
-            <p class="note">
+            <p style="color: var(--faint); margin-top: var(--gap2);">
               Institutional names are displayed upon formal agreement and mutual consent.
             </p>
 
             <div class="partners" aria-label="Partner institution placeholders">
               <div class="partner">
                 <div class="name">Academic Partner</div>
-                <span class="sub">Earth-system law / legal theory</span>
+                <div class="sub">Earth-system law / legal theory</div>
               </div>
+
               <div class="partner">
                 <div class="name">Research Institution</div>
-                <span class="sub">Applied governance &amp; systemic risk</span>
+                <div class="sub">Applied governance &amp; systemic risk</div>
               </div>
+
               <div class="partner">
                 <div class="name">Public or Hybrid Institution</div>
-                <span class="sub">Infrastructure / long-term contracting</span>
+                <div class="sub">Infrastructure / long-term contracting</div>
               </div>
             </div>
 
             <div class="contact">
-              Contact: <a class="link" href="mailto:info@c-eco.org">info@c-eco.org</a>
+              Contact: <a href="mailto:info@c-eco.org">info@c-eco.org</a>
             </div>
-
           </div>
+
+        </div>
+      </div>
+
+      <footer>
+        <div class="footer-nav" aria-label="Footer navigation">
+          <a href="index.html">Home</a>
+          <a href="bio.html">Bio</a>
+          <a href="observatory.html">Observatory</a>
+          <a href="policy-brief.html">Policy Brief</a>
+          <a href="license.html">License</a>
+          <a href="applied-study.html">Applied Study</a>
+          <a href="partnerships.html">Partnerships</a>
         </div>
 
-        <footer class="reveal">
-          <div class="footer-nav" aria-label="Footer navigation">
-            <a class="link" href="index.html">Home</a>
-            <a class="link" href="bio.html">Bio</a>
-            <a class="link" href="observatory.html">Observatory</a>
-            <a class="link" href="policy-brief.html">Policy Brief</a>
-            <a class="link" href="license.html">License</a>
-            <a class="link" href="applied-study.html">Applied Study</a>
-            <a class="link" href="partnerships.html">Partnerships</a>
-          </div>
+        <div class="copyright">
+          © <span id="y"></span> c-ECO. All rights reserved.<br>
+          No part of this publication may be reproduced or distributed without prior written permission,
+          except for brief quotations with attribution.
+        </div>
+      </footer>
 
-          <div class="copyright">
-            © <span id="y"></span> c-ECO. All rights reserved.<br>
-            No part of this publication may be reproduced or distributed without prior written permission,
-            except for brief quotations with attribution.
-          </div>
-        </footer>
-
-      </div>
     </div>
   </div>
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
-
-    // minimal reveal
-    window.addEventListener("load", () => {
-      document.querySelectorAll(".reveal").forEach((el, i) => {
-        el.style.transitionDelay = `${80 + i * 90}ms`;
-        el.classList.add("on");
-      });
-    });
   </script>
 </body>
 </html>
