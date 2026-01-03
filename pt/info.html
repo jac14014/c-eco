@@ -1,29 +1,24 @@
 <!-- =========================================
-     FILE: info.html
-     c-eco.org — Info (PT) (UPDATED)
-     FULL PAGE (complete). Copy/select all and replace the entire file.
-
-     Updates applied:
-     - Texto em Português (PT)
-     - Links e nomes corrigidos:
-       * Observatory / Observatório → observatory.html
-       * Instituto Silvio Meira → https://institutosilviomeira.net.br
-     - Mantém EXATAMENTE o mesmo estilo/layout do seu modelo (card, bg azul, footer à direita, language switcher)
+     FILE: pt/info.html
+     c-eco.org — Info (PT) — Casebook Layout (SPINE + PAGE)
+     FULL PAGE — replace entire file
 ========================================== -->
 <!doctype html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>c-ECO — Equidade Contratual &amp; Corresponsabilidade Ecológica</title>
+  <title>c-ECO — Info</title>
 
-  <!-- SEO / Sharing -->
-  <meta name="description" content="c-ECO é um framework de pesquisa e uma plataforma institucional para governança contratual pré-limiar sob risco sistêmico e potencial irreversibilidade." />
-  <link rel="canonical" href="https://c-eco.org/info.html" />
-  <meta property="og:title" content="c-ECO — Equidade Contratual &amp; Corresponsabilidade Ecológica" />
-  <meta property="og:description" content="Governança contratual pré-limiar: preservando efetividade jurídica e espaço decisório sob risco sistêmico e limiares irreversíveis." />
+  <!-- SEO -->
+  <meta name="description" content="c-ECO — framework de pesquisa em governança contratual pré-limiar sob risco sistêmico e potencial irreversibilidade." />
+  <link rel="canonical" href="https://c-eco.org/pt/info.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="c-ECO — Info" />
+  <meta property="og:description" content="Governança contratual pré-limiar sob risco sistêmico e potencial irreversibilidade." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://c-eco.org/info.html" />
+  <meta property="og:url" content="https://c-eco.org/pt/info.html" />
 
   <!-- hreflang -->
   <link rel="alternate" hreflang="en" href="https://c-eco.org/info.html" />
@@ -36,331 +31,594 @@
 
   <style>
     :root{
-      --bg:#0A1C26;
-      --fg:#FFFFFF;
-      --fg-muted: rgba(255,255,255,.85);
-      --card: rgba(255,255,255,.08);
-      --border: rgba(255,255,255,.14);
-      --ui: rgba(255,255,255,.72);
-      --ui-hover: rgba(255,255,255,.92);
+      /* Core palette */
+      --paper:#E6DDD0;
+      --ink:#161616;
+
+      /* Paper text */
+      --fg:#161616;
+      --fg-muted: rgba(22,22,22,.78);
+      --meta: rgba(22,22,22,.58);
+
+      /* Spine text */
+      --spine-fg: rgba(255,255,255,.92);
+      --spine-muted: rgba(255,255,255,.72);
+      --spine-rule: rgba(255,255,255,.14);
+
+      /* Hairlines */
+      --hair: rgba(22,22,22,.14);
+      --hair-strong: rgba(22,22,22,.22);
+
+      /* Accent (very restrained) */
+      --accent: rgba(22,22,22,.78);
+
+      /* Type scale */
+      --serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Garamond, Georgia, serif;
+      --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
     }
 
-    html, body {
+    html, body{
+      height: 100%;
       margin: 0;
-      padding: 0;
-      background: var(--bg);
-      color: var(--fg);
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
 
-    .wrap {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 32px 24px 28px;
+    body{
+      background: var(--paper);
+      color: var(--fg);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ===== Layout (Spine + Page) ===== */
+    .layout{
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 44px 20px 320px 1fr; /* gutter + gutter + spine + content */
+    }
+
+    /* ===== Spine ===== */
+    .spine{
+      grid-column: 3;
+      background: var(--ink);
+      color: var(--spine-fg);
+      padding: 28px 18px 22px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 16px;
+      border-right: 1px solid rgba(255,255,255,.08);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.05);
+    }
+
+    .spine-top{
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+      padding: 18px 14px;
+      min-height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .spine-brand{
+      line-height: 1.05;
+      display: grid;
+      gap: 10px;
+      justify-items: center;
+    }
+
+    /* Make c-ECO and Contractual Equity same width feeling */
+    .spine-brand .mark{
+      font-family: var(--serif);
+      font-size: 42px;       /* you can push to 56px if desired */
+      letter-spacing: 0.02em;
+      text-transform: none;
+      margin: 0;
+    }
+
+    .spine-brand .sub{
+      font-family: var(--serif);
+      font-size: 16px;
+      letter-spacing: 0.02em;
+      color: var(--spine-muted);
+      margin: 0;
+    }
+
+    .spine-mid{
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+      padding: 18px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .spine-nav{
+      width: 100%;
+      display: grid;
+      gap: 10px;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .spine-nav a{
+      color: var(--spine-muted);
+      text-decoration: none;
+      display: block;
+      padding: 4px 0;
+    }
+
+    .spine-nav a:hover{
+      color: var(--spine-fg);
+    }
+
+    .spine-nav a.active{
+      color: var(--spine-fg);
       position: relative;
     }
 
-    /* ===== Language Switcher ===== */
-    .lang-switcher {
-      position: absolute;
-      top: 28px;
-      right: 24px;
-    }
-
-    .lang-switcher select{
-      font-size: 0.72rem;
+    .spine-nav a.active::before{
+      content: "Σ ";
       letter-spacing: 0.12em;
-      padding: 0.28rem 0.42rem;
-      border: 1px solid rgba(255,255,255,.18);
-      background: transparent;
-      color: var(--ui);
-      cursor: pointer;
     }
 
-    .lang-switcher select:hover{
-      color: var(--ui-hover);
-      border-color: rgba(255,255,255,.30);
-    }
-
-    .lang-switcher select:focus{
-      outline: none;
-      border-color: rgba(255,255,255,.40);
-      color: var(--ui-hover);
-    }
-
-    a.back {
-      color: var(--fg);
-      text-decoration: none;
-      font-weight: 600;
-      opacity: 0.9;
-      display: inline-block;
-      padding-right: 170px;
-    }
-
-    a.back:hover { text-decoration: underline; opacity: 1; }
-
-    h1 {
-      margin-top: 12px;
-      font-size: 28px;
-      letter-spacing: -0.02em;
-    }
-
-    .subtitle {
-      margin-top: 6px;
-      font-size: 15px;
-      font-weight: 600;
-      opacity: 0.95;
-    }
-
-    .card {
-      margin-top: 20px;
-      padding: 22px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      max-width: 760px;
-    }
-
-    p {
-      margin: 12px 0;
-      color: var(--fg-muted);
-      line-height: 1.65;
-    }
-
-    .small { font-size: 0.92rem; opacity: 0.88; }
-
-    .links-inline {
-      margin-top: 14px;
-      font-size: 0.78rem;
-      letter-spacing: 0.10em;
-      opacity: 0.78;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 12px;
-      align-items: center;
-    }
-
-    .links-inline a{
-      color: var(--fg);
-      text-decoration: none;
-      border-bottom: 1px solid rgba(255,255,255,.25);
-      padding-bottom: 2px;
-      opacity: 0.92;
-    }
-
-    .links-inline a:hover{
-      opacity: 1;
-      border-bottom-color: rgba(255,255,255,.45);
-    }
-
-    .links-inline span{ opacity: 0.45; }
-
-    .grid {
-      margin-top: 14px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 14px;
-    }
-
-    .partner-slot {
+    .spine-bottom{
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
       padding: 14px;
-      border: 1px dashed rgba(255,255,255,.28);
-      border-radius: 12px;
-      opacity: 0.65;
-    }
-
-    .partner-slot p {
-      margin: 0;
-      color: var(--fg);
-      font-size: 0.85rem;
-      line-height: 1.45;
-    }
-
-    .partner-slot .sub {
-      display: inline-block;
-      margin-top: 4px;
-      font-size: 0.82rem;
-      opacity: 0.75;
-      color: var(--fg-muted);
-    }
-
-    .contact {
-      margin-top: 16px;
-      font-weight: 600;
-    }
-
-    .contact a { color: var(--fg); }
-
-    /* ===== Footer ===== */
-    footer {
-      margin-top: 40px;
-      padding-top: 18px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
+      display: grid;
       gap: 10px;
+      justify-items: center;
     }
 
-    .footer-nav {
-      font-size: 0.72rem;
-      letter-spacing: 0.14em;
-      opacity: 0.65;
+    /* Language select (no "Language" label) */
+    .lang{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .lang select{
+      width: 100%;
+      max-width: 210px;
+      background: transparent;
+      color: var(--spine-fg);
+      border: 1px solid rgba(255,255,255,.20);
+      padding: 10px 12px;
+      font-size: 13px;
+      letter-spacing: 0.02em;
+
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+
+      background-image: linear-gradient(45deg, transparent 50%, rgba(255,255,255,.85) 50%),
+                        linear-gradient(135deg, rgba(255,255,255,.85) 50%, transparent 50%);
+      background-position: calc(100% - 18px) calc(50% - 3px),
+                           calc(100% - 13px) calc(50% - 3px);
+      background-size: 5px 5px, 5px 5px;
+      background-repeat: no-repeat;
+    }
+
+    .lang select:focus{
+      outline: none;
+      border-color: rgba(255,255,255,.34);
+    }
+
+    /* Helps avoid the “white inside” feeling on many browsers.
+       iOS can still render options native, but this reduces the clash. */
+    .lang select option{
+      background: var(--ink);
+      color: var(--spine-fg);
+    }
+
+    .spine-copy{
+      font-size: 12px;
+      color: rgba(255,255,255,.62);
+      letter-spacing: 0.02em;
+    }
+
+    /* ===== Content ===== */
+    .content-wrap{
+      grid-column: 4;
+      padding: 42px 56px 86px 56px;
+    }
+
+    .page{
+      width: min(1320px, 94vw);
+      margin: 0 auto;
+    }
+
+    .topbar{
       display: flex;
       align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 28px;
     }
 
-    .footer-nav a {
-      color: var(--fg);
+    .back{
+      color: rgba(22,22,22,.70);
       text-decoration: none;
-    }
-
-    .footer-nav a:hover { opacity: 0.85; }
-
-    .footer-nav span { opacity: 0.4; }
-
-    .copyright {
       font-size: 13px;
-      color: var(--fg-muted);
-      line-height: 1.55;
-      text-align: right;
+      letter-spacing: 0.04em;
     }
 
-    @media (max-width: 520px) {
-      .lang-switcher{ position: static; margin-bottom: 14px; }
-      a.back{ padding-right: 0; }
-      footer{ align-items: flex-start; }
-      .copyright{ text-align: left; }
+    .back:hover{
+      color: rgba(22,22,22,.92);
+    }
+
+    .kicker{
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--meta);
+      margin: 0 0 10px;
+      text-align: center;
+    }
+
+    h1{
+      font-family: var(--serif);
+      font-size: clamp(36px, 4vw, 56px);
+      letter-spacing: -0.02em;
+      margin: 0 0 10px;
+      text-align: center;
+      line-height: 1.05;
+    }
+
+    .deck{
+      text-align: center;
+      color: rgba(22,22,22,.62);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 12px;
+      margin: 0 0 44px;
+    }
+
+    .section{
+      margin-top: 46px;
+    }
+
+    .section-title{
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--meta);
+      margin: 0 0 14px;
+    }
+
+    .prose{
+      font-size: 18px;
+      line-height: 1.85;
+      color: rgba(22,22,22,.84);
+      max-width: 78ch; /* book-like measure */
+      margin: 0 auto;
+    }
+
+    .prose p{
+      margin: 0 0 18px;
+    }
+
+    .prose em{
+      font-family: var(--serif);
+    }
+
+    /* Inline links row (minimal, not nav-heavy) */
+    .inline-links{
+      margin: 22px auto 0;
+      max-width: 78ch;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      color: rgba(22,22,22,.62);
+    }
+
+    .inline-links a{
+      color: rgba(22,22,22,.78);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(22,22,22,.22);
+      padding-bottom: 2px;
+    }
+
+    .inline-links a:hover{
+      color: rgba(22,22,22,.92);
+      border-bottom-color: rgba(22,22,22,.36);
+    }
+
+    /* Partner institutions (casebook appendix feel) */
+    .appendix{
+      margin: 16px auto 0;
+      max-width: 78ch;
+      border-top: 1px solid var(--hair);
+      padding-top: 16px;
+    }
+
+    .mini-grid{
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 14px;
+    }
+
+    .mini-col{
+      padding-top: 10px;
+      border-top: 1px solid var(--hair);
+    }
+
+    .mini-col .label{
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(22,22,22,.55);
+      margin: 0 0 10px;
+    }
+
+    .mini-col .value{
+      font-size: 15px;
+      line-height: 1.55;
+      color: rgba(22,22,22,.82);
+      margin: 0;
+    }
+
+    .contact{
+      margin-top: 18px;
+      font-size: 15px;
+      color: rgba(22,22,22,.78);
+    }
+
+    .contact a{
+      color: rgba(22,22,22,.86);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(22,22,22,.22);
+      padding-bottom: 2px;
+    }
+
+    .contact a:hover{
+      border-bottom-color: rgba(22,22,22,.36);
+    }
+
+    /* Footer (quiet) */
+    .foot{
+      margin-top: 58px;
+      padding-top: 18px;
+      border-top: 1px solid var(--hair);
+      color: rgba(22,22,22,.56);
+      font-size: 12px;
+      letter-spacing: 0.02em;
+      text-align: center;
+    }
+
+    /* ===== Mobile fixes (remove huge top gap, stack) ===== */
+    @media (max-width: 720px){
+      .layout{
+        grid-template-columns: 1fr;
+      }
+
+      .spine{
+        grid-column: auto;
+        position: relative;
+        height: auto;
+        min-height: 0;
+        border-right: 0;
+        border-bottom: 1px solid rgba(22,22,22,.16);
+        padding: calc(14px + env(safe-area-inset-top)) 14px 14px;
+        gap: 12px;
+      }
+
+      .spine-top,
+      .spine-mid,
+      .spine-bottom{
+        width: min(520px, 92vw);
+        margin: 0 auto;
+      }
+
+      .content-wrap{
+        grid-column: auto;
+        padding: 22px 16px 56px;
+      }
+
+      .page{
+        width: min(760px, 94vw);
+      }
+
+      .prose,
+      .inline-links,
+      .appendix{
+        max-width: 72ch;
+      }
+
+      .mini-grid{
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      h1{
+        text-align: left;
+      }
+
+      .kicker,
+      .deck{
+        text-align: left;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{ scroll-behavior: auto !important; }
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
+  <div class="layout">
 
-    <!-- Language Selector -->
-    <div class="lang-switcher">
-      <select onchange="location = this.value;">
-        <option selected disabled>Português</option>
-        <option value="../info.html">English</option>
-        <option value="../es/info.html">Español</option>
-        <option value="../fr/info.html">Français</option>
-        <option value="../de/info.html">Deutsch</option>
-        <option value="../zh-cn/info.html">中文（简体）</option>
-        <option value="../ja/info.html">日本語</option>
-      </select>
-    </div>
-
-    <a class="back" href="index.html">← Início</a>
-
-    <h1>c-ECO</h1>
-    <div class="subtitle">Equidade Contratual &amp; Corresponsabilidade Ecológica</div>
-
-    <div class="card">
-      <p>
-        c-ECO é um framework original de pesquisa e uma plataforma institucional voltados à
-        governança contratual pré-limiar sob condições de risco sistêmico e potencial irreversibilidade.
-        O projeto investiga como os contratos alocam autoridade ao longo do tempo — e como a legalidade pode permanecer
-        formalmente conforme enquanto o espaço decisório futuro colapsa de forma silenciosa.
-      </p>
-
-      <p>
-        O framework reconceitua os contratos como arquiteturas temporais de governança:
-        eles não apenas “acontecem” no tempo; eles estabilizam trajetórias, distribuem tolerâncias e moldam
-        quais intervenções futuras permanecem juridicamente e materialmente possíveis.
-        A c-ECO foca na preservação da reversibilidade antes que limiares se consolidem — quando remédios <em>ex post</em> chegam tarde.
-      </p>
-
-      <p>
-        c-ECO atua com fundações, instituições de pesquisa, laboratórios de políticas públicas e atores de desenvolvimento por meio de
-        parcerias de pesquisa aplicada, Concept Notes, caminhos-piloto de implementação e colaborações institucionais
-        centradas em decisão pré-limiar e governança de risco sistêmico.
-      </p>
-
-      <p class="small" style="margin-top:14px;">
-        <em>Para parcerias institucionais e consultas de pesquisa, um Concept Note detalhado está disponível mediante solicitação.</em>
-      </p>
-
-      <!-- Key links -->
-      <div class="links-inline" aria-label="Links principais c-ECO">
-        <a href="policy-brief.html">Memorando de Políticas (2025)</a>
-        <span>•</span>
-        <a href="license.html">Licença</a>
-        <span>•</span>
-        <a href="applied-study.html">Estudo Aplicado</a>
-        <span>•</span>
-        <a href="partnerships.html">Parcerias</a>
-      </div>
-
-      <hr style="margin:22px 0; opacity:0.35;">
-
-      <p><strong>Parcerias Institucionais &amp; de Pesquisa</strong></p>
-
-      <p>
-        c-ECO está construindo parcerias institucionais e acadêmicas para avançar pesquisas sobre
-        governança contratual pré-limiar sob condições de risco sistêmico e potencial irreversibilidade.
-      </p>
-
-      <p class="small">
-        Nesta etapa, as parcerias são não-comerciais, não-certificadoras e orientadas à pesquisa.
-        O objetivo é refinar arquiteturas jurídicas e desenho de estudos aplicados — não fornecer endossos.
-      </p>
-
-      <p><strong>Instituições Parceiras</strong></p>
-
-      <p class="small">
-        Os nomes institucionais são exibidos mediante acordo formal e consentimento mútuo.
-      </p>
-
-      <div class="grid" aria-label="Placeholders de instituições parceiras">
-        <div class="partner-slot">
-          <p><strong>Parceiro Acadêmico</strong><br><span class="sub">Direito do Sistema Terra / teoria jurídica</span></p>
-        </div>
-        <div class="partner-slot">
-          <p><strong>Instituição de Pesquisa</strong><br><span class="sub">Governança aplicada &amp; risco sistêmico</span></p>
-        </div>
-        <div class="partner-slot">
-          <p><strong>Instituição Pública ou Híbrida</strong><br><span class="sub">Infraestrutura / contratação de longo prazo</span></p>
+    <!-- SPINE -->
+    <aside class="spine" aria-label="Navegação c-ECO">
+      <div class="spine-top">
+        <div class="spine-brand" aria-label="Marca c-ECO">
+          <h2 class="mark">c-ECO</h2>
+          <p class="sub">Contractual Equity</p>
         </div>
       </div>
 
-      <div class="contact">
-        Contato: <a href="mailto:info@c-eco.org">info@c-eco.org</a>
-      </div>
-    </div>
-
-    <footer>
-      <div class="footer-nav">
-        <a href="index.html">Início</a>
-        <span>|</span>
-        <a href="info.html">Info</a>
-        <span>|</span>
-        <a href="bio.html">Bio</a>
-        <span>|</span>
-        <a href="observatory.html">Observatório</a>
-        <span>|</span>
-        <a href="policy-brief.html">Memorando de Políticas</a>
-        <span>|</span>
-        <a href="license.html">Licença</a>
-        <span>|</span>
-        <a href="applied-study.html">Estudo Aplicado</a>
-        <span>|</span>
-        <a href="partnerships.html">Parcerias</a>
+      <div class="spine-mid">
+        <nav class="spine-nav" aria-label="Seções">
+          <a href="index.html">Home</a>
+          <a class="active" href="info.html">Info</a>
+          <a href="bio.html">Bio</a>
+          <a href="observatory.html">Observatory</a>
+          <a href="policy-brief.html">Policy Brief</a>
+          <a href="license.html">License</a>
+          <a href="applied-study.html">Applied Study</a>
+          <a href="partnerships.html">Partnerships</a>
+        </nav>
       </div>
 
-      <div class="copyright">
-        © <span id="y"></span> c-ECO. Todos os direitos reservados.<br>
-        Nenhuma parte desta publicação pode ser reproduzida ou distribuída sem autorização prévia por escrito,
-        exceto por breves citações com atribuição.
+      <div class="spine-bottom">
+        <div class="lang" aria-label="Idioma">
+          <select onchange="location = this.value;">
+            <option selected disabled>Português</option>
+            <option value="../info.html">English</option>
+            <option value="../es/info.html">Español</option>
+            <option value="../fr/info.html">Français</option>
+            <option value="../de/info.html">Deutsch</option>
+            <option value="../zh-cn/info.html">中文（简体）</option>
+            <option value="../ja/info.html">日本語</option>
+          </select>
+        </div>
+
+        <div class="spine-copy">© <span id="y"></span> c-eco</div>
       </div>
-    </footer>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="content-wrap">
+      <div class="page">
+
+        <div class="topbar">
+          <a class="back" href="index.html">← Home</a>
+          <span></span>
+        </div>
+
+        <p class="kicker">INFO</p>
+        <h1>Governança contratual pré-limiar</h1>
+        <p class="deck">RISCO SISTÊMICO · AUTORIDADE TEMPORAL · REVERSIBILIDADE</p>
+
+        <section class="section">
+          <p class="section-title">FRAMEWORK</p>
+
+          <div class="prose">
+            <p>
+              <strong>c-ECO</strong> é um framework de pesquisa original e uma plataforma institucional voltada à
+              <strong>governança contratual pré-limiar</strong>, sob condições de <strong>risco sistêmico</strong> e
+              <strong>potencial irreversibilidade</strong>.
+              O projeto investiga como os contratos distribuem autoridade ao longo do tempo — e como a legalidade pode
+              permanecer formalmente conforme enquanto o espaço decisório futuro se estreita silenciosamente.
+            </p>
+
+            <p>
+              O framework reconceitua os contratos como <strong>arquiteturas temporais de governança</strong>:
+              eles não apenas “ocorrem” no tempo; estabilizam trajetórias, distribuem tolerâncias e moldam quais
+              intervenções futuras permanecem juridicamente e materialmente possíveis.
+              O foco central é a preservação da <strong>reversibilidade</strong> antes da consolidação de limiares,
+              quando os remédios <em>ex post</em> já chegam tarde demais.
+            </p>
+
+            <p>
+              A c-ECO atua junto a fundações, instituições de pesquisa, laboratórios de políticas públicas e agentes de
+              desenvolvimento por meio de <strong>parcerias de pesquisa aplicada</strong>, <strong>Concept Notes</strong>,
+              <strong>trajetórias piloto de implementação</strong> e <strong>colaborações institucionais</strong>
+              centradas na tomada de decisão pré-limiar e na governança do risco sistêmico.
+            </p>
+
+            <p>
+              Para parcerias institucionais e consultas de pesquisa, uma <strong>Concept Note detalhada</strong> está
+              disponível mediante solicitação.
+            </p>
+
+            <div class="inline-links" aria-label="Links principais">
+              <a href="policy-brief.html">Policy Memo (2025)</a>
+              <span> &nbsp;•&nbsp; </span>
+              <a href="license.html">Licença</a>
+              <span> &nbsp;•&nbsp; </span>
+              <a href="applied-study.html">Estudo Aplicado</a>
+              <span> &nbsp;•&nbsp; </span>
+              <a href="partnerships.html">Parcerias</a>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <p class="section-title">PARCERIAS INSTITUCIONAIS &amp; DE PESQUISA</p>
+
+          <div class="prose">
+            <p>
+              A c-ECO está estruturando parcerias institucionais e acadêmicas para avançar a pesquisa sobre governança
+              contratual pré-limiar sob condições de risco sistêmico e potencial irreversibilidade.
+            </p>
+
+            <p>
+              Nesta fase, as parcerias são <strong>não comerciais</strong>, <strong>não certificadoras</strong> e
+              <strong>orientadas à pesquisa</strong>. O objetivo é refinar arquiteturas jurídicas e o desenho de estudos
+              aplicados — <strong>não</strong> fornecer endossos institucionais.
+            </p>
+          </div>
+
+          <div class="appendix" aria-label="Instituições parceiras">
+            <p class="section-title" style="margin: 0 0 8px;">INSTITUIÇÕES PARCEIRAS</p>
+            <div class="prose" style="margin-top: 0;">
+              <p style="margin-top: 0;">
+                Os nomes institucionais são divulgados mediante acordo formal e consentimento mútuo.
+              </p>
+            </div>
+
+            <div class="mini-grid" role="list">
+              <div class="mini-col" role="listitem">
+                <p class="label">Parceiro Acadêmico</p>
+                <p class="value">Direito do Sistema Terra / Teoria Jurídica</p>
+              </div>
+
+              <div class="mini-col" role="listitem">
+                <p class="label">Instituição de Pesquisa</p>
+                <p class="value">Governança Aplicada &amp; Risco Sistêmico</p>
+              </div>
+
+              <div class="mini-col" role="listitem">
+                <p class="label">Instituição Pública ou Híbrida</p>
+                <p class="value">Infraestrutura / Contratos de Longo Prazo</p>
+              </div>
+            </div>
+
+            <div class="contact">
+              Contato: <a href="mailto:info@c-eco.org">info@c-eco.org</a>
+            </div>
+          </div>
+
+          <div class="prose" style="margin-top: 28px;">
+            <p class="section-title" style="margin-top: 0;">CONTEXTO INSTITUCIONAL</p>
+            <p>
+              Fundado por <strong>Jacqueline A. Ennis</strong>, com apoio institucional do
+              <a href="https://institutosilviomeira.net.br/" target="_blank" rel="noopener noreferrer"><strong>Instituto Silvio Meira (ISM)</strong></a>.
+            </p>
+          </div>
+        </section>
+
+        <div class="foot">
+          © <span id="yy"></span> c-ECO. All rights reserved.
+        </div>
+
+      </div>
+    </main>
 
   </div>
 
   <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
+    const y = new Date().getFullYear();
+    const a = document.getElementById("y");
+    const b = document.getElementById("yy");
+    if (a) a.textContent = y;
+    if (b) b.textContent = y;
   </script>
 </body>
 </html>
