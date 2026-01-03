@@ -1,7 +1,7 @@
 <!-- =========================================
      FILE: index.html
-     c-eco.org — Home (FINAL STABLE VERSION)
-     Dark institutional background + PNG logo medal
+     c-eco.org — Home (LIGHT FINAL VERSION)
+     Wider + legible + logo reveal + link reveal
      FULL PAGE — replace entire file
 ========================================== -->
 <!doctype html>
@@ -32,12 +32,12 @@
 
   <style>
     :root{
-      --bg: #0b0b0b;
-      --text-primary: rgba(255,255,255,0.92);
-      --text-secondary: rgba(255,255,255,0.74);
-      --text-muted: rgba(255,255,255,0.55);
-      --border: rgba(255,255,255,0.22);
-      --border-strong: rgba(255,255,255,0.40);
+      --bg: #ffffff;
+      --text-primary: #1f2933;     /* editorial, bem legível */
+      --text-secondary: #5f6c7b;   /* apoio */
+      --text-muted: #8a94a3;       /* legendas */
+      --border: rgba(0,0,0,0.15);
+      --border-strong: rgba(0,0,0,0.35);
     }
 
     html, body{
@@ -64,6 +64,7 @@
       width: min(1400px, 100% - 96px);
       text-align: center;
       transform: scale(1.12);
+      transform-origin: center;
     }
 
     @media (min-width: 1600px){
@@ -91,11 +92,11 @@
       border: 1px solid var(--border);
       background: transparent;
       color: var(--text-primary);
-      opacity: 0.7;
+      opacity: 0.72;
       cursor: pointer;
     }
 
-    .lang-switcher select:hover{ opacity: 0.9; }
+    .lang-switcher select:hover{ opacity: 0.92; }
     .lang-switcher select:focus{
       outline: none;
       border-color: var(--border-strong);
@@ -111,43 +112,29 @@
       user-select: none;
     }
 
-    /* ===== LOGO (PNG + medalhão) ===== */
+    /* LOGO (PNG): slightly larger + reveal + subtle depth */
     img.logo{
       max-width: 360px;
       width: 64vw;
       height: auto;
+      display: block;
       margin: 0 auto;
-
-      background: radial-gradient(
-        circle at 50% 50%,
-        rgba(255,255,255,0.96) 0%,
-        rgba(245,245,245,0.94) 55%,
-        rgba(255,255,255,0.90) 70%,
-        rgba(255,255,255,0.00) 72%
-      );
-
-      padding: 28px;
-      border-radius: 50%;
-
-      box-shadow:
-        0 18px 48px rgba(0,0,0,0.45),
-        inset 0 0 0 1px rgba(0,0,0,0.06);
 
       opacity: 0;
       transform: translateY(6px) scale(0.985);
-      transition: opacity 900ms ease, transform 900ms ease, box-shadow 400ms ease;
+      filter: drop-shadow(0 10px 24px rgba(0,0,0,0.10));
+      transition: opacity 900ms ease, transform 900ms ease, filter 900ms ease;
     }
 
     img.logo.on{
       opacity: 1;
       transform: translateY(0) scale(1);
+      filter: drop-shadow(0 14px 34px rgba(0,0,0,0.14));
     }
 
     img.logo.on:hover{
       transform: translateY(0) scale(1.01);
-      box-shadow:
-        0 22px 58px rgba(0,0,0,0.55),
-        inset 0 0 0 1px rgba(0,0,0,0.06);
+      filter: drop-shadow(0 16px 38px rgba(0,0,0,0.16));
     }
 
     .tagline{
@@ -156,6 +143,7 @@
       font-weight: 300;
       letter-spacing: 0.14em;
       color: var(--text-secondary);
+      opacity: 0.98;
     }
 
     /* ===== Links ===== */
@@ -182,16 +170,19 @@
     .links a{
       text-decoration: none;
       color: var(--text-primary);
-      opacity: 0.85;
+      opacity: 0.88;
       position: relative;
-      transition: opacity 200ms ease;
+      transition: opacity 200ms ease, color 200ms ease;
+      white-space: nowrap;
     }
 
     .links a:hover,
     .links a:focus-visible{
       opacity: 1;
+      color: #000;
     }
 
+    /* underline draw */
     .links a::after{
       content:"";
       position:absolute;
@@ -211,6 +202,7 @@
       transform: scaleX(1);
     }
 
+    /* reveal cascade for each link */
     .reveal{
       opacity: 0;
       transform: translateY(6px);
@@ -230,9 +222,17 @@
       color: var(--text-muted);
     }
 
+    @media (max-width: 520px){
+      .lang-switcher{
+        top: 1.0rem;
+        right: 1.0rem;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce){
       *{ transition: none !important; }
-      img.logo{ opacity: 1; transform: none; }
+      img.logo{ opacity: 1; transform: none; filter: none; }
+      .reveal{ opacity: 1; transform: none; }
     }
   </style>
 </head>
@@ -254,7 +254,7 @@
 
   <div class="stage">
     <main class="hero-inner">
-      <div class="brand" id="brand">
+      <div class="brand" id="brand" aria-label="Open c-ECO navigation">
         <img class="logo" id="logo" src="logo.png" alt="c-ECO logo">
         <div class="tagline">Before, matters.</div>
 
@@ -268,6 +268,7 @@
           <a class="reveal" href="partnerships.html">Partnerships</a>
         </div>
 
+        <div class="hint">Click to open.</div>
       </div>
     </main>
   </div>
@@ -278,7 +279,7 @@
     const logo  = document.getElementById('logo');
 
     window.addEventListener("load", () => {
-      logo.classList.add("on");
+      if (logo) logo.classList.add("on");
     });
 
     document.querySelectorAll('.reveal').forEach((el, i) => {
