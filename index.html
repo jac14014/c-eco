@@ -112,25 +112,40 @@
       user-select: none;
     }
 
-    /* LOGO: slightly larger + PNG-friendly reveal + subtle depth */
-    img.logo{
-      max-width: 360px;  /* was 320 */
-      width: 64vw;
-      height: auto;
-      display: block;
-      margin: 0 auto;
+  img.logo{
+  max-width: 360px;
+  width: 64vw;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 
-      opacity: 0;
-      transform: translateY(6px) scale(0.985);
-      filter: drop-shadow(0 10px 24px rgba(0,0,0,0.10));
-      transition: opacity 900ms ease, transform 900ms ease, filter 900ms ease;
-    }
+  /* medalhão */
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255,255,255,0.96) 0%,
+    rgba(245,245,245,0.94) 55%,
+    rgba(255,255,255,0.90) 70%,
+    rgba(255,255,255,0.00) 72%
+  );
 
-    img.logo.on{
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      filter: drop-shadow(0 14px 34px rgba(0,0,0,0.14));
-    }
+  padding: 28px;
+  border-radius: 50%;
+
+  /* profundidade elegante */
+  box-shadow:
+    0 18px 48px rgba(0,0,0,0.45),
+    inset 0 0 0 1px rgba(0,0,0,0.06);
+
+  /* animação institucional */
+  opacity: 0;
+  transform: translateY(6px) scale(0.985);
+  transition: opacity 900ms ease, transform 900ms ease;
+}
+
+img.logo.on{
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
 
     /* keep hover ultra subtle (institutional) */
     img.logo.on:hover{
