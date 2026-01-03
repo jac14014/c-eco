@@ -1,9 +1,7 @@
 <!-- =========================================
      FILE: index.html
-     c-eco.org — Home (UPDATED)
+     c-eco.org — Home (UPDATED: wider + legible + logo effect + link reveal)
      FULL PAGE (complete). Copy/select all and replace the entire file.
-     Adds: new links (License + Applied Study), light SEO + hreflang,
-     keeps your minimalist landing behavior.
 ========================================== -->
 <!doctype html>
 <html lang="en">
@@ -30,48 +28,83 @@
   <link rel="alternate" hreflang="ja" href="https://c-eco.org/ja/index.html" />
 
   <style>
-    html, body {
+    :root{
+      --text-primary: #1f2933;   /* legível, editorial */
+      --text-secondary: #5f6c7b; /* apoio */
+      --text-muted: #8a94a3;     /* legendas */
+      --border: rgba(0,0,0,0.15);
+      --border-strong: rgba(0,0,0,0.35);
+    }
+
+    html, body{
       height: 100%;
       margin: 0;
     }
 
-    body {
+    body{
       background: #FFFFFF;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                   "Segoe UI", Roboto, sans-serif;
+      color: var(--text-primary);
+    }
+
+    /* ===== Stage / "wide" presence ===== */
+    .stage{
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont,
-                   "Segoe UI", Roboto, sans-serif;
+    }
+
+    /* wide container + gentle scaling on large screens */
+    .hero-inner{
+      width: min(1400px, 100% - 96px);
+      text-align: center;
+      transform: scale(1.12);
+      transform-origin: center;
+    }
+
+    @media (min-width: 1600px){
+      .hero-inner{
+        transform: scale(1.26);
+      }
+    }
+
+    @media (max-width: 720px){
+      .hero-inner{
+        width: calc(100% - 32px);
+        transform: scale(1);
+      }
     }
 
     /* ===== Language Switcher ===== */
-    .lang-switcher {
+    .lang-switcher{
       position: absolute;
       top: 1.2rem;
       right: 1.4rem;
     }
 
-    .lang-switcher select {
+    .lang-switcher select{
       font-size: 0.7rem;
       letter-spacing: 0.12em;
       padding: 0.25rem 0.4rem;
-      border: 1px solid rgba(0,0,0,0.15);
+      border: 1px solid var(--border);
       background: transparent;
-      color: #000;
-      opacity: 0.55;
+      color: var(--text-primary);
+      opacity: 0.72;
       cursor: pointer;
     }
 
-    .lang-switcher select:hover { opacity: 0.8; }
+    .lang-switcher select:hover{ opacity: 0.92; }
 
-    .lang-switcher select:focus {
+    .lang-switcher select:focus{
       outline: none;
-      border-color: rgba(0,0,0,0.35);
-      opacity: 0.85;
+      border-color: var(--border-strong);
+      opacity: 1;
     }
 
     /* ===== Brand ===== */
-    .brand {
+    .brand{
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -79,114 +112,86 @@
       user-select: none;
     }
 
-    img.logo {
-      max-width: 320px;
-      width: 60vw;
+    /* LOGO: slightly larger + PNG-friendly reveal + subtle depth */
+    img.logo{
+      max-width: 360px;  /* was 320 */
+      width: 64vw;
       height: auto;
-      transition: transform 0.25s ease, opacity 0.25s ease;
+      display: block;
+      margin: 0 auto;
+
+      opacity: 0;
+      transform: translateY(6px) scale(0.985);
+      filter: drop-shadow(0 10px 24px rgba(0,0,0,0.10));
+      transition: opacity 900ms ease, transform 900ms ease, filter 900ms ease;
     }
 
-    img.logo:hover {
-      transform: scale(1.03);
-      opacity: 0.9;
+    img.logo.on{
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: drop-shadow(0 14px 34px rgba(0,0,0,0.14));
     }
 
-    .tagline {
-      margin-top: 0.9rem;
-      font-size: 0.85rem;
+    /* keep hover ultra subtle (institutional) */
+    img.logo.on:hover{
+      transform: translateY(0) scale(1.01);
+      filter: drop-shadow(0 16px 38px rgba(0,0,0,0.16));
+    }
+
+    .tagline{
+      margin-top: 0.85rem;
+      font-size: 0.9rem;
       font-weight: 300;
       letter-spacing: 0.14em;
-      opacity: 0.45;
+      color: var(--text-secondary);
+      opacity: 0.95;
     }
 
-    .links {
-      margin-top: 1.2rem;
+    /* ===== Links: hidden until click, then reveal cascade ===== */
+    .links{
+      margin-top: 1.35rem;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 1.1rem 1.4rem;
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       letter-spacing: 0.12em;
+      max-width: 92vw;
+
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.25s ease;
-      max-width: 92vw;
+      transition: opacity 280ms ease;
     }
 
-    .links.visible {
-      opacity: 0.55;
+    .links.visible{
+      opacity: 1;
       pointer-events: auto;
     }
 
-    .links a {
+    .links a{
       text-decoration: none;
-      color: #000000;
+      color: var(--text-primary);
+      opacity: 0.88;
       white-space: nowrap;
+      position: relative;
+      transition: opacity 200ms ease, color 200ms ease;
     }
 
-    .links a:hover { opacity: 0.7; }
-
-    /* small helper line (optional, minimalist) */
-    .hint {
-      margin-top: 0.65rem;
-      font-size: 0.65rem;
-      letter-spacing: 0.14em;
-      opacity: 0.28;
+    .links a:hover,
+    .links a:focus-visible{
+      opacity: 1;
+      color: #000;
     }
 
-    @media (max-width: 520px) {
-      .lang-switcher {
-        top: 1.0rem;
-        right: 1.0rem;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <!-- Language Selector -->
-  <div class="lang-switcher">
-    <select onchange="location = this.value;">
-      <option selected disabled>English</option>
-      <option value="pt/index.html">Português</option>
-      <option value="es/index.html">Español</option>
-      <option value="fr/index.html">Français</option>
-      <option value="de/index.html">Deutsch</option>
-      <option value="zh-cn/index.html">中文（简体）</option>
-      <option value="ja/index.html">日本語</option>
-    </select>
-  </div>
-
-  <!-- Brand -->
-  <div class="brand" id="brand" aria-label="Open c-ECO navigation">
-    <img class="logo" src="logo.png" alt="c-ECO logo">
-    <div class="tagline">Before, matters.</div>
-
-    <div class="links" id="links">
-      <a href="info.html">Info</a>
-      <a href="bio.html">Bio</a>
-      <a href="global-signals.html">Observatory</a>
-      <a href="policy-brief.html">Policy Brief (2025)</a>
-      <a href="license.html">License</a>
-      <a href="applied-study.html">Applied Study</a>
-      <a href="partnerships.html">Partnerships</a>
-    </div>
-  </div>
-
-  <script>
-    const brand = document.getElementById('brand');
-    const links = document.getElementById('links');
-
-    brand.addEventListener('click', (e) => {
-      e.stopPropagation();
-      links.classList.toggle('visible');
-    });
-
-    document.addEventListener('click', () => {
-      links.classList.remove('visible');
-    });
-  </script>
-
-</body>
-</html>
+    /* underline “draw” (clean) */
+    .links a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-6px;
+      width:100%;
+      height:1px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: tran
