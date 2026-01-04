@@ -1,4 +1,5 @@
-<!-- =========================================
+
+    Isso aqui que eu tenho do content pra cima. Revise o que vc fez pra eu copiar e colar pra ver se não vai dar erro <!-- =========================================
      FILE: pt/bio.html
      c-eco.org — Bio (CASEBOOK MODE v1.2 — PT)
      FULL PAGE — MINIMAL CHANGE FROM pt/info.html
@@ -360,8 +361,24 @@
       align-items: end;
       margin: 0 0 26px;
     }
-    .bio-sub1{ margin: 0 0 8px; }
-    .bio-sub2{ margin: 0; letter-spacing: 0.14em; }
+    .bio-sub1{
+  margin: 0 0 8px;
+  font-family: var(--sans);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  font-size: 12px;
+  color: var(--ink-muted);
+}
+
+.bio-sub2{
+  margin: 0;
+  font-family: var(--sans);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
     .bio-portrait{ margin: 0; justify-self: end; width: 100%; max-width: 340px; }
     .bio-portrait img{
       width: 100%;
@@ -377,43 +394,66 @@
       margin-top: 0;
     }
 
-    @media (max-width: 860px){
-      .bio-head{
-        grid-template-columns: 1fr;
-        align-items: start;
-        margin-bottom: 18px;
-      }
-      .bio-portrait{
-        justify-self: start;
-        max-width: 320px;
-        margin-top: 14px;
-      }
-    }
+.lede{
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
 
-    @media (max-width: 720px){
-      .layout{
-        grid-template-columns: 1fr;
-      }
+/* ===== BOOK STYLE (Bio) ===== */
 
-      .spine{
-        position: relative;
-        height: auto;
-        min-height: 0;
-        border-right: 0;
-        border-bottom: 1px solid rgba(22,22,22,.16);
-        padding: calc(14px + env(safe-area-inset-top)) 16px 14px;
-      }
+/* Justifica SOMENTE parágrafos (corpo do texto) */
+.page p{
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  overflow-wrap: break-word;
+}
 
-      .content-wrap{
-        grid-column: auto;
-        padding: 22px 16px 56px;
-      }
+/* Títulos e subtítulos NÃO são justificados */
+.kicker,
+h1,
+.subtitle,
+.section-title{
+  text-align: left;
+}
 
-      .page{
-        width: min(680px, 94vw);
-        margin: 0 auto;
-      }
-    }
+@media (max-width: 720px){
+
+  /* collapse the book grid into 1 column */
+  .book{
+    grid-template-columns: 1fr;
+  }
+
+  /* spine becomes a top header block (not lateral) */
+  .spine-wrap{
+    grid-column: 1;
+    position: relative;
+    top: auto;
+    height: auto;
+    padding: calc(14px + env(safe-area-inset-top)) 16px 14px;
+  }
+
+  .spine{
+    height: auto;
+    grid-template-rows: auto auto auto;
+    gap: 12px;
+    padding: 6px 2px;
+  }
+
+  /* content sits under the spine */
+  .content-wrap{
+    grid-column: 1;
+    padding: 22px 16px 56px;
+  }
+
+  .page{
+    width: min(680px, 94vw);
+    margin: 0 auto;
+  }
+}
   </style>
 </head>
 
@@ -466,7 +506,7 @@
 
     <!-- gutter col intentionally empty -->
 
-    <!-- CONTENT -->
+       <!-- CONTENT -->
     <main class="content-wrap" aria-label="Bio page content">
       <article class="page">
         <p class="kicker">Bio</p>
@@ -475,27 +515,23 @@
           <div class="bio-id">
             <h1>Jacqueline A. Ennis</h1>
 
-            <p class="subtitle bio-sub1" style="margin-bottom:8px;">
-              Fundadora e Autora da Doutrina c-ECO
-            </p>
-
-            <p class="subtitle bio-sub2" style="margin-bottom:0;">
-              JURISTA · DIREITO CONTRATUAL · RISCO SISTÊMICO E GOVERNANÇA ECOLÓGICA
-            </p>
+            <p class="bio-sub1">Fundadora e Autora da Doutrina c-ECO</p>
+            <p class="bio-sub2">JURISTA · DIREITO CONTRATUAL · RISCO SISTÊMICO E GOVERNANÇA ECOLÓGICA</p>
+          
           </div>
 
           <figure class="bio-portrait" aria-label="Portrait">
             <img
-              src="https://raw.githubusercontent.com/jac14014/c-eco/main/jacqueline-ennis.PNG"
+              src="https:/jacqueline-ennis.PNG"
               alt="Jacqueline A. Ennis — Fundadora e Autora da Doutrina c-ECO"
-              loading="lazy"
+              loading="eager"
             />
           </figure>
         </header>
 
         <p class="lede">
           Jacqueline A. Ennis é jurista luso-brasileira, radicada nos Estados Unidos, e autora da doutrina c-ECO
-          (Contractual Equity &amp; Ecological Co-Responsibility). Sua pesquisa formula uma estrutura jurídico-contratual
+          (Equidade Contratual &amp; Corresponsibilidade Ecológica). Sua pesquisa formula uma estrutura jurídico-contratual
           de governança pré-limiar, desenvolvida especificamente para enfrentar uma limitação crítica do Direito contemporâneo:
           a prevalência de mecanismos de intervenção <em>ex post</em>, que frequentemente operam apenas após a consolidação de estados
           sistêmicos irreversíveis sob condições de plena legalidade formal.
