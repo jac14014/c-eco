@@ -1,297 +1,36 @@
-<!-- =========================================
-     FILE: pt/index.html
-     c-eco.org — Home (PT) (LIGHT FINAL VERSION)
-     Wider + legible + logo reveal + link reveal
-     FULL PAGE — replace entire file
-========================================== -->
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>c-ECO</title>
-
-  <!-- SEO -->
-  <meta name="description" content="c-ECO — Equidade Contratual & Corresponsabilidade Ecológica. Governança contratual pré-limiar sob risco sistêmico." />
-  <link rel="canonical" href="https://c-eco.org/pt/index.html" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="c-ECO" />
-  <meta property="og:description" content="Equidade Contratual & Corresponsabilidade Ecológica. Governança contratual pré-limiar sob risco sistêmico." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://c-eco.org/pt/index.html" />
-
-  <!-- hreflang -->
-  <link rel="alternate" hreflang="en" href="https://c-eco.org/index.html" />
-  <link rel="alternate" hreflang="pt" href="https://c-eco.org/pt/index.html" />
-  <link rel="alternate" hreflang="es" href="https://c-eco.org/es/index.html" />
-  <link rel="alternate" hreflang="fr" href="https://c-eco.org/fr/index.html" />
-  <link rel="alternate" hreflang="de" href="https://c-eco.org/de/index.html" />
-  <link rel="alternate" hreflang="zh-CN" href="https://c-eco.org/zh-cn/index.html" />
-  <link rel="alternate" hreflang="ja" href="https://c-eco.org/ja/index.html" />
-
-  <style>
-    :root{
-      --bg: #ffffff;
-      --text-primary: #1f2933;
-      --text-secondary: #5f6c7b;
-      --text-muted: #8a94a3;
-      --border: rgba(0,0,0,0.15);
-      --border-strong: rgba(0,0,0,0.35);
-    }
-
-    html, body{
-      height: 100%;
-      margin: 0;
-    }
-
-    body{
-      background: var(--bg);
-      color: var(--text-primary);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont,
-                   "Segoe UI", Roboto, sans-serif;
-    }
-
-    /* ===== Stage / Presence ===== */
-    .stage{
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .hero-inner{
-      width: min(1400px, 100% - 96px);
-      text-align: center;
-      transform: scale(1.12);
-      transform-origin: center;
-    }
-
-    @media (min-width: 1600px){
-      .hero-inner{ transform: scale(1.26); }
-    }
-
-    @media (max-width: 720px){
-      .hero-inner{
-        width: calc(100% - 32px);
-        transform: scale(1);
-      }
-    }
-
-    /* ===== Language Switcher ===== */
-    .lang-switcher{
-      position: absolute;
-      top: 1.2rem;
-      right: 1.4rem;
-    }
-
-    .lang-switcher select{
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      padding: 0.25rem 0.4rem;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--text-primary);
-      opacity: 0.72;
-      cursor: pointer;
-    }
-
-    .lang-switcher select:hover{ opacity: 0.92; }
-    .lang-switcher select:focus{
-      outline: none;
-      border-color: var(--border-strong);
-      opacity: 1;
-    }
-
-    /* ===== Brand ===== */
-    .brand{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    /* LOGO reveal + subtle depth */
-    img.logo{
-      max-width: 360px;
-      width: 64vw;
-      height: auto;
-      display: block;
-      margin: 0 auto;
-
-      opacity: 0;
-      transform: translateY(6px) scale(0.985);
-      filter: drop-shadow(0 10px 24px rgba(0,0,0,0.10));
-      transition: opacity 900ms ease, transform 900ms ease, filter 900ms ease;
-    }
-
-    img.logo.on{
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      filter: drop-shadow(0 14px 34px rgba(0,0,0,0.14));
-    }
-
-    img.logo.on:hover{
-      transform: translateY(0) scale(1.01);
-      filter: drop-shadow(0 16px 38px rgba(0,0,0,0.16));
-    }
-
-    .tagline{
-      margin-top: 0.85rem;
-      font-size: 0.9rem;
-      font-weight: 300;
-      letter-spacing: 0.14em;
-      color: var(--text-secondary);
-      opacity: 0.98;
-      text-align: center;
-    }
-
-    /* ===== Links ===== */
-    .links{
-      margin-top: 1.35rem;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1.1rem 1.4rem;
-      font-size: 0.78rem;
-      letter-spacing: 0.12em;
-      max-width: 92vw;
-
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 280ms ease;
-    }
-
-    .links.visible{
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .links a{
-      text-decoration: none;
-      color: var(--text-primary);
-      opacity: 0.88;
-      position: relative;
-      transition: opacity 200ms ease, color 200ms ease;
-      white-space: nowrap;
-    }
-
-    .links a:hover,
-    .links a:focus-visible{
-      opacity: 1;
-      color: #000;
-    }
-
-    /* underline draw */
-    .links a::after{
-      content:"";
-      position:absolute;
-      left:0;
-      bottom:-6px;
-      width:100%;
-      height:1px;
-      background: currentColor;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 220ms ease;
-      opacity: 0.55;
-    }
-
-    .links a:hover::after,
-    .links a:focus-visible::after{
-      transform: scaleX(1);
-    }
-
-    /* reveal cascade for each link */
-    .reveal{
-      opacity: 0;
-      transform: translateY(6px);
-      transition: opacity 700ms ease, transform 700ms ease;
-      transition-delay: var(--d, 0ms);
-    }
-
-    .links.visible .reveal{
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @media (max-width: 520px){
-      .lang-switcher{
-        top: 1.0rem;
-        right: 1.0rem;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      *{ transition: none !important; }
-      img.logo{ opacity: 1; transform: none; filter: none; }
-      .reveal{ opacity: 1; transform: none; }
-    }
-  </style>
+  <title>Observatório — c-ECO</title>
+  <meta name="description" content="Observatório c-ECO: estudos de caso, playbooks e sinais globais sobre governança contratual pré-limiar e risco sistêmico." />
+  <link rel="canonical" href="https://c-eco.org/pt/observatory/" />
 </head>
 
 <body>
+  <main class="page">
+    <h1>Observatório</h1>
+    <p>
+      O Observatório c-ECO é o núcleo empírico do projeto. Aqui organizamos materiais aplicados
+      que traduzem <em>governança contratual pré-limiar</em> em artefatos legíveis: estudos de caso,
+      playbooks e sinais globais.
+    </p>
 
-  <!-- Language Selector -->
-  <div class="lang-switcher">
-    <select onchange="location = this.value;">
-      <option selected disabled>Português</option>
-      <option value="../index.html">English</option>
-      <option value="../es/index.html">Español</option>
-      <option value="../fr/index.html">Français</option>
-      <option value="../de/index.html">Deutsch</option>
-      <option value="../zh-cn/index.html">中文（简体）</option>
-      <option value="../ja/index.html">日本語</option>
-    </select>
-  </div>
+    <h2>Seções</h2>
+    <ul>
+      <li><a href="/pt/observatory/case-studies.html">Estudos de Caso</a></li>
+      <li><a href="/pt/observatory/playbooks.html">Playbooks</a></li>
+      <li><a href="/pt/observatory/global-signals.html">Sinais Globais</a></li>
+    </ul>
 
-  <div class="stage">
-    <main class="hero-inner">
-      <div class="brand" id="brand" aria-label="Abrir navegação c-ECO">
-        <img class="logo" id="logo" src="../logo.png" alt="Logo c-ECO">
-        <div class="tagline">Equidade Contratual</div>
+    <hr />
 
-        <div class="links" id="links">
-          <a class="reveal" href="info.html">Info</a>
-          <a class="reveal" href="bio.html">Bio</a>
-          <a class="reveal" href="observatory.html">Observatório</a>
-          <a class="reveal" href="policy-brief.html">Memorando de Políticas (2025)</a>
-          <a class="reveal" href="license.html">Licença</a>
-          <a class="reveal" href="applied-study.html">Estudo Aplicado</a>
-          <a class="reveal" href="partnerships.html">Parcerias</a>
-        </div>
-
-      </div>
-    </main>
-  </div>
-
-  <script>
-    const brand = document.getElementById('brand');
-    const links = document.getElementById('links');
-    const logo  = document.getElementById('logo');
-
-    window.addEventListener("load", () => {
-      if (logo) logo.classList.add("on");
-    });
-
-    document.querySelectorAll('.reveal').forEach((el, i) => {
-      el.style.setProperty('--d', `${120 + i * 90}ms`);
-    });
-
-    brand.addEventListener('click', (e) => {
-      e.stopPropagation();
-      links.classList.toggle('visible');
-    });
-
-    document.addEventListener('click', () => {
-      links.classList.remove('visible');
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') links.classList.remove('visible');
-    });
-  </script>
-
+    <h2>Como participar</h2>
+    <p>
+      Instituições e pesquisadores podem contribuir por meio de revisão colaborativa, replicação aplicada,
+      ou parceria editorial. Contato: <a href="mailto:info@c-eco.org">info@c-eco.org</a>.
+    </p>
+  </main>
 </body>
 </html>
