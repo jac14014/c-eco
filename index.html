@@ -13,7 +13,6 @@
             color: white;
             overflow: hidden;
             font-family: 'Inter', sans-serif;
-            /* Gradiente de fundo mais profundo e dramático */
             background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
         }
 
@@ -32,18 +31,18 @@
             cursor: default;
         }
 
-        /* Container de idiomas oculto por padrão */
+        /* Opções de idiomas */
         .language-options {
             opacity: 0;
             visibility: hidden;
-            transform: translateY(30px) scale(0.95);
-            transition: all 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+            transform: translateY(20px) scale(0.98);
+            transition: all 0.7s cubic-bezier(0.2, 1, 0.3, 1);
             display: flex;
-            gap: 2.5rem;
-            margin-top: 4rem;
+            gap: 3rem;
+            margin-top: 5rem;
         }
 
-        /* Estado ativo no hover do container principal */
+        /* Revelar ao passar o rato no desktop */
         .portal-container:hover .language-options {
             opacity: 1;
             visibility: visible;
@@ -51,76 +50,57 @@
         }
 
         .portal-container:hover .logo-wrapper {
-            transform: translateY(-20px);
+            transform: translateY(-15px);
         }
 
-        /* SVG da Logo - Traços ultra-finos */
+        /* Logo com proporções de luxo */
         .logo-svg {
-            width: 160px;
-            height: 160px;
+            width: 130px;
+            height: 130px;
             filter: drop-shadow(0 0 8px rgba(214, 188, 126, 0.1));
             transition: all 0.6s ease;
         }
 
         .portal-container:hover .logo-svg {
-            filter: drop-shadow(0 0 20px rgba(214, 188, 126, 0.35));
+            filter: drop-shadow(0 0 25px rgba(214, 188, 126, 0.35));
         }
 
-        /* Botões de Idioma com design minimalista */
+        /* Botões Minimalistas */
         .lang-btn {
             position: relative;
             background: rgba(255, 255, 255, 0.01);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(214, 188, 126, 0.15);
-            padding: 0.7rem 2.5rem;
-            font-size: 0.8rem;
-            letter-spacing: 0.3em;
+            border: 1px solid rgba(214, 188, 126, 0.12);
+            padding: 0.6rem 2rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.4em;
             text-transform: uppercase;
             font-weight: 200;
-            min-width: 200px;
+            min-width: 180px;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
-            color: rgba(214, 188, 126, 0.8);
+            color: rgba(214, 188, 126, 0.7);
             overflow: hidden;
-        }
-
-        /* Efeito de preenchimento suave no hover do botão */
-        .lang-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(214, 188, 126, 0.1), transparent);
-            transition: 0.5s;
-        }
-
-        .lang-btn:hover::before {
-            left: 100%;
         }
 
         .lang-btn:hover {
             color: #d6bc7e;
-            border-color: rgba(214, 188, 126, 0.6);
-            background: rgba(214, 188, 126, 0.05);
-            transform: translateY(-2px);
-            letter-spacing: 0.35em;
+            border-color: rgba(214, 188, 126, 0.5);
+            background: rgba(214, 188, 126, 0.03);
+            transform: translateY(-3px);
+            letter-spacing: 0.45em;
         }
 
         @media (max-width: 768px) {
             .language-options {
                 flex-direction: column;
                 gap: 1.5rem;
-                margin-top: 3rem;
+                margin-top: 3.5rem;
             }
             .logo-svg {
-                width: 130px;
-                height: 130px;
-            }
-            .lang-btn {
-                min-width: 220px;
+                width: 120px;
+                height: 120px;
             }
         }
     </style>
@@ -132,23 +112,23 @@
         <!-- Logo Sigma Master Design -->
         <div class="logo-wrapper">
             <svg class="logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                <!-- Moldura de anel duplo ultra-fina -->
-                <circle cx="100" cy="100" r="94" stroke="#d6bc7e" stroke-width="0.5" fill="none" opacity="0.2"/>
-                <circle cx="100" cy="100" r="88" stroke="#d6bc7e" stroke-width="1.2" fill="none" opacity="0.5"/>
+                <circle cx="100" cy="100" r="94" stroke="#d6bc7e" stroke-width="0.5" fill="none" opacity="0.15"/>
+                <circle cx="100" cy="100" r="88" stroke="#d6bc7e" stroke-width="1.0" fill="none" opacity="0.4"/>
                 
-                <!-- Símbolo Sigma (Σ) - Proporção Áurea e Traço Fino -->
                 <path d="M132 72H78L108 100L78 128H132" 
                       stroke="#d6bc7e" 
-                      stroke-width="3" 
+                      stroke-width="2.5" 
                       stroke-linecap="round" 
                       stroke-linejoin="round" 
                       fill="none"/>
             </svg>
         </div>
 
-        <!-- Opções de Idioma (Reveladas no Hover) -->
+        <!-- Opções de Idioma -->
         <div class="language-options">
+            <!-- Redireciona para info.html -->
             <button class="lang-btn" onclick="selectLanguage('en')">English</button>
+            <!-- Redireciona para bio.html -->
             <button class="lang-btn" onclick="selectLanguage('pt')">Português</button>
         </div>
 
@@ -156,18 +136,17 @@
 
     <script>
         function selectLanguage(lang) {
-            // Transição cinematográfica de saída
             const container = document.querySelector('.portal-container');
             container.style.transition = "all 1.2s cubic-bezier(0.4, 0, 0.2, 1)";
             container.style.opacity = "0";
-            container.style.transform = "scale(1.1)";
+            container.style.transform = "scale(1.05)";
             
             setTimeout(() => {
                 if (lang === 'en') {
-                    // Redireciona para info.html para Inglês
+                    // Navega para info.html se escolher Inglês
                     window.location.href = "info.html"; 
                 } else {
-                    // Redireciona para bio.html para Português
+                    // Navega para bio.html se escolher Português
                     window.location.href = "bio.html";
                 }
             }, 1200);
