@@ -20,7 +20,7 @@
             color: var(--text-main);
             overflow: hidden;
             font-family: 'Inter', sans-serif;
-            /* Gradiente neutralizado (cinza para preto), sem matizes azuis */
+            /* Gradiente neutralizado (cinza para preto) */
             background: radial-gradient(circle at center, var(--slate-gray) 0%, var(--bg-deep) 100%);
         }
 
@@ -115,7 +115,7 @@
             width: 40%;
         }
 
-        /* Efeito de scanline subtil (mais escuro e cinza) */
+        /* Efeito de scanline subtil */
         .scanline::after {
             content: "";
             position: absolute;
@@ -140,24 +140,26 @@
     <div class="portal-container">
         <span class="status-tag">Protocolo Σ Ativo</span>
         
-        <div class="logo-box-large" onclick="selectLanguage('pt')">Σ</div>
+        <!-- Clique no logo direciona para português por padrão ou última escolha -->
+        <div class="logo-box-large" onclick="selectLanguage('portuguese')">Σ</div>
         <h1 class="brand-name">c-ECO</h1>
 
         <div class="language-selection">
-            <button class="lang-link" onclick="selectLanguage('en')">English</button>
-            <button class="lang-link" onclick="selectLanguage('pt')">Português</button>
+            <button class="lang-link" onclick="selectLanguage('english')">English</button>
+            <button class="lang-link" onclick="selectLanguage('portuguese')">Português</button>
         </div>
 
     </div>
 
     <script>
-        function selectLanguage(lang) {
-            document.body.style.transition = "opacity 1s ease";
+        function selectLanguage(dest) {
+            document.body.style.transition = "opacity 0.8s ease";
             document.body.style.opacity = "0";
             
             setTimeout(() => {
-                window.location.href = "info.html";
-            }, 1000);
+                // Redireciona para o arquivo correspondente (.html)
+                window.location.href = dest + ".html";
+            }, 800);
         }
     </script>
 </body>
