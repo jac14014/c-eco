@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt-pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,17 +8,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;700;800&family=Inter:wght@300;400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-main: #1A202C; 
-            --bg-accent: #2D3748; 
-            --orange-ceco: #f6ad55; 
-            --text-main: #F7FAFC;
-            --text-dim: #A0AEC0;
+            /* Cores solicitadas: Cinzento Asfalto e Preto Neutro */
+            --bg-main: #09090b; 
+            --bg-accent: #18181b; 
+            --gold-ceco: #d6bc7e; 
+            --text-main: #f4f4f5;
+            --text-dim: #a1a1aa;
         }
         body {
             background-color: var(--bg-main);
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
+            background: radial-gradient(circle at center, var(--bg-accent) 0%, var(--bg-main) 100%);
         }
         h1, h2, h3, h4, .brand {
             font-family: 'Urbanist', sans-serif;
@@ -29,37 +31,25 @@
         }
 
         .hero-glow {
-            background: radial-gradient(circle at 50% 50%, rgba(246, 173, 85, 0.05) 0%, transparent 70%);
+            background: radial-gradient(circle at 50% 50%, rgba(214, 188, 126, 0.05) 0%, transparent 70%);
         }
 
         .before-highlight {
             position: relative;
             display: inline-block;
-            color: var(--orange-ceco);
+            color: var(--gold-ceco);
             font-style: italic;
             padding: 0 0.2em;
         }
         
-        .before-highlight::after {
-            content: "";
-            position: absolute;
-            bottom: 0.1em;
-            left: 0;
-            width: 100%;
-            height: 0.15em;
-            background: var(--orange-ceco);
-            opacity: 0.3;
-            z-index: -1;
-        }
-
         .glass-card {
-            background: rgba(45, 55, 72, 0.4);
-            border: 1px solid rgba(246, 173, 85, 0.1);
+            background: rgba(24, 24, 27, 0.6);
+            border: 1px solid rgba(214, 188, 126, 0.1);
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
         }
         .glass-card:hover {
-            border-color: var(--orange-ceco);
+            border-color: var(--gold-ceco);
             transform: translateY(-4px);
         }
 
@@ -71,14 +61,14 @@
             transition: all 0.3s;
         }
         .nav-link:hover {
-            color: var(--orange-ceco);
+            color: var(--gold-ceco);
         }
 
         .section-tag {
             font-size: 0.7rem;
             font-weight: 700;
             letter-spacing: 0.3em;
-            color: var(--orange-ceco);
+            color: var(--gold-ceco);
             text-transform: uppercase;
             margin-bottom: 1.5rem;
             display: block;
@@ -87,18 +77,23 @@
         .logo-box {
             width: 34px;
             height: 34px;
-            border: 1.5px solid #fff;
+            border: 1.5px solid var(--gold-ceco);
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Urbanist', sans-serif;
-            font-weight: 700;
-            color: #fff;
+            font-weight: 300;
+            color: var(--gold-ceco);
             border-radius: 2px;
+            transition: all 0.3s;
+        }
+        .logo-box:hover {
+            background: var(--gold-ceco);
+            color: var(--bg-main);
         }
 
         .btn-primary {
-            background-color: var(--orange-ceco);
+            background-color: var(--gold-ceco);
             color: var(--bg-main);
             padding: 1rem 2.5rem;
             font-weight: 700;
@@ -113,60 +108,43 @@
         .bio-image-container {
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(246, 173, 85, 0.2);
-            background: #2D3748;
+            border: 1px solid rgba(214, 188, 126, 0.2);
+            background: #18181b;
             aspect-ratio: 3/4;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        .bio-image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(100%) contrast(110%);
-            transition: filter 0.5s ease;
-        }
-        .bio-image-container:hover img {
-            filter: grayscale(0%) contrast(100%);
-        }
 
         .text-accent-link {
-            color: var(--orange-ceco);
+            color: var(--gold-ceco);
             text-decoration: none;
             border-bottom: 1px solid transparent;
             transition: border 0.3s;
         }
         .text-accent-link:hover {
-            border-bottom: 1px solid var(--orange-ceco);
-        }
-
-        .placeholder-text {
-            position: absolute;
-            color: var(--orange-ceco);
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            text-align: center;
-            padding: 20px;
+            border-bottom: 1px solid var(--gold-ceco);
         }
     </style>
 </head>
-<body class="selection:bg-orange-500/30">
+<body class="selection:bg-yellow-500/30">
 
-    <!-- Navegação -->
-    <nav class="fixed top-0 w-full z-50 px-6 md:px-12 py-5 flex justify-between items-center bg-[#1A202C]/95 backdrop-blur-md border-b border-white/10">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 px-6 md:px-12 py-5 flex justify-between items-center bg-[#09090b]/95 backdrop-blur-md border-b border-white/5">
         <div class="flex items-center gap-4">
-            <div class="logo-box">c</div>
-            <span class="text-2xl font-bold tracking-tighter text-white">c-ECO</span>
-            <span class="hidden md:block text-[10px] font-bold tracking-[0.4em] text-gray-500 uppercase ml-2 border-l border-white/20 pl-4">Governança Antecipatória</span>
+            <a href="index.html" class="logo-box">Σ</a>
+            <div class="flex flex-col">
+                <span class="text-2xl font-bold tracking-tighter text-white">c-ECO</span>
+                <a href="index.html" class="text-[8px] font-bold tracking-[0.3em] text-[#d6bc7e] uppercase hover:text-white transition">Voltar ao Portal</a>
+            </div>
+            <span class="hidden md:block text-[10px] font-bold tracking-[0.4em] text-zinc-600 uppercase ml-2 border-l border-white/10 pl-4">Governança Antecipatória</span>
         </div>
         <div class="hidden lg:flex gap-8">
             <a href="#proposta" class="nav-link">Arquitetura</a>
-            <a href="#fundamentos" class="nav-link">Pilares</a>
-            <a href="#autora" class="nav-link">Autora</a>
-            <a href="#bibliografia" class="nav-link">Referências</a>
-            <a href="#contato" class="nav-link px-4 py-2 border border-white/20 rounded-sm">Contacto</a>
+            <a href="#pilares" class="nav-link">Pilares</a>
+            <a href="#autora" class="nav-link">A Autora</a>
+            <a href="#referencias" class="nav-link">Referências</a>
+            <a href="#contato" class="nav-link px-4 py-2 border border-white/10 rounded-sm">Contacto</a>
         </div>
     </nav>
 
@@ -180,12 +158,12 @@
                     <span class="before-highlight">antes</span> <br>
                     do colapso.
                 </h1>
-                <p class="text-lg md:text-2xl text-gray-400 font-light max-w-3xl leading-relaxed mb-12">
-                    A Doutrina c-ECO introduz a governança contratual pré-limite: uma arquitetura jurídica que protege o espaço para decisões futuras, impedindo que contratos se tornem trajetórias irreversíveis.
+                <p class="text-lg md:text-2xl text-zinc-400 font-light max-w-3xl leading-relaxed mb-12">
+                    A Doutrina c-ECO introduz a governança contratual pré-limite: uma arquitetura jurídica que preserva o espaço de decisão futura, impedindo que contratos se tornem trajetórias irreversíveis.
                 </p>
                 <div class="flex flex-wrap gap-6">
                     <a href="#proposta" class="btn-primary">Explorar Protocolo</a>
-                    <a href="#autora" class="px-10 py-4 border border-white/20 rounded-sm font-bold hover:bg-white/5 transition text-white uppercase tracking-widest text-xs">A Autora</a>
+                    <a href="#autora" class="px-10 py-4 border border-white/10 rounded-sm font-bold hover:bg-white/5 transition text-white uppercase tracking-widest text-xs">A Autora</a>
                 </div>
             </div>
         </section>
@@ -195,155 +173,117 @@
             <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
                 <div>
                     <span class="section-tag">O Descompasso Temporal</span>
-                    <h2 class="text-4xl font-bold mb-8 text-white">O Direito intervém no dano. Nós intervimos <span class="text-[#f6ad55]">antes</span> do limite.</h2>
-                    <p class="text-gray-400 text-lg mb-8 leading-relaxed">
-                        Em sistemas complexos, as decisões acumulam-se até um ponto de <strong>perclusão</strong> — o fechamento definitivo de alternativas. No momento em que o dano ocorre, o Direito já não tem nada para governar, apenas para sancionar.
+                    <h2 class="text-4xl font-bold mb-8 text-white">O Direito intervém no dano. Nós intervimos <span class="text-[#d6bc7e]">antes</span> do limite.</h2>
+                    <p class="text-zinc-400 text-lg mb-8 leading-relaxed">
+                        Em sistemas complexos, as decisões acumulam-se até atingirem um ponto de <strong>perclusão</strong> — o fechamento definitivo de alternativas. Quando o dano ocorre, o Direito já não tem nada para governar, apenas para sancionar.
                     </p>
-                    <div class="p-6 border-l-4 border-[#f6ad55] bg-white/5 rounded-r-lg">
+                    <div class="p-6 border-l-4 border-[#d6bc7e] bg-zinc-900 rounded-r-lg">
                         <p class="text-white italic text-lg leading-snug">"A legalidade persiste enquanto a capacidade de mudar de rumo se esgota. O c-ECO rompe com a impunidade temporal do design jurídico atual."</p>
                     </div>
                 </div>
                 <div class="grid gap-6">
                     <div class="glass-card p-10 rounded-lg">
-                        <div class="w-12 h-[1px] bg-[#f6ad55] mb-6"></div>
+                        <div class="w-12 h-[1px] bg-[#d6bc7e] mb-6"></div>
                         <h3 class="text-white font-bold mb-4 uppercase text-xs tracking-widest">Validade Material Residual</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed">A validade contratual depende da manutenção das condições reais (ecológicas e sociais) que permitiram a sua autorização no primeiro dia.</p>
+                        <p class="text-sm text-zinc-500 leading-relaxed">A validade contratual depende da manutenção das condições reais (ecossistémicas e sociais) que permitiram a sua autorização no dia zero.</p>
                     </div>
                     <div class="glass-card p-10 rounded-lg">
-                        <div class="w-12 h-[1px] bg-[#f6ad55] mb-6"></div>
+                        <div class="w-12 h-[1px] bg-[#d6bc7e] mb-6"></div>
                         <h3 class="text-white font-bold mb-4 uppercase text-xs tracking-widest">Protocolos de Reversibilidade</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed">Mecanismos ativados aos 80% do limite crítico, garantindo que a execução nunca ultrapasse o "ponto de não retorno" sistémico.</p>
+                        <p class="text-sm text-zinc-500 leading-relaxed">Mecanismos ativados aos 80% de um limite crítico, garantindo que a execução nunca atravesse o "ponto de não retorno" sistémico.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Seção Bio / Autora -->
-        <section id="autora" class="py-32 px-8 md:px-24 border-t border-white/5 bg-black/20">
+        <!-- Autora / Bio Section -->
+        <section id="autora" class="py-32 px-8 md:px-24 border-t border-white/5 bg-zinc-950">
             <div class="max-w-6xl mx-auto">
                 <span class="section-tag">Fundamentação Intelectual</span>
                 <div class="grid lg:grid-cols-12 gap-16">
                     <div class="lg:col-span-4">
                         <div class="bio-image-container rounded-sm shadow-2xl">
-                            <!-- Placeholder visual elegante para quando a imagem não está disponível -->
-                            <div class="placeholder-text">Substituir src="jacqueline-ennis.PNG" por URL real</div>
-                            <img src="jacqueline-ennis.PNG" alt="Jacqueline A. Ennis" 
-                                 onerror="this.style.display='none'">
+                            <div class="text-center p-8 opacity-40">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#d6bc7e" stroke-width="1" class="mx-auto mb-4">
+                                    <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span class="text-[8px] uppercase tracking-widest text-[#d6bc7e]">Researcher ID</span>
+                            </div>
                         </div>
                         <div class="mt-8">
                             <h4 class="text-2xl font-bold text-white mb-2">Jacqueline A. Ennis</h4>
-                            <p class="text-[#f6ad55] text-sm uppercase tracking-widest font-semibold">Jurista e Investigadora</p>
+                            <p class="text-[#d6bc7e] text-sm uppercase tracking-widest font-semibold">Jurista e Investigadora</p>
                             <div class="mt-6 flex flex-col gap-3">
-                                <span class="text-xs text-gray-500 font-mono">/ LL.M. WashU Law</span>
-                                <span class="text-xs text-gray-500 font-mono">/ Boston University</span>
-                                <span class="text-xs text-gray-500 font-mono">/ Instituto Silvio Meira</span>
+                                <span class="text-xs text-zinc-600 font-mono">/ LL.M. WashU Law</span>
+                                <span class="text-xs text-zinc-600 font-mono">/ Boston University</span>
+                                <span class="text-xs text-zinc-600 font-mono">/ Instituto Silvio Meira</span>
                             </div>
                         </div>
                     </div>
-                    <div class="lg:col-span-8 space-y-6 text-gray-400 text-lg leading-relaxed font-light">
+                    <div class="lg:col-span-8 space-y-6 text-zinc-400 text-lg leading-relaxed font-light">
                         <p>
-                            Jacqueline A. Ennis é jurista luso-brasileira, radicada nos Estados Unidos, e autora da 
-                            <strong class="text-white">doutrina c-ECO (Contractual Equity & Ecological Co-Responsibility)</strong>. 
-                            Sua pesquisa formula uma estrutura jurídico-contratual de governança pré-limiar, desenvolvida para enfrentar uma limitação crítica do direito contemporâneo: a prevalência de mecanismos de intervenção <span class="italic">ex post</span>.
+                            Jacqueline A. Ennis é uma jurista luso-brasileira e investigadora independente. É a autora da 
+                            <strong class="text-white">Doutrina c-ECO (Contractual Equity & Ecological Co-Responsibility)</strong>. 
                         </p>
                         <p>
-                            O trabalho de Ennis reconceitua os contratos como <strong class="text-white text-base">arquiteturas temporais de decisão</strong>. Sua tese demonstra que as decisões juridicamente consequentes ocorrem majoritariamente durante períodos de conformidade normativa, exaurindo o espaço decisório futuro. A c-ECO introduz os conceitos de <strong class="text-white text-base">validade temporal</strong> e <strong class="text-white text-base">responsabilidade pré-limiar</strong>.
+                            Seu trabalho reconceitualiza contratos como <strong class="text-white text-base">arquiteturas temporais de decisão</strong>. Sua tese demonstra que as decisões juridicamente consequentes ocorrem majoritariamente durante períodos de conformidade regulatória, exaurindo o espaço de decisão futuro.
                         </p>
                         <p>
-                            A formulação é ancorada em mais de <strong class="text-white text-base">duas décadas de liderança empreendedora na Amazónia brasileira (1993–2014)</strong>, experiência que informa sua abordagem dos contratos como estruturas de governança dinâmica, situadas em ecologias sociais e territoriais concretas.
-                        </p>
-                        <p>
-                            Ennis possui LL.M. em Business Law pela 
-                            <a href="https://law.washu.edu/" target="_blank" class="text-accent-link">Washington University in St. Louis</a>, formação complementar pela 
-                            <a href="https://www.bu.edu/" target="_blank" class="text-accent-link">Boston University</a> e conta com o apoio estratégico do 
-                            <a href="https://institutosilviomeira.net.br/" target="_blank" class="text-accent-link">Instituto Silvio Meira (ISM)</a>.
-                        </p>
-                        <p>
-                            Atualmente, dedica-se à sistematização da Doutrina c-ECO em livro de caráter monográfico e ao desenvolvimento de modelos jurídicos aplicados à governança de riscos sistémicos.
+                            A formulação está ancorada na sua trajetória académica na <a href="https://law.washu.edu/" target="_blank" class="text-accent-link">Washington University in St. Louis</a> e estudos na <a href="https://www.bu.edu/" target="_blank" class="text-accent-link">Boston University</a>, contando com o apoio estratégico do <strong class="text-white">Instituto Silvio Meira (ISM)</strong>.
                         </p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Fundamentos -->
-        <section id="fundamentos" class="py-32 px-8 md:px-24 bg-black/10">
+        <!-- Pilares -->
+        <section id="pilares" class="py-32 px-8 md:px-24 bg-zinc-950/50">
             <div class="max-w-6xl mx-auto">
                 <div class="mb-20 text-center">
                     <span class="section-tag">Pilares Dogmáticos</span>
                     <h2 class="text-4xl font-bold text-white">Estrutura de Co-responsabilidade</h2>
                 </div>
                 <div class="grid md:grid-cols-3 gap-8">
-                    <div class="p-10 border border-white/10 hover:border-orange-400/30 transition bg-[#1A202C]">
-                        <div class="text-3xl font-light text-[#f6ad55] mb-6">Σ</div>
-                        <h4 class="text-xl font-bold mb-4 text-white">Tempo-como-Estado</h4>
-                        <p class="text-gray-500 text-sm leading-relaxed">Substituímos o tempo de "prazo" pelo tempo de "capacidade": a soma das decisões que ainda permitem a sobrevivência do sistema.</p>
+                    <div class="p-10 border border-white/5 hover:border-[#d6bc7e]/30 transition bg-zinc-900">
+                        <div class="text-3xl font-light text-[#d6bc7e] mb-6">Σ</div>
+                        <h4 class="text-xl font-bold mb-4 text-white">Tempo-Capacidade</h4>
+                        <p class="text-zinc-500 text-sm leading-relaxed">Substituindo o tempo "prazo" pelo tempo "capacidade": a soma das decisões que ainda permitem a sobrevivência do sistema.</p>
                     </div>
-                    <div class="p-10 border border-white/10 hover:border-orange-400/30 transition bg-[#1A202C]">
-                        <div class="text-3xl font-light text-[#f6ad55] mb-6">⊘</div>
+                    <div class="p-10 border border-white/5 hover:border-[#d6bc7e]/30 transition bg-zinc-900">
+                        <div class="text-3xl font-light text-[#d6bc7e] mb-6">⊘</div>
                         <h4 class="text-xl font-bold mb-4 text-white">Limites à Autorização</h4>
-                        <p class="text-gray-500 text-sm leading-relaxed">A integridade biofísica da Terra opera como condição negativa de validade: se o sistema morre, o contrato perde a sua razão jurídica.</p>
+                        <p class="text-zinc-500 text-sm leading-relaxed">A integridade sistémica opera como condição negativa de validade: se o sistema colapsa, o contrato perde sua finalidade jurídica.</p>
                     </div>
-                    <div class="p-10 border border-white/10 hover:border-orange-400/30 transition bg-[#1A202C]">
-                        <div class="text-3xl font-light text-[#f6ad55] mb-6">♽</div>
+                    <div class="p-10 border border-white/5 hover:border-[#d6bc7e]/30 transition bg-zinc-900">
+                        <div class="text-3xl font-light text-[#d6bc7e] mb-6">♽</div>
                         <h4 class="text-xl font-bold mb-4 text-white">Design Adaptativo</h4>
-                        <p class="text-gray-500 text-sm leading-relaxed">Dever de monitorização ativa e renegociação obrigatória como pré-requisitos para a segurança social e do investidor.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Bibliografia -->
-        <section id="bibliografia" class="py-32 px-8 md:px-24">
-            <div class="max-w-6xl mx-auto">
-                <span class="section-tag">Genealogia Teórica</span>
-                <h2 class="text-4xl font-bold mb-16 text-white text-center">Referências Académicas Centrais</h2>
-                <div class="grid md:grid-cols-2 gap-x-20 gap-y-12">
-                    <div class="group cursor-default border-b border-white/5 pb-8">
-                        <p class="text-[#f6ad55] text-xs font-bold mb-2">01 / ÉTICA SISTÉMICA</p>
-                        <p class="text-white text-xl font-semibold mb-1 group-hover:text-orange-300 transition">Michel Serres</p>
-                        <p class="text-gray-500 italic">O Contrato Natural (1990)</p>
-                    </div>
-                    <div class="group cursor-default border-b border-white/5 pb-8">
-                        <p class="text-[#f6ad55] text-xs font-bold mb-2">02 / EPISTEMOLOGIA</p>
-                        <p class="text-white text-xl font-semibold mb-1 group-hover:text-orange-300 transition">Enrique Leff</p>
-                        <p class="text-gray-500 italic">Racionalidade Ambiental (2006)</p>
-                    </div>
-                    <div class="group cursor-default border-b border-white/5 pb-8">
-                        <p class="text-[#f6ad55] text-xs font-bold mb-2">03 / ONTOLOGIA</p>
-                        <p class="text-white text-xl font-semibold mb-1 group-hover:text-orange-300 transition">Humberto Maturana</p>
-                        <p class="text-gray-500 italic">Autopoiese e Cognição (1980)</p>
-                    </div>
-                    <div class="group cursor-default border-b border-white/5 pb-8">
-                        <p class="text-[#f6ad55] text-xs font-bold mb-2">04 / DIREITO GLOBAL</p>
-                        <p class="text-white text-xl font-semibold mb-1 group-hover:text-orange-300 transition">Louis Kotzé</p>
-                        <p class="text-gray-600 italic">Global Environmental Constitutionalism (2016)</p>
+                        <p class="text-zinc-500 text-sm leading-relaxed">Dever de monitorização ativa e renegociação obrigatória como pré-requisitos para a segurança sistémica.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Footer -->
-        <footer id="contato" class="py-24 px-8 md:px-24 border-t border-white/10 bg-[#141924]">
+        <footer id="contato" class="py-24 px-8 md:px-24 border-t border-white/5 bg-[#050505]">
             <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start gap-16">
                 <div class="max-w-md">
                     <div class="flex items-center gap-4 mb-8">
-                        <div class="logo-box">c</div>
+                        <div class="logo-box">Σ</div>
                         <span class="text-3xl font-bold text-white">c-ECO</span>
                     </div>
-                    <p class="text-gray-500 text-sm leading-relaxed mb-8">
-                        Arquitetura de governança focada na preservação da decidibilidade e reversibilidade em cenários de alta complexidade. Restaurando a soberania do Direito sobre o tempo sistémico.
+                    <p class="text-zinc-600 text-sm leading-relaxed mb-8">
+                        Arquitetura de governança focada na preservação da decidibilidade e reversibilidade em cenários de alta complexidade.
                     </p>
-                    <p class="text-gray-400 text-sm font-semibold">Jacqueline A. Ennis</p>
-                    <p class="text-gray-600 text-xs uppercase tracking-widest mt-1">Fundadora e Investigadora Principal</p>
+                    <p class="text-zinc-400 text-sm font-semibold">Jacqueline A. Ennis</p>
+                    <p class="text-zinc-600 text-[10px] uppercase tracking-widest mt-1">Fundadora e Investigadora Principal // ISM Partner</p>
                 </div>
                 <div class="flex flex-col gap-6">
-                    <span class="text-xs font-bold text-gray-500 uppercase tracking-widest text-[#f6ad55]">Implementação Piloto</span>
-                    <a href="mailto:info@c-eco.org" class="text-4xl md:text-5xl text-white hover:text-orange-400 transition font-bold tracking-tighter">info@c-eco.org</a>
-                    <div class="h-[1px] w-full bg-gradient-to-r from-orange-400 to-transparent"></div>
-                    <div class="flex justify-between items-center text-[10px] text-gray-600 tracking-widest uppercase mt-4">
-                        <span>Horizonte de Investigação: 2025–2026</span>
-                        <span class="text-right">© 2025 Jacqueline A. Ennis | c-ECO<br>Propriedade Intelectual Doutrinária Registada</span>
+                    <span class="text-xs font-bold text-zinc-600 uppercase tracking-widest">Implementação Piloto</span>
+                    <a href="mailto:info@c-eco.org" class="text-4xl md:text-5xl text-white hover:text-[#d6bc7e] transition font-bold tracking-tighter">info@c-eco.org</a>
+                    <div class="h-[1px] w-full bg-zinc-800"></div>
+                    <div class="flex justify-between items-center text-[10px] text-zinc-700 tracking-widest uppercase mt-4">
+                        <span>Horizonte: 2025–2026</span>
+                        <span class="text-right">© 2025 Jacqueline A. Ennis | c-ECO</span>
                     </div>
                 </div>
             </div>
@@ -352,3 +292,4 @@
 
 </body>
 </html>
+
