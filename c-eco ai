@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocol Σ // AI Console</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Urbanist:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            950: '#09090b', // Deep background
+                            900: '#18181b', // Surface
+                        },
+                        sigma: {
+                            DEFAULT: '#d6bc7e', // O Dourado Sigma
+                            dim: 'rgba(214, 188, 126, 0.35)',
+                            glow: 'rgba(214, 188, 126, 0.15)',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        tech: ['Urbanist', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'scanline': 'scanline 8s linear infinite',
+                    },
+                    keyframes: {
+                        scanline: {
+                            '0%': { transform: 'translateY(-100%)' },
+                            '100%': { transform: 'translateY(100%)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Efeito sutil de Scanline CRT */
+        .scanline-overlay {
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.05) 50%,
+                rgba(0,0,0,0.05)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+        
+        /* Scrollbar customizada fina e escura */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #09090b; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272a; 
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3f3f46; 
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-zinc-300 font-sans h-screen flex flex-col overflow-hidden selection:bg-sigma-dim selection:text-white">
+
+    <div class="fixed inset-0 scanline-overlay z-50 opacity-20 pointer-events-none"></div>
+
+    <header class="h-14 border-b border-white/5 bg-slate-950/80 backdrop-blur-sm flex items-center justify-between px-6 z-40 relative">
+        <div class="flex items-center gap-4">
+            <div class="w-8 h-8 border border-white/10 flex items-center justify-center bg-white/5">
+                <span class="font-tech text-sigma font-bold text-lg">Σ</span>
+            </div>
+            
+            <div class="flex flex-col">
+                <h1 class="font-tech text-sm tracking-[0.2em] text-white uppercase font-semibold">
+                    c-ECO AI Protocol
+                </h1>
+                <span class="text-[0.65rem] text-zinc-500 uppercase tracking-wider font-tech">
+                    Pre-Threshold Decision Guardian
+                </span>
+            </div>
+        </div>
+
+        <div class="hidden md:flex items-center gap-3 px-4 py-1 rounded-full border border-white/5 bg-white/5">
+            <div class="w-1.5 h-1.5 rounded-full bg-sigma animate-pulse"></div>
+            <span class="font-tech text-xs tracking-[0.15em] text-sigma">SYSTEM ACTIVE</span>
+        </div>
+        
+        <div class="flex items-center gap-4 text-xs font-tech text-zinc-500">
+            <span>SESSION: 4X-99</span>
+            <button class="hover:text-sigma transition-colors">EXIT TERMINAL</button>
+        </div>
+    </header>
+
+    <main class="flex-1 flex overflow-hidden relative z-10">
+        
+        <section class="flex-1 flex flex-col relative max-w-5xl mx-auto w-full border-r border-white/5">
+            
+            <div class="px-6 py-3 border-b border-white/5 bg-white/[0.02] flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <span class="text-sigma text-xs">◆</span>
+                    <span class="font-tech text-sm text-zinc-400 tracking-wide">
+                        SCENARIO: <span class="text-zinc-200">AMAZON BASIN CONCESSION</span> // CONTRACT v3.2
+                    </span>
+                </div>
+                <div class="text-[0.6rem] font-mono text-zinc-600">ID: 8821-CX</div>
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-6 space-y-8" id="console-output">
+                
+                <div class="flex justify-end pl-12">
+                    <div class="bg-zinc-900/60 border border-white/5 text-zinc-200 p-4 rounded-sm max-w-2xl backdrop-blur-sm">
+                        <p class="text-sm leading-relaxed">
+                            Analise a viabilidade de estender a operação para o setor norte considerando os níveis atuais de seca e o impacto na comunidade ribeirinha local.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex justify-start pr-12">
+                    <div class="w-full max-w-3xl">
+                        <div class="border-l-[1px] border-sigma-dim bg-[#18181b]/80 p-5 pl-6 relative">
+                            
+                            <div class="flex gap-4 mb-3 font-mono text-[0.65rem] text-sigma/80 tracking-wide uppercase border-b border-white/5 pb-2">
+                                <span>[ t-state: −2 cycles to threshold ]</span>
+                                <span>[ Focus: Water Governance ]</span>
+                            </div>
+
+                            <div class="prose prose-invert prose-sm max-w-none text-zinc-300 font-light">
+                                <p class="mb-3">
+                                    <strong class="text-white font-medium font-tech">Analysis initiated. System State: Drifting.</strong>
+                                </p>
+                                <p class="mb-3">
+                                    A expansão para o setor norte apresenta um risco sistêmico elevado. Os dados de satélite indicam que o lençol freático está 15% abaixo da média decenal (pre-threshold warning).
+                                </p>
+                                <p>
+                                    A comunidade ribeirinha atua como um regulador natural do ecossistema local; deslocá-los ou impactar seu acesso à água acelerará a degradação ambiental, reduzindo o <em class="text-zinc-400 not-italic">tempo-capacidade</em> do projeto em aproximadamente 3 ciclos de revisão.
+                                </p>
+                            </div>
+
+                            <div class="mt-4 pt-2 border-t border-white/5 flex gap-2">
+                                <span class="px-1.5 py-0.5 bg-red-900/20 border border-red-900/30 text-red-400 text-[0.6rem] font-tech uppercase rounded">High Risk Vector</span>
+                                <span class="px-1.5 py-0.5 bg-blue-900/20 border border-blue-900/30 text-blue-400 text-[0.6rem] font-tech uppercase rounded">Social Compliance</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-start items-center gap-3 opacity-80 pl-1 pt-2">
+                    <div class="relative w-4 h-4 flex items-center justify-center">
+                        <div class="absolute w-full h-full border border-sigma rounded-full animate-ping opacity-20"></div>
+                        <div class="w-2 h-2 bg-sigma rounded-full"></div>
+                    </div>
+                    <span class="font-tech text-[0.6rem] tracking-[0.2em] text-sigma uppercase animate-pulse">
+                        Computing pre-threshold trajectories...
+                    </span>
+                </div>
+
+            </div>
+
+            <div class="p-6 pt-2">
+                <div class="relative group">
+                    <div class="absolute -inset-0.5 bg-gradient-to-r from-sigma/20 to-transparent rounded opacity-0 group-hover:opacity-100 transition duration-500 blur"></div>
+                    <div class="relative flex items-center bg-slate-950 border border-white/10 p-1">
+                        <span class="pl-3 pr-2 text-sigma font-tech">Σ</span>
+                        <input type="text" 
+                               placeholder="Input command or query system parameters..." 
+                               class="w-full bg-transparent border-none text-sm text-white placeholder-zinc-600 focus:ring-0 px-2 py-3 font-mono focus:outline-none h-12">
+                        <button class="px-4 py-1 mr-1 bg-white/5 hover:bg-sigma hover:text-black border border-white/10 text-xs font-tech tracking-wider text-zinc-400 transition-all uppercase">
+                            Execute
+                        </button>
+                    </div>
+                </div>
+                <div class="text-center mt-2">
+                    <p class="text-[0.55rem] text-zinc-600 font-mono tracking-widest uppercase">
+                        Protocol Σ v2.4 // All interactions monitored for systemic integrity
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+        <aside class="w-80 bg-[#0c0c0e] border-l border-white/5 flex flex-col hidden lg:flex">
+            <div class="p-5 border-b border-white/5">
+                <h2 class="font-tech text-xs tracking-[0.2em] text-zinc-500 uppercase mb-4">System Integrity State</h2>
+                
+                <div class="relative h-2 w-full bg-zinc-800 rounded-full mb-2 overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-zinc-600 via-sigma to-red-900 opacity-80"></div>
+                </div>
+                
+                <div class="relative w-full h-4 mb-1">
+                    <div class="absolute left-[60%] -top-3 transform -translate-x-1/2 flex flex-col items-center">
+                        <div class="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-t-[6px] border-t-sigma mb-1"></div>
+                        <span class="text-[0.6rem] font-tech text-sigma tracking-wider uppercase">Drifting</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-5 flex-1 overflow-y-auto">
+                
+                <div class="mb-8">
+                    <h3 class="font-tech text-[0.65rem] text-zinc-500 uppercase mb-3 tracking-widest">Time-Capacity Horizon</h3>
+                    <div class="relative pl-2 border-l border-white/10 space-y-6">
+                        
+                        <div class="relative">
+                            <div class="absolute -left-[13px] top-1 w-2 h-2 bg-zinc-700 rounded-full border border-black"></div>
+                            <p class="text-[0.65rem] text-zinc-500 uppercase mb-0.5">Cycle -1</p>
+                            <p class="text-xs text-zinc-400">Initial Assessment</p>
+                        </div>
+
+                        <div class="relative">
+                            <div class="absolute -left-[13px] top-1 w-2 h-2 bg-sigma rounded-full border border-black shadow-[0_0_10px_rgba(214,188,126,0.4)]"></div>
+                            <p class="text-[0.65rem] text-sigma uppercase mb-0.5">Current Cycle</p>
+                            <p class="text-xs text-white">Impact Analysis</p>
+                            <div class="mt-2 p-2 bg-white/5 border-l-2 border-sigma text-[0.6rem] text-zinc-300 leading-tight">
+                                DECISION WINDOW CLOSING IN<br>
+                                <span class="text-white font-mono">3 REVIEW CYCLES</span>
+                            </div>
+                        </div>
+
+                        <div class="relative opacity-50">
+                            <div class="absolute -left-[13px] top-1 w-2 h-2 bg-zinc-800 rounded-full border border-black"></div>
+                            <p class="text-[0.65rem] text-zinc-500 uppercase mb-0.5">Threshold Event</p>
+                            <p class="text-xs text-zinc-600">Irreversible State</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="font-tech text-[0.65rem] text-zinc-500 uppercase mb-3 tracking-widest">Active Pillars</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <div class="flex items-center gap-2 px-3 py-1.5 border border-sigma/30 bg-sigma/10 rounded-sm">
+                            <span class="text-sigma text-xs">Σ</span>
+                            <span class="text-[0.6rem] text-sigma font-tech uppercase tracking-wider">Protocol</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-3 py-1.5 border border-white/5 bg-zinc-900/50 rounded-sm opacity-60">
+                            <span class="text-zinc-500 text-xs">♽</span>
+                            <span class="text-[0.6rem] text-zinc-400 font-tech uppercase tracking-wider">Circular</span>
+                        </div>
+                         <div class="flex items-center gap-2 px-3 py-1.5 border border-blue-500/30 bg-blue-900/10 rounded-sm">
+                            <span class="text-blue-400 text-xs">⊘</span>
+                            <span class="text-[0.6rem] text-blue-300 font-tech uppercase tracking-wider">Water</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 mt-4">
+                    <div class="bg-zinc-900/50 p-2 border border-white/5">
+                        <span class="block text-[0.55rem] text-zinc-500 uppercase">Risk Score</span>
+                        <span class="text-lg font-tech text-zinc-200">72<span class="text-xs text-zinc-600">/100</span></span>
+                    </div>
+                    <div class="bg-zinc-900/50 p-2 border border-white/5">
+                        <span class="block text-[0.55rem] text-zinc-500 uppercase">Confidence</span>
+                        <span class="text-lg font-tech text-sigma">94%</span>
+                    </div>
+                </div>
+
+            </div>
+        </aside>
+
+    </main>
+
+</body>
+</html>
