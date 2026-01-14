@@ -272,6 +272,111 @@
         </aside>
 
     </main>
+<script>
+    // Configuration for elements
+    const inputField = document.querySelector('input[type="text"]');
+    const executeBtn = document.querySelector('button');
+    const consoleOutput = document.getElementById('console-output');
+
+    // Helper: Scroll to bottom of console
+    function scrollToBottom() {
+        consoleOutput.scrollTop = consoleOutput.scrollHeight;
+    }
+
+    // Helper: Create HTML for User Message
+    function createUserMessage(text) {
+        const div = document.createElement('div');
+        div.className = "flex justify-end pl-12 opacity-0 animate-[pulse_0.2s_ease-in_forwards]";
+        div.innerHTML = `
+            <div class="bg-zinc-800/50 border border-sigma/20 text-zinc-300 p-3 rounded-sm max-w-xl backdrop-blur-sm">
+                <span class="text-[0.6rem] text-sigma/50 font-mono block mb-1">COMMAND INPUT ></span>
+                <p class="text-sm font-mono">${text}</p>
+            </div>
+        `;
+        // Remove opacity after animation class logic takes over (simplified here)
+        setTimeout(() => div.classList.remove('opacity-0'), 50);
+        return div;
+    }
+
+    // Helper: Create HTML for System Response
+    function createSystemMessage(text) {
+        const div = document.createElement('div');
+        div.className = "flex justify-start pr-12";
+        div.innerHTML = `
+            <div class="w-full max-w-3xl">
+                <div class="border-l-[1px] border-sigma-dim bg-[#18181b]/80 p-5 pl-6 relative">
+                    <div class="flex gap-4 mb-3 font-mono text-[0.65rem] text-sigma/80 tracking-wide uppercase border-b border-white/5 pb-2">
+                        <span>[ SYSTEM RESPONSE ]</span>
+                        <span>[ T-STATE: NOW ]</span>
+                    </div>
+                    <div class="prose prose-invert prose-sm max-w-none text-zinc-300 font-light">
+                        <p>${text}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+        return div;
+    }
+
+    // Main Execution Logic
+    function executeCommand() {
+        const command = inputField.value.trim();
+        if (!command) return;
+
+        // 1. Add User Command
+        consoleOutput.appendChild(createUserMessage(command));
+        inputField.value = ''; // Clear input
+        scrollToBottom();
+
+        // 2. Simulate System "Thinking"
+        // We temporarily add a loading indicator
+        const loadingId = 'loading-' + Date.now();
+        const loadingDiv = document.createElement('div');
+        loadingDiv.id = loadingId;
+        loadingDiv.className = "flex justify-start items-center gap-3 opacity-80 pl-1 pt-2";
+        loadingDiv.innerHTML = `
+            <div class="relative w-4 h-4 flex items-center justify-center">
+                <div class="absolute w-full h-full border border-sigma rounded-full animate-ping opacity-20"></div>
+                <div class="w-2 h-2 bg-sigma rounded-full"></div>
+            </div>
+            <span class="font-tech text-[0.6rem] tracking-[0.2em] text-sigma uppercase animate-pulse">
+                Processing Protocol...
+            </span>
+        `;
+        consoleOutput.appendChild(loadingDiv);
+        scrollToBottom();
+
+        // 3. Remove loader and add System Response after 1.5 seconds
+        setTimeout(() => {
+            const loader = document.getElementById(loadingId);
+            if(loader) loader.remove();
+
+            // Simple logic to give different answers (You can expand this!)
+            let responseText = "Command received. Parameters accepted. Analysis executing on background cycle.";
+            
+            if(command.toLowerCase().includes("status")) {
+                responseText = "System Integrity at 94%. Drifting detected in Sector North. Recommendation: Initiate re-balancing protocol.";
+            } else if (command.toLowerCase().includes("help")) {
+                responseText = "Available Commands: STATUS, ANALYZE, OVERRIDE, EXIT.";
+            }
+
+            consoleOutput.appendChild(createSystemMessage(responseText));
+            scrollToBottom();
+        }, 1500);
+    }
+
+    // Event Listeners
+    executeBtn.addEventListener('click', executeCommand);
+    
+    inputField.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            executeCommand();
+        }
+    });
+
+    // Auto-scroll on load
+    scrollToBottom();
+</script>
 
 </body>
 </html>
