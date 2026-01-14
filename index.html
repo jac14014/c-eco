@@ -63,4 +63,166 @@
             z-index: 1;
         }
 
-        .logo-box
+        .logo-box-large {
+            width: 120px;
+            height: 120px;
+            border: 1px solid rgba(214, 188, 126, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 100;
+            font-size: 3.5rem;
+            color: var(--gold-sigma);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(15px);
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logo-box-large:hover {
+            transform: scale(1.02) rotate(1deg);
+            border-color: var(--gold-sigma);
+            box-shadow: 0 0 50px rgba(214, 188, 126, 0.03);
+        }
+
+        .brand-name {
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 200;
+            letter-spacing: 1.2em;
+            font-size: 0.9rem;
+            margin-top: 2.5rem;
+            color: var(--gold-sigma);
+            text-indent: 1.2em;
+            text-transform: uppercase;
+        }
+
+        .language-selection {
+            position: absolute;
+            bottom: 12%;
+            display: flex;
+            gap: 5rem;
+            opacity: 0.6;
+            transition: opacity 0.8s ease;
+        }
+
+        .language-selection:hover {
+            opacity: 1;
+        }
+
+        .lang-link {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5em;
+            color: #a1a1aa;
+            text-decoration: none;
+            padding: 10px;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .lang-link::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background: var(--gold-sigma);
+            transition: all 0.4s ease;
+            transform: translateX(-50%);
+        }
+
+        .lang-link:hover {
+            color: var(--gold-sigma);
+        }
+
+        .lang-link:hover::after {
+            width: 40%;
+        }
+
+        /* Efeito de scanline subtil */
+        .scanline::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.05) 51%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .status-tag {
+            position: absolute;
+            top: 5%;
+            font-size: 0.6rem;
+            letter-spacing: 0.8em;
+            color: var(--gold-sigma);
+            text-transform: uppercase;
+        }
+
+        @keyframes protocolPulse {
+            0%, 100% { opacity: 0.35; letter-spacing: 1em; }
+            50% { 
+                opacity: 1; 
+                transform: scale(1.06);
+                text-shadow: 0 0 12px rgba(214, 188, 126, 0.9);
+            } 
+        }
+
+        .protocol-pulse {
+            animation: protocolPulse 3.2s ease-in-out infinite;            
+        }
+
+        /* Esconde texto apenas para motores de busca (Acessibilidade/SEO) */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+    </style>
+</head>
+<body class="scanline">
+
+    <main class="portal-container">
+        <header>
+            <span class="status-tag protocol-pulse">Protocol Σ Active</span>
+        </header>
+        
+        <a href="english.html" class="logo-box-large" aria-label="Enter c-ECO Doctrine Site" onclick="transitionLink(event, 'english.html')">Σ</a>
+        
+        <h1 class="brand-name">c-ECO Doctrine</h1>
+        <p class="sr-only">Contractual Equity & Ecological Co-Responsibility - A governance framework by Jacqueline A. Ennis.</p>
+
+        <nav class="language-selection" aria-label="Language Selection">
+            <a href="english.html" class="lang-link" hreflang="en" onclick="transitionLink(event, 'english.html')">English</a>
+            <a href="portuguese.html" class="lang-link" hreflang="pt" onclick="transitionLink(event, 'portuguese.html')">Português</a>
+        </nav>
+    </main>
+
+    <script>
+        // Suaviza a entrada da página
+        window.addEventListener('pageshow', function (event) {
+            document.body.style.opacity = '1';
+            document.body.style.transition = 'opacity 0.8s ease';
+        });
+
+        // Função de transição para manter o efeito visual ao clicar em links <a>
+        function transitionLink(event, dest) {
+            event.preventDefault(); // Impede o salto imediato
+            document.body.style.transition = "opacity 0.8s ease";
+            document.body.style.opacity = "0";
+            
+            setTimeout(() => {
+                window.location.href = dest;
+            }, 800);
+        }
+    </script>
+</body>
+</html>
