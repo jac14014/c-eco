@@ -22,6 +22,8 @@
             font-family: 'Inter', sans-serif;
             /* Gradiente neutralizado (cinza para preto) */
             background: radial-gradient(circle at center, var(--slate-gray) 0%, var(--bg-deep) 100%);
+            /* garante que sempre podemos animar opacidade */
+            opacity: 1;
         }
 
         .portal-container {
@@ -152,6 +154,13 @@
     </div>
 
     <script>
+        // Sempre que a página for mostrada novamente (inclusive ao voltar pelo navegador),
+        // garantimos que o body volte a ficar visível.
+        window.addEventListener('pageshow', function (event) {
+            document.body.style.opacity = '1';
+            document.body.style.transition = 'opacity 0.8s ease';
+        });
+
         function selectLanguage(dest) {
             document.body.style.transition = "opacity 0.8s ease";
             document.body.style.opacity = "0";
@@ -164,4 +173,3 @@
     </script>
 </body>
 </html>
-
