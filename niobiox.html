@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>c-ΣCO Protocol // Decisional Guardian</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Urbanist:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: { 950: '#09090b', 900: '#18181b' },
+                        sigma: { DEFAULT: '#d6bc7e', dim: 'rgba(214, 188, 126, 0.35)' }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        tech: ['Urbanist', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .scanline-overlay {
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.05));
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
+    </style>
+</head>
+<body class="bg-slate-950 text-zinc-300 font-sans h-screen flex flex-col overflow-hidden selection:bg-sigma-dim selection:text-white">
+
+    <div class="fixed inset-0 scanline-overlay z-50 opacity-20 pointer-events-none"></div>
+
+    <header class="h-14 border-b border-white/5 bg-slate-950/80 backdrop-blur-sm flex items-center justify-between px-6 z-40">
+        <div class="flex items-center gap-4">
+            <div class="w-8 h-8 border border-white/10 flex items-center justify-center bg-white/5">
+                <span class="font-tech text-sigma font-bold text-lg">Σ</span>
+            </div>
+            <div class="flex flex-col">
+                <h1 class="font-tech text-sm tracking-[0.2em] text-white uppercase font-semibold">c-ΣCO AI Protocol</h1>
+                <span class="text-[0.65rem] text-zinc-500 uppercase tracking-wider font-tech">Decisional Guardian v1.0</span>
+            </div>
+        </div>
+        <div class="hidden md:flex items-center gap-3 px-4 py-1 rounded-full border border-white/5 bg-white/5">
+            <div class="w-1.5 h-1.5 rounded-full bg-sigma animate-pulse"></div>
+            <span class="font-tech text-xs tracking-[0.15em] text-sigma">SYSTEM ACTIVE</span>
+        </div>
+        <div class="flex items-center gap-4 text-xs font-tech text-zinc-500">
+            <button class="hover:text-sigma transition-colors" onclick="window.location.href='index.html'">EXIT TERMINAL</button>
+        </div>
+    </header>
+
+        <div class="px-6 py-3 border-b border-white/5 bg-white/[0.02] flex justify-between items-center">
+          <div class="flex items-center gap-2">
+               <span class="text-sigma text-xs">◆</span>
+                <span class="font-tech text-sm text-zinc-400 tracking-wide">
+                  ASSET: <span class="text-zinc-200">NIOBIUM RESEARCH TITLE (ANM-2004)</span> // HOLDER: AURORA MINERALS
+                </span>
+              </div>
+              <div class="flex gap-4 text-[0.6rem] font-mono text-zinc-600">
+                  <span>LAYER I: <span class="text-red-500">SILENT</span></span>
+                  <span>LAYER II: <span class="text-sigma">LOCKED-IN</span></span>
+              </div>
+        </div>    
+            <div class="flex-1 overflow-y-auto p-6 space-y-8" id="console-output">
+                <div class="flex justify-start pr-12">
+                    <div class="w-full max-w-3xl">
+                        <div class="border-l-[1px] border-sigma-dim bg-[#18181b]/80 p-5 pl-6 relative">
+                            <div class="flex gap-4 mb-3 font-mono text-[0.65rem] text-sigma/80 tracking-wide uppercase border-b border-white/5 pb-2">
+                                <span>[ SYSTEM READY ]</span>
+                                <span>[ 80% GAP MONITORING: ON ]</span>
+                            </div>
+                            <p class="text-zinc-300 font-light text-sm">
+                                <strong class="text-white font-tech">Protocol initialized.</strong> Waiting for input data to map Tripartite Agency trajectories. Please submit scenario for sieve analysis.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-6 pt-2">
+                <div class="relative flex items-center bg-slate-950 border border-white/10 p-1">
+                    <span class="pl-3 pr-2 text-sigma font-tech">Σ</span>
+                    <input type="text" id="command-input" placeholder="Enter systemic parameters or query trajectory..." class="w-full bg-transparent border-none text-sm text-white placeholder-zinc-600 focus:ring-0 px-2 py-3 font-mono focus:outline-none h-12">
+                    <button id="execute-btn" class="px-4 py-1 mr-1 bg-white/5 hover:bg-sigma hover:text-black border border-white/10 text-xs font-tech tracking-wider text-zinc-400 transition-all uppercase">Analyze</button>
+                </div>
+                <div class="text-center mt-2">
+                    <p class="text-[0.55rem] text-zinc-600 font-mono tracking-widest uppercase">
+                        Monitoring for Decisional Perclusion // -Στο Methodology Active
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <aside class="w-80 bg-[#0c0c0e] border-l border-white/5 flex flex-col hidden lg:flex">
+            
+            <div class="p-5 border-b border-white/5">
+                <h2 class="font-tech text-[0.65rem] tracking-[0.2em] text-zinc-500 uppercase mb-3">The 80% Cognitive Gap</h2>
+                <div class="relative h-2 w-full bg-zinc-800 rounded-full mb-1 overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-zinc-600 via-zinc-500 to-sigma w-[80%] opacity-30"></div>
+                    <div class="absolute top-0 bottom-0 bg-sigma w-1 left-[65%] shadow-[0_0_10px_#d6bc7e]"></div>
+                </div>
+                <div class="flex justify-between text-[0.6rem] font-mono text-zinc-600 uppercase">
+                    <span>Stable</span>
+                    <span class="text-sigma animate-pulse">Blind Interval</span>
+                    <span>Collapse</span>
+                </div>
+            </div>
+
+            <div class="p-5 border-b border-white/5 space-y-4">
+                <h2 class="font-tech text-[0.65rem] tracking-[0.2em] text-zinc-500 uppercase mb-2">Tripartite Agency (Inputs)</h2>
+                
+                <div>
+                    <div class="flex justify-between text-[0.6rem] text-zinc-400 mb-1 uppercase font-tech">
+                        <span>Human / Institutional</span>
+                        <span class="text-green-500">Stable</span>
+                    </div>
+                    <div class="h-1 bg-zinc-800 rounded-full overflow-hidden">
+                        <div class="h-full bg-green-900 w-[30%]"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex justify-between text-[0.6rem] text-zinc-400 mb-1 uppercase font-tech">
+                        <span>Algorithmic Impact</span>
+                        <span class="text-sigma">High Load</span>
+                    </div>
+                    <div class="h-1 bg-zinc-800 rounded-full overflow-hidden">
+                        <div class="h-full bg-sigma w-[75%]"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex justify-between text-[0.6rem] text-zinc-400 mb-1 uppercase font-tech">
+                        <span>Ecological / Biophysical</span>
+                        <span class="text-red-400">Critical Trend</span>
+                    </div>
+                    <div class="h-1 bg-zinc-800 rounded-full overflow-hidden">
+                        <div class="h-full bg-red-900 w-[88%]"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-5 border-b border-white/5 space-y-4">
+    <h2 class="font-tech text-[0.65rem] tracking-[0.2em] text-zinc-500 uppercase mb-3">
+        Active Data Streams
+    </h2>
+
+    <div class="flex items-center justify-between group cursor-pointer">
+        <div class="flex items-center gap-2">
+            <div class="w-1.5 h-1.5 bg-zinc-500 rounded-sm"></div>
+            <span class="text-[0.6rem] font-mono text-zinc-400 group-hover:text-white transition-colors">
+                Contract_Main_v3.2.pdf
+            </span>
+        </div>
+        <span class="text-[0.55rem] text-zinc-600 border border-white/5 px-1 rounded">INDEXED</span>
+    </div>
+
+    <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+            <div class="w-1.5 h-1.5 bg-green-500 rounded-sm animate-pulse"></div>
+            <span class="text-[0.6rem] font-mono text-zinc-300">
+                ANA_Sensor_River_N
+            </span>
+        </div>
+        <span class="text-[0.55rem] text-green-500/80 font-tech tracking-wider">LIVE 200ms</span>
+    </div>
+
+    <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+            <div class="w-1.5 h-1.5 bg-blue-500 rounded-sm"></div>
+            <span class="text-[0.6rem] font-mono text-zinc-300">
+                SAP_Fin_Q4_2025
+            </span>
+        </div>
+        <span class="text-[0.55rem] text-blue-400/80 font-tech tracking-wider">SYNCED</span>
+    </div>
+</div>
+
+            <div class="p-5 flex-1">
+                <h2 class="font-tech text-[0.65rem] tracking-[0.2em] text-zinc-500 uppercase mb-3">Diagnostic Engine</h2>
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2 text-[0.65rem] text-zinc-500 font-mono">
+                        <span class="text-sigma">✓</span> Interdependency Sieve
+                    </div>
+                    <div class="flex items-center gap-2 text-[0.65rem] text-zinc-500 font-mono">
+                        <span class="text-sigma">✓</span> Intensity & Consumption
+                    </div>
+                    <div class="flex items-center gap-2 text-[0.65rem] text-zinc-300 font-mono">
+                        <span class="animate-pulse">○</span> Equity & Vulnerability
+                    </div>
+                    <div class="flex items-center gap-2 text-[0.65rem] text-zinc-600 font-mono opacity-50">
+                        <span>·</span> Plasticity Check
+                    </div>
+                </div>
+
+                <div class="mt-8 p-3 bg-red-900/10 border border-red-900/30 rounded-sm">
+                    <span class="block text-[0.55rem] text-red-400/70 uppercase font-tech tracking-wider mb-1">Risk of Decisional Perclusion</span>
+                    <span class="block text-xl font-mono text-red-500 font-light">− 2 CYCLES</span>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const inputField = document.getElementById('command-input');
+        const executeBtn = document.getElementById('execute-btn');
+        const consoleOutput = document.getElementById('console-output');
+
+        function scrollToBottom() { consoleOutput.scrollTop = consoleOutput.scrollHeight; }
+
+        function createUserMessage(text) {
+            const div = document.createElement('div');
+            div.className = "flex justify-end pl-12 opacity-0 transition-opacity duration-200";
+            div.innerHTML = `
+                <div class="bg-zinc-800/50 border border-sigma/20 text-zinc-300 p-3 rounded-sm max-w-xl backdrop-blur-sm">
+                    <span class="text-[0.6rem] text-sigma/50 font-mono block mb-1">INPUT SOURCE: HUMAN AGENCY ></span>
+                    <p class="text-sm font-mono">${text}</p>
+                </div>`;
+            requestAnimationFrame(() => div.classList.remove('opacity-0'));
+            return div;
+        }
+
+        function createSystemMessage(text, type = 'standard') {
+            const div = document.createElement('div');
+            div.className = "flex justify-start pr-12";
+            let header = "[ TRAJECTORY ASSESSMENT ]";
+            let borderColor = "border-sigma-dim";
+            
+            if (type === 'alert') {
+                header = "[ PREDICTIVE ALERT: PRE-THRESHOLD ]";
+                borderColor = "border-red-500/50";
+            }
+
+            div.innerHTML = `
+                <div class="w-full max-w-3xl">
+                    <div class="border-l-[1px] ${borderColor} bg-[#18181b]/80 p-5 pl-6 relative">
+                        <div class="flex gap-4 mb-3 font-mono text-[0.65rem] text-sigma/80 tracking-wide uppercase border-b border-white/5 pb-2">
+                            <span>${header}</span>
+                            <span>[ -Στο CALCULATION: COMPLETE ]</span>
+                        </div>
+                        <div class="prose prose-invert prose-sm max-w-none text-zinc-300 font-light">
+                            ${text}
+                        </div>
+                    </div>
+                </div>`;
+            return div;
+        }
+
+        // Substitua a função executeCommand dentro do seu <script> por esta versão focada em Nióbio:
+
+function executeCommand() {
+    const command = inputField.value.trim();
+    if (!command) return;
+
+    consoleOutput.appendChild(createUserMessage(command));
+    inputField.value = '';
+    scrollToBottom();
+
+    // LOADING: Simulando a leitura do "Governance Stack" (Fig 4.2 do PDF)
+    const loadingId = 'loading-' + Date.now();
+    const loadingDiv = document.createElement('div');
+    loadingDiv.id = loadingId;
+    loadingDiv.className = "flex justify-start items-center gap-3 opacity-80 pl-1 pt-2";
+    
+    loadingDiv.innerHTML = `
+        <div class="relative w-4 h-4 flex items-center justify-center">
+            <div class="absolute w-full h-full border border-sigma rounded-full animate-ping opacity-20"></div>
+            <div class="w-2 h-2 bg-sigma rounded-full"></div>
+        </div>
+        <span id="loading-text-${loadingId}" class="font-tech text-[0.6rem] tracking-[0.2em] text-sigma uppercase animate-pulse">
+            Scanning Administrative Record (Layer I)...
+        </span>
+    `;
+    consoleOutput.appendChild(loadingDiv);
+    scrollToBottom();
+
+    // Passos baseados no "Three-Tier Governance Stack" [cite: 330]
+    const steps = [
+        "Layer I: Measuring Temporal Duration (22 Years)...", // [cite: 505]
+        "Layer II: Detecting Offtake Agreements (NordVolt)...", // 
+        "Layer III: Analyzing ESG Disclosure for Narrative Risk...", // [cite: 608]
+        "Calculated Risk: Decisional Inertia (R6) Confirmed." // [cite: 525]
+    ];
+
+    let stepIndex = 0;
+    const stepInterval = setInterval(() => {
+        const textSpan = document.getElementById(`loading-text-${loadingId}`);
+        if (textSpan && stepIndex < steps.length) {
+            textSpan.textContent = steps[stepIndex];
+            stepIndex++;
+        }
+    }, 800);
+
+    setTimeout(() => {
+        clearInterval(stepInterval);
+        const loader = document.getElementById(loadingId);
+        if (loader) loader.remove();
+
+        // RESPOSTA: O Diagnóstico de "Zombie Title" [cite: 22, 290]
+        let responseText = `
+            <p class="mb-3"><strong class="text-white font-tech">DIAGNOSIS: ZOMBIE TITLE DETECTED.</strong></p>
+            
+            <p class="mb-2">The Research Title (ANM-2004) has exceeded the <strong>Justificatory Horizon</strong>. It is operating in a state of <em>Decisional Inertia</em>[cite: 146].</p>
+            
+            <div class="bg-white/5 p-3 rounded border border-white/10 mb-4 text-xs font-mono">
+                <div class="flex justify-between mb-1">
+                    <span class="text-zinc-400">ADMINISTRATIVE STATUS (Layer I):</span>
+                    <span class="text-green-500">Formally Valid</span>
+                </div>
+                <div class="flex justify-between mb-1">
+                    <span class="text-zinc-400">TEMPORAL VALIDITY (-Στο):</span>
+                    <span class="text-red-500">EXPIRED (22 Years)</span>
+                </div>
+                <div class="flex justify-between border-t border-white/10 pt-1 mt-1">
+                    <span class="text-sigma">HIDDEN LIABILITY (ISDS Risk):</span>
+                    <span class="text-sigma">HIGH (NordVolt MoU)</span>
+                </div>
+            </div>
+
+            <p><strong>c-ECO Playbook Recommendation (Annex A):</strong></p>
+            <ul class="list-disc pl-4 space-y-1 text-xs font-mono text-zinc-400">
+                <li><strong>Action 1:</strong> Insert <span class="text-white">Clause A.2 (Re-Opening Covenant)</span> to suspend estoppel[cite: 581].</li>
+                <li><strong>Action 2:</strong> Trigger <span class="text-white">Temporal Review</span> immediately to force agency decision[cite: 628].</li>
+                <li><strong>Action 3:</strong> Disclose "Subject to Procedural Re-Opening" in ESG filings to mitigate Narrative Risk (R11)[cite: 549].</li>
+            </ul>
+        `;
+
+        consoleOutput.appendChild(createSystemMessage(responseText, 'alert'));
+        scrollToBottom();
+    }, 4000);
+}
+    </script>
+</body>
+</html>
