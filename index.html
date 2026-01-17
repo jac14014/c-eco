@@ -4,33 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Σ | c-ECO Doctrine — Contractual Equity & Ecological Co-Responsibility</title>
-    <meta name="description" content="The c-ECO Doctrine is a pre-threshold governance framework that empowers AI to read the early signals of contractual drift — long before trajectories turn irreversible. Developed by Jacqueline A. Ennis.">
+    <title>Σ | c-ECO Doctrine — Anticipatory Governance</title>
+    <meta name="description" content="The c-ECO Doctrine: A pre-threshold governance framework empowering AI to read early signals of contractual drift.">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@100;200;300;400&family=Inter:wght@200;300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Rajdhani:wght@300;400;500&family=Inter:wght@200;300&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
         :root {
-            --bg-deep: #09090b; 
-            --slate-gray: #18181b; 
-            --gold-sigma: #d6bc7e; 
-            --text-main: #f4f4f5;
+            /* Paleta c-ECO Cinematic */
+            --obsidian-deep: #020E08;      /* O Preto esverdeado profundo */
+            --obsidian-light: #0a1f14;     /* A luz da neblina */
+            --bio-green: #00FFAA;          /* Acentos de Luz/Energia */
+            --cyan-data: #00DDEE;          /* Dados e Conexões */
+            --gold-sovereign: #D4AF37;     /* A Autoridade (Mantido, mas reduzido) */
+            --glass-border: rgba(0, 255, 170, 0.3);
         }
 
         body {
-            background-color: var(--bg-deep);
-            color: var(--text-main);
+            background-color: var(--obsidian-deep);
+            color: #e0e0e0;
             overflow: hidden;
             font-family: 'Inter', sans-serif;
-            background: radial-gradient(circle at center, var(--slate-gray) 0%, var(--bg-deep) 100%);
             margin: 0;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            /* Fundo Complexo: Cor sólida + Gradiente de luz central */
+            background: radial-gradient(circle at 50% 50%, var(--obsidian-light) 0%, var(--obsidian-deep) 85%);
+        }
+
+        /* Efeito de Grid Holográfico no Fundo (Chão Digital) */
+        .holo-grid {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 170, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 170, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
+            animation: gridMove 20s linear infinite;
+            pointer-events: none;
+            z-index: -1;
+            mask-image: radial-gradient(circle, black 30%, transparent 70%); /* Fading nas bordas */
+        }
+
+        @keyframes gridMove {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0) translateZ(-200px); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(40px) translateZ(-200px); }
         }
 
         .portal-container {
@@ -41,155 +66,203 @@
             width: 100%;
             height: 100%;
             position: relative;
+            z-index: 10;
         }
 
-        /* Status Tag - Centralização absoluta corrigida */
+        /* O HUD Superior */
         .status-tag {
             position: absolute;
-            top: 8%;
-            left: 50%;
-            transform: translateX(-50%); /* Garante centralização real */
-            font-size: 0.6rem;
-            letter-spacing: 0.8em;
-            color: var(--gold-sigma);
+            top: 10%;
+            font-family: 'Rajdhani', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 0.3em;
+            color: var(--cyan-data);
             text-transform: uppercase;
-            white-space: nowrap;
-            text-indent: 0.8em; /* Compensa o espaçamento da última letra para centralizar o bloco todo */
+            text-shadow: 0 0 5px rgba(0, 221, 238, 0.4);
+            opacity: 0.8;
         }
 
+        .status-tag::before {
+            content: "●";
+            color: var(--bio-green);
+            margin-right: 10px;
+            animation: blink 2s infinite;
+        }
+
+        /* O Cubo Central (Vidro + Luz) */
         .logo-box-large {
-            width: 120px;
-            height: 120px;
-            border: 1px solid rgba(214, 188, 126, 0.15);
+            width: 140px;
+            height: 140px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Urbanist', sans-serif;
-            font-weight: 100;
-            font-size: 3.5rem;
-            color: var(--gold-sigma);
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-            background: rgba(255, 255, 255, 0.01);
-            backdrop-filter: blur(15px);
+            
+            /* Glassmorphism High-End */
+            background: rgba(2, 14, 8, 0.4); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            
+            /* Tipografia */
+            font-family: 'Orbitron', sans-serif; /* Fonte mais futurista */
+            font-weight: 400;
+            font-size: 4rem;
+            color: #ffffff;
             text-decoration: none;
+            
+            /* Luz e Sombra */
+            box-shadow: 
+                0 0 30px rgba(0, 0, 0, 0.8), /* Sombra profunda atrás */
+                inset 0 0 20px rgba(0, 255, 170, 0.05); /* Luz interna */
+            
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Linha de Scanner passando pelo logo */
+        .logo-box-large::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom,
+                transparent 45%,
+                rgba(0, 255, 170, 0.1) 50%,
+                transparent 55%
+            );
+            transform: rotate(45deg);
+            animation: shine 6s infinite;
+            pointer-events: none;
         }
 
         .logo-box-large:hover {
             transform: scale(1.05);
-            border-color: var(--gold-sigma);
-            box-shadow: 0 0 40px rgba(214, 188, 126, 0.05);
+            border-color: var(--bio-green);
+            box-shadow: 
+                0 0 50px rgba(0, 255, 170, 0.2),
+                inset 0 0 20px rgba(0, 255, 170, 0.1);
+            color: var(--bio-green);
+            text-shadow: 0 0 15px rgba(0, 255, 170, 0.8);
         }
 
+        /* Título Principal */
         .brand-name {
-            font-family: 'Urbanist', sans-serif;
-            font-weight: 200;
-            letter-spacing: 1.2em;
-            font-size: 0.9rem;
-            margin-top: 2.5rem;
-            color: var(--gold-sigma);
-            text-indent: 1.2em; /* Compensa o letter-spacing no final */
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.5em;
+            font-size: 1.1rem;
+            margin-top: 3rem;
+            color: #ffffff;
             text-transform: uppercase;
             text-align: center;
+            text-indent: 0.5em;
+            
+            /* Gradiente Dourado sutil apenas no texto */
+            background: linear-gradient(to right, #ffffff 20%, var(--gold-sovereign) 50%, #ffffff 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: textShine 5s linear infinite;
         }
 
+        /* Menu de Idiomas (Estilo HUD) */
         .language-selection {
             position: absolute;
-            bottom: 12%;
+            bottom: 15%;
             display: flex;
-            gap: 4rem;
-            opacity: 0.6;
-            transition: opacity 0.8s ease;
-        }
-
-        .language-selection:hover {
-            opacity: 1;
+            gap: 3rem;
         }
 
         .lang-link {
-            font-size: 0.65rem;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
             text-transform: uppercase;
-            letter-spacing: 0.5em;
-            color: #a1a1aa;
+            letter-spacing: 0.2em;
+            color: #6b7280;
             text-decoration: none;
-            padding: 10px;
+            padding: 8px 16px;
+            transition: all 0.3s ease;
             position: relative;
-            text-indent: 0.5em;
-        }
-
-        .lang-link::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 1px;
-            background: var(--gold-sigma);
-            transition: all 0.4s ease;
-            transform: translateX(-50%);
+            border: 1px solid transparent;
         }
 
         .lang-link:hover {
-            color: var(--gold-sigma);
+            color: var(--bio-green);
+            border: 1px solid rgba(0, 255, 170, 0.3);
+            background: rgba(0, 255, 170, 0.05);
+            box-shadow: 0 0 15px rgba(0, 255, 170, 0.1);
         }
 
-        .lang-link:hover::after {
-            width: 50%;
-        }
-
-        /* Animação corrigida para não deslocar o centro */
-        @keyframes protocolPulse {
-            0%, 100% { 
-                opacity: 0.3; 
-            }
-            50% { 
-                opacity: 1; 
-                text-shadow: 0 0 10px rgba(214, 188, 126, 0.5);
-            } 
-        }
-
-        .protocol-pulse {
-            animation: protocolPulse 3.5s ease-in-out infinite;            
-        }
-
-        .scanline::after {
-            content: "";
+        /* Partículas de Poeira / Noise (Scanline) */
+        .scanline::before {
+            content: " ";
+            display: block;
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.03) 51%);
-            background-size: 100% 4px;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 2px, 3px 100%;
             pointer-events: none;
+            opacity: 0.3;
         }
 
-        .sr-only {
-            position: absolute;
-            width: 1px; height: 1px; padding: 0; margin: -1px;
-            overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;
+        /* Animações */
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
+
+        @keyframes shine {
+            0% { transform: translateY(-100%) rotate(45deg); }
+            100% { transform: translateY(100%) rotate(45deg); }
+        }
+        
+        @keyframes textShine {
+            to { background-position: 200% center; }
+        }
+
     </style>
 </head>
 <body class="scanline">
 
+    <div class="holo-grid"></div>
+
     <div class="portal-container">
-        <span class="status-tag protocol-pulse">Protocol Σ Active</span>
+        <span class="status-tag">System Integrity: Nominal</span>
         
-        <a href="english.html" class="logo-box-large" onclick="transitionLink(event, 'english.html')">Σ</a>
+        <a href="english.html" class="logo-box-large" onclick="transitionLink(event, 'english.html')">
+            Σ
+        </a>
         
         <h1 class="brand-name">c-ECO Doctrine</h1>
 
         <nav class="language-selection">
-            <a href="english.html" class="lang-link" hreflang="en" onclick="transitionLink(event, 'english.html')">English</a>
-            <a href="portuguese.html" class="lang-link" hreflang="pt" onclick="transitionLink(event, 'portuguese.html')">Português</a>
+            <a href="english.html" class="lang-link" hreflang="en" onclick="transitionLink(event, 'english.html')">
+                English
+            </a>
+            <a href="portuguese.html" class="lang-link" hreflang="pt" onclick="transitionLink(event, 'portuguese.html')">
+                Português
+            </a>
         </nav>
     </div>
 
     <script>
         function transitionLink(event, dest) {
             event.preventDefault();
-            document.body.style.transition = "opacity 0.6s ease";
+            // Efeito de "Shutdown" ao clicar
+            document.querySelector('.logo-box-large').style.transform = "scale(20)";
+            document.querySelector('.logo-box-large').style.opacity = "0";
+            document.body.style.transition = "opacity 0.8s ease";
             document.body.style.opacity = "0";
+            
             setTimeout(() => {
                 window.location.href = dest;
-            }, 600);
+            }, 700);
         }
     </script>
 </body>
