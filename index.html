@@ -14,15 +14,15 @@
 
     <style>
         :root {
-            /* PALETA MONOCROMÁTICA & DOURADA */
-            --obsidian-deep: #030303;      /* Preto Absoluto */
-            --obsidian-mist: #0f0f12;      /* Cinza Chumbo muito escuro */
+            /* PALETA MONOLITH GOLD (Limpa) */
+            --obsidian-deep: #030303;      
+            --obsidian-mist: #0f0f12;      
             
-            --gold-sovereign: #C5A065;     /* O Dourado pálido da sua marca (Elegante) */
-            --gold-light: #ebdcc0;         /* Dourado quase branco para brilhos */
+            --gold-sovereign: #C5A065;     /* Dourado Principal */
+            --gold-light: #ebdcc0;         
             
-            --text-muted: #52525b;         /* Texto inativo (Cinza escuro) */
-            --glass-border: rgba(255, 255, 255, 0.06); /* Borda de vidro neutra */
+            --text-muted: #52525b;         
+            --glass-border: rgba(255, 255, 255, 0.06); 
         }
 
         body {
@@ -35,16 +35,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            /* Gradiente sutil apenas para dar volume, sem cor */
             background: radial-gradient(circle at 50% 50%, var(--obsidian-mist) 0%, var(--obsidian-deep) 90%);
         }
 
-        /* GRID NEUTRO (Cinza, sem verde/ciano) */
+        /* GRID NEUTRO */
         .holo-grid {
             position: absolute;
             width: 200%;
             height: 200%;
-            /* Linhas brancas com 2% de opacidade - quase invisíveis */
             background-image: 
                 linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
@@ -53,7 +51,6 @@
             animation: gridMove 30s linear infinite;
             pointer-events: none;
             z-index: -1;
-            /* Máscara forte para o grid sumir nas bordas */
             mask-image: radial-gradient(circle, black 30%, transparent 80%);
         }
 
@@ -73,21 +70,35 @@
             z-index: 10;
         }
 
-        /* TAG DE STATUS - Discreta */
+        /* --- MUDANÇA AQUI: STATUS PULSANDO --- */
         .status-tag {
             position: absolute;
             top: 12%;
             font-family: 'Rajdhani', monospace;
             font-size: 0.7rem;
             letter-spacing: 0.4em;
-            color: var(--text-muted); /* Começa apagado */
+            
+            /* Sempre Dourado e Aceso */
+            color: var(--gold-sovereign); 
             text-transform: uppercase;
-            transition: all 0.5s ease;
+            
+            /* Animação infinita de respiração */
+            animation: goldPulse 4s ease-in-out infinite;
         }
 
-        body:hover .status-tag {
-            color: var(--gold-light); /* Acende em branco/dourado suave */
-            text-shadow: 0 0 8px rgba(197, 160, 101, 0.3);
+        @keyframes goldPulse {
+            0% {
+                opacity: 0.5;
+                text-shadow: 0 0 0px rgba(197, 160, 101, 0);
+            }
+            50% {
+                opacity: 1;
+                text-shadow: 0 0 15px rgba(197, 160, 101, 0.6); /* Brilho Máximo */
+            }
+            100% {
+                opacity: 0.5;
+                text-shadow: 0 0 0px rgba(197, 160, 101, 0);
+            }
         }
 
         /* O CUBO DE VIDRO */
@@ -106,7 +117,7 @@
             font-family: 'Orbitron', sans-serif;
             font-weight: 400;
             font-size: 4rem;
-            color: #ffffff; /* Letra Branca */
+            color: #ffffff; 
             text-decoration: none;
             
             box-shadow: 0 0 40px rgba(0, 0, 0, 1);
@@ -115,7 +126,7 @@
             overflow: hidden;
         }
 
-        /* Brilho do Scanner (Branco/Dourado Pálido) */
+        /* Brilho do Scanner */
         .logo-box-large::after {
             content: "";
             position: absolute;
@@ -134,7 +145,7 @@
             pointer-events: none;
         }
 
-        /* HOVER: Aqui entra o Dourado */
+        /* HOVER: Efeito Dourado */
         .logo-box-large:hover {
             transform: scale(1.02);
             border-color: var(--gold-sovereign);
@@ -147,17 +158,16 @@
         .brand-name {
             font-family: 'Orbitron', sans-serif;
             font-weight: 500;
-            letter-spacing: 0.8em; /* Mais espaçado = mais luxo */
+            letter-spacing: 0.8em; 
             font-size: 0.9rem;
             margin-top: 3.5rem;
-            color: #71717a; /* Cinza metálico */
+            color: #71717a; 
             text-transform: uppercase;
             text-align: center;
             text-indent: 0.8em;
             transition: color 0.5s ease;
         }
 
-        /* Hover no título */
         .logo-box-large:hover ~ .brand-name {
             color: #ffffff;
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
@@ -185,34 +195,33 @@
         }
 
         .lang-link:hover {
-            color: var(--gold-sovereign); /* Vira Dourado */
+            color: var(--gold-sovereign); 
         }
 
-        /* A LINHA DE BAIXO (Agora Dourada e Fina) */
+        /* A LINHA DE BAIXO */
         .lang-link::after {
             content: '';
             position: absolute;
             width: 0;
-            height: 1px; /* Bem fina */
+            height: 1px; 
             bottom: 5px;
             left: 50%;
-            background-color: var(--gold-sovereign); /* Dourado */
+            background-color: var(--gold-sovereign);
             transition: all 0.4s ease;
             transform: translateX(-50%);
-            box-shadow: 0 0 5px var(--gold-sovereign); /* Leve brilho */
+            box-shadow: 0 0 5px var(--gold-sovereign);
         }
         
         .lang-link:hover::after {
             width: 60%;
         }
 
-        /* SCANLINE (Sem RGB/Colorido) */
+        /* SCANLINE */
         .scanline::before {
             content: " ";
             display: block;
             position: absolute;
             top: 0; left: 0; bottom: 0; right: 0;
-            /* Apenas preto e transparente - removi o arco íris */
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
             z-index: 2;
             background-size: 100% 3px;
@@ -231,7 +240,7 @@
     <div class="holo-grid"></div>
 
     <div class="portal-container">
-        <span class="status-tag">PROTOCOL  Σ  ACTIVE</span>
+        <span class="status-tag">Protocol Σ Active</span>
         
         <a href="english.html" class="logo-box-large" onclick="transitionLink(event, 'english.html')">
             Σ
@@ -254,7 +263,6 @@
             event.preventDefault();
             const logo = document.querySelector('.logo-box-large');
             
-            // Efeito de saída elegante
             logo.style.transition = "all 0.5s ease-in";
             logo.style.transform = "scale(0.9) translateY(-20px)";
             logo.style.opacity = "0";
