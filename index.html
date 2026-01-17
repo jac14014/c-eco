@@ -14,13 +14,15 @@
 
     <style>
         :root {
-            /* Paleta c-ECO Cinematic */
-            --obsidian-deep: #020E08;      /* O Preto esverdeado profundo */
-            --obsidian-light: #0a1f14;     /* A luz da neblina */
-            --bio-green: #00FFAA;          /* Acentos de Luz/Energia */
-            --cyan-data: #00DDEE;          /* Dados e Conexões */
-            --gold-sovereign: #D4AF37;     /* A Autoridade (Mantido, mas reduzido) */
-            --glass-border: rgba(0, 255, 170, 0.3);
+            /* Paleta Obsidian Black (Neutralizada) */
+            --obsidian-deep: #050507;      /* Preto quase absoluto com toque de azul noturno */
+            --obsidian-light: #0f1014;     /* Cinza chumbo escuro para o brilho central */
+            
+            /* Acentos (Mantidos, mas agora brilham no escuro total) */
+            --bio-green: #00FFAA;          
+            --cyan-data: #00DDEE;          
+            --gold-sovereign: #D4AF37;     
+            --glass-border: rgba(255, 255, 255, 0.08); /* Borda branca/neutra, não mais verde */
         }
 
         body {
@@ -33,29 +35,29 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            /* Fundo Complexo: Cor sólida + Gradiente de luz central */
-            background: radial-gradient(circle at 50% 50%, var(--obsidian-light) 0%, var(--obsidian-deep) 85%);
+            /* Gradiente agora é Cinza/Preto, sem o tom esverdeado */
+            background: radial-gradient(circle at 50% 50%, var(--obsidian-light) 0%, var(--obsidian-deep) 90%);
         }
 
-        /* Efeito de Grid Holográfico no Fundo (Chão Digital) */
+        /* Grid agora é neutro (Ciano muito pálido/Branco) */
         .holo-grid {
             position: absolute;
             width: 200%;
             height: 200%;
             background-image: 
-                linear-gradient(rgba(0, 255, 170, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 170, 0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px; /* Aumentei um pouco para ficar mais limpo */
             transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
-            animation: gridMove 20s linear infinite;
+            animation: gridMove 25s linear infinite;
             pointer-events: none;
             z-index: -1;
-            mask-image: radial-gradient(circle, black 30%, transparent 70%); /* Fading nas bordas */
+            mask-image: radial-gradient(circle, black 20%, transparent 70%);
         }
 
         @keyframes gridMove {
             0% { transform: perspective(500px) rotateX(60deg) translateY(0) translateZ(-200px); }
-            100% { transform: perspective(500px) rotateX(60deg) translateY(40px) translateZ(-200px); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(50px) translateZ(-200px); }
         }
 
         .portal-container {
@@ -69,27 +71,23 @@
             z-index: 10;
         }
 
-        /* O HUD Superior */
         .status-tag {
             position: absolute;
-            top: 10%;
+            top: 12%;
             font-family: 'Rajdhani', monospace;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             letter-spacing: 0.3em;
-            color: var(--cyan-data);
+            color: #52525b; /* Cinza escuro discreto quando inativo */
             text-transform: uppercase;
+            transition: color 0.5s ease;
+        }
+
+        /* Ao passar o mouse na tela, o sistema "acorda" */
+        body:hover .status-tag {
+            color: var(--cyan-data);
             text-shadow: 0 0 5px rgba(0, 221, 238, 0.4);
-            opacity: 0.8;
         }
 
-        .status-tag::before {
-            content: "●";
-            color: var(--bio-green);
-            margin-right: 10px;
-            animation: blink 2s infinite;
-        }
-
-        /* O Cubo Central (Vidro + Luz) */
         .logo-box-large {
             width: 140px;
             height: 140px;
@@ -97,30 +95,27 @@
             align-items: center;
             justify-content: center;
             
-            /* Glassmorphism High-End */
-            background: rgba(2, 14, 8, 0.4); 
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            /* Glassmorphism Neutro (Vidro Escuro) */
+            background: rgba(0, 0, 0, 0.6); 
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             border: 1px solid var(--glass-border);
             
-            /* Tipografia */
-            font-family: 'Orbitron', sans-serif; /* Fonte mais futurista */
+            font-family: 'Orbitron', sans-serif;
             font-weight: 400;
             font-size: 4rem;
             color: #ffffff;
             text-decoration: none;
             
-            /* Luz e Sombra */
-            box-shadow: 
-                0 0 30px rgba(0, 0, 0, 0.8), /* Sombra profunda atrás */
-                inset 0 0 20px rgba(0, 255, 170, 0.05); /* Luz interna */
+            /* Sombra neutra */
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
             
-            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
 
-        /* Linha de Scanner passando pelo logo */
+        /* Efeito de Scanner */
         .logo-box-large::after {
             content: "";
             position: absolute;
@@ -131,45 +126,43 @@
             background: linear-gradient(
                 to bottom,
                 transparent 45%,
-                rgba(0, 255, 170, 0.1) 50%,
+                rgba(255, 255, 255, 0.05) 50%, /* Brilho branco suave */
                 transparent 55%
             );
             transform: rotate(45deg);
-            animation: shine 6s infinite;
+            animation: shine 8s infinite;
             pointer-events: none;
         }
 
         .logo-box-large:hover {
-            transform: scale(1.05);
-            border-color: var(--bio-green);
+            transform: scale(1.03);
+            border-color: var(--bio-green); /* O VERDE SÓ APARECE AQUI */
             box-shadow: 
-                0 0 50px rgba(0, 255, 170, 0.2),
-                inset 0 0 20px rgba(0, 255, 170, 0.1);
+                0 0 60px rgba(0, 255, 170, 0.15),
+                inset 0 0 20px rgba(0, 255, 170, 0.05);
             color: var(--bio-green);
-            text-shadow: 0 0 15px rgba(0, 255, 170, 0.8);
+            text-shadow: 0 0 20px rgba(0, 255, 170, 0.6);
         }
 
-        /* Título Principal */
         .brand-name {
             font-family: 'Orbitron', sans-serif;
             font-weight: 500;
-            letter-spacing: 0.5em;
-            font-size: 1.1rem;
-            margin-top: 3rem;
-            color: #ffffff;
+            letter-spacing: 0.6em;
+            font-size: 1rem;
+            margin-top: 3.5rem;
+            color: #888888; /* Cinza metálico padrão */
             text-transform: uppercase;
             text-align: center;
-            text-indent: 0.5em;
-            
-            /* Gradiente Dourado sutil apenas no texto */
-            background: linear-gradient(to right, #ffffff 20%, var(--gold-sovereign) 50%, #ffffff 80%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 200% auto;
-            animation: textShine 5s linear infinite;
+            text-indent: 0.6em;
+            transition: color 0.5s ease, text-shadow 0.5s ease;
         }
 
-        /* Menu de Idiomas (Estilo HUD) */
+        /* Hover no título traz o Dourado */
+        .logo-box-large:hover ~ .brand-name {
+            color: var(--gold-sovereign);
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
         .language-selection {
             position: absolute;
             bottom: 15%;
@@ -179,42 +172,49 @@
 
         .lang-link {
             font-family: 'Rajdhani', sans-serif;
-            font-weight: 600;
-            font-size: 0.9rem;
+            font-weight: 500;
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 0.2em;
-            color: #6b7280;
+            color: #4a4a50; /* Bem apagado */
             text-decoration: none;
             padding: 8px 16px;
             transition: all 0.3s ease;
             position: relative;
-            border: 1px solid transparent;
         }
 
         .lang-link:hover {
-            color: var(--bio-green);
-            border: 1px solid rgba(0, 255, 170, 0.3);
-            background: rgba(0, 255, 170, 0.05);
-            box-shadow: 0 0 15px rgba(0, 255, 170, 0.1);
+            color: #ffffff;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
         }
 
-        /* Partículas de Poeira / Noise (Scanline) */
+        /* Linha sutil abaixo do link ao passar o mouse */
+        .lang-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: 5px;
+            left: 50%;
+            background-color: var(--bio-green);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .lang-link:hover::after {
+            width: 70%;
+        }
+
         .scanline::before {
             content: " ";
             display: block;
             position: absolute;
             top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
             z-index: 2;
-            background-size: 100% 2px, 3px 100%;
+            background-size: 100% 3px, 3px 100%;
             pointer-events: none;
-            opacity: 0.3;
-        }
-
-        /* Animações */
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
+            opacity: 0.4;
         }
 
         @keyframes shine {
@@ -254,9 +254,13 @@
     <script>
         function transitionLink(event, dest) {
             event.preventDefault();
-            // Efeito de "Shutdown" ao clicar
-            document.querySelector('.logo-box-large').style.transform = "scale(20)";
-            document.querySelector('.logo-box-large').style.opacity = "0";
+            const logo = document.querySelector('.logo-box-large');
+            
+            // Efeito de Implosão ao clicar
+            logo.style.transition = "all 0.4s ease-in";
+            logo.style.transform = "scale(0.1)";
+            logo.style.opacity = "0";
+            
             document.body.style.transition = "opacity 0.8s ease";
             document.body.style.opacity = "0";
             
