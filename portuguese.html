@@ -9,11 +9,13 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;700;800&family=Inter:wght@300;400&display=swap" rel="stylesheet">
-     <style>
+    
+    <style>
         :root {
-            /* Paleta Monolith Gold */
-            --bg-deep: #050507;
-            --bg-mist: #0f1014;
+            /* CORREÇÃO: Paleta EXATA do Portal (#030303) */
+            --bg-deep: #030303;      /* Preto Absoluto Neutro */
+            --bg-mist: #0f0f12;      /* Cinza Chumbo muito escuro (Luz) */
+            
             --gold-ceco: #d6bc7e; 
             --text-main: #f4f4f5;
             --text-dim: #a1a1aa;
@@ -24,32 +26,44 @@
             background-color: var(--bg-deep);
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
-            /* Fundo suave e profundo */
-            background: radial-gradient(circle at top center, #1a1a20 0%, var(--bg-deep) 80%);
             overflow-x: hidden;
+            
+            /* Fundo Idêntico ao Portal (Fixo para não rolar com o texto) */
+            background: radial-gradient(circle at 50% 50%, var(--bg-mist) 0%, var(--bg-deep) 90%);
+            background-attachment: fixed; 
         }
 
         h1, h2, h3, h4, .brand { font-family: 'Urbanist', sans-serif; }
 
-        /* --- MUDANÇA AQUI: DE LINHAS PARA PONTOS (DOTS) --- */
-        /* Removemos o "quadriculado". Agora são pontos minúsculos como estrelas/dados */
-        .holo-grid {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+        /* --- PISO 3D EM PERSPECTIVA --- */
+        .holo-floor {
+            position: fixed; 
+            top: 50%; 
+            left: -50%; 
+            width: 200%;
+            height: 100%;
             
-            /* Desenha pontos em vez de linhas */
-            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-            background-size: 40px 40px; /* Espaçamento dos pontos */
+            transform: perspective(600px) rotateX(70deg) translateY(-100px) translateZ(-200px);
             
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            
+            animation: gridMove 20s linear infinite;
             pointer-events: none;
             z-index: -1;
-            opacity: 0.3; /* Bem suave */
             
-            /* Máscara para suavizar nas bordas */
-            mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 40%, black 100%);
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 40%, black 100%);
         }
 
-        /* Tipografia de Destaque */
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 60px; }
+        }
+
+        /* Tipografia */
         .before-highlight {
             position: relative;
             display: inline-block;
@@ -57,23 +71,23 @@
             font-style: italic;
         }
 
-        /* Glass Cards */
+        /* Glass Cards (Ajustados para o fundo mais escuro) */
         .glass-card {
-            background: rgba(15, 16, 20, 0.6); /* Mais transparente */
+            background: rgba(5, 5, 5, 0.7); /* Base mais preta */
             border: 1px solid var(--border-zinc);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
         
         .glass-card:hover {
             border-color: var(--gold-ceco);
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-            background: rgba(15, 16, 20, 0.8);
+            box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.9);
+            background: rgba(5, 5, 5, 0.9);
         }
 
-        /* Botões e Links */
+        /* UI Elements */
         .logo-box {
             width: 40px; height: 40px;
             border: 1px solid var(--gold-ceco);
@@ -109,7 +123,7 @@
             margin-bottom: 1.5rem; display: block; opacity: 0.8;
         }
 
-        /* Animação de Entrada */
+        /* Animações */
         .fade-in-up {
             animation: fadeInUp 1s ease-out forwards;
             opacity: 0; transform: translateY(20px);
@@ -121,23 +135,22 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- FOTO LIMPA (Sem Listras) --- */
+        /* Foto Limpa */
         .bio-image-container {
             border: 1px solid var(--border-zinc);
             background: var(--bg-mist);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            box-shadow: 0 0 30px rgba(0,0,0,0.7);
         }
-        /* Removido o pseudo-elemento ::after que causava as listras */
 
     </style>
 </head>
 <body class="selection:bg-[#d6bc7e] selection:text-black">
 
-    <div class="holo-grid"></div>
+    <div class="holo-floor"></div>
 
-    <nav class="fixed top-0 w-full z-50 px-6 md:px-12 py-6 flex justify-between items-center bg-[#050507]/90 backdrop-blur-md border-b border-white/5">
+    <nav class="fixed top-0 w-full z-50 px-6 md:px-12 py-6 flex justify-between items-center bg-[#030303]/80 backdrop-blur-md border-b border-white/5">
         <div class="flex items-center gap-5">
             <a href="index.html" class="logo-box text-xl">Σ</a>
             <div class="flex flex-col">
@@ -166,7 +179,7 @@
                     do colapso.
                 </h1>
                 <p class="text-lg md:text-2xl text-zinc-400 font-light max-w-3xl leading-relaxed mb-12 fade-in-up delay-100">
-                    A Doutrina c-ECO introduz a governança contratual pré-limiar: uma arquitetura jurídica que preserva o espaço de decisão futura, impedindo trajetórias irreversíveis.
+                    A Doutrina c-ECO introduz a governança contratual pré-limiar: uma arquitetura jurídica que preserva o espaço de decisão futura.
                 </p>
                 <div class="flex flex-wrap gap-6 fade-in-up delay-200">
                     <a href="#proposta" class="btn-primary">Explorar Protocolo</a>
@@ -175,7 +188,7 @@
             </div>
         </section>
 
-        <section id="proposta" class="py-32 px-8 md:px-24 border-t border-white/5 relative z-10 bg-[#050507]/80 backdrop-blur-sm">
+        <section id="proposta" class="py-32 px-8 md:px-24 border-t border-white/5 relative z-10 bg-gradient-to-b from-[#030303]/90 to-[#030303]">
             <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
                 <div class="fade-in-up">
                     <span class="section-tag">O Descompasso Temporal</span>
@@ -203,7 +216,7 @@
             </div>
         </section>
 
-        <section id="pilares" class="py-32 px-8 md:px-24 border-t border-white/5 bg-[#050507]">
+        <section id="pilares" class="py-32 px-8 md:px-24 border-t border-white/5 bg-[#030303]">
             <div class="max-w-6xl mx-auto">
                 <div class="mb-20 text-center fade-in-up">
                     <span class="section-tag">Pilares Dogmáticos</span>
@@ -218,7 +231,6 @@
                             Substituindo o "prazo" pela "capacidade": a soma das decisões que ainda permitem a sobrevivência do sistema.
                         </p>
                     </div>
-
                     <div class="glass-card p-10 text-center">
                         <span class="text-4xl font-light text-[#d6bc7e] block mb-6">⊘</span>
                         <h4 class="text-lg font-bold mb-4 text-white">Limites à Autorização</h4>
@@ -226,7 +238,6 @@
                             A integridade sistémica opera como condição negativa de validade: se o sistema colapsa, o contrato morre.
                         </p>
                     </div>
-
                     <div class="glass-card p-10 text-center">
                         <span class="text-4xl font-light text-[#d6bc7e] block mb-6">♽</span>
                         <h4 class="text-lg font-bold mb-4 text-white">Design Adaptativo</h4>
@@ -238,37 +249,40 @@
             </div>
         </section>
 
-        <section id="autora" class="py-32 px-8 md:px-24 border-t border-white/5 relative bg-[#0a0a0c]">
+        <section id="autora" class="py-32 px-8 md:px-24 border-t border-white/5 relative bg-[#030303]">
             <div class="max-w-6xl mx-auto">
                 <span class="section-tag">Fundamentação Intelectual</span>
                 <div class="grid lg:grid-cols-12 gap-16 items-start">
                     <div class="lg:col-span-4 fade-in-up">
                         <div class="bio-image-container aspect-[3/4]">
                             <img src="jacqueline-ennis.PNG" alt="Jacqueline A. Ennis" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700">
-                         </div>
-
-                <div class="mt-8">
-                    <h4 class="text-2xl font-bold text-white mb-2">Jacqueline A. Ennis</h4>
-                    <p class="text-[#d6bc7e] text-sm uppercase tracking-widest font-semibold">Jurista e Investigadora</p>
+                        </div>
+                        <div class="mt-8">
+                            <h4 class="text-2xl font-bold text-white mb-1">Jacqueline A. Ennis</h4>
+                            <p class="text-[#d6bc7e] text-xs uppercase tracking-widest font-bold">Jurista & Investigadora</p>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-8 space-y-8 text-zinc-400 text-lg leading-relaxed font-light fade-in-up delay-100">
+                        <p>
+                            Jacqueline A. Ennis é uma jurista brasileira, radicada nos Estados Unidos, e autora da <strong class="text-white">Doutrina c-ECO (Contractual Equity & Ecological Co-Responsibility)</strong>.
+                        </p>
+                        <p>
+                            O trabalho de Ennis reconceitua os contratos como arquiteturas temporais de decisão. Sua tese demonstra que, em sistemas socioecológicos e tecnológicos complexos, as decisões juridicamente consequentes ocorrem majoritariamente durante períodos de conformidade normativa, exaurindo progressivamente o espaço decisório futuro sem acionar as doutrinas clássicas de inadimplemento ou responsabilidade civil.
+                        </p>
+                        <p>
+                            A formulação é empiricamente ancorada em mais de duas décadas de liderança empreendedora na Amazônia brasileira (1993–2014), período no qual Ennis fundou e conduziu iniciativas pioneiras em territórios marcados por alta sensibilidade ecológica e assimetria estrutural. 
+                            </p>
+                        <p>
+                            
+                            Ennis a é Mestre em Direito Empresarial (LL.M.) pela <span class="text-white border-b border-[#d6bc7e]/30">Washington University in St. Louis</span> com formação jurídica complementar pela <span class="text-white border-b border-[#d6bc7e]/30">Boston University</span>, e tem apoio estratégico do <strong class="text-[#d6bc7e]">Instituto Silvio Meira (ISM)</strong>.
+                        </p>                      
+                        </p>
+                    </div>
                 </div>
             </div>
-            <div class="lg:col-span-8 space-y-6 text-zinc-400 text-lg leading-relaxed font-light">
-                <p>
-                    Jacqueline A. Ennis é uma jurista brasileira e investigadora independente. É a autora da 
-                    <strong class="text-white">Doutrina c-ECO (Contractual Equity & Ecological Co-Responsibility)</strong>. </p>
-                <p>
-                    Seu trabalho reconceitualiza contratos como <strong class="text-white">arquiteturas temporais de decisão</strong>. Sua tese demonstra que as decisões juridicamente consequentes ocorrem majoritariamente durante períodos de conformidade regulatória, exaurindo o espaço de decisão futuro.
-                </p>
-                <p>
-                    A formulação está ancorada na sua trajetória académica na <a href="#" class="text-accent-link">Washington University in St. Louis</a> e estudos na <a href="#" class="text-accent-link">Boston University</a>, contando com o apoio estratégico do <strong class="text-white">Instituto Silvio Meira (ISM)</strong>.
-                </p>
-           </div>
-        </div>
-    </div>
-</section>
         </section>
-        </section>
-        <footer id="contato" class="py-24 px-8 md:px-12 border-t border-white/10 bg-[#050507]">
+
+        <footer id="contato" class="py-24 px-8 md:px-12 border-t border-white/10 bg-[#030303]">
             <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
                 <div class="max-w-md">
                     <div class="flex items-center gap-4 mb-6">
