@@ -1,226 +1,203 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>c-ΣCO Doctrine | Institutional Deck</title>
+    <title>c-ΣCO | Arquitetura de Governança</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;600&family=Inter:wght@200;300&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
         :root {
-            --bg-color: #0a0a0a;
-            --text-primary: #f5f5f5;
-            --accent-gold: #d4af37;
-            --line-subtle: #333333;
-            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --obsidian-deep: #030303;      
+            --gold-sovereign: #C5A065;     
+            --glass-border: rgba(255, 255, 255, 0.08); 
+            --glass-bg: rgba(10, 10, 12, 0.8);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            font-family: var(--font-main);
-            overflow-y: scroll;
+            background-color: var(--obsidian-deep);
+            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            background: radial-gradient(circle at 50% 50%, #0f0f12 0%, #030303 90%);
+        }
+
+        /* GRID ANIMADO (Mantido do seu original) */
+        .holo-grid {
+            position: fixed;
+            width: 200%; height: 200%;
+            background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
+            animation: gridMove 30s linear infinite;
+            z-index: -1;
+            mask-image: radial-gradient(circle, black 30%, transparent 80%);
+        }
+
+        @keyframes gridMove {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0) translateZ(-200px); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(60px) translateZ(-200px); }
+        }
+
+        /* CONTAINER DE SLIDES */
+        .slide-container {
             scroll-snap-type: y mandatory;
+            height: 100vh;
+            overflow-y: scroll;
         }
 
         section {
             height: 100vh;
-            width: 100vw;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 10% 15%;
             scroll-snap-align: start;
-            border-bottom: 1px solid var(--line-subtle);
-            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
         }
 
-        /* Typography */
-        h1 {
-            font-size: 4rem;
-            font-weight: 300;
-            letter-spacing: -0.02em;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
+        /* PAINEL DE VIDRO (Estilo Cubo) */
+        .glass-panel {
+            width: 100%;
+            max-width: 1100px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            padding: 4rem;
+            position: relative;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+        }
+
+        .gold-line {
+            position: absolute;
+            top: 0; left: 0;
+            width: 4px; height: 100%;
+            background: var(--gold-sovereign);
+            box-shadow: 0 0 15px rgba(197, 160, 101, 0.4);
+        }
+
+        .label-tag {
+            font-family: 'Rajdhani', sans-serif;
+            color: var(--gold-sovereign);
+            letter-spacing: 0.4em;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            display: block;
         }
 
         h2 {
-            font-size: 1.5rem;
-            font-weight: 400;
-            color: var(--accent-gold);
-            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
             letter-spacing: 0.1em;
             margin-bottom: 2rem;
+            color: #fff;
         }
 
-        p, li {
-            font-size: 1.25rem;
-            line-height: 1.6;
-            color: #a0a0a0;
-            max-width: 800px;
+        .content-text {
+            font-size: 1.15rem;
+            color: #a1a1aa;
+            line-height: 1.8;
+            max-width: 850px;
         }
 
-        ul { list-style: none; }
-        li { margin-bottom: 1.5rem; position: relative; padding-left: 1.5rem; }
-        li::before {
-            content: "—";
-            position: absolute;
-            left: 0;
-            color: var(--accent-gold);
-        }
-
-        /* Specific Components */
-        .comparison-grid {
+        .grid-blocks {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            width: 100%;
-            margin-top: 2rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            margin-top: 3rem;
         }
 
-        .grid-item {
-            border-left: 1px solid var(--accent-gold);
-            padding-left: 1.5rem;
-        }
-
-        .grid-item strong { color: var(--text-primary); display: block; margin-bottom: 0.5rem; }
-
-        .footer {
-            position: absolute;
-            bottom: 5%;
-            left: 15%;
-            font-size: 0.8rem;
-            color: #444;
+        .block-item h3 {
+            font-family: 'Rajdhani', sans-serif;
+            color: #fff;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 0.5rem;
         }
 
-        .concept-block {
-            border: 1px solid var(--line-subtle);
-            padding: 2rem;
-            margin-bottom: 1rem;
-            width: 100%;
+        .footer-sig {
+            position: absolute;
+            bottom: 2rem; right: 4rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            opacity: 0.2;
         }
-
-        .gold-text { color: var(--accent-gold); }
     </style>
 </head>
 <body>
 
-    <section>
-        <h1>c-ΣCO Doctrine</h1>
-        <h2>Pre-Threshold Contractual Governance for Systemic Risk</h2>
-        <div class="footer">Contractual Equity & Ecological Co-Responsibility</div>
-    </section>
+    <div class="holo-grid"></div>
 
-    <section>
-        <h1>Four Legal Paradigms</h1>
-        <h2>How law relates to systemic risk.</h2>
-        <ul>
-            <li>Classical Contract Doctrine</li>
-            <li>ESG / CSRD</li>
-            <li>Earth System Law</li>
-            <li>c-ΣCO</li>
-        </ul>
-    </section>
-
-    <section>
-        <h1>Where Each Paradigm Operates</h1>
-        <div class="comparison-grid">
-            <div class="grid-item"><strong>Classical</strong>ex-post remedies</div>
-            <div class="grid-item"><strong>ESG / CSRD</strong>governance + disclosure</div>
-            <div class="grid-item"><strong>Earth System</strong>planetary limits</div>
-            <div class="grid-item"><strong>c-ΣCO</strong>executable pre-threshold control</div>
-        </div>
-    </section>
-
-    <section>
-        <h1>Contractual Concepts Reprogrammed</h1>
-        <div class="concept-block">
-            <p><span class="gold-text">CON2 — IEX:</span> Automatic execution block based on irreversible trajectory data.</p>
-        </div>
-        <div class="concept-block">
-            <p><span class="gold-text">CON5 — Conditioned Object:</span> Obligations exist only while reversibility remains.</p>
-        </div>
-        <div class="concept-block">
-            <p><span class="gold-text">CON6 — Continuous Validity:</span> Conditions persist throughout execution.</p>
-        </div>
-    </section>
-    <section>
-        <h1>Algorithmic Admissibility</h1>
-        <div class="concept-block">
-            <p><span class="gold-text">SIS10 — LI-EI-AI Triad:</span> Filters systemic compatibility before execution.</p>
-        </div>
-        <div class="concept-block">
-            <p><span class="gold-text">SIS11 — Algorithmic Causality Nexus:</span> Predictive causal determination ex-ante.</p>
-        </div>
-    </section>
-
-    <section>
-        <h1>Execution Control</h1>
-        <div class="concept-block">
-            <p><span class="gold-text">SIS12 — Marginal Contribution:</span> Locks the last agent to push the system beyond threshold.</p>
-        </div>
-        <div class="concept-block">
-            <p><span class="gold-text">SIS13 — Execution Tokens:</span> Clauses unlock only with validated D-MRV data.</p>
-        </div>
-    </section>
-
-    <section>
-        <h1>Objective Technical Truth</h1>
-        <div class="concept-block">
-            <p><span class="gold-text">SIS14 — Inexequibility Oracles:</span> Satellite and IoT data feeds as binding legal inputs.</p>
-        </div>
-        <div class="concept-block">
-            <p><span class="gold-text">DVR7 — Trajectory Curatorship:</span> Continuous duty to maintain habitability during execution.</p>
-        </div>
-    </section>
-
-    <section>
-        <h1>The c-ΣCO Legal Architecture</h1>
-        <div class="comparison-grid" style="grid-template-columns: 1fr; gap: 10px;">
-            <div class="grid-item">
-                <strong>Concept Layer</strong>
-                <p>IEX • Conditioned Object • Habitability • Safe Operating Space</p>
+    <main class="slide-container">
+        
+        <section>
+            <div class="glass-panel">
+                <div class="gold-line"></div>
+                <span class="label-tag">Protocolo I — Doutrina</span>
+                <h2>Doutrina c-ΣCO</h2>
+                <p class="content-text">
+                    Uma arquitetura de governança antecipatória projetada para o gerenciamento de riscos sistêmicos pré-colapso. A c-ΣCO (Contractual Equity & Ecological Co-Responsibility) redefine o papel do direito de um alocador de riscos para um curador de trajetórias de habitabilidade.
+                </p>
+                <div class="grid-blocks">
+                    <div class="block-item">
+                        <h3>Status Quo</h3>
+                        <p class="content-text" style="font-size: 0.95rem;">O Direito Clássico reage ao dano (ex-post). O ESG foca em transparência. Ambos falham em impedir o rompimento de limiares biofísicos.</p>
+                    </div>
+                    <div class="block-item">
+                        <h3>O Paradigma Σ</h3>
+                        <p class="content-text" style="font-size: 0.95rem;">Execução baseada em dados de tempo real. Se a trajetória indica irreversibilidade, o sistema jurídico bloqueia o ato antes de sua ocorrência.</p>
+                    </div>
+                </div>
+                <div class="footer-sig">Σ</div>
             </div>
-            <div style="height: 1px; background: var(--line-subtle); margin: 10px 0;"></div>
-            <div class="grid-item">
-                <strong>System Layer</strong>
-                <p>Safe Mode • State Machine • LI-EI-AI • Oracles</p>
+        </section>
+
+        <section>
+            <div class="glass-panel">
+                <div class="gold-line"></div>
+                <span class="label-tag">Protocolo II — Conceitos</span>
+                <h2>Inexequibilidade Ex-Ante</h2>
+                <div class="grid-blocks">
+                    <div class="block-item">
+                        <h3>CON2 — IEX</h3>
+                        <p class="content-text" style="font-size: 0.95rem;">Bloqueio automático baseado em dados de satélite e IoT (D-MRV). O contrato torna-se tecnicamente impossível de executar se colidir com o "Safe Operating Space".</p>
+                    </div>
+                    <div class="block-item">
+                        <h3>CON9 — Link de Habitabilidade</h3>
+                        <p class="content-text" style="font-size: 0.95rem;">O valor econômico é juridicamente contingente à preservação do ecossistema. Sem substrato biofísico, não há validade contratual.</p>
+                    </div>
+                </div>
+                <div class="footer-sig">Σ</div>
             </div>
-            <div style="height: 1px; background: var(--line-subtle); margin: 10px 0;"></div>
-            <div class="grid-item">
-                <strong>Duty Layer</strong>
-                <p>Join Duty • Curatorship • Technical Fidelity</p>
+        </section>
+
+        <section>
+            <div class="glass-panel">
+                <div class="gold-line"></div>
+                <span class="label-tag">Protocolo III — Infraestrutura</span>
+                <h2>Comando Jurídico Digital</h2>
+                <div class="grid-blocks">
+                    <div class="block-item">
+                        <h3>SIS10 — Tríade LI-EI-AI</h3>
+                        <p class="content-text" style="font-size: 0.95rem;">A integração entre Legal, Ecological e Artificial Intelligence atua como um filtro de admissibilidade algorítmica antes de qualquer transação.</p>
+                    </div>
+                    <div class="block-item">
+                        <h3>SIS12 — Contribuição Marginal</h3>
+                        <p class="content-text" style="font-size: 0.95rem;">Identifica e trava o último agente que levaria o sistema ao "tipping point", prevenindo falhas em cascata.</p>
+                    </div>
+                </div>
+                <div class="footer-sig">Σ</div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section>
-        <h1>A New Legal Role</h1>
-        <h2>From risk allocators to trajectory curators.</h2>
-        <ul>
-            <li>Duty of design</li>
-            <li>Duty of governance</li>
-            <li>Obligation to preserve habitability</li>
-        </ul>
-    </section>
-
-    <section>
-        <h1>The c-ΣCO Legal Architecture</h1>
-        <div class="comparison-grid">
-            <div class="grid-item"><strong>Concept Layer</strong>IEX, Conditioned Object, Habitability</div>
-            <div class="grid-item"><strong>System Layer</strong>Safe Mode, State Machine, LI-EI-AI</div>
-            <div class="grid-item"><strong>Duty Layer</strong>Join Duty, Curatorship, Fidelity</div>
-        </div>
-    </section>
-
-    <section>
-        <h1 style="color: var(--accent-gold);"></h1>
-        <h2>Law must act before collapse becomes irreversible.</h2>
-        <div class="footer">c-ΣCO | Applied Hub | 2026</div>
-    </section>
+    </main>
 
 </body>
 </html>
