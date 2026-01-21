@@ -156,59 +156,81 @@
     </main>
 
     <script>
-        [span_2](start_span)[span_3](start_span)[span_4](start_span)// Dados extraídos diretamente das suas Tabelas 1 e 2[span_2](end_span)[span_3](end_span)[span_4](end_span)
-        const commands = [
-            [span_5](start_span){ code: "CON2", category: "Conceito", instrument: "Cláusulas MAC / MAE", title: "Inexequibilidade Ex-Ante (IEX)", desc: "Bloqueio automático baseado em dados de trajetória técnica irreversível.[span_5](end_span)" },
-            [span_6](start_span){ code: "CON3", category: "Conceito", instrument: "Force Majeure", title: "Perclusão Sistêmica", desc: "Atos lícitos são bloqueados quando constroem a trajetória do colapso.[span_6](end_span)" },
-            [span_7](start_span)[span_8](start_span){ code: "CON5", category: "Conceito", instrument: "Covenants", title: "Objeto Imediato Condicionado", desc: "A obrigação só existe enquanto houver reversibilidade sistêmica.[span_7](end_span)[span_8](end_span)" },
-            [span_9](start_span)[span_10](start_span){ code: "CON7", category: "Conceito", instrument: "Price Adjustment", title: "Safe Operating Space", desc: "Preço juridicamente nulo se violar limites sistêmicos planetários.[span_9](end_span)[span_10](end_span)" },
-            [span_11](start_span)[span_12](start_span){ code: "CON9", category: "Conceito", instrument: "Earn-outs", title: "Vínculo de Habitabilidade", desc: "Valor depende da preservação do ecossistema do ativo.[span_11](end_span)[span_12](end_span)" },
-            [span_13](start_span)[span_14](start_span){ code: "SIS6", category: "Sistema", instrument: "Netting / Close-out", title: "Safe Mode", desc: "Suspensão coordenada para impedir cascata de impacto e quebra sistêmica.[span_13](end_span)[span_14](end_span)" },
-            { code: "SIS7", category: "Sistema", instrument: "Early Termination", title: "Máquina de Estados (LSM)", desc: "Degradação controlada em vez de ruptura binária. [span_15](start_span)[span_16](start_span)Transição Safe → Degraded → Recovery.[span_15](end_span)[span_16](end_span)" },
-            [span_17](start_span)[span_18](start_span){ code: "SIS10", category: "Sistema", instrument: "Tríade LI-EI-AI", title: "Filtro de Admissibilidade", desc: "Valida compatibilidade sistêmica antes da execução através de IA.[span_17](end_span)[span_18](end_span)" },
-            [span_19](start_span)[span_20](start_span){ code: "SIS14", category: "Sistema", instrument: "Oráculos", title: "Feeds Invioláveis", desc: "Dados de satélite e IoT alimentam a lógica contratual objetiva.[span_19](end_span)[span_20](end_span)" },
-            [span_21](start_span)[span_22](start_span){ code: "DVR3", category: "Dever", instrument: "Hardship", title: "Join Duty Automático", desc: "Cooperação obrigatória e novação funcional do vínculo jurídico.[span_21](end_span)[span_22](end_span)" },
-            [span_23](start_span)[span_24](start_span){ code: "DVR6", category: "Dever", instrument: "Dispute Boards", title: "Conversão em Curadores", desc: "Partes deixam de litigar e passam a preservar a integridade do sistema.[span_23](end_span)[span_24](end_span)" }
-        ];
+       // Mapeamento de Conexões Doutrinárias (Baseado na Tabela 3 e Matriz Comparativa)
+const commands = [
+    { 
+        code: "CON5", category: "Conceito", instrument: "Covenants", 
+        title: "Objeto Imediato Condicionado", 
+        [span_4](start_span)[span_5](start_span)desc: "A obrigação só existe enquanto houver reversibilidade[span_4](end_span)[span_5](end_span).",
+        linksTo: ["SIS7", "SIS13"] // Conecta com Máquina de Estados e Tokens
+    },
+    { 
+        code: "CON2", category: "Conceito", instrument: "Cláusulas MAC / MAE", 
+        title: "IEX (Inexequibilidade Ex-Ante)", 
+        [span_6](start_span)[span_7](start_span)desc: "Bloqueio automático antes da violação irreversível[span_6](end_span)[span_7](end_span).",
+        linksTo: ["SIS14", "SIS6"] // Conecta com Oráculos e Safe Mode
+    },
+    { 
+        code: "SIS7", category: "Sistema", instrument: "LSM (Logic State Machine)", 
+        title: "Máquina de Estados", 
+        [span_8](start_span)[span_9](start_span)[span_10](start_span)desc: "Transição de estados: Safe → Degraded → Recovery[span_8](end_span)[span_9](end_span)[span_10](end_span).",
+        linksTo: ["DVR7", "CON5"] 
+    },
+    { 
+        code: "SIS14", category: "Sistema", instrument: "Oráculos", 
+        title: "Oráculos de Inexequibilidade", 
+        [span_11](start_span)[span_12](start_span)desc: "Feeds de satélite e IoT alimentam a lógica contratual[span_11](end_span)[span_12](end_span).",
+        linksTo: ["CON2", "SIS9"] 
+    },
+    { 
+        code: "DVR3", category: "Dever", instrument: "Hardship", 
+        title: "Join Duty Automático", 
+        [span_13](start_span)[span_14](start_span)desc: "Cooperação obrigatória e novação funcional do vínculo[span_13](end_span)[span_14](end_span).",
+        linksTo: ["DVR6", "SIS6"] 
+    }
+    // ... adicione os demais conforme a Tabela 3
+];
 
-        function renderGlossary(data) {
-            const container = document.getElementById('glossary');
-            container.innerHTML = data.map(cmd => `
-                <div class="command-card" data-category="${cmd.category}">
-                    <div class="card-header">
-                        <span class="code-id">${cmd.code}</span>
-                        <span class="category-tag">${cmd.category}</span>
-                    </div>
-                    <h3>${cmd.title}</h3>
-                    <span class="instrument-ref">Ref: ${cmd.instrument}</span>
-                    <p class="function-desc">${cmd.desc}</p>
-                </div>
-            `).join('');
+function renderGlossary(data) {
+    const container = document.getElementById('glossary');
+    container.innerHTML = data.map(cmd => `
+        <div class="command-card" id="card-${cmd.code}" onclick="toggleConnection('${cmd.code}')">
+            <div class="card-header">
+                <span class="code-id">${cmd.code}</span>
+                <span class="category-tag">${cmd.category}</span>
+            </div>
+            <h3>${cmd.title}</h3>
+            <span class="instrument-ref">Ref: ${cmd.instrument}</span>
+            <p class="function-desc">${cmd.desc}</p>
+            <div class="connection-indicator hidden" id="link-${cmd.code}">
+                <small style="color:var(--gold)">CONECTADO A: ${cmd.linksTo?.join(', ') || 'N/A'}</small>
+            </div>
+        </div>
+    `).join('');
+}
+
+function toggleConnection(code) {
+    // Resetar estilos
+    document.querySelectorAll('.command-card').forEach(c => {
+        c.style.opacity = "0.3";
+        c.style.borderColor = "var(--glass)";
+    });
+
+    const activeCmd = commands.find(c => c.code === code);
+    const activeCard = document.getElementById(`card-${code}`);
+    
+    // Destacar card selecionado
+    activeCard.style.opacity = "1";
+    activeCard.style.borderColor = "var(--gold)";
+    activeCard.style.boxShadow = "0 0 20px rgba(197, 160, 101, 0.2)";
+
+    // Destacar cards conectados
+    activeCmd.linksTo.forEach(targetCode => {
+        const targetCard = document.getElementById(`card-${targetCode}`);
+        if(targetCard) {
+            targetCard.style.opacity = "1";
+            targetCard.style.borderColor = "#fff";
+            targetCard.classList.add('pulse-border');
         }
-
-        // Função de Busca Dinâmica
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase();
-            const filtered = commands.filter(cmd => 
-                cmd.title.toLowerCase().includes(term) || 
-                cmd.code.toLowerCase().includes(term) ||
-                cmd.desc.toLowerCase().includes(term)
-            );
-            renderGlossary(filtered);
-        });
-
-        function filterCategory(cat) {
-            // Update buttons
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.innerText.toLowerCase().includes(cat.toLowerCase()) || (cat === 'all' && btn.innerText === 'TODOS'));
-            });
-
-            if(cat === 'all') renderGlossary(commands);
-            else renderGlossary(commands.filter(c => c.category === cat));
-        }
-
-        // Inicialização
-        renderGlossary(commands);
-    </script>
-</body>
-</html>
+    });
+}
