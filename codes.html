@@ -3,233 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Σ | c-ΣCO Doctrine — Technical Framework</title>
+    <title>Σ | c-ΣCO Technical Glossary</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;600&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
         :root {
-            --obsidian-deep: #030303;      
-            --gold-sovereign: #C5A065;     
-            --glass-border: rgba(255, 255, 255, 0.08); 
-            --glass-bg: rgba(10, 10, 12, 0.9);
+            --obsidian: #030303;      
+            --gold: #C5A065;     
+            --glass: rgba(255, 255, 255, 0.05); 
         }
 
         body {
-            background-color: var(--obsidian-deep);
+            background-color: var(--obsidian);
             color: #e0e0e0;
             font-family: 'Inter', sans-serif;
-            margin: 0;
             background: radial-gradient(circle at 50% 50%, #0f0f12 0%, #030303 90%);
+            min-height: 100vh;
         }
 
-        .holo-grid {
-            position: fixed; width: 200%; height: 200%;
-            background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 60px 60px;
-            transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
-            animation: gridMove 30s linear infinite;
-            z-index: -1;
-            mask-image: radial-gradient(circle, black 30%, transparent 80%);
-        }
-
-        @keyframes gridMove {
-            0% { transform: perspective(500px) rotateX(60deg) translateY(0) translateZ(-200px); }
-            100% { transform: perspective(500px) rotateX(60deg) translateY(60px) translateZ(-200px); }
-        }
-
-        .slide-container { scroll-snap-type: y mandatory; height: 100vh; overflow-y: scroll; }
-        section { min-height: 100vh; scroll-snap-align: start; display: flex; align-items: center; justify-content: center; padding: 4rem 2rem; }
-
-        .glass-panel {
-            width: 100%; max-width: 1200px;
-            background: var(--glass-bg);
+        /* Estilo da Busca */
+        .search-container {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(3, 3, 3, 0.8);
             backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            padding: 3rem;
-            position: relative;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--glass);
         }
 
-        .gold-accent { border-left: 2px solid var(--gold-sovereign); padding-left: 1.5rem; }
-        
-        .label-tag { font-family: 'Rajdhani', sans-serif; color: var(--gold-sovereign); letter-spacing: 0.3em; font-size: 0.7rem; text-transform: uppercase; margin-bottom: 1rem; display: block; }
-        
-        h2 { font-family: 'Orbitron', sans-serif; font-size: 2rem; color: #fff; margin-bottom: 2rem; letter-spacing: 0.1em; }
+        .search-input {
+            background: transparent;
+            border: 1px solid var(--glass);
+            color: var(--gold);
+            font-family: 'Rajdhani', sans-serif;
+            letter-spacing: 0.1em;
+            padding: 0.8rem 1.5rem;
+            width: 100%;
+            max-width: 600px;
+            transition: all 0.3s ease;
+        }
 
-        /* Estilo para as Tabelas Técnicas */
-        .tech-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-family: 'Inter', sans-serif; }
-        .tech-table th { font-family: 'Rajdhani', sans-serif; text-align: left; color: var(--gold-sovereign); padding: 1rem; border-bottom: 1px solid var(--glass-border); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; }
-        .tech-table td { padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 0.9rem; vertical-align: top; }
-        .code-id { font-family: 'Orbitron', sans-serif; color: var(--gold-sovereign); font-weight: bold; font-size: 0.8rem; }
-        .instrument { color: #fff; font-weight: 500; font-size: 0.85rem; display: block; margin-bottom: 0.2rem; }
-        .function { color: #a1a1aa; line-height: 1.4; }
+        .search-input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(197, 160, 101, 0.2);
+        }
 
-        /* Matriz Comparativa Especial */
-        .comparison-grid { display: grid; grid-template-columns: 150px 1fr 1fr 1fr; gap: 1px; background: var(--glass-border); }
-        .comp-header { background: #000; padding: 1rem; font-family: 'Rajdhani', sans-serif; color: var(--gold-sovereign); font-size: 0.75rem; text-align: center; font-weight: 600; }
-        .comp-cell { background: var(--glass-bg); padding: 1rem; font-size: 0.8rem; line-height: 1.4; }
-        .comp-row-label { font-family: 'Rajdhani', sans-serif; color: #fff; text-transform: uppercase; font-weight: 500; }
+        /* Grid do Glossário */
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem 0;
+        }
 
-        .scanline::before { content: " "; position: fixed; top: 0; left: 0; bottom: 0; right: 0; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%); z-index: 10; background-size: 100% 4px; pointer-events: none; opacity: 0.2; }
+        .command-card {
+            background: rgba(15, 15, 18, 0.6);
+            border: 1px solid var(--glass);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .command-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+            background: rgba(197, 160, 101, 0.03);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .code-id {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--gold);
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .category-tag {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            padding: 2px 8px;
+            border: 1px solid var(--glass);
+            color: #52525b;
+        }
+
+        h3 {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .instrument-ref {
+            font-size: 0.75rem;
+            color: #71717a;
+            display: block;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .function-desc {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #a1a1aa;
+        }
+
+        /* Filtros */
+        .filter-btn {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.75rem;
+            color: #52525b;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-right: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .filter-btn.active { color: var(--gold); border-bottom: 1px solid var(--gold); }
     </style>
 </head>
-<body class="scanline">
+<body>
 
-    <div class="holo-grid"></div>
-
-    <main class="slide-container">
-        
-        <section>
-            <div class="glass-panel">
-                <span class="label-tag">Applied Hub 2026 — Protocolo Σ</span>
-                <h2 style="font-size: 3rem;">Doutrina c-ΣCO</h2>
-                <div class="gold-accent">
-                    <p style="font-size: 1.25rem; color: #d1d1d1; max-width: 800px;">
-                        Reinterpretação das medidas ex-ante sob o paradigma sistêmico. [span_0](start_span)A transição do controle contratual reativo para a governança de trajetórias técnica-irreversíveis.[span_0](end_span)
-                    </p>
-                </div>
+    <div class="search-container">
+        <div class="container mx-auto px-8">
+            <input type="text" id="searchInput" class="search-input" placeholder="BUSCAR COMANDO (EX: IEX, SIS, CON)...">
+            <div class="mt-4 flex">
+                <button class="filter-btn active" onclick="filterCategory('all')">TODOS</button>
+                <button class="filter-btn" onclick="filterCategory('Conceito')">CONCEITOS</button>
+                <button class="filter-btn" onclick="filterCategory('Sistema')">SISTEMAS</button>
+                <button class="filter-btn" onclick="filterCategory('Dever')">DEVERES</button>
             </div>
-        </section>
+        </div>
+    </div>
 
-        <section>
-            <div class="glass-panel">
-                <span class="label-tag">Tabela 1 — Camada de Conceitos Jurídicos</span>
-                <h2>Inexequibilidade e Perclusão</h2>
-                <table class="tech-table">
-                    <thead>
-                        <tr>
-                            <th style="width: 100px;">Código</th>
-                            <th style="width: 200px;">Instrumento Atual</th>
-                            <th>Função c-ΣCO</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="code-id">CON2</td>
-                            <td><span class="instrument">Cláusulas MAC / MAE</span></td>
-                            [span_1](start_span)<td class="function"><strong>Inexequibilidade Ex-Ante (IEX):</strong> Bloqueio automático baseado em dados de trajetória técnica irreversível.[span_1](end_span)</td>
-                        </tr>
-                        <tr>
-                            <td class="code-id">CON3</td>
-                            <td><span class="instrument">Force Majeure</span></td>
-                            [span_2](start_span)<td class="function"><strong>Perclusão Sistêmica:</strong> Atos lícitos são bloqueados quando constroem a trajetória do colapso.[span_2](end_span)</td>
-                        </tr>
-                        <tr>
-                            <td class="code-id">CON5</td>
-                            <td><span class="instrument">Covenants</span></td>
-                            [span_3](start_span)<td class="function"><strong>Objeto Imediato Condicionado:</strong> A obrigação só existe enquanto houver reversibilidade sistêmica.[span_3](end_span)</td>
-                        </tr>
-                        <tr>
-                            <td class="code-id">CON6</td>
-                            <td><span class="instrument">Condições Precedentes</span></td>
-                            [span_4](start_span)<td class="function"><strong>Validade Contínua:</strong> A condição não se exaure na formação; ela persiste e governa a execução.[span_4](end_span)</td>
-                        </tr>
-                    </tbody>
-                </table>
+    <main class="container mx-auto px-8 py-12">
+        <div id="glossary" class="glossary-grid">
             </div>
-        </section>
-
-        <section>
-            <div class="glass-panel">
-                <span class="label-tag">Tabela 1 — Camada Operacional</span>
-                <h2>Sistemas e Deveres</h2>
-                <table class="tech-table">
-                    <thead>
-                        <tr>
-                            <th style="width: 100px;">Código</th>
-                            <th style="width: 200px;">Instrumento Atual</th>
-                            <th>Função c-ΣCO</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="code-id">SIS6</td>
-                            <td><span class="instrument">Netting / Close-out</span></td>
-                            [span_5](start_span)[span_6](start_span)<td class="function"><strong>Safe Mode:</strong> Suspensão coordenada para impedir quebra sistêmica e cascata de impactos.[span_5](end_span)[span_6](end_span)</td>
-                        </tr>
-                        <tr>
-                            <td class="code-id">SIS7</td>
-                            <td><span class="instrument">Early Termination</span></td>
-                            [span_7](start_span)[span_8](start_span)<td class="function"><strong>Máquina de Estados:</strong> Degradação controlada em vez de ruptura binária (LSM).[span_7](end_span)[span_8](end_span)</td>
-                        </tr>
-                        <tr>
-                            <td class="code-id">DVR3</td>
-                            <td><span class="instrument">Hardship / Renegociação</span></td>
-                            [span_9](start_span)<td class="function"><strong>Join Duty Automático:</strong> Cooperação obrigatória e novação funcional do vínculo.[span_9](end_span)</td>
-                        </tr>
-                        <tr>
-                            <td class="code-id">DVR6</td>
-                            <td><span class="instrument">Dispute Boards</span></td>
-                            [span_10](start_span)<td class="function"><strong>Conversão em Curadores:</strong> Partes deixam de litigar para preservar a integridade do sistema.[span_10](end_span)</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section>
-            <div class="glass-panel">
-                <span class="label-tag">Tabela 2 — Camada Algorítmica (2026)</span>
-                <h2>Infraestrutura e Execução</h2>
-                <div class="grid-blocks grid grid-cols-2 gap-8">
-                    <div class="block-item gold-accent">
-                        <span class="code-id">SIS10</span>
-                        <h3 class="font-bold text-white mt-2">Tríade LI-EI-AI</h3>
-                        [span_11](start_span)<p class="content-text text-sm mt-2">Filtro Algorítmico de Admissibilidade: Valida compatibilidade sistêmica antes da execução.[span_11](end_span)</p>
-                    </div>
-                    <div class="block-item gold-accent">
-                        <span class="code-id">SIS11</span>
-                        <h3 class="font-bold text-white mt-2">Nexo Algorítmico</h3>
-                        [span_12](start_span)<p class="content-text text-sm mt-2">Simulação Preditiva Ex-Ante: Causalidade jurídica definida antes da ocorrência do dano.[span_12](end_span)</p>
-                    </div>
-                    <div class="block-item gold-accent">
-                        <span class="code-id">SIS13</span>
-                        <h3 class="font-bold text-white mt-2">Tokens de Execução (RtE)</h3>
-                        [span_13](start_span)<p class="content-text text-sm mt-2">Habilitação Condicionada: Cláusulas só executam com validação via D-MRV.[span_13](end_span)</p>
-                    </div>
-                    <div class="block-item gold-accent">
-                        <span class="code-id">SIS14</span>
-                        <h3 class="font-bold text-white mt-2">Oráculos de Inexequibilidade</h3>
-                        [span_14](start_span)<p class="content-text text-sm mt-2">Feeds invioláveis (Satélite/IoT) alimentam a lógica contratual objetiva.[span_14](end_span)</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <div class="glass-panel" style="max-width: 1400px; padding: 2rem;">
-                <span class="label-tag">Tabela 3 — Matriz Comparativa de Paradigmas</span>
-                <div class="comparison-grid mt-4">
-                    <div class="comp-header">Eixo</div>
-                    <div class="comp-header">c-ΣCO Doctrine</div>
-                    <div class="comp-header">Doutrina Clássica</div>
-                    <div class="comp-header">ESG / CSRD</div>
-
-                    <div class="comp-cell comp-row-label">Objeto Central</div>
-                    [span_15](start_span)<div class="comp-cell">Habitabilidade / Reversibilidade como condição de existência.[span_15](end_span)</div>
-                    [span_16](start_span)<div class="comp-cell">Troca de prestações e equilíbrio econômico.[span_16](end_span)</div>
-                    [span_17](start_span)<div class="comp-cell">Gestão de temas ESG e dever de reportar riscos.[span_17](end_span)</div>
-
-                    <div class="comp-cell comp-row-label">Momento Jurídico</div>
-                    [span_18](start_span)<div class="comp-cell" style="color: var(--gold-sovereign);">Pré-limiar / Ex-ante: Trava antes do dano irreversível.[span_18](end_span)</div>
-                    [span_19](start_span)<div class="comp-cell">Ex-post: Reparação e revisão após o evento.[span_19](end_span)</div>
-                    [span_20](start_span)<div class="comp-cell">Ex-ante/Ex-post via governança e disclosure.[span_20](end_span)</div>
-
-                    <div class="comp-cell comp-row-label">Prova</div>
-                    [span_21](start_span)<div class="comp-cell">Digital (D-MRV): Dado sensorial como comando de execução.[span_21](end_span)</div>
-                    [span_22](start_span)<div class="comp-cell">Documentos e perícias; prova humana contestável.[span_22](end_span)</div>
-                    [span_23](start_span)<div class="comp-cell">Evidências de processos e auditorias de emissão.[span_23](end_span)</div>
-                    
-                    <div class="comp-cell comp-row-label">Enforcement</div>
-                    [span_24](start_span)<div class="comp-cell">Autoexecutável: Tokens, travas e mudança de estado.[span_24](end_span)</div>
-                    [span_25](start_span)<div class="comp-cell">Judiciário / Arbitragem; remédios tradicionais.[span_25](end_span)</div>
-                    [span_26](start_span)<div class="comp-cell">Reguladores + pressão de mercado e asseguração.[span_26](end_span)</div>
-                </div>
-            </div>
-        </section>
-
     </main>
 
+    <script>
+        [span_2](start_span)[span_3](start_span)[span_4](start_span)// Dados extraídos diretamente das suas Tabelas 1 e 2[span_2](end_span)[span_3](end_span)[span_4](end_span)
+        const commands = [
+            [span_5](start_span){ code: "CON2", category: "Conceito", instrument: "Cláusulas MAC / MAE", title: "Inexequibilidade Ex-Ante (IEX)", desc: "Bloqueio automático baseado em dados de trajetória técnica irreversível.[span_5](end_span)" },
+            [span_6](start_span){ code: "CON3", category: "Conceito", instrument: "Force Majeure", title: "Perclusão Sistêmica", desc: "Atos lícitos são bloqueados quando constroem a trajetória do colapso.[span_6](end_span)" },
+            [span_7](start_span)[span_8](start_span){ code: "CON5", category: "Conceito", instrument: "Covenants", title: "Objeto Imediato Condicionado", desc: "A obrigação só existe enquanto houver reversibilidade sistêmica.[span_7](end_span)[span_8](end_span)" },
+            [span_9](start_span)[span_10](start_span){ code: "CON7", category: "Conceito", instrument: "Price Adjustment", title: "Safe Operating Space", desc: "Preço juridicamente nulo se violar limites sistêmicos planetários.[span_9](end_span)[span_10](end_span)" },
+            [span_11](start_span)[span_12](start_span){ code: "CON9", category: "Conceito", instrument: "Earn-outs", title: "Vínculo de Habitabilidade", desc: "Valor depende da preservação do ecossistema do ativo.[span_11](end_span)[span_12](end_span)" },
+            [span_13](start_span)[span_14](start_span){ code: "SIS6", category: "Sistema", instrument: "Netting / Close-out", title: "Safe Mode", desc: "Suspensão coordenada para impedir cascata de impacto e quebra sistêmica.[span_13](end_span)[span_14](end_span)" },
+            { code: "SIS7", category: "Sistema", instrument: "Early Termination", title: "Máquina de Estados (LSM)", desc: "Degradação controlada em vez de ruptura binária. [span_15](start_span)[span_16](start_span)Transição Safe → Degraded → Recovery.[span_15](end_span)[span_16](end_span)" },
+            [span_17](start_span)[span_18](start_span){ code: "SIS10", category: "Sistema", instrument: "Tríade LI-EI-AI", title: "Filtro de Admissibilidade", desc: "Valida compatibilidade sistêmica antes da execução através de IA.[span_17](end_span)[span_18](end_span)" },
+            [span_19](start_span)[span_20](start_span){ code: "SIS14", category: "Sistema", instrument: "Oráculos", title: "Feeds Invioláveis", desc: "Dados de satélite e IoT alimentam a lógica contratual objetiva.[span_19](end_span)[span_20](end_span)" },
+            [span_21](start_span)[span_22](start_span){ code: "DVR3", category: "Dever", instrument: "Hardship", title: "Join Duty Automático", desc: "Cooperação obrigatória e novação funcional do vínculo jurídico.[span_21](end_span)[span_22](end_span)" },
+            [span_23](start_span)[span_24](start_span){ code: "DVR6", category: "Dever", instrument: "Dispute Boards", title: "Conversão em Curadores", desc: "Partes deixam de litigar e passam a preservar a integridade do sistema.[span_23](end_span)[span_24](end_span)" }
+        ];
+
+        function renderGlossary(data) {
+            const container = document.getElementById('glossary');
+            container.innerHTML = data.map(cmd => `
+                <div class="command-card" data-category="${cmd.category}">
+                    <div class="card-header">
+                        <span class="code-id">${cmd.code}</span>
+                        <span class="category-tag">${cmd.category}</span>
+                    </div>
+                    <h3>${cmd.title}</h3>
+                    <span class="instrument-ref">Ref: ${cmd.instrument}</span>
+                    <p class="function-desc">${cmd.desc}</p>
+                </div>
+            `).join('');
+        }
+
+        // Função de Busca Dinâmica
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const filtered = commands.filter(cmd => 
+                cmd.title.toLowerCase().includes(term) || 
+                cmd.code.toLowerCase().includes(term) ||
+                cmd.desc.toLowerCase().includes(term)
+            );
+            renderGlossary(filtered);
+        });
+
+        function filterCategory(cat) {
+            // Update buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.innerText.toLowerCase().includes(cat.toLowerCase()) || (cat === 'all' && btn.innerText === 'TODOS'));
+            });
+
+            if(cat === 'all') renderGlossary(commands);
+            else renderGlossary(commands.filter(c => c.category === cat));
+        }
+
+        // Inicialização
+        renderGlossary(commands);
+    </script>
 </body>
 </html>
