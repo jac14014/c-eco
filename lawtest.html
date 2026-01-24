@@ -1,174 +1,441 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>c-ΣCO | Systemic Governance Statute</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --sidebar-width: 320px;
-            --legal-blue: #1a2b3c;
-            --gold-accent: #c5a059;
-            --bg-body: #f4f7f9;
-            --text-main: #1a1a1a;
-            --border-color: #dee2e6;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>c-ΣCO | Systemic Governance Statute</title>
 
-        body { margin: 0; display: flex; background-color: var(--bg-body); font-family: 'Inter', sans-serif; color: var(--text-main); }
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
-        /* SIDEBAR */
-        .sidebar {
-            width: var(--sidebar-width); height: 100vh; background: white; position: fixed;
-            left: 0; top: 0; border-right: 1px solid var(--border-color); overflow-y: auto;
-            padding: 20px; box-sizing: border-box; z-index: 100;
-        }
+  <style>
+    :root{
+      --sidebar-width: 320px;
+      --legal-blue: #1a2b3c;
+      --gold-accent: #c5a059;
+      --bg-body: #f4f7f9;
+      --text-main: #1a1a1a;
+      --border-color: #dee2e6;
 
-        .sidebar-header { font-weight: 800; font-size: 11px; letter-spacing: 2px; color: var(--gold-accent); text-transform: uppercase; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
-        .sidebar nav ul { list-style: none; padding: 0; margin: 0; }
-        .sidebar nav li { margin-bottom: 10px; }
-        .sidebar nav a { text-decoration: none; color: var(--text-main); font-size: 12px; display: block; transition: 0.2s; }
-        .sidebar nav a:hover { color: var(--gold-accent); }
-        .sub-menu { padding-left: 15px; margin-top: 5px; border-left: 1px solid #eee; }
-        .chapter-link { border-top: 1px solid #f0f0f0; padding-top: 10px; font-weight: 700; text-transform: uppercase; margin-top: 15px !important; }
+      --shadow: 0 4px 20px rgba(0,0,0,0.05);
+      --radius: 10px;
+      --scroll-offset: 24px;
+    }
 
-        /* CONTENT */
-        .main-content { margin-left: var(--sidebar-width); flex: 1; padding: 60px; display: flex; justify-content: center; min-height: 100vh; }
-        .document-page { background: white; width: 100%; max-width: 850px; padding: 80px 100px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid var(--border-color); }
-        
-        header.doc-header { text-align: center; border-bottom: 3px double var(--legal-blue); margin-bottom: 50px; padding-bottom: 30px; }
-        .doc-title { font-size: 24px; color: var(--legal-blue); text-transform: uppercase; margin: 10px 0; }
-        
-        .ai-id { font-family: monospace; font-size: 12px; color: var(--gold-accent); font-weight: bold; margin-bottom: 5px; display: block; }
-        .section-header { font-size: 18px; text-transform: uppercase; color: var(--legal-blue); border-top: 1px solid var(--border-color); margin: 50px 0 20px; padding-top: 20px; scroll-margin-top: 40px; }
-        .article-box { margin-bottom: 35px; scroll-margin-top: 50px; }
-        .article-title { font-weight: 700; color: var(--legal-blue); display: block; margin-bottom: 10px; font-size: 16px; }
-        .statute-text { font-family: 'Libre Baskerville', serif; font-size: 15px; line-height: 1.8; text-align: justify; color: #333; }
-        .whereas-block { border-left: 4px solid var(--gold-accent); padding-left: 20px; margin: 25px 0; font-style: italic; }
-        .subsection-label { font-weight: 700; font-size: 13px; text-transform: uppercase; color: #666; margin: 40px 0 15px; display: block; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+    html{
+      scroll-behavior: smooth; /* scroll suave nativo */
+      scroll-padding-top: var(--scroll-offset); /* offset global */
+    }
 
-        @media (max-width: 1100px) { .sidebar { display: none; } .main-content { margin-left: 0; padding: 20px; } }
-    </style>
+    body{
+      margin:0;
+      display:flex;
+      background-color: var(--bg-body);
+      font-family: 'Inter', sans-serif;
+      color: var(--text-main);
+    }
+
+    /* SIDEBAR */
+    .sidebar{
+      width: var(--sidebar-width);
+      height: 100vh;
+      background: #fff;
+      position: fixed;
+      left: 0;
+      top: 0;
+      border-right: 1px solid var(--border-color);
+      overflow-y: auto;
+      padding: 20px;
+      box-sizing: border-box;
+      z-index: 20;
+    }
+
+    .sidebar-header{
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: var(--gold-accent);
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--border-color);
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .sidebar nav ul{ list-style:none; padding:0; margin:0; }
+    .sidebar nav li{ margin-bottom: 10px; }
+
+    .sidebar nav a{
+      text-decoration:none;
+      color: var(--text-main);
+      font-size: 13px;
+      line-height: 1.35;
+      display:block;
+      padding: 6px 8px;
+      border-radius: 8px;
+      transition: color .2s, background .2s;
+    }
+    .sidebar nav a:hover{
+      color: var(--gold-accent);
+      background: rgba(197,160,89,0.08);
+    }
+    .sidebar nav a.active{
+      color: var(--legal-blue);
+      background: rgba(26,43,60,0.08);
+      font-weight: 700;
+    }
+
+    .sidebar nav .chapter-link{
+      font-weight:700;
+      text-transform: uppercase;
+      margin-top: 14px;
+      border-top: 1px solid #f0f0f0;
+      padding-top: 10px;
+    }
+
+    .sub-menu{
+      padding-left: 14px;
+      margin-top: 6px;
+      border-left: 1px solid #eee;
+    }
+    .sub-menu li{ margin-bottom: 6px; }
+    .sub-menu a{
+      font-size: 11px;
+      color: #666;
+      padding: 4px 8px;
+    }
+
+    /* MAIN */
+    .main-content{
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      padding: 60px 24px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .document-page{
+      background: #fff;
+      width: 100%;
+      max-width: 880px;
+      padding: 72px 88px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+    }
+
+    header.doc-header{
+      text-align:center;
+      border-bottom: 3px double var(--legal-blue);
+      margin-bottom: 44px;
+      padding-bottom: 26px;
+    }
+
+    .doc-kicker{
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: .85;
+    }
+
+    h1.doc-title{
+      font-size: 26px;
+      color: var(--legal-blue);
+      text-transform: uppercase;
+      margin: 10px 0 0 0;
+      letter-spacing: .3px;
+      line-height: 1.2;
+    }
+
+    .statute-text{
+      font-family: 'Libre Baskerville', serif;
+      font-size: 16px;
+      line-height: 1.85;
+      text-align: justify;
+      margin-bottom: 26px;
+    }
+
+    h2.section-header{
+      font-size: 18px;
+      text-transform: uppercase;
+      color: var(--legal-blue);
+      border-top: 1px solid var(--border-color);
+      margin-top: 56px;
+      padding-top: 18px;
+      scroll-margin-top: var(--scroll-offset);
+      letter-spacing: .6px;
+    }
+
+    .article-box{
+      margin-bottom: 26px;
+      padding: 10px 0;
+    }
+
+    .article-title{
+      font-weight: 800;
+      color: var(--gold-accent);
+      display:block;
+      margin-bottom: 10px;
+      letter-spacing: .2px;
+    }
+
+    .whereas-block{
+      border-left: 4px solid var(--gold-accent);
+      padding-left: 18px;
+      margin: 18px 0 24px 0;
+      font-style: italic;
+      color: #2a2a2a;
+    }
+
+    /* MOBILE INDEX BUTTON */
+    .mobile-index-btn{
+      display: none;
+      position: fixed;
+      left: 16px;
+      bottom: 16px;
+      z-index: 50;
+      background: var(--legal-blue);
+      color: #fff;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+    }
+
+    /* Responsive */
+    @media (max-width: 1100px){
+      .sidebar{
+        display: none;
+        width: min(92vw, 380px);
+        box-shadow: var(--shadow);
+      }
+      .sidebar.open{ display:block; }
+      .main-content{
+        margin-left: 0;
+        padding: 20px 14px 90px 14px;
+      }
+      .document-page{
+        padding: 44px 20px;
+        border-radius: 12px;
+      }
+      .mobile-index-btn{ display: inline-flex; align-items:center; gap: 8px; }
+    }
+  </style>
 </head>
+
 <body>
 
-<aside class="sidebar">
-    <div class="sidebar-header">Index c-ΣCO</div>
+  <button class="mobile-index-btn" id="mobileIndexBtn" type="button">Index</button>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span>Systemic Governance Index</span>
+      <span style="font-size:11px; color:#777; font-weight:700;">c-ΣCO</span>
+    </div>
+
     <nav>
-        <ul>
-            <li><a href="#preamble">Preamble</a></li>
-            <li><a href="#memo">Explanatory Memorandum</a></li>
-            <li><a href="#preliminary" class="chapter-link">Preliminary Chapter</a>
-                <ul class="sub-menu">
-                    <li><a href="#art1">Art. 1 — SOS Supremacy</a></li>
-                    <li><a href="#art5">Art. 5 — Ex-Ante Governance</a></li>
-                </ul>
-            </li>
-            <li><a href="#ch1" class="chapter-link">Chapter I: Operating Regime</a>
-                <ul class="sub-menu">
-                    <li><a href="#art6">Sub. I — Paradigm</a></li>
-                    <li><a href="#art15">Sub. IV — Unenforceability</a></li>
-                    <li><a href="#art44">Sub. XI — Safe Mode</a></li>
-                    <li><a href="#art48">Sub. XII — State Machine</a></li>
-                </ul>
-            </li>
-        </ul>
+      <ul>
+        <li><a href="#preamble">Preamble</a></li>
+        <li><a href="#memo">Explanatory Memorandum</a></li>
+
+        <li>
+          <a href="#preliminary" class="chapter-link">Preliminary Chapter</a>
+          <ul class="sub-menu">
+            <!-- IDS corrigidos -->
+            <li><a href="#art1">Art. 1 — SOS Supremacy</a></li>
+            <li><a href="#art2">Art. 2 — In Dubio Pro Systema</a></li>
+            <li><a href="#art3">Art. 3 — Physical Primacy</a></li>
+            <li><a href="#art5">Art. 5 — Ex-Ante Governance</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#ch1" class="chapter-link">Chapter I: The c-ΣCO Regime</a>
+          <ul class="sub-menu">
+            <!-- o menu aponta para SUBSEÇÕES (headers), não para “subsectionX” -->
+            <li><a href="#sub1">Sub. I — Systemic Paradigm (Art. 6-8)</a></li>
+            <li><a href="#sub2">Sub. II — Conditioned Object (Art. 9-11)</a></li>
+            <li><a href="#sub3">Sub. III — Continuous Validity (Art. 12-14)</a></li>
+            <li><a href="#sub4">Sub. IV — Ex-Ante Unenforceability (Art. 15-18)</a></li>
+            <li><a href="#sub5">Sub. V — Systemic Preclusion (Art. 19-22)</a></li>
+            <li><a href="#sub6">Sub. VI — SOS Legal Limit (Art. 23-26)</a></li>
+            <li><a href="#sub7">Sub. VII — Habitability Link (Art. 27-30)</a></li>
+            <li><a href="#sub8">Sub. VIII — Regenerative Guarantees (Art. 31-34)</a></li>
+            <li><a href="#sub9">Sub. IX — Systemic Proof (Art. 35-39)</a></li>
+            <li><a href="#sub10">Sub. X — Curatorial Trigger (Art. 40-43)</a></li>
+            <li><a href="#sub11">Sub. XI — Safe Mode (Art. 44-47)</a></li>
+            <li><a href="#sub12">Sub. XII — State Machine (Art. 48-52)</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#ch2" class="chapter-link">Chapter II: Ex-Ante Design (Art. 53-58)</a></li>
+        <li><a href="#ch3" class="chapter-link">Chapter III: Systemic Maintenance (Art. 59-65)</a></li>
+        <li><a href="#ch4" class="chapter-link">Chapter IV: Algorithmic Causation (Art. 66-72)</a></li>
+        <li><a href="#ch5" class="chapter-link">Chapter V: Data Assessment Authority (Art. 73-81)</a></li>
+        <li><a href="#ch6" class="chapter-link">Chapter VI: Alert Architecture (Art. 82-88)</a></li>
+        <li><a href="#ch7" class="chapter-link">Chapter VII: Execution Mechanisms (Art. 89-96)</a></li>
+        <li><a href="#ch8" class="chapter-link">Chapter VIII: Mandatory Cooperation (Art. 97-104)</a></li>
+        <li><a href="#ch9" class="chapter-link">Chapter IX: Temporality & Validity (Art. 105-111)</a></li>
+        <li><a href="#ch10" class="chapter-link">Chapter X: Systemic Solvency (Art. 112-120)</a></li>
+        <li><a href="#ch11" class="chapter-link">Chapter XI: Normative Hierarchy (Art. 121-127)</a></li>
+        <li><a href="#ch12" class="chapter-link">Chapter XII: Integral Risk Liability (Art. 128-136)</a></li>
+        <li><a href="#ch13" class="chapter-link">Chapter XIII: Sanctions Regime (Art. 137-147)</a></li>
+        <li><a href="#ch14" class="chapter-link">Chapter XIV: Liability Exemptions (Art. 148-158)</a></li>
+        <li><a href="#ch15" class="chapter-link">Chapter XV: Risk Management Fund (Art. 159-167)</a></li>
+        <li><a href="#ch16" class="chapter-link">Chapter XVI: Entry Conditions (Art. 168-175)</a></li>
+        <li><a href="#ch17" class="chapter-link">Chapter XVII: Restoration Providers (Art. 176-187)</a></li>
+        <li><a href="#ch18" class="chapter-link">Chapter XVIII: Execution Chain (Art. 188-197)</a></li>
+        <li><a href="#ch19" class="chapter-link">Chapter XIX: Transitional Provisions (Art. 198-208)</a></li>
+        <li><a href="#ch20" class="chapter-link">Chapter XX: Final Provisions (Art. 209-214)</a></li>
+      </ul>
     </nav>
-</aside>
+  </aside>
 
-<main class="main-content">
+  <main class="main-content">
     <article class="document-page">
-        <header class="doc-header">
-            <div style="font-size: 12px; letter-spacing: 2px; color: var(--gold-accent); font-weight: 800;">SYSTEMIC GOVERNANCE STATUTE c-ΣCO</div>
-            <h1 class="doc-title">Legal Regime of Predictive Governance, Biophysical Supremacy and Binding Legal Automation</h1>
-        </header>
 
-        <section id="preamble">
-            <span class="ai-id">[CECO-PRE-000]</span>
-            <h2 class="section-header">Preamble</h2>
-            <div class="statute-text">
-                <p>The c-ΣCO SYSTEMIC GOVERNANCE STATUTE hereby institutes a transnational legal regime founded upon predictive governance, the absolute primacy of biophysical boundaries, and binding legal automation...</p>
-            </div>
-            <div class="whereas-block">
-                <p><strong>WHEREAS</strong>, classical legal models have proven structurally insufficient to manage systemic risks...</p>
-            </div>
-        </section>
+      <header class="doc-header">
+        <div class="doc-kicker">SYSTEMIC GOVERNANCE STATUTE</div>
+        <h1 class="doc-title">Legal Regime of Predictive Governance, Biophysical Supremacy and Binding Legal Automation</h1>
+      </header>
 
-        <section id="memo">
-            <span class="ai-id">[CECO-MEM-000]</span>
-            <h2 class="section-header">Explanatory Memorandum</h2>
-            <div class="statute-text">
-                <p>This Statute recognizes the emergence of trajectory illegality, referred to as <em>ilicitude de trajetória</em>...</p>
-            </div>
-        </section>
+      <section id="preamble">
+        <h2 class="section-header">Preamble</h2>
+        <div class="statute-text">
+          The c-ΣCO SYSTEMIC GOVERNANCE STATUTE hereby institutes a transnational legal regime founded upon predictive governance...
+        </div>
+        <div class="whereas-block">
+          <strong>WHEREAS</strong>, classical legal models have proven structurally insufficient to manage systemic risks...
+        </div>
+      </section>
 
-        <section id="preliminary">
-            <h2 class="section-header">Preliminary Chapter</h2>
-            <div class="article-box" id="art1">
-                <span class="ai-id">[CECO-ART-001]</span>
-                <span class="article-title">Article 1 — Principle of Supremacy of the Safe Operating Space</span>
-                <div class="statute-text">The validity, enforceability, and continuity of any acts are subordinated to the preservation of the Safe Operating Space (SOS)...</div>
-            </div>
-            <div class="article-box" id="art5">
-                <span class="ai-id">[CECO-ART-005]</span>
-                <span class="article-title">Article 5 — Principle of Ex-Ante Governance and Systemic Preclusion</span>
-                <div class="statute-text">Governance under the c-ΣCO regime operates primarily ex ante, acting upon risk trajectories identified prior to the materialization of harm...</div>
-            </div>
-        </section>
+      <section id="memo">
+        <h2 class="section-header">Explanatory Memorandum</h2>
+        <div class="statute-text">
+          This Statute recognizes the emergence of trajectory illegality, referred to as <em>ilicitude de trajetória</em>...
+        </div>
+      </section>
 
-        <section id="ch1">
-            <h2 class="section-header">Chapter I: The c-ΣCO Systemic Governance Regime</h2>
-            
-            <span class="subsection-label">Subsection I — Paradigm</span>
-            <div class="article-box" id="art6">
-                <span class="ai-id">[CECO-ART-006]</span>
-                <span class="article-title">Article 6 — The c-ΣCO Systemic Paradigm</span>
-                <div class="statute-text">Legal validity constitutes a dynamic legal condition, subject to continuous verification...</div>
-            </div>
+      <section id="preliminary">
+        <h2 class="section-header">Preliminary Chapter</h2>
 
-            <span class="subsection-label">Subsection IV — Ex-Ante Unenforceability</span>
-            <div class="article-box" id="art15">
-                <span class="ai-id">[CECO-ART-015]</span>
-                <span class="article-title">Article 15 — Ex-Ante Unenforceability (IEX)</span>
-                <div class="statute-text">IEX constitutes an autonomous legal category by which the practice of operational acts are automatically suspended...</div>
-            </div>
+        <!-- IDs de artigos adicionados para o menu -->
+        <div class="article-box" id="art1">
+          <span class="article-title">Article 1 — Principle of Supremacy of the Safe Operating Space</span>
+          <div class="statute-text">
+            The validity, enforceability, and continuity of any acts are subordinated to the preservation of the Safe Operating Space (SOS)...
+          </div>
+        </div>
 
-            <span class="subsection-label">Subsection XI — Safe Mode</span>
-            <div class="article-box" id="art44">
-                <span class="ai-id">[CECO-ART-044]</span>
-                <span class="article-title">Article 44 — Safe Mode</span>
-                <div class="statute-text">Safe Mode constitutes the legal state of systemic containment whereby execution of contracts is temporarily suspended to prevent propagation of critical risks.</div>
-            </div>
+        <div class="article-box" id="art2">
+          <span class="article-title">Article 2 — In Dubio Pro Systema</span>
+          <div class="statute-text">
+            [Add text...]
+          </div>
+        </div>
 
-            <div class="article-box" id="art45">
-                <span class="ai-id">[CECO-ART-045]</span>
-                <span class="article-title">Article 45 — Coordinated Suspension to Prevent Systemic Cascades</span>
-                <div class="statute-text">Suspension or modulation of execution shall occur in a coordinated manner among interdependent agents to prevent cascade effects.</div>
-            </div>
+        <div class="article-box" id="art3">
+          <span class="article-title">Article 3 — Physical Primacy</span>
+          <div class="statute-text">
+            [Add text...]
+          </div>
+        </div>
 
-            <span class="subsection-label">Subsection XII — State Machine</span>
-            <div class="article-box" id="art48">
-                <span class="ai-id">[CECO-ART-048]</span>
-                <span class="article-title">Article 48 — State Machine</span>
-                <div class="statute-text">The State Machine consists of the legal-operational architecture that governs execution based on the objective evolution of the monitored systemic trajectory.</div>
-            </div>
+        <div class="article-box" id="art5">
+          <span class="article-title">Article 5 — Principle of Ex-Ante Governance and Systemic Preclusion</span>
+          <div class="statute-text">
+            Governance operates primarily ex ante, acting upon risk trajectories identified prior to the materialization of harm...
+          </div>
+        </div>
+      </section>
 
-            <div class="article-box" id="art52">
-                <span class="ai-id">[CECO-ART-052]</span>
-                <span class="article-title">Article 52 — Legal Irreversibility of Critical Transitions</span>
-                <div class="statute-text">Upon reaching critical states, return to full execution by discretionary decision or private agreement is prohibited.</div>
-            </div>
-            </section>
+      <section id="ch1">
+        <h2 class="section-header">Chapter I: The c-ΣCO Systemic Governance Regime</h2>
 
-    </article> </main> <script>
-    document.querySelectorAll('.sidebar nav a').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if(target) target.scrollIntoView({ behavior: 'smooth' });
-        });
+        <!-- Subsections (anchors do menu) -->
+        <h2 class="section-header" id="sub1">Subsection I — Systemic Paradigm</h2>
+        <div class="article-box" id="art6">
+          <span class="article-title">Article 6 — The c-ΣCO Systemic Paradigm</span>
+          <div class="statute-text">
+            Legal validity constitutes a dynamic legal condition, subject to continuous verification...
+          </div>
+        </div>
+
+        <h2 class="section-header" id="sub4">Subsection IV — Ex-Ante Unenforceability</h2>
+        <div class="article-box" id="art15">
+          <span class="article-title">Article 15 — Ex-Ante Unenforceability (IEX)</span>
+          <div class="statute-text">
+            IEX constitutes an autonomous legal category by which the practice of operational acts are automatically suspended...
+          </div>
+        </div>
+
+      </section>
+
+    </article>
+  </main>
+
+  <script>
+    // 1) Remove marcações tipo [span_5](start_span) ... do texto, sem você ter que editar tudo agora
+    (function stripSpanArtifacts(){
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+      const toClean = [];
+      while (walker.nextNode()) toClean.push(walker.currentNode);
+
+      toClean.forEach(n => {
+        n.nodeValue = n.nodeValue
+          .replace(/\[span_\d+\]\(start_span\)/g, '')
+          .replace(/\[span_\d+\]\(end_span\)/g, '');
+      });
+    })();
+
+    // 2) Scroll suave com fallback + fechar sidebar no mobile
+    const sidebar = document.getElementById('sidebar');
+    document.querySelectorAll('.sidebar nav a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href');
+        if (!href || !href.startsWith('#')) return;
+
+        const target = document.querySelector(href);
+        if (!target) return;
+
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // fecha no mobile
+        if (window.matchMedia('(max-width: 1100px)').matches) {
+          sidebar.classList.remove('open');
+        }
+      });
     });
-</script>
 
+    // 3) Mobile: botão Index abre/fecha
+    document.getElementById('mobileIndexBtn').addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+    });
+
+    // 4) Active link highlight (pega a seção visível)
+    const links = Array.from(document.querySelectorAll('.sidebar nav a'))
+      .filter(a => (a.getAttribute('href') || '').startsWith('#'));
+
+    const sections = links
+      .map(a => document.querySelector(a.getAttribute('href')))
+      .filter(Boolean);
+
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const id = '#' + entry.target.id;
+
+        links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === id));
+      });
+    }, { root: null, threshold: 0.25 });
+
+    sections.forEach(sec => obs.observe(sec));
+  </script>
 </body>
 </html>
