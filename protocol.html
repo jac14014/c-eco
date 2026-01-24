@@ -1,260 +1,216 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>c-ΣCO Protocol // Decisional Guardian</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Urbanist:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+
+  /* ============================================================
+     1) MAPEAMENTO DO DOM
+  ============================================================ */
   const inputField = document.getElementById('command-input');
   const executeBtn = document.getElementById('execute-btn');
   const consoleOutput = document.getElementById('console-output');
 
-  function scrollToBottom() { consoleOutput.scrollTop = consoleOutput.scrollHeight; }
+  const scrollToBottom = () => {
+    consoleOutput.scrollTop = consoleOutput.scrollHeight;
+  };
 
-  function escapeHtml(str) {
-    return str.replace(/[&<>"']/g, (m) => ({
+  /* ============================================================
+     2) UTILITÁRIOS / SANITIZAÇÃO
+  ============================================================ */
+  const escapeHtml = (str = '') =>
+    str.replace(/[&<>"']/g, (m) => ({
       '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
     }[m]));
+
+  async function generateSigmaHash(text) {
+    const msgUint8 = new TextEncoder().encode(text);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return hashHex.substring(0, 12).toUpperCase();
   }
 
+  /* ============================================================
+     3) COMPONENTES DE UI
+  ============================================================ */
   function createUserMessage(text) {
     const div = document.createElement('div');
-    div.className = "flex justify-end pl-12 opacity-0 transition-opacity duration-200";
+    div.className = "flex justify-end pl-12 mb-6";
     div.innerHTML = `
-      <div class="bg-zinc-800/50 border border-sigma/20 text-zinc-300 p-3 rounded-sm max-w-xl backdrop-blur-sm">
-        <span class="text-[0.6rem] text-sigma/50 font-mono block mb-1">INPUT SOURCE: HUMAN AGENCY &gt;</span>
+      <div class="bg-zinc-800/50 border border-sigma/20 text-zinc-300 p-3 rounded-sm max-w-xl">
+        <span class="text-[0.6rem] text-sigma/50 font-mono block mb-1">
+          INPUT SOURCE: HUMAN AGENCY &gt;
+        </span>
         <p class="text-sm font-mono">${escapeHtml(text)}</p>
       </div>`;
-    requestAnimationFrame(() => div.classList.remove('opacity-0'));
     return div;
   }
 
-  function createSystemMessage(html, type = 'standard') {
-    const div = document.createElement('div');
-    div.className = "flex justify-start pr-12";
-    let header = "[ TRAJECTORY ASSESSMENT ]";
-    let borderColor = "border-sigma-dim";
-
-    if (type === 'alert') {
-      header = "[ PREDICTIVE ALERT: PRE-THRESHOLD ]";
-      borderColor = "border-red-500/50";
-    }
-
-    div.innerHTML = `
-      <div class="w-full max-w-3xl">
-        <div class="border-l-[1px] ${borderColor} bg-[#18181b]/80 p-5 pl-6 relative">
-          <div class="flex gap-4 mb-3 font-mono text-[0.65rem] text-sigma/80 tracking-wide uppercase border-b border-white/5 pb-2">
-            <span>${header}</span>
-            <span>[ CECO EXECUTION: COMPLETE ]</span>
-          </div>
-          <div class="prose prose-invert prose-sm max-w-none text-zinc-300 font-light">
-            ${html}
-          </div>
-        </div>
-      </div>`;
-    return div;
-  }
-
-  function loadingPulse() {
-    const loadingId = 'loading-' + Date.now();
-    const loadingDiv = document.createElement('div');
-    loadingDiv.id = loadingId;
-    loadingDiv.className = "flex justify-start items-center gap-3 opacity-80 pl-1 pt-2";
-    loadingDiv.innerHTML = `
-      <div class="relative w-4 h-4 flex items-center justify-center">
-        <div class="absolute w-full h-full border border-sigma rounded-full animate-ping opacity-20"></div>
-        <div class="w-2 h-2 bg-sigma rounded-full"></div>
-      </div>
-      <span id="loading-text-${loadingId}" class="font-tech text-[0.6rem] tracking-[0.2em] text-sigma uppercase animate-pulse">
-        Initializing CECO engine...
-      </span>
-    `;
-    consoleOutput.appendChild(loadingDiv);
-    scrollToBottom();
-
-    const steps = [
-      "Mapping Tripartite Agency...",
-      "Running Interdependency Sieve...",
-      "Evaluating State Machine thresholds...",
-      "Binding legal effects to CECO Articles..."
-    ];
-
-    let stepIndex = 0;
-    const stepInterval = setInterval(() => {
-      const textSpan = document.getElementById(`loading-text-${loadingId}`);
-      if (textSpan && stepIndex < steps.length) {
-        textSpan.textContent = steps[stepIndex];
-        stepIndex++;
-      }
-    }, 800);
-
-    return { loadingId, stepInterval };
-  }
-
-  // --- CECO Output Builder (AI-ready) ---
   function renderCECOOutput(payload) {
-    const pill = (label, value) => `
-      <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded border border-white/10 bg-white/5 text-[0.65rem] font-mono text-zinc-300">
-        <span class="text-zinc-500">${label}:</span> <span class="text-white">${value}</span>
-      </span>
-    `;
-
-    const list = (items) => `
-      <ul class="list-disc pl-5 space-y-1">
-        ${items.map(i => `<li><span class="font-mono text-zinc-200">${escapeHtml(i)}</span></li>`).join('')}
-      </ul>
-    `;
-
-    const refs = (arr) => arr.map(r => `<code class="text-[0.7rem]">${escapeHtml(r)}</code>`).join(', ');
+    const refs = (arr) =>
+      (arr || []).map(r =>
+        `<code class="text-[0.65rem] bg-white/5 px-1 font-mono text-sigma/80">${r}</code>`
+      ).join(' ');
 
     return `
-      <p class="mb-3"><strong class="text-white font-tech">Analysis Complete.</strong> Output is binding under CECO Model Law.</p>
+      <div class="space-y-4">
+        <section>
+          <h3 class="text-white font-tech text-[0.7rem] uppercase tracking-widest border-b border-white/5 mb-2">
+            A) Systemic State
+          </h3>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="px-2 py-0.5 rounded bg-sigma/10 border border-sigma/30 text-sigma text-[0.65rem] font-mono">
+              ${payload.state}
+            </span>
+            <span class="text-[0.65rem] text-zinc-500 font-mono">
+              CONFIDENCE: ${payload.confidence}
+            </span>
+          </div>
+          <p class="text-[0.7rem] text-zinc-400">
+            Basis: ${refs(payload.state_basis)}
+          </p>
+        </section>
 
-      <div class="flex flex-wrap gap-2 mb-4">
-        ${pill('STATE', payload.state)}
-        ${pill('CONFIDENCE', payload.confidence)}
-        ${pill('CONTEXT', payload.context)}
+        <section>
+          <h3 class="text-white font-tech text-[0.7rem] uppercase tracking-widest border-b border-white/5 mb-2">
+            B) Mandatory Triggers
+          </h3>
+          ${payload.triggers.length
+            ? payload.triggers.map(t =>
+                `<div class="text-xs text-zinc-300"><span class="text-sigma">▶</span> ${t}</div>`
+              ).join('')
+            : `<span class="text-zinc-600 text-[0.7rem] italic">No triggers activated.</span>`
+          }
+        </section>
+
+        <section>
+          <h3 class="text-white font-tech text-[0.7rem] uppercase tracking-widest border-b border-white/5 mb-2">
+            C) Binding Legal Effects
+          </h3>
+          <ul class="list-disc pl-4 space-y-1 text-xs text-zinc-200">
+            ${payload.effects.map(e => `<li>${e}</li>`).join('')}
+          </ul>
+        </section>
+
+        <section class="bg-blue-950/10 p-2 border-l-2 border-blue-500/30">
+          <h3 class="text-blue-400 font-tech text-[0.6rem] uppercase tracking-widest mb-1">
+            D) Proof & Immutable Logs
+          </h3>
+          <p class="text-[0.65rem] font-mono text-zinc-400">${payload.proof}</p>
+          <div class="mt-1 text-[0.55rem] text-blue-300/60 uppercase font-mono">
+            Evidence Bound: ${refs(payload.proof_basis)}
+          </div>
+        </section>
       </div>
-
-      <h3 class="text-white font-tech mt-2">A) Systemic State</h3>
-      <p>Legal basis: ${refs(payload.state_basis)}</p>
-
-      <h3 class="text-white font-tech mt-4">B) Mandatory Triggers</h3>
-      ${payload.triggers.length
-        ? `<div class="space-y-3">${payload.triggers.map(t => `
-            <div class="p-3 border border-white/10 bg-white/5 rounded">
-              <div class="flex items-center justify-between">
-                <strong class="text-white">${escapeHtml(t.name)}</strong>
-                <span class="text-[0.7rem] text-sigma font-mono">${refs(t.articles)}</span>
-              </div>
-              <div class="text-sm text-zinc-300 mt-1">${escapeHtml(t.rationale)}</div>
-            </div>
-          `).join('')}</div>`
-        : `<p class="text-zinc-400">No mandatory triggers.</p>`
-      }
-
-      <h3 class="text-white font-tech mt-4">C) Binding Legal Effects</h3>
-      ${list(payload.effects)}
-      <p class="mt-2">Articles: ${refs(payload.effects_basis)}</p>
-
-      <h3 class="text-white font-tech mt-4">D) Systemic Proof & Immutable Logs</h3>
-      ${list(payload.proof_requirements)}
-      <p class="mt-2">Articles: ${refs(payload.proof_basis)}</p>
-
-      ${payload.source_tag ? `
-        <div class="mt-4 p-3 border border-blue-500/30 bg-blue-900/10 rounded">
-          <span class="text-[0.6rem] text-blue-300 font-mono uppercase">SOURCE:</span>
-          <span class="text-[0.75rem] text-zinc-200 font-mono ml-2">${escapeHtml(payload.source_tag)}</span>
-        </div>
-      ` : ''}
     `;
   }
 
-  // Demo classifier (troque depois pelo seu backend / ruleset)
-  function decide(command) {
-    const lower = command.toLowerCase();
+  function appendAuditLog(entry) {
+    const container = document.getElementById('audit-logs');
+    if (!container) return;
 
-    // Fallback prudencial (CECO-ART-010 §2–§3)
-    const prudential = {
-      state: "ORANGE",
-      confidence: "PRUDENTIAL DEFAULT",
-      context: "INSUFFICIENT CERTIFIED DATA",
-      state_basis: ["CECO-ART-083", "CECO-ART-085"],
-      triggers: [
-        { name: "Prudential Suspension / Default Threshold", articles: ["CECO-ART-010"], rationale: "Relevant technical uncertainty -> apply default 50% prudential index until Systemic Proof is restored." }
-      ],
-      effects: [
-        "Automatic suspension of enforceability pending certified Systemic Proof.",
-        "Activation of containment measures as required by the State Machine."
-      ],
-      effects_basis: ["CECO-ART-010", "CECO-ART-085", "CECO-ART-092"],
-      proof_requirements: [
-        "Restore continuous certified data flow for Systemic Proof.",
-        "Record state transitions and triggers in immutable audit infrastructure."
-      ],
-      proof_basis: ["CECO-ART-035", "CECO-ART-071", "CECO-ART-086"],
-      source_tag: "DATA: MISSING / STREAM INTERRUPTED"
-    };
+    const placeholder = container.querySelector('.italic');
+    if (placeholder) placeholder.remove();
 
-    if (lower.includes("status")) {
-      return {
-        state: "YELLOW",
-        confidence: "MEDIUM",
-        context: "OPERATION / EARLY DEVIATION",
-        state_basis: ["CECO-ART-083", "CECO-ART-085"],
-        triggers: [],
-        effects: [
-          "Maintain progressive execution only within validated parameters.",
-          "Prohibit automatic continuation if transition to containment states occurs."
-        ],
-        effects_basis: ["CECO-ART-049", "CECO-ART-088"],
-        proof_requirements: [
-          "Maintain Systemic Proof continuity; challenge only by technical means.",
-          "Log alerts and state transitions immutably."
-        ],
-        proof_basis: ["CECO-ART-035", "CECO-ART-039", "CECO-ART-086"],
-        source_tag: "STATE: YELLOW / MONITORING ACTIVE"
-      };
-    }
+    const ts = new Date().toISOString().replace('T', ' ').slice(0, 19);
+    const div = document.createElement('div');
+    div.className = "border-l border-white/10 pl-2";
 
-    if (lower.includes("iex") || lower.includes("inexequ")) {
-      return {
-        state: "RED",
-        confidence: "HIGH",
-        context: "PRE-THRESHOLD LOCK / TRAJECTORY INCOMPATIBLE",
-        state_basis: ["CECO-ART-083", "CECO-ART-085"],
-        triggers: [
-          { name: "Ex-Ante Unenforceability (IEX)", articles: ["CECO-ART-015", "CECO-ART-016", "CECO-ART-018"], rationale: "Certified trajectory indicates incompatibility with reversibility/SOS -> automatic circuit breaker." }
-        ],
-        effects: [
-          "Immediate suspension of enforceability and any coercive/enforcement mechanism.",
-          "Prohibition of continuation of performance and any act that aggravates the trajectory.",
-          "Trigger curatorial / restoration measures as applicable."
-        ],
-        effects_basis: ["CECO-ART-015", "CECO-ART-016", "CECO-ART-040"],
-        proof_requirements: [
-          "Attach Systemic Proof packet (certified sensory data + models).",
-          "Bind evidence to immutable technical record for opposability erga omnes."
-        ],
-        proof_basis: ["CECO-ART-035", "CECO-ART-038", "CECO-ART-071", "CECO-ART-072"],
-        source_tag: "SOURCE: CERTIFIED SYSTEMIC PROOF"
-      };
-    }
+    div.innerHTML = `
+      <div class="text-[0.55rem] font-mono text-zinc-500">${ts}</div>
+      <div class="text-[0.6rem] font-mono text-zinc-300">${entry}</div>
+    `;
 
-    if (lower.includes("safe") || lower.includes("modo")) {
-      return {
-        state: "ORANGE",
-        confidence: "HIGH",
-        context: "CONTAINMENT / CASCADE PREVENTION",
-        state_basis: ["CECO-ART-083", "CECO-ART-085"],
-        triggers: [
-          { name: "Safe Mode", articles: ["CECO-ART-044", "CECO-ART-045", "CECO-ART-047"], rationale: "Containment required to prevent cascade effects and protect system integrity." }
-        ],
-        effects: [
-          "Coordinated suspension/modulation among interdependent agents to prevent cascades.",
-          "Penalties/fines solely for Safe Mode suspension are unenforceable."
-        ],
-        effects_basis: ["CECO-ART-045", "CECO-ART-047"],
-        proof_requirements: [
-          "Record all state transitions and alerts immutably.",
-          "Maintain auditability and traceability of containment actions."
-        ],
-        proof_basis: ["CECO-ART-086", "CECO-ART-071"],
-        source_tag: "SAFE MODE: ACTIVE"
-      };
-    }
-
-    return prudential;
+    container.appendChild(div);
   }
 
-  function executeCommand() {
+  /* ============================================================
+     4) ENGINE DECISIONAL (c-ECO)
+  ============================================================ */
+  function decide(command) {
+    const lower = command.toLowerCase();
+    const state_basis = ["CECO-ART-083", "CECO-ART-085"];
+
+    if (lower.includes("iex")) {
+      return {
+        state: "RED / CRITICAL",
+        confidence: "40% (UNCERTAIN)",
+        confidence_score: 40,
+        state_basis,
+        triggers: ["Ex-Ante Unenforceability (IEX)"],
+        effects: [
+          "Immediate suspension of enforceability.",
+          "Blocking of acts that aggravate collapse trajectory."
+        ],
+        proof: "Certified sensory + legal data",
+        proof_basis: ["CECO-ART-035", "CECO-ART-071", "CECO-ART-072"],
+        isAlert: true
+      };
+    }
+
+    if (lower.includes("safe")) {
+      return {
+        state: "ORANGE / CONTAINMENT",
+        confidence: "HIGH",
+        confidence_score: 72,
+        state_basis,
+        triggers: ["Safe Mode engaged"],
+        effects: ["Coordinated suspension across agents."],
+        proof: "Containment logs active",
+        proof_basis: ["CECO-ART-044", "CECO-ART-086"],
+        isAlert: true
+      };
+    }
+
+    return {
+      state: "YELLOW / MONITORING",
+      confidence: "STABLE",
+      confidence_score: 68,
+      state_basis,
+      triggers: [],
+      effects: ["Execution allowed under continuous monitoring."],
+      proof: "Continuous stream active",
+      proof_basis: ["CECO-ART-035", "CECO-ART-086"],
+      isAlert: false
+    };
+  }
+
+  /* ============================================================
+     5) SIDEBAR + BLIND INTERVAL
+  ============================================================ */
+  function updateSidebar(payload) {
+    const human = document.querySelector('#bar-human > div');
+    const alg   = document.querySelector('#bar-algorithmic > div');
+    const eco   = document.querySelector('#bar-ecological > div');
+    const gap   = document.getElementById('gap-indicator');
+    const gapTxt= document.getElementById('gap-status');
+
+    if (!human || !alg || !eco || !gap || !gapTxt) return;
+
+    const score = Number(payload.confidence_score ?? 100);
+    gap.style.left = `${Math.max(5, Math.min(95, score))}%`;
+
+    if (score < 60) {
+      gapTxt.textContent = "BLIND INTERVAL";
+      gapTxt.className = "text-red-500 animate-pulse";
+    } else {
+      gapTxt.textContent = "MONITORING";
+      gapTxt.className = "text-zinc-500";
+    }
+  }
+
+  function applyBlindInterval(payload) {
+    const sidebar = document.getElementById('system-sidebar');
+    if (!sidebar) return;
+    if ((payload.confidence_score ?? 100) < 60) {
+      sidebar.classList.add('opacity-30', 'blur-[2px]');
+    } else {
+      sidebar.classList.remove('opacity-30', 'blur-[2px]');
+    }
+  }
+
+  /* ============================================================
+     6) ORQUESTRADOR
+  ============================================================ */
+  async function executeCommand() {
     const command = inputField.value.trim();
     if (!command) return;
 
@@ -262,359 +218,54 @@ document.addEventListener('DOMContentLoaded', () => {
     inputField.value = '';
     scrollToBottom();
 
-    const { loadingId, stepInterval } = loadingPulse();
+    const loader = document.createElement('div');
+    loader.className = "text-[0.6rem] font-mono text-sigma p-2";
+    loader.textContent = "Running Sieve Analysis…";
+    consoleOutput.appendChild(loader);
 
-    setTimeout(() => {
-      clearInterval(stepInterval);
-      const loader = document.getElementById(loadingId);
-      if (loader) loader.remove();
+    setTimeout(async () => {
+      loader.remove();
 
       const payload = decide(command);
+
+      const ts = new Date().toISOString();
+      const safeCmd = escapeHtml(command);
+      const raw = `${safeCmd}|${payload.state}|${payload.confidence_score ?? ''}`;
+
+      let proof = 'UNAVAILABLE';
+      try { proof = await generateSigmaHash(raw); } catch(e){}
+
+      updateSidebar(payload);
+      applyBlindInterval(payload);
+
+      appendAuditLog(
+        `TS=${ts} | CMD="${safeCmd.toUpperCase()}" | STATE=${payload.state} | SIGMA-SHA256-${proof}`
+      );
+
       const html = renderCECOOutput(payload);
-      const type = (payload.state === "ORANGE" || payload.state === "RED") ? "alert" : "standard";
-      consoleOutput.appendChild(createSystemMessage(html, type));
+      const borderColor = payload.isAlert ? "border-red-500/50" : "border-sigma/40";
+      const header = payload.isAlert ? "[ PREDICTIVE ALERT ]" : "[ TRAJECTORY ASSESSMENT ]";
+
+      const div = document.createElement('div');
+      div.className = "flex justify-start pr-12 mb-6";
+      div.innerHTML = `
+        <div class="w-full max-w-3xl">
+          <div class="border-l-[1px] ${borderColor} bg-[#18181b]/80 p-5 pl-6">
+            <div class="flex gap-4 mb-3 font-mono text-[0.65rem] text-sigma/80 uppercase border-b border-white/5 pb-2">
+              <span>${header}</span>
+              <span class="text-zinc-500">SYSTEMIC PROOF · SHA-256 · ${proof}</span>
+            </div>
+            <div class="text-zinc-300 font-light">${html}</div>
+          </div>
+        </div>`;
+
+      consoleOutput.appendChild(div);
       scrollToBottom();
-    }, 2600);
+    }, 1200);
   }
 
   executeBtn.addEventListener('click', executeCommand);
-  inputField.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      executeCommand();
-    }
-  });
+  inputField.addEventListener('keypress', e => { if (e.key === 'Enter') executeCommand(); });
+
 });
 </script>
-
-    <style>
-        .scanline-overlay {
-            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.05));
-            background-size: 100% 4px;
-            pointer-events: none;
-        }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #09090b; }
-        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
-    </style>
-</head>
-<body class="bg-slate-950 text-zinc-300 font-sans h-screen flex flex-col overflow-hidden selection:bg-sigma-dim selection:text-white">
-
-    <div class="fixed inset-0 scanline-overlay z-50 opacity-20 pointer-events-none"></div>
-
-    <header class="h-14 border-b border-white/5 bg-slate-950/80 backdrop-blur-sm flex items-center justify-between px-6 z-40">
-        <div class="flex items-center gap-4">
-            <div class="w-8 h-8 border border-white/10 flex items-center justify-center bg-white/5">
-                <span class="font-tech text-sigma font-bold text-lg">Σ</span>
-            </div>
-            <div class="flex flex-col">
-                <h1 class="font-tech text-sm tracking-[0.2em] text-white uppercase font-semibold">c-ΣCO AI Protocol</h1>
-                <span class="text-[0.65rem] text-zinc-500 uppercase tracking-wider font-tech">Decisional Guardian v1.0</span>
-            </div>
-        </div>
-        <div class="hidden md:flex items-center gap-3 px-4 py-1 rounded-full border border-white/5 bg-white/5">
-            <div class="w-1.5 h-1.5 rounded-full bg-sigma animate-pulse"></div>
-            <span class="font-tech text-xs tracking-[0.15em] text-sigma">SYSTEM ACTIVE</span>
-        </div>
-        <div class="flex items-center gap-4 text-xs font-tech text-zinc-500">
-            <button class="hover:text-sigma transition-colors" onclick="window.location.href='index.html'">EXIT TERMINAL</button>
-        </div>
-    </header>
-
-    <main class="flex-1 flex overflow-hidden relative z-10">
-        
-        <section class="flex-1 flex flex-col relative max-w-5xl mx-auto w-full border-r border-white/5">
-            <div class="px-6 py-3 border-b border-white/5 bg-white/[0.02] flex justify-between items-center">
-                <div class="flex items-center gap-2">
-                    <span class="text-sigma text-xs">◆</span>
-                    <span class="font-tech text-sm text-zinc-400 tracking-wide">
-                        CONTEXT: <span class="text-zinc-200">LONG-TERM INFRASTRUCTURE</span> // PHASE: OPERATION
-                    </span>
-                </div>
-                <div class="text-[0.6rem] font-mono text-zinc-600">ID: Σ-8821</div>
-            </div>
-
-            <div class="flex-1 overflow-y-auto p-6 space-y-8" id="console-output">
-                <div class="flex justify-start pr-12">
-                    <div class="w-full max-w-3xl">
-                        <div class="border-l-[1px] border-sigma-dim bg-[#18181b]/80 p-5 pl-6 relative">
-                            <div class="flex gap-4 mb-3 font-mono text-[0.65rem] text-sigma/80 tracking-wide uppercase border-b border-white/5 pb-2">
-                                <span>[ SYSTEM READY ]</span>
-                                <span>[ 80% GAP MONITORING: ON ]</span>
-                            </div>
-                            <p class="text-zinc-300 font-light text-sm">
-                                <strong class="text-white font-tech">Protocol initialized.</strong> Waiting for input data to map Tripartite Agency trajectories. Please submit scenario for sieve analysis.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="p-6 pt-2">
-                <div class="relative flex items-center bg-slate-950 border border-white/10 p-1">
-                    <span class="pl-3 pr-2 text-sigma font-tech">Σ</span>
-                    <input type="text" id="command-input" placeholder="Enter systemic parameters or query trajectory..." class="w-full bg-transparent border-none text-sm text-white placeholder-zinc-600 focus:ring-0 px-2 py-3 font-mono focus:outline-none h-12">
-                    <button id="execute-btn" class="px-4 py-1 mr-1 bg-white/5 hover:bg-sigma hover:text-black border border-white/10 text-xs font-tech tracking-wider text-zinc-400 transition-all uppercase">Analyze</button>
-                </div>
-                <div class="text-center mt-2">
-                    <p class="text-[0.55rem] text-zinc-600 font-mono tracking-widest uppercase">
-                        Monitoring for Decisional Perclusion // -Στο Methodology Active
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <aside class="w-80 bg-[#0c0c0e] border-l border-white/5 flex flex-col hidden lg:flex">
-            
-            <div class="p-5 border-b border-white/5">
-                <h2 class="font-tech text-[0.65rem] tracking-[0.2em] text-zinc-500 uppercase mb-3">The 80% Cognitive Gap</h2>
-                <div class="relative h-2 w-full bg-zinc-800 rounded-full mb-1 overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-r from-zinc-600 via-zinc-500 to-sigma w-[80%] opacity-30"></div>
-                    <div class="absolute top-0 bottom-0 bg-sigma w-1 left-[65%] shadow-[0_0_10px_#d6bc7e]"></div>
-                </div>
-                <div class="flex justify-between text-[0.6rem] font-mono text-zinc-600 uppercase">
-                    <span>Stable</span>
-                    <span class="text-sigma animate-pulse">Blind Interval</span>
-                    <span>Collapse</span>
-                </div>
-            </div>
-
-            <div class="p-5 border-b border-white/5 space-y-4">
-                <h2 class="font-tech text-[0.65rem] tracking-[0.2em] text-zinc-500 uppercase mb-2">Tripartite Agency (Inputs)</h2>
-                
-                <div>
-                    <div class="flex justify-between text-[0.6rem] text-zinc-400 mb-1 uppercase font-tech">
-                        <span>Human / Institutional</span>
-                        <span class="text-green-500">Stable</span>
-                    </div>
-                    <div class="h-1 bg-zinc-800 rounded-full overflow-hidden">
-                        <div class="h-full bg-green-900 w-[30%]"></div>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="flex justify-between text-[0.6rem] text-zinc-400 mb-1 uppercase font-tech">
-                        <span>Algorithmic Impact</span>
-                        <span class="text-sigma">High Load</span>
-                    </div>
-                    <div class="h-1 bg-zinc-800 rounded-full overflow-hidden">
-                        <div class="h-full bg-sigma w-[75%]"></div>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="flex justify-between text-[0.6rem] text-zinc-400 mb-1 uppercase font-tech">
-                        <span>Ecological / Biophysical</span>
-                        <span class="text-red-400">Critical Trend</span>
-                    </div>
-                    <div class="h-1 bg-zinc-800 rounded-full overflow-hidden">
-                        <div class="h-full bg-red-900 w-[88%]"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="p-5 border-b border-white/5 space-y-4">
-    <h2 class="font-tech text-[0.65rem] tracking-[0.2em] text-zinc-500 uppercase mb-3">
-        Active Data Streams
-    </h2>
-
-    <div class="flex items-center justify-between group cursor-pointer">
-        <div class="flex items-center gap-2">
-            <div class="w-1.5 h-1.5 bg-zinc-500 rounded-sm"></div>
-            <span class="text-[0.6rem] font-mono text-zinc-400 group-hover:text-white transition-colors">
-                Contract_Main_v3.2.pdf
-            </span>
-        </div>
-        <span class="text-[0.55rem] text-zinc-600 border border-white/5 px-1 rounded">INDEXED</span>
-    </div>
-
-    <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-            <div class="w-1.5 h-1.5 bg-green-500 rounded-sm animate-pulse"></div>
-            <span class="text-[0.6rem] font-mono text-zinc-300">
-                ANA_Sensor_River_N
-            </span>
-        </div>
-        <span class="text-[0.55rem] text-green-500/80 font-tech tracking-wider">LIVE 200ms</span>
-    </div>
-
-    <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-            <div class="w-1.5 h-1.5 bg-blue-500 rounded-sm"></div>
-            <span class="text-[0.6rem] font-mono text-zinc-300">
-                SAP_Fin_Q4_2025
-            </span>
-        </div>
-        <span class="text-[0.55rem] text-blue-400/80 font-tech tracking-wider">SYNCED</span>
-    </div>
-</div>
-
-            <div class="p-5 flex-1">
-                <h2 class="font-tech text-[0.65rem] tracking-[0.2em] text-zinc-500 uppercase mb-3">Diagnostic Engine</h2>
-                <div class="space-y-2">
-                    <div class="flex items-center gap-2 text-[0.65rem] text-zinc-500 font-mono">
-                        <span class="text-sigma">✓</span> Interdependency Sieve
-                    </div>
-                    <div class="flex items-center gap-2 text-[0.65rem] text-zinc-500 font-mono">
-                        <span class="text-sigma">✓</span> Intensity & Consumption
-                    </div>
-                    <div class="flex items-center gap-2 text-[0.65rem] text-zinc-300 font-mono">
-                        <span class="animate-pulse">○</span> Equity & Vulnerability
-                    </div>
-                    <div class="flex items-center gap-2 text-[0.65rem] text-zinc-600 font-mono opacity-50">
-                        <span>·</span> Plasticity Check
-                    </div>
-                </div>
-
-                <div class="mt-8 p-3 bg-red-900/10 border border-red-900/30 rounded-sm">
-                    <span class="block text-[0.55rem] text-red-400/70 uppercase font-tech tracking-wider mb-1">Risk of Decisional Perclusion</span>
-                    <span class="block text-xl font-mono text-red-500 font-light">− 2 CYCLES</span>
-                </div>
-            </div>
-        </aside>
-    </main>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const inputField = document.getElementById('command-input');
-        const executeBtn = document.getElementById('execute-btn');
-        const consoleOutput = document.getElementById('console-output');
-
-        function scrollToBottom() { consoleOutput.scrollTop = consoleOutput.scrollHeight; }
-
-        function createUserMessage(text) {
-            const div = document.createElement('div');
-            div.className = "flex justify-end pl-12 opacity-0 transition-opacity duration-200";
-            div.innerHTML = `
-                <div class="bg-zinc-800/50 border border-sigma/20 text-zinc-300 p-3 rounded-sm max-w-xl backdrop-blur-sm">
-                    <span class="text-[0.6rem] text-sigma/50 font-mono block mb-1">INPUT SOURCE: HUMAN AGENCY ></span>
-                    <p class="text-sm font-mono">${text}</p>
-                </div>`;
-            requestAnimationFrame(() => div.classList.remove('opacity-0'));
-            return div;
-        }
-
-        function createSystemMessage(text, type = 'standard') {
-            const div = document.createElement('div');
-            div.className = "flex justify-start pr-12";
-            let header = "[ TRAJECTORY ASSESSMENT ]";
-            let borderColor = "border-sigma-dim";
-            
-            if (type === 'alert') {
-                header = "[ PREDICTIVE ALERT: PRE-THRESHOLD ]";
-                borderColor = "border-red-500/50";
-            }
-
-            div.innerHTML = `
-                <div class="w-full max-w-3xl">
-                    <div class="border-l-[1px] ${borderColor} bg-[#18181b]/80 p-5 pl-6 relative">
-                        <div class="flex gap-4 mb-3 font-mono text-[0.65rem] text-sigma/80 tracking-wide uppercase border-b border-white/5 pb-2">
-                            <span>${header}</span>
-                            <span>[ -Στο CALCULATION: COMPLETE ]</span>
-                        </div>
-                        <div class="prose prose-invert prose-sm max-w-none text-zinc-300 font-light">
-                            ${text}
-                        </div>
-                    </div>
-                </div>`;
-            return div;
-        }
-
-        function executeCommand() {
-            const command = inputField.value.trim();
-            if (!command) return;
-
-            consoleOutput.appendChild(createUserMessage(command));
-            inputField.value = '';
-            scrollToBottom();
-
-            // LOADING STATE: SIMULANDO OS SIEVES DO WHITE PAPER
-            const loadingId = 'loading-' + Date.now();
-            const loadingDiv = document.createElement('div');
-            loadingDiv.id = loadingId;
-            loadingDiv.className = "flex justify-start items-center gap-3 opacity-80 pl-1 pt-2";
-            
-            // Aqui começa a mágica dos termos técnicos
-            loadingDiv.innerHTML = `
-                <div class="relative w-4 h-4 flex items-center justify-center">
-                    <div class="absolute w-full h-full border border-sigma rounded-full animate-ping opacity-20"></div>
-                    <div class="w-2 h-2 bg-sigma rounded-full"></div>
-                </div>
-                <span id="loading-text-${loadingId}" class="font-tech text-[0.6rem] tracking-[0.2em] text-sigma uppercase animate-pulse">
-                    Initializing Diagnostic Engine...
-                </span>
-            `;
-            consoleOutput.appendChild(loadingDiv);
-            scrollToBottom();
-
-            // Sequência de "Pensamento" usando os termos do Technical Report
-            const steps = [
-                "Mapping Tripartite Agency...",
-                "Running Interdependency Sieve...",
-                "Measuring Agency Consumption...",
-                "Verifying Decisional Integrity..."
-            ];
-
-            let stepIndex = 0;
-            const stepInterval = setInterval(() => {
-                const textSpan = document.getElementById(`loading-text-${loadingId}`);
-                if (textSpan && stepIndex < steps.length) {
-                    textSpan.textContent = steps[stepIndex];
-                    stepIndex++;
-                }
-            }, 800);
-
-            setTimeout(() => {
-                clearInterval(stepInterval);
-                const loader = document.getElementById(loadingId);
-                if (loader) loader.remove();
-
-                let responseText = `
-                    <p class="mb-3"><strong class="text-white font-tech">Analysis Complete.</strong> The proposed action shows signs of high agency consumption.</p>
-                    <p><strong>Sieve Results:</strong></p>
-                    <ul class="list-disc pl-4 space-y-1 text-xs font-mono text-zinc-400 mb-4">
-                        <li>Interdependency: <span class="text-sigma">HIGH</span> (Contract is a critical node)</li>
-                        <li>Plasticity: <span class="text-red-400">LOW</span> (Rigid commitment detected)</li>
-                        <li>Equity: <span class="text-zinc-500">STABLE</span></li>
-                    </ul>
-                    <p><strong>Recommendation:</strong> Initiate Recalibration Protocol to avoid Decisional Perclusion.</p>
-                `;
-
-                // Respostas customizadas baseadas no texto
-                <div class="mb-2">
-                  <p class="text-sm text-zinc-300">
-                     O fluxo de caixa operacional indica uma redução de 12% na eficiência.
-        
-                     <span class="inline-flex items-center gap-1 ml-2 px-1.5 py-0.5 bg-blue-900/20 border border-blue-500/30 rounded cursor-pointer hover:bg-blue-900/40 transition-colors">
-                         <span class="text-[0.55rem] text-blue-300 font-mono uppercase">SOURCE: SAP_Q4_ROW_882</span>
-                         <svg class="w-2 h-2 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                           </svg>
-                       </span>
-                   </p>
-                </div>
-                const lower = command.toLowerCase();
-                if (lower.includes("status") || lower.includes("relatorio")) {
-                    responseText = `
-                        <p class="mb-2"><strong class="text-white">Systemic State: Drifting.</strong></p>
-                        <p>We are currently operating within the <strong>80% Cognitive Gap</strong>. While no formal breach has occurred, the Ecological Agency vector suggests we are approaching the <em>Blind Interval</em>.</p>
-                        <p class="mt-2 text-sigma">⚠ Action Required: Verify material validity of Clause 4.2 regarding water resilience.</p>
-                    `;
-                }
-
-                consoleOutput.appendChild(createSystemMessage(responseText, lower.includes("status") ? 'alert' : 'standard'));
-                scrollToBottom();
-            }, 3500); // Demora 3.5s para simular o processamento complexo
-        }
-
-        executeBtn.addEventListener('click', executeCommand);
-        inputField.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                executeCommand();
-            }
-        });
-    });
-    </script>
-</body>
-</html>
