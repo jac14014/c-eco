@@ -620,131 +620,124 @@
       return picked.map(c => `${c.id} — ${c.title}`);
     }
 
-    function decide(commandRaw) {
-      const command = normalizeCmd(commandRaw);
-      const lower = command.toLowerCase();
+   function decide(commandRaw) {
+  const command = normalizeCmd(commandRaw);
+  const lower = command.toLowerCase();
+  const state_basis = ["CECO-ART-083", "CECO-ART-085"];
 
-      // Base mínima (state machine / binding)
-      const state_basis = ["CECO-ART-083", "CECO-ART-085"];
+  if (lower === "index" || lower.includes("sumário") || lower.includes("indice")) {
+    return {
+      state: "GREEN / REFERENCE",
+      confidence: "STABLE",
+      confidence_score: 85,
+      state_basis,
+      triggers: ["Reference Query"],
+      effects: CECO_INDEX.map(x => `${x.k} — ${x.t}`),
+      proof: "Index snapshot loaded (local).",
+      proof_basis: ["CECO-MEM-000"],
+      isAlert: false
+    };
+  }
 
-      // 1) Consultas rápidas: "index"
-      if (lower === "index" || lower.includes("sumário") || lower.includes("indice")) {
-        return {
-          state: "GREEN / REFERENCE",
-          confidence: "STABLE",
-          confidence_score: 85,
-          state_basis,
-          triggers: ["Reference Query"],
-          effects: CECO_INDEX.map(x => `${x.k} — ${x.t}`),
-          proof: "Index snapshot loaded (local).",
-          proof_basis: ["CECO-MEM-000"],
-          isAlert: false
-        };
-      }
+  if (lower === "code" || lower === "codes" || lower.includes("lista de códigos")) {
+    return {
+      state: "GREEN / REFERENCE",
+      confidence: "STABLE",
+      confidence_score: 85,
+      state_basis,
+      triggers: ["Codebook Query"],
+      effects: listCodesSample(),
+      proof: "AI CODES codebook loaded (local).",
+      proof_basis: ["CECO-PRE-000"],
+      isAlert: false
+    };
+  }
 
-      // 2) "códigos" / "codes"
-      if (lower === "códigos" || lower === "codes" || lower.includes("lista de códigos")) {
-        return {
-          state: "GREEN / REFERENCE",
-          confidence: "STABLE",
-          confidence_score: 85,
-          state_basis,
-          triggers: ["Codebook Query"],
-          effects: listCodesSample(),
-          proof: "AI CODES codebook loaded (local).",
-          proof_basis: ["CECO-PRE-000"],
-          isAlert: false
-        };
-      }
+  const artMatch = lower.match(/\bart\s*\.?\s*(\d{1,3})\b/);
+  if (artMatch) {
+    const key = `ART ${artMatch[1]}`;
+    const lines = STATUTE_EXCERPTS[key] || null;
+    return {
+      state: "GREEN / REFERENCE",
+      confidence: lines ? "STABLE" : "LIMITED",
+      confidence_score: lines ? 85 : 70,
+      state_basis,
+      triggers: ["Statute Query"],
+      effects: lines ? lines : [`Não achei o trecho embutido para ${key}.`],
+      proof: `Lookup: ${key}`,
+      proof_basis: lines ? [key] : ["CECO-MEM-000"],
+      isAlert: false
+    };
+  }
 
-      // 3) "art 85" etc.
-      const artMatch = lower.match(/\bart\s*\.?\s*(\d{1,3})\b/);
-      if (artMatch) {
-        const key = `ART ${artMatch[1]}`;
-        const lines = STATUTE_EXCERPTS[key] || null;
+  if (lower.includes("iex") || lower.includes("inexequ")) {
+    return {
+      state: "RED / CRITICAL",
+      confidence: "40% (UNCERTAIN)",
+      confidence_score: 40,
+      state_basis,
+      triggers: ["Ex-Ante Unenforceability (IEX)", "Trajectory Lock"],
+      effects: [
+        "Immediate suspension of any executive action.",
+        "The trajectory is aggravated and Execution is blocked.",
+        "Automatic and enforceable effects (erga omnes) based on technical grounds."
+      ],
+      proof: "Certified sensory + legal data (state lock).",
+      proof_basis: ["CECO-ART-015", "CECO-ART-016", "CECO-ART-018", "CECO-ART-086"],
+      isAlert: true
+    };
+  }
 
-        return {
-          state: "GREEN / REFERENCE",
-          confidence: lines ? "STABLE" : "LIMITED",
-          confidence_score: lines ? 85 : 70,
-          state_basis,
-          triggers: ["Statute Query"],
-          effects: lines ? lines : [`Não achei o trecho embutido para ${key}. (Posso embutir mais artigos se você quiser.)`],
-          proof: `Lookup: ${key}`,
-          proof_basis: lines ? [key] : ["CECO-MEM-000"],
-          isAlert: false
-        };
-      }
+  if (lower.includes("safe")) {
+    return {
+      state: "ORANGE / CONTAINMENT",
+      confidence: "HIGH",
+      confidence_score: 72,
+      state_basis,
+      triggers: ["Safe Mode Protocol"],
+      effects: [
+        "Activation of Safe Mode (coordinated suspension).",
+        "Modulation of interdependent obligations.",
+        "Waiver of penalties associated with the suspension."
+      ],
+      proof: "Containment logs active.",
+      proof_basis: ["CECO-ART-044", "CECO-ART-045", "CECO-ART-047", "CECO-ART-086"],
+      isAlert: true
+    };
+  }
 
-      // 4) Estados operacionais
-      if (lower.includes("iex") || lower.includes("inexequ")) {
-        return {
-          state: "RED / CRITICAL",
-          confidence: "40% (UNCERTAIN)",
-          confidence_score: 40, // dispara Blind Interval
-          state_basis,
-          triggers: ["Ex-Ante Unenforceability (IEX)", "Trajectory Lock"],
-          effects: [
-            "Immediate suspension of any executive action.",
-            "The trajectory is aggravated and Execution is blocked.",
-            "Automatic and enforceable effects (erga omnes) based on technical grounds."
-          ],
-          proof: "Certified sensory + legal data (state lock).",
-          proof_basis: ["CECO-ART-015", "CECO-ART-016", "CECO-ART-018", "CECO-ART-086"],
-          isAlert: true
-        };
-      }
+  if (lower.includes("status")) {
+    return {
+      state: "YELLOW / MONITORING",
+      confidence: "STABLE",
+      confidence_score: 68,
+      state_basis,
+      triggers: ["Reinforced Monitoring"],
+      effects: [
+        "Execution permitted under continuous monitoring.",
+        "Automatic continuation is prohibited if a critical transition occurs."
+      ],
+      proof: "Continuous stream active.",
+      proof_basis: ["CECO-ART-086", "CECO-ART-088"],
+      isAlert: false
+    };
+  }
 
-      if (lower.includes("safe")) {
-        return {
-          state: "ORANGE / CONTAINMENT",
-          confidence: "HIGH",
-          confidence_score: 72,
-          state_basis,
-          triggers: ["Safe Mode Protocol"],
-          effects: [
-            "Activation of Safe Mode (coordinated suspension).",
-            "Modulation of interdependent obligations.",
-            "Waiver of penalties associated with the suspension.""
-          ],
-          proof: "Containment logs active.",
-          proof_basis: ["CECO-ART-044", "CECO-ART-045", "CECO-ART-047", "CECO-ART-086"],
-          isAlert: true
-        };
-      }
-
-      if (lower.includes("status")) {
-        return {
-          state: "YELLOW / MONITORING",
-          confidence: "STABLE",
-          confidence_score: 68,
-          state_basis,
-          triggers: ["Reinforced Monitoring"],
-          effects: [
-            "Execution permitted under continuous monitoring.",
-            "Automatic continuation is prohibited if a critical transition occurs."
-          proof: "Continuous stream active.",
-          proof_basis: ["CECO-ART-086", "CECO-ART-088"],
-          isAlert: false
-        };
-      }
-
-      // default
-      return {
-        state: "GREEN / COMPATIBLE",
-        confidence: "STABLE",
-        confidence_score: 85,
-        state_basis,
-        triggers: [],
-        effects: [
-          "Trajectory compatible with declared parameters.",
-          "Execution permitted under continuous monitoring."
-        ],
-        proof: "No critical triggers detected.",
-        proof_basis: ["CECO-ART-001", "CECO-ART-012"],
-        isAlert: false
-      };
-    }
+  return {
+    state: "GREEN / COMPATIBLE",
+    confidence: "STABLE",
+    confidence_score: 85,
+    state_basis,
+    triggers: [],
+    effects: [
+      "Trajectory compatible with declared parameters.",
+      "Execution permitted under continuous monitoring."
+    ],
+    proof: "No critical triggers detected.",
+    proof_basis: ["CECO-ART-001", "CECO-ART-012"],
+    isAlert: false
+  };
+}
 
     /* ============================================================
        6) ORQUESTRADOR (Interface)
