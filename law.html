@@ -1,144 +1,309 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>C-ECO | Aspectos Legais</title>
+    <title>c-ΣCO | Systemic Governance Statute</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-main: #09090b; 
-            --bg-accent: #18181b; 
-            --orange-ceco: #d6bc7e; 
-            --text-main: #f4f4f5;
-            --text-dim: #a1a1aa;
+            --sidebar-width: 320px;
+            --legal-blue: #1a2b3c;
+            --gold-accent: #c5a059;
+            --bg-body: #f4f7f9;
+            --text-main: #1a1a1a;
+            --border-color: #dee2e6;
         }
 
-        /* Reset e Base */
         body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            font-family: 'Inter', -apple-system, sans-serif;
             margin: 0;
-            padding: 40px 20px;
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            background-color: var(--bg-body);
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
         }
 
-        /* Documento de Lei */
-        .law-wrapper {
-            max-width: 850px;
-            width: 100%;
-            background-color: var(--bg-accent);
+        /* BARRA LATERAL (ÍNDICE) */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: white;
+            position: fixed;
+            left: 0;
+            top: 0;
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .sidebar-header {
+            font-weight: 800;
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: var(--gold-accent);
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar nav li {
+            margin-bottom: 12px;
+        }
+
+        .sidebar nav a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 13px;
+            line-height: 1.4;
+            display: block;
+            transition: color 0.2s;
+        }
+
+        .sidebar nav a:hover {
+            color: var(--gold-accent);
+        }
+
+        .sidebar nav .chapter-link {
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-top: 20px;
+        }
+
+        /* ÁREA DE CONTEÚDO (DOCUMENTO) */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
             padding: 60px;
-            border-left: 1px solid #27272a;
-            border-right: 1px solid #27272a;
-            border-top: 4px solid var(--orange-ceco);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            display: flex;
+            justify-content: center;
         }
 
-        /* Cabeçalho do Documento */
-        .law-header {
+        .document-page {
+            background: white;
+            width: 100%;
+            max-width: 850px;
+            padding: 80px 100px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        header.doc-header {
             text-align: center;
+            border-bottom: 3px double var(--legal-blue);
             margin-bottom: 50px;
-            border-bottom: 1px solid #27272a;
             padding-bottom: 30px;
         }
 
-        .law-header h1 {
-            font-size: 1.5rem;
+        h1.doc-title {
+            font-size: 26px;
+            color: var(--legal-blue);
             text-transform: uppercase;
-            letter-spacing: 3px;
-            margin: 0;
+            margin: 10px 0;
         }
 
-        /* Ementa Jurídica */
-        .ementa {
-            margin-left: 40%;
-            margin-bottom: 60px;
+        .statute-text {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 16px;
+            line-height: 1.8;
             text-align: justify;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            color: var(--text-dim);
+            margin-bottom: 30px;
+        }
+
+        h2.section-header {
+            font-size: 18px;
+            text-transform: uppercase;
+            color: var(--legal-blue);
+            border-top: 1px solid var(--border-color);
+            margin-top: 60px;
+            padding-top: 20px;
+            scroll-margin-top: 40px; /* Evita que o título fique colado no topo ao scrollar */
+        }
+
+        .article-box {
+            margin-bottom: 25px;
+            padding: 10px 0;
+        }
+
+        .article-title {
+            font-weight: 700;
+            color: var(--gold-accent);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        /* Estilo para citações de Memoriais/Whereas */
+        .whereas-block {
+            border-left: 4px solid var(--gold-accent);
+            padding-left: 20px;
+            margin: 20px 0;
             font-style: italic;
         }
 
-        /* Estrutura de Texto Legis */
-        .section-title {
-            text-align: center;
-            font-weight: bold;
-            margin: 40px 0 20px;
-            color: var(--orange-ceco);
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 1.5px;
+        @media (max-width: 1100px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; padding: 20px; }
+            .document-page { padding: 40px 20px; }
         }
-
-        .article {
-            margin-bottom: 25px;
-            text-align: justify;
-            line-height: 1.8;
-        }
-
-        .article b {
-            color: var(--orange-ceco);
-            font-weight: 600;
-        }
-
-        /* Rodapé do documento */
-        footer {
-            margin-top: 80px;
-            text-align: center;
-            font-size: 0.75rem;
-            color: var(--text-dim);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        /* Responsividade */
-        @media (max-width: 768px) {
-            .law-wrapper {
-                padding: 30px 20px;
-            }
-            .ementa {
-                margin-left: 0;
-            }
-        }
+        .sub-menu {
+    padding-left: 15px;
+    margin-top: 5px;
+    border-left: 1px solid #eee;
+}
+.sub-menu li {
+    margin-bottom: 5px;
+}
+.sub-menu a {
+    font-size: 11px !important;
+    color: #888 !important;
+}
+.chapter-link {
+    border-top: 1px solid #f0f0f0;
+    padding-top: 10px;
+}       
     </style>
 </head>
 <body>
 
-    <main class="law-wrapper">
-        <header class="law-header">
-            <h1>Estatuto de Governança C-ECO</h1>
-            <p style="color: var(--text-dim); margin-top: 10px;">Versão 1.0.24 — Protocolo Sustentável</p>
-        </header>
+ <aside class="sidebar">
+    <div class="sidebar-header">Systemic Governance Index</div>
+    <nav>
+        <ul>
+            <li><a href="#preamble">Preamble</a></li>
+            <li><a href="#memo">Explanatory Memorandum</a></li>
+            
+            <li><a href="#preliminary" class="chapter-link">Preliminary Chapter</a>
+                <ul class="sub-menu">
+                    <li><a href="#art1">Art. 1 — SOS Supremacy</a></li>
+                    <li><a href="#art2">Art. 2 — In Dubio Pro Systema</a></li>
+                    <li><a href="#art3">Art. 3 — Physical Primacy</a></li>
+                    <li><a href="#art5">Art. 5 — Ex-Ante Governance</a></li>
+                </ul>
+            </li>
 
-        <div class="ementa">
-            Dispõe sobre as normas de transparência, gestão de resíduos e 
-            parâmetros de governança da plataforma C-ECO para fins de conformidade ambiental.
-        </div>
+            <li><a href="#ch1" class="chapter-link">Chapter I: The c-ΣCO Regime</a>
+                <ul class="sub-menu">
+                    <li><a href="#sub1">Sub. I — Systemic Paradigm (Art. 6-8)</a></li>
+                    <li><a href="#sub2">Sub. II — Conditioned Object (Art. 9-11)</a></li>
+                    <li><a href="#sub3">Sub. III — Continuous Validity (Art. 12-14)</a></li>
+                    <li><a href="#sub4">Sub. IV — Ex-Ante Unenforceability (Art. 15-18)</a></li>
+                    <li><a href="#sub5">Sub. V — Systemic Preclusion (Art. 19-22)</a></li>
+                    <li><a href="#sub6">Sub. VI — SOS Legal Limit (Art. 23-26)</a></li>
+                    <li><a href="#sub7">Sub. VII — Habitability Link (Art. 27-30)</a></li>
+                    <li><a href="#sub8">Sub. VIII — Regenerative Guarantees (Art. 31-34)</a></li>
+                    <li><a href="#sub9">Sub. IX — Systemic Proof (Art. 35-39)</a></li>
+                    <li><a href="#sub10">Sub. X — Curatorial Trigger (Art. 40-43)</a></li>
+                    <li><a href="#sub11">Sub. XI — Safe Mode (Art. 44-47)</a></li>
+                    <li><a href="#sub12">Sub. XII — State Machine (Art. 48-52)</a></li>
+                </ul>
+            </li>
 
-        <div class="section-title">Capítulo I — Do Objeto</div>
+            <li><a href="#ch2" class="chapter-link">Chapter II: Ex-Ante Design (Art. 53-58)</a></li>
+            <li><a href="#ch3" class="chapter-link">Chapter III: Systemic Maintenance (Art. 59-65)</a></li>
+            <li><a href="#ch4" class="chapter-link">Chapter IV: Algorithmic Causation (Art. 66-72)</a></li>
+            <li><a href="#ch5" class="chapter-link">Chapter V: Data Assessment Authority (Art. 73-81)</a></li>
+            <li><a href="#ch6" class="chapter-link">Chapter VI: Alert Architecture (Art. 82-88)</a></li>
+            <li><a href="#ch7" class="chapter-link">Chapter VII: Execution Mechanisms (Art. 89-96)</a></li>
+            <li><a href="#ch8" class="chapter-link">Chapter VIII: Mandatory Cooperation (Art. 97-104)</a></li>
+            <li><a href="#ch9" class="chapter-link">Chapter IX: Temporality & Validity (Art. 105-111)</a></li>
+            <li><a href="#ch10" class="chapter-link">Chapter X: Systemic Solvency (Art. 112-120)</a></li>
+            <li><a href="#ch11" class="chapter-link">Chapter XI: Normative Hierarchy (Art. 121-127)</a></li>
+            <li><a href="#ch12" class="chapter-link">Chapter XII: Integral Risk Liability (Art. 128-136)</a></li>
+            <li><a href="#ch13" class="chapter-link">Chapter XIII: Sanctions Regime (Art. 137-147)</a></li>
+            <li><a href="#ch14" class="chapter-link">Chapter XIV: Liability Exemptions (Art. 148-158)</a></li>
+            <li><a href="#ch15" class="chapter-link">Chapter XV: Risk Management Fund (Art. 159-167)</a></li>
+            <li><a href="#ch16" class="chapter-link">Chapter XVI: Entry Conditions (Art. 168-175)</a></li>
+            <li><a href="#ch17" class="chapter-link">Chapter XVII: Restoration Providers (Art. 176-187)</a></li>
+            <li><a href="#ch18" class="chapter-link">Chapter XVIII: Execution Chain (Art. 188-197)</a></li>
+            <li><a href="#ch19" class="chapter-link">Chapter XIX: Transitional Provisions (Art. 198-208)</a></li>
+            <li><a href="#ch20" class="chapter-link">Chapter XX: Final Provisions (Art. 209-214)</a></li>
+        </ul>
+    </nav>
+</aside>
 
-        <div class="article">
-            <p><b>Art. 1º</b> — Este estatuto estabelece as diretrizes fundamentais para a operação do sistema C-ECO, garantindo a rastreabilidade de ativos circulares.</p>
-        </div>
 
-        <div class="article">
-            <p><b>Art. 2º</b> — Todas as entidades participantes submetem-se aos critérios de auditoria aberta previstos neste protocolo.</p>
-        </div>
+    <main class="main-content">
+        <article class="document-page">
+            
+            <header class="doc-header">
+                <div style="font-size: 12px; letter-spacing: 2px;">SYSTEMIC GOVERNANCE STATUTE</div>
+                <h1 class="doc-title">Legal Regime of Predictive Governance, Biophysical Supremacy and Binding Legal Automation</h1>
+            </header>
 
-        <div class="section-title">Capítulo II — Dos Dados</div>
+            <section id="preamble">
+                <h2 class="section-header">Preamble</h2>
+                <div class="statute-text">
+                    [span_2](start_span)The c-ΣCO SYSTEMIC GOVERNANCE STATUTE hereby institutes a transnational legal regime founded upon predictive governance...[span_2](end_span)
+                </div>
+                <div class="whereas-block">
+                    [span_3](start_span)<strong>WHEREAS</strong>, classical legal models have proven structurally insufficient to manage systemic risks...[span_3](end_span)
+                </div>
+            </section>
 
-        <div class="article">
-            <p><b>Art. 3º</b> — A privacidade dos usuários é preservada mediante técnicas de anonimização, salvo em casos de verificação de crédito de carbono.</p>
-        </div>
+            <section id="memo">
+                <h2 class="section-header">Explanatory Memorandum</h2>
+                <div class="statute-text">
+                    [span_4](start_span)This Statute recognizes the emergence of trajectory illegality, referred to as <em>ilicitude de trajetória</em>...[span_4](end_span)
+                </div>
+            </section>
 
-        <footer>
-            C-ECO PROJECT — OPEN SOURCE GOVERNANCE — 2024
-        </footer>
+            <section id="preliminary">
+                <h2 class="section-header">Preliminary Chapter</h2>
+                
+                <div class="article-box">
+                    <span class="article-title">Article 1 — Principle of Supremacy of the Safe Operating Space</span>
+                    <div class="statute-text">
+                        [span_5](start_span)The validity, enforceability, and continuity of any acts are subordinated to the preservation of the Safe Operating Space (SOS)...[span_5](end_span)
+                    </div>
+                </div>
+
+                <div class="article-box">
+                    <span class="article-title">Article 5 — Principle of Ex-Ante Governance and Systemic Preclusion</span>
+                    <div class="statute-text">
+                        [span_6](start_span)Governance operates primarily ex ante, acting upon risk trajectories identified prior to the materialization of harm...[span_6](end_span)
+                    </div>
+                </div>
+            </section>
+
+            <section id="ch1">
+                <h2 class="section-header">Chapter 1: The c-ΣCO Systemic Governance Regime</h2>
+                
+                <div id="subsection1" class="article-box">
+                    <span class="article-title">Article 6 — The c-ΣCO Systemic Paradigm</span>
+                    <div class="statute-text">
+                        [span_7](start_span)Legal validity constitutes a dynamic legal condition, subject to continuous verification...[span_7](end_span)
+                    </div>
+                </div>
+
+                <div id="subsection4" class="article-box">
+                    <span class="article-title">Article 15 — Ex-Ante Unenforceability (IEX)</span>
+                    <div class="statute-text">
+                        [span_8](start_span)IEX constitutes an autonomous legal category by which the practice of operational acts are automatically suspended...[span_8](end_span)
+                    </div>
+                </div>
+            </section>
+
+            </article>
     </main>
+
+    <script>
+        // Função para scroll suave (opcional, navegadores modernos já fazem via CSS)
+        document.querySelectorAll('.sidebar nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>
