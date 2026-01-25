@@ -27,27 +27,41 @@
   </script>
 
   <style>
-    /* Fallback caso Tailwind não carregue */
-    body{ background:#020617; color:#d4d4d8; font-family: Inter, sans-serif; }
-    .scanline-overlay{
-      background: linear-gradient(to bottom,
-        rgba(255,255,255,0),
-        rgba(255,255,255,0) 50%,
-        rgba(0,0,0,0.06) 50%,
-        rgba(0,0,0,0.06));
-      background-size: 100% 4px;
-      pointer-events:none;
-    }
-    ::-webkit-scrollbar{ width: 6px; }
-    ::-webkit-scrollbar-track{ background: #09090b; }
-    ::-webkit-scrollbar-thumb{ background: #27272a; border-radius: 3px; }
-  </style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    background: #020617;
+    color: #d4d4d8;
+    font-family: Inter, sans-serif;
+  }
+
+  .scanline-overlay{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(to bottom,
+      rgba(255,255,255,0),
+      rgba(255,255,255,0) 50%,
+      rgba(0,0,0,0.06) 50%,
+      rgba(0,0,0,0.06));
+    background-size: 100% 4px;
+    pointer-events:none;
+  }
+
+  .content {
+    position: relative;
+    z-index: 1;
+  }
+
+  ::-webkit-scrollbar{ width: 6px; }
+  ::-webkit-scrollbar-track{ background: #09090b; }
+  ::-webkit-scrollbar-thumb{ background: #27272a; border-radius: 3px; }
+</style>
 </head>
 
-<body class="bg-slate-950 text-zinc-300 font-sans h-screen flex flex-col overflow-hidden selection:bg-sigma-dim selection:text-white">
-
-  <div class="fixed inset-0 scanline-overlay z-50 opacity-20 pointer-events-none"></div>
-
+<body class="bg-[#020617] text-zinc-300 font-sans min-h-screen flex flex-col overflow-hidden selection:bg-sigma-dim selection:text-white">
+  <div class="scanline-overlay"></div>
+  
   <!-- HEADER -->
   <header class="h-14 border-b border-white/5 bg-slate-950/80 backdrop-blur-sm flex items-center justify-between px-6 z-40">
     <div class="flex items-center gap-4">
