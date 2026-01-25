@@ -1,138 +1,218 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>c-ΣCO | MODEL LAW - INDEX</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --sidebar-width: 350px;
-      --legal-blue: #1a2b3c;
-      --gold-accent: #c5a059;
-      --bg-body: #f4f7f9;
-      --text-main: #1a1a1a;
-      --border-color: #dee2e6;
-    }
-    body { margin: 0; display: flex; background-color: var(--bg-body); font-family: 'Inter', sans-serif; }
-    
-    /* SIDEBAR - DESIGN ORIGINAL */
-    .sidebar { 
-      width: var(--sidebar-width); 
-      height: 100vh; 
-      background: #fff; 
-      position: fixed; 
-      border-right: 1px solid var(--border-color); 
-      overflow-y: auto; 
-      padding: 25px; 
-      box-sizing: border-box; 
-      z-index: 1000;
-      transition: transform 0.3s ease;
-      
-      top: 72px;
-      height: calc(100vh - 72px);
-    }
-    .sidebar-header { font-weight: 800; font-size: 14px; letter-spacing: 1px; color: var(--legal-blue); text-transform: uppercase; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid var(--gold-accent); }
-    .nav-list { list-style: none; padding: 0; margin: 0; }
-    .nav-section-title { font-size: 11px; font-weight: 800; color: var(--gold-accent); margin-top: 25px; text-transform: uppercase; border-top: 1px solid #eee; padding-top: 15px; padding-bottom: 5px; }
-    .nav-sub-title { font-size: 10px; font-weight: 700; color: #888; margin: 10px 0 5px 10px; text-transform: uppercase; }
-    .nav-item a { text-decoration: none; color: var(--text-main); font-size: 12px; display: block; padding: 6px 10px; border-radius: 4px; line-height: 1.4; transition: 0.2s; }
-    .nav-item a:hover { background: rgba(197,160,89,0.1); color: var(--gold-accent); }
+<style>
+  :root {
+    --sidebar-width: 350px;
+    --legal-blue: #1a2b3c;
+    --gold-accent: #c5a059;
+    --bg-body: #f4f7f9;
+    --text-main: #1a1a1a;
+    --border-color: #dee2e6;
+    --topbar-h: 72px;
+  }
 
-    /* CONTENT AREA */
-    .main-content { margin-left: var(--sidebar-width); flex: 1; padding: 60px 20px; display: flex; justify-content: center; }
-    .document-page { background: #fff; width: 100%; max-width: 850px; padding: 80px; box-shadow: 0 4px 25px rgba(0,0,0,0.06); border-radius: 8px; }
-    
-    /* ESTILOS DE LEI (Para quando você colar o texto) */
-    .ai-id { font-family: monospace; font-size: 11px; color: #b0b0b0; display: block; margin-bottom: 4px; }
-    .article-box { margin-bottom: 60px; scroll-margin-top: 40px; }
-    .article-title { font-family: 'Libre Baskerville', serif; font-weight: 700; font-size: 19px; color: var(--legal-blue); display: block; margin-bottom: 18px; border-bottom: 1px solid #f0f0f0; padding-bottom: 5px; }
-    .caput { text-align: justify; margin-bottom: 15px; font-family: 'Libre Baskerville', serif; line-height: 1.8; font-size: 16px; }
-    .paragraph { margin-left: 35px; font-size: 15px; margin-bottom: 12px; line-height: 1.6; color: #333; }
-    .inciso { margin-left: 70px; font-size: 15px; margin-bottom: 8px; color: #444; }
+  * { box-sizing: border-box; }
 
-    /* MOBILE TOGGLE DESIGN */
-    .mobile-btn {
-      display: none;
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: var(--legal-blue);
-      color: white;
-      border: none;
-      padding: 15px 25px;
-      border-radius: 50px;
-      font-weight: bold;
-      z-index: 2000;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      cursor: pointer;
-    }
+  /* IMPORTANT: do NOT use display:flex on body */
+  body {
+    margin: 0;
+    background-color: var(--bg-body);
+    font-family: 'Inter', sans-serif;
+  }
 
-   @media (max-width: 1024px) {
-      .sidebar { 
-        transform: translateX(-100%); 
-      }
-      .sidebar.open { 
-        transform: translateX(0); 
-        box-shadow: 5px 0 25px rgba(0,0,0,0.2); 
-      }
-      .main-content { 
-        margin-left: 0; 
-        padding: 10px 5px; /* Reduzido para dar mais espaço lateral */
-      }
-      .document-page { 
-        padding: 30px 20px; /* Padding interno reduzido de 80px para 20px no mobile */
-        width: auto;
-        margin: 0;
-        border-radius: 0; /* Remove arredondamento para ganhar espaço nas bordas */
-      }
-      .mobile-btn { 
-        display: block; 
-      }
-    }
-    /* ===== TOP BAR ===== */
-.top-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 9999;
+  /* ===== TOP BAR ===== */
+  .top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--topbar-h);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 16px;
+    background: rgba(9,9,11,.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+
+  /* ===== SIGMA BOX ===== */
+  .logo-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 0;               /* SQUARE */
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(6px);
+
+    color: #C5A065;
+    font-weight: 800;
+    font-size: 1.25rem;
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+  }
+  .logo-box:visited { color: #C5A065; }
+  .logo-box:hover { background: rgba(255,255,255,0.14); }
+
+  /* SIDEBAR */
+  .sidebar {
+    width: var(--sidebar-width);
+    background: #fff;
+    position: fixed;
+    left: 0;
+
+    top: var(--topbar-h);
+    height: calc(100vh - var(--topbar-h));
+
+    border-right: 1px solid var(--border-color);
+    overflow-y: auto;
+    padding: 25px;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .sidebar-header {
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: var(--legal-blue);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--gold-accent);
+  }
+
+  .nav-list { list-style: none; padding: 0; margin: 0; }
+  .nav-section-title {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--gold-accent);
+    margin-top: 25px;
+    text-transform: uppercase;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+    padding-bottom: 5px;
+  }
+  .nav-sub-title {
+    font-size: 10px;
+    font-weight: 700;
+    color: #888;
+    margin: 10px 0 5px 10px;
+    text-transform: uppercase;
+  }
+  .nav-item a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: 12px;
+    display: block;
+    padding: 6px 10px;
+    border-radius: 4px;
+    line-height: 1.4;
+    transition: 0.2s;
+  }
+  .nav-item a:hover { background: rgba(197,160,89,0.1); color: var(--gold-accent); }
+
+  /* CONTENT AREA */
+  .main-content {
+    margin-left: var(--sidebar-width);
+    padding: calc(var(--topbar-h) + 20px) 20px 60px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .document-page {
+    background: #fff;
+    width: 100%;
+    max-width: 850px;
+    padding: 80px;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.06);
+    border-radius: 0; /* SQUARE */
+  }
+
+  /* LAW STYLES */
+  .ai-id { font-family: monospace; font-size: 11px; color: #b0b0b0; display: block; margin-bottom: 4px; }
+  .article-box { margin-bottom: 60px; scroll-margin-top: 40px; }
+  .article-title { font-family: 'Libre Baskerville', serif; font-weight: 700; font-size: 19px; color: var(--legal-blue); display: block; margin-bottom: 18px; border-bottom: 1px solid #f0f0f0; padding-bottom: 5px; }
+  .caput { text-align: justify; margin-bottom: 15px; font-family: 'Libre Baskerville', serif; line-height: 1.8; font-size: 16px; }
+  .paragraph { margin-left: 35px; font-size: 15px; margin-bottom: 12px; line-height: 1.6; color: #333; }
+  .inciso { margin-left: 70px; font-size: 15px; margin-bottom: 8px; color: #444; }
+
+  /* MOBILE BUTTON */
+  .mobile-btn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--legal-blue);
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 0;   /* SQUARE */
+    font-weight: bold;
+    z-index: 2000;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    cursor: pointer;
+  }
+
+  @media (max-width: 1024px) {
+    .sidebar { transform: translateX(-100%); }
+    .sidebar.open { transform: translateX(0); box-shadow: 5px 0 25px rgba(0,0,0,0.2); }
+
+    .main-content { margin-left: 0; padding: calc(var(--topbar-h) + 10px) 8px 20px; }
+    .document-page { padding: 30px 20px; width: auto; margin: 0; border-radius: 0; }
+    .mobile-btn { display: block; }
+  }
+  /* ===== PROPORTIONAL SQUARE LOOK (FINAL OVERRIDES) ===== */
+
+/* top bar height smaller so it doesn't feel bulky */
+:root { --topbar-h: 56px; }
+
+/* Σ square button: smaller, cleaner, subtle shadow */
+.logo-box{
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 0 !important;
+  border: 1px solid rgba(255,255,255,0.22) !important;
+  background: rgba(255,255,255,0.07) !important;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.18) !important;
+  font-size: 1.1rem !important;
+  font-weight: 800 !important;
 }
 
-/* ===== SIGMA BOX ===== */
-.logo-box {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 44px;
-  height: 44px;
-
-  border: 1px solid rgba(255,255,255,0.25);
-  border-radius: 12px;
-
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(6px);
-
-  color: #C5A065;
-  font-weight: 700;
-  font-size: 1.25rem;
-
-  text-decoration: none;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+/* align Σ nicely inside the top bar */
+.top-nav{
+  height: var(--topbar-h) !important;
+  padding: 0 14px !important;
 }
 
-.logo-box:visited {
-  color: #C5A065;
+/* sidebar starts under the top bar (same height) */
+.sidebar{
+  top: var(--topbar-h) !important;
+  height: calc(100vh - var(--topbar-h)) !important;
 }
 
-.logo-box:hover {
-  background: rgba(255,255,255,0.14);
+/* content spacing under the top bar */
+.main-content{
+  padding-top: calc(var(--topbar-h) + 18px) !important;
 }
 
-
+/* square page, but keep it elegant */
+.document-page{
+  border-radius: 0 !important;
+  padding: 64px !important;
 }
-  </style>
+
+@media (max-width: 1024px){
+  .document-page{
+    padding: 28px 18px !important;
+  }
+}
+  
+</style>
 </head>
 <body class="selection:bg-yellow-500/30">
 
