@@ -148,6 +148,31 @@
       box-shadow: 0 4px 15px rgba(0,0,0,0.30);
       cursor: pointer;
     }
+    /* Estilo para sub-subtítulos (ex: A. Instrumented Sensing) */
+    .doc-sub-subtitle {
+        font-family: 'Inter', sans-serif;
+        font-weight: 700;
+        font-size: 13px;
+        color: #555;
+        margin-top: 20px;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        padding-left: 15px;
+    }
+    
+    /* Pequeno ajuste para listas não numeradas */
+    .bullet-list {
+        margin-left: 20px;
+        list-style-type: disc;
+        color: #444;
+        font-size: 15px;
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+    .bullet-list li {
+        margin-bottom: 6px;
+        text-align: justify;
+    }
 
     /* MOBILE behavior: sidebar hidden by default, opens overlay */
     @media (max-width: 1024px){
@@ -502,7 +527,212 @@
             The Trigger Catalogue defines the conditions under which prudential bands are activated and automatic effects occur. It embodies the logic of graduated, proportional, and non-discretionary response that characterizes the c-ECO framework. The Manual ensures that trigger activation is procedurally sound, transparently recorded, and resistant to manipulation or delay.
         </div>
     </section>
-   
+   <div class="chapter-title">PART II — DATA, VERIFICATION & CERTIFICATION (DVB)</div>
+
+    <section id="MO-4" class="article-box">
+        <h2 class="article-title">4. Manual for Data Custodians — Position (P)</h2>
+
+        <h3 id="MO-4-1" class="doc-subtitle">4.1 Scope and Purpose</h3>
+        <div class="caput">
+            This Manual specifies the mandatory operational standard for the capture, preservation, certification, and submission of raw inputs feeding the Position variable (P) within the Threshold Function Protocol (TFP). It is drafted as epistemic infrastructure: it defines how observations become legally admissible technical facts without collapsing into discretion, narrative reporting, or ex post rationalization.
+        </div>
+        <div class="paragraph">
+            The Custodian’s task is not “data administration” in the ordinary sense; it is the maintenance of a time-consistent, tamper-evident, reconstructible signal capable of supporting prudential classification and automated contractual effects.
+        </div>
+        <div class="paragraph">
+            Accordingly, this Manual imposes:
+        </div>
+        <div class="inciso">I — continuous measurement requirements (as opposed to episodic sampling);</div>
+        <div class="inciso">II — chain-of-custody constraints (sensor → extraction → attestation → hashing → ledger);</div>
+        <div class="inciso">III — minimum metadata completeness sufficient to reproduce P and its uncertainty envelope; and</div>
+        <div class="inciso">IV — procedural triggers that convert any integrity deficit into an escalation event (reinforced audit, incident logging, or data invalidation), as defined in the applicable Technical Annex.</div>
+        <div class="paragraph">
+            The overriding purpose is to ensure that the DVB layer produces a dataset that is scientifically interpretable and legally enforceable under conditions of systemic stress.
+        </div>
+
+        <h3 id="MO-4-2" class="doc-subtitle">4.2 Legal Definition of Position (P)</h3>
+        <div class="caput">
+            (P) is the TFP’s legally operative representation of a system’s measurable state relative to a sector-specified Safe Operating Space (SOS) boundary. It is not a generic environmental indicator, nor a compliance proxy; it is a boundary-referenced, context-locked metric whose meaning is defined by a sectoral SPS specification and its calibration parameters (including units, spatial domain, temporal resolution, and admissible methodologies).
+        </div>
+        <div class="paragraph">
+            <strong>Legal function.</strong> P exists to impose a non-negotiable material constraint upon contractual execution: it is the primary axis by which the TFP translates biophysical proximity into prudential relevance. The closer P is to the boundary, the stronger the regime’s prudential sensitivity and the narrower the latitude for interpretive ambiguity. In doctrinal terms, P operationalizes the principle that contractual validity cannot outrun material reversibility: increasing proximity increases legal salience, thereby tightening audit frequency, uncertainty treatment, and escalation thresholds.
+        </div>
+        <div class="paragraph">
+            <strong>Non-discretionary construction.</strong> P must be calculated from certified inputs under the procedures below. Any post hoc modification of datasets, sensor settings, filters, model versions, or boundary specifications—unless recorded, versioned, and independently verifiable—constitutes an integrity incident. In this Manual, “measurement” is inseparable from “admissibility”: what cannot be reconstructed cannot be used.
+        </div>
+
+        <h3 id="MO-4-3" class="doc-subtitle">4.3 Data Sources and Required Evidence</h3>
+        <div class="caput">
+            To preserve scientific validity under high stakes and long horizons, data eligible for P must satisfy three cumulative conditions: certifiability, traceability, and reproducibility. The Custodian must treat every data source as a potential point of epistemic fragility, and therefore as a locus of formal evidence requirements.
+        </div>
+
+        <h4 class="doc-sub-subtitle">Eligible Source Classes</h4>
+        <ul class="bullet-list">
+            <li>Instrumented sensing (IoT, in situ instrumentation, remote sensing products, site-level meters);</li>
+            <li>Model-mediated inference (scientific models used to translate raw signals into boundary-referenced indicators);</li>
+            <li>Operational and corporate primary records (site-level resource use, operational logs, audited sustainability disclosures where applicable).</li>
+        </ul>
+
+        <h4 class="doc-sub-subtitle">Minimum Evidence Package (by Source Class)</h4>
+        
+        <div class="paragraph"><strong>A. Instrumented sensing (primary path where feasible)</strong></div>
+        <div class="inciso">Required evidence: Raw data logs (unaltered) with timestamps; Calibration certificate (accredited) with uncertainty specification; Maintenance and integrity logs; Metadata sufficient for reconstruction.</div>
+        <div class="inciso">Certification requirement: Calibration validity must be current; maintenance interval as defined by the Technical Annex.</div>
+
+        <div class="paragraph"><strong>B. Model-mediated inference (only where expressly allowed)</strong></div>
+        <div class="inciso">Required evidence: Model documentation (assumptions, domain, limitations); Version control (version, parameters, weights); Input-output reproducibility artifacts.</div>
+        <div class="inciso">Certification requirement: Peer-reviewed validation and/or recognition by competent authority; updates must be versioned and publicly auditable.</div>
+
+        <div class="paragraph"><strong>C. Operational and corporate primary records</strong></div>
+        <div class="inciso">Required evidence: Primary site-level records (meter readings, logs), not narrative disclosures; Audit signatures with traceability; Mapping to SPS metric definition.</div>
+        <div class="inciso">Certification requirement: Provenance traceable to source systems (ERP/ledger/meter) and consistent with independent checks.</div>
+
+        <h4 class="doc-sub-subtitle">Admissibility Rule</h4>
+        <div class="paragraph">
+            No dataset is admissible for P unless it can survive a reconstruction test: a competent reviewer, using the recorded evidence package, must be able to replicate the dataset lineage, verify calibration status, and reproduce the P computation within defined tolerances. If admissibility fails, the dataset is either corrected through a certified process or excluded, and the integrity incident is recorded.
+        </div>
+
+        <h3 id="MO-4-4" class="doc-subtitle">4.4 Data Collection Procedures</h3>
+        <div class="caput">The procedures below are written to minimize epistemic discretion and maximize temporal coherence.</div>
+
+        <h4 class="doc-sub-subtitle">Step 1 — Boundary Identification and Locking</h4>
+        <div class="paragraph">
+            Before measurement begins, the Custodian must identify the applicable boundary definition from the sectoral SPS specification. The Custodian must “lock” the boundary reference for the reporting period by recording: SPS specification version, Boundary ID and units, Spatial domain definition, Time resolution, and Authorized measurement methods. This locking procedure prevents retroactive boundary substitution and “metric shopping.”
+        </div>
+
+        <h4 class="doc-sub-subtitle">Step 2 — Sensor Integrity Protocol</h4>
+        <div class="paragraph">
+            Before closing each reporting period, the Custodian must perform and record a Sensor Integrity Protocol that includes: Physical inspection; Reference check against standard; Timestamp synchronization; Firmware/configuration hash verification; and Anomaly note if triggered. Failure here is a signal integrity event.
+        </div>
+
+        <h4 class="doc-sub-subtitle">Step 3 — Continuous Capture and Raw Preservation</h4>
+        <div class="paragraph">
+            Data for P must be captured continuously at the specified frequency. The Custodian must preserve raw logs in an immutable store prior to any transformation. Transformations are allowed only if explicitly authorized, versioned, and recorded in the audit trail.
+        </div>
+
+        <h4 class="doc-sub-subtitle">Step 4 — Custodian Attestation</h4>
+        <div class="paragraph">
+            The Custodian must digitally attest that: The dataset corresponds to preserved raw logs; All integrity checks were performed; Any anomalies are declared; The dataset has not been selectively edited; Metadata is complete. Attestation anchors accountability and makes falsification legally legible.
+        </div>
+
+        <h4 class="doc-sub-subtitle">Step 5 — Submission, Hashing, and Ledger Registration</h4>
+        <div class="paragraph">
+            The certified dataset must be submitted for hashing and ledger registration within the specified window (default: 24h). The system must record: Dataset hash, Custodian identity, Link to evidence, and Version references. Late submission is treated as an integrity degradation event.
+        </div>
+
+        <h3 id="MO-4-5" class="doc-subtitle">4.5 QA/QC and Treatment of Uncertainty</h3>
+        <div class="caput">
+            This subsection is drafted to satisfy the core scientific demand for prudential regimes: uncertainty is handled in a way that prevents it from being weaponized to delay intervention.
+        </div>
+
+        <h4 class="doc-sub-subtitle">Asymmetric Uncertainty Rule</h4>
+        <div class="paragraph">
+            Where measurement uncertainty exists, it is applied asymmetrically to contract the operational margin. For P, this means reporting the prudential bound representing greater proximity to the SOS boundary. Uncertainty cannot be used to generate an “optimistic” reading. In c-ECO terms, σ is not merely statistical; it is prudential.
+        </div>
+
+        <h4 class="doc-sub-subtitle">QA/QC Minimum Controls</h4>
+        <div class="paragraph">
+            The Custodian must implement controls sufficient to detect: Missingness and discontinuities; Outliers and sensor drift; Time misalignment; Boundary mismatch; Evidence incompleteness; and Unauthorized transformations. Each control must produce logged outputs.
+        </div>
+
+        <h4 class="doc-sub-subtitle">Procedural Failure Classification</h4>
+        <div class="paragraph">
+            Any deviation constitutes a procedural failure and triggers: Immediate incident registration; Reinforced audit readiness; and Conservative substitution rules or dataset invalidation. The goal is that a data-quality fault becomes a prudential event, not an administrative note.
+        </div>
+    </section>
+
+    <section id="MO-5" class="article-box">
+        <h2 class="article-title">5. Certification Procedures</h2>
+
+        <h3 id="MO-5-1" class="doc-subtitle">5.1 Purpose of Certification</h3>
+        <div class="caput">
+            Certification exists to ensure that Data Custodians function as trusted operators of the DVB layer, capable of producing data that remains valid under adversarial pressure (economic incentives, litigation risk, reputational pressure, crisis conditions).
+        </div>
+        <div class="paragraph">
+            The certification specifically guarantees competence in: (i) sensor operation and integrity protocols; (ii) chain-of-custody and immutability procedures; (iii) disciplined handling of uncertainty under asymmetry; and (iv) non-discretionary compliance with procedural triggers. It acts as a gatekeeper against epistemic drift and strategic manipulation.
+        </div>
+
+        <h3 id="MO-5-2" class="doc-subtitle">5.2 Eligibility and Qualification Criteria</h3>
+        <div class="caput">Applicants must satisfy cumulative criteria:</div>
+        
+        <div class="inciso">
+            <strong>I — Technical Competence:</strong> Formal training or certification in environmental science, engineering, or data integrity relevant to the SPS metric; literacy in uncertainty statements.
+        </div>
+        <div class="inciso">
+            <strong>II — Operational Experience:</strong> Documented experience operating sensors, maintaining field equipment, and managing secure data pipelines.
+        </div>
+        <div class="inciso">
+            <strong>III — Completion of Mandatory Training:</strong> Successful completion of the program in Part 6 (Earth System Law, TFP, QA/QC, Ethics).
+        </div>
+        <div class="inciso">
+            <strong>IV — Integrity Declaration:</strong> Signed commitment to non-manipulation and anomaly disclosure, with enforceable sanctions.
+        </div>
+        <div class="inciso">
+            <strong>V — Conflict-of-Interest Disclosure:</strong> Disclosure of material conflicts that could bias data production.
+        </div>
+
+        <h3 id="MO-5-3" class="doc-subtitle">5.3 Initial Certification Process</h3>
+        <div class="caput">The initial process must be formal, auditable, and designed to test real-world adherence, not just theoretical knowledge.</div>
+        
+        <ul class="bullet-list">
+            <li><strong>Credential Submission:</strong> Dossier with training history, experience record, and references.</li>
+            <li><strong>Training Validation:</strong> Verification of module completion and scores.</li>
+            <li><strong>Practical Examination / Pilot Audit:</strong> Execution of a supervised pilot cycle (Boundary locking, Sensor integrity, Raw preservation, Attestation, Hashing, QA/QC).</li>
+            <li><strong>Independent Review and Approval:</strong> Review by compliance function; registration with digital credentials.</li>
+        </ul>
+
+        <h3 id="MO-5-4" class="doc-subtitle">5.4 Maintenance, Monitoring, and Revocation</h3>
+        <div class="paragraph">
+            <strong>Validity Term:</strong> Certification is valid for two (2) years, unless specified otherwise.
+        </div>
+        <div class="paragraph">
+            <strong>Continuous Monitoring:</strong> Performance is monitored via internal QA/QC checks, randomized integrity audits, incident metrics, and submission patterns.
+        </div>
+        <div class="paragraph">
+            <strong>Suspension Triggers:</strong> Immediate suspension upon evidence of tampering, repeated procedural failures, refusal to cooperate with audits, or credential compromise.
+        </div>
+        <div class="paragraph">
+            <strong>Revocation:</strong> Applied when integrity is materially breached or competence is lost. Revocation must be recorded and reasoned, automatically invalidating affected datasets pending review.
+        </div>
+    </section>
+
+    <section id="MO-6" class="article-box">
+        <h2 class="article-title">6. Mandatory Training</h2>
+
+        <h3 id="MO-6-1" class="doc-subtitle">6.1 Training Objectives</h3>
+        <div class="caput">
+            The training program ensures that Custodians understand that they operate within a regime where data is a governance instrument, not a descriptive artifact.
+        </div>
+        <div class="paragraph">
+            Objectives are: To provide doctrinal comprehension of pre-threshold governance; To ensure operational mastery of chain-of-custody and audit trails; To teach conservative uncertainty treatment; and To anchor personal accountability and ethics in an adversarial environment.
+        </div>
+
+        <h3 id="MO-6-2" class="doc-subtitle">6.2 Module Structure</h3>
+        
+        <div class="paragraph"><strong>Module 1 — Earth System Law logic and c-ECO rationale</strong></div>
+        <div class="inciso">Non-linear dynamics, tipping points, irreversibility; why ex post enforcement fails; why early signals must acquire juridical relevance.</div>
+
+        <div class="paragraph"><strong>Module 2 — TFP architecture (theory → operational effects)</strong></div>
+        <div class="inciso">Variables P, ΔV, Lr, σ; SPS/TRS/RLS transformations; Trigger Catalogue; prudential bands; admissibility and reconstruction.</div>
+
+        <div class="paragraph"><strong>Module 3 — Field procedures, QA/QC, reporting interface</strong></div>
+        <div class="inciso">Sensor integrity protocols; calibration discipline; raw preservation; metadata; anomaly handling; ledger submission; interoperability with reporting (IFRS S2/TNFD).</div>
+
+        <div class="paragraph"><strong>Module 4 — Ethics, accountability, and contestability</strong></div>
+        <div class="inciso">Role under distributed intelligence; anti-manipulation norms; incident disclosure; cooperation with audits; due process logic.</div>
+
+        <h3 id="MO-6-3" class="doc-subtitle">6.3 Assessment and Approval</h3>
+        <div class="caput">Each module ends with a formal evaluation. Certification eligibility requires:</div>
+        <div class="inciso">I — Minimum passing score in each module (no compensation for integrity topics);</div>
+        <div class="inciso">II — Passing a practical exam reproducing an end-to-end cycle;</div>
+        <div class="inciso">III — Demonstrated ability to apply asymmetric uncertainty without discretionary “risk dilution.”</div>
+        <div class="paragraph">
+            Failure in integrity-critical components requires remediation and re-testing; repeated failure constitutes disqualification.
+        </div>
+    </section>
+
+
+      
       </article>
     </main>
   </div>
