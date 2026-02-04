@@ -196,49 +196,66 @@
   border-top: none;
   padding-top: 0;
 }  
-/* 2. Padronização das Fontes (Tipo e Tamanho) */
-  
-  /* Títulos de Seção/Artigo */
-  .article-title, .chapter-title {
-    font-family: 'Libre Baskerville', serif !important;
-    font-size: 1.25rem !important; /* Tamanho padronizado para mobile */
-    line-height: 1.4;
-    margin-bottom: 20px;
-    text-align: left; /* Títulos geralmente não ficam bons justificados */
-  }
+/* Substitua o bloco @media (max-width: 1024px) anterior por este.
+   Ele foi ajustado para não "vazar" alterações para o Desktop.
+*/
 
-  /* Subtítulos (1.1, 1.2, etc) */
-  .doc-subtitle, .doc-sub-subtitle {
-    font-family: 'Inter', sans-serif !important;
-    font-size: 1rem !important;
-    font-weight: 700;
-    margin-top: 25px;
-    color: var(--legal-blue);
-  }
+@media (max-width: 1024px) {
+    /* 1. Ajuste de margens: Texto aproveitando a largura total da tela */
+    .main-content {
+        margin-left: 0 !important; /* Garante que a sidebar não empurre o conteúdo */
+        padding: 10px 0 !important;
+        display: block; /* Remove o flex centralizador que pode causar desalinhamento */
+    }
 
-  /* Corpo de Texto (Caput, Parágrafos e Incisos) */
-  .caput, .paragraph, .inciso {
-    font-family: 'Inter', sans-serif !important;
-    font-size: 0.95rem !important; /* Tamanho de leitura confortável no celular */
-    line-height: 1.6;
-    text-align: justify; /* Texto justificado conforme solicitado */
-    hyphens: auto; /* Ajuda na justificação em telas estreitas */
-    margin-left: 0 !important; /* Remove recuos excessivos no mobile */
-    margin-right: 0 !important;
-  }
+    .document-page {
+        padding: 30px 15px !important; /* Respiro mínimo lateral */
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+    }
 
-  /* Ajuste específico para listas e incisos no mobile para não perder espaço */
-  .inciso, .paragraph {
-    padding-left: 10px;
-    border-left: 2px solid #eee; /* Mantém a hierarquia visual sem margens largas */
-    margin-bottom: 15px;
-  }
-  
-  .bullet-list {
-    padding-left: 20px;
-    text-align: justify;
-  }
+    /* 2. Padronização de Fontes e Alinhamento JUSTIFICADO */
+    
+    /* Títulos Principais */
+    .article-title, .chapter-title {
+        font-family: 'Libre Baskerville', serif !important;
+        font-size: 1.3rem !important; 
+        text-align: left !important; /* Título à esquerda para melhor leitura */
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+    }
+
+    /* Corpo de Texto (Caput, Parágrafos e Incisos) */
+    .caput, .paragraph, .inciso, .ai-id {
+        font-family: 'Inter', sans-serif !important;
+        font-size: 16px !important; /* Tamanho padrão Apple/Android para evitar zoom */
+        line-height: 1.6 !important;
+        text-align: justify !important; /* Justificado como você pediu */
+        text-justify: inter-word;
+        hyphens: auto;
+        margin-left: 0 !important; /* Remove recuos que esmagam o texto no mobile */
+        margin-right: 0 !important;
+        width: 100% !important;
+    }
+
+    /* Ajuste de listas para não sumirem na borda */
+    .bullet-list, .inciso {
+        padding-left: 15px !important;
+        margin-top: 10px !important;
+    }
+
+    /* Subtítulos (1.1, 1.2...) */
+    .doc-subtitle, .doc-sub-subtitle {
+        font-family: 'Inter', sans-serif !important;
+        font-size: 1.05rem !important;
+        font-weight: 700 !important;
+        text-align: left !important;
+    }
 }
+
 
   </style>
 </head>
