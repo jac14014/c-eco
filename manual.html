@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>c-ECO | TFP Manual</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -148,103 +148,54 @@
       box-shadow: 0 4px 15px rgba(0,0,0,0.30);
       cursor: pointer;
     }
-    /* Estilo para sub-subtítulos (ex: A. Instrumented Sensing) */
-    .doc-sub-subtitle {
-        font-family: 'Inter', sans-serif;
-        font-weight: 700;
-        font-size: 13px;
-        color: #555;
-        margin-top: 20px;
-        margin-bottom: 8px;
-        text-transform: uppercase;
-        padding-left: 15px;
-    }
-    
-    /* Pequeno ajuste para listas não numeradas */
-    .bullet-list {
-        margin-left: 20px;
-        list-style-type: disc;
-        color: #444;
-        font-size: 15px;
-        line-height: 1.6;
-        margin-bottom: 15px;
-    }
-    .bullet-list li {
-        margin-bottom: 6px;
-        text-align: justify;
-    }
 
-  /* === CORREÇÃO FINAL (MARGEM SEGURA + JUSTIFICADO + MENU OCULTO) === */
-  @media (max-width: 1024px) {
-
-    /* 1. BARRA LATERAL (CORRIGIDO: ELA COMEÇA ESCONDIDA) */
-    .sidebar { 
-      transform: translateX(-100%); 
+    /* MOBILE behavior: sidebar hidden by default, opens overlay */
+    @media (max-width: 1024px){
+      .sidebar{ transform: translateX(-100%); }
+      .sidebar.open{ transform: translateX(0); box-shadow: 10px 0 30px rgba(0,0,0,0.22); }
+      .main-content{ margin-left: 0; padding: 18px 10px; }
+      .document-page{ padding: 30px 20px; width:auto; margin:0; }
+      .mobile-btn{ display:block; }
     }
-    .sidebar.open { 
-      transform: translateX(0);
-      box-shadow: 10px 0 30px rgba(0,0,0,0.22);
-    }
+    /* ===== SUBSECTIONS: small, grey, understated ===== */
 
-    /* 2. ÁREA DO CONTEÚDO (A MARGEM QUE VOCÊ PEDIU) */
-    .main-content {
-      margin-left:  !important;
-      width: 98% !important;
-      
-      /* AQUI ESTÁ A MÁGICA: 
-         25px na Esquerda e 25px na Direita.
-         Isso cria a "margem mínima" que impede o texto de colar na borda. 
-         120px embaixo protege contra o botão. */
-      padding: 25px 25px 120px 25px !important; 
-      
-      overflow-x: hidden;
-    }
+.nav-section-title{
+  font-size: 11px;              /* pequeno */
+  font-weight: 700;             /* igual aos assuntos */
+  color: #9aa3ab;               /* cinza */
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
 
-    .document-page {
-      padding: 0 !important;
-      width: 90% !important;
-      box-shadow: none !important;
-      background: #fff !important;
-    }
+  margin-top: 20px;
+  margin-bottom: 6px;
 
-    /* 3. TEXTO (JUSTIFICADO DENTRO DA ÁREA SEGURA) */
-    .paragraph, .caput, .inciso, .bullet-list, p, li {
-      margin-left: 0 !important;
-      padding-left: 0 !important;
-      
-      /* Importante: width auto faz o texto respeitar o padding de 25px que criamos acima */
-      width: auto !important; 
-      max-width: 100% !important;
-      
-      text-align: justify !important;
-      -webkit-hyphens: auto; 
-      hyphens: auto;
-    }
+  border-top: none;             /* remove destaque */
+  padding-top: 0;
+}  
+  /* ===== SUBSECTIONS (small, grey, same tone as items) ===== */
+.nav-sub-title{
+  font-size: 11px;        /* pequeno */
+  font-weight: 600;       /* parecido com os assuntos */
+  color: #9aa3ab;         /* cinza */
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
 
-    /* 4. VISUAL DOS INCISOS */
-    .inciso {
-      /* Pequeno recuo visual interno com a borda dourada */
-      padding-left: 15px !important; 
-      border-left: 3px solid var(--gold-accent);
-      margin: 15px 0 !important;
-    }
+  margin: 10px 0 4px 10px;
+}
+/* ===== SECTION TITLES (restore gold) ===== */
+.nav-section-title{
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--gold-accent);   /* DOURADO */
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
 
-    /* 5. LISTAS */
-    .bullet-list {
-      padding-left: 20px !important; /* Espaço para a bolinha aparecer */
-    }
+  margin-top: 22px;
+  margin-bottom: 6px;
 
-    /* 6. TABELAS E BOTÃO */
-    .legal-table {
-      display: block;
-      width: 100%;
-      overflow-x: auto;
-      white-space: nowrap;
-    }
-    .mobile-btn { display: block; }
-  }
-
-
+  border-top: none;
+  padding-top: 0;
+}  
   </style>
 </head>
 
