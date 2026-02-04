@@ -272,68 +272,60 @@
         box-shadow: 0 2px 10px rgba(0,0,0,0.03);
     }
 
-     /* === CORREÇÃO DE TEXTO MOBILE (MANTENDO O BOTÃO ORIGINAL) === */
+  /* === CORREÇÃO DE LAYOUT (DESIGN ORIGINAL + TEXTO JUSTIFICADO) === */
   @media (max-width: 1024px) {
     
-    /* 1. GARANTE QUE O BOTÃO APAREÇA (ESTILO ORIGINAL MANTIDO) */
-    .mobile-btn { 
-        display: block; 
-        /* Não adicionei nenhuma regra de estilo aqui, ele usará o original */
-    }
-
-    /* 2. UNIFORMIZAÇÃO DA FONTE (FIM DA "BAGUNÇA") */
-    /* Força tudo para 'Inter' e alinha à esquerda para leitura limpa */
-    body, p, h1, h2, h3, h4, span, div, li, a,
-    .caput, .paragraph, .inciso, .bullet-list, .article-title, .chapter-title {
-      font-family: 'Inter', sans-serif !important;
-      text-align: left !important;
-      color: #222 !important;
-      line-height: 1.6 !important;
-    }
-
-    /* Aumenta levemente a fonte de leitura para conforto */
-    .caput, .paragraph, .inciso, li {
-      font-size: 16px !important;
-    }
-
-    /* 3. CONSERTO DAS MARGENS (FIM DO TEXTO APERTADO/CORTADO) */
-    /* Remove os recuos de 35px/70px que espremiam o texto */
-    .paragraph, .inciso, .caput, .bullet-list {
-      margin-left: 0 !important;
-      padding-left: 0 !important;
-      width: 100%;
-    }
-    
-    /* Recuo visual apenas para Incisos (hierarquia), mas sem apertar */
-    .inciso {
-      padding-left: 15px !important;
-      border-left: 3px solid #eee; /* Linha cinza elegante */
-      margin: 15px 0 !important;
-    }
-
-    /* 4. ESPAÇAMENTO GERAL */
+    /* 1. ESTRUTURA DA PÁGINA (APROVEITAR A TELA TODA) */
     .main-content {
-      /* padding-bottom 100px garante que você consiga rolar o texto final para cima do botão */
-      padding: 25px 20px 100px 20px !important; 
+      /* Padding lateral pequeno (15px) para ir quase até a borda */
+      /* Padding bottom (100px) para o botão não tapar o fim do texto */
+      padding: 20px 15px 100px 15px !important; 
       margin-left: 0 !important;
       width: 100%;
       overflow-x: hidden;
     }
-    
+
     .document-page {
-      padding: 0 !important;
-      box-shadow: none !important;
+      padding: 0 !important; 
+      width: 100%;
+      box-shadow: none !important; /* Remove sombra lateral para ganhar espaço */
     }
 
-    /* 5. TABELAS (SEGURANÇA CONTRA QUEBRA LATERAL) */
+    /* 2. AJUSTE DO TEXTO (JUSTIFICADO + LARGURA TOTAL) */
+    /* Removemos a margem esquerda de 35px/70px que cortava o texto */
+    .paragraph, .inciso, .caput, .bullet-list {
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+      
+      /* O SEU PEDIDO: JUSTIFICADO */
+      text-align: justify !important; 
+      
+      /* Hifenização automática ajuda o justificado a não criar buracos no celular */
+      -webkit-hyphens: auto;
+      hyphens: auto; 
+    }
+
+    /* 3. HIERARQUIA VISUAL (MANTENDO O DESIGN) */
+    /* Incisos ganham uma leve borda dourada/cinza para não perderem o estilo, 
+       mas sem empurrar o texto para fora da tela */
+    .inciso {
+      padding-left: 12px !important;
+      border-left: 3px solid var(--gold-accent); /* Mantém sua cor de design */
+      margin: 10px 0 !important;
+    }
+
+    /* 4. MANTÉM O BOTÃO INDEX VISÍVEL */
+    .mobile-btn { display: block; }
+
+    /* 5. TABELAS (PROTEÇÃO CONTRA QUEBRA) */
     .legal-table {
       display: block;
       width: 100%;
       overflow-x: auto;
       white-space: nowrap;
-      border: 1px solid #eee;
     }
   }
+
 
   </style>
 </head>
