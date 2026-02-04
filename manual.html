@@ -174,24 +174,29 @@
         text-align: justify;
     }
 
-    /* === CORREÇÃO FINAL (BARRA LATERAL ESCONDIDA + TEXTO AJUSTADO) === */
+  /* === CORREÇÃO FINAL (MARGEM SEGURA + JUSTIFICADO + MENU OCULTO) === */
   @media (max-width: 1024px) {
 
-    /* 1. O QUE ESTAVA FALTANDO: ESCONDER A BARRA LATERAL */
+    /* 1. BARRA LATERAL (CORRIGIDO: ELA COMEÇA ESCONDIDA) */
     .sidebar { 
-      transform: translateX(-100%); /* Joga o menu para fora da tela */
+      transform: translateX(-100%); 
     }
     .sidebar.open { 
-      transform: translateX(0); /* Traz de volta quando clica no botão */
+      transform: translateX(0);
       box-shadow: 10px 0 30px rgba(0,0,0,0.22);
     }
 
-    /* 2. ÁREA DO CONTEÚDO (OCUPAR TELA TODA) */
+    /* 2. ÁREA DO CONTEÚDO (A MARGEM QUE VOCÊ PEDIU) */
     .main-content {
-      margin-left: 0 !important; /* Remove o espaço que era reservado pro menu */
+      margin-left: 0 !important;
       width: 100% !important;
-      /* Padding: 20px laterais, 120px embaixo para o botão não cobrir nada */
-      padding: 20px 20px 120px 20px !important; 
+      
+      /* AQUI ESTÁ A MÁGICA: 
+         25px na Esquerda e 25px na Direita.
+         Isso cria a "margem mínima" que impede o texto de colar na borda. 
+         120px embaixo protege contra o botão. */
+      padding: 20px 25px 120px 25px !important; 
+      
       overflow-x: hidden;
     }
 
@@ -199,39 +204,46 @@
       padding: 0 !important;
       width: 100% !important;
       box-shadow: none !important;
+      background: #fff !important;
     }
 
-    /* 3. TEXTO: SEM RECUO E JUSTIFICADO */
-    .paragraph, .caput, .inciso, .bullet-list {
-      margin-left: 0 !important; /* Traz o texto para a esquerda */
+    /* 3. TEXTO (JUSTIFICADO DENTRO DA ÁREA SEGURA) */
+    .paragraph, .caput, .inciso, .bullet-list, p, li {
+      margin-left: 0 !important;
       padding-left: 0 !important;
-      width: 100% !important;
       
-      text-align: justify !important; /* Justificado */
+      /* Importante: width auto faz o texto respeitar o padding de 25px que criamos acima */
+      width: auto !important; 
+      max-width: 100% !important;
+      
+      text-align: justify !important;
       -webkit-hyphens: auto; 
       hyphens: auto;
     }
 
-    /* 4. DESIGN DOS INCISOS */
+    /* 4. VISUAL DOS INCISOS */
     .inciso {
-      padding-left: 15px !important;
+      /* Pequeno recuo visual interno com a borda dourada */
+      padding-left: 15px !important; 
       border-left: 3px solid var(--gold-accent);
       margin: 15px 0 !important;
     }
 
-    /* 5. LISTAS E TABELAS */
-    .bullet-list { padding-left: 20px !important; }
+    /* 5. LISTAS */
+    .bullet-list {
+      padding-left: 20px !important; /* Espaço para a bolinha aparecer */
+    }
 
+    /* 6. TABELAS E BOTÃO */
     .legal-table {
       display: block;
       width: 100%;
       overflow-x: auto;
       white-space: nowrap;
     }
-
-    /* 6. BOTÃO INDEX */
     .mobile-btn { display: block; }
   }
+
 
 
 
