@@ -174,16 +174,25 @@
         text-align: justify;
     }
 
-    /* === CORREÇÃO DE GEOMETRIA (DESIGN ORIGINAL + TEXTO NA TELA) === */
+    /* === CORREÇÃO FINAL (BARRA LATERAL ESCONDIDA + TEXTO AJUSTADO) === */
   @media (max-width: 1024px) {
-    
-    /* 1. O CONTEÚDO OCUPA A TELA TODA (SEM SAIR PARA A DIREITA) */
+
+    /* 1. O QUE ESTAVA FALTANDO: ESCONDER A BARRA LATERAL */
+    .sidebar { 
+      transform: translateX(-100%); /* Joga o menu para fora da tela */
+    }
+    .sidebar.open { 
+      transform: translateX(0); /* Traz de volta quando clica no botão */
+      box-shadow: 10px 0 30px rgba(0,0,0,0.22);
+    }
+
+    /* 2. ÁREA DO CONTEÚDO (OCUPAR TELA TODA) */
     .main-content {
-      margin-left: 0 !important;
-      /* Padding: 20px nas laterais (segurança) e 120px embaixo (pro botão) */
-      padding: 20px 20px 120px 20px !important; 
+      margin-left: 0 !important; /* Remove o espaço que era reservado pro menu */
       width: 100% !important;
-      overflow-x: hidden; /* Trava para não criar rolagem lateral na página inteira */
+      /* Padding: 20px laterais, 120px embaixo para o botão não cobrir nada */
+      padding: 20px 20px 120px 20px !important; 
+      overflow-x: hidden;
     }
 
     .document-page {
@@ -192,42 +201,38 @@
       box-shadow: none !important;
     }
 
-    /* 2. TEXTO: REMOVE O RECUO QUE EMPURRAVA PRA FORA */
-    /* Aqui está o segredo: tiramos o margin-left que jogava o texto pra fora */
+    /* 3. TEXTO: SEM RECUO E JUSTIFICADO */
     .paragraph, .caput, .inciso, .bullet-list {
-      margin-left: 0 !important;
+      margin-left: 0 !important; /* Traz o texto para a esquerda */
       padding-left: 0 !important;
       width: 100% !important;
       
-      /* O SEU PEDIDO: JUSTIFICADO */
-      text-align: justify !important;
-      -webkit-hyphens: auto; /* Quebra palavras longas com hífen se precisar */
+      text-align: justify !important; /* Justificado */
+      -webkit-hyphens: auto; 
       hyphens: auto;
     }
 
-    /* 3. MANTÉM A IDENTIDADE VISUAL DOS INCISOS */
-    /* Como tiramos a margem, colocamos uma borda colorida para manter o design bonito */
+    /* 4. DESIGN DOS INCISOS */
     .inciso {
       padding-left: 15px !important;
-      border-left: 3px solid var(--gold-accent); /* Usa a cor dourada original */
+      border-left: 3px solid var(--gold-accent);
       margin: 15px 0 !important;
     }
 
-    /* 4. LISTAS COM BOLINHAS DENTRO DA TELA */
-    .bullet-list {
-      padding-left: 20px !important; /* Recuo interno para a bolinha aparecer */
-    }
-
-    /* 5. BOTÃO E TABELAS */
-    .mobile-btn { display: block; }
+    /* 5. LISTAS E TABELAS */
+    .bullet-list { padding-left: 20px !important; }
 
     .legal-table {
       display: block;
       width: 100%;
-      overflow-x: auto; /* Permite rolar só a tabela se ela for grande */
+      overflow-x: auto;
       white-space: nowrap;
     }
+
+    /* 6. BOTÃO INDEX */
+    .mobile-btn { display: block; }
   }
+
 
 
 
