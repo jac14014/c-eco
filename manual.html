@@ -272,73 +272,68 @@
         box-shadow: 0 2px 10px rgba(0,0,0,0.03);
     }
 
-    /* === CORREÇÃO VISUAL MOBILE (Substitua o bloco @media anterior por este) === */
+     /* === CORREÇÃO DE TEXTO MOBILE (MANTENDO O BOTÃO ORIGINAL) === */
   @media (max-width: 1024px) {
     
-    /* 1. UNIFORMIZAÇÃO TOTAL DA FONTE */
-    /* Isso resolve o "bagunçado". Força a fonte moderna (Inter) em tudo no celular */
-    body, p, h1, h2, h3, h4, 
+    /* 1. GARANTE QUE O BOTÃO APAREÇA (ESTILO ORIGINAL MANTIDO) */
+    .mobile-btn { 
+        display: block; 
+        /* Não adicionei nenhuma regra de estilo aqui, ele usará o original */
+    }
+
+    /* 2. UNIFORMIZAÇÃO DA FONTE (FIM DA "BAGUNÇA") */
+    /* Força tudo para 'Inter' e alinha à esquerda para leitura limpa */
+    body, p, h1, h2, h3, h4, span, div, li, a,
     .caput, .paragraph, .inciso, .bullet-list, .article-title, .chapter-title {
       font-family: 'Inter', sans-serif !important;
       text-align: left !important;
+      color: #222 !important;
       line-height: 1.6 !important;
-      color: #333 !important; /* Cor sólida para facilitar leitura */
     }
 
-    /* 2. LIMPEZA DE MARGENS E RECUOS */
-    /* Remove os recuos que apertam o texto */
+    /* Aumenta levemente a fonte de leitura para conforto */
+    .caput, .paragraph, .inciso, li {
+      font-size: 16px !important;
+    }
+
+    /* 3. CONSERTO DAS MARGENS (FIM DO TEXTO APERTADO/CORTADO) */
+    /* Remove os recuos de 35px/70px que espremiam o texto */
     .paragraph, .inciso, .caput, .bullet-list {
       margin-left: 0 !important;
       padding-left: 0 !important;
       width: 100%;
     }
     
-    /* Mantém uma leve marcação visual nos incisos para não perder a estrutura */
+    /* Recuo visual apenas para Incisos (hierarquia), mas sem apertar */
     .inciso {
       padding-left: 15px !important;
-      border-left: 3px solid #eee;
-      margin-top: 10px !important;
-      margin-bottom: 10px !important;
+      border-left: 3px solid #eee; /* Linha cinza elegante */
+      margin: 15px 0 !important;
     }
 
-    /* 3. BOTÃO DISCRETO (SEM COBRIR TEXTO) */
-    .mobile-btn {
-      bottom: 25px;
-      right: 20px;
-      opacity: 0.85; /* Levemente transparente */
-      transform: scale(0.9); /* Um pouco menor */
-      padding: 12px 20px; /* Menos "gordo" */
-      font-size: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
-    
-    /* Garante que o texto final não fique atrás do botão */
+    /* 4. ESPAÇAMENTO GERAL */
     .main-content {
-      padding-bottom: 120px !important; 
-      padding-left: 20px !important;
-      padding-right: 20px !important;
+      /* padding-bottom 100px garante que você consiga rolar o texto final para cima do botão */
+      padding: 25px 20px 100px 20px !important; 
       margin-left: 0 !important;
       width: 100%;
       overflow-x: hidden;
     }
     
     .document-page {
-      padding: 10px 0 !important;
-      width: 100%;
-      box-shadow: none !important; /* Remove sombra da folha no mobile para limpar visual */
+      padding: 0 !important;
+      box-shadow: none !important;
     }
 
-    /* 4. CONSERTO DAS TABELAS (IMPEDE QUEBRA LATERAL) */
+    /* 5. TABELAS (SEGURANÇA CONTRA QUEBRA LATERAL) */
     .legal-table {
       display: block;
       width: 100%;
       overflow-x: auto;
       white-space: nowrap;
-      margin-bottom: 20px;
-      border: 1px solid #eee; /* Borda para delimitar onde começa/termina */
+      border: 1px solid #eee;
     }
   }
-
 
   </style>
 </head>
