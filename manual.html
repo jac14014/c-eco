@@ -272,7 +272,45 @@
         box-shadow: 0 2px 10px rgba(0,0,0,0.03);
     }
 
+  /* === CORREÇÃO MOBILE (Cole isso no final do seu CSS) === */
+  @media (max-width: 1024px) {
     
+    /* 1. Solta o texto: remove recuos laterais grandes e alinha à esquerda */
+    .paragraph, .inciso, .caput, .bullet-list {
+      margin-left: 0 !important;   /* Remove a margem esquerda que "come" espaço */
+      padding-left: 0 !important;
+      text-align: left !important; /* Remove o justificado que cria buracos */
+      width: 100%;
+    }
+
+    /* Adiciona um pequeno recuo visual apenas nos incisos para manter hierarquia */
+    .inciso {
+      padding-left: 15px !important;
+      border-left: 3px solid #eee;
+    }
+
+    /* 2. Conserta o "lado cortado": impede que tabelas estourem a tela */
+    .legal-table {
+      display: block;
+      width: 100%;
+      overflow-x: auto; /* Cria rolagem SÓ na tabela, salvando o resto da página */
+      white-space: nowrap; /* Opcional: mantém linhas da tabela retas */
+    }
+
+    /* 3. Ajuste fino das margens da página */
+    .main-content {
+      padding: 20px 15px !important; /* Garante margem de respiro nas bordas */
+      margin-left: 0 !important;
+      width: 100%;
+      overflow-x: hidden; /* Trava a largura da página para não dançar */
+    }
+    
+    .document-page {
+      padding: 20px 5px !important; /* Remove excesso de padding branco */
+      width: 100%;
+    }
+  }
+
   </style>
 </head>
 
