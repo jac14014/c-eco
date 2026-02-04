@@ -8,270 +8,412 @@
    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --sidebar-width: 350px;
-      --legal-blue: #1a2b3c;
-      --gold-accent: #c5a059;
-      --bg-body: #f4f7f9;
-      --text-main: #1a1a1a;
-      --border-color: #dee2e6;
+    :root {
+        /* --- CORES --- */
+        --sidebar-width: 320px;
+        --legal-blue: #1a2b3c;
+        --legal-blue-dark: #0f1a25;
+        --gold-accent: #c5a059;
+        --bg-body: #f8f9fa;
+        --text-main: #222;
+        --text-muted: #555;
+        --border-color: #e0e0e0;
+
+        /* --- TIPOGRAFIA (ESCALA) --- */
+        --font-serif: 'Libre Baskerville', serif;
+        --font-sans: 'Inter', sans-serif;
+
+        /* Tamanhos Padronizados */
+        --size-h1: 26px;       /* Títulos de Artigos/Anexos */
+        --size-h2: 18px;       /* Subtítulos (1.1, 1.2) */
+        --size-h3: 15px;       /* Sub-subtítulos (A., B.) */
+        --size-body: 16px;     /* Texto corrido padrão */
+        --size-ui: 14px;       /* Elementos de UI/Diagramas */
+        --size-small: 13px;    /* Notas de rodapé/Sidebar */
     }
 
-    *{ box-sizing: border-box; }
+    * { box-sizing: border-box; }
 
-    body{
-      margin:0;
-      background: var(--bg-body);
-      font-family: 'Inter', sans-serif;
+    body {
+        margin: 0;
+        background: var(--bg-body);
+        font-family: var(--font-sans);
+        color: var(--text-main);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
     }
-   /* ===== CONTEÚDO PRINCIPAL (Desktop) ===== */
-    .main-content {
-        margin-left: var(--sidebar-width); /* Isso impede o texto de ficar sob a barra */
-        padding: 60px 20px;
+
+    /* =========================================
+       SIDEBAR (Navegação)
+       ========================================= */
+    .sidebar {
+        width: var(--sidebar-width);
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        background: #fff;
+        border-right: 1px solid var(--border-color);
+        padding: 20px 22px 80px;
+        overflow-y: auto;
+        z-index: 1000;
+        transition: transform .3s ease;
+    }
+    .sidebar::-webkit-scrollbar { width: 5px; }
+    .sidebar::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+
+    .sidebar-top {
         display: flex;
-        justify-content:center;
+        align-items: center;
+        gap: 12px;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+        border-bottom: 2px solid var(--gold-accent);
+        position: sticky;
+        top: 0;
+        background: #fff;
+        z-index: 10;
+    }
+
+    .logo-box {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        border: 1px solid var(--border-color);
+        background: #fff;
+        color: var(--legal-blue);
+        font-weight: 900;
+        font-size: 1.4rem;
+        text-decoration: none;
+    }
+
+    .sidebar-title {
+        font-weight: 800;
+        font-size: 12px;
+        letter-spacing: 1px;
+        color: var(--legal-blue);
+        text-transform: uppercase;
+        line-height: 1.2;
+    }
+
+    .nav-list { list-style: none; padding: 0; margin: 0; }
+
+    .nav-section-title {
+        font-size: 11px;
+        font-weight: 800;
+        color: var(--gold-accent);
+        margin-top: 25px;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        border-top: 1px solid #eee;
+        padding-top: 15px;
+        letter-spacing: 1px;
+    }
+
+    /* Nível 1: Capítulos */
+    .nav-item-chapter a {
+        font-weight: 700;
+        color: var(--legal-blue);
+        font-size: 13px;
+        display: block;
+        padding: 8px 0 4px 0;
+        text-decoration: none;
+        border-bottom: 1px solid #f5f5f5;
+    }
+
+    /* Nível 2: Subitens */
+    .nav-sub-item a {
+        font-size: 12.5px;
+        color: #666;
+        display: block;
+        padding: 4px 0 4px 12px;
+        text-decoration: none;
+        border-left: 2px solid #eee;
+        margin-left: 2px;
+        transition: all 0.2s;
+    }
+    .nav-sub-item a:hover {
+        border-left-color: var(--gold-accent);
+        color: var(--legal-blue);
+        background: linear-gradient(90deg, rgba(197,160,89,0.05), transparent);
+    }
+
+    /* =========================================
+       MAIN CONTENT (Área de Texto)
+       ========================================= */
+    .main-content {
+        margin-left: var(--sidebar-width);
+        padding: 60px 50px;
+        display: flex;
+        justify-content: center;
+        min-height: 100vh;
     }
 
     .document-page {
         background: #fff;
         width: 100%;
-        max-width: 850px;
+        max-width: 950px; /* Levemente mais largo para o diagrama */
         padding: 80px;
-        box-shadow: 0 4px 25px rgba(0,0,0,0.06);
-    }
-    /* ===== SIDEBAR (overlay) ===== */
-    .sidebar{
-      width: var(--sidebar-width);
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
-      background: #fff;
-      border-right: 1px solid var(--border-color);
-      padding: 20px 22px 24px;
-      overflow-y: auto;
-      z-index: 1000;
-      -webkit-overflow-scrolling: touch;
-      transition: transform .3s ease;
+        box-shadow: 0 4px 30px rgba(0,0,0,0.03);
+        border: 1px solid #eef0f2;
     }
 
-    /* top row: Σ + title */
-    .sidebar-top{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      padding-bottom: 12px;
-      margin-bottom: 16px;
-      border-bottom: 2px solid var(--gold-accent);
+    /* --- HIERARQUIA DE TEXTO PADRONIZADA --- */
+
+    /* 1. Títulos de Seção/Artigo (Ex: 4. Manual...) */
+    .article-title {
+        font-family: var(--font-serif);
+        font-weight: 700;
+        font-size: var(--size-h1);
+        color: var(--legal-blue);
+        margin-bottom: 25px;
+        line-height: 1.3;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 15px;
     }
 
-    .logo-box{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      width: 44px;
-      height: 44px;
-      border-radius: 0;
-      border: 1px solid var(--border-color);
-      background: #fff;
-      color: var(--legal-blue);
-      font-weight: 900;
-      font-size: 1.35rem;
-      text-decoration: none;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-    }
-    .logo-box:visited{ color: var(--legal-blue); }
-    .logo-box:hover{ background: rgba(197,160,89,0.10); }
-
-    .sidebar-title{
-      font-weight: 800;
-      font-size: 14px;
-      letter-spacing: 1.2px;
-      color: var(--legal-blue);
-      text-transform: uppercase;
-      line-height: 1.1;
-      margin: 0;
+    /* 2. Subtítulos (Ex: 4.1 Scope...) */
+    .doc-subtitle {
+        font-family: var(--font-sans);
+        font-weight: 700;
+        font-size: var(--size-h2);
+        color: var(--legal-blue);
+        margin-top: 40px;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-left: 4px solid var(--gold-accent);
+        padding-left: 15px;
     }
 
-    .nav-list{ list-style:none; padding:0; margin:0; }
-    .nav-section-title{
-      font-size: 11px;
-      font-weight: 800;
-      color: var(--gold-accent);
-      margin-top: 22px;
-      text-transform: uppercase;
-      border-top: 1px solid #eee;
-      padding-top: 14px;
-      padding-bottom: 6px;
-      letter-spacing: .9px;
+    /* 3. Sub-Subtítulos (Ex: A. Instrumented Sensing) */
+    .doc-sub-subtitle {
+        font-family: var(--font-sans);
+        font-weight: 700;
+        font-size: var(--size-h3);
+        color: var(--text-muted);
+        margin-top: 25px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        padding-left: 0; /* Alinhado à esquerda para limpeza */
     }
 
-    .nav-item a{
-      text-decoration:none;
-      color: var(--text-main);
-      font-size: 12.5px;
-      display:block;
-      padding: 8px 10px;
-      line-height: 1.35;
-      transition: .2s;
-      border-left: 3px solid transparent;
-    }
-    .nav-item a:hover{
-      background: rgba(197,160,89,0.12);
-      border-left-color: var(--gold-accent);
+    /* 4. Corpo do Texto (Caput, Parágrafo, Inciso) */
+    .caput {
+        font-family: var(--font-serif);
+        font-size: 18px; /* Destaque leve */
+        line-height: 1.8;
+        color: #111;
+        margin-bottom: 20px;
+        text-align: justify;
     }
 
-    /* ===== CONTENT ===== */
-    .main-content{
-      margin-left: var(--sidebar-width);
-      padding: 60px 20px;
-      display:flex;
-      justify-content:center;
+    .paragraph {
+        font-family: var(--font-sans);
+        font-size: var(--size-body);
+        line-height: 1.7;
+        color: #333;
+        margin-bottom: 15px;
+        text-align: justify;
     }
 
-    .document-page{
-      background:#fff;
-      width:100%;
-      max-width: 850px;
-      padding: 80px;
-      box-shadow: 0 4px 25px rgba(0,0,0,0.06);
-      border-radius: 0;
+    .inciso {
+        font-family: var(--font-sans);
+        font-size: var(--size-body);
+        line-height: 1.6;
+        color: #444;
+        margin-left: 30px;
+        margin-bottom: 10px;
+        padding-left: 15px;
+        border-left: 2px solid #f0f0f0;
+        text-align: justify;
     }
 
-    /* LAW STYLES */
-    .ai-id{ font-family: 'Inter', sans-serif; font-size: 12px; color: #1a1a1a; display:block; margin-bottom:4px; }
-    .article-box{ margin-bottom:60px; scroll-margin-top:40px; }
-    .article-title{ font-family:'Libre Baskerville', serif; font-weight:700; font-size:17px; color:var(--legal-blue); display:block; margin-bottom:18px; border-bottom:1px solid #f0f0f0; padding-bottom:5px; }
-    .caput{ text-align:justify; margin-bottom:15px; font-family:'Inter', sans-serif; line-height:1.8; font-size:16px; }
-    .paragraph{ margin-left:35px; font-size:15px; margin-bottom:12px; line-height:1.6; color:#333; }
-    .inciso{ margin-left:70px; font-size:12px; margin-bottom:8px; color:#444; }
-
-    /* Mobile button */
-    .mobile-btn{
-      display:none;
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: var(--legal-blue);
-      color: #fff;
-      border: none;
-      padding: 15px 25px;
-      border-radius: 0;
-      font-weight: 800;
-      z-index: 2000;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.30);
-      cursor: pointer;
+    /* Listas Padronizadas */
+    .bullet-list {
+        margin-left: 20px;
+        margin-bottom: 20px;
+    }
+    .bullet-list li {
+        font-size: var(--size-body);
+        color: #444;
+        margin-bottom: 8px;
+        line-height: 1.6;
     }
 
-    /* MOBILE behavior: sidebar hidden by default, opens overlay */
-    @media (max-width: 1024px){
-      .sidebar{ transform: translateX(-100%); }
-      .sidebar.open{ transform: translateX(0); box-shadow: 10px 0 30px rgba(0,0,0,0.22); }
-      .main-content{ margin-left: 0; padding: 18px 10px; }
-      .document-page{ padding: 30px 20px; width:auto; margin:0; }
-      .mobile-btn{ display:block; }
-    }
-    /* ===== SUBSECTIONS: small, grey, understated ===== */
-
-.nav-section-title{
-  font-size: 11px;              /* pequeno */
-  font-weight: 700;             /* igual aos assuntos */
-  color: #9aa3ab;               /* cinza */
-  letter-spacing: 0.6px;
-  text-transform: uppercase;
-
-  margin-top: 20px;
-  margin-bottom: 6px;
-
-  border-top: none;             /* remove destaque */
-  padding-top: 0;
-}  
-  /* ===== SUBSECTIONS (small, grey, same tone as items) ===== */
-.nav-sub-title{
-  font-size: 11px;        /* pequeno */
-  font-weight: 600;       /* parecido com os assuntos */
-  color: #9aa3ab;         /* cinza */
-  letter-spacing: 0.4px;
-  text-transform: uppercase;
-
-  margin: 10px 0 4px 10px;
-}
-/* ===== SECTION TITLES (restore gold) ===== */
-.nav-section-title{
-  font-size: 11px;
-  font-weight: 800;
-  color: var(--gold-accent);   /* DOURADO */
-  letter-spacing: 0.9px;
-  text-transform: uppercase;
-
-  margin-top: 22px;
-  margin-bottom: 6px;
-
-  border-top: none;
-  padding-top: 0;
-}  
-/* Substitua o bloco @media (max-width: 1024px) anterior por este.
-   Ele foi ajustado para não "vazar" alterações para o Desktop.
-*/
-
-@media (max-width: 1024px) {
-    /* 1. Ajuste de margens: Texto aproveitando a largura total da tela */
-    .main-content {
-        margin-left: 0 !important; /* Garante que a sidebar não empurre o conteúdo */
-        padding: 10px 0 !important;
-        display: block; /* Remove o flex centralizador que pode causar desalinhamento */
+    /* Separador de Seções */
+    .article-box {
+        margin-bottom: 60px;
+        scroll-margin-top: 40px;
     }
 
-    .document-page {
-        padding: 30px 15px !important; /* Respiro mínimo lateral */
-        width: 100% !important;
-        max-width: none !important;
-        margin: 0 !important;
-        box-shadow: none !important;
-        border-radius: 0 !important;
+    /* Título de Capítulo (Divisor Grande) */
+    .chapter-title {
+        font-family: var(--font-sans);
+        font-weight: 800;
+        font-size: 14px;
+        color: var(--gold-accent);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-align: center;
+        margin: 80px 0 40px 0;
+        padding-bottom: 15px;
+        border-bottom: 2px solid var(--legal-blue);
     }
 
-    /* 2. Padronização de Fontes e Alinhamento JUSTIFICADO */
-    
-    /* Títulos Principais */
-    .article-title, .chapter-title {
-        font-family: 'Libre Baskerville', serif !important;
-        font-size: 1.3rem !important; 
-        text-align: left !important; /* Título à esquerda para melhor leitura */
-        margin-left: 0 !important;
-        padding-left: 0 !important;
+    /* =========================================
+       DIAGRAMA LAYER 2 (PADRONIZADO)
+       ========================================= */
+    .layer2-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+        margin: 40px 0;
     }
 
-    /* Corpo de Texto (Caput, Parágrafos e Incisos) */
-    .caput, .paragraph, .inciso, .ai-id {
-        font-family: 'Inter', sans-serif !important;
-        font-size: 16px !important; /* Tamanho padrão Apple/Android para evitar zoom */
-        line-height: 1.6 !important;
-        text-align: justify !important; /* Justificado como você pediu */
-        text-justify: inter-word;
-        hyphens: auto;
-        margin-left: 0 !important; /* Remove recuos que esmagam o texto no mobile */
-        margin-right: 0 !important;
-        width: 100% !important;
+    .layer2-core {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        background: radial-gradient(circle, var(--legal-blue) 0%, var(--legal-blue-dark) 100%);
+        color: #fff;
+        border: 4px solid var(--gold-accent);
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 30px;
+        box-shadow: 0 15px 35px rgba(26, 43, 60, 0.3);
+        aspect-ratio: 1 / 1;
     }
 
-    /* Ajuste de listas para não sumirem na borda */
-    .bullet-list, .inciso {
-        padding-left: 15px !important;
-        margin-top: 10px !important;
+    .layer2-core-title {
+        font-family: var(--font-serif);
+        font-size: 20px; /* Aumentado */
+        font-weight: 700;
+        line-height: 1.2;
     }
 
-    /* Subtítulos (1.1, 1.2...) */
-    .doc-subtitle, .doc-sub-subtitle {
-        font-family: 'Inter', sans-serif !important;
-        font-size: 1.05rem !important;
-        font-weight: 700 !important;
-        text-align: left !important;
+    .layer2-node {
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-left: 4px solid var(--legal-blue);
+        padding: 25px; /* Mais respiro */
+        box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+        transition: transform 0.2s ease;
     }
-}
+    .layer2-node:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
 
+    .node-title {
+        color: var(--legal-blue);
+        font-weight: 800;
+        font-size: 14px; /* Aumentado para corresponder à hierarquia */
+        text-transform: uppercase;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #f0f0f0;
+    }
 
-  </style>
+    .node-list li {
+        font-size: var(--size-ui); /* 14px - Leitura confortável */
+        color: #444;
+        margin-bottom: 8px;
+        padding-left: 15px;
+        position: relative;
+    }
+    .node-list li::before {
+        content: "•";
+        color: var(--gold-accent);
+        position: absolute;
+        left: 0;
+        font-weight: bold;
+    }
+
+    .layer2-footer {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+        margin-top: 30px;
+        border-top: 2px dashed #e0e0e0;
+        padding-top: 30px;
+    }
+
+    /* =========================================
+       TABELAS E FÓRMULAS
+       ========================================= */
+    .legal-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 30px 0;
+        font-size: var(--size-ui);
+    }
+    .legal-table th {
+        background-color: var(--legal-blue);
+        color: #fff;
+        font-weight: 700;
+        text-align: left;
+        padding: 12px 15px;
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: 1px;
+    }
+    .legal-table td {
+        border: 1px solid #e0e0e0;
+        padding: 12px 15px;
+        color: #333;
+        vertical-align: top;
+    }
+    .legal-table tr:nth-child(even) { background-color: #fcfcfc; }
+
+    .math-box {
+        background: #f0f4f8;
+        border-left: 4px solid var(--gold-accent);
+        padding: 20px;
+        margin: 30px 0;
+        font-family: 'Courier New', monospace;
+        font-weight: 700;
+        color: var(--legal-blue);
+        text-align: center;
+        font-size: 18px; /* Aumentado */
+        border-radius: 4px;
+    }
+
+    /* =========================================
+       MOBILE & RESPONSIVO
+       ========================================= */
+    .mobile-btn { display: none; }
+
+    @media (max-width: 1024px) {
+        .sidebar { transform: translateX(-100%); width: 280px; }
+        .sidebar.open { transform: translateX(0); box-shadow: 10px 0 50px rgba(0,0,0,0.3); }
+        .main-content { margin-left: 0; padding: 20px; }
+        .document-page { padding: 40px 20px; }
+        .mobile-btn {
+            display: block;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--legal-blue);
+            color: #fff;
+            border: none;
+            padding: 15px 20px;
+            font-weight: 800;
+            z-index: 2000;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        
+        /* Ajuste do Diagrama no Mobile */
+        .layer2-container, .layer2-footer { grid-template-columns: 1fr; }
+        .layer2-core { grid-column: 1; grid-row: auto; border-radius: 12px; aspect-ratio: auto; min-height: 200px; }
+    }
+</style>
 </head>
 
 <body>
