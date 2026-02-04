@@ -272,44 +272,73 @@
         box-shadow: 0 2px 10px rgba(0,0,0,0.03);
     }
 
-  /* === CORREÇÃO MOBILE (Cole isso no final do seu CSS) === */
+    /* === CORREÇÃO VISUAL MOBILE (Substitua o bloco @media anterior por este) === */
   @media (max-width: 1024px) {
     
-    /* 1. Solta o texto: remove recuos laterais grandes e alinha à esquerda */
-    .paragraph, .inciso, .caput, .bullet-list {
-      margin-left: 0 !important;   /* Remove a margem esquerda que "come" espaço */
-      padding-left: 0 !important;
-      text-align: left !important; /* Remove o justificado que cria buracos */
-      width: 100%;
+    /* 1. UNIFORMIZAÇÃO TOTAL DA FONTE */
+    /* Isso resolve o "bagunçado". Força a fonte moderna (Inter) em tudo no celular */
+    body, p, h1, h2, h3, h4, 
+    .caput, .paragraph, .inciso, .bullet-list, .article-title, .chapter-title {
+      font-family: 'Inter', sans-serif !important;
+      text-align: left !important;
+      line-height: 1.6 !important;
+      color: #333 !important; /* Cor sólida para facilitar leitura */
     }
 
-    /* Adiciona um pequeno recuo visual apenas nos incisos para manter hierarquia */
+    /* 2. LIMPEZA DE MARGENS E RECUOS */
+    /* Remove os recuos que apertam o texto */
+    .paragraph, .inciso, .caput, .bullet-list {
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+      width: 100%;
+    }
+    
+    /* Mantém uma leve marcação visual nos incisos para não perder a estrutura */
     .inciso {
       padding-left: 15px !important;
       border-left: 3px solid #eee;
+      margin-top: 10px !important;
+      margin-bottom: 10px !important;
     }
 
-    /* 2. Conserta o "lado cortado": impede que tabelas estourem a tela */
-    .legal-table {
-      display: block;
-      width: 100%;
-      overflow-x: auto; /* Cria rolagem SÓ na tabela, salvando o resto da página */
-      white-space: nowrap; /* Opcional: mantém linhas da tabela retas */
+    /* 3. BOTÃO DISCRETO (SEM COBRIR TEXTO) */
+    .mobile-btn {
+      bottom: 25px;
+      right: 20px;
+      opacity: 0.85; /* Levemente transparente */
+      transform: scale(0.9); /* Um pouco menor */
+      padding: 12px 20px; /* Menos "gordo" */
+      font-size: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
-
-    /* 3. Ajuste fino das margens da página */
+    
+    /* Garante que o texto final não fique atrás do botão */
     .main-content {
-      padding: 20px 15px !important; /* Garante margem de respiro nas bordas */
+      padding-bottom: 120px !important; 
+      padding-left: 20px !important;
+      padding-right: 20px !important;
       margin-left: 0 !important;
       width: 100%;
-      overflow-x: hidden; /* Trava a largura da página para não dançar */
+      overflow-x: hidden;
     }
     
     .document-page {
-      padding: 20px 5px !important; /* Remove excesso de padding branco */
+      padding: 10px 0 !important;
       width: 100%;
+      box-shadow: none !important; /* Remove sombra da folha no mobile para limpar visual */
+    }
+
+    /* 4. CONSERTO DAS TABELAS (IMPEDE QUEBRA LATERAL) */
+    .legal-table {
+      display: block;
+      width: 100%;
+      overflow-x: auto;
+      white-space: nowrap;
+      margin-bottom: 20px;
+      border: 1px solid #eee; /* Borda para delimitar onde começa/termina */
     }
   }
+
 
   </style>
 </head>
