@@ -413,6 +413,49 @@
         .layer2-container, .layer2-footer { grid-template-columns: 1fr; }
         .layer2-core { grid-column: 1; grid-row: auto; border-radius: 12px; aspect-ratio: auto; min-height: 200px; }
     }
+        /* =========================================
+       TRAVA DE ROLAGEM LATERAL (SOMENTE MOBILE)
+       ========================================= */
+    
+    @media (max-width: 1024px) {
+        
+        /* 1. Trava a raiz do site SÓ no celular */
+        html, body {
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;          /* Corta excesso lateral */
+            position: relative;
+            overscroll-behavior-x: none; /* Impede o 'samba' do dedo no iOS */
+        }
+
+        /* 2. Reseta as margens que empurram o conteúdo */
+        .main-content {
+            margin-left: 0 !important;
+            padding-left: 20px !important; /* Mantém um respiro interno */
+            padding-right: 20px !important;
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+
+        /* 3. Garante que o bloco de texto não vaze */
+        .document-page {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            border: none;
+            box-shadow: none;
+        }
+        
+        /* 4. Força tabelas e códigos a terem rolagem interna */
+        .legal-table, pre, code {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+        }
+    }
+
+    
 </style>
 </head>
 
