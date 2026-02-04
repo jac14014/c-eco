@@ -174,157 +174,61 @@
         text-align: justify;
     }
 
-    /* MOBILE behavior: sidebar hidden by default, opens overlay */
-    @media (max-width: 1024px){
-      .sidebar{ transform: translateX(-100%); }
-      .sidebar.open{ transform: translateX(0); box-shadow: 10px 0 30px rgba(0,0,0,0.22); }
-      .main-content{ margin-left: 0; padding: 18px 10px; }
-      .document-page{ padding: 30px 20px; width:auto; margin:0; }
-      .mobile-btn{ display:block; }
-    }
-    /* ===== SUBSECTIONS: small, grey, understated ===== */
-
-.nav-section-title{
-  font-size: 11px;              /* pequeno */
-  font-weight: 700;             /* igual aos assuntos */
-  color: #9aa3ab;               /* cinza */
-  letter-spacing: 0.6px;
-  text-transform: uppercase;
-
-  margin-top: 20px;
-  margin-bottom: 6px;
-
-  border-top: none;             /* remove destaque */
-  padding-top: 0;
-}  
-  /* ===== SUBSECTIONS (small, grey, same tone as items) ===== */
-.nav-sub-title{
-  font-size: 11px;        /* pequeno */
-  font-weight: 600;       /* parecido com os assuntos */
-  color: #9aa3ab;         /* cinza */
-  letter-spacing: 0.4px;
-  text-transform: uppercase;
-
-  margin: 10px 0 4px 10px;
-}
-/* ===== SECTION TITLES (restore gold) ===== */
-.nav-section-title{
-  font-size: 11px;
-  font-weight: 800;
-  color: var(--gold-accent);   /* DOURADO */
-  letter-spacing: 0.9px;
-  text-transform: uppercase;
-
-  margin-top: 22px;
-  margin-bottom: 6px;
-
-  border-top: none;
-  padding-top: 0;
-}  
-
-    /* Estilo para Tabelas Jurídicas */
-    .legal-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 20px 0;
-        font-size: 14px;
-        font-family: 'Inter', sans-serif;
-    }
-    .legal-table th {
-        background-color: var(--legal-blue);
-        color: #fff;
-        font-weight: 700;
-        text-align: left;
-        padding: 10px 15px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        border: 1px solid var(--legal-blue);
-    }
-    .legal-table td {
-        border: 1px solid #e0e0e0;
-        padding: 10px 15px;
-        color: #444;
-        vertical-align: top;
-    }
-    .legal-table tr:nth-child(even) {
-        background-color: #f8f9fa;
-    }
-
-    /* Estilo para Fórmulas Matemáticas Simples */
-    .math-box {
-        background: #f4f7f9;
-        border-left: 4px solid var(--gold-accent);
-        padding: 15px;
-        margin: 20px 0;
-        font-family: 'Courier New', monospace;
-        font-weight: 700;
-        color: var(--legal-blue);
-        text-align: center;
-        font-size: 16px;
-    }
-
-    /* Estilo para Cláusulas Contratuais (Model Pack) */
-    .clause-box {
-        background: #fff;
-        border: 1px solid #eee;
-        padding: 20px;
-        margin-top: 20px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-    }
-
-  /* === CORREÇÃO DE LAYOUT (DESIGN ORIGINAL + TEXTO JUSTIFICADO) === */
+    /* === CORREÇÃO DE GEOMETRIA (DESIGN ORIGINAL + TEXTO NA TELA) === */
   @media (max-width: 1024px) {
     
-    /* 1. ESTRUTURA DA PÁGINA (APROVEITAR A TELA TODA) */
+    /* 1. O CONTEÚDO OCUPA A TELA TODA (SEM SAIR PARA A DIREITA) */
     .main-content {
-      /* Padding lateral pequeno (15px) para ir quase até a borda */
-      /* Padding bottom (100px) para o botão não tapar o fim do texto */
-      padding: 20px 15px 100px 15px !important; 
       margin-left: 0 !important;
-      width: 100%;
-      overflow-x: hidden;
+      /* Padding: 20px nas laterais (segurança) e 120px embaixo (pro botão) */
+      padding: 20px 20px 120px 20px !important; 
+      width: 100% !important;
+      overflow-x: hidden; /* Trava para não criar rolagem lateral na página inteira */
     }
 
     .document-page {
-      padding: 0 !important; 
-      width: 100%;
-      box-shadow: none !important; /* Remove sombra lateral para ganhar espaço */
+      padding: 0 !important;
+      width: 100% !important;
+      box-shadow: none !important;
     }
 
-    /* 2. AJUSTE DO TEXTO (JUSTIFICADO + LARGURA TOTAL) */
-    /* Removemos a margem esquerda de 35px/70px que cortava o texto */
-    .paragraph, .inciso, .caput, .bullet-list {
+    /* 2. TEXTO: REMOVE O RECUO QUE EMPURRAVA PRA FORA */
+    /* Aqui está o segredo: tiramos o margin-left que jogava o texto pra fora */
+    .paragraph, .caput, .inciso, .bullet-list {
       margin-left: 0 !important;
       padding-left: 0 !important;
+      width: 100% !important;
       
       /* O SEU PEDIDO: JUSTIFICADO */
-      text-align: justify !important; 
-      
-      /* Hifenização automática ajuda o justificado a não criar buracos no celular */
-      -webkit-hyphens: auto;
-      hyphens: auto; 
+      text-align: justify !important;
+      -webkit-hyphens: auto; /* Quebra palavras longas com hífen se precisar */
+      hyphens: auto;
     }
 
-    /* 3. HIERARQUIA VISUAL (MANTENDO O DESIGN) */
-    /* Incisos ganham uma leve borda dourada/cinza para não perderem o estilo, 
-       mas sem empurrar o texto para fora da tela */
+    /* 3. MANTÉM A IDENTIDADE VISUAL DOS INCISOS */
+    /* Como tiramos a margem, colocamos uma borda colorida para manter o design bonito */
     .inciso {
-      padding-left: 12px !important;
-      border-left: 3px solid var(--gold-accent); /* Mantém sua cor de design */
-      margin: 10px 0 !important;
+      padding-left: 15px !important;
+      border-left: 3px solid var(--gold-accent); /* Usa a cor dourada original */
+      margin: 15px 0 !important;
     }
 
-    /* 4. MANTÉM O BOTÃO INDEX VISÍVEL */
+    /* 4. LISTAS COM BOLINHAS DENTRO DA TELA */
+    .bullet-list {
+      padding-left: 20px !important; /* Recuo interno para a bolinha aparecer */
+    }
+
+    /* 5. BOTÃO E TABELAS */
     .mobile-btn { display: block; }
 
-    /* 5. TABELAS (PROTEÇÃO CONTRA QUEBRA) */
     .legal-table {
       display: block;
       width: 100%;
-      overflow-x: auto;
+      overflow-x: auto; /* Permite rolar só a tabela se ela for grande */
       white-space: nowrap;
     }
   }
+
 
 
   </style>
