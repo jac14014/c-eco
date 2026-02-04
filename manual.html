@@ -454,6 +454,97 @@
             overflow-x: auto;
         }
     }
+    /* ============================================================
+       KIT DE CORREÇÃO MOBILE (Adicione no final do seu CSS)
+       Isso não afeta o Desktop, só arruma o Celular.
+       ============================================================ */
+
+    @media (max-width: 1024px) {
+
+        /* 1. TRAVA DE TELA (Adeus "Samba") */
+        html, body {
+            width: 100%;
+            max-width: 100vw;       /* Limite absoluto */
+            overflow-x: hidden;     /* Corta excesso lateral */
+            position: relative;     /* Estabiliza */
+        }
+
+        .main-content {
+            margin-left: 0 !important;
+            padding: 0 !important;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        .document-page {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            padding: 30px 20px; /* Margem interna confortável para celular */
+            border: none;       /* Remove bordas que ocupam espaço */
+            box-shadow: none;
+        }
+
+        /* 2. PADRONIZAÇÃO DE FONTES (SÓ NO MOBILE) 
+           Aqui forçamos tamanhos legíveis sem serem gigantes */
+        
+        /* Títulos */
+        .article-title { 
+            font-size: 22px !important; 
+            line-height: 1.3; 
+            word-wrap: break-word; /* Quebra palavras longas */
+        }
+        
+        .doc-subtitle { 
+            font-size: 18px !important; 
+            margin-top: 30px; 
+        }
+        
+        .doc-sub-subtitle { 
+            font-size: 15px !important; 
+        }
+
+        /* Corpo do Texto - Tamanho 16px é o ideal para leitura mobile */
+        .caput { 
+            font-size: 16px !important; 
+            line-height: 1.6; 
+            text-align: left; /* Justificado no mobile cria buracos no texto */
+        }
+
+        .paragraph, .inciso, .bullet-list li {
+            font-size: 15px !important;
+            line-height: 1.6;
+            text-align: left; 
+        }
+
+        .inciso {
+            margin-left: 15px !important; /* Reduz recuo para ganhar espaço */
+            padding-left: 10px !important;
+        }
+
+        /* 3. DIAGRAMA LAYER 2 (Transforma em Coluna Única) */
+        .layer2-container, .layer2-footer {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 15px !important;
+        }
+        
+        .layer2-core {
+            aspect-ratio: auto !important;
+            min-height: 180px !important;
+            border-radius: 12px !important;
+            margin: 10px 0;
+        }
+
+        /* 4. TABELAS (Cria rolagem interna para não empurrar a tela) */
+        .legal-table {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
+            font-size: 13px !important; /* Reduz um pouco a fonte da tabela */
+        }
+    }
 
     
 </style>
