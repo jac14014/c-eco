@@ -1,395 +1,664 @@
+<!--
+  Johann Christian Hasse Foundation — Magazine-style page
+  Save as: foundation.html (or c-eco.org/foundation.html)
+
+  NOTES:
+  - This is a single-file layout using Tailwind CDN for speed.
+  - Replace image paths like /assets/foundation/... with your real files.
+  - All text is in English; you can swap sections as your “issues” evolve.
+-->
+
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Johann Christian Hasse Foundation</title>
-  <meta name="description" content="Johann Christian Hasse Foundation — institutional guardianship for long-term legal, ecological, and systemic governance research." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Johann Christian Hasse Foundation — Journal</title>
+
+  <!-- Tailwind CDN (OK for prototype; for production, compile Tailwind) -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    :root{
-      --bg:#0b0c10;
-      --panel:#0f1117;
-      --text:#e9edf5;
-      --muted:#aab2c5;
-      --line:rgba(255,255,255,.10);
-      --accent:#d6bc7e; /* sigma-gold */
-      --max:1040px;
-      --radius:16px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background: radial-gradient(1200px 600px at 30% -10%, rgba(214,188,126,.12), transparent 60%),
-                  radial-gradient(900px 500px at 90% 10%, rgba(120,175,255,.10), transparent 55%),
-                  var(--bg);
-      color:var(--text);
-      line-height:1.55;
-    }
-    a{color:var(--text); text-decoration:underline; text-decoration-color: rgba(214,188,126,.45);}
-    a:hover{text-decoration-color: var(--accent);}
-    header{
-      border-bottom:1px solid var(--line);
-      background: rgba(0,0,0,.25);
-      backdrop-filter: blur(10px);
-    }
-    .wrap{max-width:var(--max); margin:0 auto; padding: 28px 20px;}
-    .kicker{
-      font-size:12px; letter-spacing:.28em; text-transform:uppercase;
-      color:var(--accent); font-weight:700;
-    }
-    h1{margin:.35rem 0 .3rem; font-size:40px; line-height:1.12;}
-    .sub{color:var(--muted); max-width: 72ch;}
-    .pill{
-      display:inline-flex; align-items:center; gap:10px;
-      border:1px solid var(--line); border-radius:999px;
-      padding:8px 12px; font-size:13px; color:var(--muted);
-      background: rgba(255,255,255,.03);
-      margin-top:14px;
-    }
-    .grid{
-      display:grid; grid-template-columns: 1.1fr .9fr; gap:18px;
-      margin-top:22px;
-    }
-    @media (max-width: 900px){
-      .grid{grid-template-columns:1fr}
-      h1{font-size:34px}
-    }
-    .card{
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(255,255,255,.03);
-      padding:18px;
-    }
-    .card h2{margin:0 0 8px; font-size:18px;}
-    .card p{margin:0; color:var(--muted);}
-    main{padding-bottom: 70px;}
-    section{margin-top:34px;}
-    h2{
-      font-size:18px; margin:0 0 10px;
-      letter-spacing:.02em;
-    }
-    .hr{height:1px; background:var(--line); margin:22px 0;}
-    .twoCol{
-      display:grid; grid-template-columns: 1fr 1fr; gap:18px;
-    }
-    @media (max-width: 900px){ .twoCol{grid-template-columns:1fr} }
-
-    figure{
-      margin:0; border:1px solid var(--line);
-      border-radius: var(--radius);
-      overflow:hidden;
-      background: rgba(255,255,255,.02);
-    }
-    figure img{
-      width:100%; height:auto; display:block;
-      background: rgba(255,255,255,.02);
-    }
-    figcaption{
-      padding:12px 14px;
-      border-top:1px solid var(--line);
-      color:var(--muted);
-      font-size:13px;
-    }
-    figcaption strong{color:var(--text);}
-    .source{display:block; margin-top:6px; font-size:12px; color:rgba(170,178,197,.85);}
-    .lead{
-      font-size:16px; color:var(--muted); max-width: 80ch;
-    }
-    .callout{
-      border-left: 3px solid var(--accent);
-      padding: 12px 14px;
-      background: rgba(214,188,126,.06);
-      border-radius: 12px;
-      color: var(--muted);
-    }
-    .quote{
-      font-size:16px; color:var(--text);
-      margin: 10px 0 0;
-    }
-    ul{margin:10px 0 0 18px; color:var(--muted);}
-    li{margin:6px 0;}
-    footer{
-      border-top:1px solid var(--line);
-      color:var(--muted);
-      padding: 22px 0;
-      background: rgba(0,0,0,.20);
-    }
-    .small{font-size:13px; color:var(--muted);}
-    .btnRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;}
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:10px 12px; border-radius:12px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      color:var(--text); text-decoration:none;
-      font-size:13px;
-    }
-    .btn:hover{border-color: rgba(214,188,126,.45);}
+    /* Optional: smoother typography */
+    .reading { text-wrap: pretty; }
   </style>
 </head>
 
-<body>
-  <header>
-    <div class="wrap">
-      <div class="kicker">Johann Christian Hasse Foundation</div>
-      <h1>Institutional Guardianship for Long-Term Law–Ecology Research</h1>
-      <p class="sub">
-        The Johann Christian Hasse Foundation is a non-profit organization in formation, established to support rigorous,
-        independent work at the intersection of legal architecture, Earth-system constraints, and systemic governance.
-      </p>
-
-      <div class="pill">
-        <span><strong>Status:</strong> In formation</span>
-        <span>•</span>
-        <span><strong>Tax status:</strong> Pending 501(c)(3)</span>
+<body class="bg-[#07080a] text-white antialiased">
+  <!-- ========== TOP BAR ========== -->
+  <header class="sticky top-0 z-40 border-b border-white/10 bg-black/40 backdrop-blur">
+    <div class="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <!-- Replace with your logo SVG or image -->
+        <div class="h-9 w-9 rounded-lg border border-white/10 bg-white/5 grid place-items-center">
+          <span class="text-[11px] font-bold tracking-[0.2em] text-[#d6bc7e]">JCH</span>
+        </div>
+        <div class="leading-tight">
+          <div class="text-sm font-semibold tracking-tight">Johann Christian Hasse Foundation</div>
+          <div class="text-[11px] text-white/60 tracking-[0.25em] uppercase">Journal • Law • Memory • Living Systems</div>
+        </div>
       </div>
 
-      <div class="grid">
-        <div class="card">
-          <h2>Purpose</h2>
-          <p>
-            To sustain long-term, methodologically rigorous research and institutional design that operate <em>ex ante</em>—before
-            irreversible ecological thresholds are crossed and before harm becomes legally cognizable.
-          </p>
-        </div>
-        <div class="card">
-          <h2>Contact</h2>
-          <p>
-            For institutional inquiries, partnerships, or philanthropic support:<br/>
-            <strong>foundation@c-eco.org</strong>
-          </p>
-          <div class="btnRow">
-            <a class="btn" href="#about">About</a>
-            <a class="btn" href="#origins">Origins</a>
-            <a class="btn" href="#support">Support</a>
-          </div>
-        </div>
+      <nav class="hidden md:flex items-center gap-6 text-sm text-white/80">
+        <a href="#issue" class="hover:text-white">Issue</a>
+        <a href="#features" class="hover:text-white">Features</a>
+        <a href="#field-notes" class="hover:text-white">Field Notes</a>
+        <a href="#archives" class="hover:text-white">Archives</a>
+        <a href="#references" class="hover:text-white">References</a>
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <a href="#subscribe"
+           class="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold tracking-wide hover:bg-white/10">
+          Subscribe
+        </a>
       </div>
     </div>
   </header>
 
-  <main class="wrap">
+  <!-- ========== HERO / COVER ========== -->
+  <section class="relative overflow-hidden">
+    <!-- background gradients -->
+    <div class="pointer-events-none absolute inset-0">
+      <div class="absolute -top-40 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-[#d6bc7e]/10 blur-3xl"></div>
+      <div class="absolute -bottom-32 right-0 h-[420px] w-[420px] rounded-full bg-white/5 blur-3xl"></div>
+    </div>
 
-    <!-- ABOUT -->
-    <section id="about">
-      <h2>About</h2>
-      <p class="lead">
-        The Foundation supports approaches that integrate scientific knowledge, institutional design, and legal architecture
-        <em>before</em> irreversible loss occurs. It is not an advocacy organization. Its role is to safeguard intellectual
-        independence, methodological rigor, and long-term continuity across interdisciplinary work bridging law, science, and governance.
-      </p>
+    <div class="mx-auto max-w-7xl px-6 pt-12 pb-10">
+      <div class="grid gap-10 lg:grid-cols-12">
+        <!-- Cover left -->
+        <div class="lg:col-span-7">
+          <div class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2">
+            <span class="h-2 w-2 rounded-full bg-[#d6bc7e]"></span>
+            <span class="text-[11px] font-semibold tracking-[0.25em] uppercase text-white/80">FOUNDATION JOURNAL</span>
+          </div>
 
-      <div class="hr"></div>
+          <h1 class="mt-5 text-4xl md:text-5xl font-semibold tracking-tight leading-[1.05] reading">
+            A magazine-page for a living institution:
+            <span class="text-[#d6bc7e]">law</span>, memory, and the governance of living systems.
+          </h1>
 
-      <div class="twoCol">
-        <div class="card">
-          <h2>Intellectual Orientation</h2>
+          <p class="mt-5 max-w-2xl text-white/70 leading-relaxed reading">
+            The Johann Christian Hasse Foundation is a platform for research, archives, and applied institutional design—
+            linking European intellectual lineages (Weber–Hasse–Puggé) to Amazonian territorial practice (Hass) and to the
+            contemporary c-ECO Doctrine.
+          </p>
+
+          <div class="mt-7 flex flex-wrap items-center gap-3 text-sm">
+            <a href="#issue" class="rounded-full bg-[#d6bc7e] px-5 py-2 font-semibold text-black hover:opacity-95">
+              Read the current issue
+            </a>
+            <a href="#references" class="rounded-full border border-white/15 bg-white/5 px-5 py-2 font-semibold hover:bg-white/10">
+              Sources & references
+            </a>
+          </div>
+
+          <div class="mt-8 grid gap-3 sm:grid-cols-3">
+            <div class="rounded-xl border border-white/10 bg-white/5 p-4">
+              <div class="text-xs font-semibold tracking-[0.25em] uppercase text-white/60">Focus</div>
+              <div class="mt-1 text-sm text-white/85">Ex ante governance • thresholds • institutional memory</div>
+            </div>
+            <div class="rounded-xl border border-white/10 bg-white/5 p-4">
+              <div class="text-xs font-semibold tracking-[0.25em] uppercase text-white/60">Method</div>
+              <div class="mt-1 text-sm text-white/85">Law + science + territory (not siloed disciplines)</div>
+            </div>
+            <div class="rounded-xl border border-white/10 bg-white/5 p-4">
+              <div class="text-xs font-semibold tracking-[0.25em] uppercase text-white/60">Format</div>
+              <div class="mt-1 text-sm text-white/85">Articles • dossiers • field notes • archives</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cover right: “magazine cover” collage -->
+        <div class="lg:col-span-5">
+          <div class="grid gap-4">
+            <div class="rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
+              <!-- Replace with a historical image collage -->
+              <img
+                src="/assets/foundation/cover-collage.jpg"
+                alt="Cover collage"
+                class="h-[260px] w-full object-cover opacity-90"
+                onerror="this.style.display='none'; this.parentElement.classList.add('grid','place-items-center'); this.parentElement.innerHTML='<div class=&quot;p-8 text-center text-white/60&quot;><div class=&quot;text-sm font-semibold&quot;>Cover Image Placeholder</div><div class=&quot;text-xs mt-2&quot;>Upload a collage: Kiel • Bonn • Belém • Botanical plates</div></div>';"
+              />
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div class="rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
+                <img
+                  src="/assets/foundation/hasse-engraving.jpg"
+                  alt="Johann Christian Hasse"
+                  class="h-[160px] w-full object-cover"
+                  onerror="this.style.display='none'; this.parentElement.classList.add('grid','place-items-center'); this.parentElement.innerHTML='<div class=&quot;p-6 text-center text-white/60&quot;><div class=&quot;text-xs font-semibold tracking-[0.25em] uppercase&quot;>Image</div><div class=&quot;mt-2 text-sm&quot;>Hasse engraving</div></div>';"
+                />
+              </div>
+              <div class="rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
+                <img
+                  src="/assets/foundation/botanical-plate.jpg"
+                  alt="Botanical plate"
+                  class="h-[160px] w-full object-cover"
+                  onerror="this.style.display='none'; this.parentElement.classList.add('grid','place-items-center'); this.parentElement.innerHTML='<div class=&quot;p-6 text-center text-white/60&quot;><div class=&quot;text-xs font-semibold tracking-[0.25em] uppercase&quot;>Image</div><div class=&quot;mt-2 text-sm&quot;>Botanical illustration</div></div>';"
+                />
+              </div>
+            </div>
+
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+              <div class="flex items-center justify-between gap-4">
+                <div>
+                  <div class="text-[11px] font-semibold tracking-[0.25em] uppercase text-white/60">Current Issue</div>
+                  <div class="mt-1 text-lg font-semibold">Issue 01 — Institutions Are Living Structures</div>
+                  <div class="mt-1 text-sm text-white/70">A dossier on law, memory, and ecological governance.</div>
+                </div>
+                <a href="#issue" class="shrink-0 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold hover:bg-white/10">
+                  Open
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- grid -->
+    </div>
+  </section>
+
+  <!-- ========== ISSUE INDEX (Magazine table of contents) ========== -->
+  <section id="issue" class="mx-auto max-w-7xl px-6 py-14">
+    <div class="flex items-end justify-between gap-6">
+      <div>
+        <div class="text-[11px] font-bold tracking-[0.4em] uppercase text-[#d6bc7e]">Table of Contents</div>
+        <h2 class="mt-3 text-3xl font-semibold tracking-tight">Issue 01</h2>
+        <p class="mt-2 max-w-2xl text-white/70 reading">
+          A magazine-style editorial layout: feature story, dossier, field notes, and an open references archive.
+        </p>
+      </div>
+      <div class="hidden md:flex items-center gap-2 text-xs text-white/60">
+        <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1">Updated: 2026</span>
+        <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1">Open citations</span>
+      </div>
+    </div>
+
+    <div class="mt-10 grid gap-6 lg:grid-cols-12">
+      <!-- Featured article card -->
+      <article class="lg:col-span-7 rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
+        <div class="grid md:grid-cols-5">
+          <div class="md:col-span-2">
+            <img
+              src="/assets/foundation/bonn-campus.jpg"
+              alt="University of Bonn"
+              class="h-full w-full object-cover"
+              onerror="this.style.display='none'; this.parentElement.classList.add('grid','place-items-center'); this.parentElement.innerHTML='<div class=&quot;p-10 text-center text-white/60&quot;>Image placeholder: University of Bonn (historical)</div>';"
+            />
+          </div>
+          <div class="md:col-span-3 p-7">
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-[#d6bc7e] px-3 py-1 text-[11px] font-bold tracking-[0.25em] uppercase text-black">Feature</span>
+              <span class="text-[11px] text-white/60">12 min read</span>
+            </div>
+            <h3 class="mt-3 text-2xl font-semibold tracking-tight reading">Institutions Are Living Structures</h3>
+            <p class="mt-3 text-white/70 leading-relaxed reading">
+              From Johann Christian Hasse’s institutional jurisprudence to contemporary ex ante governance:
+              why law cannot be neutral under threshold conditions.
+            </p>
+            <a href="#feature-story" class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-[#d6bc7e]">
+              Read feature
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Right column: smaller cards -->
+      <div class="lg:col-span-5 grid gap-6">
+        <article class="rounded-2xl border border-white/10 bg-white/5 p-7">
+          <div class="flex items-center gap-2">
+            <span class="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-bold tracking-[0.25em] uppercase text-white/80">Dossier</span>
+            <span class="text-[11px] text-white/60">8 min read</span>
+          </div>
+          <h3 class="mt-3 text-xl font-semibold reading">A Family of Thought: Kiel → Bonn → Amazon</h3>
+          <p class="mt-2 text-white/70 leading-relaxed reading">
+            Andreas Weber (Vice-Rector), Georg Heinrich Weber (Rector, Kiel; Botanical Garden), Hasse (Rector, Bonn),
+            Georg Weber (Marx correspondence; North America), and Eduard Hass (Belém).
+          </p>
+          <a href="#dossier" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-[#d6bc7e]">
+            Open dossier <span aria-hidden="true">→</span>
+          </a>
+        </article>
+
+        <article class="rounded-2xl border border-white/10 bg-white/5 p-7">
+          <div class="flex items-center gap-2">
+            <span class="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-bold tracking-[0.25em] uppercase text-white/80">Field Notes</span>
+            <span class="text-[11px] text-white/60">10 min read</span>
+          </div>
+          <h3 class="mt-3 text-xl font-semibold reading">Belém as a Living City: Hass in Practice</h3>
+          <p class="mt-2 text-white/70 leading-relaxed reading">
+            Praça Batista Campos, Praça da República, the Horto Municipal, and the “City of Mango Trees”:
+            urban ecology as governance.
+          </p>
+          <a href="#field-notes" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-[#d6bc7e]">
+            Read field notes <span aria-hidden="true">→</span>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FEATURE STORY ========== -->
+  <section id="feature-story" class="mx-auto max-w-7xl px-6 py-14">
+    <div class="grid gap-10 lg:grid-cols-12">
+      <div class="lg:col-span-8">
+        <div class="flex items-center gap-2">
+          <span class="rounded-full bg-[#d6bc7e] px-3 py-1 text-[11px] font-bold tracking-[0.25em] uppercase text-black">Feature Story</span>
+          <span class="text-[11px] text-white/60">Institutions • Temporality • Ex ante design</span>
+        </div>
+        <h2 class="mt-4 text-3xl md:text-4xl font-semibold tracking-tight reading">
+          Institutions Are Living Structures
+        </h2>
+        <p class="mt-3 text-white/70 leading-relaxed reading">
+          Johann Christian Hasse understood law not as a reactive apparatus triggered only after harm,
+          but as a temporal and institutional architecture. Courts, doctrines, and universities carry memory,
+          constrain futures, and shape conduct long before damage is visible.
+        </p>
+
+        <div class="mt-8 space-y-6 text-[15px] leading-7 text-white/80 reading">
           <p>
-            The Foundation draws inspiration from continental European traditions in which law, science, and public institutions
-            were conceived as interdependent systems operating across extended temporal horizons—where responsibility is distributed
-            across time and institutional continuity matters.
+            The Foundation is named after Hasse not to build a memorial, but to activate a method:
+            law as structure, responsibility as continuity, and governance as the careful handling of thresholds.
           </p>
-        </div>
-        <div class="card">
-          <h2>Relationship to the c-ECO Doctrine</h2>
           <p>
-            The Foundation provides institutional support for research and initiatives aligned with the
-            <strong>c-ECO Doctrine (Contractual Equity &amp; Ecological Co-Responsibility)</strong>, which translates Earth-system
-            constraints and systemic risk into ex ante legal and contractual decision frameworks.
+            This editorial series explores a central idea: under conditions of systemic risk, institutional “neutrality”
+            is itself an intervention. When the window for meaningful intervention is temporal and finite,
+            law must become ex ante—capable of organizing responsibility before irreversibility.
+          </p>
+          <blockquote class="rounded-2xl border border-white/10 bg-white/5 p-6">
+            <p class="text-white/85">
+              “Time is memory. Systems carry history. And law must govern not only actions, but their irreversible consequences.”
+            </p>
+            <div class="mt-3 text-xs text-white/55 tracking-[0.25em] uppercase">Editorial line • Foundation Journal</div>
+          </blockquote>
+        </div>
+      </div>
+
+      <aside class="lg:col-span-4">
+        <div class="rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
+          <img
+            src="/assets/foundation/legal-manuscript.jpg"
+            alt="Legal manuscript"
+            class="h-[260px] w-full object-cover"
+            onerror="this.style.display='none'; this.parentElement.classList.add('grid','place-items-center'); this.parentElement.innerHTML='<div class=&quot;p-10 text-center text-white/60&quot;>Image placeholder: legal manuscript / archive</div>';"
+          />
+          <div class="p-6">
+            <div class="text-[11px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">Sidebar</div>
+            <div class="mt-2 text-sm text-white/70 reading">
+              Add a short “From the Archive” excerpt here (25 words max) once you select a primary source passage.
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 rounded-2xl border border-white/10 bg-white/5 p-6">
+          <div class="text-[11px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">In this issue</div>
+          <ul class="mt-3 space-y-2 text-sm text-white/75">
+            <li>• Hasse and institutional temporality</li>
+            <li>• Puggé and the limits of reason</li>
+            <li>• Georg Weber: medicine, politics, North America</li>
+            <li>• Hass: Belém as a living city</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ========== DOSSIER ========== -->
+  <section id="dossier" class="mx-auto max-w-7xl px-6 py-14">
+    <div class="flex items-start justify-between gap-6">
+      <div>
+        <div class="text-[11px] font-bold tracking-[0.4em] uppercase text-[#d6bc7e]">Dossier</div>
+        <h2 class="mt-3 text-3xl font-semibold tracking-tight">A Family of Thought</h2>
+        <p class="mt-2 max-w-3xl text-white/70 reading">
+          A lineage of method (not prestige): systems thinking, institutional leadership, and the translation of living constraints into governance.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-10 grid gap-6 lg:grid-cols-12">
+      <!-- Timeline / cards -->
+      <div class="lg:col-span-8 grid gap-6">
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-7">
+          <h3 class="text-xl font-semibold">Andreas Weber (1718–1781)</h3>
+          <p class="mt-2 text-white/75 reading">
+            Philosopher and theologian; university governance including Vice-Rector roles. A rational cosmology where coherence and limits precede choice.
           </p>
         </div>
-      </div>
-    </section>
 
-    <!-- IMAGE: HASSE PORTRAIT -->
-    <section aria-label="Johann Christian Hasse portrait">
-      <figure>
-        <!-- Replace the src with your actual file path -->
-        <img src="assets/johann-christian-hasse-portrait.jpg" alt="Portrait of Johann Christian Hasse (1779–1830)" />
-        <figcaption>
-          <strong>Johann Christian Hasse (1779–1830)</strong> — jurist associated with the legal-academic environment of Kiel.
-          <span class="source">Source: [archive / public domain / family collection]</span>
-        </figcaption>
-      </figure>
-    </section>
-
-    <!-- ORIGINS / LINEAGE -->
-    <section id="origins">
-      <h2>Origins of the c-ECO Doctrine</h2>
-      <p class="lead">
-        The work of <strong>Jacqueline A. Ennis</strong>, author of the c-ECO Doctrine, is rooted in a lineage in which
-        <strong>law, science, territory, and moral responsibility</strong> were historically treated as interdependent structures.
-        This is not a genealogy of prestige, but a continuity of method: systems understood as living, temporal, and constrained by limits
-        that precede individual will.
-      </p>
-
-      <div class="callout">
-        <div class="quote">
-          <strong>The “memory of life”</strong> is a unifying thread in this lineage: systems do not restart at each decision point.
-          They carry accumulated histories—biological, ecological, and institutional—that delimit what remains possible.
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-7">
+          <h3 class="text-xl font-semibold">Georg Heinrich Weber (1752–1828)</h3>
+          <p class="mt-2 text-white/75 reading">
+            Physician and botanist; professor and Rector at the University of Kiel; founder of hospital infrastructure and the Botanical Garden. Living systems as networks.
+          </p>
         </div>
-      </div>
 
-      <div class="hr"></div>
-
-      <h2>The Weber Foundation: Cosmology and Systemic Reason</h2>
-      <p class="lead">
-        With <strong>Andreas Weber (1718–1781)</strong>, a rationalist philosopher and Lutheran theologian, the lineage adopts a view in which
-        nature, morality, law, and theology form a single intelligible order. In c-ECO terms, this anticipates systemic memory:
-        the idea that systems have internal constraints shaped by accumulated structure over time.
-      </p>
-
-      <h2>From Philosophy to Science: Georg Heinrich Weber and Biological Memory</h2>
-      <p class="lead">
-        With <strong>Georg Heinrich Weber (1752–1828)</strong>, medicine and botany translate systemic thinking into empirical practice.
-        Living systems retain traces of past conditions and stresses—what c-ECO later frames as forms of biological memory shaping resilience and thresholds.
-      </p>
-
-      <h2>Law as Institutional Architecture: Johann Christian Hasse</h2>
-      <p class="lead">
-        With <strong>Johann Christian Hasse (1779–1830)</strong>, law appears as an <em>ex ante</em> institutional architecture.
-        Institutions “remember”: doctrine, precedent, and legal form carry the past forward and constrain future options.
-        c-ECO extends this logic by embedding ecological thresholds and irreversibility into legal and contractual frameworks.
-      </p>
-
-      <h2>Crossing the Atlantic: Eduard Hass and Ecological Memory in the Amazon</h2>
-      <p class="lead">
-        With <strong>Eduard Johannes Heinrich Hass (1820–1880)</strong>, systemic thinking meets territory.
-        In nineteenth-century Belém (Amazon region), urban order, public health, drainage, and arborization become inseparable from climate and ecology.
-        In c-ECO terms, this is ecological memory: interventions leave durable traces in landscapes and systems, shaping future constraints.
-      </p>
-    </section>
-
-    <!-- IMAGE: BOOK TITLE PAGE -->
-    <section aria-label="Die Culpa des römischen Rechts (1815)">
-      <figure>
-        <img src="assets/die-culpa-title-page-1815.jpg" alt="Title page of Die Culpa des römischen Rechts (1815)" />
-        <figcaption>
-          <strong>Die Culpa des römischen Rechts (1815)</strong> — study on responsibility (<em>culpa</em>) in Roman Law and its juridical application.
-          <span class="source">Source: [library / archive / public domain]</span>
-        </figcaption>
-      </figure>
-    </section>
-
-    <!-- COMPARATIVE PARALLELS -->
-    <section id="parallels">
-      <h2>Conceptual Parallels to c-ECO</h2>
-      <p class="lead">
-        The Foundation’s historical references are invoked not as claims of direct doctrinal lineage, but as a disciplined
-        acknowledgement of methodological affinities—how law and science can operate across time, structure responsibility, and respect systemic limits.
-      </p>
-
-      <div class="twoCol">
-        <div class="card">
-          <h2>Johann Christian Hasse ↔ c-ECO</h2>
-          <ul>
-            <li><strong>Ex ante structure:</strong> law designed as architecture, not reaction.</li>
-            <li><strong>Institutional temporality:</strong> responsibility distributed across time and doctrine.</li>
-            <li><strong>Continuity:</strong> durable legal forms that constrain future options.</li>
-          </ul>
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-7">
+          <h3 class="text-xl font-semibold">Johann Christian Hasse (1779–1830)</h3>
+          <p class="mt-2 text-white/75 reading">
+            Jurist; professor and Rector at the University of Bonn; law as institutional architecture operating through time—ex ante responsibility.
+          </p>
         </div>
-        <div class="card">
-          <h2>Georg Heinrich Weber ↔ c-ECO</h2>
-          <ul>
-            <li><strong>Systems as living networks:</strong> interdependence and fragile equilibria.</li>
-            <li><strong>Biological memory:</strong> past pressures shape present resilience and thresholds.</li>
-            <li><strong>Empirical discipline:</strong> observation informing governance design.</li>
-          </ul>
+
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-7">
+          <h3 class="text-xl font-semibold">Peter Gottlieb Eduard Puggé (1802–1836)</h3>
+          <p class="mt-2 text-white/75 reading">
+            Historical School of Law; professor of Karl Marx; tragedy and the limits of reason: systems exert pressure and can overwhelm.
+          </p>
         </div>
-      </div>
 
-      <div class="twoCol" style="margin-top:18px;">
-        <div class="card">
-          <h2>Eduard Hass ↔ c-ECO</h2>
-          <ul>
-            <li><strong>Territory as system:</strong> city, climate, water cycles, vegetation, and health as one.</li>
-            <li><strong>Ecological memory:</strong> interventions leave long-term traces and constraints.</li>
-            <li><strong>Infrastructure as governance:</strong> arborization, drainage, and green systems as public order.</li>
-          </ul>
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-7">
+          <h3 class="text-xl font-semibold">Georg Weber (1818–1891)</h3>
+          <p class="mt-2 text-white/75 reading">
+            Physician; political engagement and correspondence with Marx; transatlantic period in North America; structures can oppress, fracture, or collapse.
+          </p>
         </div>
-        <div class="card">
-          <h2>Memory of Life (c-ECO)</h2>
-          <ul>
-            <li><strong>Ecological memory:</strong> ecosystems retain the imprint of past stress and change.</li>
-            <li><strong>Institutional memory:</strong> law stores commitments, precedents, and path dependencies.</li>
-            <li><strong>Operational translation:</strong> thresholds, indicators, and ex ante decision constraints.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
 
-    <!-- IMAGE: EDWARD HASS -->
-    <section aria-label="Edward Johannes Heinrich Hass">
-      <figure>
-        <img src="assets/edward-hass-portrait.jpg" alt="Portrait of Edward Johannes Heinrich Hass (1820–1880)" />
-        <figcaption>
-          <strong>Eduard Johannes Heinrich Hass (1820–1880)</strong> — engineer and naturalist; contributions to urban development,
-          sanitation, public health, and green infrastructure in Belém (Amazon region).
-          <span class="source">Source: [family archive / historical collection]</span>
-        </figcaption>
-      </figure>
-    </section>
-
-    <!-- IMAGE: HISTORIC BELEM -->
-    <section aria-label="Historic Belém (parks, arborization, green infrastructure)">
-      <figure>
-        <img src="assets/belem-historic-park.jpg" alt="Historic view of a public garden or park in Belém" />
-        <figcaption>
-          Belém (historic view) — public gardens, arborization, and green infrastructure as instruments of urban governance and public well-being.
-          <span class="source">Source: [archive / caption / link]</span>
-        </figcaption>
-      </figure>
-    </section>
-
-    <!-- SUPPORT -->
-    <section id="support">
-      <h2>Support &amp; Collaboration</h2>
-      <p class="lead">
-        The Foundation welcomes philanthropic support and research funding aligned with its mission. It is open to future collaboration with
-        academic, scientific, and institutional partners committed to rigorous, independent work and long-term governance integrity.
-      </p>
-
-      <div class="twoCol">
-        <div class="card">
-          <h2>What support sustains</h2>
-          <ul>
-            <li>Independent interdisciplinary research (law, Earth system science, systemic risk)</li>
-            <li>Institutional continuity and documentation</li>
-            <li>Method development for ex ante governance frameworks</li>
-            <li>Long-term stewardship of complex research programs</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h2>Inquiries</h2>
-          <p class="small">
-            Please contact:
-            <strong>foundation@c-eco.org</strong><br/>
-            (You may also include a postal address later, if desired, but it is not required for this page.)
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-7">
+          <h3 class="text-xl font-semibold">Eduard Hass (moved to Brazil at 26; died at 36)</h3>
+          <p class="mt-2 text-white/75 reading">
+            Technical practitioner rather than professor: carried systemic intelligence into Amazonian territory and died young from tuberculosis contracted in the course of work.
           </p>
         </div>
       </div>
 
-      <div class="hr"></div>
+      <!-- Image rail -->
+      <div class="lg:col-span-4 space-y-6">
+        <div class="rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
+          <img src="/assets/foundation/kiel.jpg" alt="Kiel" class="h-[180px] w-full object-cover"
+               onerror="this.style.display='none'; this.parentElement.classList.add('grid','place-items-center'); this.parentElement.innerHTML='<div class=&quot;p-10 text-center text-white/60&quot;>Image placeholder: Kiel</div>';" />
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
+          <img src="/assets/foundation/botanical-garden-kiel.jpg" alt="Botanical Garden Kiel" class="h-[180px] w-full object-cover"
+               onerror="this.style.display='none'; this.parentElement.classList.add('grid','place-items-center'); this.parentElement.innerHTML='<div class=&quot;p-10 text-center text-white/60&quot;>Image placeholder: Botanical Garden (Kiel)</div>';" />
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
+          <img src="/assets/foundation/belem.jpg" alt="Belém" class="h-[180px] w-full object-cover"
+               onerror="this.style.display='none'; this.parentElement.classList.add('grid','place-items-center'); this.parentElement.innerHTML='<div class=&quot;p-10 text-center text-white/60&quot;>Image placeholder: Belém (Belle Époque)</div>';" />
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <p class="small">
-        <strong>Institutional status notice:</strong> The Johann Christian Hasse Foundation is currently in formation and pursuing recognition as a tax-exempt
-        organization under Section 501(c)(3) of the U.S. Internal Revenue Code.
+  <!-- ========== FIELD NOTES (Belém / Hass) ========== -->
+  <section id="field-notes" class="mx-auto max-w-7xl px-6 py-14">
+    <div class="flex items-start justify-between gap-6">
+      <div>
+        <div class="text-[11px] font-bold tracking-[0.4em] uppercase text-[#d6bc7e]">Field Notes</div>
+        <h2 class="mt-3 text-3xl font-semibold tracking-tight">Belém as a Living City</h2>
+        <p class="mt-2 max-w-3xl text-white/70 reading">
+          Hass’s work demonstrates urban ecology as governance: trees, water, and shade as living infrastructure.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-10 grid gap-6 lg:grid-cols-12">
+      <article class="lg:col-span-7 rounded-2xl border border-white/10 bg-white/5 p-7">
+        <h3 class="text-2xl font-semibold reading">Praça Batista Campos — the Garden City in practice</h3>
+        <p class="mt-3 text-white/75 leading-relaxed reading">
+          Hass turned the former “Praça Sergipe” into the celebrated Praça Batista Campos by applying an English Garden style:
+          organic paths, water circulation, canopy-driven microclimates, and cast-iron civic elements integrated into a living system.
+        </p>
+        <ul class="mt-5 space-y-2 text-sm text-white/75">
+          <li>• Organic landscapes: winding paths, artificial lakes, rustic bridges (rocaille technique)</li>
+          <li>• Microclimate: dense canopies to lower local temperatures</li>
+          <li>• Hydraulic design: connected streams and fountains shaping sound and humidity</li>
+          <li>• Industrial art: bandstands (coretos), “Chafariz das Sereias,” and the “Castelinho”</li>
+        </ul>
+      </article>
+
+      <div class="lg:col-span-5 grid gap-6">
+        <div class="rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
+          <img src="/assets/foundation/batista-campos.jpg" alt="Praça Batista Campos" class="h-[220px] w-full object-cover"
+               onerror="this.style.display='none'; this.parentElement.classList.add('grid','place-items-center'); this.parentElement.innerHTML='<div class=&quot;p-10 text-center text-white/60&quot;>Image placeholder: Praça Batista Campos</div>';" />
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
+          <img src="/assets/foundation/mango-avenue.jpg" alt="Belém mango trees" class="h-[220px] w-full object-cover"
+               onerror="this.style.display='none'; this.parentElement.classList.add('grid','place-items-center'); this.parentElement.innerHTML='<div class=&quot;p-10 text-center text-white/60&quot;>Image placeholder: “City of Mango Trees”</div>';" />
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 rounded-2xl border border-white/10 bg-white/5 p-7">
+      <h3 class="text-xl font-semibold">Other Hass landmarks</h3>
+      <div class="mt-4 grid gap-4 md:grid-cols-3">
+        <div class="rounded-xl border border-white/10 bg-black/20 p-4">
+          <div class="text-sm font-semibold">Praça da República</div>
+          <div class="mt-1 text-sm text-white/70">Civic landscape around Theatro da Paz: spatial order + shade.</div>
+        </div>
+        <div class="rounded-xl border border-white/10 bg-black/20 p-4">
+          <div class="text-sm font-semibold">Horto Municipal</div>
+          <div class="mt-1 text-sm text-white/70">Botanical laboratory + nursery for urban arborization.</div>
+        </div>
+        <div class="rounded-xl border border-white/10 bg-black/20 p-4">
+          <div class="text-sm font-semibold">“City of Mango Trees”</div>
+          <div class="mt-1 text-sm text-white/70">Green corridors as thermal regulation infrastructure.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ARCHIVES (Puggé / Tragedy / Memory) ========== -->
+  <section id="archives" class="mx-auto max-w-7xl px-6 py-14">
+    <div class="flex items-start justify-between gap-6">
+      <div>
+        <div class="text-[11px] font-bold tracking-[0.4em] uppercase text-[#d6bc7e]">Archive</div>
+        <h2 class="mt-3 text-3xl font-semibold tracking-tight">Rupture and the Limits of Reason</h2>
+        <p class="mt-2 max-w-3xl text-white/70 reading">
+          Puggé’s life and death remind us: systems organize life, but they also exert pressure. Memory includes rupture.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-10 grid gap-6 lg:grid-cols-12">
+      <div class="lg:col-span-5 rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
+        <img src="/assets/foundation/bonn-library.jpg" alt="Bonn library" class="h-full w-full object-cover"
+             onerror="this.style.display='none'; this.parentElement.classList.add('grid','place-items-center'); this.parentElement.innerHTML='<div class=&quot;p-10 text-center text-white/60&quot;>Image placeholder: Bonn library / study</div>';" />
+      </div>
+
+      <div class="lg:col-span-7 rounded-2xl border border-white/10 bg-white/5 p-7">
+        <h3 class="text-2xl font-semibold reading">Puggé (1802–1836): historical law, justice, tragedy</h3>
+        <p class="mt-3 text-white/75 leading-relaxed reading">
+          A representative of the Historical School of Law and professor of Karl Marx, Puggé taught constitutional law,
+          international law, legal philosophy, methodology, and natural law. His sudden death—reported widely—entered the
+          lineage as a signal of irreversibility: not every system can absorb ethical pressure without fracture.
+        </p>
+        <div class="mt-6 rounded-xl border border-white/10 bg-black/20 p-5">
+          <div class="text-xs font-semibold tracking-[0.25em] uppercase text-white/60">Editorial note</div>
+          <p class="mt-2 text-sm text-white/75 reading">
+            Keep quotes short (≤25 words) if you later add excerpts from sources. Link to archives in the References section.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== REFERENCES / LINKS (as requested) ========== -->
+  <section id="references" class="mx-auto max-w-7xl px-6 py-14">
+    <div>
+      <div class="text-[11px] font-bold tracking-[0.4em] uppercase text-[#d6bc7e]">Sources</div>
+      <h2 class="mt-3 text-3xl font-semibold tracking-tight">Links, Archives & References</h2>
+      <p class="mt-2 max-w-3xl text-white/70 reading">
+        Primary archives and institutional sources. Use these links in footnotes, captions, and “read more” blocks.
       </p>
-    </section>
-  </main>
+    </div>
 
-  <footer>
-    <div class="wrap">
-      <div class="small">
-        © <span id="y"></span> Johann Christian Hasse Foundation • c-eco.org
+    <div class="mt-10 grid gap-6 lg:grid-cols-12">
+      <div class="lg:col-span-6 rounded-2xl border border-white/10 bg-white/5 p-7">
+        <h3 class="text-xl font-semibold">Hasse (1779–1830)</h3>
+        <ul class="mt-3 space-y-2 text-sm text-white/75">
+          <li>
+            • Deutsche Biographie (ADB): 
+            <a class="text-[#d6bc7e] hover:underline" href="https://www.deutsche-biographie.de/pnd100352332.html" target="_blank" rel="noreferrer">
+              https://www.deutsche-biographie.de/pnd100352332.html
+            </a>
+          </li>
+          <li>
+            • ADB content section:
+            <a class="text-[#d6bc7e] hover:underline" href="https://www.deutsche-biographie.de/pnd100352332.html#adbcontent" target="_blank" rel="noreferrer">
+              https://www.deutsche-biographie.de/pnd100352332.html#adbcontent
+            </a>
+          </li>
+          <li>
+            • CAU Kiel Scholars Archive (example):
+            <a class="text-[#d6bc7e] hover:underline" href="https://cau.gelehrtenverzeichnis.de/" target="_blank" rel="noreferrer">
+              https://cau.gelehrtenverzeichnis.de/
+            </a>
+          </li>
+          <li>
+            • University of Bonn history:
+            <a class="text-[#d6bc7e] hover:underline" href="https://www.uni-bonn.de/en/university/history" target="_blank" rel="noreferrer">
+              https://www.uni-bonn.de/en/university/history
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="lg:col-span-6 rounded-2xl border border-white/10 bg-white/5 p-7">
+        <h3 class="text-xl font-semibold">Weber Line (Andreas / Georg Heinrich / Friedrich / Georg)</h3>
+        <ul class="mt-3 space-y-2 text-sm text-white/75">
+          <li>
+            • CAU Kiel Scholars Archive:
+            <a class="text-[#d6bc7e] hover:underline" href="https://cau.gelehrtenverzeichnis.de/" target="_blank" rel="noreferrer">
+              https://cau.gelehrtenverzeichnis.de/
+            </a>
+          </li>
+          <li>
+            • University of Göttingen history:
+            <a class="text-[#d6bc7e] hover:underline" href="https://www.uni-goettingen.de/en/history/" target="_blank" rel="noreferrer">
+              https://www.uni-goettingen.de/en/history/
+            </a>
+          </li>
+          <li>
+            • Botanical Garden Kiel:
+            <a class="text-[#d6bc7e] hover:underline" href="https://www.botanischer-garten.uni-kiel.de" target="_blank" rel="noreferrer">
+              https://www.botanischer-garten.uni-kiel.de
+            </a>
+          </li>
+          <li>
+            • IPNI author abbreviation (F.Weber):
+            <a class="text-[#d6bc7e] hover:underline" href="https://www.ipni.org/" target="_blank" rel="noreferrer">
+              https://www.ipni.org/
+            </a>
+          </li>
+          <li>
+            • Georg Weber (physician) — Wikipedia:
+            <a class="text-[#d6bc7e] hover:underline" href="https://de.wikipedia.org/wiki/Georg_Weber_(Mediziner)" target="_blank" rel="noreferrer">
+              https://de.wikipedia.org/wiki/Georg_Weber_(Mediziner)
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="lg:col-span-6 rounded-2xl border border-white/10 bg-white/5 p-7">
+        <h3 class="text-xl font-semibold">Puggé (1802–1836)</h3>
+        <ul class="mt-3 space-y-2 text-sm text-white/75">
+          <li>
+            • Wikipedia:
+            <a class="text-[#d6bc7e] hover:underline" href="https://de.wikipedia.org/wiki/Peter_Gottlieb_Eduard_Pugg%C3%A9" target="_blank" rel="noreferrer">
+              https://de.wikipedia.org/wiki/Peter_Gottlieb_Eduard_Pugg%C3%A9
+            </a>
+          </li>
+          <li>
+            • Marx archives (letters / period):
+            <a class="text-[#d6bc7e] hover:underline" href="https://www.marxists.org/archive/marx/letters/index.htm" target="_blank" rel="noreferrer">
+              https://www.marxists.org/archive/marx/letters/index.htm
+            </a>
+          </li>
+          <li>
+            • University of Bonn (Jura faculty):
+            <a class="text-[#d6bc7e] hover:underline" href="https://www.jura.uni-bonn.de" target="_blank" rel="noreferrer">
+              https://www.jura.uni-bonn.de
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="lg:col-span-6 rounded-2xl border border-white/10 bg-white/5 p-7">
+        <h3 class="text-xl font-semibold">Belém / Hass (Urban Ecology)</h3>
+        <ul class="mt-3 space-y-2 text-sm text-white/75">
+          <li>
+            • City of Belém portal:
+            <a class="text-[#d6bc7e] hover:underline" href="https://www.belem.pa.gov.br" target="_blank" rel="noreferrer">
+              https://www.belem.pa.gov.br
+            </a>
+          </li>
+          <li>
+            • MABE / cultural context:
+            <a class="text-[#d6bc7e] hover:underline" href="https://museudeartedebelem.com.br" target="_blank" rel="noreferrer">
+              https://museudeartedebelem.com.br
+            </a>
+          </li>
+          <li>
+            • Praça Batista Campos (Wikipedia PT):
+            <a class="text-[#d6bc7e] hover:underline" href="https://pt.wikipedia.org/wiki/Pra%C3%A7a_Batista_Campos" target="_blank" rel="noreferrer">
+              https://pt.wikipedia.org/wiki/Pra%C3%A7a_Batista_Campos
+            </a>
+          </li>
+          <li>
+            • Praça da República (Belém):
+            <a class="text-[#d6bc7e] hover:underline" href="https://pt.wikipedia.org/wiki/Pra%C3%A7a_da_Rep%C3%BAblica_(Bel%C3%A9m)" target="_blank" rel="noreferrer">
+              https://pt.wikipedia.org/wiki/Pra%C3%A7a_da_Rep%C3%BAblica_(Bel%C3%A9m)
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SUBSCRIBE (magazine vibe) ========== -->
+  <section id="subscribe" class="mx-auto max-w-7xl px-6 pb-16">
+    <div class="rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-black/20 p-8">
+      <div class="grid gap-6 md:grid-cols-12 md:items-center">
+        <div class="md:col-span-7">
+          <div class="text-[11px] font-bold tracking-[0.4em] uppercase text-[#d6bc7e]">Newsletter</div>
+          <h3 class="mt-3 text-2xl font-semibold tracking-tight">Get new articles as they publish</h3>
+          <p class="mt-2 text-white/70 reading">
+            Short editorial notes, new dossiers, and updated references—built for institutional partners and researchers.
+          </p>
+        </div>
+        <div class="md:col-span-5">
+          <!-- Replace action with your newsletter endpoint (Mailchimp, ConvertKit, etc.) -->
+          <form class="flex flex-col sm:flex-row gap-3" action="#" method="post">
+            <input
+              type="email"
+              name="email"
+              placeholder="Email address"
+              class="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white placeholder:text-white/40 outline-none focus:border-[#d6bc7e]/70"
+              required
+            />
+            <button
+              type="submit"
+              class="rounded-xl bg-[#d6bc7e] px-5 py-3 text-sm font-semibold text-black hover:opacity-95"
+            >
+              Subscribe
+            </button>
+          </form>
+          <p class="mt-3 text-xs text-white/50">No spam. Unsubscribe anytime.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="border-t border-white/10 bg-black/30">
+    <div class="mx-auto max-w-7xl px-6 py-10">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="text-sm text-white/70">
+          © <span id="year"></span> Johann Christian Hasse Foundation • Journal
+        </div>
+        <div class="flex flex-wrap gap-4 text-sm">
+          <a class="text-white/60 hover:text-white" href="#issue">Issue</a>
+          <a class="text-white/60 hover:text-white" href="#references">References</a>
+          <a class="text-white/60 hover:text-white" href="https://c-eco.org" target="_blank" rel="noreferrer">c-eco.org</a>
+        </div>
       </div>
     </div>
   </footer>
 
   <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
+    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
