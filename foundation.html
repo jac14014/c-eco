@@ -5,233 +5,256 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hasse Foundation | Law · Memory · Living Systems</title>
 
-  <!-- Tailwind config must come BEFORE the CDN script -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          colors: { gold: "var(--gold)" }
+          colors: { 
+            gold: "#d6bc7e",
+            stone: { 950: "#0c0a09", 900: "#141210" }
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+          }
         }
       }
     }
   </script>
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    :root { --stone-950: #0c0a09; --gold: #d6bc7e; }
-    body { background-color: var(--stone-950); color: #e7e5e4; font-family: 'Inter', sans-serif; line-height: 1.8; }
-    h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+    :root { --gold: #d6bc7e; }
+    body { 
+      background-color: #0c0a09; 
+      color: #e7e5e4; 
+      overflow-x: hidden;
+      background-image: radial-gradient(circle at 50% -20%, #1c1917 0%, #0c0a09 100%);
+    }
 
-    .reveal { opacity: 0; transform: translateY(20px); transition: all 1s ease-out; }
+    /* Grain effect for texture */
+    body::before {
+      content: "";
+      fixed: top 0 left 0;
+      width: 100vw; height: 100vh;
+      opacity: 0.03;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3C%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      position: fixed; z-index: 9999;
+    }
+
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
     .reveal.active { opacity: 1; transform: translateY(0); }
 
-    .glass-panel { background: rgba(28, 25, 23, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(214, 188, 126, 0.1); }
+    .dropcap::first-letter { 
+      float: left; font-size: 4.5rem; line-height: 0.7; 
+      padding: 0.5rem 0.7rem 0 0; color: var(--gold); 
+      font-family: 'Playfair Display'; font-style: italic;
+    }
 
-    .dropcap::first-letter { float: left; font-size: 3.5rem; line-height: 0.8; padding-right: 0.6rem; color: var(--gold); font-family: 'Playfair Display'; }
+    .gold-gradient-text {
+      background: linear-gradient(to bottom right, #fff 30%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-    .divider-gold { width: 60px; height: 1px; background: var(--gold); margin: 2rem 0; opacity: 0.5; }
-
-    /* small helper for your existing class */
-    .prose-custom p { margin-bottom: 1.25rem; }
-    .prose-custom strong { color:#fff; font-weight:600; }
+    .nav-blur { background: rgba(12, 10, 9, 0.8); backdrop-filter: blur(12px); }
+    
+    .card-hover { transition: all 0.4s ease; border: 1px solid rgba(214, 188, 126, 0.05); }
+    .card-hover:hover { border-color: rgba(214, 188, 126, 0.3); background: rgba(28, 25, 23, 0.4); }
   </style>
 </head>
 
-<body class="selection:bg-gold/30">
+<body class="selection:bg-gold/30 antialiased">
 
-  <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-stone-950/90 backdrop-blur-md">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-
-      <div class="flex items-center gap-4">
-        <!-- Make Σ clickable to english.html -->
-        <a href="english.html" class="inline-flex items-center gap-3 group">
-          <span class="text-gold border border-gold/40 px-2 py-1 text-sm transition-colors group-hover:border-gold/70">Σ</span>
-          <span class="text-[10px] uppercase tracking-[0.3em] font-bold">Hasse Foundation</span>
+  <nav class="fixed top-0 w-full z-50 border-b border-white/5 nav-blur">
+    <div class="max-w-7xl mx-auto px-8 py-5 flex justify-between items-center">
+      <div class="flex items-center gap-6">
+        <a href="english.html" class="flex items-center gap-4 group">
+          <span class="text-gold border border-gold/30 px-3 py-1 text-xs tracking-tighter transition-all group-hover:border-gold group-hover:shadow-[0_0_10px_rgba(214,188,126,0.2)]">Σ</span>
+          <span class="text-[11px] uppercase tracking-[0.4em] font-medium text-stone-300">Hasse Foundation</span>
         </a>
       </div>
 
-      <div class="hidden lg:flex gap-8 text-[9px] uppercase tracking-widest text-stone-500 items-center">
+      <div class="hidden lg:flex gap-10 text-[10px] uppercase tracking-[0.2em] text-stone-500 items-center">
         <a href="#note" class="hover:text-gold transition-colors">Note</a>
         <a href="#feature" class="hover:text-gold transition-colors">Feature</a>
         <a href="#dossier" class="hover:text-gold transition-colors">Dossier</a>
         <a href="#ceco" class="hover:text-gold transition-colors">c-ECO</a>
-
-        <!-- Return link -->
-        <a href="english.html" class="ml-2 border border-white/10 hover:border-gold/50 px-4 py-2 text-[9px] uppercase tracking-widest text-stone-500 hover:text-gold transition-all">
-          Return to c-ECO Portal
+        <a href="english.html" class="ml-4 border border-white/10 hover:border-gold/50 px-5 py-2 hover:text-gold transition-all duration-500 rounded-sm">
+          Return to Portal
         </a>
       </div>
-
     </div>
   </nav>
 
-  <header class="min-h-screen flex items-center justify-center text-center px-6">
-    <div class="max-w-4xl reveal">
-      <h1 class="text-6xl md:text-8xl mb-8 leading-tight">Time is <span class="italic text-gold">life</span> as memory.</h1>
-      <p class="text-stone-500 uppercase tracking-[0.4em] text-[10px]">Johann Christian Hasse Foundation</p>
+  <header class="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(214,188,126,0.05),transparent_70%)]"></div>
+    <div class="max-w-5xl text-center reveal">
+      <h1 class="text-6xl md:text-9xl mb-10 leading-[1.1] font-serif gold-gradient-text">
+        Time is <span class="italic font-normal">life</span> <br>as memory.
+      </h1>
+      <div class="flex items-center justify-center gap-4">
+        <div class="w-12 h-[1px] bg-gold/30"></div>
+        <p class="text-stone-500 uppercase tracking-[0.5em] text-[11px] font-light">Johann Christian Hasse Foundation</p>
+        <div class="w-12 h-[1px] bg-gold/30"></div>
+      </div>
     </div>
   </header>
 
-  <main class="max-w-6xl mx-auto px-6 space-y-48 pb-48">
+  <main class="max-w-6xl mx-auto px-8 space-y-64 pb-64">
 
     <section id="note" class="reveal">
-      <div class="grid lg:grid-cols-12 gap-12">
-        <div class="lg:col-span-4 italic text-gold serif text-2xl">"Because time remembers. And what we build now will remain."</div>
-        <div class="lg:col-span-8 prose-custom text-stone-400">
-          <p class="dropcap mb-6">In 2014, a realization emerged—not as theory, but as lived understanding: <strong>time is life as memory.</strong> Time is not an external container in which events occur. It is the way life records itself. It is continuity, inscription, and consequence.</p>
+      <div class="grid lg:grid-cols-12 gap-16 items-start">
+        <div class="lg:col-span-5 sticky top-32">
+          <h2 class="italic text-gold font-serif text-3xl md:text-4xl leading-relaxed">
+            "Because time remembers. <br>And what we build now will remain."
+          </h2>
+        </div>
+        <div class="lg:col-span-7 text-stone-400 font-light text-lg leading-relaxed space-y-8">
+          <p class="dropcap">In 2014, a realization emerged—not as theory, but as lived understanding: <strong>time is life as memory.</strong> Time is not an external container in which events occur. It is the way life records itself. It is continuity, inscription, and consequence.</p>
           <p>Every action leaves a trace. Every structure carries history. Nothing that truly matters is reversible.</p>
-
-          <p>That insight did not arise from books or institutions. It arose from experience—through the body, through territory, through the slow recognition that life is shaped not by isolated moments, but by what endures, accumulates, and binds. Only later did language catch up. Only later did philosophy, law, and systems theory provide names for what had already been lived.</p>
-
-            <p>This understanding reframes responsibility. If time is memory, then every decision participates in the future. Law, in this light, cannot be merely reactive. It must be architectural. It must be capable of holding continuity, preventing irreversibility, and preserving the conditions that allow life—human and non-human—to persist.</p>
-
-<p>The Hasse Foundation stands within a lineage that understood this long before the present moment demanded it. Across generations, its figures approached the same intuition from different domains:
-philosophy and theology, science and medicine, law and institutional design, urbanism and ecology.</p>
-
-<p>They understood that institutions are not inert.</p>
-<p>That systems are living structures.</p>
-<p>That order, when designed with rigor and care, can protect life across time.</p>
-
-<p>Yet history also reveals the limits of reason and the cost of ignoring those limits. Tragedy, collapse, displacement, and ecological constraint are part of this lineage’s memory as well. They are not failures to be erased, but lessons inscribed in time.</p>
-
-<p>This Foundation exists to hold that memory.</p>
-
-<p>It exists to support work that refuses immediacy in favor of continuity.
-That treats law as a structure of responsibility rather than control.
-That understands ecology not as an external concern, but as an ontological condition.
-That recognizes time as the deepest system of all.</p>
-
-<p>The c-ECO Doctrine is one expression of this inheritance—not as culmination, but as translation. It brings into legal form what life has always known: that systems endure, that damage accumulates, and that care must precede harm.</p>
-
-<p>This publication is not an archive of the past. It is a commitment to the future.</p>
-
-          <p>Because time remembers.
-And what we build now will remain.</p>
+          <p>That insight did not arise from books or institutions. It arose from experience—through the body, through territory, through the slow recognition that life is shaped not by isolated moments, but by what endures, accumulates, and binds.</p>
+          <p>The Hasse Foundation stands within a lineage that understood this long before the present moment demanded it. Across generations, its figures approached the same intuition from different domains.</p>
+          <div class="border-l border-gold/20 pl-8 py-4 space-y-4 italic text-stone-300">
+            <p>They understood that institutions are not inert.</p>
+            <p>That systems are living structures.</p>
+            <p>That order, when designed with rigor and care, can protect life across time.</p>
+          </div>
+          <p>This publication is not an archive of the past. It is a commitment to the future.</p>
         </div>
       </div>
     </section>
 
-    <section id="feature" class="reveal border-t border-white/10 pt-24">
-      <span class="text-gold uppercase tracking-widest text-[10px] block mb-8">Feature Story</span>
-      <h2 class="text-5xl mb-16">Institutions Are <span class="italic">Living Structures</span></h2>
-      <div class="grid md:grid-cols-2 gap-16 text-stone-400">
-        <div class="space-y-6">
-          <p>Institutions are often treated as static objects: buildings, statutes, procedures, offices, titles. Law schools teach them as architectures of competence; political theory frames them as instruments of authority; economics reduces them to incentive containers. But this view misses their most decisive characteristic.</p>
-
-        <p>Institutions are not inert.
-They live.</p>
-
-        <p>They persist through time, accumulate memory, respond unevenly to pressure, resist change, adapt slowly, and—under certain conditions—collapse irreversibly. Like living systems, institutions carry histories within their structure. They remember what they were designed to do, even when actors forget. And they constrain what can be done long after their original authors are gone.</p>
-
-          <p>To understand institutions merely as rules is to misunderstand their nature. Rules can be amended overnight. Institutions cannot. They metabolize change.</p>
-
-          <p>This is why institutional failure is rarely sudden. It is preceded by long periods of internal stress, distortion, delay, and denial—signals that are visible only when one understands institutions as temporal organisms rather than mechanical devices.</p>
-          <div class="divider-gold"></div>
-          <h3 class="text-white serif text-2xl mb-4">Law as Temporal Architecture</h3>
-          <p> Within the German intellectual tradition of the late eighteenth and early nineteenth centuries, this insight was already present, though rarely articulated in contemporary terms. Jurists such as Friedrich Carl von Savigny and Johann Christian Hasse did not conceive law as an instantaneous command backed by force. Law, for them, was a historical structure—a framework that allowed social life to flow through time with order, continuity, and intelligibility. </p>
-
-<p> Savigny’s historical jurisprudence insisted that law emerges organically from the life of a people (Volksgeist), not from abstract rational design detached from history. Hasse, working within this same intellectual atmosphere, translated that insight into institutional form. As a professor and later Rector of the University of Bonn, he understood that legal institutions were not neutral containers of action. They were formative structures, shaping conduct over generations. </p>
-
-<p> The jurist, in this view, was not merely an interpreter of norms, but a constructor of temporal frames—someone responsible for designing legal forms capable of enduring without suffocating life itself. </p>
-
-<p> This conception implies a profound responsibility: if institutions live through time, then bad institutional design does not merely fail—it harms future generations by locking them into rigid trajectories they did not choose. </p>
-          <div class="divider-gold"></div>
-          <h3 class="text-white serif text-2xl mb-4">Why This Still Matters</h3>
-          <p>Modern legal systems, especially in the context of ecological and technological risk, continue to operate as if institutions were neutral tools and contracts were isolated acts. They are not.</p>
-          <p>Every institution carries memory. Every contract creates trajectory. Every system accumulates pressure.</p>
-          <p>The failure to recognize institutions as living structures explains why law so often intervenes too late—after harm has become irreversible, after futures have been foreclosed.</p>
-          <p>This is the unresolved gap the Hasse Foundation exists to explore.</p>
-          <p>Not nostalgia. Not genealogy for prestige. But continuity of method: thinking law, institutions, and systems as temporal, living architectures that must be designed with care for life—human and non-human—across time.</p>
+    <section id="feature" class="reveal relative">
+      <div class="absolute -left-12 top-0 text-[12rem] font-serif text-white/[0.02] select-none pointer-events-none">01</div>
+      <div class="border-t border-white/10 pt-24">
+        <span class="text-gold uppercase tracking-[0.3em] text-[11px] font-bold block mb-10">Feature Story</span>
+        <h2 class="text-5xl md:text-7xl mb-20 font-serif leading-tight">Institutions Are <br><span class="italic text-stone-200">Living Structures</span></h2>
+        
+        <div class="grid md:grid-cols-2 gap-20 text-stone-400 font-light leading-relaxed">
+          <div class="space-y-8">
+            <p>Institutions are often treated as static objects. But this view misses their most decisive characteristic. <span class="text-white">Institutions are not inert. They live.</span></p>
+            <p>They persist through time, accumulate memory, and—under certain conditions—collapse irreversibly. Like living systems, institutions carry histories within their structure.</p>
+            <div class="h-[1px] w-24 bg-gold/40 my-12"></div>
+            <h3 class="text-white font-serif text-3xl italic">Law as Temporal Architecture</h3>
+            <p>Jurists such as Friedrich Carl von Savigny and Johann Christian Hasse did not conceive law as an instantaneous command. Law was a historical structure—a framework for order and intelligibility.</p>
+          </div>
+          <div class="space-y-8 md:pt-24">
+            <p>This conception implies a profound responsibility: if institutions live through time, then bad institutional design does not merely fail—it harms future generations by locking them into rigid trajectories.</p>
+            <div class="bg-stone-900/30 p-8 border-l-2 border-gold/30">
+                <p class="text-white italic">"The jurist is not merely an interpreter, but a constructor of temporal frames."</p>
+            </div>
+            <p>The failure to recognize institutions as living structures explains why law so often intervenes too late—after harm has become irreversible.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="dossier" class="reveal bg-stone-900/40 p-12 md:p-24 rounded-sm border border-white/5">
-      <h2 class="text-4xl mb-16 text-center italic text-white">A Family of Thought: <br><span class="text-gold">Kiel to the Amazon</span></h2>
-      <div class="space-y-24">
-        <div class="flex flex-col md:flex-row gap-12">
-          <div class="md:w-1/3 text-gold uppercase tracking-widest text-[10px] font-bold border-l-2 border-gold/50 pl-6">
+    <section id="dossier" class="reveal relative overflow-hidden bg-stone-900/40 p-12 md:p-32 rounded-sm border border-white/5 shadow-2xl">
+      <div class="absolute top-0 right-0 w-64 h-64 bg-gold/5 blur-[100px]"></div>
+      <h2 class="text-4xl md:text-6xl mb-24 text-center font-serif leading-tight text-white">A Family of Thought: <br><span class="text-gold italic font-normal">Kiel to the Amazon</span></h2>
+      
+      <div class="grid gap-16">
+        <div class="group grid md:grid-cols-12 gap-8 items-start card-hover p-8 rounded">
+          <div class="md:col-span-4 text-gold uppercase tracking-widest text-[11px] font-bold pt-2">
             Kiel: Origin & <br>Public Governance
           </div>
-          <div class="md:w-2/3 text-stone-400 prose-custom">
-            <p><strong>Andreas Weber</strong> and <strong>Georg Heinrich Weber</strong> were not merely theorists; they served as <strong>Rectors of the University of Kiel</strong> and as distinguished <strong>public administrators</strong>. In these leadership roles, they transformed rationalism into early systems biology. They understood that nature imposes biological and systemic limits that cannot be legislated away—integrating scientific discipline directly into the heart of state administration.</p>
+          <div class="md:col-span-8 text-stone-400 leading-relaxed group-hover:text-stone-200 transition-colors">
+            <p><strong class="text-white">Andreas & Georg Heinrich Weber</strong> transformed rationalism into early systems biology. They understood that nature imposes biological limits that cannot be legislated away.</p>
           </div>
         </div>
 
-        <div class="flex flex-col md:flex-row gap-12">
-          <div class="md:w-1/3 text-gold uppercase tracking-widest text-[10px] font-bold border-l-2 border-gold/50 pl-6">
+        <div class="group grid md:grid-cols-12 gap-8 items-start card-hover p-8 rounded">
+          <div class="md:col-span-4 text-gold uppercase tracking-widest text-[11px] font-bold pt-2">
             Bonn: Juridical <br>Architecture
           </div>
-          <div class="md:w-2/3 text-stone-400 prose-custom">
-            <p><strong>Johann Christian Hasse</strong>, also a <strong>Rector of the University of Bonn</strong>, translated this systemic legacy into the legal realm. He conceived law as a temporal architecture, framing the jurist not merely as an interpreter of norms, but as a designer of institutional durability. His leadership at Bonn structured the technical frameworks of 'culpa' and 'actio', ensuring the legal system's logical coherence and historical grounding, and solidified the responsibility of the law toward the future shape of society.</p>
+          <div class="md:col-span-8 text-stone-400 leading-relaxed group-hover:text-stone-200 transition-colors">
+            <p><strong class="text-white">Johann Christian Hasse</strong> translated this legacy into law. He conceived the jurist as a designer of institutional durability, framing the technical concepts of 'culpa' and 'actio'.</p>
           </div>
         </div>
 
-        <div class="flex flex-col md:flex-row gap-12">
-          <div class="md:w-1/3 text-gold uppercase tracking-widest text-[10px] font-bold border-l-2 border-gold/50 pl-6">
+        <div class="group grid md:grid-cols-12 gap-8 items-start card-hover p-8 rounded">
+          <div class="md:col-span-4 text-gold uppercase tracking-widest text-[11px] font-bold pt-2">
             Belém: Territory <br>& Execution
           </div>
-          <div class="md:w-2/3 text-stone-400 prose-custom">
-            <p><strong>Eduard Hass</strong> carried this legacy of rectors and administrators into the Amazon. In Belém, systemic thought ceased to be academic and became physical infrastructure. Botany was deployed as public health, and engineering was submitted to climate. The administrative rigor inherited from Kiel and Bonn became the literal shade that protects the citizens of the Amazon to this day.</p>
+          <div class="md:col-span-8 text-stone-400 leading-relaxed group-hover:text-stone-200 transition-colors">
+            <p><strong class="text-white">Eduard Hass</strong> carried this into the Amazon. Botany was deployed as public health, and engineering was submitted to climate—the literal shade that protects citizens today.</p>
           </div>
         </div>
       </div>
     </section>
 
-
-    <section id="ceco" class="reveal max-w-4xl mx-auto text-center border-y border-gold/10 py-32">
-      <span class="text-gold uppercase tracking-widest text-[10px] block mb-8">Column: 2014</span>
-      <h2 class="text-5xl mb-12 italic">The Birth of c-ΣCO</h2>
-      <p class="text-stone-300 text-xl serif leading-relaxed mb-8 italic">"Time is not something that passes outside of us. Time is what remains inside of us."</p>
-      <div class="text-stone-400 text-left space-y-6 columns-1 md:columns-2 gap-12">
+    <section id="ceco" class="reveal max-w-4xl mx-auto text-center py-20">
+      <div class="inline-block px-4 py-1 border border-gold/20 text-gold text-[10px] tracking-[0.5em] uppercase mb-12">Column: 2014</div>
+      <h2 class="text-5xl md:text-7xl mb-12 font-serif italic text-stone-100">The Birth of c-ΣCO</h2>
+      <p class="text-stone-300 text-2xl md:text-3xl font-serif leading-relaxed mb-16 italic opacity-80">
+        "Time is not something that passes outside of us. Time is what remains inside of us."
+      </p>
+      <div class="grid md:grid-cols-2 gap-12 text-left text-stone-400 text-sm leading-loose tracking-wide">
         <p>Responsibility could no longer be understood as a moral posture. It became a structural obligation toward the future, grounded in the fact that systems remember what we do to them.</p>
         <p>c-ΣCO begins where denial ends. It insists that every legal act participates in the construction of the future’s memory. It is realism at planetary scale.</p>
       </div>
     </section>
 
-    <section class="reveal grid md:grid-cols-3 gap-12 border-t border-white/5 pt-24">
-      <div>
-        <h3 class="text-gold uppercase tracking-widest text-[10px] font-bold mb-6">Research</h3>
-        <p class="text-stone-500 text-sm">Integrating ecological and temporal dimensions into governance frameworks. Reality as process, not snapshot.</p>
+    <section class="reveal grid md:grid-cols-3 gap-16 border-t border-white/5 pt-32">
+      <div class="space-y-6">
+        <div class="w-8 h-[1px] bg-gold"></div>
+        <h3 class="text-gold uppercase tracking-widest text-[11px] font-bold">Research</h3>
+        <p class="text-stone-500 text-sm leading-relaxed">Integrating ecological and temporal dimensions into governance frameworks. Reality as process, not snapshot.</p>
       </div>
-      <div>
-        <h3 class="text-gold uppercase tracking-widest text-[10px] font-bold mb-6">Writing</h3>
-        <p class="text-stone-500 text-sm">Supporting texts meant to remain meaningful across time, resisting passing intellectual trends.</p>
+      <div class="space-y-6">
+        <div class="w-8 h-[1px] bg-gold"></div>
+        <h3 class="text-gold uppercase tracking-widest text-[11px] font-bold">Writing</h3>
+        <p class="text-stone-500 text-sm leading-relaxed">Supporting texts meant to remain meaningful across time, resisting passing intellectual trends.</p>
       </div>
-      <div>
-        <h3 class="text-gold uppercase tracking-widest text-[10px] font-bold mb-6">Memory</h3>
-        <p class="text-stone-500 text-sm">Translating territorial and institutional memory into structures capable of guiding future action.</p>
+      <div class="space-y-6">
+        <div class="w-8 h-[1px] bg-gold"></div>
+        <h3 class="text-gold uppercase tracking-widest text-[11px] font-bold">Memory</h3>
+        <p class="text-stone-500 text-sm leading-relaxed">Translating territorial and institutional memory into structures capable of guiding future action.</p>
       </div>
     </section>
 
   </main>
 
-  <footer class="bg-stone-900/50 py-24 px-6 text-center border-t border-white/5">
-    <div class="max-w-2xl mx-auto space-y-8">
-      <p class="text-gold serif italic text-xl">Time is life as memory.</p>
+  <footer class="relative bg-stone-900/80 py-32 px-8 text-center border-t border-white/5 overflow-hidden">
+    <div class="max-w-3xl mx-auto relative z-10 space-y-12">
+      <p class="text-gold font-serif italic text-2xl md:text-3xl">Time is life as memory.</p>
 
-      <p class="text-stone-500 text-xs tracking-widest uppercase">
-        <a class="hover:text-gold transition-colors" href="mailto:contact@hassefoundation.org">contact@c-eco.org</a>
-      </p>
+      <div class="space-y-4">
+        <p class="text-stone-500 text-[10px] tracking-[0.4em] uppercase">Connect</p>
+        <a class="text-white text-lg hover:text-gold transition-all duration-300 underline underline-offset-8 decoration-gold/20 hover:decoration-gold/100" href="mailto:contact@c-eco.org">contact@c-eco.org</a>
+      </div>
 
-      <div class="pt-6">
-        <a href="english.html" class="text-[9px] text-stone-600 uppercase tracking-widest hover:text-gold transition-colors border-b border-white/10 hover:border-gold/40 pb-1">
-          Return to c-ECO Portal
+      <div class="pt-12">
+        <a href="english.html" class="group inline-flex flex-col items-center">
+          <span class="text-[10px] text-stone-500 uppercase tracking-widest transition-colors group-hover:text-gold">Return to c-ECO Portal</span>
+          <div class="w-0 h-[1px] bg-gold transition-all duration-500 group-hover:w-full mt-1"></div>
         </a>
       </div>
 
-      <div class="pt-12 text-[9px] text-stone-700 uppercase tracking-widest">© 2026 Johann Christian Hasse Foundation</div>
+      <div class="pt-20 text-[10px] text-stone-700 uppercase tracking-[0.3em]">
+        © 2026 Johann Christian Hasse Foundation <br>
+        <span class="mt-2 block opacity-50">All Rights Reserved</span>
+      </div>
     </div>
   </footer>
 
   <script>
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('active');
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
       });
-    }, { threshold: 0.1 });
+    }, observerOptions);
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
