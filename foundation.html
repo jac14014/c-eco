@@ -1,664 +1,755 @@
-<!--
-  Johann Christian Hasse Foundation — Magazine-style page
-  Save as: foundation.html (or c-eco.org/foundation.html)
-
-  NOTES:
-  - This is a single-file layout using Tailwind CDN for speed.
-  - Replace image paths like /assets/foundation/... with your real files.
-  - All text is in English; you can swap sections as your “issues” evolve.
--->
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Johann Christian Hasse Foundation — Journal</title>
-
-  <!-- Tailwind CDN (OK for prototype; for production, compile Tailwind) -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hasse Foundation — Law · Memory · Living Systems</title>
+  <meta name="description" content="The Johann Christian Hasse Foundation: Law, Memory, Living Systems — time as life as memory." />
+  <meta name="keywords" content="Hasse Foundation, Johann Christian Hasse, c-ECO, Law, Memory, Living Systems, systemic thinking, lineage" />
+  <meta name="robots" content="index, follow" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;700;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
-    /* Optional: smoother typography */
-    .reading { text-wrap: pretty; }
+    :root{
+      --bg-main:#09090b;
+      --bg-accent:#18181b;
+      --gold:#d6bc7e;
+      --text:#f4f4f5;
+      --dim:#a1a1aa;
+      --ink:#050505;
+    }
+    body{
+      background: radial-gradient(circle at center, var(--bg-accent) 0%, var(--bg-main) 100%);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      scroll-behavior:smooth;
+    }
+    h1,h2,h3,h4,.brand{ font-family:'Urbanist', sans-serif; }
+    .content-wrapper{ padding-top: 92px; }
+    .hero-glow{
+      background: radial-gradient(circle at 50% 50%, rgba(214,188,126,.06) 0%, transparent 70%);
+    }
+    .glass-card{
+      background: rgba(24,24,27,.62);
+      border: 1px solid rgba(214,188,126,.12);
+      backdrop-filter: blur(10px);
+      transition: all .25s ease;
+    }
+    .glass-card:hover{
+      border-color: rgba(214,188,126,.45);
+      transform: translateY(-3px);
+    }
+    .nav-link{
+      font-size:.72rem;
+      text-transform:uppercase;
+      letter-spacing:.15em;
+      color: var(--dim);
+      transition: all .25s ease;
+    }
+    .nav-link:hover{ color: var(--gold); }
+    .section-tag{
+      font-size:.70rem;
+      font-weight:700;
+      letter-spacing:.30em;
+      color: var(--gold);
+      text-transform:uppercase;
+      margin-bottom:1.2rem;
+      display:block;
+    }
+    .logo-box{
+      width: 34px; height: 34px;
+      border: 1.5px solid var(--gold);
+      display:flex; align-items:center; justify-content:center;
+      font-family:'Urbanist', sans-serif;
+      font-weight: 300;
+      color: var(--gold);
+      border-radius:2px;
+      transition: all .25s ease;
+    }
+    .logo-box:hover{
+      background: var(--gold);
+      color: var(--bg-main);
+    }
+    .text-accent-link{
+      color: var(--gold);
+      text-decoration:none;
+      border-bottom:1px solid transparent;
+      transition:border .25s ease;
+    }
+    .text-accent-link:hover{ border-bottom:1px solid var(--gold); }
+    .pill{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(9,9,11,.55);
+    }
+    .rule{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(214,188,126,.35), transparent);
+    }
+    details[open] .chev { transform: rotate(180deg); }
+    summary::-webkit-details-marker { display:none; }
+    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
   </style>
 </head>
 
-<body class="bg-[#07080a] text-white antialiased">
-  <!-- ========== TOP BAR ========== -->
-  <header class="sticky top-0 z-40 border-b border-white/10 bg-black/40 backdrop-blur">
-    <div class="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between gap-4">
-      <div class="flex items-center gap-3">
-        <!-- Replace with your logo SVG or image -->
-        <div class="h-9 w-9 rounded-lg border border-white/10 bg-white/5 grid place-items-center">
-          <span class="text-[11px] font-bold tracking-[0.2em] text-[#d6bc7e]">JCH</span>
-        </div>
-        <div class="leading-tight">
-          <div class="text-sm font-semibold tracking-tight">Johann Christian Hasse Foundation</div>
-          <div class="text-[11px] text-white/60 tracking-[0.25em] uppercase">Journal • Law • Memory • Living Systems</div>
-        </div>
-      </div>
+<body class="selection:bg-yellow-500/30">
 
-      <nav class="hidden md:flex items-center gap-6 text-sm text-white/80">
-        <a href="#issue" class="hover:text-white">Issue</a>
-        <a href="#features" class="hover:text-white">Features</a>
-        <a href="#field-notes" class="hover:text-white">Field Notes</a>
-        <a href="#archives" class="hover:text-white">Archives</a>
-        <a href="#references" class="hover:text-white">References</a>
-      </nav>
+  <!-- NAV -->
+  <nav class="fixed top-0 w-full z-50 px-6 md:px-12 py-5 flex justify-between items-center bg-[#09090b]/95 backdrop-blur-md border-b border-white/5">
+    <div class="flex items-center gap-4">
+      <!-- Σ icon: keep as character (no image) -->
+      <a href="index.html" class="logo-box" aria-label="Return to Portal">Σ</a>
 
-      <div class="flex items-center gap-2">
-        <a href="#subscribe"
-           class="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold tracking-wide hover:bg-white/10">
-          Subscribe
+      <div class="flex flex-col">
+        <span class="text-2xl font-bold tracking-tighter text-white brand">Hasse</span>
+        <a href="index.html"
+           class="text-[8px] font-bold tracking-[0.3em] text-[#d6bc7e] uppercase hover:text-white transition">
+          Foundation
         </a>
       </div>
-    </div>
-  </header>
 
-  <!-- ========== HERO / COVER ========== -->
-  <section class="relative overflow-hidden">
-    <!-- background gradients -->
-    <div class="pointer-events-none absolute inset-0">
-      <div class="absolute -top-40 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-[#d6bc7e]/10 blur-3xl"></div>
-      <div class="absolute -bottom-32 right-0 h-[420px] w-[420px] rounded-full bg-white/5 blur-3xl"></div>
+      <span class="hidden md:block text-[10px] font-bold tracking-[0.4em] text-zinc-600 uppercase ml-2 border-l border-white/10 pl-4">
+        Law · Memory · Living Systems
+      </span>
     </div>
 
-    <div class="mx-auto max-w-7xl px-6 pt-12 pb-10">
-      <div class="grid gap-10 lg:grid-cols-12">
-        <!-- Cover left -->
-        <div class="lg:col-span-7">
-          <div class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2">
-            <span class="h-2 w-2 rounded-full bg-[#d6bc7e]"></span>
-            <span class="text-[11px] font-semibold tracking-[0.25em] uppercase text-white/80">FOUNDATION JOURNAL</span>
-          </div>
+    <!-- Mobile quick jump -->
+    <a href="#contact" class="lg:hidden text-[#d6bc7e] logo-box" aria-label="Contact">✉</a>
 
-          <h1 class="mt-5 text-4xl md:text-5xl font-semibold tracking-tight leading-[1.05] reading">
-            A magazine-page for a living institution:
-            <span class="text-[#d6bc7e]">law</span>, memory, and the governance of living systems.
-          </h1>
+    <div class="hidden lg:flex gap-8 items-center">
+      <a href="#editors-note" class="nav-link">Editor’s Note</a>
+      <a href="#feature" class="nav-link">Feature</a>
+      <a href="#dossier" class="nav-link">Dossier</a>
+      <a href="#field-notes" class="nav-link">Field Notes</a>
+      <a href="#column" class="nav-link">Column</a>
+      <a href="#institutional" class="nav-link">Institutional</a>
+      <a href="#contact" class="nav-link">Contact</a>
+      <a href="#subscribe" class="nav-link">Subscription</a>
+    </div>
+  </nav>
 
-          <p class="mt-5 max-w-2xl text-white/70 leading-relaxed reading">
-            The Johann Christian Hasse Foundation is a platform for research, archives, and applied institutional design—
-            linking European intellectual lineages (Weber–Hasse–Puggé) to Amazonian territorial practice (Hass) and to the
-            contemporary c-ECO Doctrine.
-          </p>
+  <div class="content-wrapper">
 
-          <div class="mt-7 flex flex-wrap items-center gap-3 text-sm">
-            <a href="#issue" class="rounded-full bg-[#d6bc7e] px-5 py-2 font-semibold text-black hover:opacity-95">
-              Read the current issue
-            </a>
-            <a href="#references" class="rounded-full border border-white/15 bg-white/5 px-5 py-2 font-semibold hover:bg-white/10">
-              Sources & references
-            </a>
-          </div>
+    <!-- HERO -->
+    <section class="min-h-[92vh] flex flex-col justify-center px-6 md:px-20 lg:px-32 hero-glow">
+      <div class="max-w-6xl">
+        <span class="text-[10px] md:text-xs font-bold tracking-[0.4em] text-[#d6bc7e] uppercase mb-8 block">
+          Johann Christian Hasse Foundation
+        </span>
 
-          <div class="mt-8 grid gap-3 sm:grid-cols-3">
-            <div class="rounded-xl border border-white/10 bg-white/5 p-4">
-              <div class="text-xs font-semibold tracking-[0.25em] uppercase text-white/60">Focus</div>
-              <div class="mt-1 text-sm text-white/85">Ex ante governance • thresholds • institutional memory</div>
+        <h1 class="text-6xl md:text-8xl lg:text-[9.5rem] font-bold mb-10 leading-[0.85] tracking-tighter text-white">
+          Time is <br>
+          <span class="text-[#d6bc7e] italic font-medium">life</span> <br>
+          as memory.
+        </h1>
+
+        <p class="text-lg md:text-xl text-zinc-400 font-light max-w-2xl leading-relaxed mb-10">
+          A living editorial institution at the intersection of law, lineage, territory, and systemic responsibility —
+          translating continuity into structures that endure.
+        </p>
+
+        <div class="flex flex-wrap gap-4">
+          <a href="#editors-note" class="bg-[#d6bc7e] text-[#09090b] px-8 py-4 text-xs font-bold uppercase tracking-widest hover:bg-white transition-colors">
+            Read Editor’s Note
+          </a>
+          <a href="#dossier" class="border border-white/20 text-white px-8 py-4 text-xs font-bold uppercase tracking-widest hover:bg-white/5 transition-colors">
+            Open Dossier
+          </a>
+          <a href="#subscribe" class="border border-[#d6bc7e]/40 text-[#d6bc7e] px-8 py-4 text-xs font-bold uppercase tracking-widest hover:bg-[#d6bc7e]/10 transition-colors">
+            Reader Circle
+          </a>
+        </div>
+
+        <div class="mt-10 flex flex-wrap gap-3 text-[10px] uppercase tracking-[0.35em] text-zinc-600">
+          <span class="pill px-3 py-2">Law</span>
+          <span class="pill px-3 py-2">Memory</span>
+          <span class="pill px-3 py-2">Living Systems</span>
+          <span class="pill px-3 py-2">Lineage</span>
+          <span class="pill px-3 py-2">Territory</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDITOR'S NOTE -->
+    <section id="editors-note" class="py-28 px-8 md:px-24 border-t border-white/5 bg-zinc-950">
+      <div class="max-w-6xl mx-auto grid lg:grid-cols-12 gap-14 items-start">
+
+        <div class="lg:col-span-4">
+          <span class="section-tag">EDITOR’S NOTE</span>
+          <h2 class="text-3xl md:text-4xl font-bold text-white leading-tight">
+            Time Is Life as Memory
+          </h2>
+
+          <div class="mt-8 glass-card p-6 rounded-lg">
+            <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">
+              Why This Foundation Exists
             </div>
-            <div class="rounded-xl border border-white/10 bg-white/5 p-4">
-              <div class="text-xs font-semibold tracking-[0.25em] uppercase text-white/60">Method</div>
-              <div class="mt-1 text-sm text-white/85">Law + science + territory (not siloed disciplines)</div>
-            </div>
-            <div class="rounded-xl border border-white/10 bg-white/5 p-4">
-              <div class="text-xs font-semibold tracking-[0.25em] uppercase text-white/60">Format</div>
-              <div class="mt-1 text-sm text-white/85">Articles • dossiers • field notes • archives</div>
-            </div>
+            <p class="mt-4 text-sm text-zinc-400 leading-relaxed">
+              This Foundation exists because time is not neutral.
+            </p>
+            <div class="mt-6 rule"></div>
+            <p class="mt-6 text-[11px] text-zinc-500 leading-relaxed">
+              An editorial institution: slow, deliberate, long-horizon. Not a platform. Not a campaign.
+            </p>
           </div>
         </div>
 
-        <!-- Cover right: “magazine cover” collage -->
-        <div class="lg:col-span-5">
-          <div class="grid gap-4">
-            <div class="rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
-              <!-- Replace with a historical image collage -->
-              <img
-                src="/assets/foundation/cover-collage.jpg"
-                alt="Cover collage"
-                class="h-[260px] w-full object-cover opacity-90"
-                onerror="this.style.display='none'; this.parentElement.classList.add('grid','place-items-center'); this.parentElement.innerHTML='<div class=&quot;p-8 text-center text-white/60&quot;><div class=&quot;text-sm font-semibold&quot;>Cover Image Placeholder</div><div class=&quot;text-xs mt-2&quot;>Upload a collage: Kiel • Bonn • Belém • Botanical plates</div></div>';"
-              />
+        <div class="lg:col-span-8 space-y-6 text-zinc-300 text-base leading-relaxed">
+          <p>This Foundation exists because time is not neutral.</p>
+
+          <p>
+            In 2014, a realization emerged—not as theory, not as doctrine, and not as academic formulation, but as lived understanding:
+            <strong class="text-white">time is life as memory</strong>. Time is not an external container in which events occur.
+            It is the way life records itself. It is continuity, inscription, and consequence.
+          </p>
+
+          <p>
+            Every action leaves a trace. Every structure carries history. Nothing that truly matters is reversible.
+          </p>
+
+          <div class="p-6 border-l-4 border-[#d6bc7e] bg-black/30 rounded-r-lg">
+            <p class="text-white italic leading-snug">
+              “Time is life as memory.”
+            </p>
+            <p class="mt-2 text-zinc-400 text-sm">
+              Not time as measurement. Time as living continuity.
+            </p>
+          </div>
+
+          <p>
+            That insight did not arise from books or institutions. It arose from experience—through the body, through territory,
+            through the slow recognition that life is shaped not by isolated moments, but by what endures, accumulates, and binds.
+            Only later did language catch up. Only later did philosophy, law, and systems theory provide names for what had already been lived.
+          </p>
+
+          <p>
+            This understanding reframes responsibility. If time is memory, then every decision participates in the future.
+            Law, in this light, cannot be merely reactive. It must be architectural. It must be capable of holding continuity,
+            preventing irreversibility, and preserving the conditions that allow life—human and non-human—to persist.
+          </p>
+
+          <p>
+            This Foundation exists to hold that memory. It exists to support work that refuses immediacy in favor of continuity;
+            that treats law as a structure of responsibility rather than control; that understands ecology not as an external concern,
+            but as an ontological condition; that recognizes time as the deepest system of all.
+          </p>
+
+          <p>
+            The c-ECO Doctrine is one expression of this inheritance—not as culmination, but as translation. It brings into legal form what
+            life has always known: that systems endure, that damage accumulates, and that care must precede harm.
+          </p>
+
+          <p class="text-zinc-200">
+            This publication is not an archive of the past. It is a commitment to the future.
+            <br><span class="text-[#d6bc7e]">Because time remembers. And what we build now will remain.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURE STORY -->
+    <section id="feature" class="py-28 px-8 md:px-24 border-t border-white/5">
+      <div class="max-w-6xl mx-auto">
+        <span class="section-tag">FEATURE STORY</span>
+        <h2 class="text-4xl font-bold text-white mb-10">Institutions Are Living Structures</h2>
+
+        <div class="grid lg:grid-cols-12 gap-10">
+          <div class="lg:col-span-8 space-y-6 text-zinc-300 leading-relaxed">
+            <p>
+              Institutions are often treated as static objects: buildings, statutes, procedures, offices, titles.
+              But this view misses their most decisive characteristic.
+            </p>
+            <p class="text-white font-semibold">Institutions are not inert. They live.</p>
+            <p>
+              They persist through time, accumulate memory, respond unevenly to pressure, resist change, adapt slowly,
+              and—under certain conditions—collapse irreversibly. Like living systems, institutions carry histories within their structure.
+              They remember what they were designed to do, even when actors forget.
+            </p>
+
+            <div class="glass-card p-8 rounded-lg">
+              <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">
+                Law as Temporal Architecture
+              </div>
+              <div class="mt-5 space-y-4 text-sm text-zinc-300 leading-relaxed">
+                <p>
+                  Within the German intellectual tradition of the late eighteenth and early nineteenth centuries,
+                  jurists such as <strong class="text-white">Friedrich Carl von Savigny</strong> and
+                  <strong class="text-white">Johann Christian Hasse</strong> did not conceive law as an instantaneous command backed by force.
+                  Law, for them, was a historical structure—a framework that allowed social life to flow through time with order, continuity,
+                  and intelligibility.
+                </p>
+                <p>
+                  Savigny’s historical jurisprudence insisted that law emerges organically from the life of a people (<em>Volksgeist</em>),
+                  not from abstract rational design detached from history. Hasse—professor and later Rector of the University of Bonn—
+                  worked inside this atmosphere and understood that legal institutions were formative structures, shaping conduct over generations.
+                </p>
+                <p class="text-zinc-200">
+                  The jurist, in this view, is a <strong class="text-white">constructor of temporal frames</strong>:
+                  responsible for designing forms capable of enduring without suffocating life itself.
+                </p>
+              </div>
             </div>
 
-            <div class="grid grid-cols-2 gap-4">
-              <div class="rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
-                <img
-                  src="/assets/foundation/hasse-engraving.jpg"
-                  alt="Johann Christian Hasse"
-                  class="h-[160px] w-full object-cover"
-                  onerror="this.style.display='none'; this.parentElement.classList.add('grid','place-items-center'); this.parentElement.innerHTML='<div class=&quot;p-6 text-center text-white/60&quot;><div class=&quot;text-xs font-semibold tracking-[0.25em] uppercase&quot;>Image</div><div class=&quot;mt-2 text-sm&quot;>Hasse engraving</div></div>';"
-                />
+            <div class="glass-card p-8 rounded-lg">
+              <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">
+                When Systems Become Heavy
               </div>
-              <div class="rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
-                <img
-                  src="/assets/foundation/botanical-plate.jpg"
-                  alt="Botanical plate"
-                  class="h-[160px] w-full object-cover"
-                  onerror="this.style.display='none'; this.parentElement.classList.add('grid','place-items-center'); this.parentElement.innerHTML='<div class=&quot;p-6 text-center text-white/60&quot;><div class=&quot;text-xs font-semibold tracking-[0.25em] uppercase&quot;>Image</div><div class=&quot;mt-2 text-sm&quot;>Botanical illustration</div></div>';"
-                />
-              </div>
+              <p class="mt-5 text-sm text-zinc-300 leading-relaxed">
+                The nineteenth century also revealed the darker side of systemic reasoning. The tragedy of
+                <strong class="text-white">Eduard Puggé</strong> marks a limit point: systems can be coherent and still be cruel.
+                Institutional intelligence without sensitivity to human fragility becomes oppressive.
+              </p>
+            </div>
+          </div>
+
+          <aside class="lg:col-span-4 space-y-4">
+            <div class="glass-card p-7 rounded-lg">
+              <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">Reading Path</div>
+              <ul class="mt-5 text-sm text-zinc-300 space-y-3">
+                <li><a class="text-accent-link" href="#dossier">DOSSIER → From Kiel to the Amazon</a></li>
+                <li><a class="text-accent-link" href="#field-notes">FIELD NOTES → Belém as living proof</a></li>
+                <li><a class="text-accent-link" href="#column">COLUMN → 2014: birth of c-ECO</a></li>
+                <li><a class="text-accent-link" href="#institutional">INSTITUTIONAL → what we support</a></li>
+              </ul>
             </div>
 
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
-              <div class="flex items-center justify-between gap-4">
-                <div>
-                  <div class="text-[11px] font-semibold tracking-[0.25em] uppercase text-white/60">Current Issue</div>
-                  <div class="mt-1 text-lg font-semibold">Issue 01 — Institutions Are Living Structures</div>
-                  <div class="mt-1 text-sm text-white/70">A dossier on law, memory, and ecological governance.</div>
+            <div class="glass-card p-7 rounded-lg">
+              <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">Core Premise</div>
+              <p class="mt-4 text-sm text-zinc-300 leading-relaxed">
+                If systems live through time, then those who design them are responsible for the futures they constrain.
+              </p>
+            </div>
+
+            <!-- Optional image slot -->
+            <div class="p-6 border border-white/10 bg-black/20 rounded-lg">
+              <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-zinc-500">Optional image</div>
+              <div class="mt-4 h-48 rounded bg-zinc-900/60 border border-white/5 flex items-center justify-center text-zinc-600 text-xs">
+                Place image here (e.g., Kiel / Bonn / Belém collage)
+              </div>
+            </div>
+          </aside>
+        </div>
+
+        <div class="mt-14 rule"></div>
+
+        <div class="mt-10 text-zinc-300 leading-relaxed">
+          <h3 class="text-white font-bold text-2xl mb-4">From Theory to Territory</h3>
+          <p>
+            The lineage explored by the Foundation does not remain confined to European lecture halls.
+            Its most radical transformation occurs when systemic thinking leaves the university and enters territory.
+            With <strong class="text-white">Eduard Hass</strong>, systems cease to be theoretical and become climatic, botanical, urban, and irreversible.
+            In Belém do Pará, institutions are streets, trees, drainage systems, public health measures, and botanical choices—
+            felt on the skin of citizens, and still felt today.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DOSSIER -->
+    <section id="dossier" class="py-28 px-8 md:px-24 border-t border-white/5 bg-zinc-950">
+      <div class="max-w-6xl mx-auto">
+        <span class="section-tag">DOSSIER</span>
+        <h2 class="text-4xl font-bold text-white mb-10">A Family of Thought: From Kiel to the Amazon</h2>
+
+        <div class="grid lg:grid-cols-12 gap-10">
+          <div class="lg:col-span-8 space-y-6 text-zinc-300 leading-relaxed">
+            <p>
+              This dossier traces not a genealogy of blood, but a genealogy of method: the refusal to treat law, science, nature,
+              and institutions as isolated domains. What persists is a way of seeing systems as living, temporal, and constrained by limits
+              that precede individual will.
+            </p>
+
+            <div class="glass-card p-8 rounded-lg space-y-5">
+              <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">Kiel</div>
+              <p class="text-sm">
+                Universities were engines of governance and moral formation. Professorship carried public authority; rectorship implied responsibility
+                for the future shape of society. Here emerge systemic coherence, institutional leadership, and respect for living limits.
+              </p>
+            </div>
+
+            <div class="glass-card p-8 rounded-lg space-y-5">
+              <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">Bonn</div>
+              <p class="text-sm">
+                Law as temporal structure: legal forms carry memory forward and constrain futures ethically at the moment of design.
+                The jurist is a designer of durability.
+              </p>
+            </div>
+
+            <div class="glass-card p-8 rounded-lg space-y-5">
+              <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">Rupture</div>
+              <p class="text-sm">
+                Tragedy and the limits of reason: systems can organize life and still exhaust it. Coherence alone does not guarantee mercy.
+              </p>
+            </div>
+
+            <div class="glass-card p-8 rounded-lg space-y-5">
+              <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">Amazon</div>
+              <p class="text-sm">
+                System becomes territory: climate, vegetation, water cycles, disease, and infrastructure. Knowledge becomes irreversible.
+                Institutional memory becomes physical.
+              </p>
+            </div>
+
+            <div class="p-6 border-l-4 border-[#d6bc7e] bg-black/30 rounded-r-lg">
+              <p class="text-white italic text-sm leading-relaxed">
+                “Continuity, not inheritance.”
+              </p>
+              <p class="mt-2 text-zinc-400 text-sm">
+                The Foundation exists to preserve method: institutions as living structures; law as temporal responsibility.
+              </p>
+            </div>
+          </div>
+
+          <aside class="lg:col-span-4 space-y-4">
+            <details class="glass-card rounded-lg">
+              <summary class="cursor-pointer list-none p-6 select-none">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">Dossier Index</div>
+                    <div class="text-white font-semibold mt-2">Key questions</div>
+                    <p class="text-zinc-500 text-xs mt-1 italic">Tap to expand</p>
+                  </div>
+                  <div class="mt-1 text-zinc-300"><span class="inline-block transition-transform duration-200 chev">▾</span></div>
                 </div>
-                <a href="#issue" class="shrink-0 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold hover:bg-white/10">
-                  Open
-                </a>
+              </summary>
+              <div class="px-6 pb-6 pt-2 space-y-3 text-sm text-zinc-300 leading-relaxed">
+                <p>• How does law learn from living systems before collapse?</p>
+                <p>• How does responsibility operate when harm is irreversible?</p>
+                <p>• How does time—understood as living memory—enter legal design?</p>
+              </div>
+            </details>
+
+            <div class="glass-card p-7 rounded-lg">
+              <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">Editorial tone</div>
+              <p class="mt-4 text-sm text-zinc-300 leading-relaxed">
+                Not nostalgia. Not prestige. Continuity of method — translated into forms that endure.
+              </p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- FIELD NOTES -->
+    <section id="field-notes" class="py-28 px-8 md:px-24 border-t border-white/5">
+      <div class="max-w-6xl mx-auto">
+        <span class="section-tag">FIELD NOTES</span>
+        <h2 class="text-4xl font-bold text-white mb-10">Eduard Hass and the Living City of Belém</h2>
+
+        <div class="grid lg:grid-cols-12 gap-10">
+          <div class="lg:col-span-8 space-y-6 text-zinc-300 leading-relaxed">
+            <p>
+              Belém do Pará was not a theoretical laboratory. It was—and remains—a living test of how human systems behave
+              when exposed to extreme climate, dense vegetation, water cycles, disease, and social intensity.
+              In this environment, abstraction collapses quickly. What endures is what works.
+            </p>
+
+            <div class="glass-card p-8 rounded-lg space-y-4">
+              <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">Territory as Constraint</div>
+              <p class="text-sm">
+                Territory was an active force: rivers, mangroves, equatorial heat, seasonal flooding. Hass approached the city as a living organism:
+                streets, squares, trees, drainage, and airflow as interdependent systems.
+              </p>
+            </div>
+
+            <div class="glass-card p-8 rounded-lg space-y-4">
+              <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">Botany as Public Health</div>
+              <p class="text-sm">
+                Botany becomes infrastructure: canopy, evapotranspiration, microclimate. Mango trees were not ornament but prevention.
+                Green space was not leisure; it was survival-grade design.
+              </p>
+            </div>
+
+            <div class="glass-card p-8 rounded-lg space-y-4">
+              <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">Urbanism as Climate Adaptation</div>
+              <p class="text-sm">
+                In places like Praça Batista Campos, layered vegetation and shaded interiors create microclimates that make public life possible.
+                Engineering is inseparable from landscape; architecture submits to climate.
+              </p>
+            </div>
+
+            <div class="p-6 border-l-4 border-[#d6bc7e] bg-black/30 rounded-r-lg">
+              <p class="text-white italic text-sm leading-relaxed">
+                Living memory is knowledge embedded in territory, preserved through use rather than text.
+              </p>
+              <p class="mt-2 text-zinc-400 text-sm">
+                Citizens feel the benefits today — often without knowing the name.
+              </p>
+            </div>
+          </div>
+
+          <aside class="lg:col-span-4 space-y-4">
+            <div class="glass-card p-7 rounded-lg">
+              <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">Key integration</div>
+              <p class="mt-4 text-sm text-zinc-300 leading-relaxed">
+                Territory · Urbanism · Botany · Public Health · Engineering — disciplined execution with long-horizon effects.
+              </p>
+            </div>
+
+            <div class="p-6 border border-white/10 bg-black/20 rounded-lg">
+              <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-zinc-500">Optional image</div>
+              <div class="mt-4 h-48 rounded bg-zinc-900/60 border border-white/5 flex items-center justify-center text-zinc-600 text-xs">
+                Place Belém / Praça Batista Campos image here
               </div>
             </div>
-          </div>
+          </aside>
         </div>
-      </div><!-- grid -->
-    </div>
-  </section>
-
-  <!-- ========== ISSUE INDEX (Magazine table of contents) ========== -->
-  <section id="issue" class="mx-auto max-w-7xl px-6 py-14">
-    <div class="flex items-end justify-between gap-6">
-      <div>
-        <div class="text-[11px] font-bold tracking-[0.4em] uppercase text-[#d6bc7e]">Table of Contents</div>
-        <h2 class="mt-3 text-3xl font-semibold tracking-tight">Issue 01</h2>
-        <p class="mt-2 max-w-2xl text-white/70 reading">
-          A magazine-style editorial layout: feature story, dossier, field notes, and an open references archive.
-        </p>
       </div>
-      <div class="hidden md:flex items-center gap-2 text-xs text-white/60">
-        <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1">Updated: 2026</span>
-        <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1">Open citations</span>
-      </div>
-    </div>
+    </section>
 
-    <div class="mt-10 grid gap-6 lg:grid-cols-12">
-      <!-- Featured article card -->
-      <article class="lg:col-span-7 rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
-        <div class="grid md:grid-cols-5">
-          <div class="md:col-span-2">
-            <img
-              src="/assets/foundation/bonn-campus.jpg"
-              alt="University of Bonn"
-              class="h-full w-full object-cover"
-              onerror="this.style.display='none'; this.parentElement.classList.add('grid','place-items-center'); this.parentElement.innerHTML='<div class=&quot;p-10 text-center text-white/60&quot;>Image placeholder: University of Bonn (historical)</div>';"
-            />
-          </div>
-          <div class="md:col-span-3 p-7">
-            <div class="flex items-center gap-2">
-              <span class="rounded-full bg-[#d6bc7e] px-3 py-1 text-[11px] font-bold tracking-[0.25em] uppercase text-black">Feature</span>
-              <span class="text-[11px] text-white/60">12 min read</span>
-            </div>
-            <h3 class="mt-3 text-2xl font-semibold tracking-tight reading">Institutions Are Living Structures</h3>
-            <p class="mt-3 text-white/70 leading-relaxed reading">
-              From Johann Christian Hasse’s institutional jurisprudence to contemporary ex ante governance:
-              why law cannot be neutral under threshold conditions.
+    <!-- COLUMN -->
+    <section id="column" class="py-28 px-8 md:px-24 border-t border-white/5 bg-zinc-950">
+      <div class="max-w-6xl mx-auto">
+        <span class="section-tag">COLUMN</span>
+        <h2 class="text-4xl font-bold text-white mb-10">From Memory to Doctrine: The Birth of c-ECO (2014)</h2>
+
+        <div class="grid lg:grid-cols-12 gap-10 items-start">
+          <div class="lg:col-span-8 space-y-6 text-zinc-300 leading-relaxed">
+            <p>
+              There are moments when a concept does not arrive as an idea, but as recognition.
+              In 2014, the foundational intuition that would later become the c-ECO Doctrine did not emerge from a legal problem
+              or an academic debate. It emerged as a lived realization about time:
             </p>
-            <a href="#feature-story" class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-[#d6bc7e]">
-              Read feature
-              <span aria-hidden="true">→</span>
-            </a>
-          </div>
-        </div>
-      </article>
 
-      <!-- Right column: smaller cards -->
-      <div class="lg:col-span-5 grid gap-6">
-        <article class="rounded-2xl border border-white/10 bg-white/5 p-7">
-          <div class="flex items-center gap-2">
-            <span class="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-bold tracking-[0.25em] uppercase text-white/80">Dossier</span>
-            <span class="text-[11px] text-white/60">8 min read</span>
-          </div>
-          <h3 class="mt-3 text-xl font-semibold reading">A Family of Thought: Kiel → Bonn → Amazon</h3>
-          <p class="mt-2 text-white/70 leading-relaxed reading">
-            Andreas Weber (Vice-Rector), Georg Heinrich Weber (Rector, Kiel; Botanical Garden), Hasse (Rector, Bonn),
-            Georg Weber (Marx correspondence; North America), and Eduard Hass (Belém).
-          </p>
-          <a href="#dossier" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-[#d6bc7e]">
-            Open dossier <span aria-hidden="true">→</span>
-          </a>
-        </article>
-
-        <article class="rounded-2xl border border-white/10 bg-white/5 p-7">
-          <div class="flex items-center gap-2">
-            <span class="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-bold tracking-[0.25em] uppercase text-white/80">Field Notes</span>
-            <span class="text-[11px] text-white/60">10 min read</span>
-          </div>
-          <h3 class="mt-3 text-xl font-semibold reading">Belém as a Living City: Hass in Practice</h3>
-          <p class="mt-2 text-white/70 leading-relaxed reading">
-            Praça Batista Campos, Praça da República, the Horto Municipal, and the “City of Mango Trees”:
-            urban ecology as governance.
-          </p>
-          <a href="#field-notes" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-[#d6bc7e]">
-            Read field notes <span aria-hidden="true">→</span>
-          </a>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== FEATURE STORY ========== -->
-  <section id="feature-story" class="mx-auto max-w-7xl px-6 py-14">
-    <div class="grid gap-10 lg:grid-cols-12">
-      <div class="lg:col-span-8">
-        <div class="flex items-center gap-2">
-          <span class="rounded-full bg-[#d6bc7e] px-3 py-1 text-[11px] font-bold tracking-[0.25em] uppercase text-black">Feature Story</span>
-          <span class="text-[11px] text-white/60">Institutions • Temporality • Ex ante design</span>
-        </div>
-        <h2 class="mt-4 text-3xl md:text-4xl font-semibold tracking-tight reading">
-          Institutions Are Living Structures
-        </h2>
-        <p class="mt-3 text-white/70 leading-relaxed reading">
-          Johann Christian Hasse understood law not as a reactive apparatus triggered only after harm,
-          but as a temporal and institutional architecture. Courts, doctrines, and universities carry memory,
-          constrain futures, and shape conduct long before damage is visible.
-        </p>
-
-        <div class="mt-8 space-y-6 text-[15px] leading-7 text-white/80 reading">
-          <p>
-            The Foundation is named after Hasse not to build a memorial, but to activate a method:
-            law as structure, responsibility as continuity, and governance as the careful handling of thresholds.
-          </p>
-          <p>
-            This editorial series explores a central idea: under conditions of systemic risk, institutional “neutrality”
-            is itself an intervention. When the window for meaningful intervention is temporal and finite,
-            law must become ex ante—capable of organizing responsibility before irreversibility.
-          </p>
-          <blockquote class="rounded-2xl border border-white/10 bg-white/5 p-6">
-            <p class="text-white/85">
-              “Time is memory. Systems carry history. And law must govern not only actions, but their irreversible consequences.”
-            </p>
-            <div class="mt-3 text-xs text-white/55 tracking-[0.25em] uppercase">Editorial line • Foundation Journal</div>
-          </blockquote>
-        </div>
-      </div>
-
-      <aside class="lg:col-span-4">
-        <div class="rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
-          <img
-            src="/assets/foundation/legal-manuscript.jpg"
-            alt="Legal manuscript"
-            class="h-[260px] w-full object-cover"
-            onerror="this.style.display='none'; this.parentElement.classList.add('grid','place-items-center'); this.parentElement.innerHTML='<div class=&quot;p-10 text-center text-white/60&quot;>Image placeholder: legal manuscript / archive</div>';"
-          />
-          <div class="p-6">
-            <div class="text-[11px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">Sidebar</div>
-            <div class="mt-2 text-sm text-white/70 reading">
-              Add a short “From the Archive” excerpt here (25 words max) once you select a primary source passage.
+            <div class="glass-card p-8 rounded-lg">
+              <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">The insight</div>
+              <p class="mt-5 text-white text-xl font-semibold tracking-tight">
+                Time is life as memory.
+              </p>
+              <p class="mt-3 text-sm text-zinc-400 leading-relaxed">
+                Not time as measurement. Not time as an external container. Time as living continuity.
+              </p>
             </div>
+
+            <p>
+              Memory is not the past. Memory is structure. Bodies remember. Territories remember. Cities remember. Institutions remember.
+              They remember through form, resistance, vulnerability, and constraint. What works persists. What fails leaves scars.
+              What exceeds limits becomes irreversible.
+            </p>
+
+            <p>
+              The conceptual turn was decisive: if time is living memory, then harm is not an event but a process;
+              damage is not an incident but an accumulation; and legality cannot be confined to reactions after collapse.
+              Law must engage before thresholds are crossed—while trajectories are still reversible.
+            </p>
+
+            <p class="text-zinc-200">
+              c-ECO did not invent this reality. It gave it legal form.
+            </p>
+          </div>
+
+          <aside class="lg:col-span-4 space-y-4">
+            <div class="glass-card p-7 rounded-lg">
+              <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">Why it belongs here</div>
+              <p class="mt-4 text-sm text-zinc-300 leading-relaxed">
+                This is the personal origin placed after the reader understands the systemic world — so the story lands as ontology, not biography.
+              </p>
+            </div>
+            <div class="glass-card p-7 rounded-lg">
+              <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">c-ECO axis</div>
+              <p class="mt-4 text-sm text-zinc-300 leading-relaxed">
+                Validity as continuity. Obligation as trajectory. Governance before irreversibility.
+              </p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- INSTITUTIONAL -->
+    <section id="institutional" class="py-28 px-8 md:px-24 border-t border-white/5">
+      <div class="max-w-6xl mx-auto">
+        <span class="section-tag">INSTITUTIONAL</span>
+        <h2 class="text-4xl font-bold text-white mb-10">What the Hasse Foundation Supports</h2>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="glass-card p-10 rounded-lg">
+            <div class="w-12 h-[1px] bg-[#d6bc7e] mb-6"></div>
+            <h3 class="text-white font-bold mb-4 uppercase text-xs tracking-widest">Research</h3>
+            <p class="text-sm text-zinc-400 leading-relaxed">
+              Systemic inquiry where law, ecology, history, science, and institutional design intersect —
+              thresholds, irreversibility, long-term risk, and ex ante responsibility.
+            </p>
+          </div>
+
+          <div class="glass-card p-10 rounded-lg">
+            <div class="w-12 h-[1px] bg-[#d6bc7e] mb-6"></div>
+            <h3 class="text-white font-bold mb-4 uppercase text-xs tracking-widest">Writing</h3>
+            <p class="text-sm text-zinc-400 leading-relaxed">
+              Long-form intellectual production aimed at durability: essays, books, doctrinal development,
+              interdisciplinary texts that resist fragmentation and passing trends.
+            </p>
+          </div>
+
+          <div class="glass-card p-10 rounded-lg">
+            <div class="w-12 h-[1px] bg-[#d6bc7e] mb-6"></div>
+            <h3 class="text-white font-bold mb-4 uppercase text-xs tracking-widest">Systemic & Legal Thought</h3>
+            <p class="text-sm text-zinc-400 leading-relaxed">
+              Law as architecture, institutions as living structures, ecological constraints as conditions of legality,
+              and responsibility as continuity across time.
+            </p>
+          </div>
+
+          <div class="glass-card p-10 rounded-lg">
+            <div class="w-12 h-[1px] bg-[#d6bc7e] mb-6"></div>
+            <h3 class="text-white font-bold mb-4 uppercase text-xs tracking-widest">Living Memory</h3>
+            <p class="text-sm text-zinc-400 leading-relaxed">
+              Memory as embodied experience, territorial knowledge, institutional continuity, and transmission across generations —
+              translating insight into structures capable of guiding future action.
+            </p>
           </div>
         </div>
 
-        <div class="mt-6 rounded-2xl border border-white/10 bg-white/5 p-6">
-          <div class="text-[11px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">In this issue</div>
-          <ul class="mt-3 space-y-2 text-sm text-white/75">
-            <li>• Hasse and institutional temporality</li>
-            <li>• Puggé and the limits of reason</li>
-            <li>• Georg Weber: medicine, politics, North America</li>
-            <li>• Hass: Belém as a living city</li>
+        <div class="mt-12 glass-card p-10 rounded-lg">
+          <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">What we do not support</div>
+          <ul class="mt-6 space-y-2 text-sm text-zinc-300 list-disc pl-5">
+            <li>Extractive or purely instrumental uses of knowledge.</li>
+            <li>Short-term compliance theater without structural impact.</li>
+            <li>Projects detached from responsibility for consequences.</li>
+            <li>Initiatives that treat law, nature, or institutions as isolated domains.</li>
           </ul>
-        </div>
-      </aside>
-    </div>
-  </section>
-
-  <!-- ========== DOSSIER ========== -->
-  <section id="dossier" class="mx-auto max-w-7xl px-6 py-14">
-    <div class="flex items-start justify-between gap-6">
-      <div>
-        <div class="text-[11px] font-bold tracking-[0.4em] uppercase text-[#d6bc7e]">Dossier</div>
-        <h2 class="mt-3 text-3xl font-semibold tracking-tight">A Family of Thought</h2>
-        <p class="mt-2 max-w-3xl text-white/70 reading">
-          A lineage of method (not prestige): systems thinking, institutional leadership, and the translation of living constraints into governance.
-        </p>
-      </div>
-    </div>
-
-    <div class="mt-10 grid gap-6 lg:grid-cols-12">
-      <!-- Timeline / cards -->
-      <div class="lg:col-span-8 grid gap-6">
-        <div class="rounded-2xl border border-white/10 bg-white/5 p-7">
-          <h3 class="text-xl font-semibold">Andreas Weber (1718–1781)</h3>
-          <p class="mt-2 text-white/75 reading">
-            Philosopher and theologian; university governance including Vice-Rector roles. A rational cosmology where coherence and limits precede choice.
-          </p>
-        </div>
-
-        <div class="rounded-2xl border border-white/10 bg-white/5 p-7">
-          <h3 class="text-xl font-semibold">Georg Heinrich Weber (1752–1828)</h3>
-          <p class="mt-2 text-white/75 reading">
-            Physician and botanist; professor and Rector at the University of Kiel; founder of hospital infrastructure and the Botanical Garden. Living systems as networks.
-          </p>
-        </div>
-
-        <div class="rounded-2xl border border-white/10 bg-white/5 p-7">
-          <h3 class="text-xl font-semibold">Johann Christian Hasse (1779–1830)</h3>
-          <p class="mt-2 text-white/75 reading">
-            Jurist; professor and Rector at the University of Bonn; law as institutional architecture operating through time—ex ante responsibility.
-          </p>
-        </div>
-
-        <div class="rounded-2xl border border-white/10 bg-white/5 p-7">
-          <h3 class="text-xl font-semibold">Peter Gottlieb Eduard Puggé (1802–1836)</h3>
-          <p class="mt-2 text-white/75 reading">
-            Historical School of Law; professor of Karl Marx; tragedy and the limits of reason: systems exert pressure and can overwhelm.
-          </p>
-        </div>
-
-        <div class="rounded-2xl border border-white/10 bg-white/5 p-7">
-          <h3 class="text-xl font-semibold">Georg Weber (1818–1891)</h3>
-          <p class="mt-2 text-white/75 reading">
-            Physician; political engagement and correspondence with Marx; transatlantic period in North America; structures can oppress, fracture, or collapse.
-          </p>
-        </div>
-
-        <div class="rounded-2xl border border-white/10 bg-white/5 p-7">
-          <h3 class="text-xl font-semibold">Eduard Hass (moved to Brazil at 26; died at 36)</h3>
-          <p class="mt-2 text-white/75 reading">
-            Technical practitioner rather than professor: carried systemic intelligence into Amazonian territory and died young from tuberculosis contracted in the course of work.
+          <p class="mt-6 text-sm text-zinc-400 leading-relaxed">
+            The Foundation operates on a long horizon: slow maturation, independence, and continuity.
           </p>
         </div>
       </div>
+    </section>
 
-      <!-- Image rail -->
-      <div class="lg:col-span-4 space-y-6">
-        <div class="rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
-          <img src="/assets/foundation/kiel.jpg" alt="Kiel" class="h-[180px] w-full object-cover"
-               onerror="this.style.display='none'; this.parentElement.classList.add('grid','place-items-center'); this.parentElement.innerHTML='<div class=&quot;p-10 text-center text-white/60&quot;>Image placeholder: Kiel</div>';" />
-        </div>
-        <div class="rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
-          <img src="/assets/foundation/botanical-garden-kiel.jpg" alt="Botanical Garden Kiel" class="h-[180px] w-full object-cover"
-               onerror="this.style.display='none'; this.parentElement.classList.add('grid','place-items-center'); this.parentElement.innerHTML='<div class=&quot;p-10 text-center text-white/60&quot;>Image placeholder: Botanical Garden (Kiel)</div>';" />
-        </div>
-        <div class="rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
-          <img src="/assets/foundation/belem.jpg" alt="Belém" class="h-[180px] w-full object-cover"
-               onerror="this.style.display='none'; this.parentElement.classList.add('grid','place-items-center'); this.parentElement.innerHTML='<div class=&quot;p-10 text-center text-white/60&quot;>Image placeholder: Belém (Belle Époque)</div>';" />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== FIELD NOTES (Belém / Hass) ========== -->
-  <section id="field-notes" class="mx-auto max-w-7xl px-6 py-14">
-    <div class="flex items-start justify-between gap-6">
-      <div>
-        <div class="text-[11px] font-bold tracking-[0.4em] uppercase text-[#d6bc7e]">Field Notes</div>
-        <h2 class="mt-3 text-3xl font-semibold tracking-tight">Belém as a Living City</h2>
-        <p class="mt-2 max-w-3xl text-white/70 reading">
-          Hass’s work demonstrates urban ecology as governance: trees, water, and shade as living infrastructure.
-        </p>
-      </div>
-    </div>
-
-    <div class="mt-10 grid gap-6 lg:grid-cols-12">
-      <article class="lg:col-span-7 rounded-2xl border border-white/10 bg-white/5 p-7">
-        <h3 class="text-2xl font-semibold reading">Praça Batista Campos — the Garden City in practice</h3>
-        <p class="mt-3 text-white/75 leading-relaxed reading">
-          Hass turned the former “Praça Sergipe” into the celebrated Praça Batista Campos by applying an English Garden style:
-          organic paths, water circulation, canopy-driven microclimates, and cast-iron civic elements integrated into a living system.
-        </p>
-        <ul class="mt-5 space-y-2 text-sm text-white/75">
-          <li>• Organic landscapes: winding paths, artificial lakes, rustic bridges (rocaille technique)</li>
-          <li>• Microclimate: dense canopies to lower local temperatures</li>
-          <li>• Hydraulic design: connected streams and fountains shaping sound and humidity</li>
-          <li>• Industrial art: bandstands (coretos), “Chafariz das Sereias,” and the “Castelinho”</li>
-        </ul>
-      </article>
-
-      <div class="lg:col-span-5 grid gap-6">
-        <div class="rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
-          <img src="/assets/foundation/batista-campos.jpg" alt="Praça Batista Campos" class="h-[220px] w-full object-cover"
-               onerror="this.style.display='none'; this.parentElement.classList.add('grid','place-items-center'); this.parentElement.innerHTML='<div class=&quot;p-10 text-center text-white/60&quot;>Image placeholder: Praça Batista Campos</div>';" />
-        </div>
-        <div class="rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
-          <img src="/assets/foundation/mango-avenue.jpg" alt="Belém mango trees" class="h-[220px] w-full object-cover"
-               onerror="this.style.display='none'; this.parentElement.classList.add('grid','place-items-center'); this.parentElement.innerHTML='<div class=&quot;p-10 text-center text-white/60&quot;>Image placeholder: “City of Mango Trees”</div>';" />
-        </div>
-      </div>
-    </div>
-
-    <div class="mt-8 rounded-2xl border border-white/10 bg-white/5 p-7">
-      <h3 class="text-xl font-semibold">Other Hass landmarks</h3>
-      <div class="mt-4 grid gap-4 md:grid-cols-3">
-        <div class="rounded-xl border border-white/10 bg-black/20 p-4">
-          <div class="text-sm font-semibold">Praça da República</div>
-          <div class="mt-1 text-sm text-white/70">Civic landscape around Theatro da Paz: spatial order + shade.</div>
-        </div>
-        <div class="rounded-xl border border-white/10 bg-black/20 p-4">
-          <div class="text-sm font-semibold">Horto Municipal</div>
-          <div class="mt-1 text-sm text-white/70">Botanical laboratory + nursery for urban arborization.</div>
-        </div>
-        <div class="rounded-xl border border-white/10 bg-black/20 p-4">
-          <div class="text-sm font-semibold">“City of Mango Trees”</div>
-          <div class="mt-1 text-sm text-white/70">Green corridors as thermal regulation infrastructure.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== ARCHIVES (Puggé / Tragedy / Memory) ========== -->
-  <section id="archives" class="mx-auto max-w-7xl px-6 py-14">
-    <div class="flex items-start justify-between gap-6">
-      <div>
-        <div class="text-[11px] font-bold tracking-[0.4em] uppercase text-[#d6bc7e]">Archive</div>
-        <h2 class="mt-3 text-3xl font-semibold tracking-tight">Rupture and the Limits of Reason</h2>
-        <p class="mt-2 max-w-3xl text-white/70 reading">
-          Puggé’s life and death remind us: systems organize life, but they also exert pressure. Memory includes rupture.
-        </p>
-      </div>
-    </div>
-
-    <div class="mt-10 grid gap-6 lg:grid-cols-12">
-      <div class="lg:col-span-5 rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
-        <img src="/assets/foundation/bonn-library.jpg" alt="Bonn library" class="h-full w-full object-cover"
-             onerror="this.style.display='none'; this.parentElement.classList.add('grid','place-items-center'); this.parentElement.innerHTML='<div class=&quot;p-10 text-center text-white/60&quot;>Image placeholder: Bonn library / study</div>';" />
-      </div>
-
-      <div class="lg:col-span-7 rounded-2xl border border-white/10 bg-white/5 p-7">
-        <h3 class="text-2xl font-semibold reading">Puggé (1802–1836): historical law, justice, tragedy</h3>
-        <p class="mt-3 text-white/75 leading-relaxed reading">
-          A representative of the Historical School of Law and professor of Karl Marx, Puggé taught constitutional law,
-          international law, legal philosophy, methodology, and natural law. His sudden death—reported widely—entered the
-          lineage as a signal of irreversibility: not every system can absorb ethical pressure without fracture.
-        </p>
-        <div class="mt-6 rounded-xl border border-white/10 bg-black/20 p-5">
-          <div class="text-xs font-semibold tracking-[0.25em] uppercase text-white/60">Editorial note</div>
-          <p class="mt-2 text-sm text-white/75 reading">
-            Keep quotes short (≤25 words) if you later add excerpts from sources. Link to archives in the References section.
+    <!-- CONTACT -->
+    <section id="contact" class="py-28 px-8 md:px-24 border-t border-white/5 bg-[#050505]">
+      <div class="max-w-6xl mx-auto grid lg:grid-cols-12 gap-10 items-start">
+        <div class="lg:col-span-5">
+          <span class="section-tag">CONTACT & COLLABORATIONS</span>
+          <h2 class="text-4xl font-bold text-white mb-6">Engaging With the Hasse Foundation</h2>
+          <p class="text-zinc-400 leading-relaxed">
+            Collaboration is understood as shared responsibility, not transactional exchange.
+            We engage selectively with individuals and institutions whose work demonstrates rigor,
+            ethical seriousness, and long-horizon commitment.
           </p>
+
+          <div class="mt-10 glass-card p-7 rounded-lg">
+            <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">Contact</div>
+            <a href="mailto:contact@hassefoundation.org"
+               class="block mt-3 text-2xl md:text-3xl text-white hover:text-[#d6bc7e] transition font-bold tracking-tighter">
+              contact@hassefoundation.org
+            </a>
+            <p class="mt-4 text-sm text-zinc-500 leading-relaxed">
+              (or: <a class="text-accent-link" href="mailto:contact@c-eco.org">contact@c-eco.org</a> if you prefer to centralize)
+            </p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7">
+          <div class="glass-card p-10 rounded-lg">
+            <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">Please include</div>
+            <ul class="mt-6 space-y-2 text-sm text-zinc-300 list-disc pl-5">
+              <li>a brief description of your work,</li>
+              <li>its relation to the Foundation’s scope,</li>
+              <li>and why continuity, rather than immediacy, matters to your inquiry.</li>
+            </ul>
+
+            <div class="mt-10 border-t border-white/10 pt-8">
+              <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-zinc-500">We welcome contact from</div>
+              <div class="mt-5 grid sm:grid-cols-2 gap-4 text-sm text-zinc-300">
+                <div class="p-5 border border-white/10 bg-black/20 rounded">
+                  <div class="text-white font-semibold">Scholars & Researchers</div>
+                  <div class="text-zinc-500 text-xs mt-1">law, ecology, systemic risk, institutions</div>
+                </div>
+                <div class="p-5 border border-white/10 bg-black/20 rounded">
+                  <div class="text-white font-semibold">Writers & Thinkers</div>
+                  <div class="text-zinc-500 text-xs mt-1">time, memory, continuity, responsibility</div>
+                </div>
+                <div class="p-5 border border-white/10 bg-black/20 rounded">
+                  <div class="text-white font-semibold">Institutions</div>
+                  <div class="text-zinc-500 text-xs mt-1">universities, centers, foundations</div>
+                </div>
+                <div class="p-5 border border-white/10 bg-black/20 rounded">
+                  <div class="text-white font-semibold">Practitioners</div>
+                  <div class="text-zinc-500 text-xs mt-1">bridging theory and territory</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ========== REFERENCES / LINKS (as requested) ========== -->
-  <section id="references" class="mx-auto max-w-7xl px-6 py-14">
-    <div>
-      <div class="text-[11px] font-bold tracking-[0.4em] uppercase text-[#d6bc7e]">Sources</div>
-      <h2 class="mt-3 text-3xl font-semibold tracking-tight">Links, Archives & References</h2>
-      <p class="mt-2 max-w-3xl text-white/70 reading">
-        Primary archives and institutional sources. Use these links in footnotes, captions, and “read more” blocks.
-      </p>
-    </div>
-
-    <div class="mt-10 grid gap-6 lg:grid-cols-12">
-      <div class="lg:col-span-6 rounded-2xl border border-white/10 bg-white/5 p-7">
-        <h3 class="text-xl font-semibold">Hasse (1779–1830)</h3>
-        <ul class="mt-3 space-y-2 text-sm text-white/75">
-          <li>
-            • Deutsche Biographie (ADB): 
-            <a class="text-[#d6bc7e] hover:underline" href="https://www.deutsche-biographie.de/pnd100352332.html" target="_blank" rel="noreferrer">
-              https://www.deutsche-biographie.de/pnd100352332.html
-            </a>
-          </li>
-          <li>
-            • ADB content section:
-            <a class="text-[#d6bc7e] hover:underline" href="https://www.deutsche-biographie.de/pnd100352332.html#adbcontent" target="_blank" rel="noreferrer">
-              https://www.deutsche-biographie.de/pnd100352332.html#adbcontent
-            </a>
-          </li>
-          <li>
-            • CAU Kiel Scholars Archive (example):
-            <a class="text-[#d6bc7e] hover:underline" href="https://cau.gelehrtenverzeichnis.de/" target="_blank" rel="noreferrer">
-              https://cau.gelehrtenverzeichnis.de/
-            </a>
-          </li>
-          <li>
-            • University of Bonn history:
-            <a class="text-[#d6bc7e] hover:underline" href="https://www.uni-bonn.de/en/university/history" target="_blank" rel="noreferrer">
-              https://www.uni-bonn.de/en/university/history
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="lg:col-span-6 rounded-2xl border border-white/10 bg-white/5 p-7">
-        <h3 class="text-xl font-semibold">Weber Line (Andreas / Georg Heinrich / Friedrich / Georg)</h3>
-        <ul class="mt-3 space-y-2 text-sm text-white/75">
-          <li>
-            • CAU Kiel Scholars Archive:
-            <a class="text-[#d6bc7e] hover:underline" href="https://cau.gelehrtenverzeichnis.de/" target="_blank" rel="noreferrer">
-              https://cau.gelehrtenverzeichnis.de/
-            </a>
-          </li>
-          <li>
-            • University of Göttingen history:
-            <a class="text-[#d6bc7e] hover:underline" href="https://www.uni-goettingen.de/en/history/" target="_blank" rel="noreferrer">
-              https://www.uni-goettingen.de/en/history/
-            </a>
-          </li>
-          <li>
-            • Botanical Garden Kiel:
-            <a class="text-[#d6bc7e] hover:underline" href="https://www.botanischer-garten.uni-kiel.de" target="_blank" rel="noreferrer">
-              https://www.botanischer-garten.uni-kiel.de
-            </a>
-          </li>
-          <li>
-            • IPNI author abbreviation (F.Weber):
-            <a class="text-[#d6bc7e] hover:underline" href="https://www.ipni.org/" target="_blank" rel="noreferrer">
-              https://www.ipni.org/
-            </a>
-          </li>
-          <li>
-            • Georg Weber (physician) — Wikipedia:
-            <a class="text-[#d6bc7e] hover:underline" href="https://de.wikipedia.org/wiki/Georg_Weber_(Mediziner)" target="_blank" rel="noreferrer">
-              https://de.wikipedia.org/wiki/Georg_Weber_(Mediziner)
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="lg:col-span-6 rounded-2xl border border-white/10 bg-white/5 p-7">
-        <h3 class="text-xl font-semibold">Puggé (1802–1836)</h3>
-        <ul class="mt-3 space-y-2 text-sm text-white/75">
-          <li>
-            • Wikipedia:
-            <a class="text-[#d6bc7e] hover:underline" href="https://de.wikipedia.org/wiki/Peter_Gottlieb_Eduard_Pugg%C3%A9" target="_blank" rel="noreferrer">
-              https://de.wikipedia.org/wiki/Peter_Gottlieb_Eduard_Pugg%C3%A9
-            </a>
-          </li>
-          <li>
-            • Marx archives (letters / period):
-            <a class="text-[#d6bc7e] hover:underline" href="https://www.marxists.org/archive/marx/letters/index.htm" target="_blank" rel="noreferrer">
-              https://www.marxists.org/archive/marx/letters/index.htm
-            </a>
-          </li>
-          <li>
-            • University of Bonn (Jura faculty):
-            <a class="text-[#d6bc7e] hover:underline" href="https://www.jura.uni-bonn.de" target="_blank" rel="noreferrer">
-              https://www.jura.uni-bonn.de
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="lg:col-span-6 rounded-2xl border border-white/10 bg-white/5 p-7">
-        <h3 class="text-xl font-semibold">Belém / Hass (Urban Ecology)</h3>
-        <ul class="mt-3 space-y-2 text-sm text-white/75">
-          <li>
-            • City of Belém portal:
-            <a class="text-[#d6bc7e] hover:underline" href="https://www.belem.pa.gov.br" target="_blank" rel="noreferrer">
-              https://www.belem.pa.gov.br
-            </a>
-          </li>
-          <li>
-            • MABE / cultural context:
-            <a class="text-[#d6bc7e] hover:underline" href="https://museudeartedebelem.com.br" target="_blank" rel="noreferrer">
-              https://museudeartedebelem.com.br
-            </a>
-          </li>
-          <li>
-            • Praça Batista Campos (Wikipedia PT):
-            <a class="text-[#d6bc7e] hover:underline" href="https://pt.wikipedia.org/wiki/Pra%C3%A7a_Batista_Campos" target="_blank" rel="noreferrer">
-              https://pt.wikipedia.org/wiki/Pra%C3%A7a_Batista_Campos
-            </a>
-          </li>
-          <li>
-            • Praça da República (Belém):
-            <a class="text-[#d6bc7e] hover:underline" href="https://pt.wikipedia.org/wiki/Pra%C3%A7a_da_Rep%C3%BAblica_(Bel%C3%A9m)" target="_blank" rel="noreferrer">
-              https://pt.wikipedia.org/wiki/Pra%C3%A7a_da_Rep%C3%BAblica_(Bel%C3%A9m)
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== SUBSCRIBE (magazine vibe) ========== -->
-  <section id="subscribe" class="mx-auto max-w-7xl px-6 pb-16">
-    <div class="rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-black/20 p-8">
-      <div class="grid gap-6 md:grid-cols-12 md:items-center">
-        <div class="md:col-span-7">
-          <div class="text-[11px] font-bold tracking-[0.4em] uppercase text-[#d6bc7e]">Newsletter</div>
-          <h3 class="mt-3 text-2xl font-semibold tracking-tight">Get new articles as they publish</h3>
-          <p class="mt-2 text-white/70 reading">
-            Short editorial notes, new dossiers, and updated references—built for institutional partners and researchers.
+    <!-- SUBSCRIPTION -->
+    <section id="subscribe" class="py-28 px-8 md:px-24 border-t border-white/5 bg-zinc-950">
+      <div class="max-w-6xl mx-auto grid lg:grid-cols-12 gap-12 items-start">
+        <div class="lg:col-span-5">
+          <span class="section-tag">SUBSCRIPTION</span>
+          <h2 class="text-4xl font-bold text-white mb-6">Reader Circle — Living Memory</h2>
+          <p class="text-zinc-400 leading-relaxed">
+            This is not a newsletter in the conventional sense. It is a periodic editorial communication,
+            shared only when there is something that deserves to endure.
           </p>
+
+          <div class="mt-10 glass-card p-7 rounded-lg">
+            <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">Promise</div>
+            <p class="mt-4 text-sm text-zinc-300 leading-relaxed">
+              Frequency is intentional. Silence is respected.
+            </p>
+          </div>
         </div>
-        <div class="md:col-span-5">
-          <!-- Replace action with your newsletter endpoint (Mailchimp, ConvertKit, etc.) -->
-          <form class="flex flex-col sm:flex-row gap-3" action="#" method="post">
-            <input
-              type="email"
-              name="email"
-              placeholder="Email address"
-              class="w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white placeholder:text-white/40 outline-none focus:border-[#d6bc7e]/70"
-              required
-            />
-            <button
-              type="submit"
-              class="rounded-xl bg-[#d6bc7e] px-5 py-3 text-sm font-semibold text-black hover:opacity-95"
-            >
-              Subscribe
-            </button>
-          </form>
-          <p class="mt-3 text-xs text-white/50">No spam. Unsubscribe anytime.</p>
+
+        <div class="lg:col-span-7">
+          <div class="glass-card p-10 rounded-lg">
+            <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">Join</div>
+            <p class="mt-4 text-sm text-zinc-400 leading-relaxed">
+              Subscribers may receive editor’s notes, selected archival materials, doctrinal developments related to c-ECO,
+              and long-form reflections on law, memory, and living systems.
+            </p>
+
+            <!-- Simple form (replace action with your endpoint / Mailchimp / Buttondown / ConvertKit) -->
+            <form class="mt-8 space-y-4" action="#" method="post">
+              <label class="block text-xs uppercase tracking-widest text-zinc-500" for="email">Email</label>
+              <input id="email" name="email" type="email" required
+                     class="w-full px-4 py-4 bg-black/40 border border-white/10 rounded text-white placeholder:text-zinc-600 focus:outline-none focus:border-[#d6bc7e]/60"
+                     placeholder="you@example.com" />
+              <button type="submit"
+                      class="w-full bg-[#d6bc7e] text-[#09090b] px-8 py-4 text-xs font-bold uppercase tracking-widest hover:bg-white transition-colors">
+                Subscribe
+              </button>
+              <p class="text-[11px] text-zinc-600 leading-relaxed">
+                Time is life as memory. What matters is not how often we speak, but whether what is said remains.
+              </p>
+            </form>
+          </div>
+
+          <div class="mt-8 text-zinc-500 text-xs leading-relaxed mono">
+            Tip: connect this form to your provider (Buttondown, Mailchimp, ConvertKit) or a simple serverless endpoint.
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ========== FOOTER ========== -->
-  <footer class="border-t border-white/10 bg-black/30">
-    <div class="mx-auto max-w-7xl px-6 py-10">
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div class="text-sm text-white/70">
-          © <span id="year"></span> Johann Christian Hasse Foundation • Journal
+    <!-- FOOTER -->
+    <footer class="py-12 px-8 md:px-24 border-t border-white/5 bg-[#050505]">
+      <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+        <div class="flex items-center gap-3">
+          <span class="logo-box">Σ</span>
+          <div>
+            <div class="text-white font-bold tracking-tight brand">Hasse Foundation</div>
+            <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e] mt-1">
+              Law · Memory · Living Systems
+            </div>
+          </div>
         </div>
-        <div class="flex flex-wrap gap-4 text-sm">
-          <a class="text-white/60 hover:text-white" href="#issue">Issue</a>
-          <a class="text-white/60 hover:text-white" href="#references">References</a>
-          <a class="text-white/60 hover:text-white" href="https://c-eco.org" target="_blank" rel="noreferrer">c-eco.org</a>
+
+        <div class="text-[10px] uppercase tracking-widest text-zinc-600 flex gap-5">
+          <a href="#editors-note" class="hover:text-[#d6bc7e] transition">Editor’s Note</a>
+          <a href="#dossier" class="hover:text-[#d6bc7e] transition">Dossier</a>
+          <a href="#contact" class="hover:text-[#d6bc7e] transition">Contact</a>
+        </div>
+
+        <div class="text-[10px] text-zinc-600 tracking-widest uppercase">
+          © 2026 Hasse Foundation · All rights reserved
         </div>
       </div>
-    </div>
-  </footer>
+    </footer>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+  </div>
 </body>
 </html>
