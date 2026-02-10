@@ -6,14 +6,17 @@
   <title>Hasse Foundation | Law · Memory · Living Systems</title>
 
   <!-- Tailwind config must come BEFORE the CDN script -->
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: { gold: "var(--gold)" }
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          gold: "#d6bc7e",
+          stone: { 950: "#0c0a09" }
         }
       }
     }
+  }
   </script>
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -30,12 +33,17 @@
     .glass-panel { background: rgba(28, 25, 23, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(214, 188, 126, 0.1); }
 
     .dropcap::first-letter { float: left; font-size: 3.5rem; line-height: 0.8; padding-right: 0.6rem; color: var(--gold); font-family: 'Playfair Display'; }
-
-    .divider-gold { width: 60px; height: 1px; background: var(--gold); margin: 2rem 0; opacity: 0.5; }
+    
+.divider-gold { background: rgba(214,188,126,0.55); opacity: 1; }
 
     /* small helper for your existing class */
     .prose-custom p { margin-bottom: 1.25rem; }
     .prose-custom strong { color:#fff; font-weight:600; }
+    /* gold consistente (evita var + alpha quebrar) */
+.gold-soft { color: rgba(214,188,126,0.70); }
+.gold      { color: rgba(214,188,126,1); }
+.gold-line { border-color: rgba(214,188,126,0.35); }
+
   </style>
 </head>
 
@@ -47,7 +55,9 @@
       <div class="flex items-center gap-4">
         <!-- Make Σ clickable to english.html -->
         <a href="english.html" class="inline-flex items-center gap-3 group">
-          <span class="text-gold border border-gold/40 px-2 py-1 text-sm transition-colors group-hover:border-gold/70">Σ</span>
+          <span class="text-gold border gold-line px-2 py-1 text-sm bg-black/40 transition-all group-hover:shadow-[0_0_16px_rgba(214,188,126,0.22)]">
+  Σ
+</span>
           <span class="text-[10px] uppercase tracking-[0.3em] font-bold">Hasse Foundation</span>
         </a>
       </div>
