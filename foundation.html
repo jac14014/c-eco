@@ -5,21 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hasse Foundation | Law · Memory · Living Systems</title>
 
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            gold: "#d6bc7e",
-            stone: { 950: "#0c0a09" }
-          },
-          fontFamily: {
-            serif: ['Playfair Display', 'serif'],
-            sans: ['Inter', 'sans-serif'],
-          }
+  <!-- Tailwind config must come BEFORE the CDN script -->
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          gold: "#d6bc7e",
+          stone: { 950: "#0c0a09" }
         }
       }
     }
+  }
   </script>
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -28,135 +25,39 @@
   <style>
     :root { --stone-950: #0c0a09; --gold: #d6bc7e; }
     body { background-color: var(--stone-950); color: #e7e5e4; font-family: 'Inter', sans-serif; line-height: 1.8; }
-    
-    /* Animação de revelação mais suave */
-    .reveal { opacity: 0; transform: translateY(30px); transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+    h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+
+    .reveal { opacity: 0; transform: translateY(20px); transition: all 1s ease-out; }
     .reveal.active { opacity: 1; transform: translateY(0); }
 
     .glass-panel { background: rgba(28, 25, 23, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(214, 188, 126, 0.1); }
 
-    .dropcap::first-letter { 
-      float: left; 
-      font-size: 4rem; 
-      line-height: 0.7; 
-      padding-top: 0.5rem;
-      padding-right: 0.8rem; 
-      color: var(--gold); 
-      font-family: 'Playfair Display', serif; 
-    }
+    .dropcap::first-letter { float: left; font-size: 3.5rem; line-height: 0.8; padding-right: 0.6rem; color: var(--gold); font-family: 'Playfair Display'; }
     
-    .divider-gold {
-      width: 60px; height: 1px;
-      background: linear-gradient(to right, transparent, rgba(214,188,126,0.55), transparent);
-      margin: 2.5rem auto;
-    }
+.divider-gold {
+  width: 60px;
+  height: 1px;
+  background: rgba(214,188,126,0.55);
+  margin: 2rem auto;
+}
 
-    .prose-custom p { margin-bottom: 1.5rem; text-align: justify; hyphens: auto; }
-    .gold-soft { color: rgba(214,188,126,0.70); }
-     /* Justificação Global para os parágrafos de conteúdo */
-  .prose-custom p { 
-    text-align: justify; 
-    text-justify: inter-word; /* Melhora o espaçamento entre palavras */
-    hyphens: auto;
-    margin-bottom: 1.5rem;
-  }
+    /* small helper for your existing class */
+    .prose-custom p { margin-bottom: 1.25rem; }
+    .prose-custom strong { color:#fff; font-weight:600; }
+    /* gold consistente (evita var + alpha quebrar) */
+.gold-soft { color: rgba(214,188,126,0.70); }
+.gold      { color: rgba(214,188,126,1); }
+.gold-line { border-color: rgba(214,188,126,0.35); }
 
-  /* Estilo para o Container de Imagem Histórica */
-  .image-container {
-    margin: 3rem 0;
-    border: 1px solid rgba(214, 188, 126, 0.2);
-    padding: 0.5rem;
-    background: rgba(0,0,0,0.2);
-  }
-  .image-container img {
-    width: 100%;
-    height: auto;
-    filter: sepia(20%) contrast(110%); /* Efeito sutil de foto antiga */
-    transition: filter 0.5s ease;
-  }
-  .image-container img:hover {
-    filter: none;
-  }
-  .image-caption {
-    font-family: 'Playfair Display', serif;
-    font-size: 0.8rem;
-    color: #d6bc7e;
-    text-align: center;
-    margin-top: 0.75rem;
-    letter-spacing: 0.05em;
-  }
+.prose-custom p {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+}
 
-  /* Botão Voltar ao Topo */
-  #backToTop {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    z-index: 100;
-  }
-  #backToTop.show {
-    opacity: 1;
-    visibility: visible;
-  }
-    
   </style>
 </head>
-
-<body class="selection:bg-gold/30 antialiased">
-
-  <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-stone-950/80 backdrop-blur-lg">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-      <a href="english.html" class="flex items-center gap-4 group" aria-label="Home">
-        <span class="text-gold border border-gold/30 px-2 py-1 text-sm bg-black/40 transition-all group-hover:border-gold">Σ</span>
-        <span class="text-[10px] uppercase tracking-[0.4em] font-semibold text-stone-300 group-hover:text-gold transition-colors">Hasse Foundation</span>
-      </a>
-      
-      <div class="hidden lg:flex gap-8 text-[10px] uppercase tracking-widest items-center">
-        <a href="#note" class="text-stone-500 hover:text-gold transition-colors">Note</a>
-        <a href="#feature" class="text-stone-500 hover:text-gold transition-colors">Feature</a>
-        <a href="#dossier" class="text-stone-500 hover:text-gold transition-colors">Dossier</a>
-        <a href="english.html" class="ml-4 px-4 py-2 border border-gold/20 hover:border-gold text-gold transition-all">Portal</a>
-      </div>
-    </div>
-  </nav>
-
-  <button id="backToTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" 
-        class="bg-stone-900/80 border border-gold/30 text-gold p-3 hover:bg-gold hover:text-stone-950 transition-all">
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
-</button>
-
-<div class="image-container reveal">
-  <img src="caminho/para/sua/foto-eduard-hass.jpg" alt="Eduard Johannes Heinrich Hass">
-  <p class="image-caption">Eduard Johannes Heinrich Hass — Registro histórico em Belém do Pará.</p>
-</div>
-
-</script>
-  const btt = document.getElementById('backToTop');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 500) {
-      btt.classList.add('show');
-    } else {
-      btt.classList.remove('show');
-    }
-  });
-  <script>
-  </script>
-    // Script de observação otimizado
-    const observerOptions = { threshold: 0.15, rootMargin: '0px 0px -50px 0px' };
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-          // Opcional: parar de observar após revelar
-          // observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  </script>
 
 <body class="selection:bg-gold/30">
 
@@ -388,8 +289,18 @@ They live.</p>
       <span class="text-gold uppercase tracking-widest text-[10px] block mb-8">Column: 2014</span>
       <h2 class="text-5xl mb-12 italic">The Birth of c-ΣCO</h2>
       <p class="text-stone-300 text-xl serif leading-relaxed mb-8 italic">"Time is not something that passes outside of us. Time is what remains inside of us."</p>
-      <div class="text-stone-400 text-justified space-y-6 columns-1 md:columns-2 gap-12">
-     
+      <div class="text-stone-400 text-left space-y-6 columns-1 md:columns-2 gap-12">
+        <section id="law-before-time" class="max-w-4xl mx-auto space-y-10">
+
+  <header class="space-y-4">
+    <h1 class="text-4xl md:text-5xl font-serif leading-tight">
+      Law Before Time: The Genealogy and Future of the c-ECO Doctrine
+    </h1>
+    <p class="text-sm uppercase tracking-widest text-stone-500">
+      By Jacqueline A. Ennis
+    </p>
+  </header>
+
   <p>
     There are forms of knowledge that do not arise from abstraction, but from recognition.
     They are not conceived as theories, but apprehended as realities already at work.
