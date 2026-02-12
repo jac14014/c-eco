@@ -1,342 +1,305 @@
 <!DOCTYPE html>
-<html lang="pt-pt" class="scroll-smooth">
+<html lang="pt-br" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Doutrina c-ECO — Governança Pré-Limiar</title>
-    <meta name="description" content="A Doutrina c-ECO reconceitualiza contratos como arquiteturas de microgovernança pré-limiar.">
-    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doutrina c-ECO | Protocolo · Governança · Integridade Sistêmica</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;700;800&family=Inter:wght@300;400&display=swap" rel="stylesheet">
-    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: "#d6bc7e",
+                        stone: { 950: "#0c0a09" }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     <style>
-        :root {
-            /* CORREÇÃO: Paleta EXATA do Portal (#030303) */
-            --bg-deep: #030303;      /* Preto Absoluto Neutro */
-            --bg-mist: #0f0f12;      /* Cinza Chumbo muito escuro (Luz) */
-            
-            --gold-ceco: #d6bc7e; 
-            --text-main: #f4f4f5;
-            --text-dim: #a1a1aa;
-            --border-zinc: rgba(255, 255, 255, 0.08);
-        }
-
-        body {
-            background-color: var(--bg-deep);
-            color: var(--text-main);
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            
-            /* Fundo Idêntico ao Portal (Fixo para não rolar com o texto) */
-            background: radial-gradient(circle at 50% 50%, var(--bg-mist) 0%, var(--bg-deep) 90%);
-            background-attachment: fixed; 
-        }
-
-        h1, h2, h3, h4, .brand { font-family: 'Urbanist', sans-serif; }
-
-        /* --- PISO 3D EM PERSPECTIVA --- */
-        .holo-floor {
-            position: fixed; 
-            top: 50%; 
-            left: -50%; 
-            width: 200%;
-            height: 100%;
-            
-            transform: perspective(600px) rotateX(70deg) translateY(-100px) translateZ(-200px);
-            
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-            
-            animation: gridMove 20s linear infinite;
-            pointer-events: none;
-            z-index: -1;
-            
-            mask-image: linear-gradient(to bottom, transparent 0%, black 40%, black 100%);
-            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 40%, black 100%);
-        }
-
-        @keyframes gridMove {
-            0% { background-position: 0 0; }
-            100% { background-position: 0 60px; }
-        }
-
-        /* Tipografia */
-        .before-highlight {
-            position: relative;
-            display: inline-block;
-            color: var(--gold-ceco);
-            font-style: italic;
-        }
-
-        /* Glass Cards (Ajustados para o fundo mais escuro) */
-        .glass-card {
-            background: rgba(5, 5, 5, 0.7); /* Base mais preta */
-            border: 1px solid var(--border-zinc);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-        
-        .glass-card:hover {
-            border-color: var(--gold-ceco);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.9);
-            background: rgba(5, 5, 5, 0.9);
-        }
-
-        /* UI Elements */
-        .logo-box {
-            width: 40px; height: 40px;
-            border: 1px solid var(--gold-ceco);
-            display: flex; align-items: center; justify-content: center;
-            font-family: 'Urbanist', sans-serif; font-weight: 400;
-            color: var(--gold-ceco);
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-        .logo-box:hover {
-            background: var(--gold-ceco); color: var(--bg-deep);
-            box-shadow: 0 0 15px rgba(214, 188, 126, 0.3);
-        }
-
-        .btn-primary {
-            background-color: var(--gold-ceco);
-            color: var(--bg-deep);
-            padding: 1rem 2.5rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-size: 0.85rem;
-            transition: all 0.3s;
-        }
-        .btn-primary:hover {
-            background-color: #f4f4f5;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-        }
-
-        .section-tag {
-            font-size: 0.7rem; font-weight: 700; letter-spacing: 0.3em;
-            color: var(--gold-ceco); text-transform: uppercase;
-            margin-bottom: 1.5rem; display: block; opacity: 0.8;
-        }
-
-        /* Animações */
-        .fade-in-up {
-            animation: fadeInUp 1s ease-out forwards;
-            opacity: 0; transform: translateY(20px);
-        }
-        .delay-100 { animation-delay: 0.1s; }
-        .delay-200 { animation-delay: 0.2s; }
-
-        @keyframes fadeInUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Foto Limpa */
+        :root { --stone-950: #0c0a09; --gold: #d6bc7e; }
+        body { background-color: var(--stone-950); color: #e7e5e4; font-family: 'Inter', sans-serif; line-height: 1.8; }
+        h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+       .reveal { opacity: 0; transform: translateY(20px); transition: all 1s ease-out; }
+       .reveal.active { opacity: 1; transform: translateY(0); }
+        .glass-panel { background: rgba(28, 25, 23, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(214, 188, 126, 0.1); }
+        .dropcap::first-letter { float: left; font-size: 3.5rem; line-height: 0.8; padding-right: 0.6rem; color: var(--gold); font-family: 'Playfair Display'; }
+        .divider-gold { width: 60px; height: 1px; background: rgba(214,188,126,0.55); margin: 2rem auto; }
+        .prose-custom p { margin-bottom: 1.5rem; text-align: justify; text-justify: inter-word; hyphens: auto; color: #a8a29e; }
+        .prose-custom strong { color:#fff; font-weight:600; }
+        .gold-soft { color: rgba(214,188,126,0.70); }
+        .gold { color: #d6bc7e; }
+        .gold-line { border-color: rgba(214,188,126,0.35); }
         .bio-image-container {
-            border: 1px solid var(--border-zinc);
-            background: var(--bg-mist);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 0 30px rgba(0,0,0,0.7);
+            border: 1px solid rgba(214, 188, 126, 0.2);
+            background: #18181b;
+            aspect-ratio: 3/4;
         }
-
     </style>
 </head>
-<body class="selection:bg-[#d6bc7e] selection:text-black">
 
-    <div class="holo-floor"></div>
+<body class="selection:bg-gold/30">
 
-    <nav class="fixed top-0 w-full z-50 px-6 md:px-12 py-6 flex justify-between items-center bg-[#030303]/80 backdrop-blur-md border-b border-white/5">
-        <div class="flex items-center gap-5">
-            <a href="index.html" class="logo-box text-xl">Σ</a>
-            <div class="flex flex-col">
-                <span class="text-xl font-bold tracking-tight text-white leading-none">c-ECO</span>
-                <a href="index.html" class="text-[10px] font-bold tracking-[0.2em] text-[#d6bc7e] uppercase hover:text-white transition mt-1">
-                    &lt; Voltar ao Portal
+    <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-stone-950/90 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="inline-flex items-center gap-3 group">
+                    <span class="text-gold border gold-line px-2 py-1 text-sm bg-black/40 transition-all group-hover:shadow-[0_0_16px_rgba(214,188,126,0.22)]">Σ</span>
+                    <span class="text-[10px] uppercase tracking-[0.3em] font-bold">Doutrina c-ECO</span>
                 </a>
             </div>
-        </div>
-        
-        <div class="hidden lg:flex gap-10">
-            <a href="#proposta" class="text-xs uppercase tracking-widest text-zinc-400 hover:text-[#d6bc7e] transition">Arquitetura</a>
-            <a href="#pilares" class="text-xs uppercase tracking-widest text-zinc-400 hover:text-[#d6bc7e] transition">Pilares</a>
-            <a href="#equipe" class="text-xs uppercase tracking-widest text-zinc-400 hover:text-[#d6bc7e] transition">Equipe</a>
-            <a href="#contato" class="text-xs uppercase tracking-widest px-5 py-2 border border-white/10 hover:border-[#d6bc7e] text-white transition">Contacto</a>
+            <div class="hidden lg:flex gap-8 text-[9px] uppercase tracking-widest text-stone-500 items-center">
+                <a href="#layers" class="hover:text-gold transition">Filosofia</a>
+                <a href="#architects" class="hover:text-gold transition">Arquitetos</a>
+                <a href="law.html" class="hover:text-gold transition">Lei Modelo</a>
+                <a href="manual.html" class="hover:text-gold transition">Manual Operacional</a>
+                <a href="foundation.html" class="text-gold border border-gold/40 px-3 py-1 hover:bg-gold hover:text-black transition">Fundação Hasse</a>
+            </div>
         </div>
     </nav>
 
-    <div class="pt-24">
-        <section class="min-h-screen flex flex-col justify-center px-8 md:px-24 relative">
-            <div class="max-w-5xl fade-in-up">
-                <span class="section-tag">Protocolo de Segurança Sistêmica</span>
-                <h1 class="text-5xl md:text-7xl lg:text-9xl font-extrabold mb-8 leading-[0.9] tracking-tighter text-white">
-                    Governança <br>
-                    <span class="before-highlight">antes</span> <br>
-                    do colapso.
-                </h1>
-                <p class="text-lg md:text-2xl text-zinc-400 font-light max-w-3xl leading-relaxed mb-12 fade-in-up delay-100">
-                    A Doutrina c-ECO introduz a governança contratual pré-limiar: uma arquitetura jurídica que preserva o espaço de decisão futura.
-                </p>
-                <div class="flex flex-wrap gap-6 fade-in-up delay-200">
-                    <a href="#proposta" class="btn-primary">Explorar Protocolo</a>
-                    <a href="#equipe" class="px-8 py-4 border border-white/10 hover:bg-white/5 transition text-white uppercase tracking-widest text-xs font-bold">Equipe</a>
-                </div>
-            </div>
-        </section>
+    <header class="min-h-screen flex items-center justify-center text-center px-6">
+        <div class="max-w-4xl reveal">
+            <h1 class="text-6xl md:text-8xl mb-8 leading-tight">Governança <span class="italic">antes</span> do colapso.</h1>
+            <p class="text-stone-500 uppercase tracking-[0.4em] text-[10px]">Um Protocolo Sistêmico Pré-Limite</p>
+        </div>
+   </header>
 
-        <section id="proposta" class="py-32 px-8 md:px-24 border-t border-white/5 relative z-10 bg-gradient-to-b from-[#030303]/90 to-[#030303]">
-            <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
-                <div class="fade-in-up">
-                    <span class="section-tag">O Descompasso Temporal</span>
-                    <h2 class="text-4xl font-bold mb-8 text-white">O Direito intervém no dano. Nós intervimos <span class="text-[#d6bc7e]">antes</span> do limite.</h2>
-                    <p class="text-zinc-400 text-lg mb-8 leading-relaxed">
-                        Em sistemas complexos, as decisões acumulam-se até atingirem um ponto de <strong>perclusão</strong> — o fechamento definitivo de alternativas.
+    <main class="max-w-6xl mx-auto px-6 space-y-48 pb-48">
+       
+      <section id="philosophy" class="reveal py-24">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-gold border gold-line px-3 py-1 text-sm bg-black/40 mb-6 inline-block">Σ</span>
+                <h2 class="text-3xl md:text-5xl text-white serif italic leading-tight">
+                    A Arquitetura da Interrupção Sistêmica
+                </h2>
+                <div class="divider-gold"></div>
+            </div>
+
+            <div class="prose-custom space-y-8">
+                <p class="dropcap text-xl leading-relaxed">
+                    Decisões em sistemas complexos muitas vezes se acumulam até atingirem um estado de <strong>preclusão</strong> — uma conjuntura onde a capacidade de direcionar resultados se esgota, e o Direito transita de uma força governante para uma reativa. A <strong>Doutrina c-ΣCO</strong> introduz uma arquitetura jurídica especializada, projetada para manter a abertura de alternativas sistêmicas por meio de um rigoroso protocolo de governança pré-limite.
+                </p>
+
+                <p class="text-lg">
+                    Central a este framework é o conceito de <strong>Contrato Vivo</strong>: um instrumento jurídico dinâmico que transcende a documentação estática. Ao integrar <strong>arquiteturas de decisão orientadas por IA</strong>, a c-ΣCO permite o monitoramento contínuo de dados biofísicos e sistêmicos, garantindo que as obrigações contratuais permaneçam materialmente alinhadas com o status em tempo real do Sistema Terrestre. Este loop de feedback "vivo" permite o ajuste ativo de protocolos antes que limites irreversíveis sejam rompidos, transformando o contrato em um nó ativo de integridade sistêmica.
+                </p>
+
+                <div class="glass-panel p-8 my-12 border-l-4 border-gold/50">
+                    <p class="text-white font-light italic mb-4">
+                        "A legalidade persiste enquanto a capacidade de mudar o curso se esgota."
                     </p>
-                    <div class="p-6 border-l-2 border-[#d6bc7e] bg-zinc-900/30">
-                        <p class="text-zinc-200 italic text-lg">"A legalidade persiste enquanto a capacidade de mudar de rumo se esgota. O c-ECO rompe com a impunidade temporal do design jurídico atual."</p>
+                    <p class="text-sm tracking-wide text-stone-300">
+                        Apoiado por uma <strong>Lei Modelo</strong> formal e um <strong>Manual Operacional Integrativo</strong>, o protocolo c-ΣCO foi projetado para setores de alta criticidade. A implementação inicia-se com <strong>13 setores estratégicos</strong> — incluindo finanças sistêmicas, cadeias de suprimentos globais e infraestrutura — com seu primeiro desdobramento operacional na <strong>região Amazônica</strong>.
+                    </p>
+                </div>
+
+                <p class="text-lg">
+                    Ao fornecer as ferramentas para alinhar compromissos contratuais com trajetórias planetárias, a c-ΣCO garante que os acordos estratégicos de hoje sejam estruturalmente projetados para a sobrevivência a longo prazo, preservando as condições físicas das quais dependem toda a estabilidade jurídica e econômica.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="architects" class="reveal py-48 px-6 lg:px-24 bg-[#050505]">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-32">
+                <span class="text-gold uppercase tracking-[0.6em] text-[10px] font-bold mb-4 block text-center">Arquitetos do Protocolo</span>
+                <h2 class="text-5xl md:text-7xl text-white serif italic">Integridade Intelectual</h2>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-16 items-start mb-48">
+                <div class="lg:col-span-5">
+                    <div class="bio-image-container grayscale contrast-125 hover:grayscale-0 transition-all duration-700 group relative">
+                        <div class="absolute inset-0 border-[1px] border-white/10 group-hover:border-gold/30 transition-colors z-10"></div>
+                        <img src="jacqueline-ennis.PNG" alt="Jacqueline A. Ennis" class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
+                    </div>
+                    <div class="mt-8">
+                        <h4 class="text serif text-2xl text-white">Jacqueline A. Ennis</h4>
+                        <p class="text-gold text-[10px] uppercase tracking-[0.4em] mt-2">Arquiteta Líder & Fundadora</p>
                     </div>
                 </div>
                 
-                <div class="grid gap-6 fade-in-up delay-100">
-                    <div class="glass-card p-10">
-                        <div class="w-8 h-[2px] bg-[#d6bc7e] mb-6"></div>
-                        <h3 class="text-white font-bold mb-3 uppercase text-xs tracking-widest">Validade Material Residual</h3>
-                        <p class="text-sm text-zinc-400 leading-relaxed">A validade contratual depende da manutenção das condições reais (ecossistémicas) que permitiram a sua autorização no dia zero.</p>
-                    </div>
-                    <div class="glass-card p-10">
-                        <div class="w-8 h-[2px] bg-[#d6bc7e] mb-6"></div>
-                        <h3 class="text-white font-bold mb-3 uppercase text-xs tracking-widest">Protocolos de Reversibilidade</h3>
-                        <p class="text-sm text-zinc-400 leading-relaxed">Mecanismos ativados aos 80% de um limite crítico, garantindo que a execução nunca atravesse o "ponto de não retorno".</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="pilares" class="py-32 px-8 md:px-24 border-t border-white/5 bg-[#030303]">
-            <div class="max-w-6xl mx-auto">
-                <div class="mb-20 text-center fade-in-up">
-                    <span class="section-tag">Pilares Dogmáticos</span>
-                    <h2 class="text-4xl font-bold text-white">Estrutura de Co-responsabilidade</h2>
-                </div>
-
-                <div class="grid md:grid-cols-3 gap-6">
-                    <div class="glass-card p-10 text-center">
-                        <span class="text-4xl font-light text-[#d6bc7e] block mb-6">Σ</span>
-                        <h4 class="text-lg font-bold mb-4 text-white">Tempo-Capacidade</h4>
-                        <p class="text-zinc-500 text-sm leading-relaxed">
-                            Substituindo o "prazo" pela "capacidade": a soma das decisões que ainda permitem a sobrevivência do sistema.
-                        </p>
-                    </div>
-                    <div class="glass-card p-10 text-center">
-                        <span class="text-4xl font-light text-[#d6bc7e] block mb-6">⊘</span>
-                        <h4 class="text-lg font-bold mb-4 text-white">Limites à Autorização</h4>
-                        <p class="text-zinc-500 text-sm leading-relaxed">
-                            A integridade sistémica opera como condição negativa de validade: se o sistema colapsa, o contrato morre.
-                        </p>
-                    </div>
-                    <div class="glass-card p-10 text-center">
-                        <span class="text-4xl font-light text-[#d6bc7e] block mb-6">♽</span>
-                        <h4 class="text-lg font-bold mb-4 text-white">Design Adaptativo</h4>
-                        <p class="text-zinc-500 text-sm leading-relaxed">
-                            Dever de monitorização ativa e renegociação obrigatória como pré-requisitos para a segurança.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="equipe" class="py-32 px-8 md:px-24 border-t border-white/5 relative bg-[#030303]">
-            <div class="max-w-6xl mx-auto">
-                <span class="section-tag">Fundamentação Intelectual</span>
-                <div class="grid lg:grid-cols-12 gap-16 items-start">
-                    <div class="lg:col-span-4 fade-in-up">
-                        <div class="bio-image-container aspect-[3/4]">
-                            <img src="jacqueline-ennis.PNG" alt="Jacqueline A. Ennis" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700">
+                <div class="lg:col-span-7 prose-custom text-stone-400 text-lg lg:pt-4">
+                    <p class="mb-8">
+                        Jacqueline A. Ennis é uma jurista luso-brasileira e pesquisadora independente. Ela é a autora da Doutrina c-ΣCO (Equidade Contratual & Co-Responsabilidade Ecológica).
+                    </p>
+                    <p class="mb-8">
+                        Seu trabalho reconceitualiza contratos como arquiteturas temporais de decisão. Sua tese demonstra que decisões juridicamente consequentes ocorrem majoritariamente durante períodos de conformidade regulatória, exaurindo o espaço de decisão futuro. A c-ΣCO introduz os conceitos de validade temporal e responsabilidade pré-limite.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 mt-12 border-t border-white/10 pt-8">
+                        <div>
+                            <span class="text-[9px] uppercase tracking-widest text-stone-600 block mb-2">Formação</span>
+                            <span class="text-xs text-stone-300 block">LL.M. WashU Law</span>
+                            <span class="text-xs text-stone-300 block">Boston University</span>
                         </div>
-                        <div class="mt-8">
-                            <h4 class="text-2xl font-normal text-white mb-1">Jacqueline A. Ennis</h4>
-                            <p class="text-[#d6bc7e] text-xs uppercase font-normal">Jurista & Pesquisadora</p>
+                        <div>
+                            <span class="text-[9px] uppercase tracking-widest text-stone-600 block mb-2">Afiliação</span>
+                            <span class="text-xs text-stone-300 block">Instituto Silvio Meira (ISM)</span>
                         </div>
                     </div>
-                    <div class="lg:col-span-8 space-y-8 text-zinc-400 text-lg leading-relaxed font-light fade-in-up delay-100">
-                        <p>
-                            Jacqueline A. Ennis é uma jurista brasileira, radicada nos Estados Unidos, e autora da <strong class="text-white">Doutrina c-ECO (Contractual Equity & Ecological Co-Responsibility)</strong>.
-                        </p>
-                        <p>
-                            O trabalho de Ennis reconceitua os contratos como arquiteturas temporais de decisão. Sua tese demonstra que, em sistemas socioecológicos e tecnológicos complexos, as decisões juridicamente consequentes ocorrem majoritariamente durante períodos de conformidade normativa, exaurindo progressivamente o espaço decisório futuro sem acionar as doutrinas clássicas de inadimplemento ou responsabilidade civil.
-                        </p>
-                        <p>
-                            A formulação é empiricamente ancorada em mais de duas décadas de liderança empreendedora na Amazônia brasileira (1993–2014), período no qual Ennis fundou e conduziu iniciativas pioneiras em territórios marcados por alta sensibilidade ecológica e assimetria estrutural. 
-                            </p>
-                        <p>
-                            
-                            Ennis a é Mestre em Direito Empresarial (LL.M.) pela <span class="text-white border-b border-[#d6bc7e]/30">Washington University in St. Louis</span> com formação jurídica complementar pela <span class="text-white border-b border-[#d6bc7e]/30">Boston University</span>, e tem apoio estratégico do <strong class="text-[#d6bc7e]">Instituto Silvio Meira (ISM)</strong>.
-                        </p>                      
-                        </p>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-16 items-start">
+                <div class="lg:col-span-5 lg:order-2">
+                    <div class="bio-image-container grayscale contrast-125 hover:grayscale-0 transition-all duration-700 group relative">
+                        <div class="absolute inset-0 border-[1px] border-white/10 group-hover:border-gold/30 transition-colors z-10"></div>
+                        <img src="erelyn-alves.PNG" alt="Erelyn Alves" class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
+                    </div>
+                    <div class="mt-8">
+                        <h4 class="text serif text-2xl text-white">Erelyn Alves</h4>
+                        <p class="text-gold text-[10px] uppercase tracking-[0.4em] mt-2">Consultor Técnico de Integridade Sistêmica</p>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 lg:order-1 prose-custom text-stone-400 text-lg lg:pt-4">
+                    <p class="mb-8">
+                        Erelyn Alves é Consultor Técnico Sênior para Integridade Sistêmica. Tecnólogo brasileiro com formação acadêmica em Ciência da Computação, sua trajetória profissional é dedicada à segurança e integridade em ambientes digitais e contratuais de alta criticidade.
+                    </p>
+                    <p>
+                        Seu trabalho é caracterizado por padrões técnicos rigorosos e um forte foco na contenção de riscos, informando o framework c-ΣCO em protocolos de governança preventiva e segurança técnica vinculada a contratos.
+                    </p>
+                    <div class="mt-12 border-t border-white/10 pt-8">
+                        <span class="text-[9px] uppercase tracking-widest text-stone-600 block mb-2">Análise de Sistemas</span>
+                        <span class="text-xs text-stone-300 block">Universidade da Amazônia (UNAMA)</span>
+                        <span class="text-xs text-stone-300 block">PRODEPA Technology Insights</span>
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- Erelyn -->
-     <section id="equipe" class="py-32 px-8 md:px-24 border-t border-white/5 relative bg-[#030303]">
-            <div class="max-w-6xl mx-auto">
-                <span class="section-tag">Integridade Sistêmica</span>
-                <div class="grid lg:grid-cols-12 gap-16 items-start">
-                    <div class="lg:col-span-4 fade-in-up">
-        <div class="bio-image-container">
-          <img src="erelyn-alves.PNG"
-               alt="Erelyn Alves — Conselheiro Técnico de Integridade Sistêmica"
-               class="w-full h-full object-cover grayscale hover:grayscale-0 transition">
         </div>
+    </section>
 
-        <h4 class="text-2xl font-normal text-white mb-1">Erelyn Alves</h4>
-        <p class="text-[#d6bc7e] text-xs uppercase font-normal">
-          Conselheiro Técnico de Integridade Sistêmica
-        </p>
-      </div>
+    <section id="pillars" class="reveal py-48 px-6 lg:px-24 bg-[#050505]">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-32">
+                <span class="text-gold uppercase tracking-[0.6em] text-[10px] font-bold mb-4 block text-center">Pilares Dogmáticos</span>
+                <h2 class="text-5xl md:text-7xl text-white serif italic">A Lógica da Interrupção</h2>
+            </div>
 
-      <div class="lg:col-span-8 text-zinc-400 text-lg leading-relaxed space-y-6">
-        <p>
-          Erelyn Alves é Conselheiro Técnico Sênior para Integridade Sistêmica. Tecnólogo brasileiro com formação
-          em Ciência da Computação e em Análise e Desenvolvimento de Sistemas pela Universidade da Amazônia (UNAMA),
-          atua desde 2009 em segurança e integridade em ambientes digitais e contratuais de alta criticidade.
-        </p>
-        <p>
-          Sua trajetória profissional é marcada por rigor técnico, disciplina metodológica e foco na contenção de riscos.
-          A experiência acumulada na Companhia de Tecnologia da Informação e Comunicação do Estado do Pará (PRODEPA)
-          fundamenta sua contribuição à c-ECO, especialmente na estruturação de protocolos de governança preventiva
-          e na segurança técnica vinculada à execução contratual em contextos sistêmicos sensíveis.
-        </p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-        <footer id="contato" class="py-24 px-8 md:px-12 border-t border-white/10 bg-[#030303]">
-            <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
-                <div class="max-w-md">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="logo-box">Σ</div>
-                        <span class="text-2xl font-bold text-white">c-ECO</span>
-                    </div>
-                    <p class="text-zinc-600 text-sm leading-relaxed">
-                        Arquitetura de governança focada na preservação da decidibilidade em cenários de alta complexidade.
+            <div class="grid md:grid-cols-3 gap-0 border border-white/10">
+                <div class="p-12 border-r border-white/10 group hover:bg-white/[0.02] transition-all duration-700">
+                    <div class="text-gold/20 serif text-5xl text-center mb-12 group-hover:text-gold/40 transition-colors">Σ</div>
+                    <h4 class="text-xl font-bold mb-6 text-white text-center uppercase tracking-tighter">Tempo-como-Status</h4>
+                    <p class="text-stone-500 text-sm text-center leading-relaxed font-light">
+                        Substituindo o tempo de "prazo" pelo tempo de "capacidade": a soma das decisões que ainda permitem a sobrevivência do sistema.
                     </p>
                 </div>
-                <div class="flex flex-col gap-4 items-start md:items-end">
-                    <a href="mailto:info@c-eco.org" class="text-2xl text-white hover:text-[#d6bc7e] transition font-bold tracking-tight">info@c-eco.org</a>
-                    <div class="text-[10px] text-zinc-700 tracking-widest uppercase">
-                        © 2025 Jacqueline A. Ennis | c-ECO
+
+                <div class="p-12 border-r border-white/10 group hover:bg-white/[0.02] transition-all duration-700">
+                    <div class="text-gold/20 serif text-5xl text-center mb-12 group-hover:text-gold/40 transition-colors">⊘</div>
+                    <h4 class="text-xl font-bold mb-6 text-white text-center uppercase tracking-tighter">Limites à Autorização</h4>
+                    <p class="text-stone-500 text-sm text-center leading-relaxed font-light">
+                        A integridade sistêmica opera como uma condição negativa de validade: se o sistema colapsa, o contrato perde sua finalidade jurídica.
+                    </p>
+                </div>
+
+                <div class="p-12 group hover:bg-white/[0.02] transition-all duration-700">
+                    <div class="text-gold/20 serif text-5xl mb-12 text-center group-hover:text-gold/40 transition-colors">♽</div>
+                    <h4 class="text-xl font-bold mb-6 text-white text-center uppercase tracking-tighter">Design Adaptativo</h4>
+                    <p class="text-stone-500 text-sm text-center leading-relaxed font-light">
+                        Dever de monitoramento ativo e renegociação obrigatória como pré-requisitos para a segurança sistêmica.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="layers" class="mt-16 border-t border-white/10 pt-12">
+        <div class="max-w-6xl mx-auto px-6">
+            <span class="text-[11px] font-bold tracking-[0.4em] uppercase text-[#d6bc7e]">
+                Doutrina c-ECO — Alinhamento Estatuário por Camadas
+            </span>
+            
+            <div class="mt-10 space-y-8">
+                <div class="glass-panel p-10 rounded-lg border border-white/10">
+                    <span class="text-[10px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">Camada 1</span>
+                    <h3 class="text-2xl font-bold text-white mt-2">Governança Doutrinária (Núcleo Fechado)</h3>
+                    <p class="text-zinc-400 mt-4 text-sm leading-relaxed">
+                        O Núcleo Fechado constitui o centro doutrinário não delegável da c-ECO. Nele, a ontologia jurídica do regime é definida e protegida contra substituição externa. Sua função é estabelecer as condições sob as quais a governança permanece juridicamente possível em um Sistema Terrestre desestabilizado.
+                    </p>
+                    <ul class="mt-6 space-y-2 text-zinc-500 text-xs list-disc pl-5">
+                        <li>Estatuto de Governança Sistêmica.</li>
+                        <li>Protocolo de Função de Limite (TFP).</li>
+                        <li>Arquitetura Conceitual de Decisão por IA.</li>
+                        <li>Salvaguarda contra captura científica ou política.</li>
+                    </ul>
+                </div>
+
+                <div class="glass-panel p-10 rounded-lg border border-white/10">
+                    <span class="text-[10px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e]">Camada 2</span>
+                    <h3 class="text-2xl font-bold text-white mt-2">Arquiteturas Decisoriais e Sistêmicas</h3>
+                    <p class="text-zinc-400 mt-4 text-sm leading-relaxed">
+                        Esta camada define os nós decisórios que governam a implementação do framework. Garante o alinhamento entre gatilhos técnicos e deveres fiduciários, traduzindo riscos abstratos em ações corporativas governadas.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-6 mt-6">
+                        <div class="p-4 bg-black/20 border border-white/5 rounded">
+                            <h4 class="text-gold text-[10px] font-bold uppercase mb-2">Núcleo Fiduciário</h4>
+                            <p class="text-zinc-500 text-xs">Deveres de decisão ao nível do conselho e alocação temporal de responsabilidade.</p>
+                        </div>
+                        <div class="p-4 bg-black/20 border border-white/5 rounded">
+                            <h4 class="text-gold text-[10px] font-bold uppercase mb-2">Finanças Sistêmicas</h4>
+                            <p class="text-zinc-500 text-xs">Comprometimento de capital e trajetórias financeiras de longo prazo.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </footer>
-    </div>
+        </div>
+    </section>
 
-</body>
+    <section class="py-48 px-6 lg:px-24 bg-[#050505] reveal">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl md:text-6xl text-white serif italic mb-12">"Porque o tempo recorda."</h2>
+            <p class="text-stone-400 text-lg mb-12 max-w-2xl mx-auto">
+                A Doutrina c-ΣCO é a tradução técnica de uma responsabilidade herdada. Explore a linhagem de pensamento que sustenta este protocolo.
+            </p>
+            <div class="flex flex-col md:flex-row justify-center gap-6">
+                <a href="foundation.html" class="inline-block border border-gold text-gold px-12 py-5 text-[10px] uppercase tracking-[0.5em] font-bold hover:bg-gold hover:text-black transition-all duration-500">
+                    Visite a Fundação Hasse
+                </a>
+                <a href="mailto:contact@c-eco.org" class="inline-block border border-gold text-gold px-12 py-5 text-[10px] uppercase tracking-[0.5em] font-bold hover:bg-gold hover:text-black transition-all duration-500">
+                    contact@c-eco.org
+                </a>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="py-20 px-6 border-t border-white/10 bg-black/20 text-center">
+  <div class="max-w-4xl mx-auto">
+    <div class="flex justify-center gap-4 mb-8">
+      <span class="text-gold border border-gold/30 px-3 py-1">Σ</span>
+    </div>
+    <p class="text-stone-600 text-[10px] uppercase tracking-[0.5em] mb-4">© 2026 Jacqueline A. Ennis · Doutrina c-ECO</p>
+    <p class="text-stone-700 text-[9px] uppercase tracking-[0.4em]">EUA · Amazônia · Brasil</p>
+  </div>
+</footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+        const revealElements = document.querySelectorAll('.reveal');
+        revealElements.forEach(el => observer.observe(el));
+    });
+    </script>
+  </body>
 </html>
