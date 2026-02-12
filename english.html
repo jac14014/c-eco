@@ -1,112 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>c-ECO Doctrine — Overview & Foundations</title>
-    <meta name="description" content="Introduction to the c-ECO Doctrine, a pre-threshold governance framework developed by Jacqueline A. Ennis, integrating systemic risk, ecological thresholds, and contractual validity.">
-    <meta name="keywords" content="c-ECO Doctrine, pre-threshold governance, ecological co-responsibility, contract law, systemic risk, Jacqueline Ennis, governance innovation">
-    <meta name="robots" content="index, follow">   
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>c-ECO Doctrine | Protocol · Governance · Systemic Integrity</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;700;800&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: "#d6bc7e",
+                        stone: { 950: "#0c0a09" }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     <style>
-        :root {
-            /* Cores solicitadas: Cinzento Asfalto e Preto Neutro */
-            --bg-main: #09090b; 
-            --bg-accent: #18181b; 
-            --orange-ceco: #d6bc7e; 
-            --text-main: #f4f4f5;
-            --text-dim: #a1a1aa;
-        }
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
-            background: radial-gradient(circle at center, var(--bg-accent) 0%, var(--bg-main) 100%);
-        }
-        h1, h2, h3, h4, .brand {
-            font-family: 'Urbanist', sans-serif;
-        }
+        :root { --stone-950: #0c0a09; --gold: #d6bc7e; }
+        body { background-color: var(--stone-950); color: #e7e5e4; font-family: 'Inter', sans-serif; line-height: 1.8; }
+        h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+
+       .reveal { opacity: 0; transform: translateY(20px); transition: all 1s ease-out; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .glass-panel { background: rgba(28, 25, 23, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(214, 188, 126, 0.1); }
+
+        .dropcap::first-letter { float: left; font-size: 3.5rem; line-height: 0.8; padding-right: 0.6rem; color: var(--gold); font-family: 'Playfair Display'; }
         
-        .content-wrapper {
-            padding-top: 90px;
-        }
+        .divider-gold { width: 60px; height: 1px; background: rgba(214,188,126,0.55); margin: 2rem auto; }
 
-        .hero-glow {
-            background: radial-gradient(circle at 50% 50%, rgba(214, 188, 126, 0.05) 0%, transparent 70%);
-        }
-
-        .before-highlight {
-            position: relative;
-            display: inline-block;
-            color: var(--orange-ceco);
-            font-style: italic;
-            padding: 0 0.2em;
-        }
+        .prose-custom p { margin-bottom: 1.5rem; text-align: justify; text-justify: inter-word; hyphens: auto; color: #a8a29e; }
+        .prose-custom strong { color:#fff; font-weight:600; }
         
-        .glass-card {
-            background: rgba(24, 24, 27, 0.6);
-            border: 1px solid rgba(214, 188, 126, 0.1);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-        .glass-card:hover {
-            border-color: var(--orange-ceco);
-            transform: translateY(-4px);
-        }
-
-        .nav-link {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--text-dim);
-            transition: all 0.3s;
-        }
-        .nav-link:hover {
-            color: var(--orange-ceco);
-        }
-
-        .section-tag {
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.3em;
-            color: var(--orange-ceco);
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-            display: block;
-        }
-
-        .logo-box {
-            width: 34px;
-            height: 34px;
-            border: 1.5px solid var(--orange-ceco);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Urbanist', sans-serif;
-            font-weight: 300;
-            color: var(--orange-ceco);
-            border-radius: 2px;
-            transition: all 0.3s;
-        }
-        .logo-box:hover {
-            background: var(--orange-ceco);
-            color: var(--bg-main);
-        }
-
-        .btn-primary {
-            background-color: var(--orange-ceco);
-            color: var(--bg-main);
-            padding: 1rem 2.5rem;
-            font-weight: 700;
-            border-radius: 2px;
-            transition: all 0.3s;
-        }
-        .btn-primary:hover {
-            background-color: #fff;
-            color: var(--bg-main);
-        }
+        .gold-soft { color: rgba(214,188,126,0.70); }
+        .gold { color: #d6bc7e; }
+        .gold-line { border-color: rgba(214,188,126,0.35); }
 
         .bio-image-container {
             position: relative;
@@ -114,250 +48,178 @@
             border: 1px solid rgba(214, 188, 126, 0.2);
             background: #18181b;
             aspect-ratio: 3/4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .text-accent-link {
-            color: var(--orange-ceco);
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-            transition: border 0.3s;
-        }
-        .text-accent-link:hover {
-            border-bottom: 1px solid var(--orange-ceco);
         }
     </style>
 </head>
-<body class="selection:bg-yellow-500/30">
-    
-   <!-- Navigation -->
-<nav class="fixed top-0 w-full z-50 px-6 md:px-12 py-5
-            flex justify-between items-center
-            bg-[#09090b]/95 backdrop-blur-md border-b border-white/5">
 
-    <!-- Left block -->
-    <div class="flex items-center gap-4">
-        <a href="index.html" class="logo-box">Σ</a>
+<body class="selection:bg-gold/30">
 
-        <div class="flex flex-col">
-            <span class="text-2xl font-bold tracking-tighter text-white">c-ECO</span>
-            <a href="index.html"
-               class="text-[8px] font-bold tracking-[0.3em] text-[#d6bc7e] uppercase hover:text-white transition">
-               Return to Portal
-            </a>
+    <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-stone-950/90 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="inline-flex items-center gap-3 group">
+                    <span class="text-gold border gold-line px-2 py-1 text-sm bg-black/40 transition-all group-hover:shadow-[0_0_16px_rgba(214,188,126,0.22)]">Σ</span>
+                    <span class="text-[10px] uppercase tracking-[0.3em] font-bold">c-ECO Doctrine</span>
+                </a>
+            </div>
+            <div class="hidden lg:flex gap-8 text-[9px] uppercase tracking-widest text-stone-500 items-center">
+                <a href="#layers" class="hover:text-gold transition">Philosophy</a>
+                <a href="#architects" class="hover:text-gold transition">Architects</a>
+                <a href="law.html" class="hover:text-gold transition">Model Law</a>
+                <a href="foundation.html" class="text-gold border border-gold/40 px-3 py-1 hover:bg-gold hover:text-black transition">Hasse Foundation</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="min-h-screen flex items-center justify-center text-center px-6">
+        <div class="max-w-4xl reveal">
+            <h1 class="text-6xl md:text-8xl mb-8 leading-tight">Governance <span class="italic">before</span> the collapse.</h1>
+            <p class="text-stone-500 uppercase tracking-[0.4em] text-[10px]">A Pre-Threshold Systemic Protocol</p>
+        </div>
+   </header>
+
+    <main class="max-w-6xl mx-auto px-6 space-y-48 pb-48">
+       
+      <section id="philosophy" class="reveal py-24">
+    <div class="max-w-4xl mx-auto"> <div class="text-center mb-16">
+            <span class="text-gold border gold-line px-3 py-1 text-sm bg-black/40 mb-6 inline-block">Σ</span>
+            <h2 class="text-3xl md:text-5xl text-white serif italic leading-tight">
+                The Architecture of Systemic Interruption
+            </h2>
+            <div class="divider-gold"></div>
         </div>
 
-        <span class="hidden md:block text-[10px] font-bold tracking-[0.4em]
-                     text-zinc-600 uppercase ml-2 border-l border-white/10 pl-4">
-        
-        </span>
-    </div>
+        <div class="prose-custom space-y-8">
+            <p class="dropcap text-xl leading-relaxed">
+                Decisions in complex systems often accumulate until they reach a state of <strong>foreclosure</strong>—a juncture where the capacity to steer outcomes is exhausted, and Law transitions from a governing force to a reactive one. The <strong>c-ΣCO Doctrine</strong> introduces a specialized legal architecture designed to maintain the open-endedness of systemic alternatives through a rigorous, pre-threshold governance protocol.
+            </p>
 
-    <!-- Mobile: Σ → law.html -->
-    <a href="law.html" class="lg:hidden text-[#d6bc7e] logo-box" aria-label="Open Model Law">🏛️</a>
+            <p class="text-lg">
+                Central to this framework is the concept of the <strong>Living Contract</strong>: a dynamic legal instrument that transcends static documentation. By integrating <strong>AI-driven decision architectures</strong>, c-ΣCO enables the continuous monitoring of biophysical and systemic data, ensuring that contractual obligations remain materially aligned with the Earth System's real-time status. This "live" feedback loop allows for the active adjustment of protocols before irreversible thresholds are breached, transforming the contract into an active node of systemic integrity.
+            </p>
 
-    <!-- Desktop menu -->
-   <div class="hidden lg:flex gap-8 items-center">
-  <a href="#team" class="nav-link">Team</a>
-  <a href="law.html" class="nav-link">Model Law</a>
-  <a href="manual.html" class="nav-link">OPS Manual</a>
-<a href="foundation.html" class="nav-link">Hasse Foundation</a>
-  <a href="#contact" class="nav-link nav-link-cta">Contact</a>
-</div>
+            <div class="glass-panel p-8 my-12 border-l-4 border-gold/50">
+                <p class="text-white font-light italic mb-4">
+                    "Legality persists while the capacity to change course is exhausted."
+                </p>
+                <p class="text-sm tracking-wide text-stone-300">
+                    Supported by a formal <strong>Model Law</strong> and an <strong>Integrative Operational Manual</strong>, the c-ΣCO protocol is designed for high-criticality sectors. The implementation begins with <strong>13 strategic sectors</strong>—including systemic finance, global supply chains, and infrastructure—with its initial operational deployment in the <strong>Amazon region</strong>.
+                </p>
+            </div>
 
-</nav>
-
-    <div class="content-wrapper">
-        <!-- Hero Section -->
-       <section class="min-h-[95vh] flex flex-col justify-center px-6 md:px-20 lg:px-32 hero-glow">
-    <div class="max-w-6xl">
-        <span class="text-[10px] md:text-xs font-bold tracking-[0.4em] text-[#d6bc7e] uppercase mb-8 block">
-            Systemic Security Protocol
-        </span>
-
-        <h1 class="text-6xl md:text-8xl lg:text-[10rem] font-bold mb-10 leading-[0.85] tracking-tighter text-white">
-            Governance <br>
-            <span class="text-[#d6bc7e] italic font-medium">before</span> <br>
-            the collapse.
-        </h1>
-
-        <p class="text-lg md:text-xl text-zinc-400 font-light max-w-xl leading-relaxed mb-12">
-            The c-ECO Doctrine introduces pre-threshold contractual governance: a legal architecture that safeguards the space for future decisions, preventing contracts from becoming irreversible trajectories.
-        </p>
-
-        <div class="flex flex-wrap gap-4">
-            <a href="#proposal" class="bg-[#d6bc7e] text-[#09090b] px-8 py-4 text-xs font-bold uppercase tracking-widest hover:bg-white transition-colors">
-                Explore Protocol
-            </a>
-            <a href="#team" class="border border-white/20 text-white px-8 py-4 text-xs font-bold uppercase tracking-widest hover:bg-white/5 transition-colors">
-                Team
-            </a>
-             <a href="foundation.html" class="border border-white/20 text-white px-8 py-4 text-xs font-bold uppercase tracking-widest hover:bg-white/5 transition-colors">
-                Hasse Foundation
-            </a>
-             <a href="manual.html" class="bg-[#d6bc7e] text-[#09090b] px-8 py-4 text-xs font-bold uppercase tracking-widest hover:bg-white transition-colors">
-                OPS Manual
-            </a>
+            <p class="text-lg">
+                By providing the tools to align contractual commitments with planetary trajectories, c-ΣCO ensures that today’s strategic agreements are structurally designed for long-term survival, preserving the physical conditions upon which all legal and economic stability depends.
+            </p>
         </div>
     </div>
 </section>
 
-        <!-- The Proposal -->
-        <section id="proposal" class="py-32 px-8 md:px-24 border-t border-white/5">
-            <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
-                <div>
-                    <span class="section-tag">The Temporal Mismatch</span>
-                    <h2 class="text-4xl font-bold mb-8 text-white">Law intervenes in damage. We intervene <span class="text-[#d6bc7e]">before</span> the threshold.</h2>
-                    <p class="text-zinc-400 text-lg mb-8 leading-relaxed">
-                        In complex systems, decisions accumulate until reaching a point of <strong>foreclosure</strong> — the definitive closing of alternatives. By the time damage occurs, Law no longer has anything to govern, only to sanction.
+    <section id="architects" class="reveal py-48 px-6 lg:px-24 bg-[#050505]">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-32">
+                <span class="text-gold uppercase tracking-[0.6em] text-[10px] font-bold mb-4 block text-center">Architects of Protocol</span>
+                <h2 class="text-5xl md:text-7xl text-white serif italic">Intellectual Integrity</h2>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-16 items-start mb-48">
+                <div class="lg:col-span-5">
+                    <div class="bio-image-container grayscale contrast-125 hover:grayscale-0 transition-all duration-700 group relative">
+                        <div class="absolute inset-0 border-[1px] border-white/10 group-hover:border-gold/30 transition-colors z-10"></div>
+                        <img src="jacqueline-ennis.PNG" alt="Jacqueline A. Ennis" class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
+                    </div>
+                    <div class="mt-8">
+                        <h4 class="text serif text-2xl text-white">Jacqueline A. Ennis</h4>
+                        <p class="text-gold text-[10px] uppercase tracking-[0.4em] mt-2">Lead Architect & Founder</p>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-7 prose-custom text-stone-400 text-lg lg:pt-4">
+                    <p class="mb-8">
+                        Jacqueline A. Ennis is a Brazilian jurist and independent researcher. She is the author of the c-ΣCO Doctrine (Contractual Equity & Ecological Co-Responsibility).
                     </p>
-                    <div class="p-6 border-l-4 border-[#d6bc7e] bg-zinc-900 rounded-r-lg">
-                        <p class="text-white italic text-lg leading-snug">"Legality persists while the capacity to change course is exhausted. c-ECO breaks with the temporal impunity of current legal design."</p>
-                    </div>
-                </div>
-                <div class="grid gap-6">
-                    <div class="glass-card p-10 rounded-lg">
-                        <div class="w-12 h-[1px] bg-[#d6bc7e] mb-6"></div>
-                        <h3 class="text-white font-bold mb-4 uppercase text-xs tracking-widest">Residual Material Validity</h3>
-                        <p class="text-sm text-zinc-500 leading-relaxed">Contractual validity depends on maintaining the real conditions (ecological and social) that allowed for its authorization on day one.</p>
-                    </div>
-                    <div class="glass-card p-10 rounded-lg">
-                        <div class="w-12 h-[1px] bg-[#d6bc7e] mb-6"></div>
-                        <h3 class="text-white font-bold mb-4 uppercase text-xs tracking-widest">Reversibility Protocols</h3>
-                        <p class="text-sm text-zinc-500 leading-relaxed">Mechanisms activated at 80% of a critical threshold, ensuring that execution never crosses the systemic "point of no return."</p>
+                    <p class="mb-8">
+                        Her work reconceptualizes contracts as temporal architectures of decision. Her thesis demonstrates that legally consequential decisions occur mostly during periods of regulatory compliance, exhausting future decision-making space. c-ΣCO introduces the concepts of temporal validity and pre-threshold responsibility.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 mt-12 border-t border-white/10 pt-8">
+                        <div>
+                            <span class="text-[9px] uppercase tracking-widest text-stone-600 block mb-2">Education</span>
+                            <span class="text-xs text-stone-300 block">LL.M. WashU Law</span>
+                            <span class="text-xs text-stone-300 block">Boston University</span>
+                        </div>
+                        <div>
+                            <span class="text-[9px] uppercase tracking-widest text-stone-600 block mb-2">Affiliation</span>
+                            <span class="text-xs text-stone-300 block">Silvio Meira Institute (ISM)</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- Author / Bio Section -->
-        <section id="team" class="py-32 px-8 md:px-24 border-t border-white/5 bg-zinc-950">
-    <div class="max-w-6xl mx-auto">
-        <span class="section-tag">Intellectual Foundation</span>
-        <div class="grid lg:grid-cols-12 gap-16">
-            <div class="lg:col-span-4">
-                <div class="bio-image-container rounded-sm shadow-2xl overflow-hidden">
-                    <img 
-                        src="jacqueline-ennis.PNG" 
-                        alt="Jacqueline A. Ennis" 
-                        class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500"
-                    >
+            <div class="grid lg:grid-cols-12 gap-16 items-start">
+                <div class="lg:col-span-5 lg:order-2">
+                    <div class="bio-image-container grayscale contrast-125 hover:grayscale-0 transition-all duration-700 group relative">
+                        <div class="absolute inset-0 border-[1px] border-white/10 group-hover:border-gold/30 transition-colors z-10"></div>
+                        <img src="erelyn-alves.PNG" alt="Erelyn Alves" class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
+                    </div>
+                    <div class="mt-8">
+                        <h4 class="text serif text-2xl text-white">Erelyn Alves</h4>
+                        <p class="text-gold text-[10px] uppercase tracking-[0.4em] mt-2">Technical Advisor for Systemic Integrity</p>
+                    </div>
                 </div>
-                <div class="mt-8">
-                    <h4 class="text-2xl font-bold text-white mb-2">Jacqueline A. Ennis</h4>
-                    <p class="text-[#d6bc7e] text-sm uppercase tracking-widest font-semibold">Legal Scholar & Researcher</p>
-                    <div class="mt-6 flex flex-col gap-3">
-                        <span class="text-xs text-zinc-600 font-mono">/ LL.M. WashU Law</span>
-                        <span class="text-xs text-zinc-600 font-mono">/ Boston University</span>
-                        <span class="text-xs text-zinc-600 font-mono">/ Silvio Meira Institute</span>
+
+                <div class="lg:col-span-7 lg:order-1 prose-custom text-stone-400 text-lg lg:pt-4">
+                    <p class="mb-8">
+                        Erelyn Alves is the Senior Technical Advisor for Systemic Integrity. A Brazilian technologist with academic training in Computer Science, his professional trajectory is dedicated to security and integrity in high-criticality digital and contractual environments.
+                    </p>
+                    <p>
+                        His work is characterized by rigorous technical standards and a strong focus on risk containment, informing the c-ΣCO framework in preventive governance protocols and contract-linked technical security.
+                    </p>
+                    <div class="mt-12 border-t border-white/10 pt-8">
+                        <span class="text-[9px] uppercase tracking-widest text-stone-600 block mb-2">Systems Analysis</span>
+                        <span class="text-xs text-stone-300 block">Universidade da Amazônia (UNAMA)</span>
+                        <span class="text-xs text-stone-300 block">PRODEPA Technology Insights</span>
                     </div>
                 </div>
             </div>
-            <div class="lg:col-span-8 space-y-6 text-zinc-400 text-lg leading-relaxed font-light">
-                <p>
-                    Jacqueline A. Ennis is a Brazilian legal scholar and independent researcher. She is the author of the 
-                    <strong class="text-white">c-ECO Doctrine (Contractual Equity & Ecological Co-Responsibility)</strong>. 
-                </p>
-                <p>
-                    Her work reconceptualizes contracts as <strong class="text-white text-base">temporal architectures of decision</strong>. Her thesis demonstrates that legally consequential decisions occur mostly during periods of regulatory compliance, exhausting future decision-making space. c-ECO introduces the concepts of <strong class="text-white text-base">temporal validity</strong> and <strong class="text-white text-base">pre-threshold responsibility</strong>.
-                </p>
-                <p>
-                    The formulation is anchored in her academic trajectory at <a href="https://law.washu.edu/" target="_blank" class="text-accent-link">Washington University in St. Louis</a> and studies at <a href="https://www.bu.edu/" target="_blank" class="text-accent-link">Boston University</a>, strategically supported by the <strong class="text-white">Silvio Meira Institute (ISM)</strong>.
-                </p>
-            </div>
         </div>
+    </section>
+</main>
+    
+    <section id="pillars" class="reveal py-48 px-6 lg:px-24 bg-[#050505]">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-32">
+      <span class="text-gold uppercase tracking-[0.6em] text-[10px] font-bold mb-4 block text-center">Dogmatic Pillars</span>
+      <h2 class="text-5xl md:text-7xl text-white serif italic">The Logic of Interruption</h2>
     </div>
-</section>
-<!-- People -->
-<section id="people" class="py-32 px-8 md:px-24 border-t border-white/5 bg-zinc-950">
-  <div class="max-w-6xl mx-auto">
-    <span class="section-tag">Systemic Integrity</span>
- <!-- Erelyn -->
-     <div class="grid lg:grid-cols-12 gap-16">
-      <div class="lg:col-span-4">
-        <div class="bio-image-container rounded-sm shadow-2xl overflow-hidden">
-          <img src="erelyn-alves.PNG"
-               alt="Erelyn Alves — Senior Technical Advisor for Systemic Integrity"
-               class="w-full h-full object-cover grayscale hover:grayscale-0 transition">
-        </div>
-        
-        <div class="mt-8">
-          <h4 class="text-2xl font-bold text-white mb-2">Erelyn Alves</h4>
-          <p class="text-[#d6bc7e] text-sm uppercase tracking-widest font-semibold">
-            Technical Advisor for Systemic Integrity
-          </p>
-        </div>
+
+    <div class="grid md:grid-cols-3 gap-0 border border-white/10">
+      <div class="p-12 border-r border-white/10 group hover:bg-white/[0.02] transition-all duration-700">
+        <div class="text-gold/20 serif text-5xl text-center mb-12 group-hover:text-gold/40 transition-colors">Σ</div>
+        <h4 class="text-xl font-bold mb-6 text-white text-center uppercase tracking-tighter">Time-as-Status</h4>
+        <p class="text-stone-500 text-sm text-center leading-relaxed font-light">
+          Replacing "deadline" time with "capacity" time: the sum of decisions that still allow for the system's survival.
+        </p>
       </div>
 
-      <div class="lg:col-span-8 text-zinc-400 text-lg leading-relaxed space-y-6">
-        <p>
-          Erelyn Alves is Senior Technical Advisor for Systemic Integrity.
-          A Brazilian technologist with academic training in Computer Science
-          and Systems Analysis & Development from the Universidade da Amazônia (UNAMA),
-          his professional trajectory since 2009 has been dedicated to security and
-          integrity in high-criticality digital and contractual environments.
+      <div class="p-12 border-r border-white/10 group hover:bg-white/[0.02] transition-all duration-700">
+        <div class="text-gold/20 serif text-5xl text-center mb-12 group-hover:text-gold/40 transition-colors">⊘</div>
+        <h4 class="text-xl font-bold mb-6 text-white text-center uppercase tracking-tighter">Limits to Authorization</h4>
+        <p class="text-stone-500 text-sm text-center leading-relaxed font-light">
+          Systemic integrity operates as a negative condition of validity: if the system collapses, the contract loses its legal purpose.
         </p>
-        <p>
-          His work is characterized by rigorous technical standards, methodological
-          discipline, and a strong focus on risk containment. Experience accumulated
-          at Pará State Information and Communication Technology Company (PRODEPA) informs his contribution to the c-ECO framework, particularly
-          in preventive governance protocols and contract-linked technical security.
+      </div>
+
+      <div class="p-12 group hover:bg-white/[0.02] transition-all duration-700">
+        <div class="text-gold/20 serif text-5xl mb-12 text-center group-hover:text-gold/40 transition-colors">♽</div>
+        <h4 class="text-xl font-bold mb-6 text-white text-center uppercase tracking-tighter">Adaptive Design</h4>
+        <p class="text-stone-500 text-sm text-center leading-relaxed font-light">
+          Duty of active monitoring and mandatory renegotiation as prerequisites for systemic security.
         </p>
       </div>
     </div>
-
   </div>
 </section>
-        <!-- Pillars -->
-<section id="pillars" class="py-32 px-8 md:px-24 bg-zinc-950/50">
-    <div class="max-w-6xl mx-auto">
-        <div class="mb-20 text-center">
-            <span class="section-tag">Dogmatic Pillars</span>
-            <h2 class="text-4xl font-bold text-white">Co-responsibility Structure</h2>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-8">
-
-            <!-- Time-as-Status -->
-            <div class="p-10 border border-white/5 hover:border-[#d6bc7e]/30 transition bg-zinc-900 text-center">
-                <div class="w-full flex justify-center items-center mb-6">
-                    <span class="text-3xl font-light text-[#d6bc7e] mx-auto">Σ</span>
-                </div>
-                <h4 class="text-xl font-bold mb-4 text-white">Time-as-Status</h4>
-                <p class="text-zinc-500 text-sm leading-relaxed">
-                    Replacing "deadline" time with "capacity" time: the sum of decisions that still allow for the system's survival.
-                </p>
-            </div>
-
-            <!-- Limits to Authorization -->
-            <div class="p-10 border border-white/5 hover:border-[#d6bc7e]/30 transition bg-zinc-900 text-center">
-                <div class="w-full flex justify-center items-center mb-6">
-                    <span class="text-3xl font-light text-[#d6bc7e] mx-auto">⊘</span>
-                </div>
-                <h4 class="text-xl font-bold mb-4 text-white">Limits to Authorization</h4>
-                <p class="text-zinc-500 text-sm leading-relaxed">
-                    Systemic integrity operates as a negative condition of validity: if the system collapses, the contract loses its legal purpose.
-                </p>
-            </div>
-
-            <!-- Adaptive Design -->
-            <div class="p-10 border border-white/5 hover:border-[#d6bc7e]/30 transition bg-zinc-900 text-center">
-                <div class="w-full flex justify-center items-center mb-6">
-                    <span class="text-3xl font-light text-[#d6bc7e] mx-auto">♽</span>
-                </div>
-                <h4 class="text-xl font-bold mb-4 text-white">Adaptive Design</h4>
-                <p class="text-zinc-500 text-sm leading-relaxed">
-                    Duty of active monitoring and mandatory renegotiation as prerequisites for systemic security.
-                </p>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<section id="layers" class="mt-16 border-t border-white/10 pt-12">
+    
+    <section id="layers" class="mt-16 border-t border-white/10 pt-12">
   <div class="max-w-6xl mx-auto px-6 md:px-0">
 
     <span class="text-[11px] font-bold tracking-[0.4em] uppercase text-[#d6bc7e]">
@@ -2137,7 +1999,7 @@
           By stripping compliance of normative authority while elevating its structural importance, c-ECO transforms compliance from a mechanism of accommodation into a mechanism of fidelity.
         </p>
 
-        <p class="text-zinc-300 text-sm leading-relaxed">
+      <p class="text-zinc-300 text-sm leading-relaxed">
           It ensures that:
         </p>
 
@@ -2150,236 +2012,63 @@
         <p class="text-zinc-300 text-sm leading-relaxed">
           In doing so, this layer reinforces — rather than competes with — the Closed Core and the Earth System Law Advisory, preserving the integrity of legality under conditions of systemic risk and irreversibility.
         </p>
-      </section>
-
+      </section> 
     </div>
-  </div>
-</div>
-</div>
-    <!-- Minimal CSS helper (optional) -->
+  </div> 
     <style>
-      /* rotates chevron when open */
-      details[open] .details-chevron { transform: rotate(180deg); }
-      /* remove default marker in some browsers */
-      summary::-webkit-details-marker { display: none; }
-    </style>
+        
+  details[open] .details-chevron { transform: rotate(180deg); }
+  summary::-webkit-details-marker { display: none; }
+</style>
 
+
+
+<section class="py-48 px-6 lg:px-24 bg-[#050505] reveal" >
+  <div class="max-w-4xl mx-auto text-center">
+    <h2 class="text-4xl md:text-6xl text-white serif italic mb-12">"Because time remembers."</h2>
+    <p class="text-stone-400 text-lg mb-12 max-w-2xl mx-auto">
+      The c-ΣCO Doctrine is the technical translation of an inherited responsibility. 
+      Explore the lineage of thought that sustains this protocol.
+    </p>
+    <a href="foundation.html" class="inline-block border border-gold text-gold px-12 py-5 text-[10px] uppercase tracking-[0.5em] font-bold hover:bg-gold hover:text-black transition-all duration-500">
+      Visit Hasse Foundation
+    </a>
   </div>
 </section>
-
-
-     <!-- Footer -->
-<!-- =========================
-     FOOTER
-     ========================= -->
-<footer id="contact" class="pt-20 pb-12 px-8 md:px-24 border-t border-white/5 bg-[#050505]">
-  <div class="max-w-6xl mx-auto">
-
-    <!-- Top grid -->
-    <div class="grid lg:grid-cols-12 gap-10 items-start">
-
-      <!-- Brand / Contact -->
-      <div class="lg:col-span-4">
-        <div class="flex items-center gap-3">
-          <span class="logo-box">Σ</span>
-          <div>
-            <div class="text-2xl font-bold tracking-tighter text-white">c-ECO</div>
-            <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-[#d6bc7e] mt-1">
-              Governance before collapse
-            </div>
-          </div>
-        </div>
-
-        <p class="text-zinc-500 text-sm leading-relaxed mt-6 max-w-sm">
-          A pre-threshold contractual governance doctrine: protecting decision-space before irreversibility.
-        </p>
-
-        <div class="mt-6">
-          <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-zinc-600">Contact</div>
-          <a href="mailto:info@c-eco.org"
-             class="block mt-3 text-2xl md:text-3xl text-white hover:text-[#d6bc7e] transition font-bold tracking-tighter">
-            info@c-eco.org
-          </a>
-        </div>
-      </div>
-
-      <!-- Quick links -->
-      <div class="lg:col-span-4">
-        <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-zinc-600">Quick links</div>
-
-        <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <a href="law.html"
-             class="p-4 border border-white/10 bg-zinc-900/60 hover:border-[#d6bc7e]/50 transition">
-            <div class="text-xs font-bold uppercase tracking-widest text-white">Model Law</div>
-            <div class="text-[11px] text-zinc-500 mt-1">Statute + operative articles</div>
-          </a>
-
-          <a href="law.html#CECO-ART-215"
-             class="p-4 border border-white/10 bg-zinc-900/60 hover:border-[#d6bc7e]/50 transition">
-            <div class="text-xs font-bold uppercase tracking-widest text-white">TFP Annex</div>
-            <div class="text-[11px] text-zinc-500 mt-1">Binding prudential protocol</div>
-          </a>
-
-          <a href="manual.html"
-             class="p-4 border border-white/10 bg-zinc-900/60 hover:border-[#d6bc7e]/50 transition">
-            <div class="text-xs font-bold uppercase tracking-widest text-white">OPS Manual</div>
-            <div class="text-[11px] text-zinc-500 mt-1">Overview on this page</div>
-          </a>
-
-          <a href="#pillars"
-             class="p-4 border border-white/10 bg-zinc-900/60 hover:border-[#d6bc7e]/50 transition">
-            <div class="text-xs font-bold uppercase tracking-widest text-white">Pillars</div>
-            <div class="text-[11px] text-zinc-500 mt-1">Dogmatic foundation</div>
-          </a>
-        </div>
-      </div>
-
-      <div class="lg:col-span-4">
-  <div class="text-[10px] font-bold tracking-[0.35em] uppercase text-zinc-600">
-    Doctrine structure
-  </div>
-
-  <!-- =========================
-       Layer 1 — Closed Core
-       ========================= -->
-
-  <!-- MOBILE -->
-  <a href="#layer-1-closed-core-m"
-     class="block md:hidden p-4 border border-white/10 bg-zinc-900/60 hover:border-[#d6bc7e]/50 transition">
-    <div class="flex items-center justify-between gap-4">
-      <div class="text-xs font-bold uppercase tracking-widest text-[#d6bc7e]">Layer 1</div>
-      <div class="text-[11px] text-zinc-500">Closed Core</div>
-    </div>
-    <div class="text-white font-semibold mt-2">Doctrinal Governance</div>
-  </a>
-
-  <!-- DESKTOP -->
-  <a href="#layer-1-closed-core-d"
-     class="hidden md:block p-4 border border-white/10 bg-zinc-900/60 hover:border-[#d6bc7e]/50 transition">
-    <div class="flex items-center justify-between gap-4">
-      <div class="text-xs font-bold uppercase tracking-widest text-[#d6bc7e]">Layer 1</div>
-      <div class="text-[11px] text-zinc-500">Closed Core</div>
-    </div>
-    <div class="text-white font-semibold mt-2">Doctrinal Governance</div>
-  </a>
-
-  <!-- =========================
-       Layer 2 — Governed
-       ========================= -->
-    
-  <!-- MOBILE -->
-  <a href="#layer-2-governed-m"
-     class="block md:hidden p-4 border border-white/10 bg-zinc-900/60 hover:border-[#d6bc7e]/50 transition">
-    <div class="flex items-center justify-between gap-4">
-      <div class="text-xs font-bold uppercase tracking-widest text-[#d6bc7e]">Layer 2</div>
-      <div class="text-[11px] text-zinc-500">Governed</div>
-    </div>
-    <div class="text-white font-semibold mt-2">Decisional &amp; Systemic Architectures</div>
-  </a>
-
-  <!-- DESKTOP -->
-  <a href="#layer-2-governed-d"
-     class="hidden md:block p-4 border border-white/10 bg-zinc-900/60 hover:border-[#d6bc7e]/50 transition">
-    <div class="flex items-center justify-between gap-4">
-      <div class="text-xs font-bold uppercase tracking-widest text-[#d6bc7e]">Layer 2</div>
-      <div class="text-[11px] text-zinc-500">Governed</div>
-    </div>
-    <div class="text-white font-semibold mt-2">Decisional &amp; Systemic Architectures</div>
-  </a>
-
-  <!-- =========================
-       Layer 3 — Independent
-       ========================= -->
-
-  <!-- MOBILE -->
-  <a href="#layer-3-independent-m"
-     class="block md:hidden p-4 border border-white/10 bg-zinc-900/60 hover:border-[#d6bc7e]/50 transition">
-    <div class="flex items-center justify-between gap-4">
-      <div class="text-xs font-bold uppercase tracking-widest text-[#d6bc7e]">Layer 3</div>
-      <div class="text-[11px] text-zinc-500">Independent</div>
-    </div>
-    <div class="text-white font-semibold mt-2">Scientific &amp; Systemic Validation</div>
-  </a>
-
-  <!-- DESKTOP -->
-  <a href="#layer-3-independent-d"
-     class="hidden md:block p-4 border border-white/10 bg-zinc-900/60 hover:border-[#d6bc7e]/50 transition">
-    <div class="flex items-center justify-between gap-4">
-      <div class="text-xs font-bold uppercase tracking-widest text-[#d6bc7e]">Layer 3</div>
-      <div class="text-[11px] text-zinc-500">Independent</div>
-    </div>
-    <div class="text-white font-semibold mt-2">Scientific &amp; Systemic Validation</div>
-  </a>
-
-  <!-- =========================
-       Layer 4 — Sectoral
-       ========================= -->
-
-  <!-- MOBILE -->
-  <a href="#layer-4-sectoral-m"
-     class="block md:hidden p-4 border border-white/10 bg-zinc-900/60 hover:border-[#d6bc7e]/50 transition">
-    <div class="flex items-center justify-between gap-4">
-      <div class="text-xs font-bold uppercase tracking-widest text-[#d6bc7e]">Layer 4</div>
-      <div class="text-[11px] text-zinc-500">13 domains</div>
-    </div>
-    <div class="text-white font-semibold mt-2">Sectoral Scientific Architecture</div>
-  </a>
-
-  <!-- DESKTOP -->
-  <a href="#layer-4-sectoral-d"
-     class="hidden md:block p-4 border border-white/10 bg-zinc-900/60 hover:border-[#d6bc7e]/50 transition">
-    <div class="flex items-center justify-between gap-4">
-      <div class="text-xs font-bold uppercase tracking-widest text-[#d6bc7e]">Layer 4</div>
-      <div class="text-[11px] text-zinc-500">13 domains</div>
-    </div>
-    <div class="text-white font-semibold mt-2">Sectoral Scientific Architecture</div>
-  </a>
-
-  <!-- =========================
-       Layer 5 — Executional
-       ========================= -->
-
-  <!-- MOBILE -->
-  <a href="#layer-5-executional-m"
-     class="block md:hidden p-4 border border-white/10 bg-zinc-900/60 hover:border-[#d6bc7e]/50 transition">
-    <div class="flex items-center justify-between gap-4">
-      <div class="text-xs font-bold uppercase tracking-widest text-[#d6bc7e]">Layer 5</div>
-      <div class="text-[11px] text-zinc-500">Executional</div>
-    </div>
-    <div class="text-white font-semibold mt-2">Technical Integrity &amp; Security</div>
-  </a>
-
-  <!-- DESKTOP -->
-  <a href="#layer-5-executional-d"
-     class="hidden md:block p-4 border border-white/10 bg-zinc-900/60 hover:border-[#d6bc7e]/50 transition">
-    <div class="flex items-center justify-between gap-4">
-      <div class="text-xs font-bold uppercase tracking-widest text-[#d6bc7e]">Layer 5</div>
-      <div class="text-[11px] text-zinc-500">Executional</div>
-    </div>
-    <div class="text-white font-semibold mt-2">Technical Integrity &amp; Security</div>
-  </a>
-
 </div>
-
-
     </div>
-
-    <!-- Bottom bar -->
-    <div class="mt-14 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-      <div class="text-[10px] text-zinc-600 tracking-widest uppercase">
-        © 2025 Jacqueline A. Ennis · c-ECO Doctrine
-      </div>
-
-      <div class="flex gap-5 text-[10px] uppercase tracking-widest text-zinc-600">
-        <a href="index.html" class="hover:text-[#d6bc7e] transition">Portal</a>
-        <a href="law.html" class="hover:text-[#d6bc7e] transition">Model Law</a>
-        <a href="manual.html" class="hover:text-[#d6bc7e] transition">OPS Manual</a>
-      </div>
+  </div>
+<footer class="py-20 px-6 border-t border-white/10 bg-black/20 text-center">
+  <div class="max-w-4xl mx-auto">
+    <div class="flex justify-center gap-4 mb-8">
+      <span class="text-gold border border-gold/30 px-3 py-1">Σ</span>
     </div>
-
+    <p class="text-stone-600 text-[10px] uppercase tracking-[0.5em] mb-4">© 2026 Jacqueline A. Ennis · c-ECO Doctrine</p>
+    <p class="text-stone-700 text-[9px] uppercase tracking-[0.4em]">USA · Amazon · Brazil</p>
   </div>
 </footer>
-    </div>
 
-</body>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const observerOptions = {
+            threshold: 0.15, // Aciona quando 15% do elemento está visível
+            rootMargin: "0px 0px -50px 0px" // Inicia a animação um pouco antes de entrar totalmente
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    // Opcional: para de observar após a primeira animação
+                    // observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Seleciona todos os elementos com a classe reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        revealElements.forEach(el => observer.observe(el));
+    });
+    </script>
+  </body>
 </html>
