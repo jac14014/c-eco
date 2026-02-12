@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>c-ECO Doctrine — Systemic Security Protocol</title>
-    <meta name="description" content="Pre-threshold governance framework developed by Jacqueline A. Ennis.">
+    <title>c-ECO Doctrine — Overview & Foundations</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -13,98 +12,140 @@
                 extend: {
                     colors: {
                         gold: "#d6bc7e",
-                        stone: { 950: "#050505" } // Preto mais profundo que a Foundation
+                        stone: { 950: "#09090b" }
                     }
                 }
             }
         }
     </script>
-
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
     <style>
-        :root { 
-            --gold: #d6bc7e; 
-            --stone-950: #050505; 
-            --gold-soft: rgba(214, 188, 126, 0.3);
-        }
+        :root { --gold: #d6bc7e; --bg: #09090b; }
+        body { background-color: var(--bg); color: #f4f4f5; font-family: 'Urbanist', sans-serif; }
+        .serif { font-family: 'Playfair Display', serif; }
+        
+        /* Dropcap sutil */
+        .dropcap::first-letter { float: left; font-size: 3.5rem; line-height: 0.8; padding-right: 0.6rem; color: var(--gold); font-family: 'Playfair Display'; font-weight: 700; }
+        
+        /* Glass Cards - De volta à densidade */
+        .glass-card { background: rgba(24, 24, 27, 0.6); border: 1px solid rgba(214, 188, 126, 0.1); backdrop-filter: blur(10px); transition: all 0.3s ease; }
+        .glass-card:hover { border-color: var(--gold); transform: translateY(-4px); }
 
-        body { 
-            background-color: var(--stone-950); 
-            color: #e7e5e4; 
-            font-family: 'Space Grotesk', sans-serif; /* Base técnica/moderna */
-            line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        h1, h2, h3, .serif { 
-            font-family: 'Playfair Display', serif; /* Toque artístico/clássico */
-        }
-
-        /* Arte Minimalista: Ruído de fundo sutil para textura de galeria */
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            opacity: 0.02;
-            pointer-events: none;
-            z-index: 100;
-        }
-
-        /* Animação de Revelação */
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        /* Dropcap unificada com a Foundation */
-        .dropcap::first-letter { 
-            float: left; 
-            font-size: 3.8rem; 
-            line-height: 0.7; 
-            padding-right: 0.7rem; 
-            padding-top: 0.2rem;
-            color: var(--gold); 
-            font-family: 'Playfair Display'; 
-            font-weight: 700;
-        }
-
-        /* Navegação */
-        .nav-link {
-            font-size: 9px;
-            text-transform: uppercase;
-            letter-spacing: 0.4em;
-            color: rgba(255,255,255,0.4);
-            transition: all 0.3s;
-        }
-        .nav-link:hover { color: var(--gold); }
-
-        /* Σ Logo Box Unificado */
-        .logo-box {
-            border: 1px solid var(--gold-soft);
-            padding: 2px 8px;
-            color: var(--gold);
-            background: rgba(0,0,0,0.2);
-            font-weight: 400;
-            transition: all 0.4s;
-        }
-        .logo-box:hover {
-            box-shadow: 0 0 15px rgba(214, 188, 126, 0.15);
-            border-color: var(--gold);
-        }
-
-        /* Scrollbar Minimalista */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: var(--stone-950); }
-        ::-webkit-scrollbar-thumb { background: #222; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
+        .logo-box { border: 1px solid var(--gold); padding: 2px 8px; color: var(--gold); font-size: 14px; }
+        
+        /* Noise sutil para não parecer vazio */
+        body::before { content: ""; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity: 0.015; pointer-events: none; z-index: 100; }
     </style>
 </head>
+
+<body class="selection:bg-gold/30">
+
+    <nav class="fixed top-0 w-full z-50 px-6 py-5 flex justify-between items-center bg-[#09090b]/95 backdrop-blur-md border-b border-white/5">
+        <div class="flex items-center gap-4">
+            <span class="logo-box font-bold">Σ</span>
+            <div class="flex flex-col">
+                <span class="text-xl font-bold tracking-tighter text-white uppercase">c-ECO</span>
+                <span class="text-[8px] font-bold tracking-[0.3em] text-gold uppercase italic">Systemic Governance</span>
+            </div>
+        </div>
+        <div class="hidden lg:flex gap-8 items-center text-[10px] uppercase tracking-[0.2em] font-bold text-zinc-500">
+            <a href="#philosophy" class="hover:text-gold transition">Philosophy</a>
+            <a href="law.html" class="hover:text-gold transition">Model Law</a>
+            <a href="#team" class="hover:text-gold transition">Architects</a>
+            <a href="foundation.html" class="text-gold border border-gold/20 px-3 py-1 hover:bg-gold hover:text-black transition">Foundation</a>
+        </div>
+    </nav>
+
+    <header class="min-h-screen flex items-center px-6 lg:px-24 pt-20">
+        <div class="max-w-6xl w-full grid lg:grid-cols-12 gap-10 items-center">
+            <div class="lg:col-span-8">
+                <span class="text-gold uppercase tracking-[0.4em] text-[10px] font-bold mb-6 block">Institutional Security Protocol</span>
+                <h1 class="text-6xl md:text-8xl font-extrabold leading-[0.9] tracking-tighter text-white mb-8">
+                    Governance <br>
+                    <span class="serif italic font-light text-gold">Before</span> <br>
+                    the Collapse.
+                </h1>
+                <p class="text-xl text-zinc-400 max-w-xl leading-relaxed dropcap">
+                    The c-ECO Doctrine introduces <strong class="text-white">pre-threshold contractual governance</strong>: a legal architecture that safeguards the space for future decisions, preventing contracts from becoming irreversible trajectories.
+                </p>
+                <div class="mt-10 flex flex-wrap gap-4">
+                    <a href="#philosophy" class="bg-gold text-black px-8 py-4 text-[10px] font-bold uppercase tracking-widest hover:bg-white transition">Explore Protocol</a>
+                    <a href="law.html" class="border border-white/20 text-white px-8 py-4 text-[10px] font-bold uppercase tracking-widest hover:bg-white/10 transition">Model Law</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="philosophy" class="py-32 px-6 lg:px-24 bg-stone-950/50 border-t border-white/5">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20">
+            <div>
+                <span class="text-gold uppercase tracking-widest text-[10px] font-bold mb-4 block">The Temporal Mismatch</span>
+                <h2 class="text-4xl font-bold mb-8 serif italic text-white leading-tight">Law intervenes in damage. <br>We intervene <span class="text-gold">before</span> the threshold.</h2>
+                <div class="space-y-6 text-zinc-400 text-lg leading-relaxed">
+                    <p>In complex systems, decisions accumulate until reaching a point of <strong>foreclosure</strong>—the definitive closing of alternatives. By the time damage occurs, Law no longer has anything to govern, only to sanction.</p>
+                    <blockquote class="border-l-2 border-gold pl-6 py-2 text-white italic serif text-xl bg-zinc-900/50 pr-6 rounded-r">
+                        "Legality persists while the capacity to change course is exhausted. c-ECO breaks with the temporal impunity of current legal design."
+                    </blockquote>
+                </div>
+            </div>
+            <div class="grid gap-6">
+                <div class="glass-card p-10">
+                    <h3 class="text-gold font-bold uppercase text-[10px] tracking-widest mb-4">Residual Material Validity</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed">Contractual validity depends on maintaining the real biophysical conditions that allowed for its authorization on day one.</p>
+                </div>
+                <div class="glass-card p-10">
+                    <h3 class="text-gold font-bold uppercase text-[10px] tracking-widest mb-4">Reversibility Protocols</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed">Mechanisms activated at 80% of a critical threshold, ensuring that execution never crosses the systemic "point of no return."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="pt-24 pb-12 px-6 lg:px-24 border-t border-white/5 bg-black">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-16">
+            <div class="lg:col-span-4">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="logo-box font-bold">Σ</span>
+                    <span class="text-2xl font-bold tracking-tighter text-white uppercase">c-ECO</span>
+                </div>
+                <p class="text-zinc-500 text-xs leading-relaxed max-w-xs mb-8">A pre-threshold contractual governance doctrine: protecting decision-space before irreversibility.</p>
+                <span class="text-[10px] text-zinc-600 uppercase tracking-widest block mb-2">Contact</span>
+                <a href="mailto:info@c-eco.org" class="text-2xl font-bold text-white hover:text-gold transition serif italic">info@c-eco.org</a>
+            </div>
+            
+            <div class="lg:col-span-8">
+                <span class="text-[10px] text-zinc-600 uppercase tracking-widest block mb-8">Doctrine Structure (Statutory Alignment)</span>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                    <a href="#" class="p-4 bg-zinc-900/50 border border-white/5 hover:border-gold/50 transition group">
+                        <div class="flex justify-between text-gold text-[9px] font-bold uppercase tracking-widest mb-2">
+                            <span>Layer 1</span>
+                            <span class="opacity-0 group-hover:opacity-100 transition">View</span>
+                        </div>
+                        <div class="text-white font-bold text-xs uppercase tracking-tight">Closed Core Governance</div>
+                    </a>
+                    <a href="#" class="p-4 bg-zinc-900/50 border border-white/5 hover:border-gold/50 transition group">
+                        <div class="flex justify-between text-gold text-[9px] font-bold uppercase tracking-widest mb-2">
+                            <span>Layer 2</span>
+                            <span class="opacity-0 group-hover:opacity-100 transition">View</span>
+                        </div>
+                        <div class="text-white font-bold text-xs uppercase tracking-tight">Decisional Architectures</div>
+                    </a>
+                    <a href="#" class="p-4 bg-zinc-900/50 border border-white/5 hover:border-gold/50 transition group">
+                        <div class="flex justify-between text-gold text-[9px] font-bold uppercase tracking-widest mb-2">
+                            <span>Layer 3</span>
+                            <span class="opacity-0 group-hover:opacity-100 transition">View</span>
+                        </div>
+                        <div class="text-white font-bold text-xs uppercase tracking-tight">Scientific Validation</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between gap-6 text-[9px] text-zinc-600 uppercase tracking-[0.3em]">
+            <span>© 2026 Jacqueline A. Ennis · c-ECO Doctrine</span>
+            <span>Columbia, MO · Belém, Brazil</span>
+        </div>
+    </footer>
 
 <body class="selection:bg-gold/30">
 
