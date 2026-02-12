@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Σ c-ECO Doctrine | Governance Before the Collapse</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,73 +13,166 @@
         :root {
             --primary-gold: #c5a059; 
             --bg-dark: #050505;
-            --surface-dark: #111111;
+            --surface-dark: #0d0d0d;
             --text-main: #e0e0e0;
             --text-muted: #a0a0a0;
             --border-subtle: #222222;
-            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --max-width-content: 850px; /* Largura ideal para leitura acadêmica/jurídica */
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background-color: var(--bg-dark);
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
-            line-height: 1.7;
-            overflow-x: hidden;
+            line-height: 1.8;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Estilização da barra de rolagem para manter o tema Dark */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-dark);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--border-subtle);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-gold);
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
+        .content-narrow { max-width: var(--max-width-content); margin: 0 auto; }
 
-        /* Classes Utilitárias para o Conteúdo que vira a seguir */
-        h1, h2, h3, h4 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 400;
-            color: #ffffff;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; color: #ffffff; font-weight: 400; }
         .gold-text { color: var(--primary-gold); }
         .muted-text { color: var(--text-muted); }
+
+        /* Navigation */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.5rem 5%; border-bottom: 1px solid var(--border-subtle);
+            background: rgba(5,5,5,0.95); position: sticky; top: 0; z-index: 1000;
+        }
+        nav ul { display: flex; list-style: none; gap: 2rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; }
+        nav a { text-decoration: none; color: var(--text-muted); transition: 0.3s; }
+        nav a:hover { color: var(--primary-gold); }
+
+        /* Hero */
+        header.hero { padding: 150px 0 100px; text-align: center; border-bottom: 1px solid var(--border-subtle); }
+        .hero h1 { font-size: clamp(3rem, 10vw, 5rem); line-height: 1.1; margin: 30px 0; }
+        .hero p { font-size: 1.25rem; color: var(--text-muted); margin-bottom: 40px; }
+
+        /* Sections */
+        section { padding: 140px 0; border-bottom: 1px solid var(--border-subtle); }
+        .section-tag { text-transform: uppercase; letter-spacing: 4px; font-size: 0.8rem; font-weight: 700; margin-bottom: 20px; display: block; }
         
-        a {
-            text-decoration: none;
-            color: inherit;
-            transition: var(--transition);
+        /* Profile Grid - Mais limpo */
+        .profile-card { display: grid; grid-template-columns: 280px 1fr; gap: 60px; margin-top: 80px; align-items: start; }
+        .profile-img { width: 100%; filter: grayscale(100%); border: 1px solid var(--border-subtle); }
+
+        /* Typography spacing */
+        p { margin-bottom: 1.5rem; }
+        blockquote { 
+            font-family: 'Playfair Display', serif; font-size: 1.8rem; font-style: italic;
+            border-left: 2px solid var(--primary-gold); padding-left: 40px; margin: 60px 0;
+            line-height: 1.4; color: #fff;
         }
 
-        /* Efeito de destaque para os termos latinos ou técnicos */
-        dfn {
-            font-style: italic;
-            color: var(--primary-gold);
+        .layer-logic-box {
+            background: var(--surface-dark); border: 1px solid var(--border-subtle);
+            padding: 40px; margin: 50px 0; border-left: 4px solid var(--primary-gold);
         }
+
+        .list-item { margin-bottom: 40px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 30px; }
+        .list-item:last-child { border: none; }
     </style>
 </head>
 <body>
+
+    <nav>
+        <div class="logo"><strong><span class="gold-text">Σ</span>c-ECO</strong></div>
+        <ul>
+            <li><a href="#">Portal</a></li>
+            <li><a href="#team">Team</a></li>
+            <li><a href="#">Model Law</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero container">
+        <span class="section-tag gold-text">Systemic Security Protocol</span>
+        <h1>Governance <br><i>before</i> the collapse.</h1>
+        <div class="content-narrow">
+            <p>A legal architecture that safeguards the space for future decisions, preventing contracts from becoming irreversible trajectories.</p>
+        </div>
+    </header>
+
+    <section id="mismatch" class="container">
+        <div class="content-narrow">
+            <h2 style="font-size: 3rem; margin-bottom: 40px;">The Temporal Mismatch</h2>
+            <h3 class="gold-text" style="font-family: 'Inter'; font-weight: 300; font-size: 1.8rem; margin-bottom: 40px;">
+                Law intervenes in damage. <br>We intervene <strong>before</strong> the threshold.
+            </h3>
+            <p>In complex systems, decisions accumulate until reaching a point of foreclosure — the definitive closing of alternatives. By the time damage occurs, Law no longer has anything to govern, only to sanction.</p>
+            
+            <blockquote>
+                "Legality persists while the capacity to change course is exhausted. c-ECO breaks with the temporal impunity of current legal design."
+            </blockquote>
+        </div>
+    </section>
+
+    <section id="team" class="container">
+        <span class="section-tag gold-text">Intellectual Foundation</span>
+        
+        <div class="profile-card">
+            <div>
+                <img src="jacqueline.ennis.png" class="profile-img" alt="Jacqueline A. Ennis">
+                <p style="font-size: 0.8rem; margin-top: 20px;" class="muted-text">/ LL.M. WashU Law<br>/ Boston University</p>
+            </div>
+            <div>
+                <h3 style="font-size: 2.2rem;">Jacqueline A. Ennis</h3>
+                <p class="gold-text" style="text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 30px;">Lead Architect & Researcher</p>
+                <p>Her work reconceptualizes contracts as temporal architectures of decision. Her thesis demonstrates that legally consequential decisions occur mostly during periods of regulatory compliance, exhausting future decision-making space.</p>
+            </div>
+        </div>
+
+        <div class="profile-card">
+            <div>
+                <img src="erelyn.png" class="profile-img" alt="Erelyn Alves">
+                <p style="font-size: 0.8rem; margin-top: 20px;" class="muted-text">/ Computer Science<br>/ Systems Security</p>
+            </div>
+            <div>
+                <h3 style="font-size: 2.2rem;">Erelyn Alves</h3>
+                <p class="gold-text" style="text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 30px;">Technical Advisor for Systemic Integrity</p>
+                <p>Dedicated to security and integrity in high-criticality digital and contractual environments. His work informs the c-ECO framework, particularly in preventive governance protocols.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="layer-1" class="container">
+        <div class="content-narrow">
+            <span class="section-tag gold-text">Layer 1</span>
+            <h2 style="font-size: 3.5rem; margin-bottom: 20px;">Doctrinal Governance</h2>
+            <h4 class="muted-text" style="font-size: 1.5rem; margin-bottom: 40px;">(Closed Core)</h4>
+            
+            <div class="layer-logic-box">
+                <h5 class="gold-text" style="text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 10px; font-family: 'Inter';">Layer Logic</h5>
+                <p style="margin: 0; font-size: 1.1rem;">This core defines what cannot be delegated, calibrated, or substituted. Earth System Law operates around this core, not within it.</p>
+            </div>
+
+            <div style="margin-top: 80px;">
+                <div class="list-item">
+                    <h3>1 — Core Conceptual Framework</h3>
+                    <p class="muted-text">Foundational concepts including trajectory illegality and temporal validity. These are constitutive categories, not interpretive tools.</p>
+                </div>
+                <div class="list-item">
+                    <h3>2 — Systemic Governance Statute</h3>
+                    <p class="muted-text">A constitutive framework that subordinates legality to biophysical reality.</p>
+                </div>
+                <div class="list-item">
+                    <h3>3 — Threshold Function Protocol (TFP)</h3>
+                    <p class="muted-text">The juridical interface between physical reality and legal consequence.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="padding: 100px 0; text-align: center; border-top: 1px solid var(--border-subtle);">
+        <p class="gold-text" style="font-family: 'Playfair Display'; font-size: 1.5rem; font-style: italic;">Σ c-ECO Doctrine — 2026</p>
+    </footer>
+
+</body>
+</html>
 
 <nav style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%; border-bottom: 1px solid var(--border-subtle); background: rgba(5,5,5,0.9); position: sticky; top: 0; z-index: 1000;">
         <div class="logo" style="font-weight: 700; letter-spacing: 2px; font-size: 1.4rem;">
