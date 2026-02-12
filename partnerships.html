@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>c-ECO Doctrine — Overview & Foundations</title>
-    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>c-ECO Doctrine | Protocol · Governance · Systemic Integrity</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -12,35 +12,146 @@
                 extend: {
                     colors: {
                         gold: "#d6bc7e",
-                        stone: { 950: "#09090b" }
+                        stone: { 950: "#0c0a09" }
                     }
                 }
             }
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
-        :root { --gold: #d6bc7e; --bg: #09090b; }
-        body { background-color: var(--bg); color: #f4f4f5; font-family: 'Urbanist', sans-serif; }
-        .serif { font-family: 'Playfair Display', serif; }
-        
-        /* Dropcap sutil */
-        .dropcap::first-letter { float: left; font-size: 3.5rem; line-height: 0.8; padding-right: 0.6rem; color: var(--gold); font-family: 'Playfair Display'; font-weight: 700; }
-        
-        /* Glass Cards - De volta à densidade */
-        .glass-card { background: rgba(24, 24, 27, 0.6); border: 1px solid rgba(214, 188, 126, 0.1); backdrop-filter: blur(10px); transition: all 0.3s ease; }
-        .glass-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+        :root { --stone-950: #0c0a09; --gold: #d6bc7e; }
+        body { background-color: var(--stone-950); color: #e7e5e4; font-family: 'Inter', sans-serif; line-height: 1.8; }
+        h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
 
-        .logo-box { border: 1px solid var(--gold); padding: 2px 8px; color: var(--gold); font-size: 14px; }
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 1s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .glass-panel { background: rgba(28, 25, 23, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(214, 188, 126, 0.1); }
+
+        .dropcap::first-letter { float: left; font-size: 3.5rem; line-height: 0.8; padding-right: 0.6rem; color: var(--gold); font-family: 'Playfair Display'; }
         
-        /* Noise sutil para não parecer vazio */
-        body::before { content: ""; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity: 0.015; pointer-events: none; z-index: 100; }
+        .divider-gold { width: 60px; height: 1px; background: rgba(214,188,126,0.55); margin: 2rem auto; }
+
+        .prose-custom p { margin-bottom: 1.5rem; text-align: justify; text-justify: inter-word; hyphens: auto; color: #a8a29e; }
+        .prose-custom strong { color:#fff; font-weight:600; }
+        
+        .gold-soft { color: rgba(214,188,126,0.70); }
+        .gold { color: #d6bc7e; }
+        .gold-line { border-color: rgba(214,188,126,0.35); }
+
+        .bio-image-container {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(214, 188, 126, 0.2);
+            background: #18181b;
+            aspect-ratio: 3/4;
+        }
     </style>
 </head>
 
 <body class="selection:bg-gold/30">
 
+    <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-stone-950/90 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="inline-flex items-center gap-3 group">
+                    <span class="text-gold border gold-line px-2 py-1 text-sm bg-black/40 transition-all group-hover:shadow-[0_0_16px_rgba(214,188,126,0.22)]">Σ</span>
+                    <span class="text-[10px] uppercase tracking-[0.3em] font-bold">c-ECO Doctrine</span>
+                </a>
+            </div>
+            <div class="hidden lg:flex gap-8 text-[9px] uppercase tracking-widest text-stone-500 items-center">
+                <a href="#philosophy" class="hover:text-gold transition">Philosophy</a>
+                <a href="#architects" class="hover:text-gold transition">Architects</a>
+                <a href="#layers" class="hover:text-gold transition">Statute</a>
+                <a href="foundation.html" class="text-gold border border-gold/40 px-3 py-1 hover:bg-gold hover:text-black transition">Hasse Foundation</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="min-h-screen flex items-center justify-center text-center px-6">
+        <div class="max-w-4xl reveal active">
+            <h1 class="text-6xl md:text-8xl mb-8 leading-tight">Governance <span class="italic text-gold">before</span> the collapse.</h1>
+            <p class="text-stone-500 uppercase tracking-[0.4em] text-[10px]">A Pre-Threshold Systemic Protocol</p>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 space-y-48 pb-48">
+
+        <section id="philosophy" class="reveal">
+            <div class="grid lg:grid-cols-12 gap-12">
+                <div class="lg:col-span-4 italic text-gold serif text-2xl">
+                    "Legality persists while the capacity to change course is exhausted."
+                </div>
+                <div class="lg:col-span-8 prose-custom">
+                    <p class="dropcap mb-6">
+                        The c-ECO Doctrine introduces <strong>pre-threshold contractual governance</strong>. It is not a response to damage, but a legal architecture designed to safeguard the space for future decisions, preventing contracts from becoming irreversible trajectories toward systemic breach.
+                    </p>
+                    <p>
+                        In complex systems, decisions accumulate until reaching a point of <strong>foreclosure</strong>—the definitive closing of alternatives. By the time damage occurs, Law no longer has anything to govern, only to sanction. c-ECO breaks with this temporal impunity.
+                    </p>
+                    <p>
+                        It recognizes that the material validity of a contract depends on maintaining the <strong>biophysical conditions</strong> that allowed for its authorization. If the system's integrity is at stake, the contract's legal purpose dissolves.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="architects" class="reveal border-t border-white/10 pt-24">
+            <span class="text-gold uppercase tracking-widest text-[10px] block mb-12">The Architects</span>
+            
+            <div class="grid lg:grid-cols-2 gap-24">
+                <div class="space-y-8">
+                    <div class="bio-image-container rounded-sm overflow-hidden">
+                        <img src="jacqueline-ennis.PNG" alt="Jacqueline A. Ennis" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500">
+                    </div>
+                    <div class="prose-custom">
+                        <h3 class="text-2xl text-white mb-2">Jacqueline A. Ennis</h3>
+                        <p class="gold-soft text-[10px] uppercase tracking-widest mb-4">Founder & Lead Architect</p>
+                        <p>Author of the <strong>c-ΣCO Doctrine</strong>. Her work reconceptualizes contracts as temporal architectures, demonstrating that legally consequential decisions mostly occur during periods of regulatory compliance, exhausting future decision space.</p>
+                    </div>
+                </div>
+
+                <div class="space-y-8 lg:mt-24">
+                    <div class="bio-image-container rounded-sm overflow-hidden">
+                        <img src="erelyn-alves.PNG" alt="Erelyn Alves" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500">
+                    </div>
+                    <div class="prose-custom">
+                        <h3 class="text-2xl text-white mb-2">Erelyn Alves</h3>
+                        <p class="gold-soft text-[10px] uppercase tracking-widest mb-4">Technical Advisor</p>
+                        <p>Senior Technical Advisor for Systemic Integrity. His professional trajectory is dedicated to <strong>security and integrity in high-criticality digital environments</strong>, informing the c-ECO framework in preventive governance protocols.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="layers" class="reveal border-t border-white/10 pt-24">
+            <h2 class="text-4xl mb-16 serif italic text-white text-center">Layer-by-Layer <span class="text-gold">Alignment</span></h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-panel p-8 text-center">
+                    <span class="text-gold serif italic text-4xl block mb-6">Σ.1</span>
+                    <h4 class="text-white uppercase tracking-widest text-xs mb-4 font-bold">Closed Core</h4>
+                    <p class="text-stone-500 text-sm leading-relaxed">Non-delegable doctrinal nucleus where legal ontology is stabilized and protected.</p>
+                </div>
+                <div class="glass-panel p-8 text-center">
+                    <span class="text-gold serif italic text-4xl block mb-6">Σ.2</span>
+                    <h4 class="text-white uppercase tracking-widest text-xs mb-4 font-bold">Decisional</h4>
+                    <p class="text-stone-500 text-sm leading-relaxed">Translation of limits into corporate governance, fiduciary duties, and finance.</p>
+                </div>
+                <div class="glass-panel p-8 text-center">
+                    <span class="text-gold serif italic text-4xl block mb-6">Σ.5</span>
+                    <h4 class="text-white uppercase tracking-widest text-xs mb-4 font-bold">Executional</h4>
+                    <p class="text-stone-500 text-sm leading-relaxed">Technical integrity, digital security protocols, and operational containment.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+  
     <nav class="fixed top-0 w-full z-50 px-6 py-5 flex justify-between items-center bg-[#09090b]/95 backdrop-blur-md border-b border-white/5">
         <div class="flex items-center gap-4">
             <span class="logo-box font-bold">Σ</span>
@@ -513,21 +624,22 @@
                 </span>
             </div>
         </div>
+    <footer class="py-20 px-6 border-t border-white/10 bg-black/20 text-center">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex justify-center gap-4 mb-8">
+                <span class="logo-box">Σ</span>
+            </div>
+            <p class="text-stone-600 text-[10px] uppercase tracking-[0.5em] mb-4">© 2026 Jacqueline A. Ennis · c-ECO Doctrine</p>
+            <p class="text-stone-700 text-[9px] uppercase tracking-[0.4em]">Columbia, Missouri · Belém, Brazil</p>
+        </div>
     </footer>
 
     <script>
-        const observerOptions = {
-            threshold: 0.1
-        };
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('active');
             });
-        }, observerOptions);
-
+        }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 
