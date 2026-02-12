@@ -1,200 +1,301 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Σc-ECO | Doctrine Layer-by-Layer</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Σ c-ECO Doctrine | Governance Before the Collapse</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            gold: "#d6bc7e",
-            stone: { 950: "#0c0a09" }
-          }
+    <style>
+        :root {
+            --primary-gold: #c5a059; 
+            --bg-dark: #050505;
+            --surface-dark: #111111;
+            --text-main: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --border-subtle: #222222;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-      }
-    }
-  </script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <style>
-    :root { --stone-950: #0c0a09; --gold: #d6bc7e; }
-    body { background-color: var(--stone-950); color: #e7e5e4; font-family: 'Inter', sans-serif; line-height: 1.8; }
-    h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .reveal { opacity: 0; transform: translateY(20px); transition: all 1s ease-out; }
-    .reveal.active { opacity: 1; transform: translateY(0); }
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
 
-    .dropcap::first-letter { float: left; font-size: 3.5rem; line-height: 0.8; padding-right: 0.6rem; color: var(--gold); font-family: 'Playfair Display'; }
-    
-    .divider-gold { width: 60px; height: 1px; background: rgba(214,188,126,0.55); margin: 2rem auto; }
+        /* Estilização da barra de rolagem para manter o tema Dark */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-subtle);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-gold);
+        }
 
-    .prose-custom p { margin-bottom: 1.25rem; text-align: justify; text-justify: inter-word; color: #a8a29e; }
-    .prose-custom strong { color:#fff; font-weight:600; }
-    
-    .gold-soft { color: rgba(214,188,126,0.70); }
-    .gold-line { border-color: rgba(214,188,126,0.35); }
+        /* Classes Utilitárias para o Conteúdo que vira a seguir */
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            color: #ffffff;
+        }
 
-    .layer-box { border: 1px solid rgba(214, 188, 126, 0.1); background: rgba(255,255,255,0.02); padding: 3rem; margin-bottom: 4rem; }
-  </style>
-</head>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
 
-<body class="selection:bg-gold/30">
-
-  <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-stone-950/90 backdrop-blur-md">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="flex items-center gap-4">
-        <a href="#" class="inline-flex items-center gap-3 group">
-          <span class="text-gold border gold-line px-2 py-1 text-sm bg-black/40">Σ</span>
-          <span class="text-[10px] uppercase tracking-[0.3em] font-bold">c-ECO Doctrine</span>
-        </a>
-      </div>
-      <div class="hidden lg:flex gap-8 text-[9px] uppercase tracking-widest text-stone-500">
-        <a href="#intro" class="hover:text-gold transition-colors">Intro</a>
-        <a href="#layer1" class="hover:text-gold transition-colors">Layer 1</a>
-        <a href="#pillars" class="hover:text-gold transition-colors">Pillars</a>
-        <a href="#foundation" class="hover:text-gold transition-colors">Foundation</a>
-      </div>
-    </div>
-  </nav>
-
-  <header class="min-h-screen flex items-center justify-center text-center px-6">
-    <div class="max-w-4xl reveal">
-      <h1 class="text-6xl md:text-8xl mb-8 leading-tight text-white">Governance <span class="italic text-gold">before</span> the collapse.</h1>
-      <p class="text-stone-500 uppercase tracking-[0.4em] text-[10px]">Σc-ECO Systemic Security Protocol</p>
-    </div>
-  </header>
-
-  <main class="max-w-5xl mx-auto px-6 pb-48">
-
-    <section id="intro" class="reveal mb-48">
-      <div class="text-center mb-16">
-        <div class="divider-gold"></div>
-        <p class="italic text-gold serif text-2xl max-w-2xl mx-auto">"The c-ECO Doctrine introduces pre-threshold contractual governance: a legal architecture that safeguards the space for future decisions."</p>
-      </div>
-      <div class="prose-custom max-w-3xl mx-auto">
-        <p class="dropcap">In complex systems, decisions accumulate until reaching a point of <strong>foreclosure</strong> — the definitive closing of alternatives. By the time damage occurs, Law no longer has anything to govern, only to sanction.</p>
-        <p>Legality persists while the capacity to change course is exhausted. c-ECO breaks with the temporal impunity of current legal design through <strong>Residual Material Validity</strong> and <strong>Reversibility Protocols</strong> activated at 80% of a critical threshold.</p>
-      </div>
-    </section>
-
-    <section id="layer1" class="reveal text-center mb-24">
-      <span class="text-gold uppercase tracking-widest text-[10px] block mb-4">Statutory Alignment</span>
-      <h2 class="text-5xl text-white mb-6">Layer 1 Architecture</h2>
-      <div class="divider-gold"></div>
-    </section>
-
-    <section class="reveal layer-box">
-      <div class="mb-12">
-        <span class="text-gold mono text-[10px] uppercase tracking-[0.3em]">Core I</span>
-        <h3 class="text-3xl text-white serif mt-2">Doctrinal Governance (Closed Core)</h3>
-        <p class="text-gold font-mono text-[9px] mt-4 uppercase tracking-widest">Nature, Function, and Non-Delegability</p>
-      </div>
-      
-      <div class="prose-custom">
-        <p class="italic gold-soft text-sm mb-8">Layer logic: This card defines what cannot be delegated, calibrated, or substituted. Earth System Law and Compliance frameworks operate around this core, not within it.</p>
+        .gold-text { color: var(--primary-gold); }
+        .muted-text { color: var(--text-muted); }
         
-        <strong>Nature of the Closed Core</strong>
-        <p>The Closed Core constitutes the non-delegable doctrinal nucleus of the c-ECO Doctrine. Its function is not to govern conduct directly, but to define the conditions under which governance remains legally possible in a destabilized Earth System. These commitments are binding and cannot be overridden by scientific findings, compliance standards, or institutional preferences.</p>
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
 
-        <strong>Components of the Closed Core</strong>
-        <ul class="space-y-6 mt-6">
-          <li><span class="text-white block font-bold mb-1">1 — Core Conceptual Framework</span> Concepts like trajectory illegality and systemic perclusion are constitutive categories that determine the architecture of the Statute.</li>
-          <li><span class="text-white block font-bold mb-1">2 — Systemic Governance Statute</span> Establishes the hierarchy of legal relevance, subordinating legality to biophysical reality.</li>
-          <li><span class="text-white block font-bold mb-1">3 — Threshold Function Protocol (TFP)</span> Qualifies temporal states of risk. Its inclusion prevents it from being reduced to a discretionary compliance tool.</li>
-          <li><span class="text-white block font-bold mb-1">4 — AI Decision Architecture (Conceptual)</span> AI is defined only as epistemic mediation; never as normative authority.</li>
-          <li><span class="text-white block font-bold mb-1">5 — Doctrinal Integrity and Evolution</span> Evolution is permitted only at the level of clarification. Substitution of premises is categorically excluded.</li>
+        /* Efeito de destaque para os termos latinos ou técnicos */
+        dfn {
+            font-style: italic;
+            color: var(--primary-gold);
+        }
+    </style>
+</head>
+<body>
+
+<nav style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%; border-bottom: 1px solid var(--border-subtle); background: rgba(5,5,5,0.9); position: sticky; top: 0; z-index: 1000;">
+        <div class="logo" style="font-weight: 700; letter-spacing: 2px; font-size: 1.4rem;">
+            <span class="gold-text">Σ</span>c-ECO
+        </div>
+        <ul style="display: flex; list-style: none; gap: 2rem; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">
+            <li><a href="index.html" class="muted-text" style="hover: color: var(--primary-gold);">Return to Portal</a></li>
+            <li><a href="#team">Team</a></li>
+            <li><a href="law.html">Model Law</a></li>
+            <li><a href="manual.html">OPS Manual</a></li>
+            <li><a href="foundation.html">Hasse Foundation</a></li>
+            <li><a href="#contact">Contact</a></li>
         </ul>
-      </div>
-    </section>
+    </nav>
 
-    <section class="reveal layer-box">
-      <div class="mb-12">
-        <span class="text-gold mono text-[10px] uppercase tracking-[0.3em]">Core II</span>
-        <h3 class="text-3xl text-white serif mt-2">Earth System Law Advisory</h3>
-        <p class="text-gold font-mono text-[9px] mt-4 uppercase tracking-widest">Material Alignment & Non-Governing Authority</p>
-      </div>
-      <div class="prose-custom">
-        <p class="italic gold-soft text-sm mb-8">Layer logic: This advisory layer confirms ontological alignment with Earth System Law while remaining non-executive. It prevents scientific capture and normative dilution.</p>
-        <p>Earth System Law recognizes planetary boundaries as conditions for long-term habitability. c-ECO advances this by elevating the <strong>Safe Operating Space</strong> from a scientific concept to a juridical condition of validity.</p>
-        <p>The Advisory confirms alignment but does not substitute scientific judgment for legal ontology. It ensures that law must adapt to the Earth System, not the reverse.</p>
-      </div>
-    </section>
-
-    <section class="reveal layer-box">
-      <div class="mb-12">
-        <span class="text-gold mono text-[10px] uppercase tracking-[0.3em]">Core III</span>
-        <h3 class="text-3xl text-white serif mt-2">Compliance & Institutional Integrity</h3>
-        <p class="text-gold font-mono text-[9px] mt-4 uppercase tracking-widest">Institutional Translation & Preventive Design</p>
-      </div>
-      <div class="prose-custom">
-        <p class="italic gold-soft text-sm mb-8">Layer logic: This institutional layer translates Closed Core legality into decision structures, ensuring institutions remain capable of lawful interruption when the TFP triggers.</p>
-        <p>Conventional compliance asks "how can this activity be made acceptable?". c-ECO compliance asks <strong>"is this institutional structure capable of remaining lawful under conditions of irreversibility?"</strong></p>
-        <p>It ensures that, once the TFP signals legal interruption, institutions are contractually bound to respect interruption and procedurally insulated against override through managerial or financial pressure.</p>
-      </div>
-    </section>
-
-    <section id="pillars" class="reveal py-24 border-t border-white/10">
-      <div class="grid md:grid-cols-3 gap-12 text-center">
-        <div>
-          <span class="text-3xl text-gold block mb-4 italic">Σ</span>
-          <h4 class="text-white font-bold text-xs uppercase tracking-widest mb-4">Time-as-Status</h4>
-          <p class="text-stone-500 text-xs leading-relaxed uppercase tracking-tighter">Capacity time replaces deadline time.</p>
+    <header style="padding: 120px 5% 80px; text-align: center; border-bottom: 1px solid var(--border-subtle);">
+        <div class="container">
+            <h4 style="text-transform: uppercase; letter-spacing: 5px; font-size: 0.9rem; margin-bottom: 20px;" class="gold-text">Systemic Security Protocol</h4>
+            <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1.1; margin-bottom: 30px;">
+                Governance <br>
+                <span style="font-style: italic; font-family: 'Playfair Display';">before</span> <br>
+                the collapse.
+            </h1>
+            <p style="max-width: 700px; margin: 0 auto 40px; font-size: 1.1rem; color: var(--text-muted);">
+                The c-ECO Doctrine introduces pre-threshold contractual governance: a legal architecture that safeguards the space for future decisions, preventing contracts from becoming irreversible trajectories.
+            </p>
+            <div style="display: flex; justify-content: center; gap: 20px;">
+                <a href="#protocol" style="background: var(--primary-gold); color: #000; padding: 15px 35px; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">Explore Protocol</a>
+            </div>
+            <div style="margin-top: 60px; display: flex; justify-content: center; gap: 40px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px;" class="muted-text">
+                <span>Team</span>
+                <span>Hasse Foundation</span>
+                <span>OPS Manual</span>
+            </div>
         </div>
-        <div>
-          <span class="text-3xl text-gold block mb-4 italic">⊘</span>
-          <h4 class="text-white font-bold text-xs uppercase tracking-widest mb-4">Limits to Authorization</h4>
-          <p class="text-stone-500 text-xs leading-relaxed uppercase tracking-tighter">Legality ends where collapse begins.</p>
+    </header>
+
+    <section style="padding: 100px 5%; background-color: #080808;">
+        <div class="container">
+            <h2 style="font-size: 2.5rem; margin-bottom: 50px;">The Temporal Mismatch</h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;">
+                <div>
+                    <h3 class="gold-text" style="font-size: 1.8rem; margin-bottom: 20px; font-family: 'Inter'; font-weight: 300;">
+                        Law intervenes in damage. <br>We intervene <strong>before</strong> the threshold.
+                    </h3>
+                    <p style="font-size: 1.1rem; margin-bottom: 30px;">
+                        In complex systems, decisions accumulate until reaching a point of <dfn>foreclosure</dfn> — the definitive closing of alternatives. By the time damage occurs, Law no longer has anything to govern, only to sanction.
+                    </p>
+                </div>
+                
+                <div style="border-left: 1px solid var(--primary-gold); padding-left: 40px;">
+                    <blockquote style="font-family: 'Playfair Display'; font-size: 1.5rem; line-height: 1.5; font-style: italic; margin-bottom: 40px;">
+                        "Legality persists while the capacity to change course is exhausted. c-ECO breaks with the temporal impunity of current legal design."
+                    </blockquote>
+                    
+                    <div style="display: grid; gap: 30px;">
+                        <div>
+                            <h4 style="font-family: 'Inter'; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;" class="gold-text">Residual Material Validity</h4>
+                            <p class="muted-text" style="font-size: 0.95rem;">Contractual validity depends on maintaining the real conditions (ecological and social) that allowed for its authorization on day one.</p>
+                        </div>
+                        <div>
+                            <h4 style="font-family: 'Inter'; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;" class="gold-text">Reversibility Protocols</h4>
+                            <p class="muted-text" style="font-size: 0.95rem;">Mechanisms activated at 80% of a critical threshold, ensuring that execution never crosses the systemic "point of no return."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-          <span class="text-3xl text-gold block mb-4 italic">♽</span>
-          <h4 class="text-white font-bold text-xs uppercase tracking-widest mb-4">Adaptive Design</h4>
-          <p class="text-stone-500 text-xs leading-relaxed uppercase tracking-tighter">Duty of active systemic monitoring.</p>
-        </div>
-      </div>
     </section>
+  <section id="team" style="padding: 100px 5%; border-top: 1px solid var(--border-subtle);">
+        <div class="container">
+            <h2 style="font-size: 2.5rem; margin-bottom: 60px; text-align: center;">Intellectual Foundation</h2>
+            
+            <div style="display: grid; grid-template-columns: 300px 1fr; gap: 50px; margin-bottom: 100px; align-items: start;">
+                <div class="profile-image">
+                    <img src="jacqueline.ennis.png" alt="Jacqueline A. Ennis" style="width: 100%; filter: grayscale(100%); border: 1px solid var(--border-subtle);">
+                    <div style="margin-top: 20px;">
+                        <p class="gold-text" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px;">Credentials</p>
+                        <p style="font-size: 0.85rem; line-height: 1.8; color: var(--text-muted);">
+                            / LL.M. WashU Law<br>
+                            / Boston University<br>
+                            / Silvio Meira Institute
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <h3 style="font-size: 2rem; margin-bottom: 5px;">Jacqueline A. Ennis</h3>
+                    <p class="gold-text" style="text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 30px;">Legal Scholar & Researcher</p>
+                    
+                    <div style="column-count: 1; color: var(--text-main); font-size: 1rem;">
+                        <p style="margin-bottom: 20px;">
+                            Jacqueline A. Ennis is a Brazilian legal scholar and independent researcher. She is the author of the <strong>c-ECO Doctrine</strong> (Contractual Equity & Ecological Co-Responsibility).
+                        </p>
+                        <p style="margin-bottom: 20px;">
+                            Her work reconceptualizes contracts as <dfn>temporal architectures of decision</dfn>. Her thesis demonstrates that legally consequential decisions occur mostly during periods of regulatory compliance, exhausting future decision-making space. c-ECO introduces the concepts of <strong>temporal validity</strong> and <strong>pre-threshold responsibility</strong>.
+                        </p>
+                        <p class="muted-text" style="font-size: 0.9rem;">
+                            The formulation is anchored in her academic trajectory at Washington University in St. Louis and studies at Boston University, strategically supported by the Silvio Meira Institute (ISM).
+                        </p>
+                    </div>
+                </div>
+            </div>
 
-    <section id="foundation" class="reveal pt-48">
-      <div class="grid lg:grid-cols-2 gap-24">
-        <div>
-          <h4 class="text-gold uppercase tracking-widest text-[10px] mb-8">Intellectual Foundation</h4>
-          <h3 class="text-4xl text-white serif mb-6">Jacqueline A. Ennis</h3>
-          <p class="text-stone-500 text-sm leading-relaxed mb-6">Legal Scholar & Researcher. Author of the c-ECO Doctrine. Formulated at Washington University in St. Louis and Boston University, supported by the Silvio Meira Institute.</p>
-          <p class="text-stone-400 italic text-sm">"Reconceptualizing contracts as temporal architectures of decision."</p>
+            <div style="display: grid; grid-template-columns: 300px 1fr; gap: 50px; align-items: start;">
+                <div class="profile-image">
+                    <img src="erelyn.png" alt="Erelyn Alves" style="width: 100%; filter: grayscale(100%); border: 1px solid var(--border-subtle);">
+                    <div style="margin-top: 20px;">
+                        <p class="gold-text" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px;">Core Expertise</p>
+                        <p style="font-size: 0.85rem; line-height: 1.8; color: var(--text-muted);">
+                            / Computer Science<br>
+                            / Systems Analysis (UNAMA)<br>
+                            / High-Criticality Environments
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <h3 style="font-size: 2rem; margin-bottom: 5px;">Erelyn Alves</h3>
+                    <p class="gold-text" style="text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 30px;">Technical Advisor for Systemic Integrity</p>
+                    
+                    <div style="color: var(--text-main); font-size: 1rem;">
+                        <p style="margin-bottom: 20px;">
+                            Erelyn Alves is Senior Technical Advisor for Systemic Integrity. A Brazilian technologist with academic training in Computer Science and Systems Analysis & Development from the Universidade da Amazônia (UNAMA), his professional trajectory since 2009 has been dedicated to security and integrity in high-criticality digital and contractual environments.
+                        </p>
+                        <p style="margin-bottom: 20px;">
+                            His work is characterized by rigorous technical standards, methodological discipline, and a strong focus on risk containment. Experience accumulated at Pará State Information and Communication Technology Company (PRODEPA) informs his contribution to the c-ECO framework, particularly in preventive governance protocols and contract-linked technical security.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-          <h4 class="text-gold uppercase tracking-widest text-[10px] mb-8">Systemic Integrity</h4>
-          <h3 class="text-4xl text-white serif mb-6">Erelyn Alves</h3>
-          <p class="text-stone-500 text-sm leading-relaxed">Technical Advisor. Focused on security and integrity in high-criticality digital environments since 2009. Methodological discipline in preventive governance protocols.</p>
-        </div>
-      </div>
     </section>
+    <section id="layer-1-core" style="padding: 100px 5%; background-color: #0a0a0a; border-top: 1px solid var(--primary-gold);">
+        <div class="container">
+            <div style="margin-bottom: 60px; border-left: 4px solid var(--primary-gold); padding-left: 30px;">
+                <span class="gold-text" style="text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; font-weight: 700;">Layer 1</span>
+                <h2 style="font-size: 3rem; margin-top: 10px;">Doctrinal Governance <span class="muted-text">(Closed Core)</span></h2>
+                <p style="font-style: italic; color: var(--text-muted); max-width: 800px; margin-top: 20px;">
+                    Nature, Function, and Non-Delegability: This core defines what cannot be delegated, calibrated, or substituted.
+                </p>
+            </div>
 
-  </main>
+            <div style="display: grid; grid-template-columns: 1fr 350px; gap: 60px;">
+                
+                <div>
+                    <h3 style="font-family: 'Inter'; font-weight: 600; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 30px;" class="gold-text">Nature of the Closed Core</h3>
+                    <p style="margin-bottom: 25px; font-size: 1.1rem; line-height: 1.8;">
+                        The Closed Core constitutes the non-delegable doctrinal nucleus of the c-ECO Doctrine. It is the site in which the legal ontology of the regime is defined, stabilized, and protected against external substitution. 
+                    </p>
+                    <p style="margin-bottom: 40px; color: var(--text-muted);">
+                        Unlike operational layers, validation frameworks, or sectoral applications, the Closed Core is not subject to calibration, expansion, delegation, or experimental modification. Its function is to define the conditions under which governance remains legally possible in a destabilized Earth System.
+                    </p>
 
-  <footer class="bg-stone-900/50 py-24 px-6 text-center border-t border-white/5">
-    <div class="max-w-2xl mx-auto space-y-8">
-      <p class="text-gold serif italic text-xl">Governance before collapse.</p>
-      <div class="text-[9px] text-stone-500 uppercase tracking-widest flex justify-center gap-8">
-        <a href="#" class="hover:text-gold">Model Law</a>
-        <a href="#" class="hover:text-gold">TFP Annex</a>
-        <a href="#" class="hover:text-gold">OPS Manual</a>
-      </div>
-      <div class="pt-12 text-[9px] text-stone-700 uppercase tracking-widest">© 2026 Jacqueline A. Ennis · c-ECO Doctrine</div>
-    </div>
-  </footer>
+                    <h3 style="font-family: 'Inter'; font-weight: 600; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 30px;" class="gold-text">Components of the Closed Core</h3>
+                    
+                    <div style="display: grid; gap: 40px;">
+                        <div style="padding-bottom: 30px; border-bottom: 1px solid var(--border-subtle);">
+                            <h4 style="margin-bottom: 15px;">1 — Core Conceptual Framework</h4>
+                            <p class="muted-text" style="font-size: 0.95rem;">Foundational legal concepts: trajectory illegality, ex-ante unenforceability, systemic perclusion, conditioned immediate object, temporal validity, and legal irreversibility. These are constitutive categories, not interpretive tools.</p>
+                        </div>
 
-  <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('active');
-      });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  </script>
+                        <div style="padding-bottom: 30px; border-bottom: 1px solid var(--border-subtle);">
+                            <h4 style="margin-bottom: 15px;">2 — Systemic Governance Statute</h4>
+                            <p class="muted-text" style="font-size: 0.95rem;">A constitutive legal framework that subordinates legality to biophysical reality. It derives authority from material reality, not from delegation or consensus.</p>
+                        </div>
 
-</body>
-</html>
+                        <div style="padding-bottom: 30px; border-bottom: 1px solid var(--border-subtle);">
+                            <h4 style="margin-bottom: 15px;">3 — Threshold Function Protocol (TFP)</h4>
+                            <p class="muted-text" style="font-size: 0.95rem;">The juridical interface between physical reality and legal consequence. It qualifies temporal states of risk and defines when legality must be interrupted.</p>
+                        </div>
+
+                        <div style="padding-bottom: 30px; border-bottom: 1px solid var(--border-subtle);">
+                            <h4 style="margin-bottom: 15px;">4 — AI Decision Architecture (Conceptual)</h4>
+                            <p class="muted-text" style="font-size: 0.95rem;">AI is defined only as epistemic mediation. This prevents algorithmic systems from acquiring normative authority or de facto governing power.</p>
+                        </div>
+
+                        <div style="padding-bottom: 30px;">
+                            <h4 style="margin-bottom: 15px;">5 — Doctrinal Integrity and Evolution</h4>
+                            <p class="muted-text" style="font-size: 0.95rem;">Evolution is limited to clarification and internal coherence. Substitution of ontological premises is categorically excluded.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <aside>
+                    <div style="background-color: var(--surface-dark); padding: 30px; border: 1px solid var(--border-subtle); margin-bottom: 30px;">
+                        <h4 style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;" class="gold-text">Layer Logic</h4>
+                        <p style="font-size: 0.9rem; line-height: 1.6;">
+                            This card defines what cannot be delegated, calibrated, or substituted. Earth System Law and Compliance frameworks operate <strong>around</strong> this core, not within it.
+                        </p>
+                    </div>
+
+                    <div style="padding: 0 10px;">
+                        <h4 style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px;">Anti-Capture Safeguards</h4>
+                        <ul style="list-style: none; font-size: 0.85rem; color: var(--text-muted); display: grid; gap: 15px;">
+                            <li>• <strong style="color: #fff;">Scientific:</strong> Science informs <em>when</em> to act, but not <em>what</em> law is.</li>
+                            <li>• <strong style="color: #fff;">Compliance:</strong> ESG cannot soften biophysical limits.</li>
+                            <li>• <strong style="color: #fff;">Political:</strong> No sovereign authorization can override ontological limits.</li>
+                        </ul>
+                        
+                        <hr style="border: 0; border-top: 1px solid var(--border-subtle); margin: 25px 0;">
+                        
+                        <h4 style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px;">Nature</h4>
+                        <ul style="list-style: none; font-size: 0.85rem; color: var(--text-muted); display: grid; gap: 10px;">
+                            <li>/ Non-executive</li>
+                            <li>/ Non-operational</li>
+                            <li>/ Non-delegable</li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+            
+            <div style="margin-top: 80px; padding: 40px; border: 1px solid var(--primary-gold); text-align: center;">
+                <p style="font-family: 'Playfair Display'; font-size: 1.25rem; font-style: italic;">
+                    "The Closed Core is what makes c-ECO a doctrine rather than a toolkit. It ensures that law remains law — not data, not policy, not automation."
+                </p>
+            </div>
+        </div>
+    </section>
