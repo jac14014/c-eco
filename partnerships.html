@@ -26,8 +26,17 @@
         body { background-color: var(--stone-950); color: #e7e5e4; font-family: 'Inter', sans-serif; line-height: 1.8; }
         h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
 
-        .reveal { opacity: 0; transform: translateY(20px); transition: all 1s ease-out; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+        .reveal { 
+    opacity: 0; 
+    transform: translateY(30px); /* Aumentei um pouco o deslocamento */
+    transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), 
+                transform 1.2s cubic-bezier(0.4, 0, 0.2, 1); 
+    will-change: opacity, transform;
+}
+.reveal.active { 
+    opacity: 1; 
+    transform: translateY(0); 
+}
 
         .glass-panel { background: rgba(28, 25, 23, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(214, 188, 126, 0.1); }
 
@@ -2047,25 +2056,26 @@
 </footer>
 
     <script>
+    document.addEventListener('DOMContentLoaded', () => {
         const observerOptions = {
-            threshold: 0.1 // Ativa quando 10% da seção aparece
+            threshold: 0.15, // Aciona quando 15% do elemento está visível
+            rootMargin: "0px 0px -50px 0px" // Inicia a animação um pouco antes de entrar totalmente
         };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
+                    // Opcional: para de observar após a primeira animação
+                    // observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
 
-        // Isso seleciona todas as seções invisíveis e manda o script monitorar
-        document.querySelectorAll('.reveal').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Forçar a primeira seção a aparecer imediatamente
-        document.querySelector('#philosophy')?.classList.add('active');
-    </script>
+        // Seleciona todos os elementos com a classe reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        revealElements.forEach(el => observer.observe(el));
+    });
+</script>
 </body>
 </html>
