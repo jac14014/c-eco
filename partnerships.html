@@ -1995,3 +1995,28 @@
     <p class="text-stone-700 text-[9px] uppercase tracking-[0.4em]">USA · Amazon · Brazil</p>
   </div>
 </footer>
+    </section> 
+
+    <script>
+        const observerOptions = {
+            threshold: 0.1 // Ativa quando 10% da seção aparece
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        // Isso seleciona todas as seções invisíveis e manda o script monitorar
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Forçar a primeira seção a aparecer imediatamente
+        document.querySelector('#philosophy')?.classList.add('active');
+    </script>
+</body>
+</html>
