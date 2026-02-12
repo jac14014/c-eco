@@ -77,6 +77,8 @@
       text-transform: uppercase;
       line-height: 1.1;
       margin: 0;
+      
+
     }
 
     .nav-list{ list-style:none; padding:0; margin:0; }
@@ -196,6 +198,39 @@
   border-top: none;
   padding-top: 0;
 }  
+
+/* ===== SEARCH BOX ===== */
+.search-container {
+  margin-bottom: 20px;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 10;
+  padding-bottom: 10px;
+}
+
+#sidebarSearch {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px; /* Leve arredondado para parecer moderno */
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#sidebarSearch:focus {
+  border-color: var(--gold-accent);
+  box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15);
+}
+
+/* Esconder itens que não batem com a busca */
+.nav-item.hidden, .nav-section-title.hidden, .nav-sub-title.hidden {
+  display: none;
+}
+
+
         
   </style>
 </head>
@@ -213,7 +248,9 @@
       <a href="english.html" class="logo-box" aria-label="Back to English Overview">Σ</a>
       <div class="sidebar-title">MODEL LAW — INDEX</div>
     </div>
-
+    <div class="search-container">
+  <input type="text" id="sidebarSearch" placeholder="Search Article or Title..." aria-label="Search Index">
+</div>
     <nav>
       <ul class="nav-list">
         <li class="nav-item">
@@ -3855,19 +3892,44 @@
     </main>
   </div>
 
-  <script>
-    // Fecha o menu automaticamente no mobile ao clicar em um link
-    document.querySelectorAll('.nav-item a').forEach(link => {
-      link.addEventListener('click', () => {
-        if (window.innerWidth <= 1024) {
-          document.getElementById('sidebar').classList.remove('open');
-        }
-      });
-    });
-  </script>
+    <script>
+  const searchInput = document.getElementById('sidebarSearch');
+  const navItems = document.querySelectorAll('.nav-item');
+  const sectionTitles = document.querySelectorAll('.nav-section-title, .nav-sub-title');
+  const sidebar = document.getElementById('sidebar');
 
-</body>
-</html>
+  // Lógica de Busca
+  searchInput.addEventListener('input', function(e) {
+    const term = e.target.value.toLowerCase();
+
+    navItems.forEach(item => {
+      const text = item.textContent.toLowerCase();
+      if (text.includes(term)) {
+        item.classList.remove('hidden');
+      } else {
+        item.classList.add('hidden');
+      }
+    });
+
+    // Esconde títulos de seção se a busca estiver ativa (opcional, para limpar a vista)
+    sectionTitles.forEach(title => {
+      if (term.length > 0) {
+        title.classList.add('hidden');
+      } else {
+        title.classList.remove('hidden');
+      }
+    });
+  });
+
+  // Fecha o menu automaticamente no mobile ao clicar em um link
+  document.querySelectorAll('.nav-item a').forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 1024) {
+        sidebar.classList.remove('open');
+      }
+    });
+  });
+</script>
 
 </body>
 </html>
