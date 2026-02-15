@@ -54,57 +54,44 @@
 
 <body class="selection:bg-gold/30">
 
-    <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-stone-950/90 backdrop-blur-md">
-       <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center relative"><div class="flex items-center gap-4">
-                <a href="index.html" class="inline-flex items-center gap-3 group">
-                    <span class="text-gold border gold-line px-2 py-1 text-sm bg-black/40 transition-all group-hover:shadow-[0_0_16px_rgba(214,188,126,0.22)]">Σ</span>
-                    <span class="text-[10px] uppercase tracking-[0.3em] font-bold">c-ECO Doctrine</span>
-                </a>
-            </div>
-            <div class="flex items-center gap-6">
+    <nav id="siteNav" class="fixed top-0 w-full z-50 border-b border-white/5 bg-stone-950/90 backdrop-blur-md">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <!-- esquerda -->
+    <a href="index.html" class="inline-flex items-center gap-3 group">
+      <span class="text-gold border gold-line px-2 py-1 text-sm bg-black/40 transition-all group-hover:shadow-[0_0_16px_rgba(214,188,126,0.22)]">Σ</span>
+      <span class="text-[10px] uppercase tracking-[0.3em] font-bold">c-ECO Doctrine</span>
+    </a>
 
-    <!-- DESKTOP LINKS -->
+    <!-- desktop links -->
     <div class="hidden lg:flex gap-8 text-[9px] uppercase tracking-widest text-stone-500 items-center">
-        <a href="#philosophy" class="hover:text-gold transition">Philosophy</a>
-        <a href="#architects" class="hover:text-gold transition">Architects</a>
-        <a href="law.html" class="hover:text-gold transition">Model Law</a>
-        <a href="manual.html" class="hover:text-gold transition">Operational Manual</a>
-        <a href="foundation.html" class="text-gold border border-gold/40 px-3 py-1 hover:bg-gold hover:text-black transition">
-            Hasse Foundation
-        </a>
+      <a href="#layers" class="hover:text-gold transition">Philosophy</a>
+      <a href="#architects" class="hover:text-gold transition">Architects</a>
+      <a href="law.html" class="hover:text-gold transition">Model Law</a>
+      <a href="manual.html" class="hover:text-gold transition">Operational Manual</a>
+      <a href="foundation.html" class="text-gold border border-gold/40 px-3 py-1 hover:bg-gold hover:text-black transition">Hasse Foundation</a>
     </div>
 
     <!-- MOBILE BUTTON (RIGHT SIDE) -->
-    <button id="mobileMenuBtn"
-            class="lg:hidden text-stone-400 hover:text-gold transition text-xl"
-            type="button">
-        ☰
+    <button id="mobileMenuBtn" class="lg:hidden text-stone-400 hover:text-gold transition text-xl" type="button">
+      ☰
     </button>
-
-</div>
-<!-- MOBILE DROPDOWN (pushes content down - no overlap) -->
-<div id="mobile-menu"
-     class="lg:hidden hidden w-full px-6 pb-6 pt-4 bg-stone-950/98 border-t border-white/5 backdrop-blur-md">
-  <div class="flex flex-col gap-4 text-[11px] uppercase tracking-widest">
-
-    <a href="law.html" class="hover:text-gold transition">Law</a>
-
-    <a href="manual.html" class="hover:text-gold transition">
-      Operational Manual
-    </a>
-
-    <a href="foundation.html" class="hover:text-gold transition">
-      Hasse Foundation
-    </a>
-
-    <a href="mailto:contact@c-eco.org"
-       class="text-gold border border-gold/30 px-4 py-2 mt-2 text-center hover:bg-gold hover:text-black transition">
-      Contact
-    </a>
-
   </div>
-</div>
-    </nav>
+
+  <!-- MOBILE DROPDOWN (no absolute!) -->
+  <div id="mobile-menu"
+       class="lg:hidden hidden w-full px-6 pb-6 pt-4 bg-stone-950/98 border-t border-white/5 backdrop-blur-md">
+    <div class="flex flex-col gap-4 text-[11px] uppercase tracking-widest">
+      <a href="law.html" class="hover:text-gold transition">Law</a>
+      <a href="manual.html" class="hover:text-gold transition">Operational Manual</a>
+      <a href="foundation.html" class="hover:text-gold transition">Hasse Foundation</a>
+      <a href="mailto:contact@c-eco.org"
+         class="text-gold border border-gold/30 px-4 py-2 mt-2 text-center hover:bg-gold hover:text-black transition">
+        Contact
+      </a>
+    </div>
+  </div>
+</nav>
+<div id="navSpacer"></div>
 
     <header class="min-h-screen flex items-center justify-center text-center px-6">
         <div class="max-w-4xl reveal">
@@ -2117,6 +2104,36 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => {
         menu.classList.toggle('hidden');
     });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const nav = document.getElementById('siteNav');
+  const spacer = document.getElementById('navSpacer');
+  const btn = document.getElementById('mobileMenuBtn');
+  const menu = document.getElementById('mobile-menu');
+
+  // altura do nav fechado (sem menu)
+  const closedHeight = nav.offsetHeight;
+
+  function syncSpacer() {
+    // quando menu abre, o nav fica mais alto -> spacer acompanha
+    spacer.style.height = nav.offsetHeight + 'px';
+  }
+
+  // inicial: reserva espaço pro nav fechado
+  spacer.style.height = closedHeight + 'px';
+
+  btn.addEventListener('click', () => {
+    menu.classList.toggle('hidden');
+    // espera o DOM aplicar o display e então mede a nova altura
+    requestAnimationFrame(syncSpacer);
+  });
+
+  // se girar tela / resize
+  window.addEventListener('resize', () => {
+    requestAnimationFrame(syncSpacer);
+  });
 });
 </script>
   </body>
