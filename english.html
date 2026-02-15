@@ -2074,38 +2074,22 @@
 </footer>
 
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const observerOptions = {
-            threshold: 0.15, // Aciona quando 15% do elemento está visível
-            rootMargin: "0px 0px -50px 0px" // Inicia a animação um pouco antes de entrar totalmente
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    // Opcional: para de observar após a primeira animação
-                    // observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        // Seleciona todos os elementos com a classe reveal
-        const revealElements = document.querySelectorAll('.reveal');
-        revealElements.forEach(el => observer.observe(el));
-    });
-    </script>
-    <script>
 document.addEventListener('DOMContentLoaded', () => {
-    const btn = document.getElementById('mobileMenuBtn');
-    const menu = document.getElementById('mobile-menu');
-    if (!btn || !menu) return;
+  const observerOptions = {
+    threshold: 0.15,
+    rootMargin: "0px 0px -50px 0px"
+  };
 
-    btn.addEventListener('click', () => {
-        menu.classList.toggle('hidden');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('active');
     });
+  }, observerOptions);
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 });
 </script>
+
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const nav = document.getElementById('siteNav');
@@ -2113,24 +2097,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const btn = document.getElementById('mobileMenuBtn');
   const menu = document.getElementById('mobile-menu');
 
-  // altura do nav fechado (sem menu)
-  const closedHeight = nav.offsetHeight;
+  if (!nav || !spacer || !btn || !menu) return;
 
   function syncSpacer() {
-    // quando menu abre, o nav fica mais alto -> spacer acompanha
     spacer.style.height = nav.offsetHeight + 'px';
   }
 
-  // inicial: reserva espaço pro nav fechado
-  spacer.style.height = closedHeight + 'px';
+  // inicial
+  syncSpacer();
 
   btn.addEventListener('click', () => {
     menu.classList.toggle('hidden');
-    // espera o DOM aplicar o display e então mede a nova altura
     requestAnimationFrame(syncSpacer);
   });
 
-  // se girar tela / resize
   window.addEventListener('resize', () => {
     requestAnimationFrame(syncSpacer);
   });
