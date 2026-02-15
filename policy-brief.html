@@ -1,464 +1,443 @@
-<!-- =========================================
-     FILE: pt/policy-brief.html
-     c-eco.org — Memorando de Políticas (PT)
-     STYLE MATCH: policy-brief.html (EN) — discrete, neutral, iOS-safe
-     FULL PAGE (complete). Copy/select all and replace the entire file.
-========================================== -->
-<!doctype html>
-<html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Memorando de Políticas — c-ECO</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>c-ECO // System Architecture</title>
 
-  <!-- SEO / Sharing -->
-  <meta name="description" content="Memorando de Políticas c-ECO (2025): Governança contratual de pré-limiar para preservar a efetividade jurídica e o espaço decisório sob risco sistêmico." />
-  <link rel="canonical" href="https://c-eco.org/pt/policy-brief.html" />
-  <meta property="og:title" content="Memorando de Políticas — c-ECO (2025)" />
-  <meta property="og:description" content="Governança contratual de pré-limiar: por que a legalidade pode sobreviver à governabilidade e como a c-ECO preserva o espaço decisório ao longo do tempo." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://c-eco.org/pt/policy-brief.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Urbanist:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-  <!-- hreflang -->
-  <link rel="alternate" hreflang="en" href="https://c-eco.org/policy-brief.html" />
-  <link rel="alternate" hreflang="pt" href="https://c-eco.org/pt/policy-brief.html" />
-  <link rel="alternate" hreflang="es" href="https://c-eco.org/es/policy-brief.html" />
-  <link rel="alternate" hreflang="fr" href="https://c-eco.org/fr/policy-brief.html" />
-  <link rel="alternate" hreflang="de" href="https://c-eco.org/de/policy-brief.html" />
-  <link rel="alternate" hreflang="zh-CN" href="https://c-eco.org/zh-cn/policy-brief.html" />
-  <link rel="alternate" hreflang="ja" href="https://c-eco.org/ja/policy-brief.html" />
-  <link rel="alternate" hreflang="x-default" href="https://c-eco.org/policy-brief.html" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            sigma: { DEFAULT: '#d6bc7e', dim: '#a68b4c' },
+          },
+          fontFamily: {
+            tech: ['Urbanist', 'sans-serif'],
+            mono: ['Inter', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
 
   <style>
     html, body {
+      height: 100%;
       margin: 0;
-      padding: 0;
-      background: #ffffff;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont,
-                   "Segoe UI", Roboto, sans-serif;
-      color: #000000;
+      background: #020617;
+      color: #d4d4d8;
+      font-family: Inter, sans-serif;
     }
 
-    body {
-      max-width: 820px;
-      margin: 6rem auto;
-      padding: 0 1.5rem;
-      position: relative;
+    .scanline-overlay{
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background: linear-gradient(to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0,0,0,0.06) 50%,
+        rgba(0,0,0,0.06));
+      background-size: 100% 4px;
+      pointer-events:none;
     }
 
-    /* ===== Language Switcher (same as EN) ===== */
-    .lang-switcher {
-      position: absolute;
-      top: 1.6rem;
-      right: 1.5rem;
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 80px 80px;
+      opacity: 0.04;
+      mix-blend-mode: overlay;
     }
 
-    .lang-switcher select {
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      padding: 0.25rem 0.55rem;
-      border: 1px solid rgba(0,0,0,0.2);
-      background: transparent;
-      color: #000;
-      opacity: 0.6;
-      cursor: pointer;
-      border-radius: 999px; /* rounded */
-    }
+    .content { position: relative; z-index: 1; }
 
-    .lang-switcher select:hover { opacity: 0.85; }
+    ::-webkit-scrollbar{ width: 6px; }
+    ::-webkit-scrollbar-track{ background: #09090b; }
+    ::-webkit-scrollbar-thumb{ background: #27272a; border-radius: 3px; }
 
-    .lang-switcher select:focus {
-      outline: none;
-      border-color: rgba(0,0,0,0.45);
-      opacity: 0.9;
-    }
-
-    a.back {
-      display: inline-block;
-      margin-bottom: 1.2rem;
-      font-weight: 600;
-      opacity: 0.85;
-      text-decoration: none;
-    }
-    a.back:hover { opacity: 1; text-decoration: underline; }
-
-    h1 {
-      font-size: 1.7rem;
-      font-weight: 520;
-      margin: 0 0 0.35rem 0;
-    }
-
-    h2 {
-      font-size: 1.05rem;
-      font-weight: 380;
-      opacity: 0.75;
-      margin: 0 0 2.1rem 0;
-      line-height: 1.5;
-    }
-
-    h3 {
-      font-size: 1.05rem;
-      font-weight: 520;
-      margin: 2.4rem 0 0.8rem 0;
-    }
-
-    p {
-      font-size: 0.98rem;
-      line-height: 1.7;
-      margin: 0 0 1.1rem 0;
-    }
-
-    .meta {
-      font-size: 0.78rem;
-      letter-spacing: 0.10em;
-      opacity: 0.55;
-      margin-bottom: 1.6rem;
-      line-height: 1.6;
-    }
-
-    .links-inline {
-      margin: 0.6rem 0 1.6rem 0;
-      font-size: 0.74rem;
-      letter-spacing: 0.10em;
-      opacity: 0.72;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 12px;
-      align-items: center;
-    }
-    .links-inline a{
-      color: inherit;
-      text-decoration: none;
-      border-bottom: 1px solid rgba(0,0,0,0.18);
-      padding-bottom: 2px;
-      opacity: 0.9;
-    }
-    .links-inline a:hover{
-      opacity: 1;
-      border-bottom-color: rgba(0,0,0,0.35);
-    }
-    .links-inline span{ opacity: 0.4; }
-
-    hr {
-      border: 0;
-      border-top: 1px solid rgba(0,0,0,0.10);
-      margin: 2rem 0;
-    }
-
-    ul {
-      margin: 0.4rem 0 1.2rem 1.15rem;
-      padding: 0;
-      line-height: 1.7;
-      font-size: 0.98rem;
-    }
-
-    li { margin: 0.35rem 0; }
-
-    ol {
-      margin: 0.4rem 0 1.2rem 1.2rem;
-      line-height: 1.7;
-      font-size: 0.98rem;
-    }
-
-    .callout {
-      margin: 1.6rem 0;
-      padding: 1rem 1.1rem;
-      border-left: 3px solid rgba(0,0,0,0.22);
-      background: rgba(0,0,0,0.03);
-    }
-
-    .small { font-size: 0.9rem; opacity: 0.85; }
-
-    .tagline {
-      margin-top: 2rem;
-      font-size: 0.85rem;
-      letter-spacing: 0.14em;
-      opacity: 0.55;
-    }
-
-    a { color: inherit; text-decoration: none; }
-    a:hover { opacity: 0.75; }
-
-    /* ===== Footer (same as EN) ===== */
-    footer {
-      margin-top: 3.5rem;
-      padding-top: 1.6rem;
-      border-top: 1px solid rgba(0,0,0,0.10);
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 10px;
-    }
-
-    .footer-nav {
-      font-size: 0.72rem;
-      letter-spacing: 0.14em;
-      opacity: 0.65;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .footer-nav a { text-decoration: none; }
-    .footer-nav a:hover { opacity: 0.85; }
-    .footer-nav span { opacity: 0.4; }
-
-    .copyright {
-      font-size: 13px;
-      opacity: 0.65;
-      line-height: 1.55;
-      text-align: right;
-      max-width: 560px;
-    }
-
-    @media (max-width: 520px) {
-      .lang-switcher { position: static; margin-bottom: 1.2rem; }
-      footer { align-items: flex-start; }
-      .copyright { text-align: left; }
-    }
+    /* subtle glow */
+    .sigma-glow { box-shadow: 0 0 18px rgba(214, 188, 126, 0.15); }
   </style>
 </head>
 
-<body>
+<body class="bg-[#020617] text-zinc-300 font-sans min-h-screen flex flex-col selection:bg-sigma-dim selection:text-white">
+  <div class="scanline-overlay"></div>
+  <div class="grain"></div>
 
-  <!-- Language Selector -->
-  <div class="lang-switcher">
-    <select onchange="location = this.value;">
-      <option selected disabled>Português</option>
-      <option value="/policy-brief.html">English</option>
-      <option value="/es/policy-brief.html">Español</option>
-      <option value="/fr/policy-brief.html">Français</option>
-      <option value="/de/policy-brief.html">Deutsch</option>
-      <option value="/zh-cn/policy-brief.html">中文（简体）</option>
-      <option value="/ja/policy-brief.html">日本語</option>
-    </select>
-  </div>
-
-  <a class="back" href="/pt/index.html">← Início</a>
-
-  <h1>Memorando de Políticas</h1>
-  <p class="small" style="margin-top:0.2rem; margin-bottom:0.35rem;">
-    <strong>c-ECO — Equidade Contratual &amp; Corresponsabilidade Ecológica</strong>
-  </p>
-  <h2>Governança contratual de pré-limiar para preservar a efetividade jurídica sob risco sistêmico</h2>
-
-  <div class="meta">
-    Elaboração: Jacqueline A. Ennis<br>
-    Ano: 2025
-  </div>
-
-  <!-- Key links (PT versions) -->
-  <div class="links-inline" aria-label="Links c-ECO (PT)">
-    <a href="/pt/license.html">Licença c-ECO</a>
-    <span>•</span>
-    <a href="/pt/applied-study.html">Estudo Aplicado</a>
-    <span>•</span>
-    <a href="/pt/partnerships.html">Parcerias</a>
-  </div>
-
-  <hr>
-
-  <h3>Sumário Executivo</h3>
-  <p>
-    Sistemas jurídicos contemporâneos tornaram-se cada vez mais eficientes em impor conformidade —
-    e cada vez menos eficientes em prevenir desfechos irreversíveis.
-    Em infraestrutura, energia, cadeias globais de fornecimento, finanças e sistemas digitais,
-    contratos passaram a funcionar como mecanismos primários de governança.
-    Ainda assim, a intervenção jurídica permanece predominantemente <em>ex post</em>, acionada apenas após quebra,
-    dano ou falha manifesta.
-  </p>
-  <p>
-    Esse desalinhamento temporal produz um resultado recorrente:
-    contratos permanecem formalmente conformes enquanto consomem o espaço decisório futuro do qual o próprio direito depende.
-  </p>
-  <p>
-    A c-ECO enfrenta essa lacuna ao introduzir <strong>governança contratual de pré-limiar</strong>:
-    uma arquitetura jurídica que condiciona a efetividade do contrato ao longo do tempo
-    à preservação da reversibilidade e da agência institucional antes que limiares irreversíveis se consolidem.
-    A c-ECO não regula setores, não proíbe atividades, não impõe resultados de política pública e não moraliza contratos.
-    Ela intervém no nível da arquitetura contratual.
-  </p>
-
-  <div class="callout">
-    <p style="margin:0;">
-      <strong>Proposição central:</strong><br>
-      certas trajetórias contratuais são incompatíveis com a governança jurídica, mesmo quando formalmente válidas,
-      porque extinguem as condições sob as quais o direito pode continuar operando de modo significativo ao longo do tempo.
-    </p>
-  </div>
-
-  <hr>
-
-  <h3>O Problema de Política Pública</h3>
-  <p>
-    A doutrina moderna contém ferramentas preventivas (licenciamento, due diligence, precaução, hardship, remédios preventivos),
-    mas a relevância jurídica permanece predominantemente orientada a eventos.
-    A significância jurídica é acionada por momentos identificáveis:
-    violação, quebra, dano, ilicitude ou ameaça iminente.
-  </p>
-
-  <p>
-    Essa arquitetura falha quando relações jurídicas operam em sistemas governados por dinâmicas cumulativas e limiares materiais:
-  </p>
-  <ul>
-    <li>a degradação ocorre gradualmente, não de forma discreta;</li>
-    <li>decisões se sedimentam em trajetórias rígidas;</li>
-    <li>a reversibilidade se erode muito antes de qualquer quebra juridicamente reconhecível.</li>
-  </ul>
-
-  <p>
-    Assim, a falha jurídica mais relevante se desenrola durante períodos de plena conformidade formal,
-    quando a execução contratual fecha progressivamente opções futuras sem violar norma expressa.
-  </p>
-
-  <hr>
-
-  <h3>Contratos como Arquiteturas Temporais</h3>
-  <p>
-    O direito contratual é orientado ao futuro, mas a análise dogmática ainda trata o tempo como parâmetro linear
-    (duração, prazos, marcos).
-    Isso presume que trajetórias contratuais permanecem reversíveis até que uma ruptura juridicamente relevante ocorra.
-    Sob risco sistêmico, essa premissa falha.
-  </p>
-  <p>
-    Sob a c-ECO, contratos são reconceitualizados como <strong>arquiteturas de governança temporal</strong>.
-    Eles não apenas se desenrolam no tempo; produzem tempo-como-estado ao estabilizar trajetórias,
-    distribuir tolerâncias e moldar o que permanece juridicamente e materialmente possível no futuro.
-  </p>
-
-  <div class="callout">
-    <p style="margin:0;">
-      Isso explica por que conformidade pode coexistir com colapso, por que responsabilidade pode chegar “correta” porém tarde,
-      e por que a legalidade pode sobreviver à governabilidade.
-    </p>
-  </div>
-
-  <hr>
-
-  <h3>Arquitetura de Instrumentos: Licença → Cláusula → Selo</h3>
-
-  <p>
-    A c-ECO operacionaliza a governança de pré-limiar por meio de uma arquitetura simples:
-    <strong>Licença</strong> (via de adoção) → <strong>Cláusula</strong> (linguagem contratual) → <strong>Selo</strong> (verificação opcional).
-  </p>
-
-  <p><strong>1) Licença c-ECO</strong></p>
-  <p>
-    A <a href="/pt/license.html"><strong>Licença c-ECO</strong></a> é uma via de adoção fundada em
-    <strong>Equidade Contratual &amp; Corresponsabilidade Ecológica</strong>.
-    Ela foca em preservar governabilidade e espaço decisório ao identificar quais poderes contratuais podem travar trajetórias,
-    definir sinais de pré-limiar e incorporar procedimentos que mantêm o contrato governável ao longo do tempo.
-  </p>
-
-  <p><strong>2) Cláusula c-ECO</strong></p>
-  <p>
-    A <strong>Cláusula c-ECO</strong> traduz a Licença em procedimentos contratualmente exigíveis.
-    Ela condiciona o exercício de poderes específicos a reavaliação documentada, justificativa e vias de recalibração
-    quando sinais de pré-limiar aparecem — sem contestar a validade global do contrato.
-  </p>
-  <div class="callout">
-    <p style="margin:0;">
-      <strong>A Cláusula c-ECO não é:</strong><br>
-      compromisso ESG, obrigação de desempenho, meta de sustentabilidade ou instrumento de política pública.<br>
-      <strong>Ela é:</strong> uma cláusula procedimental de governança que preserva a efetividade jurídica ao preservar governabilidade no tempo.
-    </p>
-  </div>
-
-  <p><strong>3) Opcional: Selo c-ECO</strong></p>
-  <p>
-    Organizações podem, opcionalmente, buscar um <strong>Selo c-ECO</strong> para verificar que sua arquitetura contratual
-    incorpora padrões de governança de pré-limiar.
-    O Selo verifica <em>integridade de desenho</em> — não resultados, KPIs ou performance ESG.
-  </p>
-
-  <hr>
-
-  <h3>Caminho de Adoção (5 Etapas)</h3>
-  <p class="small">
-    Este processo busca manter a “governabilidade” no tempo — garantindo que contratos de longo horizonte não retirem,
-    por acidente, a agência futura de uma organização.
-  </p>
-  <ol>
-    <li><strong>Escopo de poderes licenciados:</strong> identificar direitos que criam lock-in (expansão, renovações, exclusividade, assimetrias de término).</li>
-    <li><strong>Definir sinais de pré-limiar:</strong> gatilhos auditáveis e não técnicos para revisão procedimental quando a reversibilidade se erode.</li>
-    <li><strong>Inserir a Cláusula c-ECO:</strong> condicionar o exercício de poderes a reavaliação, justificativa, documentação e recalibração.</li>
-    <li><strong>Atribuir papéis institucionais:</strong> designar responsáveis (Jurídico/Risco/Governança) e manter registros rastreáveis.</li>
-    <li><strong>Selo (opcional):</strong> verificação por terceiros do desenho de governança (não de resultados).</li>
-  </ol>
-
-  <hr>
-
-  <h3>Por que isso importa</h3>
-
-  <p><strong>Para Governos</strong></p>
-  <ul>
-    <li>Reduz exposição futura a passivos e litígios.</li>
-    <li>Preserva espaço decisório público e capacidade institucional.</li>
-    <li>Fortalece resiliência jurídica sob risco sistêmico.</li>
-  </ul>
-
-  <p><strong>Para Instituições Financeiras</strong></p>
-  <ul>
-    <li>Melhora triagem de risco além de disclosure e scoring.</li>
-    <li>Apoia defensabilidade fiduciária sob incerteza de longo horizonte.</li>
-    <li>Reduz risco de ativos encalhados e falhas de governança.</li>
-  </ul>
-
-  <p><strong>Para Mercados</strong></p>
-  <ul>
-    <li>Aumenta previsibilidade ao preservar governabilidade contratual.</li>
-    <li>Recompensa estabilidade de longo prazo e capacidade adaptativa.</li>
-    <li>Desincentiva arbitragem temporal que externaliza irreversibilidade.</li>
-  </ul>
-
-  <hr>
-
-  <h3>Mensagem-chave</h3>
-  <p>
-    A governança de pré-limiar não desacelera o desenvolvimento.<br>
-    Ela impede que contratos consumam silenciosamente o futuro enquanto permanecem legalmente válidos.
-  </p>
-
-  <div class="tagline"><strong>Antes, importa.</strong></div>
-
-  <hr>
-
-  <h3>Contato institucional</h3>
-  <p>
-    c-ECO — Equidade Contratual &amp; Corresponsabilidade Ecológica<br>
-    📧 info@c-eco.org<br>
-    🌐 www.c-eco.org
-  </p>
-
-  <footer>
-    <div class="footer-nav">
-      <a href="/pt/index.html">Início</a>
-      <span>|</span>
-      <a href="/pt/info.html">Info</a>
-      <span>|</span> 
-      <a href="bio.html">Bio</a>
-      <span>|</span>
-      <a href="/pt/global-signals.html">Publicações</a>
-      <span>|</span>
-      <a href="/pt/policy-brief.html">Memorando de Políticas</a>
-      <span>|</span>
-      <a href="/pt/license.html">Licença</a>
-      <span>|</span>
-      <a href="/pt/applied-study.html">Estudos Aplicados</a>
-      <span>|</span>
-      <a href="/pt/partnerships.html">Parcerias</a>
+  <!-- HEADER -->
+  <header class="h-14 border-b border-white/5 bg-slate-950/80 backdrop-blur-sm flex items-center justify-between px-6 z-40 content">
+    <div class="flex items-center gap-4">
+      <div class="w-8 h-8 border border-white/10 flex items-center justify-center bg-white/5">
+        <span class="font-tech text-sigma font-bold text-lg">Σ</span>
+      </div>
+      <div class="flex flex-col">
+        <h1 class="font-tech text-sm tracking-[0.2em] text-white uppercase font-semibold">c-ECO Analytical Platform</h1>
+        <span class="text-[0.65rem] text-zinc-500 uppercase tracking-wider font-tech">System Architecture // Reference View</span>
+      </div>
     </div>
 
-    <div class="copyright">
-      © <span id="y"></span> c-ECO. Todos os direitos reservados.<br>
-      É vedada a reprodução sem autorização prévia, exceto citações com atribuição.
+    <nav class="hidden md:flex items-center gap-2 text-xs font-tech tracking-wider text-zinc-500 uppercase">
+      <a href="#architecture" class="px-3 py-1 rounded-full border border-white/5 bg-white/5 hover:text-sigma hover:border-sigma/20 transition">Architecture</a>
+      <a href="#flow" class="px-3 py-1 rounded-full border border-white/5 bg-white/5 hover:text-sigma hover:border-sigma/20 transition">Flow</a>
+      <a href="#stack" class="px-3 py-1 rounded-full border border-white/5 bg-white/5 hover:text-sigma hover:border-sigma/20 transition">Stack</a>
+    </nav>
+
+    <div class="flex items-center gap-4 text-xs font-tech text-zinc-500">
+      <button class="hover:text-sigma transition-colors" onclick="window.location.href='protocol.html'">RETURN TO TERMINAL</button>
+      <button class="hover:text-sigma transition-colors" onclick="window.location.href='index.html'">EXIT</button>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="flex-1 content">
+    <!-- HERO -->
+    <section class="max-w-6xl mx-auto px-6 pt-10 pb-8">
+      <div class="border border-white/5 bg-white/[0.03] p-6 md:p-8">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-sigma text-xs">◆</span>
+              <span class="font-tech text-[0.65rem] tracking-[0.22em] uppercase text-zinc-400">Reference Architecture</span>
+            </div>
+            <h2 class="font-tech text-2xl md:text-3xl text-white tracking-wide">
+              Four-Layer Analytical Infrastructure
+            </h2>
+            <p class="mt-3 text-sm text-zinc-400 leading-relaxed max-w-2xl">
+              This page complements the <span class="text-zinc-200">Decisional Guardian Terminal</span> by showing the implementable structure behind the interface:
+              data ingestion, analytical processing, inference/metrics, and monitoring outputs.
+            </p>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <div class="hidden sm:flex items-center gap-3 px-4 py-2 rounded-full border border-white/5 bg-white/5">
+              <div class="w-1.5 h-1.5 rounded-full bg-sigma animate-pulse"></div>
+              <span class="font-tech text-xs tracking-[0.15em] text-sigma">ARCHITECTURE VIEW</span>
+            </div>
+            <a href="#architecture" class="px-4 py-2 bg-white/5 hover:bg-sigma hover:text-black border border-white/10 text-xs font-tech tracking-wider text-zinc-300 transition-all uppercase">
+              Open Diagram
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ARCHITECTURE DIAGRAM -->
+    <section id="architecture" class="max-w-6xl mx-auto px-6 pb-10">
+      <div class="grid lg:grid-cols-12 gap-8">
+        <!-- diagram -->
+        <div class="lg:col-span-8 border border-white/5 bg-[#0c0c0e] p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2">
+              <span class="text-sigma text-xs">◆</span>
+              <h3 class="font-tech text-sm tracking-[0.2em] text-white uppercase">Platform Architecture Diagram</h3>
+            </div>
+            <div class="text-[0.65rem] font-mono text-zinc-600">ARCH_REF: CECO-ARCH-001</div>
+          </div>
+
+          <!-- Inline SVG diagram (professional, dark + gold) -->
+          <svg viewBox="0 0 1100 620" class="w-full h-auto">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0" stop-color="#d6bc7e" stop-opacity="0.25"/>
+                <stop offset="1" stop-color="#d6bc7e" stop-opacity="0.05"/>
+              </linearGradient>
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="4" result="blur"/>
+                <feMerge>
+                  <feMergeNode in="blur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+
+            <!-- background frame -->
+            <rect x="30" y="30" width="1040" height="560" rx="14" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.07)" />
+
+            <!-- left rail labels -->
+            <text x="70" y="85" fill="#d6bc7e" font-size="14" font-family="Urbanist" letter-spacing="3">LAYERS</text>
+
+            <!-- layer blocks -->
+            <!-- 1 -->
+            <rect x="130" y="80" width="900" height="110" rx="12" fill="url(#g1)" stroke="rgba(214,188,126,0.35)" />
+            <text x="160" y="120" fill="#ffffff" font-size="18" font-family="Urbanist" letter-spacing="1">Layer 1 — Data Acquisition & Integration</text>
+            <text x="160" y="150" fill="rgba(212,212,216,0.85)" font-size="13" font-family="Inter">
+              Pipelines • ETL/ELT • Normalization • Data lineage • Heterogeneous sources (contracts, regulatory, biophysical, economic)
+            </text>
+
+            <!-- 2 -->
+            <rect x="130" y="215" width="900" height="110" rx="12" fill="rgba(255,255,255,0.02)" stroke="rgba(214,188,126,0.25)" />
+            <text x="160" y="255" fill="#ffffff" font-size="18" font-family="Urbanist" letter-spacing="1">Layer 2 — Analytical & Processing Engine</text>
+            <text x="160" y="285" fill="rgba(212,212,216,0.85)" font-size="13" font-family="Inter">
+              Transformations • Feature extraction • Time-series analytics • Instability detection • Scenario simulation • Intensive compute
+            </text>
+
+            <!-- 3 -->
+            <rect x="130" y="350" width="900" height="110" rx="12" fill="rgba(255,255,255,0.02)" stroke="rgba(214,188,126,0.25)" />
+            <text x="160" y="390" fill="#ffffff" font-size="18" font-family="Urbanist" letter-spacing="1">Layer 3 — Inference & Metrics</text>
+            <text x="160" y="420" fill="rgba(212,212,216,0.85)" font-size="13" font-family="Inter">
+              Risk indices • Threshold proximity • Irreversibility signals • Contract fragility scores • Evidence binding & proof IDs
+            </text>
+
+            <!-- 4 -->
+            <rect x="130" y="485" width="900" height="90" rx="12" fill="rgba(255,255,255,0.02)" stroke="rgba(214,188,126,0.25)" />
+            <text x="160" y="525" fill="#ffffff" font-size="18" font-family="Urbanist" letter-spacing="1">Layer 4 — Monitoring & Decision Interface</text>
+            <text x="160" y="555" fill="rgba(212,212,216,0.85)" font-size="13" font-family="Inter">
+              Terminal UI • Dashboards • Alerts • Audit logs • Operator workflows (safe/status/iex) • Governance outputs
+            </text>
+
+            <!-- arrows (vertical flow) -->
+            <g filter="url(#glow)">
+              <path d="M 580 190 L 580 215" stroke="#d6bc7e" stroke-width="3" stroke-linecap="round"/>
+              <path d="M 580 325 L 580 350" stroke="#d6bc7e" stroke-width="3" stroke-linecap="round"/>
+              <path d="M 580 460 L 580 485" stroke="#d6bc7e" stroke-width="3" stroke-linecap="round"/>
+              <!-- arrow heads -->
+              <path d="M 572 210 L 580 220 L 588 210" fill="none" stroke="#d6bc7e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 572 345 L 580 355 L 588 345" fill="none" stroke="#d6bc7e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 572 480 L 580 490 L 588 480" fill="none" stroke="#d6bc7e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+          </svg>
+
+          <div class="mt-5 grid md:grid-cols-3 gap-3 text-[0.7rem] font-mono text-zinc-500">
+            <div class="border border-white/5 bg-white/[0.02] p-3">
+              <span class="text-sigma">INPUTS</span><br/>
+              Contractual • Regulatory • Biophysical • Economic • Operational
+            </div>
+            <div class="border border-white/5 bg-white/[0.02] p-3">
+              <span class="text-sigma">ENGINE</span><br/>
+              Processing • Analytics • ML assist • Simulation • Threshold detection
+            </div>
+            <div class="border border-white/5 bg-white/[0.02] p-3">
+              <span class="text-sigma">OUTPUTS</span><br/>
+              States • Alerts • Metrics • Evidence logs • Decision support artifacts
+            </div>
+          </div>
+        </div>
+
+        <!-- right notes -->
+        <div class="lg:col-span-4 space-y-6">
+          <div class="border border-white/5 bg-white/[0.03] p-6">
+            <h4 class="font-tech text-xs tracking-[0.22em] uppercase text-zinc-400 mb-3">What this page is</h4>
+            <p class="text-sm text-zinc-400 leading-relaxed">
+              A <span class="text-zinc-200">reference architecture</span> that explains the implementable structure behind the terminal experience.
+              It is not an API spec; it is a system blueprint.
+            </p>
+          </div>
+
+          <div class="border border-white/5 bg-[#0c0c0e] p-6">
+            <h4 class="font-tech text-xs tracking-[0.22em] uppercase text-zinc-400 mb-4">Where João fits (technical)</h4>
+            <ul class="space-y-3 text-sm text-zinc-300">
+              <li class="flex gap-3">
+                <span class="text-sigma font-mono">01</span>
+                <span>Python modules for data processing, automation, and analytics routines (Layer 2).</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-sigma font-mono">02</span>
+                <span>Metric computation + lightweight ML assist pipelines (Layer 3).</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-sigma font-mono">03</span>
+                <span>Integration support + stability/efficiency in compute workflows (Layer 2/3).</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="border border-white/5 bg-white/[0.03] p-6">
+            <h4 class="font-tech text-xs tracking-[0.22em] uppercase text-zinc-400 mb-3">Governance note</h4>
+            <p class="text-sm text-zinc-400 leading-relaxed">
+              Evidence binding, proof IDs and auditability are treated as first-class system outputs to support defensability and traceability.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FLOW -->
+    <section id="flow" class="max-w-6xl mx-auto px-6 pb-10">
+      <div class="border border-white/5 bg-white/[0.03] p-6">
+        <div class="flex items-center justify-between mb-5">
+          <div class="flex items-center gap-2">
+            <span class="text-sigma text-xs">◆</span>
+            <h3 class="font-tech text-sm tracking-[0.2em] text-white uppercase">Analytical Flow</h3>
+          </div>
+          <div class="text-[0.65rem] font-mono text-zinc-600">FLOW_REF: CECO-FLOW-002</div>
+        </div>
+
+        <!-- flow row -->
+        <div class="grid md:grid-cols-6 gap-3">
+          <div class="border border-white/5 bg-[#0c0c0e] p-4">
+            <div class="text-[0.65rem] font-tech tracking-[0.22em] uppercase text-zinc-500">Stage 1</div>
+            <div class="mt-1 font-tech text-white">Entrada</div>
+            <div class="mt-2 text-xs text-zinc-400 font-mono">contracts • regs • signals</div>
+          </div>
+
+          <div class="hidden md:flex items-center justify-center text-sigma/70">➜</div>
+
+          <div class="border border-white/5 bg-[#0c0c0e] p-4">
+            <div class="text-[0.65rem] font-tech tracking-[0.22em] uppercase text-zinc-500">Stage 2</div>
+            <div class="mt-1 font-tech text-white">Normalização</div>
+            <div class="mt-2 text-xs text-zinc-400 font-mono">schema • quality • lineage</div>
+          </div>
+
+          <div class="hidden md:flex items-center justify-center text-sigma/70">➜</div>
+
+          <div class="border border-white/5 bg-[#0c0c0e] p-4">
+            <div class="text-[0.65rem] font-tech tracking-[0.22em] uppercase text-zinc-500">Stage 3</div>
+            <div class="mt-1 font-tech text-white">Processamento</div>
+            <div class="mt-2 text-xs text-zinc-400 font-mono">features • compute • streams</div>
+          </div>
+
+          <div class="hidden md:flex items-center justify-center text-sigma/70">➜</div>
+
+          <div class="border border-white/5 bg-[#0c0c0e] p-4">
+            <div class="text-[0.65rem] font-tech tracking-[0.22em] uppercase text-zinc-500">Stage 4</div>
+            <div class="mt-1 font-tech text-white">Análise</div>
+            <div class="mt-2 text-xs text-zinc-400 font-mono">instability • scenarios</div>
+          </div>
+
+          <div class="hidden md:flex items-center justify-center text-sigma/70">➜</div>
+
+          <div class="border border-white/5 bg-[#0c0c0e] p-4">
+            <div class="text-[0.65rem] font-tech tracking-[0.22em] uppercase text-zinc-500">Stage 5</div>
+            <div class="mt-1 font-tech text-white">Métricas</div>
+            <div class="mt-2 text-xs text-zinc-400 font-mono">scores • signals • states</div>
+          </div>
+
+          <div class="hidden md:flex items-center justify-center text-sigma/70">➜</div>
+
+          <div class="border border-white/5 bg-[#0c0c0e] p-4">
+            <div class="text-[0.65rem] font-tech tracking-[0.22em] uppercase text-zinc-500">Stage 6</div>
+            <div class="mt-1 font-tech text-white">Outputs</div>
+            <div class="mt-2 text-xs text-zinc-400 font-mono">alerts • logs • UI</div>
+          </div>
+        </div>
+
+        <div class="mt-6 grid md:grid-cols-3 gap-3 text-sm">
+          <div class="border border-white/5 bg-white/[0.02] p-4">
+            <div class="font-tech text-xs tracking-[0.22em] uppercase text-zinc-500">Key operations</div>
+            <ul class="mt-2 space-y-1 text-zinc-400 text-xs font-mono">
+              <li>• tratamento de variáveis heterogêneas</li>
+              <li>• estruturas de cálculo dinâmico</li>
+              <li>• detecção de padrões emergentes</li>
+            </ul>
+          </div>
+          <div class="border border-white/5 bg-white/[0.02] p-4">
+            <div class="font-tech text-xs tracking-[0.22em] uppercase text-zinc-500">Stability</div>
+            <ul class="mt-2 space-y-1 text-zinc-400 text-xs font-mono">
+              <li>• anomaly checks on inputs</li>
+              <li>• reproducible pipelines</li>
+              <li>• immutable audit traces</li>
+            </ul>
+          </div>
+          <div class="border border-white/5 bg-white/[0.02] p-4">
+            <div class="font-tech text-xs tracking-[0.22em] uppercase text-zinc-500">Decision outputs</div>
+            <ul class="mt-2 space-y-1 text-zinc-400 text-xs font-mono">
+              <li>• state machine outputs</li>
+              <li>• threshold warnings</li>
+              <li>• evidence binding (proof IDs)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STACK -->
+    <section id="stack" class="max-w-6xl mx-auto px-6 pb-16">
+      <div class="border border-white/5 bg-[#0c0c0e] p-6">
+        <div class="flex items-center justify-between mb-5">
+          <div class="flex items-center gap-2">
+            <span class="text-sigma text-xs">◆</span>
+            <h3 class="font-tech text-sm tracking-[0.2em] text-white uppercase">Technology Stack (Reference)</h3>
+          </div>
+          <div class="text-[0.65rem] font-mono text-zinc-600">STACK_REF: CECO-STACK-003</div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="border border-white/5 bg-white/[0.02] p-5">
+            <h4 class="font-tech text-xs tracking-[0.22em] uppercase text-zinc-400">Core Analytics</h4>
+            <ul class="mt-3 space-y-2 text-xs font-mono text-zinc-400">
+              <li><span class="text-sigma">•</span> Python (core engine)</li>
+              <li><span class="text-sigma">•</span> NumPy / Pandas</li>
+              <li><span class="text-sigma">•</span> SciPy / stats tooling</li>
+              <li><span class="text-sigma">•</span> Time-series modules</li>
+            </ul>
+          </div>
+
+          <div class="border border-white/5 bg-white/[0.02] p-5">
+            <h4 class="font-tech text-xs tracking-[0.22em] uppercase text-zinc-400">Data & Pipelines</h4>
+            <ul class="mt-3 space-y-2 text-xs font-mono text-zinc-400">
+              <li><span class="text-sigma">•</span> ETL/ELT pipelines</li>
+              <li><span class="text-sigma">•</span> Schema normalization</li>
+              <li><span class="text-sigma">•</span> Versioning / lineage</li>
+              <li><span class="text-sigma">•</span> Stream processing (optional)</li>
+            </ul>
+          </div>
+
+          <div class="border border-white/5 bg-white/[0.02] p-5">
+            <h4 class="font-tech text-xs tracking-[0.22em] uppercase text-zinc-400">ML Assist & Signals</h4>
+            <ul class="mt-3 space-y-2 text-xs font-mono text-zinc-400">
+              <li><span class="text-sigma">•</span> scikit-learn (assist layer)</li>
+              <li><span class="text-sigma">•</span> anomaly / drift detection</li>
+              <li><span class="text-sigma">•</span> classification/regimes</li>
+              <li><span class="text-sigma">•</span> explainability hooks</li>
+            </ul>
+          </div>
+
+          <div class="border border-white/5 bg-white/[0.02] p-5">
+            <h4 class="font-tech text-xs tracking-[0.22em] uppercase text-zinc-400">Interface & Monitoring</h4>
+            <ul class="mt-3 space-y-2 text-xs font-mono text-zinc-400">
+              <li><span class="text-sigma">•</span> Terminal UI (HTML/Tailwind)</li>
+              <li><span class="text-sigma">•</span> Dashboards (optional)</li>
+              <li><span class="text-sigma">•</span> Alerting pipelines</li>
+              <li><span class="text-sigma">•</span> Immutable audit logs</li>
+            </ul>
+          </div>
+
+          <div class="border border-white/5 bg-white/[0.02] p-5">
+            <h4 class="font-tech text-xs tracking-[0.22em] uppercase text-zinc-400">Security & Integrity</h4>
+            <ul class="mt-3 space-y-2 text-xs font-mono text-zinc-400">
+              <li><span class="text-sigma">•</span> Data integrity checks</li>
+              <li><span class="text-sigma">•</span> Proof IDs (hashing)</li>
+              <li><span class="text-sigma">•</span> Access control model</li>
+              <li><span class="text-sigma">•</span> Auditability-by-design</li>
+            </ul>
+          </div>
+
+          <div class="border border-white/5 bg-white/[0.02] p-5">
+            <h4 class="font-tech text-xs tracking-[0.22em] uppercase text-zinc-400">Execution Environments</h4>
+            <ul class="mt-3 space-y-2 text-xs font-mono text-zinc-400">
+              <li><span class="text-sigma">•</span> Local dev (Live Server)</li>
+              <li><span class="text-sigma">•</span> Containerized runtime (future)</li>
+              <li><span class="text-sigma">•</span> Compute scaling (future)</li>
+              <li><span class="text-sigma">•</span> CI checks (future)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-6 border border-white/5 bg-white/[0.02] p-4 text-xs text-zinc-400">
+          <span class="text-sigma font-mono">NOTE:</span>
+          This stack is a reference for communication and planning. Final technology choices and environments will be defined during implementation and validation phases.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER (Finep-safe) -->
+  <footer class="mt-6 border-t border-[#d6bc7e]/10 content">
+    <div class="max-w-6xl mx-auto px-6 py-8 text-center">
+      <p class="text-xs tracking-widest text-[#d6bc7e]/40">
+        CONCEPTUAL ARCHITECTURE PAGE — IMPLEMENTATION DETAILS UNDER DEVELOPMENT
+      </p>
     </div>
   </footer>
-
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
-
 </body>
 </html>
