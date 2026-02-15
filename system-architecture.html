@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -20,6 +20,9 @@
           fontFamily: {
             tech: ['Urbanist', 'sans-serif'],
             mono: ['Inter', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+          },
+          boxShadow: {
+            sigGlow: "0 0 18px rgba(214,188,126,0.25)"
           }
         }
       }
@@ -34,7 +37,6 @@
       color: #d4d4d8;
       font-family: Inter, sans-serif;
     }
-
     .scanline-overlay{
       position: fixed;
       inset: 0;
@@ -47,471 +49,420 @@
       background-size: 100% 4px;
       pointer-events:none;
     }
-
-    .grain {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
-      background-size: 80px 80px;
-      opacity: 0.04;
-      mix-blend-mode: overlay;
-    }
-
     .content { position: relative; z-index: 1; }
-
     ::-webkit-scrollbar{ width: 6px; }
     ::-webkit-scrollbar-track{ background: #09090b; }
     ::-webkit-scrollbar-thumb{ background: #27272a; border-radius: 3px; }
-
-    /* small glow */
-    .sigma-glow { box-shadow: 0 0 18px rgba(214, 188, 126, 0.15); }
   </style>
 </head>
 
 <body class="bg-[#020617] text-zinc-300 font-sans min-h-screen flex flex-col overflow-hidden selection:bg-sigma-dim selection:text-white">
   <div class="scanline-overlay"></div>
-  <div class="grain"></div>
 
-  <!-- HEADER (MATCHING protocol.html) -->
+  <!-- HEADER -->
   <header class="h-14 border-b border-white/5 bg-slate-950/80 backdrop-blur-sm flex items-center justify-between px-6 z-40 content">
     <div class="flex items-center gap-4">
       <div class="w-8 h-8 border border-white/10 flex items-center justify-center bg-white/5">
         <span class="font-tech text-sigma font-bold text-lg">Σ</span>
       </div>
       <div class="flex flex-col">
-        <h1 class="font-tech text-sm tracking-[0.2em] text-white uppercase font-semibold">c-ECO AI Protocol</h1>
-        <span class="text-[0.65rem] text-zinc-500 uppercase tracking-wider font-tech">Decisional Guardian v1.0 (Stable)</span>
+        <h1 class="font-tech text-sm tracking-[0.2em] text-white uppercase font-semibold">c-ECO System Architecture</h1>
+        <span class="text-[0.65rem] text-zinc-500 uppercase tracking-wider font-tech">Analytical Infrastructure // Conceptual Reference</span>
       </div>
     </div>
 
     <div class="hidden md:flex items-center gap-3 px-4 py-1 rounded-full border border-white/5 bg-white/5">
       <div class="w-1.5 h-1.5 rounded-full bg-sigma animate-pulse"></div>
-      <span class="font-tech text-xs tracking-[0.15em] text-sigma">SYSTEM ACTIVE</span>
+      <span class="font-tech text-xs tracking-[0.15em] text-sigma">ARCHITECTURE VIEW</span>
     </div>
 
     <div class="flex items-center gap-4 text-xs font-tech text-zinc-500">
-      <button class="hover:text-sigma transition-colors" onclick="window.location.href='protocol.html'">RETURN TO TERMINAL</button>
-      <button class="hover:text-sigma transition-colors" onclick="window.location.href='index.html'">EXIT TERMINAL</button>
+      <button class="hover:text-sigma transition-colors" onclick="window.location.href='protocol.html'">BACK TO TERMINAL</button>
+      <button class="hover:text-sigma transition-colors" onclick="window.location.href='index.html'">EXIT</button>
     </div>
   </header>
 
   <!-- MAIN -->
-  <main class="flex-1 flex overflow-hidden relative z-10 content">
+  <main class="flex-1 overflow-y-auto content">
+    <div class="max-w-6xl mx-auto px-6 py-10 space-y-10">
 
-    <!-- CONSOLE-LIKE MAIN PANEL -->
-    <section class="flex-1 flex flex-col relative max-w-6xl mx-auto w-full border-r border-white/5">
+      <!-- HERO -->
+      <section class="border border-white/5 bg-white/[0.02] p-6">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-sigma text-xs">◆</span>
+              <span class="font-tech text-[0.7rem] tracking-[0.22em] text-zinc-400 uppercase">Reference Blueprint</span>
+            </div>
+            <h2 class="font-tech text-2xl text-white tracking-wide">Analytical Platform — Layers, Flow, and Stack</h2>
+            <p class="mt-3 text-sm text-zinc-400 leading-relaxed max-w-3xl">
+              This page complements the terminal view by showing the system blueprint: core layers, analytical flow,
+              and the technology stack needed to implement the pipeline. It is a conceptual architecture, designed to be
+              translated into modular services and reproducible analytical routines.
+            </p>
+          </div>
 
-      <!-- TOP CONTEXT BAR (MATCHING style) -->
-      <div class="px-6 py-3 border-b border-white/5 bg-white/[0.02] flex justify-between items-center">
-        <div class="flex items-center gap-2">
-          <span class="text-sigma text-xs">◆</span>
-          <span class="font-tech text-sm text-zinc-400 tracking-wide">
-            CONTEXT: <span class="text-zinc-200">SYSTEM ARCHITECTURE</span> // MODE: <span class="text-zinc-200">REFERENCE</span>
-          </span>
-        </div>
-        <div class="text-[0.6rem] font-mono text-zinc-600">ARCH_REF: CECO-ARCH-001 / FLOW-002 / STACK-003</div>
-      </div>
-
-      <!-- CONTENT (SCROLL) -->
-      <div class="flex-1 overflow-y-auto p-6 space-y-6" id="arch-scroll">
-
-        <!-- INTRO BLOCK -->
-        <div class="flex justify-start pr-12">
-          <div class="w-full">
-            <div class="border-l-[1px] border-sigma/40 bg-[#18181b]/80 p-5 pl-6 relative">
-              <div class="flex gap-4 mb-3 font-mono text-[0.65rem] text-sigma/80 tracking-wide uppercase border-b border-white/5 pb-2">
-                <span>[ ARCHITECTURE READY ]</span>
-                <span>[ BLUEPRINT VIEW: ON ]</span>
-              </div>
-              <p class="text-zinc-300 font-light text-sm leading-relaxed">
-                <strong class="text-white font-tech">System Architecture Reference.</strong>
-                This page complements the terminal by exposing the implementable blueprint behind the interface:
-                layers, analytical flow, and stack. Use the command palette below (press <span class="text-sigma">⌘K</span> / <span class="text-sigma">Ctrl+K</span>).
-              </p>
+          <div class="flex flex-col gap-2 text-[0.75rem] font-mono text-zinc-500">
+            <div class="border border-white/10 bg-black/20 px-3 py-2">
+              <span class="text-sigma">STATE_REF</span>: CECO-ARCH-001
+            </div>
+            <div class="border border-white/10 bg-black/20 px-3 py-2">
+              <span class="text-sigma">MODE</span>: ARCHITECTURE BLUEPRINT
+            </div>
+            <div class="border border-white/10 bg-black/20 px-3 py-2">
+              <span class="text-sigma">SCOPE</span>: MULTI-SECTOR ANALYTICS
             </div>
           </div>
         </div>
+      </section>
 
-        <!-- ARCHITECTURE SECTION -->
-        <section id="architecture" class="space-y-3">
-          <div class="flex items-center justify-between">
-            <h2 class="font-tech text-xs tracking-[0.22em] uppercase text-zinc-500">Architecture</h2>
-            <span class="text-[0.6rem] font-mono text-zinc-600">CECO-ARCH-001</span>
-          </div>
-
-          <div class="border border-white/5 bg-[#0c0c0e] p-6">
-            <div class="flex items-center justify-between mb-4">
-              <div class="flex items-center gap-2">
-                <span class="text-sigma text-xs">◆</span>
-                <span class="font-tech text-sm tracking-[0.2em] text-white uppercase">Four Layers</span>
-              </div>
-              <div class="text-[0.6rem] font-mono text-zinc-600">L1 → L2 → L3 → L4</div>
-            </div>
-
-            <!-- Inline SVG diagram -->
-            <svg viewBox="0 0 1100 620" class="w-full h-auto">
-              <defs>
-                <linearGradient id="g1" x1="0" x2="1">
-                  <stop offset="0" stop-color="#d6bc7e" stop-opacity="0.25"/>
-                  <stop offset="1" stop-color="#d6bc7e" stop-opacity="0.05"/>
-                </linearGradient>
-                <filter id="glow">
-                  <feGaussianBlur stdDeviation="4" result="blur"/>
-                  <feMerge>
-                    <feMergeNode in="blur"/>
-                    <feMergeNode in="SourceGraphic"/>
-                  </feMerge>
-                </filter>
-              </defs>
-
-              <rect x="30" y="30" width="1040" height="560" rx="14" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.07)" />
-              <text x="70" y="85" fill="#d6bc7e" font-size="14" font-family="Urbanist" letter-spacing="3">LAYERS</text>
-
-              <!-- L1 -->
-              <rect x="130" y="80" width="900" height="110" rx="12" fill="url(#g1)" stroke="rgba(214,188,126,0.35)" />
-              <text x="160" y="120" fill="#ffffff" font-size="18" font-family="Urbanist" letter-spacing="1">Layer 1 — Data Acquisition & Integration</text>
-              <text x="160" y="150" fill="rgba(212,212,216,0.85)" font-size="13" font-family="Inter">
-                Pipelines • ETL/ELT • Normalization • Data lineage • Sources (contracts, regulatory, biophysical, economic)
-              </text>
-
-              <!-- L2 -->
-              <rect x="130" y="215" width="900" height="110" rx="12" fill="rgba(255,255,255,0.02)" stroke="rgba(214,188,126,0.25)" />
-              <text x="160" y="255" fill="#ffffff" font-size="18" font-family="Urbanist" letter-spacing="1">Layer 2 — Analytical & Processing Engine</text>
-              <text x="160" y="285" fill="rgba(212,212,216,0.85)" font-size="13" font-family="Inter">
-                Transformations • Feature extraction • Time-series • Instability detection • Scenario simulation • Intensive compute
-              </text>
-
-              <!-- L3 -->
-              <rect x="130" y="350" width="900" height="110" rx="12" fill="rgba(255,255,255,0.02)" stroke="rgba(214,188,126,0.25)" />
-              <text x="160" y="390" fill="#ffffff" font-size="18" font-family="Urbanist" letter-spacing="1">Layer 3 — Inference & Metrics</text>
-              <text x="160" y="420" fill="rgba(212,212,216,0.85)" font-size="13" font-family="Inter">
-                Risk indices • Threshold proximity • Irreversibility signals • Fragility scores • Evidence binding (proof IDs)
-              </text>
-
-              <!-- L4 -->
-              <rect x="130" y="485" width="900" height="90" rx="12" fill="rgba(255,255,255,0.02)" stroke="rgba(214,188,126,0.25)" />
-              <text x="160" y="525" fill="#ffffff" font-size="18" font-family="Urbanist" letter-spacing="1">Layer 4 — Monitoring & Decision Interface</text>
-              <text x="160" y="555" fill="rgba(212,212,216,0.85)" font-size="13" font-family="Inter">
-                Terminal UI • Dashboards • Alerts • Audit logs • Operator workflows (safe/status/iex) • Governance outputs
-              </text>
-
-              <!-- arrows -->
-              <g filter="url(#glow)">
-                <path d="M 580 190 L 580 215" stroke="#d6bc7e" stroke-width="3" stroke-linecap="round"/>
-                <path d="M 580 325 L 580 350" stroke="#d6bc7e" stroke-width="3" stroke-linecap="round"/>
-                <path d="M 580 460 L 580 485" stroke="#d6bc7e" stroke-width="3" stroke-linecap="round"/>
-                <path d="M 572 210 L 580 220 L 588 210" fill="none" stroke="#d6bc7e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M 572 345 L 580 355 L 588 345" fill="none" stroke="#d6bc7e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M 572 480 L 580 490 L 588 480" fill="none" stroke="#d6bc7e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-              </g>
-            </svg>
-          </div>
-
-          <div class="grid md:grid-cols-3 gap-3 text-[0.7rem] font-mono text-zinc-500">
-            <div class="border border-white/5 bg-white/[0.02] p-3">
-              <span class="text-sigma">INPUTS</span><br/>
-              Contractual • Regulatory • Biophysical • Economic • Operational
-            </div>
-            <div class="border border-white/5 bg-white/[0.02] p-3">
-              <span class="text-sigma">ENGINE</span><br/>
-              Processing • Analytics • ML assist • Simulation • Threshold detection
-            </div>
-            <div class="border border-white/5 bg-white/[0.02] p-3">
-              <span class="text-sigma">OUTPUTS</span><br/>
-              States • Alerts • Metrics • Evidence logs • Decision support artifacts
-            </div>
-          </div>
-        </section>
-
-        <!-- FLOW SECTION -->
-        <section id="flow" class="space-y-3 pt-6">
-          <div class="flex items-center justify-between">
-            <h2 class="font-tech text-xs tracking-[0.22em] uppercase text-zinc-500">Analytical Flow</h2>
-            <span class="text-[0.6rem] font-mono text-zinc-600">CECO-FLOW-002</span>
-          </div>
-
-          <div class="border border-white/5 bg-[#0c0c0e] p-6">
-            <div class="grid md:grid-cols-13 gap-2 items-stretch">
-              <!-- blocks -->
-              <div class="md:col-span-2 border border-white/5 bg-white/[0.02] p-4">
-                <div class="text-[0.65rem] font-tech tracking-[0.22em] uppercase text-zinc-500">Stage 1</div>
-                <div class="mt-1 font-tech text-white">Entrada</div>
-                <div class="mt-2 text-xs text-zinc-400 font-mono">contracts • regs • signals</div>
-              </div>
-              <div class="hidden md:flex md:col-span-1 items-center justify-center text-sigma/70 font-mono">➜</div>
-              <div class="md:col-span-2 border border-white/5 bg-white/[0.02] p-4">
-                <div class="text-[0.65rem] font-tech tracking-[0.22em] uppercase text-zinc-500">Stage 2</div>
-                <div class="mt-1 font-tech text-white">Normalização</div>
-                <div class="mt-2 text-xs text-zinc-400 font-mono">schema • quality • lineage</div>
-              </div>
-              <div class="hidden md:flex md:col-span-1 items-center justify-center text-sigma/70 font-mono">➜</div>
-              <div class="md:col-span-2 border border-white/5 bg-white/[0.02] p-4">
-                <div class="text-[0.65rem] font-tech tracking-[0.22em] uppercase text-zinc-500">Stage 3</div>
-                <div class="mt-1 font-tech text-white">Processamento</div>
-                <div class="mt-2 text-xs text-zinc-400 font-mono">features • compute • streams</div>
-              </div>
-              <div class="hidden md:flex md:col-span-1 items-center justify-center text-sigma/70 font-mono">➜</div>
-              <div class="md:col-span-2 border border-white/5 bg-white/[0.02] p-4">
-                <div class="text-[0.65rem] font-tech tracking-[0.22em] uppercase text-zinc-500">Stage 4</div>
-                <div class="mt-1 font-tech text-white">Análise</div>
-                <div class="mt-2 text-xs text-zinc-400 font-mono">instability • scenarios</div>
-              </div>
-              <div class="hidden md:flex md:col-span-1 items-center justify-center text-sigma/70 font-mono">➜</div>
-              <div class="md:col-span-2 border border-white/5 bg-white/[0.02] p-4">
-                <div class="text-[0.65rem] font-tech tracking-[0.22em] uppercase text-zinc-500">Stage 5</div>
-                <div class="mt-1 font-tech text-white">Métricas</div>
-                <div class="mt-2 text-xs text-zinc-400 font-mono">scores • signals • states</div>
-              </div>
-              <div class="hidden md:flex md:col-span-1 items-center justify-center text-sigma/70 font-mono">➜</div>
-              <div class="md:col-span-2 border border-white/5 bg-white/[0.02] p-4">
-                <div class="text-[0.65rem] font-tech tracking-[0.22em] uppercase text-zinc-500">Stage 6</div>
-                <div class="mt-1 font-tech text-white">Outputs</div>
-                <div class="mt-2 text-xs text-zinc-400 font-mono">alerts • logs • UI</div>
-              </div>
-            </div>
-
-            <div class="mt-6 grid md:grid-cols-3 gap-3 text-sm">
-              <div class="border border-white/5 bg-white/[0.02] p-4">
-                <div class="font-tech text-xs tracking-[0.22em] uppercase text-zinc-500">Key operations</div>
-                <ul class="mt-2 space-y-1 text-zinc-400 text-xs font-mono">
-                  <li>• variáveis heterogêneas</li>
-                  <li>• cálculo dinâmico</li>
-                  <li>• padrões emergentes</li>
-                </ul>
-              </div>
-              <div class="border border-white/5 bg-white/[0.02] p-4">
-                <div class="font-tech text-xs tracking-[0.22em] uppercase text-zinc-500">Stability</div>
-                <ul class="mt-2 space-y-1 text-zinc-400 text-xs font-mono">
-                  <li>• anomaly checks</li>
-                  <li>• reproducible pipelines</li>
-                  <li>• immutable traces</li>
-                </ul>
-              </div>
-              <div class="border border-white/5 bg-white/[0.02] p-4">
-                <div class="font-tech text-xs tracking-[0.22em] uppercase text-zinc-500">Decision outputs</div>
-                <ul class="mt-2 space-y-1 text-zinc-400 text-xs font-mono">
-                  <li>• state machine</li>
-                  <li>• threshold warnings</li>
-                  <li>• proof IDs</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- STACK SECTION -->
-        <section id="stack" class="space-y-3 pt-6">
-          <div class="flex items-center justify-between">
-            <h2 class="font-tech text-xs tracking-[0.22em] uppercase text-zinc-500">Technology Stack</h2>
-            <span class="text-[0.6rem] font-mono text-zinc-600">CECO-STACK-003</span>
-          </div>
-
-          <div class="border border-white/5 bg-[#0c0c0e] p-6">
-            <div class="grid md:grid-cols-3 gap-4">
-              <div class="border border-white/5 bg-white/[0.02] p-5">
-                <h4 class="font-tech text-xs tracking-[0.22em] uppercase text-zinc-400">Core Analytics</h4>
-                <ul class="mt-3 space-y-2 text-xs font-mono text-zinc-400">
-                  <li><span class="text-sigma">•</span> Python (core engine)</li>
-                  <li><span class="text-sigma">•</span> NumPy / Pandas</li>
-                  <li><span class="text-sigma">•</span> SciPy / stats tooling</li>
-                  <li><span class="text-sigma">•</span> Time-series modules</li>
-                </ul>
-              </div>
-
-              <div class="border border-white/5 bg-white/[0.02] p-5">
-                <h4 class="font-tech text-xs tracking-[0.22em] uppercase text-zinc-400">Data & Pipelines</h4>
-                <ul class="mt-3 space-y-2 text-xs font-mono text-zinc-400">
-                  <li><span class="text-sigma">•</span> ETL/ELT pipelines</li>
-                  <li><span class="text-sigma">•</span> Schema normalization</li>
-                  <li><span class="text-sigma">•</span> Versioning / lineage</li>
-                  <li><span class="text-sigma">•</span> Stream processing (optional)</li>
-                </ul>
-              </div>
-
-              <div class="border border-white/5 bg-white/[0.02] p-5">
-                <h4 class="font-tech text-xs tracking-[0.22em] uppercase text-zinc-400">ML Assist & Signals</h4>
-                <ul class="mt-3 space-y-2 text-xs font-mono text-zinc-400">
-                  <li><span class="text-sigma">•</span> scikit-learn (assist)</li>
-                  <li><span class="text-sigma">•</span> anomaly / drift detection</li>
-                  <li><span class="text-sigma">•</span> classification/regimes</li>
-                  <li><span class="text-sigma">•</span> explainability hooks</li>
-                </ul>
-              </div>
-
-              <div class="border border-white/5 bg-white/[0.02] p-5">
-                <h4 class="font-tech text-xs tracking-[0.22em] uppercase text-zinc-400">Interface & Monitoring</h4>
-                <ul class="mt-3 space-y-2 text-xs font-mono text-zinc-400">
-                  <li><span class="text-sigma">•</span> Terminal UI (HTML/Tailwind)</li>
-                  <li><span class="text-sigma">•</span> Dashboards (optional)</li>
-                  <li><span class="text-sigma">•</span> Alerting pipelines</li>
-                  <li><span class="text-sigma">•</span> Immutable audit logs</li>
-                </ul>
-              </div>
-
-              <div class="border border-white/5 bg-white/[0.02] p-5">
-                <h4 class="font-tech text-xs tracking-[0.22em] uppercase text-zinc-400">Security & Integrity</h4>
-                <ul class="mt-3 space-y-2 text-xs font-mono text-zinc-400">
-                  <li><span class="text-sigma">•</span> Data integrity checks</li>
-                  <li><span class="text-sigma">•</span> Proof IDs (hashing)</li>
-                  <li><span class="text-sigma">•</span> Access control model</li>
-                  <li><span class="text-sigma">•</span> Auditability-by-design</li>
-                </ul>
-              </div>
-
-              <div class="border border-white/5 bg-white/[0.02] p-5">
-                <h4 class="font-tech text-xs tracking-[0.22em] uppercase text-zinc-400">Execution Environments</h4>
-                <ul class="mt-3 space-y-2 text-xs font-mono text-zinc-400">
-                  <li><span class="text-sigma">•</span> Local dev (Live Server)</li>
-                  <li><span class="text-sigma">•</span> Container runtime (future)</li>
-                  <li><span class="text-sigma">•</span> Compute scaling (future)</li>
-                  <li><span class="text-sigma">•</span> CI checks (future)</li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="mt-6 border border-white/5 bg-white/[0.02] p-4 text-xs text-zinc-400">
-              <span class="text-sigma font-mono">NOTE:</span>
-              Reference stack for planning/communication. Final choices defined during implementation/validation.
-            </div>
-          </div>
-        </section>
-
-      </div>
-
-      <!-- COMMAND PALETTE TRIGGER BAR -->
-      <div class="p-6 pt-2 border-t border-white/5 bg-white/[0.01]">
-        <div class="relative flex items-center bg-slate-950 border border-white/10 p-1">
-          <span class="pl-3 pr-2 text-sigma font-tech">Σ</span>
-          <input
-            type="text"
-            id="palette-input"
-            placeholder='Command palette (e.g. "arch", "flow", "stack", "return") — press Ctrl+K / ⌘K'
-            class="w-full bg-transparent border-none text-sm text-white placeholder-zinc-600 focus:ring-0 px-2 py-3 font-mono focus:outline-none h-12"
-          />
-          <button
-            id="palette-btn"
-            class="px-4 py-1 mr-1 bg-white/5 hover:bg-sigma hover:text-black border border-white/10 text-xs font-tech tracking-wider text-zinc-400 transition-all uppercase"
-          >
-            Go
-          </button>
+      <!-- SECTION: PLATFORM ARCHITECTURE -->
+      <section class="space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="font-tech text-[0.75rem] uppercase tracking-[0.25em] text-zinc-500">Platform Architecture</h3>
+          <span class="text-[0.7rem] font-mono text-zinc-600">4-layer modular design</span>
         </div>
-        <div class="mt-2 text-[0.65rem] font-mono text-zinc-600">
-          Commands: <span class="text-zinc-400">arch</span>, <span class="text-zinc-400">flow</span>, <span class="text-zinc-400">stack</span>,
-          <span class="text-zinc-400">terminal</span>, <span class="text-zinc-400">exit</span>
-        </div>
-      </div>
-    </section>
 
-    <!-- SIDEBAR (OPTIONAL, MATCHING STYLE) -->
-    <aside class="w-80 bg-[#0c0c0e] border-l border-white/5 flex-col hidden lg:flex transition-all duration-500" id="arch-sidebar">
-      <div class="p-5 border-b border-white/5">
-        <h2 class="font-tech text-[0.65rem] tracking-[0.2em] text-zinc-500 uppercase mb-3">Quick Jump</h2>
-        <div class="space-y-2 text-xs font-mono">
-          <a class="block px-3 py-2 border border-white/5 bg-white/[0.02] hover:border-sigma/30 hover:text-sigma transition" href="#architecture">01 — Architecture</a>
-          <a class="block px-3 py-2 border border-white/5 bg-white/[0.02] hover:border-sigma/30 hover:text-sigma transition" href="#flow">02 — Analytical Flow</a>
-          <a class="block px-3 py-2 border border-white/5 bg-white/[0.02] hover:border-sigma/30 hover:text-sigma transition" href="#stack">03 — Stack</a>
-        </div>
-      </div>
+        <div class="grid md:grid-cols-2 gap-5">
 
-      <div class="p-5 flex-1">
-        <h2 class="font-tech text-[0.65rem] tracking-[0.2em] text-zinc-500 uppercase mb-3">Implementation Notes</h2>
-        <div class="space-y-3 text-[0.7rem] text-zinc-400 leading-relaxed">
-          <p><span class="text-sigma font-mono">L2/L3</span> are where the core Python routines, metrics, and ML assist live.</p>
-          <p><span class="text-sigma font-mono">Proof IDs</span> and audit traces are treated as first-class outputs for defensability.</p>
-          <p>This view is a blueprint (not an API spec).</p>
-        </div>
-      </div>
+          <!-- Layer 1 -->
+          <div class="border border-sigma/20 bg-[#0c0c0e]/70 p-5">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-sigma text-xs">◆</span>
+                  <span class="font-tech text-sm tracking-[0.18em] text-white uppercase">Layer 1</span>
+                </div>
+                <h4 class="font-tech text-lg text-sigma">Data Acquisition & Integration</h4>
+              </div>
+              <div class="text-[0.65rem] font-mono text-zinc-500">L1</div>
+            </div>
+            <ul class="mt-4 space-y-2 text-sm text-zinc-400">
+              <li>• Multi-source ingestion (contracts, sectoral data, environmental signals, operational datasets)</li>
+              <li>• ETL/ELT pipelines, normalization, semantic mapping</li>
+              <li>• Data integrity, provenance, versioning (lineage)</li>
+              <li>• Anomaly checks at ingestion (input quality gates)</li>
+            </ul>
+            <div class="mt-4 text-[0.7rem] font-mono text-zinc-600">
+              Outputs: <span class="text-zinc-400">cleaned datasets, unified schemas, validated streams</span>
+            </div>
+          </div>
 
-      <div class="p-5 border-t border-white/5 bg-black/20">
-        <h2 class="font-tech text-[0.65rem] tracking-[0.2em] text-zinc-600 uppercase mb-3">Reference</h2>
-        <div class="text-[0.6rem] font-mono text-zinc-600">
-          ARCH_REF: CECO-ARCH-001<br/>
-          FLOW_REF: CECO-FLOW-002<br/>
-          STACK_REF: CECO-STACK-003
+          <!-- Layer 2 -->
+          <div class="border border-sigma/20 bg-[#0c0c0e]/70 p-5">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-sigma text-xs">◆</span>
+                  <span class="font-tech text-sm tracking-[0.18em] text-white uppercase">Layer 2</span>
+                </div>
+                <h4 class="font-tech text-lg text-sigma">Analytical & Processing Engine</h4>
+              </div>
+              <div class="text-[0.65rem] font-mono text-zinc-500">L2</div>
+            </div>
+            <ul class="mt-4 space-y-2 text-sm text-zinc-400">
+              <li>• Transformations, feature engineering, temporal alignment</li>
+              <li>• Complex-systems analytics (non-linear behavior, interdependencies)</li>
+              <li>• Early-warning signals, drift detection, regime-shift identification</li>
+              <li>• Scenario simulation and stress-testing (when applicable)</li>
+            </ul>
+            <div class="mt-4 text-[0.7rem] font-mono text-zinc-600">
+              Outputs: <span class="text-zinc-400">processed series, analytical signals, computed features</span>
+            </div>
+          </div>
+
+          <!-- Layer 3 -->
+          <div class="border border-sigma/20 bg-[#0c0c0e]/70 p-5">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-sigma text-xs">◆</span>
+                  <span class="font-tech text-sm tracking-[0.18em] text-white uppercase">Layer 3</span>
+                </div>
+                <h4 class="font-tech text-lg text-sigma">Inference & Metrics</h4>
+              </div>
+              <div class="text-[0.65rem] font-mono text-zinc-500">L3</div>
+            </div>
+            <ul class="mt-4 space-y-2 text-sm text-zinc-400">
+              <li>• Convert dynamic signals into operational risk metrics</li>
+              <li>• Threshold proximity scoring and instability indexes</li>
+              <li>• Irreversibility qualification (trajectory locking indicators)</li>
+              <li>• Explainable outputs + defensible evidence traces</li>
+            </ul>
+            <div class="mt-4 text-[0.7rem] font-mono text-zinc-600">
+              Outputs: <span class="text-zinc-400">risk scores, alerts, state classifications, evidence logs</span>
+            </div>
+          </div>
+
+          <!-- Layer 4 -->
+          <div class="border border-sigma/20 bg-[#0c0c0e]/70 p-5">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-sigma text-xs">◆</span>
+                  <span class="font-tech text-sm tracking-[0.18em] text-white uppercase">Layer 4</span>
+                </div>
+                <h4 class="font-tech text-lg text-sigma">Interface & Monitoring</h4>
+              </div>
+              <div class="text-[0.65rem] font-mono text-zinc-500">L4</div>
+            </div>
+            <ul class="mt-4 space-y-2 text-sm text-zinc-400">
+              <li>• Dashboards, terminal visualization, analytics panels</li>
+              <li>• Continuous monitoring and alert presentation</li>
+              <li>• Audit log access (traceability + reproducibility)</li>
+              <li>• Operational views for decision support (non-compliance tool)</li>
+            </ul>
+            <div class="mt-4 text-[0.7rem] font-mono text-zinc-600">
+              Outputs: <span class="text-zinc-400">visualization, reporting, operator guidance</span>
+            </div>
+          </div>
         </div>
-      </div>
-    </aside>
+      </section>
+
+      <!-- SECTION: ANALYTICAL FLOW -->
+      <section class="space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="font-tech text-[0.75rem] uppercase tracking-[0.25em] text-zinc-500">Analytical Flow</h3>
+          <span class="text-[0.7rem] font-mono text-zinc-600">pipeline view</span>
+        </div>
+
+        <div class="border border-white/5 bg-white/[0.02] p-6">
+          <div class="grid md:grid-cols-6 gap-3">
+            <!-- Step cards -->
+            <div class="md:col-span-1 border border-white/10 bg-black/20 p-4">
+              <div class="text-[0.65rem] font-tech uppercase tracking-[0.22em] text-zinc-500">Step 1</div>
+              <div class="font-tech text-sigma mt-1">Input</div>
+              <div class="text-xs text-zinc-400 mt-2">Raw data streams & documents</div>
+            </div>
+
+            <div class="hidden md:flex items-center justify-center text-sigma">→</div>
+
+            <div class="md:col-span-1 border border-white/10 bg-black/20 p-4">
+              <div class="text-[0.65rem] font-tech uppercase tracking-[0.22em] text-zinc-500">Step 2</div>
+              <div class="font-tech text-sigma mt-1">Normalize</div>
+              <div class="text-xs text-zinc-400 mt-2">Schemas, cleaning, alignment</div>
+            </div>
+
+            <div class="hidden md:flex items-center justify-center text-sigma">→</div>
+
+            <div class="md:col-span-1 border border-white/10 bg-black/20 p-4">
+              <div class="text-[0.65rem] font-tech uppercase tracking-[0.22em] text-zinc-500">Step 3</div>
+              <div class="font-tech text-sigma mt-1">Process</div>
+              <div class="text-xs text-zinc-400 mt-2">Transforms, features, compute</div>
+            </div>
+
+            <div class="hidden md:flex items-center justify-center text-sigma">→</div>
+
+            <div class="md:col-span-1 border border-white/10 bg-black/20 p-4">
+              <div class="text-[0.65rem] font-tech uppercase tracking-[0.22em] text-zinc-500">Step 4</div>
+              <div class="font-tech text-sigma mt-1">Analyze</div>
+              <div class="text-xs text-zinc-400 mt-2">Signals, drift, instability</div>
+            </div>
+
+            <div class="hidden md:flex items-center justify-center text-sigma">→</div>
+
+            <div class="md:col-span-1 border border-white/10 bg-black/20 p-4">
+              <div class="text-[0.65rem] font-tech uppercase tracking-[0.22em] text-zinc-500">Step 5</div>
+              <div class="font-tech text-sigma mt-1">Metrics</div>
+              <div class="text-xs text-zinc-400 mt-2">Scores, thresholds, states</div>
+            </div>
+
+            <div class="hidden md:flex items-center justify-center text-sigma">→</div>
+
+            <div class="md:col-span-1 border border-white/10 bg-black/20 p-4">
+              <div class="text-[0.65rem] font-tech uppercase tracking-[0.22em] text-zinc-500">Step 6</div>
+              <div class="font-tech text-sigma mt-1">Outputs</div>
+              <div class="text-xs text-zinc-400 mt-2">Dashboards, alerts, logs</div>
+            </div>
+          </div>
+
+          <div class="mt-6 grid md:grid-cols-3 gap-4 text-xs text-zinc-400">
+            <div class="border-l border-sigma/30 pl-4">
+              <div class="font-tech text-zinc-300 uppercase tracking-wider text-[0.7rem]">Key Properties</div>
+              <ul class="mt-2 space-y-1">
+                <li>• heterogeneous variables</li>
+                <li>• dynamic computation</li>
+                <li>• continuous updates</li>
+                <li>• explainable traces</li>
+              </ul>
+            </div>
+            <div class="border-l border-sigma/30 pl-4">
+              <div class="font-tech text-zinc-300 uppercase tracking-wider text-[0.7rem]">Signal Focus</div>
+              <ul class="mt-2 space-y-1">
+                <li>• instability patterns</li>
+                <li>• regime shifts</li>
+                <li>• threshold proximity</li>
+                <li>• trajectory risk</li>
+              </ul>
+            </div>
+            <div class="border-l border-sigma/30 pl-4">
+              <div class="font-tech text-zinc-300 uppercase tracking-wider text-[0.7rem]">Evidence</div>
+              <ul class="mt-2 space-y-1">
+                <li>• immutable logs</li>
+                <li>• data provenance</li>
+                <li>• reproducible outputs</li>
+                <li>• audit-friendly records</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: TECH STACK -->
+      <section class="space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="font-tech text-[0.75rem] uppercase tracking-[0.25em] text-zinc-500">Technology Stack</h3>
+          <span class="text-[0.7rem] font-mono text-zinc-600">reference components</span>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-5">
+
+          <div class="border border-white/10 bg-black/20 p-5">
+            <div class="flex items-center gap-2">
+              <span class="text-sigma">◆</span>
+              <h4 class="font-tech text-white tracking-wider uppercase text-sm">Core Analytics</h4>
+            </div>
+            <ul class="mt-4 space-y-2 text-sm text-zinc-400">
+              <li>• Python (core routines)</li>
+              <li>• NumPy / Pandas</li>
+              <li>• SciPy / Statsmodels</li>
+              <li>• Time-series + signal extraction</li>
+            </ul>
+          </div>
+
+          <div class="border border-white/10 bg-black/20 p-5">
+            <div class="flex items-center gap-2">
+              <span class="text-sigma">◆</span>
+              <h4 class="font-tech text-white tracking-wider uppercase text-sm">ML (Auxiliary)</h4>
+            </div>
+            <ul class="mt-4 space-y-2 text-sm text-zinc-400">
+              <li>• scikit-learn (baseline models)</li>
+              <li>• anomaly detection modules</li>
+              <li>• classification / clustering</li>
+              <li>• explainability-oriented approach</li>
+            </ul>
+          </div>
+
+          <div class="border border-white/10 bg-black/20 p-5">
+            <div class="flex items-center gap-2">
+              <span class="text-sigma">◆</span>
+              <h4 class="font-tech text-white tracking-wider uppercase text-sm">Data Layer</h4>
+            </div>
+            <ul class="mt-4 space-y-2 text-sm text-zinc-400">
+              <li>• ETL/ELT pipelines</li>
+              <li>• schema normalization</li>
+              <li>• provenance + versioning</li>
+              <li>• batch + streaming (as needed)</li>
+            </ul>
+          </div>
+
+          <div class="border border-white/10 bg-black/20 p-5">
+            <div class="flex items-center gap-2">
+              <span class="text-sigma">◆</span>
+              <h4 class="font-tech text-white tracking-wider uppercase text-sm">Storage & Compute</h4>
+            </div>
+            <ul class="mt-4 space-y-2 text-sm text-zinc-400">
+              <li>• relational storage (reference)</li>
+              <li>• object storage (datasets)</li>
+              <li>• containerized runtime</li>
+              <li>• scalable compute (when required)</li>
+            </ul>
+          </div>
+
+          <div class="border border-white/10 bg-black/20 p-5">
+            <div class="flex items-center gap-2">
+              <span class="text-sigma">◆</span>
+              <h4 class="font-tech text-white tracking-wider uppercase text-sm">Observability</h4>
+            </div>
+            <ul class="mt-4 space-y-2 text-sm text-zinc-400">
+              <li>• immutable audit logs</li>
+              <li>• traceability (lineage)</li>
+              <li>• metrics dashboards</li>
+              <li>• reproducibility controls</li>
+            </ul>
+          </div>
+
+          <div class="border border-white/10 bg-black/20 p-5">
+            <div class="flex items-center gap-2">
+              <span class="text-sigma">◆</span>
+              <h4 class="font-tech text-white tracking-wider uppercase text-sm">UI Layer</h4>
+            </div>
+            <ul class="mt-4 space-y-2 text-sm text-zinc-400">
+              <li>• terminal visualization (protocol)</li>
+              <li>• dashboards / panels</li>
+              <li>• exportable reporting views</li>
+              <li>• operator-guided workflows</li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- SECTION: ROLE MAPPING -->
+      <section class="space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="font-tech text-[0.75rem] uppercase tracking-[0.25em] text-zinc-500">Role Mapping</h3>
+          <span class="text-[0.7rem] font-mono text-zinc-600">where technical work happens</span>
+        </div>
+
+        <div class="border border-white/5 bg-white/[0.02] p-6">
+          <div class="grid md:grid-cols-3 gap-5">
+
+            <div class="border border-sigma/20 bg-[#0c0c0e]/70 p-5">
+              <div class="font-tech text-sigma uppercase tracking-widest text-sm">Infrastructure / Systems</div>
+              <ul class="mt-3 space-y-2 text-sm text-zinc-400">
+                <li>• compute environments</li>
+                <li>• data pipelines</li>
+                <li>• stability + integrity</li>
+                <li>• deployment routines</li>
+              </ul>
+            </div>
+
+            <div class="border border-sigma/20 bg-[#0c0c0e]/70 p-5 shadow-sigGlow">
+              <div class="font-tech text-sigma uppercase tracking-widest text-sm">Analytics Developer</div>
+              <ul class="mt-3 space-y-2 text-sm text-zinc-400">
+                <li>• Python analytical modules</li>
+                <li>• data processing routines</li>
+                <li>• automation of flows</li>
+                <li>• integration of ML helpers</li>
+              </ul>
+              <div class="mt-4 text-[0.7rem] font-mono text-zinc-600">
+                Primary focus: <span class="text-zinc-400">Layer 2 + Layer 3</span>
+              </div>
+            </div>
+
+            <div class="border border-sigma/20 bg-[#0c0c0e]/70 p-5">
+              <div class="font-tech text-sigma uppercase tracking-widest text-sm">Scientific Modeling</div>
+              <ul class="mt-3 space-y-2 text-sm text-zinc-400">
+                <li>• complex-systems modeling</li>
+                <li>• non-linear dynamics</li>
+                <li>• threshold logic</li>
+                <li>• validation criteria</li>
+              </ul>
+            </div>
+
+          </div>
+
+          <div class="mt-6 border-t border-white/5 pt-5 text-sm text-zinc-400 leading-relaxed">
+            <span class="text-sigma font-tech uppercase tracking-widest text-[0.75rem]">Note:</span>
+            This architecture view is designed to translate into implementable modules.
+            The terminal page represents the <span class="text-zinc-200">visualization layer</span> of the protocol, while this page
+            describes the <span class="text-zinc-200">system blueprint</span> behind it.
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER DISCLAIMER -->
+      <footer class="mt-10 border-t border-[#d6bc7e]/10">
+        <div class="px-2 py-8 text-center">
+          <p class="text-xs tracking-widest text-[#d6bc7e]/40 font-tech">
+            CONCEPTUAL ARCHITECTURE — ANALYTICAL INFRASTRUCTURE UNDER DEVELOPMENT
+          </p>
+        </div>
+      </footer>
+
+    </div>
   </main>
 
-  <!-- FOOTER (Finep-safe) -->
-  <footer class="mt-0 border-t border-[#d6bc7e]/10 content">
-    <div class="max-w-6xl mx-auto px-6 py-6 text-center">
-      <p class="text-xs tracking-widest text-[#d6bc7e]/40">
-        CONCEPTUAL ARCHITECTURE PAGE — IMPLEMENTATION DETAILS UNDER DEVELOPMENT
-      </p>
-    </div>
-  </footer>
-
-  <script>
-    // Command palette (lightweight, terminal-style)
-    const paletteInput = document.getElementById('palette-input');
-    const paletteBtn   = document.getElementById('palette-btn');
-
-    function go(cmdRaw) {
-      const cmd = (cmdRaw || '').trim().toLowerCase().replace(/\s+/g,' ');
-      if (!cmd) return;
-
-      const map = {
-        "arch": "#architecture",
-        "architecture": "#architecture",
-        "layers": "#architecture",
-        "flow": "#flow",
-        "fluxo": "#flow",
-        "stack": "#stack",
-        "tech": "#stack",
-        "terminal": "protocol.html",
-        "protocol": "protocol.html",
-        "return": "protocol.html",
-        "exit": "index.html",
-        "home": "index.html",
-      };
-
-      if (map[cmd]) {
-        const target = map[cmd];
-        if (target.startsWith('#')) {
-          document.querySelector(target)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        } else {
-          window.location.href = target;
-        }
-        return;
-      }
-
-      // Smart partial matching
-      const keys = Object.keys(map);
-      const hit = keys.find(k => k.startsWith(cmd));
-      if (hit) {
-        const target = map[hit];
-        if (target.startsWith('#')) {
-          document.querySelector(target)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        } else {
-          window.location.href = target;
-        }
-      }
-    }
-
-    paletteBtn?.addEventListener('click', () => {
-      go(paletteInput.value);
-      paletteInput.value = '';
-    });
-
-    paletteInput?.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        go(paletteInput.value);
-        paletteInput.value = '';
-      }
-    });
-
-    // Ctrl+K / Cmd+K opens palette input focus
-    document.addEventListener('keydown', (e) => {
-      const isK = (e.key || '').toLowerCase() === 'k';
-      if ((e.ctrlKey || e.metaKey) && isK) {
-        e.preventDefault();
-        paletteInput?.focus();
-        paletteInput?.select();
-      }
-    });
-  </script>
 </body>
 </html>
