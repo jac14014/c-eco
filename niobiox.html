@@ -1,350 +1,429 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>c-ΣCO Protocol // Decisional Guardian</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Urbanist:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        slate: { 950: '#09090b', 900: '#18181b' },
-                        sigma: { DEFAULT: '#d6bc7e', dim: 'rgba(214, 188, 126, 0.35)' }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        tech: ['Urbanist', 'sans-serif'],
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    }
-                }
-            }
-        }
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hasse Foundation | Institutional</title>
 
-    <style>
-        .scanline-overlay {
-            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.05));
-            background-size: 100% 4px;
-            pointer-events: none;
+  <!-- Tailwind config must come BEFORE the CDN script -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: "#d6bc7e",
+            stone: { 950: "#0c0a09" }
+          }
         }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #09090b; }
-        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
-    </style>
+      }
+    }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root { --stone-950:#0c0a09; --gold:#d6bc7e; --orange-ceco:#d6bc7e; }
+    body { background: var(--stone-950); color:#e7e5e4; font-family:'Inter',sans-serif; line-height:1.8; }
+    h1,h2,h3,.serif { font-family:'Playfair Display',serif; }
+    .reveal { opacity:0; transform:translateY(18px); transition:all 1s ease-out; }
+    .reveal.active { opacity:1; transform:translateY(0); }
+    .glass-panel { background:rgba(28,25,23,0.6); backdrop-filter:blur(10px); border:1px solid rgba(214,188,126,0.12); }
+    .gold-line { border-color: rgba(214,188,126,0.35); }
+    .divider-gold { width:60px; height:1px; background:rgba(214,188,126,0.55); margin:2rem auto; }
+    .prose-custom p { margin-bottom: 1.15rem; text-align:justify; text-justify:inter-word; hyphens:auto; }
+    .prose-custom strong { color:#fff; font-weight:600; }
+    .dropcap::first-letter { float:left; font-size:3.4rem; line-height:0.85; padding-right:0.6rem; color:var(--gold); font-family:'Playfair Display'; }
+    .label { letter-spacing:0.35em; text-transform:uppercase; font-size:10px; color:rgba(214,188,126,0.85); }
+    .muted { color: rgba(168,162,158,0.85); }
+  </style>
 </head>
-<body class="bg-slate-950 text-zinc-300 font-sans h-screen flex flex-col overflow-hidden selection:bg-sigma-dim selection:text-white">
 
-    <div class="fixed inset-0 scanline-overlay z-50 opacity-20 pointer-events-none"></div>
+<body class="selection:bg-gold/30">
 
-    <header class="h-14 border-b border-white/5 bg-slate-950/80 backdrop-blur-sm flex items-center justify-between px-6 z-40">
-        <div class="flex items-center gap-4">
-            <div class="w-8 h-8 border border-white/10 flex items-center justify-center bg-white/5">
-                <span class="font-tech text-sigma font-bold text-lg">Σ</span>
-            </div>
-            <div class="flex flex-col">
-                <h1 class="font-tech text-sm tracking-[0.2em] text-white uppercase font-semibold">c-ΣCO AI Protocol</h1>
-                <span class="text-[0.65rem] text-zinc-500 uppercase tracking-wider font-tech">Decisional Guardian v1.0</span>
-            </div>
-        </div>
-        <div class="hidden md:flex items-center gap-3 px-4 py-1 rounded-full border border-white/5 bg-white/5">
-            <div class="w-1.5 h-1.5 rounded-full bg-sigma animate-pulse"></div>
-            <span class="font-tech text-xs tracking-[0.15em] text-sigma">SYSTEM ACTIVE</span>
-        </div>
-        <div class="flex items-center gap-4 text-xs font-tech text-zinc-500">
-            <button class="hover:text-sigma transition-colors" onclick="window.location.href='index.html'">EXIT TERMINAL</button>
-        </div>
-    </header>
+  <!-- NAV (same component as before) -->
+  <nav id="siteNav" class="fixed top-0 w-full z-50 border-b border-white/5 bg-stone-950/90 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
 
-        <div class="px-6 py-3 border-b border-white/5 bg-white/[0.02] flex justify-between items-center">
-          <div class="flex items-center gap-2">
-               <span class="text-sigma text-xs">◆</span>
-                <span class="font-tech text-sm text-zinc-400 tracking-wide">
-                  ASSET: <span class="text-zinc-200">NIOBIUM RESEARCH TITLE (ANM-2004)</span> // HOLDER: AURORA MINERALS
-                </span>
+      <a href="english.html" class="inline-flex items-center gap-3 group">
+        <span class="text-gold border border-gold/30 px-2 py-1 text-sm bg-black/40 transition-all group-hover:shadow-[0_0_16px_rgba(214,188,126,0.22)]">Σ</span>
+        <span class="text-[10px] uppercase tracking-[0.3em] font-bold">Hasse Foundation</span>
+      </a>
+
+      <div class="hidden lg:flex gap-8 text-[9px] uppercase tracking-widest text-stone-500 items-center">
+        <a href="#mission" class="hover:text-gold transition">Mission</a>
+        <a href="#governance" class="hover:text-gold transition">Governance</a>
+        <a href="#documents" class="hover:text-gold transition">Documents</a>
+        <a href="#transparency" class="hover:text-gold transition">Transparency</a>
+        <a href="#support" class="hover:text-gold transition">Support</a>
+
+        <a href="foundation.html" class="text-gold border border-gold/40 px-3 py-1 hover:bg-gold hover:text-black transition">
+          Return to Foundation Essay
+        </a>
+      </div>
+
+      <button id="mobileMenuBtn"
+        class="lg:hidden text-stone-400 hover:text-gold transition text-xl"
+        type="button"
+        aria-label="Open menu"
+        aria-controls="mobile-menu"
+        aria-expanded="false">☰</button>
+    </div>
+
+    <div id="mobile-menu"
+      class="lg:hidden hidden w-full px-6 pb-6 pt-4 bg-stone-950/98 border-t border-white/5 backdrop-blur-md">
+      <div class="flex flex-col gap-4 text-[11px] uppercase tracking-widest text-stone-400">
+        <a href="#mission" class="hover:text-gold transition">Mission</a>
+        <a href="#governance" class="hover:text-gold transition">Governance</a>
+        <a href="#documents" class="hover:text-gold transition">Documents</a>
+        <a href="#transparency" class="hover:text-gold transition">Transparency</a>
+        <a href="#support" class="hover:text-gold transition">Support</a>
+
+        <a href="foundation.html"
+          class="text-gold border border-gold/30 px-4 py-2 mt-2 text-center hover:bg-gold hover:text-black transition">
+          Return to Foundation Essay
+        </a>
+
+        <a href="mailto:contact@c-eco.org"
+          class="text-gold border border-gold/30 px-4 py-2 text-center hover:bg-gold hover:text-black transition">
+          Contact
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div id="navSpacer" aria-hidden="true"></div>
+
+  <!-- HERO -->
+  <header class="min-h-[72vh] flex items-center justify-center text-center px-6">
+    <div class="max-w-4xl reveal">
+      <p class="label mb-6">Institutional Page</p>
+      <h1 class="text-5xl md:text-7xl mb-6 leading-tight">
+        Institutional <span class="italic text-gold">Framework</span>
+      </h1>
+      <p class="text-stone-400 max-w-2xl mx-auto">
+        Governance, documents, compliance, and support pathways — presented with clarity for partners, funders, and institutional reviewers.
+      </p>
+
+      <div class="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="#support" class="border border-gold/30 text-gold px-5 py-3 text-[10px] uppercase tracking-[0.35em] hover:bg-gold hover:text-black transition">
+          Support & Programs
+        </a>
+        <a href="#documents" class="border border-white/10 text-stone-300 px-5 py-3 text-[10px] uppercase tracking-[0.35em] hover:border-gold/40 hover:text-gold transition">
+          View Documents
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 space-y-36 pb-44">
+
+    <!-- MISSION -->
+    <section id="mission" class="reveal pt-8">
+      <div class="grid lg:grid-cols-12 gap-12 items-start">
+        <div class="lg:col-span-4">
+          <p class="label mb-4">#mission</p>
+          <h2 class="text-4xl md:text-5xl leading-tight">
+            Mission & Strategic Focus
+          </h2>
+          <div class="divider-gold"></div>
+          <p class="text-stone-500 text-sm">
+            This section is written for funders and institutional reviewers — clear, non-theoretical, and operational.
+          </p>
+        </div>
+
+        <div class="lg:col-span-8 glass-panel p-10 md:p-12 rounded-sm prose-custom text-stone-300">
+          <p class="dropcap">
+            The Johann Christian Hasse Foundation exists to support the applied translation of systemic reality into institutional form — connecting law, science, and decision systems so that governance can operate <strong>before</strong> irreversible failure occurs.
+          </p>
+
+          <p>
+            The Foundation’s work prioritizes initiatives that combine rigorous method with operational deliverables: frameworks, protocols, research programs, and institutional tools that improve the integrity, safety, and continuity of high-stakes decision-making.
+          </p>
+
+          <p><strong>Strategic Focus Areas</strong></p>
+          <ul class="list-disc pl-6 space-y-2 text-stone-300">
+            <li><strong>Systemic risk & threshold governance</strong> (pre-threshold detection, early warning, decision triggers).</li>
+            <li><strong>Legal-scientific translation</strong> (turning legal norms into indicators, workflows, and technical requirements).</li>
+            <li><strong>Institutional design & compliance integrity</strong> (governance architectures that remain robust under complexity).</li>
+            <li><strong>Monitoring & decision support</strong> (data-based oversight, accountability signals, auditability).</li>
+            <li><strong>Applied research programs</strong> aligned with the c-ECO operational ecosystem.</li>
+          </ul>
+
+          <p class="text-stone-400">
+            The Foundation may operate through grants, partnerships, research coordination, technical convenings, and targeted support to institutions capable of executing interdisciplinary work.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GOVERNANCE -->
+    <section id="governance" class="reveal border-t border-white/10 pt-24">
+      <div class="grid lg:grid-cols-12 gap-12 items-start">
+        <div class="lg:col-span-4">
+          <p class="label mb-4">#governance</p>
+          <h2 class="text-4xl md:text-5xl leading-tight">Governance</h2>
+          <div class="divider-gold"></div>
+          <p class="text-stone-500 text-sm">
+            Governance presented in a due-diligence friendly format. Replace placeholders as the board is finalized.
+          </p>
+        </div>
+
+        <div class="lg:col-span-8 space-y-8">
+          <div class="glass-panel p-10 md:p-12 rounded-sm">
+            <h3 class="text-white serif text-2xl mb-4">Board Structure</h3>
+            <p class="text-stone-300">
+              The Foundation is governed by a Board of Directors responsible for fiduciary oversight, mission integrity, and compliance with non-profit obligations.
+              The Board may be supported by advisory bodies (scientific, legal, and technical), without delegating fiduciary authority.
+            </p>
+
+            <div class="mt-8 grid md:grid-cols-2 gap-6 text-sm">
+              <div class="border border-white/10 rounded-sm p-6">
+                <p class="label mb-2">Directors</p>
+                <p class="text-stone-300">• Founder & Lead Architect (Chair / President)</p>
+                <p class="text-stone-400 text-xs mt-2">Add named directors when confirmed.</p>
               </div>
-              <div class="flex gap-4 text-[0.6rem] font-mono text-zinc-600">
-                  <span>LAYER I: <span class="text-red-500">SILENT</span></span>
-                  <span>LAYER II: <span class="text-sigma">LOCKED-IN</span></span>
+              <div class="border border-white/10 rounded-sm p-6">
+                <p class="label mb-2">Officers</p>
+                <p class="text-stone-300">• President · Secretary · Treasurer</p>
+                <p class="text-stone-400 text-xs mt-2">Officer titles per bylaws / resolutions.</p>
               </div>
-        </div>    
-            <div class="flex-1 overflow-y-auto p-6 space-y-8" id="console-output">
-                <div class="flex justify-start pr-12">
-                    <div class="w-full max-w-3xl">
-                        <div class="border-l-[1px] border-sigma-dim bg-[#18181b]/80 p-5 pl-6 relative">
-                            <div class="flex gap-4 mb-3 font-mono text-[0.65rem] text-sigma/80 tracking-wide uppercase border-b border-white/5 pb-2">
-                                <span>[ SYSTEM READY ]</span>
-                                <span>[ 80% GAP MONITORING: ON ]</span>
-                            </div>
-                            <p class="text-zinc-300 font-light text-sm">
-                                <strong class="text-white font-tech">Protocol initialized.</strong> Waiting for input data to map Tripartite Agency trajectories. Please submit scenario for sieve analysis.
-                            </p>
-                        </div>
-                    </div>
-                </div>
+              <div class="border border-white/10 rounded-sm p-6">
+                <p class="label mb-2">Independent Trustee / Director</p>
+                <p class="text-stone-300">• Independent oversight role to reinforce integrity.</p>
+                <p class="text-stone-400 text-xs mt-2">Used for credibility in fundraising and governance.</p>
+              </div>
+              <div class="border border-white/10 rounded-sm p-6">
+                <p class="label mb-2">Advisory Bodies</p>
+                <p class="text-stone-300">• Scientific & Technical Advisory</p>
+                <p class="text-stone-400 text-xs mt-2">Non-fiduciary advisory support.</p>
+              </div>
             </div>
+          </div>
 
-            <div class="p-6 pt-2">
-                <div class="relative flex items-center bg-slate-950 border border-white/10 p-1">
-                    <span class="pl-3 pr-2 text-sigma font-tech">Σ</span>
-                    <input type="text" id="command-input" placeholder="Enter systemic parameters or query trajectory..." class="w-full bg-transparent border-none text-sm text-white placeholder-zinc-600 focus:ring-0 px-2 py-3 font-mono focus:outline-none h-12">
-                    <button id="execute-btn" class="px-4 py-1 mr-1 bg-white/5 hover:bg-sigma hover:text-black border border-white/10 text-xs font-tech tracking-wider text-zinc-400 transition-all uppercase">Analyze</button>
-                </div>
-                <div class="text-center mt-2">
-                    <p class="text-[0.55rem] text-zinc-600 font-mono tracking-widest uppercase">
-                        Monitoring for Decisional Perclusion // -Στο Methodology Active
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <aside class="w-80 bg-[#0c0c0e] border-l border-white/5 flex flex-col hidden lg:flex">
-            
-            <div class="p-5 border-b border-white/5">
-                <h2 class="font-tech text-[0.65rem] tracking-[0.2em] text-zinc-500 uppercase mb-3">The 80% Cognitive Gap</h2>
-                <div class="relative h-2 w-full bg-zinc-800 rounded-full mb-1 overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-r from-zinc-600 via-zinc-500 to-sigma w-[80%] opacity-30"></div>
-                    <div class="absolute top-0 bottom-0 bg-sigma w-1 left-[65%] shadow-[0_0_10px_#d6bc7e]"></div>
-                </div>
-                <div class="flex justify-between text-[0.6rem] font-mono text-zinc-600 uppercase">
-                    <span>Stable</span>
-                    <span class="text-sigma animate-pulse">Blind Interval</span>
-                    <span>Collapse</span>
-                </div>
-            </div>
-
-            <div class="p-5 border-b border-white/5 space-y-4">
-                <h2 class="font-tech text-[0.65rem] tracking-[0.2em] text-zinc-500 uppercase mb-2">Tripartite Agency (Inputs)</h2>
-                
-                <div>
-                    <div class="flex justify-between text-[0.6rem] text-zinc-400 mb-1 uppercase font-tech">
-                        <span>Human / Institutional</span>
-                        <span class="text-green-500">Stable</span>
-                    </div>
-                    <div class="h-1 bg-zinc-800 rounded-full overflow-hidden">
-                        <div class="h-full bg-green-900 w-[30%]"></div>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="flex justify-between text-[0.6rem] text-zinc-400 mb-1 uppercase font-tech">
-                        <span>Algorithmic Impact</span>
-                        <span class="text-sigma">High Load</span>
-                    </div>
-                    <div class="h-1 bg-zinc-800 rounded-full overflow-hidden">
-                        <div class="h-full bg-sigma w-[75%]"></div>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="flex justify-between text-[0.6rem] text-zinc-400 mb-1 uppercase font-tech">
-                        <span>Ecological / Biophysical</span>
-                        <span class="text-red-400">Critical Trend</span>
-                    </div>
-                    <div class="h-1 bg-zinc-800 rounded-full overflow-hidden">
-                        <div class="h-full bg-red-900 w-[88%]"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="p-5 border-b border-white/5 space-y-4">
-    <h2 class="font-tech text-[0.65rem] tracking-[0.2em] text-zinc-500 uppercase mb-3">
-        Active Data Streams
-    </h2>
-
-    <div class="flex items-center justify-between group cursor-pointer">
-        <div class="flex items-center gap-2">
-            <div class="w-1.5 h-1.5 bg-zinc-500 rounded-sm"></div>
-            <span class="text-[0.6rem] font-mono text-zinc-400 group-hover:text-white transition-colors">
-                Contract_Main_v3.2.pdf
-            </span>
-        </div>
-        <span class="text-[0.55rem] text-zinc-600 border border-white/5 px-1 rounded">INDEXED</span>
-    </div>
-
-    <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-            <div class="w-1.5 h-1.5 bg-green-500 rounded-sm animate-pulse"></div>
-            <span class="text-[0.6rem] font-mono text-zinc-300">
-                ANA_Sensor_River_N
-            </span>
-        </div>
-        <span class="text-[0.55rem] text-green-500/80 font-tech tracking-wider">LIVE 200ms</span>
-    </div>
-
-    <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-            <div class="w-1.5 h-1.5 bg-blue-500 rounded-sm"></div>
-            <span class="text-[0.6rem] font-mono text-zinc-300">
-                SAP_Fin_Q4_2025
-            </span>
-        </div>
-        <span class="text-[0.55rem] text-blue-400/80 font-tech tracking-wider">SYNCED</span>
-    </div>
-</div>
-
-            <div class="p-5 flex-1">
-                <h2 class="font-tech text-[0.65rem] tracking-[0.2em] text-zinc-500 uppercase mb-3">Diagnostic Engine</h2>
-                <div class="space-y-2">
-                    <div class="flex items-center gap-2 text-[0.65rem] text-zinc-500 font-mono">
-                        <span class="text-sigma">✓</span> Interdependency Sieve
-                    </div>
-                    <div class="flex items-center gap-2 text-[0.65rem] text-zinc-500 font-mono">
-                        <span class="text-sigma">✓</span> Intensity & Consumption
-                    </div>
-                    <div class="flex items-center gap-2 text-[0.65rem] text-zinc-300 font-mono">
-                        <span class="animate-pulse">○</span> Equity & Vulnerability
-                    </div>
-                    <div class="flex items-center gap-2 text-[0.65rem] text-zinc-600 font-mono opacity-50">
-                        <span>·</span> Plasticity Check
-                    </div>
-                </div>
-
-                <div class="mt-8 p-3 bg-red-900/10 border border-red-900/30 rounded-sm">
-                    <span class="block text-[0.55rem] text-red-400/70 uppercase font-tech tracking-wider mb-1">Risk of Decisional Perclusion</span>
-                    <span class="block text-xl font-mono text-red-500 font-light">− 2 CYCLES</span>
-                </div>
-            </div>
-        </aside>
-    </main>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const inputField = document.getElementById('command-input');
-        const executeBtn = document.getElementById('execute-btn');
-        const consoleOutput = document.getElementById('console-output');
-
-        function scrollToBottom() { consoleOutput.scrollTop = consoleOutput.scrollHeight; }
-
-        function createUserMessage(text) {
-            const div = document.createElement('div');
-            div.className = "flex justify-end pl-12 opacity-0 transition-opacity duration-200";
-            div.innerHTML = `
-                <div class="bg-zinc-800/50 border border-sigma/20 text-zinc-300 p-3 rounded-sm max-w-xl backdrop-blur-sm">
-                    <span class="text-[0.6rem] text-sigma/50 font-mono block mb-1">INPUT SOURCE: HUMAN AGENCY ></span>
-                    <p class="text-sm font-mono">${text}</p>
-                </div>`;
-            requestAnimationFrame(() => div.classList.remove('opacity-0'));
-            return div;
-        }
-
-        function createSystemMessage(text, type = 'standard') {
-            const div = document.createElement('div');
-            div.className = "flex justify-start pr-12";
-            let header = "[ TRAJECTORY ASSESSMENT ]";
-            let borderColor = "border-sigma-dim";
-            
-            if (type === 'alert') {
-                header = "[ PREDICTIVE ALERT: PRE-THRESHOLD ]";
-                borderColor = "border-red-500/50";
-            }
-
-            div.innerHTML = `
-                <div class="w-full max-w-3xl">
-                    <div class="border-l-[1px] ${borderColor} bg-[#18181b]/80 p-5 pl-6 relative">
-                        <div class="flex gap-4 mb-3 font-mono text-[0.65rem] text-sigma/80 tracking-wide uppercase border-b border-white/5 pb-2">
-                            <span>${header}</span>
-                            <span>[ -Στο CALCULATION: COMPLETE ]</span>
-                        </div>
-                        <div class="prose prose-invert prose-sm max-w-none text-zinc-300 font-light">
-                            ${text}
-                        </div>
-                    </div>
-                </div>`;
-            return div;
-        }
-
-        // Substitua a função executeCommand dentro do seu <script> por esta versão focada em Nióbio:
-
-function executeCommand() {
-    const command = inputField.value.trim();
-    if (!command) return;
-
-    consoleOutput.appendChild(createUserMessage(command));
-    inputField.value = '';
-    scrollToBottom();
-
-    // LOADING: Simulando a leitura do "Governance Stack" (Fig 4.2 do PDF)
-    const loadingId = 'loading-' + Date.now();
-    const loadingDiv = document.createElement('div');
-    loadingDiv.id = loadingId;
-    loadingDiv.className = "flex justify-start items-center gap-3 opacity-80 pl-1 pt-2";
-    
-    loadingDiv.innerHTML = `
-        <div class="relative w-4 h-4 flex items-center justify-center">
-            <div class="absolute w-full h-full border border-sigma rounded-full animate-ping opacity-20"></div>
-            <div class="w-2 h-2 bg-sigma rounded-full"></div>
-        </div>
-        <span id="loading-text-${loadingId}" class="font-tech text-[0.6rem] tracking-[0.2em] text-sigma uppercase animate-pulse">
-            Scanning Administrative Record (Layer I)...
-        </span>
-    `;
-    consoleOutput.appendChild(loadingDiv);
-    scrollToBottom();
-
-    // Passos baseados no "Three-Tier Governance Stack" [cite: 330]
-    const steps = [
-        "Layer I: Measuring Temporal Duration (22 Years)...", // [cite: 505]
-        "Layer II: Detecting Offtake Agreements (NordVolt)...", // 
-        "Layer III: Analyzing ESG Disclosure for Narrative Risk...", // [cite: 608]
-        "Calculated Risk: Decisional Inertia (R6) Confirmed." // [cite: 525]
-    ];
-
-    let stepIndex = 0;
-    const stepInterval = setInterval(() => {
-        const textSpan = document.getElementById(`loading-text-${loadingId}`);
-        if (textSpan && stepIndex < steps.length) {
-            textSpan.textContent = steps[stepIndex];
-            stepIndex++;
-        }
-    }, 800);
-
-    setTimeout(() => {
-        clearInterval(stepInterval);
-        const loader = document.getElementById(loadingId);
-        if (loader) loader.remove();
-
-        // RESPOSTA: O Diagnóstico de "Zombie Title" [cite: 22, 290]
-        let responseText = `
-            <p class="mb-3"><strong class="text-white font-tech">DIAGNOSIS: ZOMBIE TITLE DETECTED.</strong></p>
-            
-            <p class="mb-2">The Research Title (ANM-2004) has exceeded the <strong>Justificatory Horizon</strong>. It is operating in a state of <em>Decisional Inertia</em>[cite: 146].</p>
-            
-            <div class="bg-white/5 p-3 rounded border border-white/10 mb-4 text-xs font-mono">
-                <div class="flex justify-between mb-1">
-                    <span class="text-zinc-400">ADMINISTRATIVE STATUS (Layer I):</span>
-                    <span class="text-green-500">Formally Valid</span>
-                </div>
-                <div class="flex justify-between mb-1">
-                    <span class="text-zinc-400">TEMPORAL VALIDITY (-Στο):</span>
-                    <span class="text-red-500">EXPIRED (22 Years)</span>
-                </div>
-                <div class="flex justify-between border-t border-white/10 pt-1 mt-1">
-                    <span class="text-sigma">HIDDEN LIABILITY (ISDS Risk):</span>
-                    <span class="text-sigma">HIGH (NordVolt MoU)</span>
-                </div>
-            </div>
-
-            <p><strong>c-ECO Playbook Recommendation (Annex A):</strong></p>
-            <ul class="list-disc pl-4 space-y-1 text-xs font-mono text-zinc-400">
-                <li><strong>Action 1:</strong> Insert <span class="text-white">Clause A.2 (Re-Opening Covenant)</span> to suspend estoppel[cite: 581].</li>
-                <li><strong>Action 2:</strong> Trigger <span class="text-white">Temporal Review</span> immediately to force agency decision[cite: 628].</li>
-                <li><strong>Action 3:</strong> Disclose "Subject to Procedural Re-Opening" in ESG filings to mitigate Narrative Risk (R11)[cite: 549].</li>
+          <div class="glass-panel p-10 md:p-12 rounded-sm">
+            <h3 class="text-white serif text-2xl mb-4">Key Governance Principles</h3>
+            <ul class="list-disc pl-6 space-y-2 text-stone-300">
+              <li><strong>Duty of care</strong>, informed oversight, and documented decision-making.</li>
+              <li><strong>Conflict-of-interest controls</strong> and annual disclosures.</li>
+              <li><strong>Document integrity</strong> and retention discipline.</li>
+              <li><strong>Programmatic transparency</strong> aligned with donor expectations.</li>
             </ul>
-        `;
+          </div>
+        </div>
+      </div>
+    </section>
 
-        consoleOutput.appendChild(createSystemMessage(responseText, 'alert'));
-        scrollToBottom();
-    }, 4000);
-}
-    </script>
+    <!-- DOCUMENTS -->
+    <section id="documents" class="reveal border-t border-white/10 pt-24">
+      <div class="grid lg:grid-cols-12 gap-12 items-start">
+        <div class="lg:col-span-4">
+          <p class="label mb-4">#documents</p>
+          <h2 class="text-4xl md:text-5xl leading-tight">Documents</h2>
+          <div class="divider-gold"></div>
+          <p class="text-stone-500 text-sm">
+            You can link PDFs here later. For now, list the institutional set.
+          </p>
+        </div>
+
+        <div class="lg:col-span-8 space-y-6">
+          <div class="glass-panel p-10 md:p-12 rounded-sm">
+            <h3 class="text-white serif text-2xl mb-6">Core Governance Set</h3>
+
+            <div class="grid md:grid-cols-2 gap-4 text-sm">
+              <a href="#" class="border border-white/10 rounded-sm p-5 hover:border-gold/40 transition block">
+                <p class="text-white font-medium">Bylaws</p>
+                <p class="text-stone-400 text-xs mt-1">Internal governance charter.</p>
+              </a>
+
+              <a href="#" class="border border-white/10 rounded-sm p-5 hover:border-gold/40 transition block">
+                <p class="text-white font-medium">Board Resolution 001</p>
+                <p class="text-stone-400 text-xs mt-1">Adoption of operational agenda / frameworks.</p>
+              </a>
+
+              <a href="#" class="border border-white/10 rounded-sm p-5 hover:border-gold/40 transition block">
+                <p class="text-white font-medium">Conflict of Interest Policy</p>
+                <p class="text-stone-400 text-xs mt-1">Standards + process.</p>
+              </a>
+
+              <a href="#" class="border border-white/10 rounded-sm p-5 hover:border-gold/40 transition block">
+                <p class="text-white font-medium">Annual Disclosure Form</p>
+                <p class="text-stone-400 text-xs mt-1">COI annual statement.</p>
+              </a>
+
+              <a href="#" class="border border-white/10 rounded-sm p-5 hover:border-gold/40 transition block">
+                <p class="text-white font-medium">Document Retention Policy</p>
+                <p class="text-stone-400 text-xs mt-1">Records, retention, and destruction rules.</p>
+              </a>
+
+              <a href="#" class="border border-white/10 rounded-sm p-5 hover:border-gold/40 transition block">
+                <p class="text-white font-medium">Compensation Reasonableness Framework</p>
+                <p class="text-stone-400 text-xs mt-1">If/when compensation applies.</p>
+              </a>
+            </div>
+
+            <p class="text-stone-500 text-xs mt-6">
+              Replace <code>#</code> links with PDF paths (e.g., <code>docs/bylaws.pdf</code>) when ready.
+            </p>
+          </div>
+
+          <div class="glass-panel p-10 md:p-12 rounded-sm">
+            <h3 class="text-white serif text-2xl mb-4">Program & Partnership Documents</h3>
+            <ul class="list-disc pl-6 space-y-2 text-stone-300">
+              <li>Program Concept Notes (per initiative).</li>
+              <li>Research Cooperation MOUs (template).</li>
+              <li>Data governance terms (if data partnerships apply).</li>
+              <li>Professional Services Agreement (fundraising / technical).</li>
+               </div>
+                    <div class="mt-10 border-t border-white/10 pt-8">
+              <h4 class="text-white serif text-xl mb-4">Support Channels</h4>
+              <div class="grid md:grid-cols-3 gap-4 text-sm">
+                <div class="border border-white/10 rounded-sm p-6">
+                  <p class="label mb-2">Philanthropy</p>
+                  <p class="text-stone-300">General mission support, capacity building, research coordination.</p>
+                </div>
+                <div class="border border-white/10 rounded-sm p-6">
+                  <p class="label mb-2">Partnerships</p>
+                  <p class="text-stone-300">Institutional cooperation, pilots, joint research, in-kind technical support.</p>
+                </div>
+                <div class="border border-white/10 rounded-sm p-6">
+                  <p class="label mb-2">Programs</p>
+                  <p class="text-stone-300">Targeted sponsorship of defined initiatives and deliverables.</p>
+                </div>
+              </div>
+
+              <div class="mt-10 flex flex-col sm:flex-row gap-3">
+                <a href="mailto:contact@c-eco.org"
+                  class="text-gold border border-gold/30 px-5 py-3 text-[10px] uppercase tracking-[0.35em] text-center hover:bg-gold hover:text-black transition">
+                  Contact for Partnerships
+                </a>
+                <a href="#documents"
+                  class="border border-white/10 text-stone-300 px-5 py-3 text-[10px] uppercase tracking-[0.35em] text-center hover:border-gold/40 hover:text-gold transition">
+                  View Governance Documents
+                </a>
+              </div>
+
+              <p class="text-stone-500 text-xs mt-6">
+                Optional: add a dedicated funding email (e.g., <code>funding@hassefoundation.org</code>) once available.
+              </p>
+            </div>
+          </div>
+
+          <div class="glass-panel p-10 md:p-12 rounded-sm prose-custom text-stone-300">
+            <p class="dropcap">
+              The Foundation’s operational posture is intentionally conservative: it does not promise outcomes it cannot verify.
+              It builds capacity, validates method, and supports partners with demonstrable execution competence.
+            </p>
+            <p>
+              Support is therefore directed to work that can be documented, reviewed, and translated into durable institutional practice —
+              with clear deliverables, measurable outputs, and auditable integrity.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- (Optional) quick links panel -->
+    <section class="reveal grid md:grid-cols-3 gap-10 border-t border-white/5 pt-20">
+      <div class="glass-panel p-8 rounded-sm">
+        <p class="label mb-3">Quick Link</p>
+        <a href="#mission" class="text-white serif text-xl hover:text-gold transition">Mission & Focus</a>
+        <p class="text-stone-500 text-sm mt-3">How the Foundation defines its purpose and priorities.</p>
+      </div>
+      <div class="glass-panel p-8 rounded-sm">
+        <p class="label mb-3">Quick Link</p>
+        <a href="#governance" class="text-white serif text-xl hover:text-gold transition">Governance</a>
+        <p class="text-stone-500 text-sm mt-3">Board structure and integrity principles.</p>
+      </div>
+      <div class="glass-panel p-8 rounded-sm">
+        <p class="label mb-3">Quick Link</p>
+        <a href="#documents" class="text-white serif text-xl hover:text-gold transition">Documents</a>
+        <p class="text-stone-500 text-sm mt-3">Policies, resolutions, and institutional set.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-stone-900/50 py-20 px-6 text-center border-t border-white/5">
+    <div class="max-w-3xl mx-auto space-y-8">
+      <p class="text-gold serif italic text-xl">Time is life as memory.</p>
+
+      <div class="flex flex-col sm:flex-row justify-center gap-4 text-[10px] uppercase tracking-[0.35em] text-stone-500">
+        <a href="foundation.html" class="hover:text-gold transition">Foundation Essay</a>
+        <a href="#support" class="hover:text-gold transition">Support</a>
+        <a href="mailto:contact@c-eco.org" class="hover:text-gold transition">Contact</a>
+      </div>
+
+      <p class="text-stone-600 text-[10px] uppercase tracking-[0.5em]">
+        © 2026 Johann Christian Hasse Foundation
+      </p>
+
+      <p class="text-stone-700 text-[9px] uppercase tracking-[0.4em]">
+        USA · Amazon · Brazil
+      </p>
+    </div>
+  </footer>
+
+  <!-- Reveal animations -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observerOptions = { threshold: 0.12, rootMargin: "0px 0px -40px 0px" };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('active');
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    });
+  </script>
+
+  <!-- Mobile menu + spacer -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const nav    = document.getElementById('siteNav');
+      const spacer = document.getElementById('navSpacer');
+      const btn    = document.getElementById('mobileMenuBtn');
+      const menu   = document.getElementById('mobile-menu');
+
+      if (!nav || !spacer || !btn || !menu) return;
+
+      const syncSpacer = () => { spacer.style.height = nav.offsetHeight + 'px'; };
+
+      const closeMenu = () => {
+        if (!menu.classList.contains('hidden')) {
+          menu.classList.add('hidden');
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      };
+
+      // Initial
+      syncSpacer();
+
+      btn.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+        const open = !menu.classList.contains('hidden');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        requestAnimationFrame(syncSpacer);
+      });
+
+      menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMenu();
+      });
+
+      window.addEventListener('resize', () => {
+        requestAnimationFrame(syncSpacer);
+        if (window.innerWidth >= 1024) closeMenu();
+      });
+    });
+  </script>
+
 </body>
 </html>
+            
+            
+            
