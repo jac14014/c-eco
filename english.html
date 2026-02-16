@@ -54,78 +54,43 @@
 
 <body class="selection:bg-gold/30">
 
-    <!-- NAV (Fixed) -->
-<nav id="siteNav" class="fixed top-0 w-full z-50 border-b border-white/5 bg-stone-950/90 backdrop-blur-md">
+    <nav id="siteNav" class="fixed top-0 w-full z-50 border-b border-white/5 bg-stone-950/90 backdrop-blur-md">
   <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-
-    <!-- Left / Brand -->
-    <a href="english.html" class="inline-flex items-center gap-3 group">
-      <span class="text-gold border border-gold/30 px-2 py-1 text-sm bg-black/40 transition-all group-hover:shadow-[0_0_16px_rgba(214,188,126,0.22)]">Σ</span>
-      <span class="text-[10px] uppercase tracking-[0.3em] font-bold">Hasse Foundation</span>
+    <!-- esquerda -->
+    <a href="index.html" class="inline-flex items-center gap-3 group">
+      <span class="text-gold border gold-line px-2 py-1 text-sm bg-black/40 transition-all group-hover:shadow-[0_0_16px_rgba(214,188,126,0.22)]">Σ</span>
+      <span class="text-[10px] uppercase tracking-[0.3em] font-bold">c-ECO Doctrine</span>
     </a>
 
-    <!-- Desktop links -->
+    <!-- desktop links -->
     <div class="hidden lg:flex gap-8 text-[9px] uppercase tracking-widest text-stone-500 items-center">
-      <!-- anchors on THIS page -->
-      <a href="#note" class="hover:text-gold transition">Note</a>
-      <a href="#feature" class="hover:text-gold transition">Feature</a>
-      <a href="#dossier" class="hover:text-gold transition">Dossier</a>
-      <a href="#ceco" class="hover:text-gold transition">c-ECO</a>
-
-      <!-- Institutional page -->
-      <a href="institutional.html" class="hover:text-gold transition">Institutional</a>
-
-      <!-- Return -->
-      <a href="english.html" class="text-gold border border-gold/40 px-3 py-1 hover:bg-gold hover:text-black transition">
-        Return to c-ECO Portal
-      </a>
+      <a href="#layers" class="hover:text-gold transition">Philosophy</a>
+      <a href="#architects" class="hover:text-gold transition">Architects</a>
+      <a href="law.html" class="hover:text-gold transition">Model Law</a>
+      <a href="manual.html" class="hover:text-gold transition">Operational Manual</a>
+      <a href="foundation.html" class="text-gold border border-gold/40 px-3 py-1 hover:bg-gold hover:text-black transition">Hasse Foundation</a>
     </div>
 
-    <!-- Mobile button -->
-    <button id="mobileMenuBtn"
-      class="lg:hidden text-stone-400 hover:text-gold transition text-xl"
-      type="button"
-      aria-label="Open menu"
-      aria-controls="mobile-menu"
-      aria-expanded="false">
+    <!-- MOBILE BUTTON (RIGHT SIDE) -->
+    <button id="mobileMenuBtn" class="lg:hidden text-stone-400 hover:text-gold transition text-xl" type="button">
       ☰
     </button>
   </div>
 
-  <!-- Mobile dropdown (no absolute) -->
+  <!-- MOBILE DROPDOWN (no absolute!) -->
   <div id="mobile-menu"
        class="lg:hidden hidden w-full px-6 pb-6 pt-4 bg-stone-950/98 border-t border-white/5 backdrop-blur-md">
-    <div class="flex flex-col gap-4 text-[11px] uppercase tracking-widest text-stone-400">
-
-      <!-- anchors on THIS page -->
-      <a href="#note" class="hover:text-gold transition">Note</a>
-      <a href="#feature" class="hover:text-gold transition">Feature</a>
-      <a href="#dossier" class="hover:text-gold transition">Dossier</a>
-      <a href="#ceco" class="hover:text-gold transition">c-ECO</a>
-
-      <div class="h-px bg-white/5 my-2"></div>
-
-      <!-- Institutional page -->
-      <a href="institutional.html" class="hover:text-gold transition">Institutional</a>
-      <a href="institutional.html#governance" class="hover:text-gold transition">Governance</a>
-      <a href="institutional.html#transparency" class="hover:text-gold transition">Transparency</a>
-      <a href="institutional.html#support" class="hover:text-gold transition">Support</a>
-
-      <a href="english.html"
-         class="text-gold border border-gold/30 px-4 py-2 mt-2 text-center hover:bg-gold hover:text-black transition">
-        Return to c-ECO Portal
-      </a>
-
+    <div class="flex flex-col gap-4 text-[11px] uppercase tracking-widest">
+      <a href="law.html" class="hover:text-gold transition">Model Law</a>
+      <a href="manual.html" class="hover:text-gold transition">Integrated Operational Manual</a>
+      <a href="foundation.html" class="hover:text-gold transition">Hasse Foundation</a>
       <a href="mailto:contact@c-eco.org"
-         class="text-gold border border-gold/30 px-4 py-2 text-center hover:bg-gold hover:text-black transition">
+         class="text-gold border border-gold/30 px-4 py-2 mt-2 text-center hover:bg-gold hover:text-black transition">
         Contact
       </a>
     </div>
   </div>
 </nav>
-
-
-
 <div id="navSpacer"></div>
 
     <header class="min-h-screen flex items-center justify-center text-center px-6">
@@ -2129,49 +2094,46 @@
   </div>
 </footer>
 
- <script>
+    <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const nav    = document.getElementById('siteNav');
+  const observerOptions = {
+    threshold: 0.15,
+    rootMargin: "0px 0px -50px 0px"
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('active');
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const nav = document.getElementById('siteNav');
   const spacer = document.getElementById('navSpacer');
-  const btn    = document.getElementById('mobileMenuBtn');
-  const menu   = document.getElementById('mobile-menu');
+  const btn = document.getElementById('mobileMenuBtn');
+  const menu = document.getElementById('mobile-menu');
 
   if (!nav || !spacer || !btn || !menu) return;
 
-  const syncSpacer = () => {
+  function syncSpacer() {
     spacer.style.height = nav.offsetHeight + 'px';
-  };
+  }
 
-  const closeMenu = () => {
-    if (!menu.classList.contains('hidden')) {
-      menu.classList.add('hidden');
-      btn.setAttribute('aria-expanded', 'false');
-    }
-  };
-
-  // Initial sync
+  // inicial
   syncSpacer();
 
-  // Toggle menu
   btn.addEventListener('click', () => {
     menu.classList.toggle('hidden');
-    const open = !menu.classList.contains('hidden');
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
     requestAnimationFrame(syncSpacer);
   });
 
-  // Close when clicking any link inside the menu
-  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
-
-  // Close on ESC
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeMenu();
-  });
-
-  // Keep spacer accurate + close menu when switching to desktop
   window.addEventListener('resize', () => {
     requestAnimationFrame(syncSpacer);
-    if (window.innerWidth >= 1024) closeMenu(); // Tailwind lg breakpoint
   });
 });
 </script>
