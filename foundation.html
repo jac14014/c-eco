@@ -80,33 +80,75 @@
 
 <body class="selection:bg-gold/30">
 
-  <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-stone-950/90 backdrop-blur-md">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+ <!-- NAV (Fixed) -->
+<nav id="siteNav" class="fixed top-0 w-full z-50 border-b border-white/5 bg-stone-950/90 backdrop-blur-md">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
 
-      <div class="flex items-center gap-4">
-        <!-- Make Σ clickable to english.html -->
-        <a href="english.html" class="inline-flex items-center gap-3 group">
-          <span class="text-gold border gold-line px-2 py-1 text-sm bg-black/40 transition-all group-hover:shadow-[0_0_16px_rgba(214,188,126,0.22)]">
-  Σ
-</span>
-          <span class="text-[10px] uppercase tracking-[0.3em] font-bold">Hasse Foundation</span>
-        </a>
-      </div>
+    <!-- Left / Brand -->
+    <a href="english.html" class="inline-flex items-center gap-3 group">
+      <span class="text-gold border border-gold/30 px-2 py-1 text-sm bg-black/40 transition-all group-hover:shadow-[0_0_16px_rgba(214,188,126,0.22)]">Σ</span>
+      <span class="text-[10px] uppercase tracking-[0.3em] font-bold">Hasse Foundation</span>
+    </a>
 
-      <div class="hidden lg:flex gap-8 text-[9px] uppercase tracking-widest text-stone-500 items-center">
-        <a href="#note" class="hover:text-gold transition-colors">Note</a>
-        <a href="#feature" class="hover:text-gold transition-colors">Feature</a>
-        <a href="#dossier" class="hover:text-gold transition-colors">Dossier</a>
-        <a href="#ceco" class="hover:text-gold transition-colors">c-ECO</a>
+    <!-- Desktop links -->
+    <div class="hidden lg:flex gap-8 text-[9px] uppercase tracking-widest text-stone-500 items-center">
+      <!-- anchors on THIS page -->
+      <a href="#note" class="hover:text-gold transition">Note</a>
+      <a href="#feature" class="hover:text-gold transition">Feature</a>
+      <a href="#dossier" class="hover:text-gold transition">Dossier</a>
+      <a href="#ceco" class="hover:text-gold transition">c-ECO</a>
 
-        <!-- Return link -->
-        <a href="english.html" class="ml-2 border border-white/10 hover:border-gold/50 px-4 py-2 text-[9px] uppercase tracking-widest text-stone-500 hover:text-gold transition-all">
-          Return to c-ECO Portal
-        </a>
-      </div>
+      <!-- Institutional page -->
+      <a href="institutional.html" class="hover:text-gold transition">Institutional</a>
 
+      <!-- Return -->
+      <a href="english.html" class="text-gold border border-gold/40 px-3 py-1 hover:bg-gold hover:text-black transition">
+        Return to c-ECO Portal
+      </a>
     </div>
-  </nav>
+
+    <!-- Mobile button -->
+    <button id="mobileMenuBtn"
+      class="lg:hidden text-stone-400 hover:text-gold transition text-xl"
+      type="button"
+      aria-label="Open menu"
+      aria-controls="mobile-menu"
+      aria-expanded="false">
+      ☰
+    </button>
+  </div>
+
+  <!-- Mobile dropdown (no absolute) -->
+  <div id="mobile-menu"
+       class="lg:hidden hidden w-full px-6 pb-6 pt-4 bg-stone-950/98 border-t border-white/5 backdrop-blur-md">
+    <div class="flex flex-col gap-4 text-[11px] uppercase tracking-widest text-stone-400">
+
+      <!-- anchors on THIS page -->
+      <a href="#note" class="hover:text-gold transition">Note</a>
+      <a href="#feature" class="hover:text-gold transition">Feature</a>
+      <a href="#dossier" class="hover:text-gold transition">Dossier</a>
+      <a href="#ceco" class="hover:text-gold transition">c-ECO</a>
+
+      <div class="h-px bg-white/5 my-2"></div>
+
+      <!-- Institutional page -->
+      <a href="institutional.html" class="hover:text-gold transition">Institutional</a>
+      <a href="institutional.html#governance" class="hover:text-gold transition">Governance</a>
+      <a href="institutional.html#transparency" class="hover:text-gold transition">Transparency</a>
+      <a href="institutional.html#support" class="hover:text-gold transition">Support</a>
+
+      <a href="english.html"
+         class="text-gold border border-gold/30 px-4 py-2 mt-2 text-center hover:bg-gold hover:text-black transition">
+        Return to c-ECO Portal
+      </a>
+
+      <a href="mailto:contact@c-eco.org"
+         class="text-gold border border-gold/30 px-4 py-2 text-center hover:bg-gold hover:text-black transition">
+        Contact
+      </a>
+    </div>
+  </div>
+</nav>
 
   <header class="min-h-screen flex items-center justify-center text-center px-6">
     <div class="max-w-4xl reveal">
@@ -762,14 +804,51 @@ They live.</p>
   </footer>
 
   <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('active');
-      });
-    }, { threshold: 0.1 });
+document.addEventListener('DOMContentLoaded', () => {
+  const nav    = document.getElementById('siteNav');
+  const spacer = document.getElementById('navSpacer');
+  const btn    = document.getElementById('mobileMenuBtn');
+  const menu   = document.getElementById('mobile-menu');
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  </script>
+  if (!nav || !spacer || !btn || !menu) return;
+
+  const syncSpacer = () => {
+    spacer.style.height = nav.offsetHeight + 'px';
+  };
+
+  const closeMenu = () => {
+    if (!menu.classList.contains('hidden')) {
+      menu.classList.add('hidden');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+  };
+
+  // Initial sync
+  syncSpacer();
+
+  // Toggle menu
+  btn.addEventListener('click', () => {
+    menu.classList.toggle('hidden');
+    const open = !menu.classList.contains('hidden');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    requestAnimationFrame(syncSpacer);
+  });
+
+  // Close when clicking any link inside the menu
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+  // Close on ESC
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
+
+  // Keep spacer accurate + close menu when switching to desktop
+  window.addEventListener('resize', () => {
+    requestAnimationFrame(syncSpacer);
+    if (window.innerWidth >= 1024) closeMenu(); // Tailwind lg breakpoint
+  });
+});
+</script>
 
 </body>
 </html>
