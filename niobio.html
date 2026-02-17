@@ -5,45 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hasse Foundation | Institutional</title>
 
-  <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = {
+    window.tailwind.config = {
       theme: {
         extend: {
-          colors: { gold: "#d6bc7e", stone: { 950: "#0c0a09" } }
+          colors: {
+            gold: "#d6bc7e",
+            stone: { 950: "#0c0a09" }
+          }
         }
       }
     }
   </script>
+  <script src="https://cdn.tailwindcss.com"></script>
 
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <style type="text/tailwindcss">
-    @layer components {
-      body { @apply bg-stone-950 text-stone-200 font-['Inter'] leading-relaxed; }
-      h1, h2, h3, .serif { @apply font-['Playfair_Display'] serif; }
-      
-      /* Estrutura de Seção Reutilizável */
-      .section-grid { @apply grid lg:grid-cols-12 gap-12 items-start border-t border-white/10 pt-24 reveal; }
-      .section-sidebar { @apply lg:col-span-4; }
-      .section-content { @apply lg:col-span-8 space-y-8; }
+  <style>
+    :root { --stone-950:#0c0a09; --gold:#d6bc7e; --orange-ceco:#d6bc7e; }
+    body { background: var(--stone-950); color:#e7e5e4; font-family:'Inter',sans-serif; line-height:1.8; }
+    h1,h2,h3,.serif { font-family:'Playfair Display',serif; }
+    
+    .reveal { opacity:0; transform:translateY(18px); transition:all 1s ease-out; }
+    .reveal.active { opacity:1; transform:translateY(0); }
+    
+    /* REORGANIZAÇÃO DAS CLASSES REPETIDAS (SEM MUDAR O ESTILO) */
+    .glass-panel { background:rgba(28,25,23,0.6); backdrop-filter:blur(10px); border:1px solid rgba(214,188,126,0.12); border-radius: 0.125rem; }
+    .divider-gold { width:60px; height:1px; background:rgba(214,188,126,0.55); margin:2rem auto; }
+    .label { letter-spacing:0.35em; text-transform:uppercase; font-size:10px; color:rgba(214,188,126,0.85); margin-bottom: 1rem; display: block; }
+    
+    .prose-custom p { margin-bottom: 1.15rem; text-align:justify; text-justify:inter-word; hyphens:auto; }
+    .prose-custom strong { color:#fff; font-weight:600; }
+    .dropcap::first-letter { float:left; font-size:3.4rem; line-height:0.85; padding-right:0.6rem; color:var(--gold); font-family:'Playfair Display'; }
+    
+    /* Botões originais padronizados */
+    .btn-gold { border: 1px solid rgba(214,188,126,0.3); color: #d6bc7e; padding: 0.75rem 1.25rem; font-size: 10px; text-transform: uppercase; letter-spacing: 0.35em; transition: all 0.3s; text-align: center; }
+    .btn-gold:hover { background: #d6bc7e; color: black; }
+    
+    .btn-outline { border: 1px solid rgba(255,255,255,0.1); color: #a8a29e; padding: 0.75rem 1.25rem; font-size: 10px; text-transform: uppercase; letter-spacing: 0.35em; transition: all 0.3s; text-align: center; }
+    .btn-outline:hover { border-color: rgba(214,188,126,0.4); color: #d6bc7e; }
 
-      /* Componentes de UI */
-      .glass-panel { @apply bg-stone-900/60 backdrop-blur-md border border-gold/10 p-10 md:p-12 rounded-sm; }
-      .info-card { @apply border border-white/10 rounded-sm p-6 hover:border-gold/40 transition-colors block; }
-      
-      .label { @apply text-[10px] uppercase tracking-[0.35em] text-gold/85 mb-4 block; }
-      .divider-gold { @apply w-[60px] h-px bg-gold/50 my-8; }
-      
-      .btn-primary { @apply border border-gold/30 text-gold px-5 py-3 text-[10px] uppercase tracking-[0.35em] hover:bg-gold hover:text-black transition-all text-center; }
-      .btn-secondary { @apply border border-white/10 text-stone-300 px-5 py-3 text-[10px] uppercase tracking-[0.35em] hover:border-gold/40 hover:text-gold transition-all text-center; }
-
-      .reveal { @apply opacity-0 translate-y-4 transition-all duration-1000; }
-      .reveal.active { @apply opacity-100 translate-y-0; }
-      
-      .prose-custom p { @apply mb-5 text-justify leading-relaxed text-stone-300; }
-      .dropcap::first-letter { @apply float-left text-5xl pr-3 pt-2 text-gold font-['Playfair_Display']; }
-    }
+    /* Estilo dos cards de documentos/governança */
+    .doc-card { border: 1px solid rgba(255,255,255,0.1); border-radius: 0.125rem; padding: 1.25rem; transition: all 0.3s; display: block; }
+    .doc-card:hover { border-color: rgba(214,188,126,0.4); }
   </style>
 </head>
 
@@ -52,93 +56,74 @@
   <nav id="siteNav" class="fixed top-0 w-full z-50 border-b border-white/5 bg-stone-950/90 backdrop-blur-md">
     <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
       <a href="english.html" class="inline-flex items-center gap-3 group">
-        <span class="text-gold border border-gold/30 px-2 py-1 text-sm bg-black/40 group-hover:shadow-[0_0_16px_rgba(214,188,126,0.22)]">Σ</span>
+        <span class="text-gold border border-gold/30 px-2 py-1 text-sm bg-black/40 transition-all group-hover:shadow-[0_0_16px_rgba(214,188,126,0.22)]">Σ</span>
         <span class="text-[10px] uppercase tracking-[0.3em] font-bold">Hasse Foundation</span>
       </a>
       <div class="hidden lg:flex gap-8 text-[9px] uppercase tracking-widest text-stone-500 items-center">
         <a href="#mission" class="hover:text-gold transition">Mission</a>
         <a href="#governance" class="hover:text-gold transition">Governance</a>
         <a href="#documents" class="hover:text-gold transition">Documents</a>
-        <a href="foundation.html" class="text-gold border border-gold/40 px-3 py-1 hover:bg-gold hover:text-black transition">Return to Essay</a>
+        <a href="foundation.html" class="text-gold border border-gold/40 px-3 py-1 hover:bg-gold hover:text-black transition">Return to Foundation Essay</a>
       </div>
       <button id="mobileMenuBtn" class="lg:hidden text-stone-400 text-xl">☰</button>
     </div>
   </nav>
 
-  <div id="navSpacer" class="h-20"></div>
+  <div id="navSpacer" aria-hidden="true"></div>
 
-  <header class="min-h-[60vh] flex items-center justify-center text-center px-6 reveal">
-    <div class="max-w-4xl">
-      <span class="label">Institutional Page</span>
-      <h1 class="text-5xl md:text-7xl mb-6">Institutional <span class="italic text-gold">Framework</span></h1>
-      <p class="text-stone-400 max-w-2xl mx-auto mb-10">Governance, compliance, and support pathways for partners and funders.</p>
-      <div class="flex flex-col sm:flex-row gap-3 justify-center">
-        <a href="#support" class="btn-primary">Support & Programs</a>
-        <a href="#documents" class="btn-secondary">View Documents</a>
+  <header class="min-h-[72vh] flex items-center justify-center text-center px-6">
+    <div class="max-w-4xl reveal">
+      <p class="label">Institutional Page</p>
+      <h1 class="text-5xl md:text-7xl mb-6 leading-tight">Institutional <span class="italic text-gold">Framework</span></h1>
+      <p class="text-stone-400 max-w-2xl mx-auto">Governance, documents, compliance, and support pathways — presented with clarity.</p>
+      <div class="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="#support" class="btn-gold">Support & Programs</a>
+        <a href="#documents" class="btn-outline">View Documents</a>
       </div>
     </div>
   </header>
 
-  <main class="max-w-6xl mx-auto px-6 space-y-32 pb-44">
+  <main class="max-w-6xl mx-auto px-6 space-y-36 pb-44">
 
-    <section id="mission" class="section-grid !border-t-0">
-      <div class="section-sidebar">
-        <span class="label">#mission</span>
-        <h2 class="text-4xl md:text-5xl">Mission & Strategic Focus</h2>
-        <div class="divider-gold"></div>
-      </div>
-      <div class="section-content glass-panel prose-custom">
-        <p class="dropcap text-stone-300">The Johann Christian Hasse Foundation exists to support the applied translation of systemic reality into institutional form...</p>
-        <p>The Foundation’s work prioritizes initiatives that combine rigorous method with operational deliverables.</p>
-        <ul class="list-disc pl-6 space-y-2 text-stone-400 text-sm">
-          <li>Systemic risk & threshold governance</li>
-          <li>Legal-scientific translation</li>
-          <li>Institutional design & compliance integrity</li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="governance" class="section-grid">
-      <div class="section-sidebar">
-        <span class="label">#governance</span>
-        <h2 class="text-4xl md:text-5xl">Governance</h2>
-        <div class="divider-gold"></div>
-      </div>
-      <div class="section-content">
-        <div class="glass-panel">
-          <h3 class="text-white text-2xl mb-6 serif">Board Structure</h3>
-          <div class="grid md:grid-cols-2 gap-4">
-            <div class="info-card">
-              <span class="label">Directors</span>
-              <p class="text-stone-300 text-sm">Founder & Lead Architect</p>
-            </div>
-            <div class="info-card">
-              <span class="label">Officers</span>
-              <p class="text-stone-300 text-sm">President · Secretary · Treasurer</p>
-            </div>
-          </div>
+    <section id="mission" class="reveal pt-8">
+      <div class="grid lg:grid-cols-12 gap-12 items-start">
+        <div class="lg:col-span-4">
+          <p class="label">#mission</p>
+          <h2 class="text-4xl md:text-5xl leading-tight">Mission & Strategic Focus</h2>
+          <div class="divider-gold"></div>
+        </div>
+        <div class="lg:col-span-8 glass-panel prose-custom text-stone-300">
+          <p class="dropcap">The Johann Christian Hasse Foundation exists to support the applied translation of systemic reality into institutional form...</p>
+          <p>The Foundation’s work prioritizes initiatives that combine rigorous method with operational deliverables.</p>
+          <ul class="list-disc pl-6 space-y-2 text-stone-300">
+            <li><strong>Systemic risk & threshold governance</strong></li>
+            <li><strong>Legal-scientific translation</strong></li>
+            <li><strong>Institutional design</strong></li>
+          </ul>
         </div>
       </div>
     </section>
 
-    <section id="documents" class="section-grid">
-      <div class="section-sidebar">
-        <span class="label">#documents</span>
-        <h2 class="text-4xl md:text-5xl">Documents</h2>
-        <div class="divider-gold"></div>
-      </div>
-      <div class="section-content">
-        <div class="glass-panel">
-          <h3 class="text-white text-2xl mb-6 serif">Core Governance Set</h3>
-          <div class="grid md:grid-cols-2 gap-4">
-            <a href="#" class="info-card">
-              <p class="text-white font-medium">Bylaws</p>
-              <p class="text-stone-500 text-xs mt-1">Internal governance charter.</p>
-            </a>
-            <a href="#" class="info-card">
-              <p class="text-white font-medium">Conflict of Interest</p>
-              <p class="text-stone-500 text-xs mt-1">Standards + process.</p>
-            </a>
+    <section id="governance" class="reveal border-t border-white/10 pt-24">
+      <div class="grid lg:grid-cols-12 gap-12 items-start">
+        <div class="lg:col-span-4">
+          <p class="label">#governance</p>
+          <h2 class="text-4xl md:text-5xl leading-tight">Governance</h2>
+          <div class="divider-gold"></div>
+        </div>
+        <div class="lg:col-span-8 space-y-8">
+          <div class="glass-panel">
+            <h3 class="text-white serif text-2xl mb-6">Board Structure</h3>
+            <div class="grid md:grid-cols-2 gap-6 text-sm">
+              <div class="doc-card">
+                <p class="label !mb-2">Directors</p>
+                <p class="text-stone-300">• Founder & Lead Architect</p>
+              </div>
+              <div class="doc-card">
+                <p class="label !mb-2">Officers</p>
+                <p class="text-stone-300">• President · Secretary · Treasurer</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -146,18 +131,18 @@
 
   </main>
 
-  <footer class="bg-stone-900/50 py-20 px-6 text-center border-t border-white/5">
-    <p class="text-gold serif italic text-xl mb-8">Time is life as memory.</p>
-    <p class="text-stone-600 text-[10px] uppercase tracking-[0.5em]">© 2026 Johann Christian Hasse Foundation</p>
-  </footer>
-
   <script>
-    // Intersection Observer para Reveal
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  </script>
+    // Scripts originais mantidos
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+      const nav = document.getElementById('siteNav');
+      const spacer = document.getElementById('navSpacer');
+      if(nav && spacer) spacer.style.height = nav.offsetHeight + 'px';
+    });
+  </script>
 </body>
 </html>
