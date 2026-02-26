@@ -79,6 +79,9 @@
 </head>
 
 <body class="selection:bg-gold/30">
+  <div id="progress-container" class="fixed top-0 left-0 w-full h-1 z-[60]">
+  <div id="progress-bar" class="h-full bg-gold w-0 transition-all duration-150"></div>
+</div>
 
 <nav id="siteNav" class="fixed top-0 w-full z-50 border-b border-white/5 bg-stone-950/90 backdrop-blur-md">
   <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
@@ -127,6 +130,40 @@
   </header>
 
   <main class="max-w-6xl mx-auto px-6 space-y-48 pb-48">
+<div class="sticky top-20 z-40 bg-stone-950/90 backdrop-blur-md border-y border-gold/10 py-6 mb-12">
+  <div class="max-w-5xl mx-auto flex justify-between items-center px-6">
+    
+    <button onclick="showEra('andreas')" class="flex flex-col items-center group">
+      <span class="text-[9px] uppercase tracking-widest text-stone-500 group-hover:text-gold mb-2">1718</span>
+      <div id="dot-andreas" class="w-3 h-3 rounded-full border border-gold transition-all duration-500"></div>
+    </button>
+    <div class="h-[1px] bg-gold/20 flex-grow mx-2"></div>
+
+    <button onclick="showEra('georg')" class="flex flex-col items-center group">
+      <span class="text-[9px] uppercase tracking-widest text-stone-500 group-hover:text-gold mb-2">1752</span>
+      <div id="dot-georg" class="w-3 h-3 rounded-full border border-gold transition-all duration-500"></div>
+    </button>
+    <div class="h-[1px] bg-gold/20 flex-grow mx-2"></div>
+
+    <button onclick="showEra('hasse')" class="flex flex-col items-center group">
+      <span class="text-[9px] uppercase tracking-widest text-stone-500 group-hover:text-gold mb-2">1779</span>
+      <div id="dot-hasse" class="w-3 h-3 rounded-full border border-gold transition-all duration-500"></div>
+    </button>
+    <div class="h-[1px] bg-gold/20 flex-grow mx-2"></div>
+
+    <button onclick="showEra('hass')" class="flex flex-col items-center group">
+      <span class="text-[9px] uppercase tracking-widest text-stone-500 group-hover:text-gold mb-2">1874</span>
+      <div id="dot-hass" class="w-3 h-3 rounded-full border border-gold transition-all duration-500"></div>
+    </button>
+    <div class="h-[1px] bg-gold/20 flex-grow mx-2"></div>
+
+    <button onclick="showEra('ceco')" class="flex flex-col items-center group">
+      <span class="text-[9px] uppercase tracking-widest text-gold font-bold mb-2">2025</span>
+      <div id="dot-ceco" class="w-4 h-4 rounded-full border-2 border-gold shadow-[0_0_10px_rgba(214,188,126,0.5)] transition-all duration-500"></div>
+    </button>
+    
+  </div>
+</div>
 
     <section id="note" class="reveal">
       <div class="grid lg:grid-cols-12 gap-12">
@@ -773,36 +810,15 @@ They live.</p>
   </footer>
 
      <script>
+
 document.addEventListener('DOMContentLoaded', () => {
-  const observerOptions = {
-    threshold: 0.15,
-    rootMargin: "0px 0px -50px 0px"
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('active');
-    });
-  }, observerOptions);
-
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-});
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
+  // --- 1. Navigation & Mobile Menu Logic ---
   const nav = document.getElementById('siteNav');
   const spacer = document.getElementById('navSpacer');
   const btn = document.getElementById('mobileMenuBtn');
   const menu = document.getElementById('mobile-menu');
 
-  if (!nav || !spacer || !btn || !menu) return;
-
-  function syncSpacer() {
-    spacer.style.height = nav.offsetHeight + 'px';
-  }
-
-  // inicial
+  const syncSpacer = () => { spacer.style.height = nav.offsetHeight + 'px'; };
   syncSpacer();
 
   btn.addEventListener('click', () => {
@@ -810,11 +826,74 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(syncSpacer);
   });
 
-  window.addEventListener('resize', () => {
-    requestAnimationFrame(syncSpacer);
+  // --- 2. Scroll Reveal Logic ---
+  const observerOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        // Optional: Save progress to LocalStorage
+        if(entry.target.id) localStorage.setItem('last_read_section', entry.target.id);
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // --- 3. App Feature: Reading Progress Bar ---
+  const progressBar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    progressBar.style.width = scrolled + "%";
+  });
+
+  // --- 4. Interactive Contact Simulation ---
+  // If you add a button with id="contactTrigger", this will handle it
+  const contactLinks = document.querySelectorAll('a[href="mailto:contact@c-eco.org"]');
+  contactLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const email = prompt("Enter your email to receive the full c-ECO Doctrine PDF:");
+      if (email) {
+        alert("The Hasse Foundation system has recorded your interest. Time remembers.");
+      }
+    });
   });
 });
-</script>
+function showEra(eraId) {
+  // 1. Define all era section IDs
+  const eras = ['andreas', 'georg', 'hasse', 'hass'];
+  
+  eras.forEach(id => {
+    const section = document.getElementById(id);
+    const dot = document.getElementById('dot-' + id);
+    
+    if (id === eraId) {
+      // Show the selected section with a fade-in effect
+      section.classList.remove('hidden');
+      section.classList.add('active', 'block');
+      // Highlight the dot
+      dot.classList.add('bg-gold', 'shadow-[0_0_10px_#d6bc7e]');
+      
+      // Smooth scroll to the top of the timeline
+      section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      // Hide other sections
+      section.classList.add('hidden');
+      section.classList.remove('active');
+      // Reset dots
+      dot.classList.remove('bg-gold', 'shadow-[0_0_10px_#d6bc7e]');
+    }
+  });
+}
 
+// Set initial state to the first era
+document.addEventListener('DOMContentLoaded', () => {
+    showEra('andreas'); 
+});
+
+</script>
 </body>
 </html>
