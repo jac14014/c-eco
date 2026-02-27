@@ -2,729 +2,455 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>c-ECO | Mathematical Backbone (Threshold Dynamics Research)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>c-ECO // Threshold Dynamics Research</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Urbanist:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            sigma: { DEFAULT: '#d6bc7e', dim: '#a68b4c' },
+          },
+          fontFamily: {
+            tech: ['Urbanist', 'sans-serif'],
+            mono: ['Inter', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+          },
+          boxShadow: {
+            sigGlow: "0 0 18px rgba(214,188,126,0.25)"
+          }
+        }
+      }
+    }
+  </script>
 
   <style>
-    :root{
-      --sidebar-width: 320px;
-      --legal-blue: #1a2b3c;
-      --legal-blue-dark: #0f1a25;
-      --gold-accent: #c5a059;
-      --bg-body: #050505;
-      --panel: rgba(255,255,255,0.04);
-      --panel-2: rgba(255,255,255,0.06);
-      --border: rgba(255,255,255,0.10);
-      --muted: rgba(255,255,255,0.72);
-      --muted-2: rgba(255,255,255,0.58);
-      --text: rgba(255,255,255,0.92);
-      --shadow: 0 18px 60px rgba(0,0,0,0.55);
-      --radius: 18px;
-      --radius-sm: 12px;
-      --max: 1160px;
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: #020617;
+      color: #d4d4d8;
+      font-family: Inter, sans-serif;
     }
-
-    *{ box-sizing:border-box; }
-    html, body{ height:100%; }
-    body{
-      margin:0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: radial-gradient(1200px 800px at 15% 10%, rgba(197,160,89,0.12), transparent 55%),
-                  radial-gradient(1000px 700px at 95% 15%, rgba(255,255,255,0.06), transparent 55%),
-                  linear-gradient(180deg, #050505, #060606 40%, #050505 100%);
-      color: var(--text);
-    }
-
-    a{ color: inherit; text-decoration:none; }
-    .serif{ font-family: "Libre Baskerville", Georgia, serif; }
-    .gold{ color: var(--gold-accent); }
-    .muted{ color: var(--muted); }
-    .muted2{ color: var(--muted-2); }
-
-    /* Layout */
-    .layout{
-      display:grid;
-      grid-template-columns: var(--sidebar-width) 1fr;
-      min-height: 100vh;
-    }
-
-    /* Sidebar */
-    aside{
-      position: sticky;
-      top:0;
-      height:100vh;
-      padding: 28px 20px;
-      border-right: 1px solid rgba(255,255,255,0.08);
-      background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.15));
-      backdrop-filter: blur(10px);
-    }
-    .brand{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      padding: 10px 10px 18px 10px;
-      border: 1px solid rgba(255,255,255,0.10);
-      border-radius: var(--radius);
-      background: rgba(255,255,255,0.03);
-      box-shadow: var(--shadow);
-    }
-    .brand .kicker{
-      font-size: 10px;
-      letter-spacing: 0.55em;
-      text-transform: uppercase;
-      font-weight: 800;
-      color: rgba(255,255,255,0.75);
-    }
-    .brand .title{
-      font-size: 18px;
-      line-height: 1.3;
-      font-weight: 800;
-    }
-    .brand .subtitle{
-      font-size: 12px;
-      line-height: 1.5;
-      color: var(--muted-2);
-    }
-
-    nav{
-      margin-top: 18px;
-      padding: 12px 10px;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: var(--radius);
-      background: rgba(255,255,255,0.02);
-    }
-    nav .label{
-      font-size: 10px;
-      letter-spacing: 0.42em;
-      text-transform: uppercase;
-      font-weight: 800;
-      color: rgba(255,255,255,0.68);
-      margin: 6px 8px 10px;
-    }
-    .navlink{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      padding: 10px 10px;
-      border-radius: 12px;
-      font-size: 13px;
-      color: rgba(255,255,255,0.82);
-      transition: 0.2s ease;
-      border: 1px solid transparent;
-    }
-    .navlink:hover{
-      background: rgba(197,160,89,0.08);
-      border-color: rgba(197,160,89,0.22);
-      color: rgba(255,255,255,0.95);
-    }
-    .dot{
-      width: 7px; height:7px;
-      border-radius: 99px;
-      background: rgba(197,160,89,0.75);
-      box-shadow: 0 0 0 4px rgba(197,160,89,0.12);
-      flex: 0 0 auto;
-    }
-    .side-cta{
-      margin-top: 16px;
-      padding: 14px 14px;
-      border-radius: var(--radius);
-      border: 1px solid rgba(197,160,89,0.22);
-      background: linear-gradient(180deg, rgba(197,160,89,0.10), rgba(255,255,255,0.02));
-    }
-    .side-cta .small{
-      font-size: 12px;
-      color: rgba(255,255,255,0.80);
-      line-height: 1.5;
-      margin: 0 0 10px;
-    }
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(197,160,89,0.35);
-      background: rgba(197,160,89,0.10);
-      color: rgba(255,255,255,0.92);
-      font-weight: 700;
-      font-size: 12px;
-      letter-spacing: 0.02em;
-      transition: 0.2s ease;
-      width: 100%;
-    }
-    .btn:hover{
-      background: rgba(197,160,89,0.16);
-      transform: translateY(-1px);
-    }
-
-    /* Main */
-    main{
-      padding: 28px 20px 80px;
-    }
-    .wrap{
-      max-width: var(--max);
-      margin: 0 auto;
-    }
-
-    /* Hero */
-    .hero{
-      border-radius: 28px;
-      border: 1px solid rgba(255,255,255,0.10);
-      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-      box-shadow: var(--shadow);
-      padding: 34px 30px;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero:before{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      background: radial-gradient(800px 520px at 20% 15%, rgba(197,160,89,0.16), transparent 55%),
-                  radial-gradient(700px 460px at 90% 20%, rgba(255,255,255,0.08), transparent 60%);
+    .scanline-overlay{
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background: linear-gradient(to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0,0,0,0.06) 50%,
+        rgba(0,0,0,0.06));
+      background-size: 100% 4px;
       pointer-events:none;
-      opacity: 0.9;
     }
-    .hero > *{ position: relative; z-index: 1; }
-    .kicker{
-      font-size: 10px;
-      letter-spacing: 0.6em;
-      text-transform: uppercase;
-      font-weight: 800;
-      color: rgba(255,255,255,0.70);
-      margin-bottom: 12px;
-    }
-    h1{
-      margin:0 0 14px;
-      font-size: 38px;
-      line-height: 1.15;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-    .hero p{
-      margin: 0;
-      color: rgba(255,255,255,0.78);
-      line-height: 1.7;
-      max-width: 920px;
-      font-size: 14px;
-    }
-    .badge-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top: 18px;
-    }
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.10);
-      font-size: 12px;
-      color: rgba(255,255,255,0.82);
-    }
-    .badge b{ color: rgba(255,255,255,0.92); }
-
-    /* Sections */
-    section{
-      margin-top: 22px;
-      border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.03);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.45);
-      padding: 26px 24px;
-    }
-    section header{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:16px;
-      margin-bottom: 16px;
-    }
-    h2{
-      margin:0;
-      font-size: 20px;
-      line-height: 1.25;
-      font-weight: 800;
-      letter-spacing: -0.01em;
-    }
-    .subnote{
-      font-size: 12px;
-      color: rgba(255,255,255,0.58);
-      line-height: 1.5;
-      max-width: 520px;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap:16px;
-    }
-    .card{
-      border-radius: var(--radius-sm);
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(0,0,0,0.22);
-      padding: 16px 16px;
-    }
-    .card h3{
-      margin: 0 0 10px;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.28em;
-      color: rgba(255,255,255,0.72);
-      font-weight: 800;
-    }
-    .card p, .card li{
-      font-size: 13px;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.78);
-      margin: 0;
-    }
-
-    ul{
-      margin: 8px 0 0;
-      padding-left: 18px;
-    }
-    li{ margin: 8px 0; }
-
-    .divider{
-      height: 1px;
-      background: rgba(255,255,255,0.10);
-      margin: 16px 0;
-    }
-
-    /* Timeline */
-    .timeline{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:14px;
-    }
-    .phase{
-      border-radius: var(--radius-sm);
-      border: 1px solid rgba(197,160,89,0.20);
-      background: linear-gradient(180deg, rgba(197,160,89,0.07), rgba(255,255,255,0.02));
-      padding: 16px 16px;
-    }
-    .phase .tag{
-      display:inline-block;
-      font-size: 10px;
-      letter-spacing: 0.42em;
-      text-transform: uppercase;
-      font-weight: 800;
-      color: rgba(255,255,255,0.76);
-      margin-bottom: 8px;
-    }
-    .phase h4{
-      margin: 0 0 8px;
-      font-size: 16px;
-      font-weight: 800;
-      letter-spacing: -0.01em;
-    }
-    .phase p{
-      margin: 0 0 10px;
-      color: rgba(255,255,255,0.76);
-      line-height: 1.65;
-      font-size: 13px;
-    }
-    .phase ul{
-      margin: 0;
-      padding-left: 18px;
-    }
-    .phase li{ margin: 8px 0; color: rgba(255,255,255,0.76); }
-
-    /* Sectors list */
-    .sectors{
-      display:grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap:10px;
-      margin-top: 8px;
-    }
-    .pill{
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.03);
-      padding: 10px 12px;
-      font-size: 12px;
-      color: rgba(255,255,255,0.80);
-      line-height: 1.3;
-    }
-
-    /* Footer */
-    footer{
-      margin-top: 22px;
-      padding: 18px 6px 0;
-      color: rgba(255,255,255,0.52);
-      font-size: 12px;
-      line-height: 1.6;
-      max-width: var(--max);
-      margin-left:auto;
-      margin-right:auto;
-    }
-
-    /* Mobile */
-    @media (max-width: 980px){
-      .layout{ grid-template-columns: 1fr; }
-      aside{ position: relative; height: auto; border-right:none; border-bottom: 1px solid rgba(255,255,255,0.08); }
-      .grid{ grid-template-columns: 1fr; }
-      .timeline{ grid-template-columns: 1fr; }
-      .sectors{ grid-template-columns: 1fr; }
-      h1{ font-size: 32px; }
-    }
+    .content { position: relative; z-index: 1; }
+    ::-webkit-scrollbar{ width: 6px; }
+    ::-webkit-scrollbar-track{ background: #09090b; }
+    ::-webkit-scrollbar-thumb{ background: #27272a; border-radius: 3px; }
   </style>
 </head>
 
-<body>
-  <div class="layout">
+<body class="bg-[#020617] text-zinc-300 font-sans min-h-screen flex flex-col overflow-hidden selection:bg-sigma-dim selection:text-white">
+  <div class="scanline-overlay"></div>
 
-    <!-- SIDEBAR -->
-    <aside>
-      <div class="brand">
-        <div class="kicker">c-ECO</div>
-        <div class="title serif italic">Mathematical Backbone</div>
-        <div class="subtitle">
-          Threshold Dynamics Research<br/>
-          Early Warning Signals · Critical Slowing Down
+  <!-- HEADER -->
+  <header class="h-14 border-b border-white/5 bg-slate-950/80 backdrop-blur-sm flex items-center justify-between px-6 z-40 content">
+    <div class="flex items-center gap-4">
+      <div class="w-8 h-8 border border-white/10 flex items-center justify-center bg-white/5">
+        <span class="font-tech text-sigma font-bold text-lg">Σ</span>
+      </div>
+      <div class="flex flex-col">
+        <h1 class="font-tech text-sm tracking-[0.2em] text-white uppercase font-semibold">c-ECO Threshold Dynamics Research</h1>
+        <span class="text-[0.65rem] text-zinc-500 uppercase tracking-wider font-tech">Mathematical Backbone // Early Warning Signals</span>
+      </div>
+    </div>
+
+    <div class="hidden md:flex items-center gap-3 px-4 py-1 rounded-full border border-white/5 bg-white/5">
+      <div class="w-1.5 h-1.5 rounded-full bg-sigma animate-pulse"></div>
+      <span class="font-tech text-xs tracking-[0.15em] text-sigma">TDR VIEW</span>
+    </div>
+
+    <div class="flex items-center gap-4 text-xs font-tech text-zinc-500">
+      <button class="hover:text-sigma transition-colors" onclick="window.location.href='protocol.html'">BACK TO TERMINAL</button>
+      <button class="hover:text-sigma transition-colors" onclick="window.location.href='index.html'">EXIT</button>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="flex-1 overflow-y-auto content">
+    <div class="max-w-6xl mx-auto px-6 py-10 space-y-10">
+
+      <!-- HERO -->
+      <section class="border border-white/5 bg-white/[0.02] p-6">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-sigma text-xs">◆</span>
+              <span class="font-tech text-[0.7rem] tracking-[0.22em] text-zinc-400 uppercase">Scientific Reference Layer</span>
+            </div>
+            <h2 class="font-tech text-2xl text-white tracking-wide">Early Warning Signals (EWS) for Threshold Proximity</h2>
+            <p class="mt-3 text-sm text-zinc-400 leading-relaxed max-w-3xl">
+              This page translates the c-ECO framework into a scientific-facing backbone grounded in dynamical systems
+              methods. The research focus is on <span class="text-sigma">Early Warning Signals</span> and
+              <span class="text-sigma">Critical Slowing Down</span> as operational indicators of resilience loss
+              before visible disruption.
+            </p>
+            <p class="mt-3 text-sm text-zinc-400 leading-relaxed max-w-3xl">
+              We do <span class="text-zinc-200">not</span> claim a universal, single “distance-to-threshold” equation.
+              Instead, we formalize and validate a standardized indicator bundle and estimation protocol that remains robust
+              under real-world constraints (noise, partial observability, heterogeneous data).
+            </p>
+          </div>
+
+          <div class="flex flex-col gap-2 text-[0.75rem] font-mono text-zinc-500">
+            <div class="border border-white/10 bg-black/20 px-3 py-2">
+              <span class="text-sigma">STATE_REF</span>: CECO-TDR-001
+            </div>
+            <div class="border border-white/10 bg-black/20 px-3 py-2">
+              <span class="text-sigma">METHOD</span>: EWS / CSD
+            </div>
+            <div class="border border-white/10 bg-black/20 px-3 py-2">
+              <span class="text-sigma">SCOPE</span>: CROSS-SYSTEM VALIDATION
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <nav>
-        <div class="label">Navigation</div>
-        <a class="navlink" href="#overview"><span class="dot"></span>Overview</a>
-        <a class="navlink" href="#research-question"><span class="dot"></span>Research Question</a>
-        <a class="navlink" href="#method"><span class="dot"></span>Method (EWS / CSD)</a>
-        <a class="navlink" href="#plan"><span class="dot"></span>24-Month Plan</a>
-        <a class="navlink" href="#sectors"><span class="dot"></span>13 Initial Sectors</a>
-        <a class="navlink" href="#outputs"><span class="dot"></span>Outputs</a>
-        <a class="navlink" href="#roles"><span class="dot"></span>PI / Team Roles</a>
-        <a class="navlink" href="#refs"><span class="dot"></span>References</a>
-      </nav>
+      <!-- RESEARCH QUESTION -->
+      <section class="space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="font-tech text-[0.75rem] uppercase tracking-[0.25em] text-zinc-500">Research Question</h3>
+          <span class="text-[0.7rem] font-mono text-zinc-600">scientific framing</span>
+        </div>
 
-      <div class="side-cta">
-        <p class="small">
-          This page is designed to speak directly to scientific reviewers and PIs:
-          <span class="gold">what is computed</span>, <span class="gold">how it is validated</span>, and <span class="gold">what is delivered</span>.
-        </p>
-        <a class="btn" href="mailto:contact@c-eco.org">Request 1-Page Technical Sheet</a>
-      </div>
-    </aside>
+        <div class="grid md:grid-cols-2 gap-5">
+          <div class="border border-sigma/20 bg-[#0c0c0e]/70 p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-sigma text-xs">◆</span>
+              <span class="font-tech text-sm tracking-[0.18em] text-white uppercase">Core question</span>
+            </div>
+            <p class="text-sm text-zinc-400 leading-relaxed">
+              How can we quantify <span class="text-zinc-200">proximity to threshold states</span> using established
+              dynamical-systems early warning methods — and validate the robustness and portability of these indicators
+              across distinct dynamical regimes?
+            </p>
+            <div class="mt-4 text-[0.7rem] font-mono text-zinc-600">
+              Output target: <span class="text-zinc-400">standardized indicator bundle + estimation protocol + toolkit</span>
+            </div>
+          </div>
 
-    <!-- MAIN -->
-    <main>
-      <div class="wrap">
+          <div class="border border-sigma/20 bg-[#0c0c0e]/70 p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-sigma text-xs">◆</span>
+              <span class="font-tech text-sm tracking-[0.18em] text-white uppercase">Why it matters</span>
+            </div>
+            <p class="text-sm text-zinc-400 leading-relaxed">
+              Many systems (ecological, infrastructural, financial, digital) exhibit nonlinear dynamics and regime shifts.
+              Without validated resilience indicators, instability often becomes visible only after crossing a stability boundary,
+              under high cost and irreversibility constraints.
+            </p>
+            <div class="mt-4 text-[0.7rem] font-mono text-zinc-600">
+              Emphasis: <span class="text-zinc-400">resilience loss detection under uncertainty</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        <!-- HERO -->
-        <div class="hero" id="overview">
-          <div class="kicker">Research Layer · Threshold Dynamics</div>
-          <h1 class="serif italic">
-            Early Warning Signals (EWS) for Threshold Proximity in Complex Systems
-          </h1>
-          <p>
-            This research layer formalizes a scientific backbone for the c-ECO Threshold Function Protocol (TFP),
-            focusing on <span class="gold">Early Warning Signals</span> and <span class="gold">Critical Slowing Down</span>
-            as operational tools to detect resilience loss before visible disruption. The aim is not to claim a single
-            universal distance formula, but to build a validated, cross-domain methodology for quantifying proximity to
-            threshold states under real-world constraints (noise, partial observability, heterogeneous data).
+      <!-- METHOD -->
+      <section class="space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="font-tech text-[0.75rem] uppercase tracking-[0.25em] text-zinc-500">Method</h3>
+          <span class="text-[0.7rem] font-mono text-zinc-600">EWS / CSD bundle</span>
+        </div>
+
+        <div class="border border-white/5 bg-white/[0.02] p-6">
+          <div class="grid md:grid-cols-3 gap-5">
+            <div class="border border-sigma/20 bg-[#0c0c0e]/70 p-5">
+              <div class="font-tech text-sigma uppercase tracking-widest text-sm">Indicator Bundle</div>
+              <ul class="mt-3 space-y-2 text-sm text-zinc-400">
+                <li>• Lag-1 autocorrelation trends (CSD signature)</li>
+                <li>• Variance escalation / volatility growth</li>
+                <li>• Recovery behavior / return-rate indicators</li>
+                <li>• Local stability proxies from neighborhood dynamics (when feasible)</li>
+              </ul>
+              <div class="mt-4 text-[0.7rem] font-mono text-zinc-600">
+                Principle: <span class="text-zinc-400">no single universal formula; validated bundle instead</span>
+              </div>
+            </div>
+
+            <div class="border border-sigma/20 bg-[#0c0c0e]/70 p-5 shadow-sigGlow">
+              <div class="font-tech text-sigma uppercase tracking-widest text-sm">Estimation Protocol</div>
+              <ul class="mt-3 space-y-2 text-sm text-zinc-400">
+                <li>• Rolling window estimation + trend tests</li>
+                <li>• Detrending / de-seasonalization when relevant</li>
+                <li>• Stationarity checks & regime segmentation</li>
+                <li>• Confidence scoring / uncertainty bounds</li>
+                <li>• Noise stress tests + sparse sampling tests</li>
+              </ul>
+              <div class="mt-4 text-[0.7rem] font-mono text-zinc-600">
+                Aim: <span class="text-zinc-400">robust inference under real-world data constraints</span>
+              </div>
+            </div>
+
+            <div class="border border-sigma/20 bg-[#0c0c0e]/70 p-5">
+              <div class="font-tech text-sigma uppercase tracking-widest text-sm">Interpretation Layer</div>
+              <ul class="mt-3 space-y-2 text-sm text-zinc-400">
+                <li>• Bifurcation-aware interpretation (e.g., sudden vs oscillatory transitions)</li>
+                <li>• Parameter drift framing (safety margin erosion)</li>
+                <li>• False-positive controls & robustness criteria</li>
+                <li>• Clear separation of signal detection vs causal claims</li>
+              </ul>
+              <div class="mt-4 text-[0.7rem] font-mono text-zinc-600">
+                Deliverable: <span class="text-zinc-400">interpretable outputs with traceable assumptions</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 border-t border-white/5 pt-5 text-sm text-zinc-400 leading-relaxed">
+            <span class="text-sigma font-tech uppercase tracking-widest text-[0.75rem]">Note:</span>
+            This page intentionally avoids embedding equations to keep the focus on scope, validation strategy, and deliverables.
+            Formal mathematical details and references are expected to be finalized with the PI during proposal preparation.
+          </div>
+        </div>
+      </section>
+
+      <!-- 24-MONTH PLAN -->
+      <section class="space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="font-tech text-[0.75rem] uppercase tracking-[0.25em] text-zinc-500">24-Month Research Plan</h3>
+          <span class="text-[0.7rem] font-mono text-zinc-600">execution roadmap</span>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-5">
+
+          <div class="border border-sigma/20 bg-[#0c0c0e]/70 p-5">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-sigma text-xs">◆</span>
+                  <span class="font-tech text-sm tracking-[0.18em] text-white uppercase">Months 1–6</span>
+                </div>
+                <h4 class="font-tech text-lg text-sigma">Formal definition & estimation protocols</h4>
+              </div>
+              <div class="text-[0.65rem] font-mono text-zinc-500">P1</div>
+            </div>
+            <ul class="mt-4 space-y-2 text-sm text-zinc-400">
+              <li>• Formalize EWS indicator bundle and output specification</li>
+              <li>• Protocols: windowing, detrending, stationarity checks, uncertainty</li>
+              <li>• Baseline synthetic experiments for calibration behavior</li>
+            </ul>
+          </div>
+
+          <div class="border border-sigma/20 bg-[#0c0c0e]/70 p-5">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-sigma text-xs">◆</span>
+                  <span class="font-tech text-sm tracking-[0.18em] text-white uppercase">Months 7–12</span>
+                </div>
+                <h4 class="font-tech text-lg text-sigma">Bifurcation-aware interpretation & drift framing</h4>
+              </div>
+              <div class="text-[0.65rem] font-mono text-zinc-500">P2</div>
+            </div>
+            <ul class="mt-4 space-y-2 text-sm text-zinc-400">
+              <li>• Interpretation: saddle-node vs Hopf (and related structures)</li>
+              <li>• Parameter drift / safety margin erosion framing</li>
+              <li>• False-positive controls and robustness criteria</li>
+            </ul>
+          </div>
+
+          <div class="border border-sigma/20 bg-[#0c0c0e]/70 p-5">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-sigma text-xs">◆</span>
+                  <span class="font-tech text-sm tracking-[0.18em] text-white uppercase">Months 13–18</span>
+                </div>
+                <h4 class="font-tech text-lg text-sigma">Cross-system validation</h4>
+              </div>
+              <div class="text-[0.65rem] font-mono text-zinc-500">P3</div>
+            </div>
+            <ul class="mt-4 space-y-2 text-sm text-zinc-400">
+              <li>• Two-system validation (e.g., supply chain network + ecological feedback loop)</li>
+              <li>• Noise & stress testing (sampling limits, proxy variables)</li>
+              <li>• Comparative performance and confidence scoring</li>
+            </ul>
+          </div>
+
+          <div class="border border-sigma/20 bg-[#0c0c0e]/70 p-5 shadow-sigGlow">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-sigma text-xs">◆</span>
+                  <span class="font-tech text-sm tracking-[0.18em] text-white uppercase">Months 19–24</span>
+                </div>
+                <h4 class="font-tech text-lg text-sigma">Toolkit + manuscripts + workshop</h4>
+              </div>
+              <div class="text-[0.65rem] font-mono text-zinc-500">P4</div>
+            </div>
+            <ul class="mt-4 space-y-2 text-sm text-zinc-400">
+              <li>• Threshold indicator toolkit (standardized algorithms + docs)</li>
+              <li>• Manuscripts (methods + validation)</li>
+              <li>• Capstone expert workshop and roadmap</li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 13 SECTORS -->
+      <section class="space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="font-tech text-[0.75rem] uppercase tracking-[0.25em] text-zinc-500">13 Initial Sectors</h3>
+          <span class="text-[0.7rem] font-mono text-zinc-600">research environment</span>
+        </div>
+
+        <div class="border border-white/5 bg-white/[0.02] p-6">
+          <p class="text-sm text-zinc-400 leading-relaxed max-w-5xl">
+            The cross-sector structure provides a testing environment for portability and generalization.
+            It is not a claim of immediate full deployment across all sectors within the initial two-year scope.
           </p>
 
-          <div class="badge-row">
-            <span class="badge"><b>Core lens:</b> dynamical systems</span>
-            <span class="badge"><b>Primary outputs:</b> indicators + toolkit</span>
-            <span class="badge"><b>Validation:</b> cross-system testing</span>
-            <span class="badge"><b>Translation:</b> decision interface layer</span>
+          <div class="mt-5 grid md:grid-cols-2 gap-3 text-sm text-zinc-400">
+            <div class="border border-white/10 bg-black/20 px-4 py-3">• Mining & Mineral Extraction</div>
+            <div class="border border-white/10 bg-black/20 px-4 py-3">• Agribusiness & Intensive Land Use</div>
+            <div class="border border-white/10 bg-black/20 px-4 py-3">• Energy Systems</div>
+            <div class="border border-white/10 bg-black/20 px-4 py-3">• Water & Sanitation</div>
+            <div class="border border-white/10 bg-black/20 px-4 py-3">• Infrastructure & Heavy Construction</div>
+            <div class="border border-white/10 bg-black/20 px-4 py-3">• Chemical & Materials Systems</div>
+            <div class="border border-white/10 bg-black/20 px-4 py-3">• Real Estate & Urbanization</div>
+            <div class="border border-white/10 bg-black/20 px-4 py-3">• Digital Technology & Data Infrastructure</div>
+            <div class="border border-white/10 bg-black/20 px-4 py-3">• Logistics & Transportation</div>
+            <div class="border border-white/10 bg-black/20 px-4 py-3">• Financial Systems</div>
+            <div class="border border-white/10 bg-black/20 px-4 py-3">• AI & Algorithmic Systems</div>
+            <div class="border border-white/10 bg-black/20 px-4 py-3">• Forests, Carbon & Natural Assets</div>
+            <div class="border border-white/10 bg-black/20 px-4 py-3">• Space & Orbital Infrastructure</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- OUTPUTS -->
+      <section class="space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="font-tech text-[0.75rem] uppercase tracking-[0.25em] text-zinc-500">Expected Outputs</h3>
+          <span class="text-[0.7rem] font-mono text-zinc-600">deliverables</span>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-5">
+          <div class="border border-sigma/20 bg-[#0c0c0e]/70 p-5">
+            <div class="font-tech text-sigma uppercase tracking-widest text-sm">Technical</div>
+            <ul class="mt-3 space-y-2 text-sm text-zinc-400">
+              <li>• Standardized EWS indicator bundle + protocol</li>
+              <li>• Robustness criteria + confidence scoring</li>
+              <li>• Cross-system validation results</li>
+              <li>• Reproducible computational routines</li>
+            </ul>
+          </div>
+
+          <div class="border border-sigma/20 bg-[#0c0c0e]/70 p-5 shadow-sigGlow">
+            <div class="font-tech text-sigma uppercase tracking-widest text-sm">Toolkit</div>
+            <ul class="mt-3 space-y-2 text-sm text-zinc-400">
+              <li>• Prototype threshold indicator toolkit</li>
+              <li>• Documentation & standardized outputs</li>
+              <li>• Minimal interface for integration</li>
+              <li>• Traceability & reproducibility notes</li>
+            </ul>
+          </div>
+
+          <div class="border border-sigma/20 bg-[#0c0c0e]/70 p-5">
+            <div class="font-tech text-sigma uppercase tracking-widest text-sm">Scholarly</div>
+            <ul class="mt-3 space-y-2 text-sm text-zinc-400">
+              <li>• Methods manuscript (protocol + validation)</li>
+              <li>• Cross-system results manuscript</li>
+              <li>• Capstone workshop synthesis</li>
+              <li>• Scaling roadmap (post-validation)</li>
+            </ul>
           </div>
         </div>
 
-        <!-- RESEARCH QUESTION -->
-        <section id="research-question">
-          <header>
-            <div>
-              <h2>Research Question</h2>
-              <div class="subnote">Scientific framing for reviewers and potential PIs</div>
+        <div class="mt-5 border border-white/10 bg-black/20 p-5 text-sm text-zinc-400 leading-relaxed">
+          <span class="text-sigma font-tech uppercase tracking-widest text-[0.75rem]">Downstream translation:</span>
+          after peer-reviewed validation, the methodology can be translated into standardized analytical protocols compatible with
+          institutional decision environments. Any future certification/licensing or AI-enabled monitoring pathways are treated as
+          downstream translation contingent on demonstrated robustness.
+        </div>
+      </section>
+
+      <!-- REFERENCES -->
+      <section class="space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="font-tech text-[0.75rem] uppercase tracking-[0.25em] text-zinc-500">References (Starter Set)</h3>
+          <span class="text-[0.7rem] font-mono text-zinc-600">PI to finalize</span>
+        </div>
+
+        <div class="border border-white/5 bg-white/[0.02] p-6">
+          <div class="grid md:grid-cols-2 gap-5">
+            <div class="border border-white/10 bg-black/20 p-5">
+              <div class="flex items-center gap-2">
+                <span class="text-sigma">◆</span>
+                <h4 class="font-tech text-white tracking-wider uppercase text-sm">Core literature areas</h4>
+              </div>
+              <ul class="mt-4 space-y-2 text-sm text-zinc-400">
+                <li>• Early Warning Signals (EWS) and Critical Slowing Down (CSD)</li>
+                <li>• Nonlinear dynamics and bifurcation theory</li>
+                <li>• Resilience metrics and regime shift detection</li>
+                <li>• Time-series preprocessing and uncertainty under noise</li>
+              </ul>
             </div>
-          </header>
 
-          <div class="grid">
-            <div class="card">
-              <h3>Core question</h3>
-              <p>
-                How can we quantify <span class="gold">proximity to threshold states</span> in complex systems using
-                established Early Warning Signals (EWS) — and validate their robustness across distinct dynamical regimes?
-              </p>
-
-              <div class="divider"></div>
-
-              <h3>Why this matters</h3>
-              <p>
-                Many institutional, infrastructural, ecological, and financial systems exhibit nonlinear dynamics and regime shifts.
-                Without validated indicators of resilience loss, risks typically become visible only after stability boundaries
-                have been crossed, at high cost and often under irreversibility constraints.
-              </p>
-            </div>
-
-            <div class="card">
-              <h3>What this is / is not</h3>
-              <ul>
-                <li><b>This is:</b> a research program in threshold dynamics, resilience metrics, and early warning detection.</li>
-                <li><b>This is not:</b> a policy prescription page, nor a claim of a single universal “magic” threshold formula.</li>
-                <li><b>Deliverable goal:</b> a validated indicator bundle + standardized estimation protocol + computational toolkit.</li>
+            <div class="border border-white/10 bg-black/20 p-5">
+              <div class="flex items-center gap-2">
+                <span class="text-sigma">◆</span>
+                <h4 class="font-tech text-white tracking-wider uppercase text-sm">Implementation notes</h4>
+              </div>
+              <ul class="mt-4 space-y-2 text-sm text-zinc-400">
+                <li>• Avoids equations in public-facing page</li>
+                <li>• Formalism documented in proposal annex / PI materials</li>
+                <li>• Reproducibility and traceability prioritized</li>
+                <li>• Scope designed for two-system validation in 24 months</li>
               </ul>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <!-- METHOD -->
-        <section id="method">
-          <header>
-            <div>
-              <h2>Method</h2>
-              <div class="subnote">Early Warning Signals (EWS) + Critical Slowing Down (CSD)</div>
-            </div>
-          </header>
+      <!-- FOOTER -->
+      <footer class="mt-24 border-t border-[#d6bc7e]/10">
+        <div class="max-w-6xl mx-auto px-6 py-8 text-center space-y-4">
+          <p class="text-xs tracking-widest text-[#d6bc7e]/40 font-tech">
+            THRESHOLD DYNAMICS RESEARCH — SCIENTIFIC BACKBONE UNDER DEVELOPMENT
+          </p>
 
-          <div class="grid">
-            <div class="card">
-              <h3>EWS bundle (indicator set)</h3>
-              <ul>
-                <li><b>Lag-1 autocorrelation trends</b> as resilience declines (CSD signature).</li>
-                <li><b>Variance escalation</b> as perturbations amplify near transitions.</li>
-                <li><b>Return-rate / recovery behavior</b> as systems become slower to recover after shocks.</li>
-                <li><b>Local stability proxies</b> derived from neighborhood dynamics (where feasible).</li>
-              </ul>
+          <div class="flex flex-col items-center gap-3">
+            <a
+              href="system-architecture.html"
+              class="inline-flex items-center gap-2 text-[0.7rem] font-tech tracking-[0.22em] uppercase text-[#d6bc7e]/60 hover:text-[#d6bc7e] transition-colors"
+            >
+              <span class="text-[#d6bc7e]/70">◆</span>
+              System Architecture
+              <span class="text-[#d6bc7e]/70">→</span>
+            </a>
 
-              <div class="divider"></div>
-
-              <h3>Estimation protocol</h3>
-              <ul>
-                <li>Windowing & rolling estimation</li>
-                <li>Detrending / de-seasonalization where relevant</li>
-                <li>Stationarity diagnostics and regime segmentation</li>
-                <li>Uncertainty & confidence scoring under noise</li>
-                <li>Stress tests under sparse / partial observation</li>
-              </ul>
-            </div>
-
-            <div class="card">
-              <h3>Interpretation layer</h3>
-              <p>
-                The project explicitly distinguishes between indicator detection and causal interpretation.
-                Where appropriate, bifurcation-aware interpretation is used to classify transition types
-                (e.g., sudden regime shifts vs oscillatory instabilities) and to avoid false confidence in
-                generic signals.
-              </p>
-
-              <div class="divider"></div>
-
-              <h3>Decision interface</h3>
-              <p>
-                Indicators are translated into a standardized output format compatible with the c-ECO Integrated Operational Manual,
-                without embedding a regulatory stance. The goal is reproducible analysis under uncertainty with clear confidence bounds.
-              </p>
-            </div>
+            <a
+              href="protocol.html"
+              class="inline-flex items-center gap-2 text-[0.7rem] font-tech tracking-[0.22em] uppercase text-[#d6bc7e]/60 hover:text-[#d6bc7e] transition-colors"
+            >
+              <span class="text-[#d6bc7e]/70">◆</span>
+              Protocol Terminal
+              <span class="text-[#d6bc7e]/70">→</span>
+            </a>
           </div>
-        </section>
+        </div>
+      </footer>
 
-        <!-- 24-MONTH PLAN -->
-        <section id="plan">
-          <header>
-            <div>
-              <h2>How this fits into the 24-Month Plan</h2>
-              <div class="subnote">Concrete execution roadmap (LOI-ready)</div>
-            </div>
-          </header>
+    </div>
+  </main>
 
-          <div class="timeline">
-            <div class="phase">
-              <div class="tag">Months 1–6</div>
-              <h4>Formal definition & estimation protocols</h4>
-              <p>Define the indicator set and operational estimation standards for real-world data constraints.</p>
-              <ul>
-                <li>Formalize EWS indicator bundle and output specification</li>
-                <li>Protocols: windowing, detrending, stationarity checks, uncertainty</li>
-                <li>Baseline synthetic experiments for calibration behavior</li>
-              </ul>
-            </div>
-
-            <div class="phase">
-              <div class="tag">Months 7–12</div>
-              <h4>Bifurcation-aware interpretation & drift framing</h4>
-              <p>Align EWS signals with transition classes and model slow safety-margin erosion.</p>
-              <ul>
-                <li>Interpretation: saddle-node vs Hopf regimes (and related structures)</li>
-                <li>Parameter drift / safety margin erosion conceptualization</li>
-                <li>False-positive controls and robustness criteria</li>
-              </ul>
-            </div>
-
-            <div class="phase">
-              <div class="tag">Months 13–18</div>
-              <h4>Cross-system validation</h4>
-              <p>Test indicator portability across two contrasting dynamical systems under noise and stress.</p>
-              <ul>
-                <li>Two-system validation (e.g., supply chain network + ecological feedback loop)</li>
-                <li>Noise & stress testing (sampling limits, proxy variables)</li>
-                <li>Comparative performance and confidence scoring</li>
-              </ul>
-            </div>
-
-            <div class="phase">
-              <div class="tag">Months 19–24</div>
-              <h4>Toolkit + manuscripts + workshop</h4>
-              <p>Deliver a standardized computational toolkit and publish validated results.</p>
-              <ul>
-                <li>Threshold indicator toolkit (standardized algorithms + docs)</li>
-                <li>Manuscripts (methods + validation)</li>
-                <li>Capstone expert workshop and roadmap</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <!-- SECTORS -->
-        <section id="sectors">
-          <header>
-            <div>
-              <h2>13 Initial Sectors (Research Environment)</h2>
-              <div class="subnote">Cross-domain testing environment; not a claim of immediate full deployment</div>
-            </div>
-          </header>
-
-          <div class="card">
-            <p>
-              The research is designed to be portable across domains that exhibit nonlinear dynamics and resilience loss.
-              The initial cross-sector environment supports generalization tests and downstream translation pathways.
-            </p>
-
-            <div class="sectors">
-              <div class="pill">Mining & Mineral Extraction</div>
-              <div class="pill">Agribusiness & Intensive Land Use</div>
-              <div class="pill">Energy Systems</div>
-              <div class="pill">Water & Sanitation</div>
-              <div class="pill">Infrastructure & Heavy Construction</div>
-              <div class="pill">Chemical & Materials Systems</div>
-              <div class="pill">Real Estate & Urbanization</div>
-              <div class="pill">Digital Technology & Data Infrastructure</div>
-              <div class="pill">Logistics & Transportation</div>
-              <div class="pill">Financial Systems</div>
-              <div class="pill">AI & Algorithmic Systems</div>
-              <div class="pill">Forests, Carbon & Natural Assets</div>
-              <div class="pill">Space & Orbital Infrastructure</div>
-            </div>
-          </div>
-        </section>
-
-        <!-- OUTPUTS -->
-        <section id="outputs">
-          <header>
-            <div>
-              <h2>Expected Outputs</h2>
-              <div class="subnote">What reviewers can expect to see delivered</div>
-            </div>
-          </header>
-
-          <div class="grid">
-            <div class="card">
-              <h3>Technical deliverables</h3>
-              <ul>
-                <li>Standardized EWS indicator bundle + estimation protocol</li>
-                <li>Uncertainty & robustness criteria (noise, partial observability)</li>
-                <li>Cross-system validation report (comparative performance)</li>
-                <li>Computational toolkit (prototype) + documentation</li>
-              </ul>
-            </div>
-            <div class="card">
-              <h3>Scholarly outputs</h3>
-              <ul>
-                <li>Methods manuscript (indicator protocol + validation)</li>
-                <li>Cross-system results manuscript (portability + robustness)</li>
-                <li>Capstone workshop synthesis + roadmap for scaling</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="divider"></div>
-
-          <div class="card">
-            <h3>Downstream translation (future pathway)</h3>
-            <p>
-              After scientific validation, the methodology can be translated into standardized analytical protocols
-              compatible with institutional decision environments. Any future certification, licensing, or AI-enabled
-              monitoring pathways are treated as downstream translation — contingent on peer-reviewed validation and
-              demonstrated robustness.
-            </p>
-          </div>
-        </section>
-
-        <!-- ROLES -->
-        <section id="roles">
-          <header>
-            <div>
-              <h2>PI / Team Roles (Draft)</h2>
-              <div class="subnote">Clear expectations; avoids “symbolic PI” ambiguity</div>
-            </div>
-          </header>
-
-          <div class="grid">
-            <div class="card">
-              <h3>PI (faculty)</h3>
-              <ul>
-                <li>Scientific leadership on methods and validation choices</li>
-                <li>Oversight of modeling scope and publication strategy</li>
-                <li>Periodic review of results and robustness claims</li>
-              </ul>
-            </div>
-
-            <div class="card">
-              <h3>Framework / Architecture lead</h3>
-              <ul>
-                <li>Problem framing across domains and decision interfaces</li>
-                <li>TFP alignment and translation to operational outputs</li>
-                <li>Cross-sector research environment design and stakeholder linkage</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <!-- REFERENCES -->
-        <section id="refs">
-          <header>
-            <div>
-              <h2>References (Starter Set)</h2>
-              <div class="subnote">Replace / expand as the PI prefers</div>
-            </div>
-          </header>
-
-          <div class="card">
-            <h3>Foundational areas</h3>
-            <ul>
-              <li>Early Warning Signals (EWS) and Critical Slowing Down (CSD) literature</li>
-              <li>Nonlinear dynamics and bifurcation theory references</li>
-              <li>Resilience metrics and regime shift detection studies</li>
-              <li>Methods for time-series preprocessing and uncertainty under noise</li>
-            </ul>
-
-            <div class="divider"></div>
-
-            <p class="muted2">
-              Note: This page intentionally avoids embedding equations to keep the focus on scope, deliverables,
-              and research execution. Mathematical formalization and citations are expected to be finalized jointly
-              with the PI in the proposal stage.
-            </p>
-          </div>
-        </section>
-
-        <footer>
-          © c-ECO — Threshold Dynamics Research Layer. This page is designed as a scientific-facing complement to the
-          doctrinal and operational layers of the c-ECO framework.
-        </footer>
-
-      </div>
-    </main>
-
-  </div>
 </body>
 </html>
