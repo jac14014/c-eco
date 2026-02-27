@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>c-ECO | Mathematical Backbone (Threshold Dynamics Research)</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --sidebar-width: 320px;
+      --legal-blue: #1a2b3c;
+      --legal-blue-dark: #0f1a25;
+      --gold-accent: #c5a059;
+      --bg-body: #050505;
+      --panel: rgba(255,255,255,0.04);
+      --panel-2: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.10);
+      --muted: rgba(255,255,255,0.72);
+      --muted-2: rgba(255,255,255,0.58);
+      --text: rgba(255,255,255,0.92);
+      --shadow: 0 18px 60px rgba(0,0,0,0.55);
+      --radius: 18px;
+      --radius-sm: 12px;
+      --max: 1160px;
+    }
+
+    *{ box-sizing:border-box; }
+    html, body{ height:100%; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 800px at 15% 10%, rgba(197,160,89,0.12), transparent 55%),
+                  radial-gradient(1000px 700px at 95% 15%, rgba(255,255,255,0.06), transparent 55%),
+                  linear-gradient(180deg, #050505, #060606 40%, #050505 100%);
+      color: var(--text);
+    }
+
+    a{ color: inherit; text-decoration:none; }
+    .serif{ font-family: "Libre Baskerville", Georgia, serif; }
+    .gold{ color: var(--gold-accent); }
+    .muted{ color: var(--muted); }
+    .muted2{ color: var(--muted-2); }
+
+    /* Layout */
+    .layout{
+      display:grid;
+      grid-template-columns: var(--sidebar-width) 1fr;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    aside{
+      position: sticky;
+      top:0;
+      height:100vh;
+      padding: 28px 20px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.15));
+      backdrop-filter: blur(10px);
+    }
+    .brand{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      padding: 10px 10px 18px 10px;
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.03);
+      box-shadow: var(--shadow);
+    }
+    .brand .kicker{
+      font-size: 10px;
+      letter-spacing: 0.55em;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: rgba(255,255,255,0.75);
+    }
+    .brand .title{
+      font-size: 18px;
+      line-height: 1.3;
+      font-weight: 800;
+    }
+    .brand .subtitle{
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--muted-2);
+    }
+
+    nav{
+      margin-top: 18px;
+      padding: 12px 10px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.02);
+    }
+    nav .label{
+      font-size: 10px;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: rgba(255,255,255,0.68);
+      margin: 6px 8px 10px;
+    }
+    .navlink{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      padding: 10px 10px;
+      border-radius: 12px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.82);
+      transition: 0.2s ease;
+      border: 1px solid transparent;
+    }
+    .navlink:hover{
+      background: rgba(197,160,89,0.08);
+      border-color: rgba(197,160,89,0.22);
+      color: rgba(255,255,255,0.95);
+    }
+    .dot{
+      width: 7px; height:7px;
+      border-radius: 99px;
+      background: rgba(197,160,89,0.75);
+      box-shadow: 0 0 0 4px rgba(197,160,89,0.12);
+      flex: 0 0 auto;
+    }
+    .side-cta{
+      margin-top: 16px;
+      padding: 14px 14px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(197,160,89,0.22);
+      background: linear-gradient(180deg, rgba(197,160,89,0.10), rgba(255,255,255,0.02));
+    }
+    .side-cta .small{
+      font-size: 12px;
+      color: rgba(255,255,255,0.80);
+      line-height: 1.5;
+      margin: 0 0 10px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(197,160,89,0.35);
+      background: rgba(197,160,89,0.10);
+      color: rgba(255,255,255,0.92);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.02em;
+      transition: 0.2s ease;
+      width: 100%;
+    }
+    .btn:hover{
+      background: rgba(197,160,89,0.16);
+      transform: translateY(-1px);
+    }
+
+    /* Main */
+    main{
+      padding: 28px 20px 80px;
+    }
+    .wrap{
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+
+    /* Hero */
+    .hero{
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      box-shadow: var(--shadow);
+      padding: 34px 30px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero:before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(800px 520px at 20% 15%, rgba(197,160,89,0.16), transparent 55%),
+                  radial-gradient(700px 460px at 90% 20%, rgba(255,255,255,0.08), transparent 60%);
+      pointer-events:none;
+      opacity: 0.9;
+    }
+    .hero > *{ position: relative; z-index: 1; }
+    .kicker{
+      font-size: 10px;
+      letter-spacing: 0.6em;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: rgba(255,255,255,0.70);
+      margin-bottom: 12px;
+    }
+    h1{
+      margin:0 0 14px;
+      font-size: 38px;
+      line-height: 1.15;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .hero p{
+      margin: 0;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.7;
+      max-width: 920px;
+      font-size: 14px;
+    }
+    .badge-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top: 18px;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+      font-size: 12px;
+      color: rgba(255,255,255,0.82);
+    }
+    .badge b{ color: rgba(255,255,255,0.92); }
+
+    /* Sections */
+    section{
+      margin-top: 22px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.03);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+      padding: 26px 24px;
+    }
+    section header{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom: 16px;
+    }
+    h2{
+      margin:0;
+      font-size: 20px;
+      line-height: 1.25;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+    .subnote{
+      font-size: 12px;
+      color: rgba(255,255,255,0.58);
+      line-height: 1.5;
+      max-width: 520px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap:16px;
+    }
+    .card{
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.22);
+      padding: 16px 16px;
+    }
+    .card h3{
+      margin: 0 0 10px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.28em;
+      color: rgba(255,255,255,0.72);
+      font-weight: 800;
+    }
+    .card p, .card li{
+      font-size: 13px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.78);
+      margin: 0;
+    }
+
+    ul{
+      margin: 8px 0 0;
+      padding-left: 18px;
+    }
+    li{ margin: 8px 0; }
+
+    .divider{
+      height: 1px;
+      background: rgba(255,255,255,0.10);
+      margin: 16px 0;
+    }
+
+    /* Timeline */
+    .timeline{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    .phase{
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(197,160,89,0.20);
+      background: linear-gradient(180deg, rgba(197,160,89,0.07), rgba(255,255,255,0.02));
+      padding: 16px 16px;
+    }
+    .phase .tag{
+      display:inline-block;
+      font-size: 10px;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: rgba(255,255,255,0.76);
+      margin-bottom: 8px;
+    }
+    .phase h4{
+      margin: 0 0 8px;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+    .phase p{
+      margin: 0 0 10px;
+      color: rgba(255,255,255,0.76);
+      line-height: 1.65;
+      font-size: 13px;
+    }
+    .phase ul{
+      margin: 0;
+      padding-left: 18px;
+    }
+    .phase li{ margin: 8px 0; color: rgba(255,255,255,0.76); }
+
+    /* Sectors list */
+    .sectors{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:10px;
+      margin-top: 8px;
+    }
+    .pill{
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.03);
+      padding: 10px 12px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.80);
+      line-height: 1.3;
+    }
+
+    /* Footer */
+    footer{
+      margin-top: 22px;
+      padding: 18px 6px 0;
+      color: rgba(255,255,255,0.52);
+      font-size: 12px;
+      line-height: 1.6;
+      max-width: var(--max);
+      margin-left:auto;
+      margin-right:auto;
+    }
+
+    /* Mobile */
+    @media (max-width: 980px){
+      .layout{ grid-template-columns: 1fr; }
+      aside{ position: relative; height: auto; border-right:none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .grid{ grid-template-columns: 1fr; }
+      .timeline{ grid-template-columns: 1fr; }
+      .sectors{ grid-template-columns: 1fr; }
+      h1{ font-size: 32px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside>
+      <div class="brand">
+        <div class="kicker">c-ECO</div>
+        <div class="title serif italic">Mathematical Backbone</div>
+        <div class="subtitle">
+          Threshold Dynamics Research<br/>
+          Early Warning Signals · Critical Slowing Down
+        </div>
+      </div>
+
+      <nav>
+        <div class="label">Navigation</div>
+        <a class="navlink" href="#overview"><span class="dot"></span>Overview</a>
+        <a class="navlink" href="#research-question"><span class="dot"></span>Research Question</a>
+        <a class="navlink" href="#method"><span class="dot"></span>Method (EWS / CSD)</a>
+        <a class="navlink" href="#plan"><span class="dot"></span>24-Month Plan</a>
+        <a class="navlink" href="#sectors"><span class="dot"></span>13 Initial Sectors</a>
+        <a class="navlink" href="#outputs"><span class="dot"></span>Outputs</a>
+        <a class="navlink" href="#roles"><span class="dot"></span>PI / Team Roles</a>
+        <a class="navlink" href="#refs"><span class="dot"></span>References</a>
+      </nav>
+
+      <div class="side-cta">
+        <p class="small">
+          This page is designed to speak directly to scientific reviewers and PIs:
+          <span class="gold">what is computed</span>, <span class="gold">how it is validated</span>, and <span class="gold">what is delivered</span>.
+        </p>
+        <a class="btn" href="mailto:contact@c-eco.org">Request 1-Page Technical Sheet</a>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main>
+      <div class="wrap">
+
+        <!-- HERO -->
+        <div class="hero" id="overview">
+          <div class="kicker">Research Layer · Threshold Dynamics</div>
+          <h1 class="serif italic">
+            Early Warning Signals (EWS) for Threshold Proximity in Complex Systems
+          </h1>
+          <p>
+            This research layer formalizes a scientific backbone for the c-ECO Threshold Function Protocol (TFP),
+            focusing on <span class="gold">Early Warning Signals</span> and <span class="gold">Critical Slowing Down</span>
+            as operational tools to detect resilience loss before visible disruption. The aim is not to claim a single
+            universal distance formula, but to build a validated, cross-domain methodology for quantifying proximity to
+            threshold states under real-world constraints (noise, partial observability, heterogeneous data).
+          </p>
+
+          <div class="badge-row">
+            <span class="badge"><b>Core lens:</b> dynamical systems</span>
+            <span class="badge"><b>Primary outputs:</b> indicators + toolkit</span>
+            <span class="badge"><b>Validation:</b> cross-system testing</span>
+            <span class="badge"><b>Translation:</b> decision interface layer</span>
+          </div>
+        </div>
+
+        <!-- RESEARCH QUESTION -->
+        <section id="research-question">
+          <header>
+            <div>
+              <h2>Research Question</h2>
+              <div class="subnote">Scientific framing for reviewers and potential PIs</div>
+            </div>
+          </header>
+
+          <div class="grid">
+            <div class="card">
+              <h3>Core question</h3>
+              <p>
+                How can we quantify <span class="gold">proximity to threshold states</span> in complex systems using
+                established Early Warning Signals (EWS) — and validate their robustness across distinct dynamical regimes?
+              </p>
+
+              <div class="divider"></div>
+
+              <h3>Why this matters</h3>
+              <p>
+                Many institutional, infrastructural, ecological, and financial systems exhibit nonlinear dynamics and regime shifts.
+                Without validated indicators of resilience loss, risks typically become visible only after stability boundaries
+                have been crossed, at high cost and often under irreversibility constraints.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>What this is / is not</h3>
+              <ul>
+                <li><b>This is:</b> a research program in threshold dynamics, resilience metrics, and early warning detection.</li>
+                <li><b>This is not:</b> a policy prescription page, nor a claim of a single universal “magic” threshold formula.</li>
+                <li><b>Deliverable goal:</b> a validated indicator bundle + standardized estimation protocol + computational toolkit.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- METHOD -->
+        <section id="method">
+          <header>
+            <div>
+              <h2>Method</h2>
+              <div class="subnote">Early Warning Signals (EWS) + Critical Slowing Down (CSD)</div>
+            </div>
+          </header>
+
+          <div class="grid">
+            <div class="card">
+              <h3>EWS bundle (indicator set)</h3>
+              <ul>
+                <li><b>Lag-1 autocorrelation trends</b> as resilience declines (CSD signature).</li>
+                <li><b>Variance escalation</b> as perturbations amplify near transitions.</li>
+                <li><b>Return-rate / recovery behavior</b> as systems become slower to recover after shocks.</li>
+                <li><b>Local stability proxies</b> derived from neighborhood dynamics (where feasible).</li>
+              </ul>
+
+              <div class="divider"></div>
+
+              <h3>Estimation protocol</h3>
+              <ul>
+                <li>Windowing & rolling estimation</li>
+                <li>Detrending / de-seasonalization where relevant</li>
+                <li>Stationarity diagnostics and regime segmentation</li>
+                <li>Uncertainty & confidence scoring under noise</li>
+                <li>Stress tests under sparse / partial observation</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3>Interpretation layer</h3>
+              <p>
+                The project explicitly distinguishes between indicator detection and causal interpretation.
+                Where appropriate, bifurcation-aware interpretation is used to classify transition types
+                (e.g., sudden regime shifts vs oscillatory instabilities) and to avoid false confidence in
+                generic signals.
+              </p>
+
+              <div class="divider"></div>
+
+              <h3>Decision interface</h3>
+              <p>
+                Indicators are translated into a standardized output format compatible with the c-ECO Integrated Operational Manual,
+                without embedding a regulatory stance. The goal is reproducible analysis under uncertainty with clear confidence bounds.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 24-MONTH PLAN -->
+        <section id="plan">
+          <header>
+            <div>
+              <h2>How this fits into the 24-Month Plan</h2>
+              <div class="subnote">Concrete execution roadmap (LOI-ready)</div>
+            </div>
+          </header>
+
+          <div class="timeline">
+            <div class="phase">
+              <div class="tag">Months 1–6</div>
+              <h4>Formal definition & estimation protocols</h4>
+              <p>Define the indicator set and operational estimation standards for real-world data constraints.</p>
+              <ul>
+                <li>Formalize EWS indicator bundle and output specification</li>
+                <li>Protocols: windowing, detrending, stationarity checks, uncertainty</li>
+                <li>Baseline synthetic experiments for calibration behavior</li>
+              </ul>
+            </div>
+
+            <div class="phase">
+              <div class="tag">Months 7–12</div>
+              <h4>Bifurcation-aware interpretation & drift framing</h4>
+              <p>Align EWS signals with transition classes and model slow safety-margin erosion.</p>
+              <ul>
+                <li>Interpretation: saddle-node vs Hopf regimes (and related structures)</li>
+                <li>Parameter drift / safety margin erosion conceptualization</li>
+                <li>False-positive controls and robustness criteria</li>
+              </ul>
+            </div>
+
+            <div class="phase">
+              <div class="tag">Months 13–18</div>
+              <h4>Cross-system validation</h4>
+              <p>Test indicator portability across two contrasting dynamical systems under noise and stress.</p>
+              <ul>
+                <li>Two-system validation (e.g., supply chain network + ecological feedback loop)</li>
+                <li>Noise & stress testing (sampling limits, proxy variables)</li>
+                <li>Comparative performance and confidence scoring</li>
+              </ul>
+            </div>
+
+            <div class="phase">
+              <div class="tag">Months 19–24</div>
+              <h4>Toolkit + manuscripts + workshop</h4>
+              <p>Deliver a standardized computational toolkit and publish validated results.</p>
+              <ul>
+                <li>Threshold indicator toolkit (standardized algorithms + docs)</li>
+                <li>Manuscripts (methods + validation)</li>
+                <li>Capstone expert workshop and roadmap</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTORS -->
+        <section id="sectors">
+          <header>
+            <div>
+              <h2>13 Initial Sectors (Research Environment)</h2>
+              <div class="subnote">Cross-domain testing environment; not a claim of immediate full deployment</div>
+            </div>
+          </header>
+
+          <div class="card">
+            <p>
+              The research is designed to be portable across domains that exhibit nonlinear dynamics and resilience loss.
+              The initial cross-sector environment supports generalization tests and downstream translation pathways.
+            </p>
+
+            <div class="sectors">
+              <div class="pill">Mining & Mineral Extraction</div>
+              <div class="pill">Agribusiness & Intensive Land Use</div>
+              <div class="pill">Energy Systems</div>
+              <div class="pill">Water & Sanitation</div>
+              <div class="pill">Infrastructure & Heavy Construction</div>
+              <div class="pill">Chemical & Materials Systems</div>
+              <div class="pill">Real Estate & Urbanization</div>
+              <div class="pill">Digital Technology & Data Infrastructure</div>
+              <div class="pill">Logistics & Transportation</div>
+              <div class="pill">Financial Systems</div>
+              <div class="pill">AI & Algorithmic Systems</div>
+              <div class="pill">Forests, Carbon & Natural Assets</div>
+              <div class="pill">Space & Orbital Infrastructure</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- OUTPUTS -->
+        <section id="outputs">
+          <header>
+            <div>
+              <h2>Expected Outputs</h2>
+              <div class="subnote">What reviewers can expect to see delivered</div>
+            </div>
+          </header>
+
+          <div class="grid">
+            <div class="card">
+              <h3>Technical deliverables</h3>
+              <ul>
+                <li>Standardized EWS indicator bundle + estimation protocol</li>
+                <li>Uncertainty & robustness criteria (noise, partial observability)</li>
+                <li>Cross-system validation report (comparative performance)</li>
+                <li>Computational toolkit (prototype) + documentation</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Scholarly outputs</h3>
+              <ul>
+                <li>Methods manuscript (indicator protocol + validation)</li>
+                <li>Cross-system results manuscript (portability + robustness)</li>
+                <li>Capstone workshop synthesis + roadmap for scaling</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="card">
+            <h3>Downstream translation (future pathway)</h3>
+            <p>
+              After scientific validation, the methodology can be translated into standardized analytical protocols
+              compatible with institutional decision environments. Any future certification, licensing, or AI-enabled
+              monitoring pathways are treated as downstream translation — contingent on peer-reviewed validation and
+              demonstrated robustness.
+            </p>
+          </div>
+        </section>
+
+        <!-- ROLES -->
+        <section id="roles">
+          <header>
+            <div>
+              <h2>PI / Team Roles (Draft)</h2>
+              <div class="subnote">Clear expectations; avoids “symbolic PI” ambiguity</div>
+            </div>
+          </header>
+
+          <div class="grid">
+            <div class="card">
+              <h3>PI (faculty)</h3>
+              <ul>
+                <li>Scientific leadership on methods and validation choices</li>
+                <li>Oversight of modeling scope and publication strategy</li>
+                <li>Periodic review of results and robustness claims</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3>Framework / Architecture lead</h3>
+              <ul>
+                <li>Problem framing across domains and decision interfaces</li>
+                <li>TFP alignment and translation to operational outputs</li>
+                <li>Cross-sector research environment design and stakeholder linkage</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- REFERENCES -->
+        <section id="refs">
+          <header>
+            <div>
+              <h2>References (Starter Set)</h2>
+              <div class="subnote">Replace / expand as the PI prefers</div>
+            </div>
+          </header>
+
+          <div class="card">
+            <h3>Foundational areas</h3>
+            <ul>
+              <li>Early Warning Signals (EWS) and Critical Slowing Down (CSD) literature</li>
+              <li>Nonlinear dynamics and bifurcation theory references</li>
+              <li>Resilience metrics and regime shift detection studies</li>
+              <li>Methods for time-series preprocessing and uncertainty under noise</li>
+            </ul>
+
+            <div class="divider"></div>
+
+            <p class="muted2">
+              Note: This page intentionally avoids embedding equations to keep the focus on scope, deliverables,
+              and research execution. Mathematical formalization and citations are expected to be finalized jointly
+              with the PI in the proposal stage.
+            </p>
+          </div>
+        </section>
+
+        <footer>
+          © c-ECO — Threshold Dynamics Research Layer. This page is designed as a scientific-facing complement to the
+          doctrinal and operational layers of the c-ECO framework.
+        </footer>
+
+      </div>
+    </main>
+
+  </div>
+</body>
+</html>
