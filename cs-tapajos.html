@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>c-ECO | Tapajós Case Study (Interpretive Note)</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --sidebar-width: 320px;
+      --legal-blue: #1a2b3c;
+      --legal-blue-dark: #0f1a25;
+      --gold-accent: #c5a059;
+      --bg-body: #f8f9fa;
+      --text-main: #222;
+      --text-muted: #555;
+      --border-color: #e0e0e0;
+
+      --font-serif: 'Libre Baskerville', serif;
+      --font-sans: 'Inter', sans-serif;
+
+      --size-h1: 26px;
+      --size-h2: 18px;
+      --size-h3: 15px;
+      --size-body: 16px;
+      --size-ui: 14px;
+      --size-small: 13px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg-body);
+      font-family: var(--font-sans);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: var(--sidebar-width);
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      background: #fff;
+      border-right: 1px solid var(--border-color);
+      padding: 20px 22px 80px;
+      overflow-y: auto;
+      z-index: 1000;
+      transition: transform .3s ease;
+    }
+    .sidebar::-webkit-scrollbar { width: 5px; }
+    .sidebar::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+
+    .sidebar-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+      border-bottom: 2px solid var(--gold-accent);
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 10;
+    }
+
+    .logo-box {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--border-color);
+      background: #fff;
+      color: var(--legal-blue);
+      font-weight: 900;
+      font-size: 1.4rem;
+      text-decoration: none;
+    }
+
+    .sidebar-title {
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: var(--legal-blue);
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    .search-container {
+      margin-bottom: 20px;
+      position: sticky;
+      top: 70px;
+      background: #fff;
+      z-index: 10;
+      padding-bottom: 10px;
+    }
+
+    #sidebarSearch {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    #sidebarSearch:focus {
+      border-color: var(--gold-accent);
+      box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15);
+    }
+
+    .nav-list { list-style: none; padding: 0; margin: 0; }
+
+    .nav-section-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--gold-accent);
+      margin-top: 25px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      border-top: 1px solid #eee;
+      padding-top: 15px;
+      letter-spacing: 1px;
+    }
+
+    .nav-item-chapter a {
+      font-weight: 700;
+      color: var(--legal-blue);
+      font-size: 13px;
+      display: block;
+      padding: 8px 0 4px 0;
+      text-decoration: none;
+      border-bottom: 1px solid #f5f5f5;
+    }
+
+    .nav-sub-item a {
+      font-size: 12.5px;
+      color: #666;
+      display: block;
+      padding: 4px 0 4px 12px;
+      text-decoration: none;
+      border-left: 2px solid #eee;
+      margin-left: 2px;
+      transition: all 0.2s;
+    }
+    .nav-sub-item a:hover {
+      border-left-color: var(--gold-accent);
+      color: var(--legal-blue);
+      background: linear-gradient(90deg, rgba(197,160,89,0.05), transparent);
+    }
+
+    .nav-item.hidden, .nav-section-title.hidden { display: none; }
+
+    /* Main Content */
+    .main-content {
+      margin-left: var(--sidebar-width);
+      padding: 60px 50px;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .document-page {
+      background: #fff;
+      width: 100%;
+      max-width: 950px;
+      padding: 80px;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.03);
+      border: 1px solid #eef0f2;
+    }
+
+    .article-title {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: var(--size-h1);
+      color: var(--legal-blue);
+      margin-bottom: 25px;
+      line-height: 1.3;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 15px;
+    }
+
+    .doc-subtitle {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: var(--size-h2);
+      color: var(--legal-blue);
+      margin-top: 40px;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-left: 4px solid var(--gold-accent);
+      padding-left: 15px;
+    }
+
+    .doc-sub-subtitle {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: var(--size-h3);
+      color: var(--text-muted);
+      margin-top: 25px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .caput {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      line-height: 1.8;
+      color: #111;
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+
+    .paragraph {
+      font-family: var(--font-sans);
+      font-size: var(--size-body);
+      line-height: 1.7;
+      color: #333;
+      margin-bottom: 15px;
+      text-align: justify;
+    }
+
+    .inciso {
+      font-family: var(--font-sans);
+      font-size: var(--size-body);
+      line-height: 1.6;
+      color: #444;
+      margin-left: 30px;
+      margin-bottom: 10px;
+      padding-left: 15px;
+      border-left: 2px solid #f0f0f0;
+      text-align: justify;
+    }
+
+    .bullet-list { margin-left: 20px; margin-bottom: 20px; }
+    .bullet-list li { font-size: var(--size-body); color: #444; margin-bottom: 8px; line-height: 1.6; }
+
+    .article-box { margin-bottom: 60px; scroll-margin-top: 40px; }
+
+    .chapter-title {
+      font-family: var(--font-sans);
+      font-weight: 800;
+      font-size: 14px;
+      color: var(--gold-accent);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-align: center;
+      margin: 80px 0 40px 0;
+      padding-bottom: 15px;
+      border-bottom: 2px solid var(--legal-blue);
+    }
+
+    .ai-id{
+      display:inline-block;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: #999;
+      margin-bottom: 10px;
+    }
+
+    .placeholder {
+      background: #fafafa;
+      border-left: 4px solid #ddd;
+      padding: 18px 18px;
+      margin: 18px 0 0;
+      color: #666;
+      font-size: 14px;
+      border-radius: 4px;
+    }
+
+    /* Mobile */
+    .mobile-btn { display: none; }
+
+    @media (max-width: 1024px) {
+      .sidebar { transform: translateX(-100%); width: 280px; }
+      .sidebar.open { transform: translateX(0); box-shadow: 10px 0 50px rgba(0,0,0,0.3); }
+      .main-content { margin-left: 0; padding: 20px; }
+      .document-page { padding: 40px 20px; }
+      .mobile-btn {
+        display: block;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: var(--legal-blue);
+        color: #fff;
+        border: none;
+        padding: 15px 20px;
+        font-weight: 800;
+        z-index: 2000;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      }
+      html, body { width: 100%; max-width: 100vw; overflow-x: hidden; position: relative; overscroll-behavior-x: none; }
+      .main-content { width: 100%; max-width: 100vw; overflow-x: hidden; }
+      .document-page { width: 100%; max-width: 100%; margin: 0; border: none; box-shadow: none; }
+      .caput, .paragraph, .inciso { text-align: left; }
+      .inciso { margin-left: 15px; padding-left: 10px; }
+      .article-title { font-size: 22px; }
+      .doc-subtitle { font-size: 18px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Mobile toggle -->
+  <button class="mobile-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+    INDEX
+  </button>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+      <a href="index.html" class="logo-box" aria-label="Home">Σ</a>
+      <div class="sidebar-title">CASE STUDY<br>TAPAJÓS (c-ECO)</div>
+    </div>
+
+    <div class="search-container">
+      <input type="text" id="sidebarSearch" placeholder="Search section..." aria-label="Search Index">
+    </div>
+
+    <nav>
+      <ul class="nav-list">
+
+        <li class="nav-section-title">FRONT MATTER</li>
+        <li class="nav-item nav-item-chapter"><a href="#TAP-0">Cover & Metadata</a></li>
+
+        <li class="nav-section-title">PART I — EXECUTIVE SYNTHESIS</li>
+        <li class="nav-item nav-item-chapter"><a href="#TAP-1">1. Executive Summary</a></li>
+
+        <li class="nav-section-title">PART II — NORMATIVE CONTEXT</li>
+        <li class="nav-item nav-item-chapter"><a href="#TAP-2">2. Legal-Normative Context</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-2-1">2.1 Inclusion of the Waterway in the PND</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-2-2">2.2 Enabling Nature of the Decree</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-2-3">2.3 Constitutional and Statutory Foundations</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-2-4">2.4 Subsequent Revocation and Persistence of Risk Vectors</a></li>
+
+        <li class="nav-section-title">PART III — TRAJECTORY & ADMINISTRATIVE SEQUENCING</li>
+        <li class="nav-item nav-item-chapter"><a href="#TAP-3">3. Enabling Acts and Administrative Trajectory</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-3-1">3.1 Opening of a Potential Trajectory</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-3-2">3.2 No Automatic Consolidation of Expectations</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-3-3">3.3 Progressive Decision Sequencing</a></li>
+
+        <li class="nav-section-title">PART IV — PATH DEPENDENCY RISK</li>
+        <li class="nav-item nav-item-chapter"><a href="#TAP-4">4. Path Dependency and Lock-In Dynamics</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-4-1">4.1 Premature Consolidation of Choices</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-4-2">4.2 Increasing Rigidity and Early Closure</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-4-3">4.3 Legal Exposure and Late Judicialization</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-4-4">4.4 Institutional Cost of Reversal</a></li>
+
+        <li class="nav-section-title">PART V — FPIC AS STRUCTURAL CONDITIONALITY</li>
+        <li class="nav-item nav-item-chapter"><a href="#TAP-5">5. Free, Prior and Informed Consent (FPIC)</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-5-1">5.1 Constitutional and Conventional Foundations</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-5-2">5.2 Proper Temporal Insertion</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-5-3">5.3 Risk of Late Consultation</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-5-4">5.4 Material Function of Participation</a></li>
+
+        <li class="nav-section-title">PART VI — PRUDENTIAL PAUSE & DECISION REVERSIBILITY</li>
+        <li class="nav-item nav-item-chapter"><a href="#TAP-6">6. Decision Reversibility and Prudential Suspension</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-6-1">6.1 Non-Sanctioning Nature</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-6-2">6.2 Compatibility with Constitutional Principles</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-6-3">6.3 Preventive Risk Management</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-6-4">6.4 Preserving Administrative Adaptability</a></li>
+
+        <li class="nav-section-title">PART VII — EX ANTE PRUDENTIAL GOVERNANCE</li>
+        <li class="nav-item nav-item-chapter"><a href="#TAP-7">7. Ex Ante Prudential Governance</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-7-1">7.1 Operational Conditionalities</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-7-2">7.2 Provisional Metrics and Thresholds</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-7-3">7.3 Progressive Decision Vectors</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-7-4">7.4 Monitoring and Traceability</a></li>
+
+        <li class="nav-section-title">PART VIII — c-ECO COMPATIBILITY LAYER</li>
+        <li class="nav-item nav-item-chapter"><a href="#TAP-8">8. Operational Architecture Compatible with c-ECO</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-8-1">8.1 Integrating Risk Management and Legality</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-8-2">8.2 Prudential Calibration Structure</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-8-3">8.3 Verifiable Decision Vectors</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-8-4">8.4 Institutional Defensibility</a></li>
+
+        <li class="nav-section-title">PART IX — MODELING STAGE CENTRALITY</li>
+        <li class="nav-item nav-item-chapter"><a href="#TAP-9">9. Centrality of the Modeling Stage</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-9-1">9.1 Maximum Preventive Efficiency Point</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-9-2">9.2 Embedding Safeguards at the Origin</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-9-3">9.3 Reducing Institutional Conflict</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-9-4">9.4 Future Trajectory Governability</a></li>
+
+        <li class="nav-section-title">PART X — MODEL TERMS OF REFERENCE CLAUSES</li>
+        <li class="nav-item nav-item-chapter"><a href="#TAP-10">10. Suggested Clauses for the Terms of Reference</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-10-1">10.1 FPIC Temporal Conditionality</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-10-2">10.2 Preventive Suspension for Irreversibility Risk</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-10-3">10.3 Decision Vectors and Pause Triggers</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-10-4">10.4 Institutional Risk Management and Defensibility</a></li>
+
+        <li class="nav-section-title">PART XI — OPERATIONAL INDICATORS</li>
+        <li class="nav-item nav-item-chapter"><a href="#TAP-11">11. Operational Indicators for Ex Ante Internalization</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-11-1">11.1 Explicit Safeguards</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-11-2">11.2 Formal Risk Management Section</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-11-3">11.3 Provisional Metrics and Thresholds</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-11-4">11.4 Monitoring Reports</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-11-5">11.5 Logged Calibrated Decisions</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-11-6">11.6 Multidisciplinary Technical Participation</a></li>
+
+        <li class="nav-section-title">PART XII — PRUDENTIAL CYCLE FLOW</li>
+        <li class="nav-item nav-item-chapter"><a href="#TAP-12">12. Official Prudential Cycle Flowchart</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-12-1">12.1 Risk Event Identification</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-12-2">12.2 Prudential Pause Decision</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-12-3">12.3 Remediation Window</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-12-4">12.4 Readiness Checklist for Restart</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-12-5">12.5 Restart or Recalibration</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-12-6">12.6 Iterative Nature of the Cycle</a></li>
+
+        <li class="nav-section-title">PART XIII — OPERATIONAL PLAYBOOK</li>
+        <li class="nav-item nav-item-chapter"><a href="#TAP-13">13. Operational Playbook</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-13-1">13.1 Stages</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-13-2">13.2 Formal Instruments</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-13-3">13.3 Responsibilities</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-13-4">13.4 Documentary Evidence</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-13-5">13.5 Mitigated Risks</a></li>
+
+        <li class="nav-section-title">PART XIV — STRUCTURED MODEL TEMPLATE</li>
+        <li class="nav-item nav-item-chapter"><a href="#TAP-14">14. Structured Modeling Template with Integrated Prudential Governance</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-14-1">14.1 Object</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-14-2">14.2 Strategic Directives</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-14-3">14.3 Conditionalities and Safeguards</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-14-4">14.4 Dynamic Risk Matrix</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-14-5">14.5 Multidisciplinary Governance</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-14-6">14.6 Deliverables and Monitoring</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-14-7">14.7 Record and Transparency</a></li>
+
+        <li class="nav-section-title">PART XV — SPECIFIC CLAUSES</li>
+        <li class="nav-item nav-item-chapter"><a href="#TAP-15">15. Specific Clauses</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-15-1">15.1 FPIC Clause (ILO Convention 169)</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-15-2">15.2 Sanctions and Contractual Resilience Clause</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-15-3">15.3 Penalty for Technical Omission</a></li>
+
+        <li class="nav-section-title">PART XVI — INSTRUMENT TEMPLATES</li>
+        <li class="nav-item nav-item-chapter"><a href="#TAP-16">16. Instrument Templates</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-16-1">16.1 Draft Reasoned Memorandum</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-16-2">16.2 Draft Normative Ordinance</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-16-3">16.3 Technical Risk Assessment Note (TRAN)</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-16-4">16.4 Restart Readiness Checklist (RRC)</a></li>
+        <li class="nav-item nav-sub-item"><a href="#TAP-16-5">16.5 Remediation Technical Note</a></li>
+
+        <li class="nav-section-title">PART XVII — CONCLUSION</li>
+        <li class="nav-item nav-item-chapter"><a href="#TAP-17">17. Interpretive Conclusion</a></li>
+
+        <li class="nav-section-title">PART XVIII — REFERENCES</li>
+        <li class="nav-item nav-item-chapter"><a href="#TAP-18">18. References</a></li>
+
+        <li style="height: 100px;"></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <article class="document-page">
+
+      <!-- Cover / Metadata -->
+      <section id="TAP-0" class="article-box">
+        <span class="ai-id">[CECO-CS-TAPAJOS-001]</span>
+        <h2 class="article-title">Tapajós Waterway (PND) — Interpretive Note (c-ECO Lens)</h2>
+        <div class="caput">
+          Execution of the Tapajós River Waterway within Brazil’s National Privatization Program (PND): integration of ex ante conditionalities and operational indicators of prudential governance.
+        </div>
+
+        <div class="paragraph"><strong>Document Type:</strong> Case Study / Interpretive Note</div>
+        <div class="paragraph"><strong>Language:</strong> English</div>
+        <div class="paragraph"><strong>Status:</strong> Draft (web publication format)</div>
+
+        <div class="placeholder">
+          Placeholder: add authorship, date, version, and the list of normative acts analyzed.
+        </div>
+      </section>
+
+      <div class="chapter-title">PART I — EXECUTIVE SYNTHESIS</div>
+
+      <section id="TAP-1" class="article-box">
+        <h2 class="article-title">1. Executive Summary</h2>
+        <div class="placeholder">Placeholder: 8–12 paragraphs max (problem framing, legal insight, governance solution, operational outputs).</div>
+      </section>
+
+      <div class="chapter-title">PART II — NORMATIVE CONTEXT</div>
+
+      <section id="TAP-2" class="article-box">
+        <h2 class="article-title">2. Legal-Normative Context</h2>
+
+        <h3 id="TAP-2-1" class="doc-subtitle">2.1 Inclusion of the Waterway in the PND</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-2-2" class="doc-subtitle">2.2 Enabling Nature of the Decree</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-2-3" class="doc-subtitle">2.3 Constitutional and Statutory Foundations</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-2-4" class="doc-subtitle">2.4 Subsequent Revocation and Persistence of Risk Vectors</h3>
+        <div class="placeholder">Placeholder.</div>
+      </section>
+
+      <div class="chapter-title">PART III — TRAJECTORY & ADMINISTRATIVE SEQUENCING</div>
+
+      <section id="TAP-3" class="article-box">
+        <h2 class="article-title">3. Enabling Acts and Administrative Trajectory</h2>
+
+        <h3 id="TAP-3-1" class="doc-subtitle">3.1 Opening of a Potential Trajectory</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-3-2" class="doc-subtitle">3.2 No Automatic Consolidation of Expectations</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-3-3" class="doc-subtitle">3.3 Progressive Decision Sequencing</h3>
+        <div class="placeholder">Placeholder.</div>
+      </section>
+
+      <div class="chapter-title">PART IV — PATH DEPENDENCY RISK</div>
+
+      <section id="TAP-4" class="article-box">
+        <h2 class="article-title">4. Path Dependency and Lock-In Dynamics</h2>
+
+        <h3 id="TAP-4-1" class="doc-subtitle">4.1 Premature Consolidation of Choices</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-4-2" class="doc-subtitle">4.2 Increasing Rigidity and Early Closure</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-4-3" class="doc-subtitle">4.3 Legal Exposure and Late Judicialization</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-4-4" class="doc-subtitle">4.4 Institutional Cost of Reversal</h3>
+        <div class="placeholder">Placeholder.</div>
+      </section>
+
+      <div class="chapter-title">PART V — FPIC AS STRUCTURAL CONDITIONALITY</div>
+
+      <section id="TAP-5" class="article-box">
+        <h2 class="article-title">5. Free, Prior and Informed Consent (FPIC)</h2>
+
+        <h3 id="TAP-5-1" class="doc-subtitle">5.1 Constitutional and Conventional Foundations</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-5-2" class="doc-subtitle">5.2 Proper Temporal Insertion</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-5-3" class="doc-subtitle">5.3 Risk of Late Consultation</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-5-4" class="doc-subtitle">5.4 Material Function of Participation</h3>
+        <div class="placeholder">Placeholder.</div>
+      </section>
+
+      <div class="chapter-title">PART VI — PRUDENTIAL PAUSE & DECISION REVERSIBILITY</div>
+
+      <section id="TAP-6" class="article-box">
+        <h2 class="article-title">6. Decision Reversibility and Prudential Suspension</h2>
+
+        <h3 id="TAP-6-1" class="doc-subtitle">6.1 Non-Sanctioning Nature</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-6-2" class="doc-subtitle">6.2 Compatibility with Constitutional Principles</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-6-3" class="doc-subtitle">6.3 Preventive Risk Management</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-6-4" class="doc-subtitle">6.4 Preserving Administrative Adaptability</h3>
+        <div class="placeholder">Placeholder.</div>
+      </section>
+
+      <div class="chapter-title">PART VII — EX ANTE PRUDENTIAL GOVERNANCE</div>
+
+      <section id="TAP-7" class="article-box">
+        <h2 class="article-title">7. Ex Ante Prudential Governance</h2>
+
+        <h3 id="TAP-7-1" class="doc-subtitle">7.1 Operational Conditionalities</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-7-2" class="doc-subtitle">7.2 Provisional Metrics and Thresholds</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-7-3" class="doc-subtitle">7.3 Progressive Decision Vectors</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-7-4" class="doc-subtitle">7.4 Monitoring and Traceability</h3>
+        <div class="placeholder">Placeholder.</div>
+      </section>
+
+      <div class="chapter-title">PART VIII — c-ECO COMPATIBILITY LAYER</div>
+
+      <section id="TAP-8" class="article-box">
+        <h2 class="article-title">8. Operational Architecture Compatible with c-ECO</h2>
+
+        <h3 id="TAP-8-1" class="doc-subtitle">8.1 Integrating Risk Management and Legality</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-8-2" class="doc-subtitle">8.2 Prudential Calibration Structure</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-8-3" class="doc-subtitle">8.3 Verifiable Decision Vectors</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-8-4" class="doc-subtitle">8.4 Institutional Defensibility</h3>
+        <div class="placeholder">Placeholder.</div>
+      </section>
+
+      <div class="chapter-title">PART IX — MODELING STAGE CENTRALITY</div>
+
+      <section id="TAP-9" class="article-box">
+        <h2 class="article-title">9. Centrality of the Modeling Stage</h2>
+
+        <h3 id="TAP-9-1" class="doc-subtitle">9.1 Maximum Preventive Efficiency Point</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-9-2" class="doc-subtitle">9.2 Embedding Safeguards at the Origin</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-9-3" class="doc-subtitle">9.3 Reducing Institutional Conflict</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-9-4" class="doc-subtitle">9.4 Future Trajectory Governability</h3>
+        <div class="placeholder">Placeholder.</div>
+      </section>
+
+      <div class="chapter-title">PART X — MODEL TERMS OF REFERENCE CLAUSES</div>
+
+      <section id="TAP-10" class="article-box">
+        <h2 class="article-title">10. Suggested Clauses for the Terms of Reference</h2>
+
+        <h3 id="TAP-10-1" class="doc-subtitle">10.1 FPIC Temporal Conditionality</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-10-2" class="doc-subtitle">10.2 Preventive Suspension for Irreversibility Risk</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-10-3" class="doc-subtitle">10.3 Decision Vectors and Pause Triggers</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-10-4" class="doc-subtitle">10.4 Institutional Risk Management and Defensibility</h3>
+        <div class="placeholder">Placeholder.</div>
+      </section>
+
+      <div class="chapter-title">PART XI — OPERATIONAL INDICATORS</div>
+
+      <section id="TAP-11" class="article-box">
+        <h2 class="article-title">11. Operational Indicators for Ex Ante Internalization</h2>
+
+        <h3 id="TAP-11-1" class="doc-subtitle">11.1 Explicit Safeguards</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-11-2" class="doc-subtitle">11.2 Formal Risk Management Section</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-11-3" class="doc-subtitle">11.3 Provisional Metrics and Thresholds</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-11-4" class="doc-subtitle">11.4 Monitoring Reports</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-11-5" class="doc-subtitle">11.5 Logged Calibrated Decisions</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-11-6" class="doc-subtitle">11.6 Multidisciplinary Technical Participation</h3>
+        <div class="placeholder">Placeholder.</div>
+      </section>
+
+      <div class="chapter-title">PART XII — PRUDENTIAL CYCLE FLOW</div>
+
+      <section id="TAP-12" class="article-box">
+        <h2 class="article-title">12. Official Prudential Cycle Flowchart</h2>
+
+        <h3 id="TAP-12-1" class="doc-subtitle">12.1 Risk Event Identification</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-12-2" class="doc-subtitle">12.2 Prudential Pause Decision</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-12-3" class="doc-subtitle">12.3 Remediation Window</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-12-4" class="doc-subtitle">12.4 Readiness Checklist for Restart</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-12-5" class="doc-subtitle">12.5 Restart or Recalibration</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-12-6" class="doc-subtitle">12.6 Iterative Nature of the Cycle</h3>
+        <div class="placeholder">Placeholder.</div>
+      </section>
+
+      <div class="chapter-title">PART XIII — OPERATIONAL PLAYBOOK</div>
+
+      <section id="TAP-13" class="article-box">
+        <h2 class="article-title">13. Operational Playbook</h2>
+
+        <h3 id="TAP-13-1" class="doc-subtitle">13.1 Stages</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-13-2" class="doc-subtitle">13.2 Formal Instruments</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-13-3" class="doc-subtitle">13.3 Responsibilities</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-13-4" class="doc-subtitle">13.4 Documentary Evidence</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-13-5" class="doc-subtitle">13.5 Mitigated Risks</h3>
+        <div class="placeholder">Placeholder.</div>
+      </section>
+
+      <div class="chapter-title">PART XIV — STRUCTURED MODEL TEMPLATE</div>
+
+      <section id="TAP-14" class="article-box">
+        <h2 class="article-title">14. Structured Modeling Template with Integrated Prudential Governance</h2>
+
+        <h3 id="TAP-14-1" class="doc-subtitle">14.1 Object</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-14-2" class="doc-subtitle">14.2 Strategic Directives</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-14-3" class="doc-subtitle">14.3 Conditionalities and Safeguards</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-14-4" class="doc-subtitle">14.4 Dynamic Risk Matrix</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-14-5" class="doc-subtitle">14.5 Multidisciplinary Governance</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-14-6" class="doc-subtitle">14.6 Deliverables and Monitoring</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-14-7" class="doc-subtitle">14.7 Record and Transparency</h3>
+        <div class="placeholder">Placeholder.</div>
+      </section>
+
+      <div class="chapter-title">PART XV — SPECIFIC CLAUSES</div>
+
+      <section id="TAP-15" class="article-box">
+        <h2 class="article-title">15. Specific Clauses</h2>
+
+        <h3 id="TAP-15-1" class="doc-subtitle">15.1 FPIC Clause (ILO Convention 169)</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-15-2" class="doc-subtitle">15.2 Sanctions and Contractual Resilience Clause</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-15-3" class="doc-subtitle">15.3 Penalty for Technical Omission</h3>
+        <div class="placeholder">Placeholder.</div>
+      </section>
+
+      <div class="chapter-title">PART XVI — INSTRUMENT TEMPLATES</div>
+
+      <section id="TAP-16" class="article-box">
+        <h2 class="article-title">16. Instrument Templates</h2>
+
+        <h3 id="TAP-16-1" class="doc-subtitle">16.1 Draft Reasoned Memorandum</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-16-2" class="doc-subtitle">16.2 Draft Normative Ordinance</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-16-3" class="doc-subtitle">16.3 Technical Risk Assessment Note (TRAN)</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-16-4" class="doc-subtitle">16.4 Restart Readiness Checklist (RRC)</h3>
+        <div class="placeholder">Placeholder.</div>
+
+        <h3 id="TAP-16-5" class="doc-subtitle">16.5 Remediation Technical Note</h3>
+        <div class="placeholder">Placeholder.</div>
+      </section>
+
+      <div class="chapter-title">PART XVII — CONCLUSION</div>
+
+      <section id="TAP-17" class="article-box">
+        <h2 class="article-title">17. Interpretive Conclusion</h2>
+        <div class="placeholder">Placeholder.</div>
+      </section>
+
+      <div class="chapter-title">PART XVIII — REFERENCES</div>
+
+      <section id="TAP-18" class="article-box">
+        <h2 class="article-title">18. References</h2>
+        <div class="placeholder">Placeholder: statutory references, case law, treaty references, and methodology references.</div>
+      </section>
+
+    </article>
+  </main>
+
+  <script>
+    // Close sidebar on mobile after click
+    document.querySelectorAll('.nav-item a, .logo-box').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 1024) {
+          document.getElementById('sidebar').classList.remove('open');
+        }
+      });
+    });
+  </script>
+
+  <script>
+    const searchInput = document.getElementById('sidebarSearch');
+    const navItems = document.querySelectorAll('.nav-item');
+    const sectionTitles = document.querySelectorAll('.nav-section-title');
+
+    searchInput.addEventListener('input', function(e) {
+      const term = e.target.value.toLowerCase();
+
+      navItems.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.classList.toggle('hidden', term.length > 0 && !text.includes(term));
+      });
+
+      sectionTitles.forEach(title => {
+        title.classList.toggle('hidden', term.length > 0);
+      });
+    });
+  </script>
+
+</body>
+</html>
