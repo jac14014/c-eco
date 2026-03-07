@@ -2444,27 +2444,93 @@ label { cursor: pointer; }
   </div>
 
   <!-- Sector selection -->
-  <div>
-    <label class="block text-[10px] uppercase tracking-widest text-stone-400 mb-3">
+<div>
+  <label class="block text-[10px] uppercase tracking-widest text-stone-400 mb-3">
       Sector / Domain (SSVF)
+  </label>
+
+  <div class="grid md:grid-cols-2 gap-2 text-sm text-stone-300">
+
+    <label>
+      <input type="checkbox" class="sector"
+      value="Sector 1 — Mining & Mineral Extraction">
+      Sector 1 — Mining & Mineral Extraction
     </label>
 
-    <div class="grid md:grid-cols-2 gap-2 text-sm text-stone-300">
-      <label><input type="checkbox" value="Sector 1 — Mining & Mineral Extraction"> Sector 1 — Mining & Mineral Extraction</label>
-      <label><input type="checkbox" value="Sector 2 — Agribusiness & Intensive Land Use"> Sector 2 — Agribusiness & Intensive Land Use</label>
-      <label><input type="checkbox" value="Sector 3 — Energy Systems (Fossil, Renewable, Hydroelectric)"> Sector 3 — Energy Systems</label>
-      <label><input type="checkbox" value="Sector 4 — Water & Sanitation"> Sector 4 — Water & Sanitation</label>
-      <label><input type="checkbox" value="Sector 5 — Infrastructure & Heavy Construction"> Sector 5 — Infrastructure & Heavy Construction</label>
-      <label><input type="checkbox" value="Sector 6 — Financial Systems (Banks, Insurers, Asset Managers)"> Sector 6 — Financial Systems</label>
-      <label><input type="checkbox" value="Sector 7 — Real Estate & Urbanization"> Sector 7 — Real Estate & Urbanization</label>
-      <label><input type="checkbox" value="Sector 8 — Chemical & Materials Industries"> Sector 8 — Chemical & Materials Industries</label>
-      <label><input type="checkbox" value="Sector 9 — Logistics & Transportation"> Sector 9 — Logistics & Transportation</label>
-      <label><input type="checkbox" value="Sector 10 — Digital Technology & Data Infrastructure"> Sector 10 — Digital Technology & Data Infrastructure</label>
-      <label><input type="checkbox" value="Sector 11 — Space & Orbital Infrastructure"> Sector 11 — Space & Orbital Infrastructure</label>
-      <label><input type="checkbox" value="Sector 12 — Forests, Carbon & Natural Assets"> Sector 12 — Forests, Carbon & Natural Assets</label>
-      <label><input type="checkbox" value="Sector 13 — Hybrid Enabling Systems (AI, Satellite, Remote Sensing)"> Sector 13 — Hybrid Enabling Systems</label>
-    </div>
+    <label>
+      <input type="checkbox" class="sector"
+      value="Sector 2 — Agribusiness & Intensive Land Use">
+      Sector 2 — Agribusiness & Intensive Land Use
+    </label>
+
+    <label>
+      <input type="checkbox" class="sector"
+      value="Sector 3 — Energy Systems (Fossil, Renewable, Hydroelectric)">
+      Sector 3 — Energy Systems
+    </label>
+
+    <label>
+      <input type="checkbox" class="sector"
+      value="Sector 4 — Water & Sanitation">
+      Sector 4 — Water & Sanitation
+    </label>
+
+    <label>
+      <input type="checkbox" class="sector"
+      value="Sector 5 — Infrastructure & Heavy Construction">
+      Sector 5 — Infrastructure & Heavy Construction
+    </label>
+
+    <label>
+      <input type="checkbox" class="sector"
+      value="Sector 6 — Financial Systems (Banks, Insurers, Asset Managers)">
+      Sector 6 — Financial Systems
+    </label>
+
+    <label>
+      <input type="checkbox" class="sector"
+      value="Sector 7 — Real Estate & Urbanization">
+      Sector 7 — Real Estate & Urbanization
+    </label>
+
+    <label>
+      <input type="checkbox" class="sector"
+      value="Sector 8 — Chemical & Materials Industries">
+      Sector 8 — Chemical & Materials Industries
+    </label>
+
+    <label>
+      <input type="checkbox" class="sector"
+      value="Sector 9 — Logistics & Transportation">
+      Sector 9 — Logistics & Transportation
+    </label>
+
+    <label>
+      <input type="checkbox" class="sector"
+      value="Sector 10 — Digital Technology & Data Infrastructure">
+      Sector 10 — Digital Technology & Data Infrastructure
+    </label>
+
+    <label>
+      <input type="checkbox" class="sector"
+      value="Sector 11 — Space & Orbital Infrastructure">
+      Sector 11 — Space & Orbital Infrastructure
+    </label>
+
+    <label>
+      <input type="checkbox" class="sector"
+      value="Sector 12 — Forests, Carbon & Natural Assets">
+      Sector 12 — Forests, Carbon & Natural Assets
+    </label>
+
+    <label>
+      <input type="checkbox" class="sector"
+      value="Sector 13 — Hybrid Enabling Systems (AI, Satellite, Remote Sensing)">
+      Sector 13 — Hybrid Enabling Systems
+    </label>
+
   </div>
+</div>
 
   <!-- Scope / Complexity -->
   <div class="grid md:grid-cols-2 gap-4">
@@ -2496,7 +2562,6 @@ label { cursor: pointer; }
       <label class="block text-[10px] uppercase tracking-widest text-stone-400 mb-2">Budget Range (USD)</label>
       <select id="fBudgetRange"
               class="w-full bg-black/30 border border-white/10 px-4 py-3 text-stone-200 outline-none focus:border-gold/40">
-        <option>Under $5,000</option>
         <option>$5,000 – $15,000</option>
         <option>$15,000 – $35,000</option>
         <option>$35,000 – $75,000</option>
@@ -2753,7 +2818,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const urgency = getMultiplier('fUrgency');
 
     // sector complexity proxy: number of selected sectors slightly increases cost
-    const sectorsCount = form.querySelectorAll('input[type="checkbox"]:checked').length;
+    const sectorsCount = form.querySelectorAll('.sector:checked').length;
     const sectorFactor = 1 + Math.min(0.25, sectorsCount * 0.03); // up to +25%
 
     const estimate = Math.round(base * scope * urgency * sectorFactor / 250) * 250;
@@ -2793,8 +2858,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const budgetRange = document.getElementById('fBudgetRange')?.value || '';
     const next = document.getElementById('fNext')?.value || '';
 
-    const sectors = Array.from(form.querySelectorAll('input[type="checkbox"]:checked'))
-      .map(cb => cb.value).join('\n');
+    const sectors = Array.from(form.querySelectorAll('.sector:checked'))
+  .map(cb => cb.value).join('\n');
 
     const papers = Array.from(form.querySelectorAll('#p1:checked, #p2:checked, #p3:checked, #p4:checked'))
       .map(cb => cb.value).join('\n');
@@ -2844,14 +2909,15 @@ ${budgetRange}
 
 Estimated Budget (non-binding):
 ${est ? formatUSD(est) : '(not available)'}
-`Problem Checklist:
+
+Problem Checklist:
 ${problemFlags || '(none selected)'}
 
 Constraints / Inputs:
 ${constraints || '(none selected)'}
 
 Output Preferences:
-${outputs || '(none selected)'}`
+${outputs || '(none selected)'}
 
 Academic / Publication (optional):
 ${papers || '(not selected)'}
@@ -2861,7 +2927,7 @@ ${next}
 
 Context / Notes:
 ${notes || '(no additional notes)'}`
-    );
+);
 
     window.location.href = `mailto:contact@c-eco.org?subject=${subject}&body=${body}`;
   });
