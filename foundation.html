@@ -245,88 +245,102 @@
       width: 100%;
     }
     
-    .mobile-menu {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      background: rgba(12, 10, 9, 0.98);
-      backdrop-filter: blur(20px);
-      z-index: 40;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.6s ease;
-    }
-    
-    .mobile-menu.active {
-      opacity: 1;
-      pointer-events: all;
-    }
-    
-    .mobile-menu a {
-      font-size: 1.5rem;
-      font-family: 'Playfair Display', serif;
-      color: #d6d3d1;
-      text-decoration: none;
-      margin: 1.5rem 0;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.4s ease;
-    }
-    
-    .mobile-menu.active a {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    .mobile-menu.active a:nth-child(1) { transition-delay: 0.1s; }
-    .mobile-menu.active a:nth-child(2) { transition-delay: 0.15s; }
-    .mobile-menu.active a:nth-child(3) { transition-delay: 0.2s; }
-    .mobile-menu.active a:nth-child(4) { transition-delay: 0.25s; }
-    .mobile-menu.active a:nth-child(5) { transition-delay: 0.3s; }
-    
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 24px;
-      height: 16px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      z-index: 50;
-      padding: 0;
-    }
-    
-    .hamburger span {
-      width: 100%;
-      height: 1px;
-      background: var(--gold);
-      transition: all 0.3s ease;
-      transform-origin: center;
-    }
-    
-    .hamburger.active span:nth-child(1) {
-      transform: translateY(7.5px) rotate(45deg);
-    }
-    
-    .hamburger.active span:nth-child(2) {
-      opacity: 0;
-    }
-    
-    .hamburger.active span:nth-child(3) {
-      transform: translateY(-7.5px) rotate(-45deg);
-    }
-    
-    @media (max-width: 1024px) {
-      .hamburger { display: flex; }
-      .desktop-nav { display: none; }
-    }
+   /* --- MENU MOBILE & HAMBURGUER (CORRIGIDO) --- */
+
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(12, 10, 9, 0.98);
+  backdrop-filter: blur(12px); /* Blur suavizado para elegância */
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-menu.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.mobile-menu a {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--gold); /* Cor padronizada */
+  text-decoration: none;
+  text-transform: uppercase; /* Design imponente */
+  letter-spacing: 0.2rem;     /* Espaçamento premium */
+  margin: 1.2rem 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-menu.active a {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Delay cascata para os links aparecerem um por um */
+.mobile-menu.active a:nth-child(1) { transition-delay: 0.1s; }
+.mobile-menu.active a:nth-child(2) { transition-delay: 0.15s; }
+.mobile-menu.active a:nth-child(3) { transition-delay: 0.2s; }
+.mobile-menu.active a:nth-child(4) { transition-delay: 0.25s; }
+.mobile-menu.active a:nth-child(5) { transition-delay: 0.3s; }
+
+/* Botão Hamburguer */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 26px; /* Largura ideal */
+  height: 18px; /* Altura para geometria do X */
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 50;
+  padding: 0;
+}
+
+.hamburger span {
+  width: 100%;
+  height: 2px; /* Espessura robusta */
+  background: var(--gold);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+/* Transformação para o X Perfeito */
+.hamburger.active span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Visibilidade em dispositivos móveis */
+@media (max-width: 1024px) {
+  .hamburger { 
+    display: flex; 
+  }
+  .desktop-nav { 
+    display: none; 
+  }
+}
     
     .bio-image-container {
       position: relative;
