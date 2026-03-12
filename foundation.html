@@ -347,7 +347,7 @@
       overflow: hidden;
       border: 1px solid rgba(214, 188, 126, 0.1);
       background: var(--stone-900);
-      aspect-ratio: 3/4;
+      aspect-ratio: 3/2;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -357,13 +357,19 @@
     .bio-image-container:hover {
       border-color: rgba(214, 188, 126, 0.3);
     }
-    .bio-image-container img {
+   /* Isso mantém o comportamento padrão para fotos que já funcionam bem */
+.bio-image-container img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top center; /* Tente 'top center' ou 'center 20%' */
+  object-fit: cover; /* Comportamento original */
   filter: grayscale(100%);
   transition: all 0.8s ease;
+}
+
+/* Criamos essa classe para fotos que não podem ser cortadas */
+.bio-image-container.contain-mode img {
+  object-fit: contain;
+  background-color: #0c0a09; /* Cor de fundo para preencher as sobras */
 }
 
     
@@ -622,22 +628,29 @@
         </div>
       </div>
 
-      <div class="grid lg:grid-cols-12 gap-12 lg:gap-24 mt-24">
-        <div class="lg:col-span-5">
-          <div class="bio-image-container rounded-sm">
-            <img 
-              src="hasse-memory.png" 
-              alt="Portrait of Johann C. Hasse and Georg H. Weber" 
-              width="600"
-              height="800"
-              loading="lazy"
-              onerror="this.style.display='none'"
-            >
-          </div>
-          <div class="mt-8 text-center">
-            <p class="text-gold text-xs uppercase tracking-[0.3em] font-medium">Johann C. Hasse | Georg H. Weber</p>
-          </div>
-        </div>
+<div class="bio-image-container contain-mode rounded-sm">
+  <img src="hasse-memory.png" 
+
+
+
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-24 mt-24">
+  <div class="lg:col-span-5">
+    <div class="bio-image-container rounded-sm bg-stone-950">
+      <img 
+        src="hasse-memory.png" 
+        alt="Portrait of Johann C. Hasse and Georg H. Weber" 
+        width="600"
+        height="800"
+        loading="lazy"
+        style="object-fit: contain; padding: 1rem;" 
+        onerror="this.style.display='none'"
+      >
+    </div>
+    <div class="mt-8 text-center">
+      <p class="text-gold text-xs uppercase tracking-[0.3em] font-medium">Johann C. Hasse | Georg H. Weber</p>
+    </div>
+  </div>
+  </div>
         
         <div class="lg:col-span-7 prose-custom lg:pt-12">
           <p>They understood that institutions are not inert. That systems are living structures. That order, when designed with rigor and care, can protect life across time.</p>
