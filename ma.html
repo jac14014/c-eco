@@ -411,6 +411,16 @@
     </div>
     
     <div class="w-px h-16 bg-gradient-to-b from-gold/30 to-transparent mx-auto"></div>
+    
+    <div class="mt-8 mb-12 flex justify-center">
+  <button id="playMusicBtn" 
+          class="text-gold/70 text-xs uppercase tracking-[0.2em] hover:text-gold transition-colors border border-gold/20 px-4 py-2 rounded">
+    ▶ Ouvir a trilha sonora
+  </button>
+</div>
+
+<div id="player" style="position: absolute; left: -9999px;"></div>
+
   </header>
 
   <main id="main-content" class="max-w-3xl mx-auto px-6 pb-32">
@@ -888,8 +898,34 @@
   
   // Log final de diagnóstico
   log('Inicialização completa. UserAgent:', navigator.userAgent.substring(0, 50));
-</script>
+  </script>
 
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+  let player;
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+      height: '0',
+      width: '0',
+      playerVars: {
+        'listType': 'playlist',
+        'list': 'PLI6kLIhBBwmTNMLhNtX7JfiWQt8Y0k4ko',
+        'autoplay': 0,
+        'loop': 1
+      },
+      events: {
+        'onReady': onPlayerReady
+      }
+    });
+  }
+
+  function onPlayerReady(event) {
+    document.getElementById('playMusicBtn').addEventListener('click', function() {
+      player.playVideo();
+      this.style.display = 'none'; // Esconde o botão após o clique
+    });
+  }
+</script>
 
 
 </body>
