@@ -610,131 +610,164 @@
   </footer>
 
   <script>
-    // Reveal animations
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  // ===== UTILITÁRIO DE STORAGE SEGURO PARA SAFARI =====
+  const SafeStorage = {
+    isAvailable: function() {
+      try {
+        const test = '__storage_test__';
+        localStorage.setItem(test, test);
+        localStorage.removeItem(test);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    },
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    memoryStorage: {},
 
-    // Sistema de comentários com localStorage
-    const commentForm = document.getElementById('commentForm');
-    const commentsList = document.getElementById('commentsList');
-    const emptyState = document.getElementById('emptyState');
-
-    // Carregar comentários salvos ao iniciar
-    function loadComments() {
-      const saved = localStorage.getItem('mariaAlvinaComments');
-      if (saved) {
-        const comments = JSON.parse(saved);
-        if (comments.length > 0) {
-          emptyState.style.display = 'none';
-          comments.forEach(comment => {
-            addCommentToDOM(comment, false);
-          });
+    getItem: function(key) {
+      if (this.isAvailable()) {
+        try {
+          const item = localStorage.getItem(key);
+          return item ? JSON.parse(item) : null;
+        } catch (e) {
+          return this.memoryStorage[key] || null;
         }
       }
-    }
+      return this.memoryStorage[key] || null;
+    },
 
-    // Adicionar comentário ao DOM
-    function addCommentToDOM(comment, animate = true) {
-      const card = document.createElement('div');
-      card.className = 'comment-card';
-      if (animate) {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        card.style.transition = 'all 0.5s ease';
-      }
-      
-      const date = new Date(comment.date).toLocaleDateString('pt-BR', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-      });
-      
-      card.innerHTML = `
-        <div class="comment-header">
-          <div>
-            <span class="comment-author">${escapeHtml(comment.nome)}</span>
-            ${comment.relacao ? `<span class="comment-relation">${escapeHtml(comment.relacao)}</span>` : ''}
-          </div>
-          <span class="comment-date">${date}</span>
-        </div>
-        <p class="comment-text">${escapeHtml(comment.mensagem)}</p>
-      `;
-      
-      commentsList.insertBefore(card, commentsList.firstChild);
-      
-      if (animate) {
-        setTimeout(() => {
-          card.style.opacity = '1';
-          card.style.transform = 'translateY(0)';
-        }, 100);
-      }
-    }
-
-    // Escapar HTML para segurança
-    function escapeHtml(text) {
-      const div = document.createElement('div');
-      div.textContent = text;
-      return div.innerHTML;
-    }
-
-    // Salvar comentário
-    function saveComment(comment) {
-      const saved = localStorage.getItem('mariaAlvinaComments');
-      const comments = saved ? JSON.parse(saved) : [];
-      comments.unshift(comment);
-      localStorage.setItem('mariaAlvinaComments', JSON.stringify(comments));
-    }
-
-    // Submissão do formulário
-    commentForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const btn = this.querySelector('.submit-btn');
-      const originalText = btn.textContent;
-      
-      btn.textContent = 'Publicando...';
-      btn.disabled = true;
-      
-      const comment = {
-        nome: document.getElementById('nome').value.trim(),
-        relacao: document.getElementById('relacao').value.trim(),
-        mensagem: document.getElementById('mensagem').value.trim(),
-        date: new Date().toISOString()
-      };
-      
-      // Simular delay de rede
-      setTimeout(() => {
-        saveComment(comment);
-        
-        if (emptyState.style.display !== 'none') {
-          emptyState.style.display = 'none';
+    setItem: function(key, value) {
+      if (this.isAvailable()) {
+        try {
+          localStorage.setItem(key, JSON.stringify(value));
+          return true;
+        } catch (e) {
+          this.memoryStorage[key] = value;
+          return false;
         }
-        
-        addCommentToDOM(comment, true);
-        
-        this.reset();
-        btn.textContent = 'Publicado';
-        btn.style.borderColor = 'var(--gold)';
-        btn.style.background = 'rgba(214, 188, 126, 0.1)';
-        
-        setTimeout(() => {
-          btn.textContent = originalText;
-          btn.disabled = false;
-          btn.style = '';
-        }, 2000);
-      }, 800);
+      }
+      this.memoryStorage[key] = value;
+      return false;
+    }
+  };
+
+  // Reveal animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+      }
     });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-    // Carregar comentários ao iniciar
-    loadComments();
-  </script>
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Sistema de comentários com SafeStorage
+  const commentForm = document.getElementById('commentForm');
+  const commentsList = document.getElementById('commentsList');
+  const emptyState = document.getElementById('emptyState');
+
+  function loadComments() {
+    const saved = SafeStorage.getItem('mariaAlvinaComments');
+    if (saved && Array.isArray(saved) && saved.length > 0) {
+      emptyState.style.display = 'none';
+      saved.forEach(comment => {
+        addCommentToDOM(comment, false);
+      });
+    }
+  }
+
+  function addCommentToDOM(comment, animate = true) {
+    const card = document.createElement('div');
+    card.className = 'comment-card';
+    if (animate) {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = 'all 0.5s ease';
+    }
+    
+    const date = new Date(comment.date).toLocaleDateString('pt-BR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+    
+    card.innerHTML = `
+      <div class="comment-header">
+        <div>
+          <span class="comment-author">${escapeHtml(comment.nome)}</span>
+          ${comment.relacao ? `<span class="comment-relation">${escapeHtml(comment.relacao)}</span>` : ''}
+        </div>
+        <span class="comment-date">${date}</span>
+      </div>
+      <p class="comment-text">${escapeHtml(comment.mensagem)}</p>
+    `;
+    
+    commentsList.insertBefore(card, commentsList.firstChild);
+    
+    if (animate) {
+      setTimeout(() => {
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, 100);
+    }
+  }
+
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  function saveComment(comment) {
+    const saved = SafeStorage.getItem('mariaAlvinaComments');
+    const comments = saved && Array.isArray(saved) ? saved : [];
+    comments.unshift(comment);
+    SafeStorage.setItem('mariaAlvinaComments', comments);
+  }
+
+  commentForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const btn = this.querySelector('.submit-btn');
+    const originalText = btn.textContent;
+    
+    btn.textContent = 'Publicando...';
+    btn.disabled = true;
+    
+    const comment = {
+      nome: document.getElementById('nome').value.trim(),
+      relacao: document.getElementById('relacao').value.trim(),
+      mensagem: document.getElementById('mensagem').value.trim(),
+      date: new Date().toISOString()
+    };
+    
+    setTimeout(() => {
+      saveComment(comment);
+      
+      if (emptyState.style.display !== 'none') {
+        emptyState.style.display = 'none';
+      }
+      
+      addCommentToDOM(comment, true);
+      
+      this.reset();
+      btn.textContent = 'Publicado';
+      btn.style.borderColor = 'var(--gold)';
+      btn.style.background = 'rgba(214, 188, 126, 0.1)';
+      
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.disabled = false;
+        btn.style = '';
+      }, 2000);
+    }, 800);
+  });
+
+  loadComments();
+</script>
+
 
 </body>
 </html>
