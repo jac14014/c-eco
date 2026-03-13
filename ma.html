@@ -705,6 +705,66 @@ function createCommentCard(comment) {
   return card;
 }
 
+// ============================================
+// MIGRAÇÃO: Envia comentários antigos para Firebase
+// ============================================
+function migrarComentariosAntigos() {
+  // Tenta ler do localStorage antigo (chave antiga)
+  let comentariosAntigos = [];
+  
+  try {
+    const dados = localStorage.getItem('mariaAlvinaComments');
+    if (dados) {
+      comentariosAntigos = JSON.parse(dados);
+      console.log('Comentários antigos encontrados:', comentariosAntigos.length);
+    }
+  } catch(e) {
+    console.log('Nenhum comentário antigo no localStorage');
+  }
+  
+  // Tenta também a chave nova
+  if (comentariosAntigos.length === 0) {
+    try {
+      const dados = localStorage.getItem('mariaAlvinaComments_v2');
+      if (dados) {
+        comentariosAntigos = JSON.parse(dados);
+        console.log('Comentários v2 encontrados:', comentariosAntigos.length);
+      }
+    } catch(e) {
+      console.log('Nenhum comentário v2');
+    }
+  }
+  
+  // Se encontrou comentários, envia para Firebase
+  if (comentariosAntigos.length > 0) {
+    console.log('Migrando', comentariosAntigos.length, 'comentários...');
+    
+    comentariosAntigos.forEach(c => {
+      commentsRef.push({
+        nome: c.nome || 'Anônimo',
+        relacao: c.relacao || '',
+        mensagem: c.mensagem || c.msg || '',
+        date: c.date || new Date().toISOString()
+      });
+    });
+    
+    // Limpa localStorage antigo (opcional)
+    localStorage.removeItem('mariaAlvinaComments');
+    localStorage.removeItem('mariaAlvinaComments_v2');
+    
+    alert('Migração concluída! ' + comentariosAntigos.length + ' comentários enviados.');
+  } else {
+    console.log('Nenhum comentário antigo para migrar');
+  }
+}
+
+// Roda a migração ao carregar
+migrarComentariosAntigos();
+
+// ============================================
+// SISTEMA NORMAL (depois da migração)
+// ============================================
+
 // Carrega comentários em tempo real
 commentsRef.on('value', (snapshot) => {
   const comments = snapshot.val();
