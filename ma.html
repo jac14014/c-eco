@@ -376,10 +376,34 @@
       background: rgba(214, 188, 126, 0.2);
       color: #fafaf9;
     }
+    
+    /* Debug panel para Safari */
+    .debug-panel {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0,0,0,0.9);
+      border: 1px solid var(--gold);
+      padding: 10px;
+      font-size: 11px;
+      color: #0f0;
+      font-family: monospace;
+      max-width: 300px;
+      max-height: 200px;
+      overflow: auto;
+      z-index: 9999;
+      display: none;
+    }
+    .debug-panel.visible {
+      display: block;
+    }
   </style>
 </head>
 
 <body class="antialiased">
+
+  <!-- Painel de debug (pressione D para mostrar) -->
+  <div id="debugPanel" class="debug-panel"></div>
 
   <a href="#main-content" class="skip-link">Pular para conteúdo principal</a>
   
@@ -628,191 +652,177 @@
   </footer>
 
   <script>
-  // ===== DEBUGGER PARA SAFARI =====
+  // ===== SISTEMA DE ARMAZENAMENTO UNIVERSAL PARA SAFARI =====
+  
   const DEBUG = true;
+  const STORAGE_KEY = 'mariaAlvinaComments_v2';
+  
+  // Array em memória como fallback final
+  let memoryComments = [];
+  
   function log(...args) {
-    if (DEBUG) console.log('[Memorial Debug]', ...args);
-  }
-
-  // ===== STORAGE ROBUSTO COM MÚLTIPLOS FALLBACKS =====
-  const StorageManager = {
-    // Testa qual storage está disponível
-    testStorage: function(type) {
-      try {
-        const storage = type === 'local' ? localStorage : sessionStorage;
-        const testKey = '__test_' + type + '_';
-        storage.setItem(testKey, 'test');
-        const result = storage.getItem(testKey) === 'test';
-        storage.removeItem(testKey);
-        return result;
-      } catch (e) {
-        log(type + 'Storage falhou:', e.name, e.message);
-        return false;
+    if (DEBUG) {
+      console.log('[Memorial]', ...args);
+      // Também adiciona ao painel de debug
+      const panel = document.getElementById('debugPanel');
+      if (panel) {
+        panel.innerHTML += args.join(' ') + '<br>';
       }
-    },
-
-    // Verifica disponibilidade de cada tipo
-    localAvailable: false,
-    sessionAvailable: false,
-    cookieAvailable: false,
-    
-    init: function() {
-      this.localAvailable = this.testStorage('local');
-      this.sessionAvailable = this.testStorage('session');
-      this.cookieAvailable = navigator.cookieEnabled;
-      
-      log('Status dos storages:', {
-        localStorage: this.localAvailable,
-        sessionStorage: this.sessionAvailable,
-        cookies: this.cookieAvailable
-      });
-    },
-
-    // Fallback em memória
-    memoryStore: {},
-
-    // GET com fallback em cascata: local → session → cookie → memória
-    getItem: function(key) {
-      // Tentativa 1: localStorage
-      if (this.localAvailable) {
-        try {
-          const item = localStorage.getItem(key);
-          if (item) {
-            log('localStorage HIT para:', key);
-            return JSON.parse(item);
-          }
-        } catch (e) {
-          log('localStorage getItem erro:', e);
-        }
-      }
-
-      // Tentativa 2: sessionStorage
-      if (this.sessionAvailable) {
-        try {
-          const item = sessionStorage.getItem(key);
-          if (item) {
-            log('sessionStorage HIT para:', key);
-            return JSON.parse(item);
-          }
-        } catch (e) {
-          log('sessionStorage getItem erro:', e);
-        }
-      }
-
-      // Tentativa 3: cookie
-      if (this.cookieAvailable) {
-        try {
-          const match = document.cookie.match(new RegExp('(^| )' + key + '=([^;]+)'));
-          if (match) {
-            log('Cookie HIT para:', key);
-            return JSON.parse(decodeURIComponent(match[2]));
-          }
-        } catch (e) {
-          log('Cookie get erro:', e);
-        }
-      }
-
-      // Fallback: memória
-      if (this.memoryStore[key]) {
-        log('Memory HIT para:', key);
-        return this.memoryStore[key];
-      }
-
-      log('MISS para:', key);
-      return null;
-    },
-
-    // SET com fallback em cascata
-    setItem: function(key, value) {
-      const stringValue = JSON.stringify(value);
-      let saved = false;
-
-      // Tentativa 1: localStorage
-      if (this.localAvailable) {
-        try {
-          localStorage.setItem(key, stringValue);
-          saved = true;
-          log('Salvo em localStorage:', key);
-        } catch (e) {
-          log('localStorage setItem falhou:', e.name);
-          if (e.name === 'QuotaExceededError' || e.code === 22) {
-            this.localAvailable = false; // Desativa para futuras tentativas
-          }
-        }
-      }
-
-      // Tentativa 2: sessionStorage (se local falhou ou não disponível)
-      if (!saved && this.sessionAvailable) {
-        try {
-          sessionStorage.setItem(key, stringValue);
-          saved = true;
-          log('Salvo em sessionStorage:', key);
-        } catch (e) {
-          log('sessionStorage setItem falhou:', e);
-        }
-      }
-
-      // Tentativa 3: cookie (se tudo falhou)
-      if (!saved && this.cookieAvailable) {
-        try {
-          // Cookie expira em 30 dias
-          const expires = new Date();
-          expires.setDate(expires.getDate() + 30);
-          document.cookie = key + '=' + encodeURIComponent(stringValue) + ';expires=' + expires.toUTCString() + ';path=/;SameSite=Strict';
-          saved = true;
-          log('Salvo em Cookie:', key);
-        } catch (e) {
-          log('Cookie set falhou:', e);
-        }
-      }
-
-      // Fallback final: memória
-      if (!saved) {
-        this.memoryStore[key] = value;
-        log('Salvo em memória (volátil):', key);
-      }
-
-      return saved;
     }
-  };
-
-  // Inicializa o storage manager
-  StorageManager.init();
-
-  // Reveal animations
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('active');
+  }
+  
+  // Detecta Safari
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  log('Browser detectado:', isSafari ? 'Safari' : 'Outro');
+  log('UserAgent:', navigator.userAgent.substring(0, 60));
+  
+  // ===== TESTE DE DISPONIBILIDADE DE STORAGE =====
+  function testStorage(type) {
+    try {
+      const storage = type === 'local' ? localStorage : sessionStorage;
+      const testKey = '__test_' + Date.now();
+      storage.setItem(testKey, 'test');
+      const result = storage.getItem(testKey) === 'test';
+      storage.removeItem(testKey);
+      return result;
+    } catch (e) {
+      log(type + 'Storage indisponível:', e.name);
+      return false;
+    }
+  }
+  
+  const localAvailable = testStorage('local');
+  const sessionAvailable = testStorage('session');
+  const cookieAvailable = navigator.cookieEnabled;
+  
+  log('Storage status:', { local: localAvailable, session: sessionAvailable, cookies: cookieAvailable });
+  
+  // ===== FUNÇÕES DE ARMAZENAMENTO =====
+  
+  function getComments() {
+    let comments = null;
+    
+    // Tentativa 1: localStorage
+    if (localAvailable) {
+      try {
+        const data = localStorage.getItem(STORAGE_KEY);
+        if (data) {
+          comments = JSON.parse(data);
+          log('localStorage: dados encontrados');
+        }
+      } catch (e) {
+        log('localStorage erro:', e.message);
       }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  // Sistema de comentários
+    }
+    
+    // Tentativa 2: sessionStorage
+    if (!comments && sessionAvailable) {
+      try {
+        const data = sessionStorage.getItem(STORAGE_KEY);
+        if (data) {
+          comments = JSON.parse(data);
+          log('sessionStorage: dados encontrados');
+        }
+      } catch (e) {
+        log('sessionStorage erro:', e.message);
+      }
+    }
+    
+    // Tentativa 3: cookies
+    if (!comments && cookieAvailable) {
+      try {
+        const match = document.cookie.match(new RegExp('(^| )' + STORAGE_KEY + '=([^;]+)'));
+        if (match) {
+          comments = JSON.parse(decodeURIComponent(match[2]));
+          log('Cookie: dados encontrados');
+        }
+      } catch (e) {
+        log('Cookie erro:', e.message);
+      }
+    }
+    
+    // Tentativa 4: memória
+    if (!comments && memoryComments.length > 0) {
+      comments = [...memoryComments];
+      log('Memória: dados encontrados');
+    }
+    
+    // Validação
+    if (comments && Array.isArray(comments)) {
+      log('Total de comentários carregados:', comments.length);
+      return comments;
+    }
+    
+    log('Nenhum comentário encontrado');
+    return [];
+  }
+  
+  function saveComments(comments) {
+    const data = JSON.stringify(comments);
+    let saved = false;
+    
+    // Tentativa 1: localStorage
+    if (localAvailable) {
+      try {
+        localStorage.setItem(STORAGE_KEY, data);
+        saved = true;
+        log('Salvo em localStorage');
+      } catch (e) {
+        log('localStorage falhou:', e.name);
+      }
+    }
+    
+    // Tentativa 2: sessionStorage
+    if (!saved && sessionAvailable) {
+      try {
+        sessionStorage.setItem(STORAGE_KEY, data);
+        saved = true;
+        log('Salvo em sessionStorage');
+      } catch (e) {
+        log('sessionStorage falhou:', e.message);
+      }
+    }
+    
+    // Tentativa 3: cookies
+    if (!saved && cookieAvailable) {
+      try {
+        const expires = new Date();
+        expires.setFullYear(expires.getFullYear() + 1);
+        document.cookie = STORAGE_KEY + '=' + encodeURIComponent(data) + 
+                         ';expires=' + expires.toUTCString() + 
+                         ';path=/;SameSite=Lax';
+        saved = true;
+        log('Salvo em cookies');
+      } catch (e) {
+        log('Cookie falhou:', e.message);
+      }
+    }
+    
+    // Fallback: memória
+    if (!saved) {
+      memoryComments = [...comments];
+      log('Salvo em memória (volátil)');
+    }
+    
+    return saved;
+  }
+  
+  // ===== SISTEMA DE COMENTÁRIOS =====
+  
   const commentForm = document.getElementById('commentForm');
   const commentsList = document.getElementById('commentsList');
   const emptyState = document.getElementById('emptyState');
-
-  function loadComments() {
-    log('Carregando comentários...');
-    const saved = StorageManager.getItem('mariaAlvinaComments');
-    
-    if (saved && Array.isArray(saved) && saved.length > 0) {
-      log('Comentários encontrados:', saved.length);
-      emptyState.style.display = 'none';
-      saved.forEach(comment => {
-        addCommentToDOM(comment, false);
-      });
-    } else {
-      log('Nenhum comentário encontrado ou formato inválido:', saved);
-    }
+  
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
   }
-
-  function addCommentToDOM(comment, animate = true) {
+  
+  function createCommentCard(comment, animate = true) {
     const card = document.createElement('div');
     card.className = 'comment-card';
+    
     if (animate) {
       card.style.opacity = '0';
       card.style.transform = 'translateY(20px)';
@@ -836,31 +846,49 @@
       <p class="comment-text">${escapeHtml(comment.mensagem)}</p>
     `;
     
-    commentsList.insertBefore(card, commentsList.firstChild);
+    return card;
+  }
+  
+  function loadComments() {
+    log('Carregando comentários...');
+    const comments = getComments();
     
-    if (animate) {
-      setTimeout(() => {
-        card.style.opacity = '1';
-        card.style.transform = 'translateY(0)';
-      }, 100);
+    if (comments.length > 0) {
+      emptyState.style.display = 'none';
+      comments.forEach(comment => {
+        const card = createCommentCard(comment, false);
+        commentsList.appendChild(card);
+      });
+      log(comments.length, 'comentários exibidos');
+    } else {
+      log('Nenhum comentário para exibir');
     }
   }
-
-  function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-  }
-
-  function saveComment(comment) {
-    const saved = StorageManager.getItem('mariaAlvinaComments');
-    const comments = saved && Array.isArray(saved) ? saved : [];
+  
+  function addComment(comment) {
+    const comments = getComments();
     comments.unshift(comment);
-    const success = StorageManager.setItem('mariaAlvinaComments', comments);
-    log('Comentário salvo, sucesso:', success);
+    const success = saveComments(comments);
+    
+    // Atualiza DOM
+    if (emptyState.style.display !== 'none') {
+      emptyState.style.display = 'none';
+    }
+    
+    const card = createCommentCard(comment, true);
+    commentsList.insertBefore(card, commentsList.firstChild);
+    
+    // Animação
+    setTimeout(() => {
+      card.style.opacity = '1';
+      card.style.transform = 'translateY(0)';
+    }, 50);
+    
     return success;
   }
-
+  
+  // ===== EVENT LISTENERS =====
+  
   commentForm.addEventListener('submit', function(e) {
     e.preventDefault();
     
@@ -877,35 +905,52 @@
       date: new Date().toISOString()
     };
     
-    log('Enviando comentário:', comment);
+    log('Nova homenagem:', comment.nome);
     
     setTimeout(() => {
-      const saved = saveComment(comment);
-      
-      if (emptyState.style.display !== 'none') {
-        emptyState.style.display = 'none';
-      }
-      
-      addCommentToDOM(comment, true);
+      const saved = addComment(comment);
       
       this.reset();
-      btn.textContent = saved ? 'Publicado' : 'Publicado (sessão)';
+      btn.textContent = saved ? 'Publicado ✓' : 'Publicado (temporário)';
       btn.style.borderColor = 'var(--gold)';
       btn.style.background = 'rgba(214, 188, 126, 0.1)';
       
       setTimeout(() => {
         btn.textContent = originalText;
         btn.disabled = false;
-        btn.style = '';
-      }, 2000);
-    }, 800);
+        btn.style.borderColor = '';
+        btn.style.background = '';
+      }, 2500);
+    }, 600);
   });
-
-  // Carrega comentários ao iniciar
-  loadComments();
   
-  // Log final de diagnóstico
-  log('Inicialização completa. UserAgent:', navigator.userAgent.substring(0, 50));
+  // ===== ANIMAÇÕES =====
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  
+  // ===== PAINEL DE DEBUG (pressione D para mostrar) =====
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'd' || e.key === 'D') {
+      const panel = document.getElementById('debugPanel');
+      panel.classList.toggle('visible');
+    }
+  });
+  
+  // ===== INICIALIZAÇÃO =====
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    log('=== Inicialização ===');
+    loadComments();
+    log('=== Pronto ===');
+  });
   </script>
 
 <script src="https://www.youtube.com/iframe_api"></script>
@@ -930,7 +975,7 @@
   function onPlayerReady(event) {
     document.getElementById('playMusicBtn').addEventListener('click', function() {
       player.playVideo();
-      this.style.display = 'none'; // Esconde o botão após o clique
+      this.style.display = 'none';
     });
   }
 </script>
