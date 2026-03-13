@@ -668,12 +668,10 @@ const firebaseConfig = {
   appId: "1:934873795505:web:7cbb88ffed4d3de6870b90"
 };
 
-// Inicializa Firebase
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 const commentsRef = database.ref('homenagens');
 
-// Elementos do DOM
 const commentForm = document.getElementById('commentForm');
 const commentsList = document.getElementById('commentsList');
 const emptyState = document.getElementById('emptyState');
@@ -687,11 +685,9 @@ function escapeHtml(text) {
 function createCommentCard(comment) {
   const card = document.createElement('div');
   card.className = 'comment-card';
-  
   const date = new Date(comment.date).toLocaleDateString('pt-BR', {
     day: 'numeric', month: 'long', year: 'numeric'
   });
-  
   card.innerHTML = `
     <div class="comment-header">
       <div>
@@ -705,81 +701,18 @@ function createCommentCard(comment) {
   return card;
 }
 
-// ============================================
-// MIGRAÇÃO: Envia comentários antigos para Firebase
-// ============================================
-function migrarComentariosAntigos() {
-  // Tenta ler do localStorage antigo (chave antiga)
-  let comentariosAntigos = [];
-  
-  try {
-    const dados = localStorage.getItem('mariaAlvinaComments');
-    if (dados) {
-      comentariosAntigos = JSON.parse(dados);
-      console.log('Comentários antigos encontrados:', comentariosAntigos.length);
-    }
-  } catch(e) {
-    console.log('Nenhum comentário antigo no localStorage');
-  }
-  
-  // Tenta também a chave nova
-  if (comentariosAntigos.length === 0) {
-    try {
-      const dados = localStorage.getItem('mariaAlvinaComments_v2');
-      if (dados) {
-        comentariosAntigos = JSON.parse(dados);
-        console.log('Comentários v2 encontrados:', comentariosAntigos.length);
-      }
-    } catch(e) {
-      console.log('Nenhum comentário v2');
-    }
-  }
-  
-  // Se encontrou comentários, envia para Firebase
-  if (comentariosAntigos.length > 0) {
-    console.log('Migrando', comentariosAntigos.length, 'comentários...');
-    
-    comentariosAntigos.forEach(c => {
-      commentsRef.push({
-        nome: c.nome || 'Anônimo',
-        relacao: c.relacao || '',
-        mensagem: c.mensagem || c.msg || '',
-        date: c.date || new Date().toISOString()
-      });
-    });
-    
-    // Limpa localStorage antigo (opcional)
-    localStorage.removeItem('mariaAlvinaComments');
-    localStorage.removeItem('mariaAlvinaComments_v2');
-    
-    alert('Migração concluída! ' + comentariosAntigos.length + ' comentários enviados.');
-  } else {
-    console.log('Nenhum comentário antigo para migrar');
-  }
-}
-
-// Roda a migração ao carregar
-migrarComentariosAntigos();
-
-// ============================================
-// SISTEMA NORMAL (depois da migração)
-// ============================================
-
-// Carrega comentários em tempo real
+// Carrega comentários
 commentsRef.on('value', (snapshot) => {
   const comments = snapshot.val();
   commentsList.innerHTML = '';
-  
   if (!comments) {
     emptyState.style.display = 'block';
     return;
   }
-  
   emptyState.style.display = 'none';
   const commentsArray = Object.entries(comments).map(([id, data]) => ({
     id, ...data
   })).sort((a, b) => new Date(b.date) - new Date(a.date));
-  
   commentsArray.forEach(comment => {
     commentsList.appendChild(createCommentCard(comment));
   });
@@ -788,18 +721,15 @@ commentsRef.on('value', (snapshot) => {
 // Envia comentário
 commentForm.addEventListener('submit', function(e) {
   e.preventDefault();
-  
   const btn = this.querySelector('.submit-btn');
   btn.textContent = 'Publicando...';
   btn.disabled = true;
-  
   const comment = {
     nome: document.getElementById('nome').value.trim(),
     relacao: document.getElementById('relacao').value.trim(),
     mensagem: document.getElementById('mensagem').value.trim(),
     date: new Date().toISOString()
   };
-  
   commentsRef.push(comment).then(() => {
     this.reset();
     btn.textContent = 'Publicado ✓';
@@ -816,9 +746,9 @@ const observer = new IntersectionObserver((entries) => {
     if (entry.isIntersecting) entry.target.classList.add('active');
   });
 }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
+
 
   
   // ===== INICIALIZAÇÃO =====
