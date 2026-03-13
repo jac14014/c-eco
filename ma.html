@@ -17,7 +17,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
   
   <script src="https://cdn.tailwindcss.com"></script>
-  
+  <!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
   <script>
     tailwind.config = {
       theme: {
@@ -652,297 +655,111 @@
   </footer>
 
   <script>
-  // ===== SISTEMA DE ARMAZENAMENTO UNIVERSAL PARA SAFARI =====
+// ============================================
+// CONFIGURAÇÃO FIREBASE
+// ============================================
+const firebaseConfig = {
+  apiKey: "AIzaSyCt0GjXk1UtsJlH7lFfUSukq_t7gmJI5lQ",
+  authDomain: "maria-alvina-memorial-6d92e.firebaseapp.com",
+  databaseURL: "https://maria-alvina-memorial-6d92e-default-rtdb.firebaseio.com",
+  projectId: "maria-alvina-memorial-6d92e",
+  storageBucket: "maria-alvina-memorial-6d92e.firebasestorage.app",
+  messagingSenderId: "934873795505",
+  appId: "1:934873795505:web:7cbb88ffed4d3de6870b90"
+};
+
+// Inicializa Firebase
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+const commentsRef = database.ref('homenagens');
+
+// Elementos do DOM
+const commentForm = document.getElementById('commentForm');
+const commentsList = document.getElementById('commentsList');
+const emptyState = document.getElementById('emptyState');
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function createCommentCard(comment) {
+  const card = document.createElement('div');
+  card.className = 'comment-card';
   
-  const DEBUG = true;
-  const STORAGE_KEY = 'mariaAlvinaComments_v2';
+  const date = new Date(comment.date).toLocaleDateString('pt-BR', {
+    day: 'numeric', month: 'long', year: 'numeric'
+  });
   
-  // Array em memória como fallback final
-  let memoryComments = [];
-  
-  function log(...args) {
-    if (DEBUG) {
-      console.log('[Memorial]', ...args);
-      // Também adiciona ao painel de debug
-      const panel = document.getElementById('debugPanel');
-      if (panel) {
-        panel.innerHTML += args.join(' ') + '<br>';
-      }
-    }
-  }
-  
-  // Detecta Safari
-  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-  log('Browser detectado:', isSafari ? 'Safari' : 'Outro');
-  log('UserAgent:', navigator.userAgent.substring(0, 60));
-  
-  // ===== TESTE DE DISPONIBILIDADE DE STORAGE =====
-  function testStorage(type) {
-    try {
-      const storage = type === 'local' ? localStorage : sessionStorage;
-      const testKey = '__test_' + Date.now();
-      storage.setItem(testKey, 'test');
-      const result = storage.getItem(testKey) === 'test';
-      storage.removeItem(testKey);
-      return result;
-    } catch (e) {
-      log(type + 'Storage indisponível:', e.name);
-      return false;
-    }
-  }
-  
-  const localAvailable = testStorage('local');
-  const sessionAvailable = testStorage('session');
-  const cookieAvailable = navigator.cookieEnabled;
-  
-  log('Storage status:', { local: localAvailable, session: sessionAvailable, cookies: cookieAvailable });
-  
-  // ===== FUNÇÕES DE ARMAZENAMENTO =====
-  
-  function getComments() {
-    let comments = null;
-    
-    // Tentativa 1: localStorage
-    if (localAvailable) {
-      try {
-        const data = localStorage.getItem(STORAGE_KEY);
-        if (data) {
-          comments = JSON.parse(data);
-          log('localStorage: dados encontrados');
-        }
-      } catch (e) {
-        log('localStorage erro:', e.message);
-      }
-    }
-    
-    // Tentativa 2: sessionStorage
-    if (!comments && sessionAvailable) {
-      try {
-        const data = sessionStorage.getItem(STORAGE_KEY);
-        if (data) {
-          comments = JSON.parse(data);
-          log('sessionStorage: dados encontrados');
-        }
-      } catch (e) {
-        log('sessionStorage erro:', e.message);
-      }
-    }
-    
-    // Tentativa 3: cookies
-    if (!comments && cookieAvailable) {
-      try {
-        const match = document.cookie.match(new RegExp('(^| )' + STORAGE_KEY + '=([^;]+)'));
-        if (match) {
-          comments = JSON.parse(decodeURIComponent(match[2]));
-          log('Cookie: dados encontrados');
-        }
-      } catch (e) {
-        log('Cookie erro:', e.message);
-      }
-    }
-    
-    // Tentativa 4: memória
-    if (!comments && memoryComments.length > 0) {
-      comments = [...memoryComments];
-      log('Memória: dados encontrados');
-    }
-    
-    // Validação
-    if (comments && Array.isArray(comments)) {
-      log('Total de comentários carregados:', comments.length);
-      return comments;
-    }
-    
-    log('Nenhum comentário encontrado');
-    return [];
-  }
-  
-  function saveComments(comments) {
-    const data = JSON.stringify(comments);
-    let saved = false;
-    
-    // Tentativa 1: localStorage
-    if (localAvailable) {
-      try {
-        localStorage.setItem(STORAGE_KEY, data);
-        saved = true;
-        log('Salvo em localStorage');
-      } catch (e) {
-        log('localStorage falhou:', e.name);
-      }
-    }
-    
-    // Tentativa 2: sessionStorage
-    if (!saved && sessionAvailable) {
-      try {
-        sessionStorage.setItem(STORAGE_KEY, data);
-        saved = true;
-        log('Salvo em sessionStorage');
-      } catch (e) {
-        log('sessionStorage falhou:', e.message);
-      }
-    }
-    
-    // Tentativa 3: cookies
-    if (!saved && cookieAvailable) {
-      try {
-        const expires = new Date();
-        expires.setFullYear(expires.getFullYear() + 1);
-        document.cookie = STORAGE_KEY + '=' + encodeURIComponent(data) + 
-                         ';expires=' + expires.toUTCString() + 
-                         ';path=/;SameSite=Lax';
-        saved = true;
-        log('Salvo em cookies');
-      } catch (e) {
-        log('Cookie falhou:', e.message);
-      }
-    }
-    
-    // Fallback: memória
-    if (!saved) {
-      memoryComments = [...comments];
-      log('Salvo em memória (volátil)');
-    }
-    
-    return saved;
-  }
-  
-  // ===== SISTEMA DE COMENTÁRIOS =====
-  
-  const commentForm = document.getElementById('commentForm');
-  const commentsList = document.getElementById('commentsList');
-  const emptyState = document.getElementById('emptyState');
-  
-  function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-  }
-  
-  function createCommentCard(comment, animate = true) {
-    const card = document.createElement('div');
-    card.className = 'comment-card';
-    
-    if (animate) {
-      card.style.opacity = '0';
-      card.style.transform = 'translateY(20px)';
-      card.style.transition = 'all 0.5s ease';
-    }
-    
-    const date = new Date(comment.date).toLocaleDateString('pt-BR', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    });
-    
-    card.innerHTML = `
-      <div class="comment-header">
-        <div>
-          <span class="comment-author">${escapeHtml(comment.nome)}</span>
-          ${comment.relacao ? `<span class="comment-relation">${escapeHtml(comment.relacao)}</span>` : ''}
-        </div>
-        <span class="comment-date">${date}</span>
+  card.innerHTML = `
+    <div class="comment-header">
+      <div>
+        <span class="comment-author">${escapeHtml(comment.nome)}</span>
+        ${comment.relacao ? `<span class="comment-relation">${escapeHtml(comment.relacao)}</span>` : ''}
       </div>
-      <p class="comment-text">${escapeHtml(comment.mensagem)}</p>
-    `;
-    
-    return card;
+      <span class="comment-date">${date}</span>
+    </div>
+    <p class="comment-text">${escapeHtml(comment.mensagem)}</p>
+  `;
+  return card;
+}
+
+// Carrega comentários em tempo real
+commentsRef.on('value', (snapshot) => {
+  const comments = snapshot.val();
+  commentsList.innerHTML = '';
+  
+  if (!comments) {
+    emptyState.style.display = 'block';
+    return;
   }
   
-  function loadComments() {
-    log('Carregando comentários...');
-    const comments = getComments();
-    
-    if (comments.length > 0) {
-      emptyState.style.display = 'none';
-      comments.forEach(comment => {
-        const card = createCommentCard(comment, false);
-        commentsList.appendChild(card);
-      });
-      log(comments.length, 'comentários exibidos');
-    } else {
-      log('Nenhum comentário para exibir');
-    }
-  }
+  emptyState.style.display = 'none';
+  const commentsArray = Object.entries(comments).map(([id, data]) => ({
+    id, ...data
+  })).sort((a, b) => new Date(b.date) - new Date(a.date));
   
-  function addComment(comment) {
-    const comments = getComments();
-    comments.unshift(comment);
-    const success = saveComments(comments);
-    
-    // Atualiza DOM
-    if (emptyState.style.display !== 'none') {
-      emptyState.style.display = 'none';
-    }
-    
-    const card = createCommentCard(comment, true);
-    commentsList.insertBefore(card, commentsList.firstChild);
-    
-    // Animação
-    setTimeout(() => {
-      card.style.opacity = '1';
-      card.style.transform = 'translateY(0)';
-    }, 50);
-    
-    return success;
-  }
-  
-  // ===== EVENT LISTENERS =====
-  
-  commentForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const btn = this.querySelector('.submit-btn');
-    const originalText = btn.textContent;
-    
-    btn.textContent = 'Publicando...';
-    btn.disabled = true;
-    
-    const comment = {
-      nome: document.getElementById('nome').value.trim(),
-      relacao: document.getElementById('relacao').value.trim(),
-      mensagem: document.getElementById('mensagem').value.trim(),
-      date: new Date().toISOString()
-    };
-    
-    log('Nova homenagem:', comment.nome);
-    
-    setTimeout(() => {
-      const saved = addComment(comment);
-      
-      this.reset();
-      btn.textContent = saved ? 'Publicado ✓' : 'Publicado (temporário)';
-      btn.style.borderColor = 'var(--gold)';
-      btn.style.background = 'rgba(214, 188, 126, 0.1)';
-      
-      setTimeout(() => {
-        btn.textContent = originalText;
-        btn.disabled = false;
-        btn.style.borderColor = '';
-        btn.style.background = '';
-      }, 2500);
-    }, 600);
+  commentsArray.forEach(comment => {
+    commentsList.appendChild(createCommentCard(comment));
   });
+});
+
+// Envia comentário
+commentForm.addEventListener('submit', function(e) {
+  e.preventDefault();
   
-  // ===== ANIMAÇÕES =====
+  const btn = this.querySelector('.submit-btn');
+  btn.textContent = 'Publicando...';
+  btn.disabled = true;
   
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('active');
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  const comment = {
+    nome: document.getElementById('nome').value.trim(),
+    relacao: document.getElementById('relacao').value.trim(),
+    mensagem: document.getElementById('mensagem').value.trim(),
+    date: new Date().toISOString()
+  };
   
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  
-  // ===== PAINEL DE DEBUG (pressione D para mostrar) =====
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'd' || e.key === 'D') {
-      const panel = document.getElementById('debugPanel');
-      panel.classList.toggle('visible');
-    }
+  commentsRef.push(comment).then(() => {
+    this.reset();
+    btn.textContent = 'Publicado ✓';
+    setTimeout(() => {
+      btn.textContent = 'Publicar homenagem';
+      btn.disabled = false;
+    }, 2000);
   });
+});
+
+// Animações
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('active');
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
   
   // ===== INICIALIZAÇÃO =====
   
