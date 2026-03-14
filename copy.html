@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -16,25 +15,25 @@
       theme: {
         extend: {
           colors: {
-            sigma: { 
-              DEFAULT: '#d6bc7e', 
+            sigma: {
+              DEFAULT: '#d6bc7e',
               dim: '#a68b4c',
-              glow: 'rgba(214, 188, 126, 0.3)'
+              glow: 'rgba(214,188,126,.25)'
             },
             obsidian: {
-              deep: '#030303',
-              mist: '#0f0f12',
-            },
-            slate: {
-              950: '#020617',
-              900: '#0f172a',
-              850: '#0a0f1d',
-              800: '#1e293b',
+              950: '#020202',
+              900: '#050505',
+              850: '#0a0a0b',
+              800: '#101114'
             }
           },
           fontFamily: {
             tech: ['Inter', 'system-ui', 'sans-serif'],
-            mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+            mono: ['JetBrains Mono', 'monospace']
+          },
+          boxShadow: {
+            glass: '0 20px 80px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.04)',
+            line: '0 0 0 1px rgba(255,255,255,.04)'
           }
         }
       }
@@ -42,499 +41,966 @@
   </script>
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root{
+      --bg:#030303;
+      --bg-soft:#08090b;
+      --panel:rgba(10,11,14,.62);
+      --panel-2:rgba(13,15,19,.78);
+      --line:rgba(255,255,255,.08);
+      --line-soft:rgba(255,255,255,.05);
+      --text:#e7e7ea;
+      --muted:#9a9ca3;
+      --muted-2:#6f737c;
+      --sigma:#d6bc7e;
+      --sigma-dim:#a68b4c;
+      --green:#22c55e;
+      --orange:#f59e0b;
+      --red:#ef4444;
     }
 
-    html, body {
-      height: 100%;
-      background: #030303;
-      color: #e0e0e0;
-      font-family: 'Inter', system-ui, sans-serif;
-      line-height: 1.6;
-      overflow: hidden;
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
     }
 
-    /* Fundo com grid sutil */
-    .bg-grid {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      background: radial-gradient(circle at 50% 50%, #0f0f12 0%, #030303 90%);
+    html,body{
+      min-height:100%;
+      background:
+        radial-gradient(circle at top center, rgba(214,188,126,.06), transparent 20%),
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.03), transparent 25%),
+        linear-gradient(180deg, #050505 0%, #020202 100%);
+      color:var(--text);
+      font-family:'Inter',system-ui,sans-serif;
+      overflow:hidden;
     }
 
-    .holo-grid {
-      position: absolute;
-      width: 200%;
-      height: 200%;
-      background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-      background-size: 60px 60px;
-      transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
-      animation: gridMove 30s linear infinite;
-      pointer-events: none;
-      mask-image: radial-gradient(circle, black 30%, transparent 80%);
+    body{
+      position:relative;
     }
 
-    @keyframes gridMove {
-      0% { transform: perspective(500px) rotateX(60deg) translateY(0) translateZ(-200px); }
-      100% { transform: perspective(500px) rotateX(60deg) translateY(60px) translateZ(-200px); }
+    .bg-grid{
+      position:fixed;
+      inset:0;
+      z-index:0;
+      pointer-events:none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.022) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px);
+      background-size:42px 42px;
+      mask-image:radial-gradient(circle at center, black 45%, transparent 100%);
+      opacity:.35;
     }
 
-    /* Scanline overlay */
-    .scanline-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 1;
-      background: linear-gradient(
-        to bottom,
-        rgba(255,255,255,0),
-        rgba(255,255,255,0) 50%,
-        rgba(0,0,0,0.04) 50%,
-        rgba(0,0,0,0.04)
-      );
-      background-size: 100% 3px;
-      pointer-events: none;
+    .bg-glow{
+      position:fixed;
+      inset:0;
+      z-index:0;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(214,188,126,.08), transparent 30%),
+        radial-gradient(circle at 100% 50%, rgba(86,104,255,.05), transparent 30%);
+      filter:blur(10px);
+      opacity:.9;
     }
 
-    /* Custom scrollbar */
-    ::-webkit-scrollbar { 
-      width: 6px; 
-      height: 6px;
-    }
-    ::-webkit-scrollbar-track { 
-      background: #09090b; 
-    }
-    ::-webkit-scrollbar-thumb { 
-      background: #27272a; 
-      border-radius: 3px; 
-    }
-    ::-webkit-scrollbar-thumb:hover { 
-      background: #3f3f46; 
+    .section-divider{
+      height:1px;
+      width:100%;
+      background:linear-gradient(90deg, transparent 0%, rgba(255,255,255,.10) 15%, rgba(214,188,126,.18) 50%, rgba(255,255,255,.10) 85%, transparent 100%);
     }
 
-    /* Glass Effect - O CUBO DE VIDRO APLICADO NA RESPOSTA */
-    .glass-response {
-      background: rgba(0, 0, 0, 0.5);
+    .glass-shell{
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00)),
+        var(--panel);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border:1px solid var(--line);
+      box-shadow:
+        0 24px 90px rgba(0,0,0,.55),
+        inset 0 1px 0 rgba(255,255,255,.04);
+    }
+
+    .glass-subtle{
+      background:rgba(255,255,255,.025);
+      border:1px solid var(--line-soft);
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+    }
+
+    .terminal-shell{
+      position:relative;
+      z-index:2;
+      width:min(1600px, calc(100vw - 24px));
+      height:calc(100vh - 24px);
+      margin:12px auto;
+      border-radius:20px;
+      overflow:hidden;
+    }
+
+    .header-glass{
+      background:rgba(4,4,5,.72);
+      border-bottom:1px solid var(--line-soft);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 12px;
-      box-shadow: 
-        0 0 60px rgba(0, 0, 0, 0.8),
-        inset 0 1px 0 rgba(255, 255, 255, 0.03);
-      position: relative;
-      overflow: hidden;
     }
 
-    /* Brilho do Scanner na resposta */
-    .glass-response::after {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(
-        to bottom,
-        transparent 45%,
-        rgba(214, 188, 126, 0.03) 50%,
-        transparent 55%
-      );
-      transform: rotate(45deg);
-      animation: shine 8s infinite;
-      pointer-events: none;
+    .quick-link{
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:54px;
+      height:54px;
+      border-radius:16px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.08);
+      color:#d8d9de;
+      transition:.25s ease;
+      text-decoration:none;
+      overflow:hidden;
     }
 
-    @keyframes shine {
-      0% { transform: translateY(-100%) rotate(45deg); }
-      100% { transform: translateY(100%) rotate(45deg); }
+    .quick-link:hover,
+    .quick-link:focus-visible{
+      border-color:rgba(214,188,126,.28);
+      background:rgba(214,188,126,.08);
+      color:var(--sigma);
+      transform:translateY(-1px);
+      outline:none;
+      box-shadow:0 0 0 1px rgba(214,188,126,.08), 0 10px 30px rgba(0,0,0,.35);
     }
 
-    /* Hover no glass */
-    .glass-response:hover {
-      border-color: rgba(214, 188, 126, 0.2);
-      box-shadow: 
-        0 0 80px rgba(0, 0, 0, 0.9),
-        0 0 30px rgba(214, 188, 126, 0.05),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    .quick-link[data-label]:hover::after,
+    .quick-link[data-label]:focus-visible::after{
+      content:attr(data-label);
+      position:absolute;
+      bottom:-34px;
+      left:50%;
+      transform:translateX(-50%);
+      white-space:nowrap;
+      font-size:11px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:#d0d2d8;
+      background:rgba(8,9,11,.92);
+      padding:7px 10px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:10px;
+      pointer-events:none;
     }
 
-    /* Status colors */
-    .status-green { color: #22c55e; }
-    .status-orange { color: #f97316; }
-    .status-red { color: #ef4444; }
-    
-    .bg-status-green { background-color: #22c55e; }
-    .bg-status-orange { background-color: #f97316; }
-    .bg-status-red { background-color: #ef4444; }
-
-    /* Glow effects */
-    .sigma-glow {
-      box-shadow: 0 0 20px rgba(214, 188, 126, 0.3);
+    .hero-bar{
+      display:grid;
+      grid-template-columns: 1.35fr .9fr;
+      gap:18px;
+      padding:18px 20px 16px;
+      align-items:stretch;
     }
 
-    .text-glow {
-      text-shadow: 0 0 10px rgba(214, 188, 126, 0.3);
+    .hero-card{
+      min-height:110px;
+      border-radius:18px;
+      padding:20px;
     }
 
-    /* Animations */
-    @keyframes pulse-sigma {
-      0%, 100% { 
-        opacity: 1; 
-        box-shadow: 0 0 5px #d6bc7e;
+    .hero-title{
+      font-size:.78rem;
+      letter-spacing:.24em;
+      text-transform:uppercase;
+      color:#c9cbd1;
+      font-weight:600;
+    }
+
+    .hero-subtitle{
+      color:var(--muted);
+      font-size:.9rem;
+      margin-top:10px;
+      line-height:1.55;
+    }
+
+    .hero-actions{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+
+    .action-card{
+      min-height:110px;
+      border-radius:18px;
+      padding:16px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      text-decoration:none;
+      transition:.25s ease;
+    }
+
+    .action-card:hover{
+      border-color:rgba(214,188,126,.22);
+      transform:translateY(-1px);
+      background:rgba(255,255,255,.04);
+    }
+
+    .action-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+
+    .action-icon{
+      width:42px;
+      height:42px;
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(214,188,126,.08);
+      border:1px solid rgba(214,188,126,.16);
+      color:var(--sigma);
+      flex-shrink:0;
+    }
+
+    .action-label{
+      font-size:.7rem;
+      color:#bfc2c9;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-weight:600;
+    }
+
+    .action-title{
+      font-size:1rem;
+      color:#fff;
+      font-weight:600;
+      line-height:1.3;
+      margin-top:10px;
+    }
+
+    .action-cta{
+      margin-top:14px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:42px;
+      padding:0 14px;
+      border-radius:12px;
+      border:1px solid rgba(214,188,126,.24);
+      background:rgba(214,188,126,.09);
+      color:var(--sigma);
+      font-size:.78rem;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-weight:600;
+    }
+
+    .workspace{
+      display:grid;
+      grid-template-columns: minmax(0, 1.8fr) minmax(320px, .9fr);
+      gap:18px;
+      padding:0 20px 18px;
+      height:calc(100% - 230px);
+      min-height:0;
+    }
+
+    .main-console,
+    .analytics-panel{
+      min-height:0;
+      border-radius:18px;
+      overflow:hidden;
+    }
+
+    .panel-head{
+      padding:16px 18px;
+      border-bottom:1px solid var(--line-soft);
+      background:rgba(255,255,255,.015);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+    }
+
+    .panel-head h2{
+      font-size:.74rem;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:#c8cad0;
+      font-weight:600;
+    }
+
+    .panel-meta{
+      font-family:'JetBrains Mono', monospace;
+      font-size:.72rem;
+      color:var(--muted-2);
+    }
+
+    .console-stage{
+      height:calc(100% - 88px);
+      display:flex;
+      flex-direction:column;
+      min-height:0;
+    }
+
+    .console-output{
+      flex:1;
+      min-height:0;
+      overflow:auto;
+      padding:22px;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    }
+
+    .message-card{
+      width:100%;
+      border-radius:18px;
+      padding:22px;
+      border:1px solid rgba(255,255,255,.07);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00)),
+        rgba(9,10,12,.58);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.03);
+    }
+
+    .message-user{
+      margin-left:auto;
+      max-width:min(760px, 88%);
+      background:
+        linear-gradient(180deg, rgba(214,188,126,.04), rgba(214,188,126,.01)),
+        rgba(11,12,14,.72);
+      border-color:rgba(214,188,126,.14);
+    }
+
+    .message-system{
+      max-width:100%;
+    }
+
+    .msg-kicker{
+      font-family:'JetBrains Mono', monospace;
+      font-size:.7rem;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:#b8a06a;
+      margin-bottom:14px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .msg-kicker-dot{
+      width:7px;
+      height:7px;
+      border-radius:999px;
+      background:var(--sigma);
+      box-shadow:0 0 14px rgba(214,188,126,.45);
+    }
+
+    .msg-body{
+      color:#d8dae0;
+      line-height:1.75;
+      font-size:1rem;
+    }
+
+    .msg-body p + p{
+      margin-top:14px;
+    }
+
+    .msg-body strong{
+      color:#fff;
+      font-weight:600;
+    }
+
+    .response-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .response-chip{
+      border-radius:12px;
+      padding:12px 14px;
+      background:rgba(255,255,255,.025);
+      border:1px solid rgba(255,255,255,.06);
+      color:#c8ccd4;
+      font-size:.9rem;
+    }
+
+    .response-chip code{
+      color:var(--sigma);
+      font-family:'JetBrains Mono', monospace;
+      font-size:.75rem;
+      background:rgba(214,188,126,.06);
+      padding:3px 7px;
+      border-radius:8px;
+      border:1px solid rgba(214,188,126,.12);
+    }
+
+    .console-input-wrap{
+      padding:18px 22px 22px;
+      border-top:1px solid var(--line-soft);
+      background:rgba(255,255,255,.015);
+    }
+
+    .input-shell{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-height:64px;
+      padding:8px;
+      border-radius:16px;
+      background:rgba(255,255,255,.028);
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.02);
+    }
+
+    .input-sigil{
+      width:46px;
+      height:46px;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(214,188,126,.08);
+      border:1px solid rgba(214,188,126,.14);
+      color:var(--sigma);
+      font-weight:700;
+      flex-shrink:0;
+    }
+
+    .input-shell input{
+      flex:1;
+      min-width:0;
+      background:transparent;
+      border:none;
+      outline:none;
+      color:#fff;
+      font-size:.98rem;
+      padding:0 6px;
+      font-family:'JetBrains Mono', monospace;
+    }
+
+    .input-shell input::placeholder{
+      color:#757983;
+    }
+
+    .analyze-btn{
+      min-width:140px;
+      min-height:48px;
+      border-radius:14px;
+      border:1px solid rgba(214,188,126,.22);
+      background:rgba(214,188,126,.09);
+      color:var(--sigma);
+      font-size:.78rem;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-weight:600;
+      transition:.25s ease;
+      padding:0 18px;
+      cursor:pointer;
+    }
+
+    .analyze-btn:hover{
+      background:rgba(214,188,126,.16);
+      border-color:rgba(214,188,126,.34);
+    }
+
+    .hint-row{
+      margin-top:10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      font-size:.74rem;
+      color:var(--muted-2);
+      font-family:'JetBrains Mono', monospace;
+    }
+
+    .analytics-scroll{
+      height:calc(100% - 58px);
+      overflow:auto;
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    }
+
+    .metric-card{
+      border-radius:16px;
+      padding:16px;
+    }
+
+    .metric-title{
+      font-size:.68rem;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:#babec6;
+      margin-bottom:12px;
+      font-weight:600;
+    }
+
+    .metric-row{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:center;
+      margin-bottom:9px;
+      font-size:.82rem;
+      color:#d5d8de;
+    }
+
+    .metric-row span:last-child{
+      color:#fff;
+      font-weight:600;
+    }
+
+    .track{
+      height:8px;
+      border-radius:999px;
+      background:rgba(255,255,255,.06);
+      overflow:hidden;
+    }
+
+    .fill{
+      height:100%;
+      border-radius:999px;
+      transition:width .8s ease;
+    }
+
+    .fill-gold{ background:linear-gradient(90deg, #8b7445, #d6bc7e); }
+    .fill-green{ background:linear-gradient(90deg, #15803d, #22c55e); }
+    .fill-orange{ background:linear-gradient(90deg, #b45309, #f59e0b); }
+    .fill-red{ background:linear-gradient(90deg, #b91c1c, #ef4444); }
+
+    .check-list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .check-item{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      padding:12px 13px;
+      border-radius:14px;
+      background:rgba(255,255,255,.02);
+      border:1px solid rgba(255,255,255,.05);
+      font-size:.86rem;
+      color:#d2d5dc;
+    }
+
+    .check-item .tick{
+      color:var(--sigma);
+      font-weight:700;
+      margin-top:1px;
+      flex-shrink:0;
+    }
+
+    .audit-list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      max-height:240px;
+      overflow:auto;
+    }
+
+    .audit-entry{
+      padding:12px 13px;
+      border-radius:14px;
+      background:rgba(255,255,255,.018);
+      border:1px solid rgba(255,255,255,.05);
+    }
+
+    .audit-time{
+      font-family:'JetBrains Mono', monospace;
+      font-size:.68rem;
+      color:#7e838d;
+      margin-bottom:6px;
+    }
+
+    .audit-text{
+      font-family:'JetBrains Mono', monospace;
+      font-size:.72rem;
+      color:#d7dae0;
+      line-height:1.6;
+      word-break:break-word;
+    }
+
+    .status-tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      min-height:34px;
+      padding:0 12px;
+      border-radius:999px;
+      border:1px solid rgba(214,188,126,.18);
+      background:rgba(214,188,126,.06);
+      color:var(--sigma);
+      font-size:.72rem;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      font-weight:600;
+    }
+
+    .pulse-dot{
+      width:7px;
+      height:7px;
+      border-radius:999px;
+      background:var(--sigma);
+      box-shadow:0 0 12px rgba(214,188,126,.45);
+      animation:pulseDot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulseDot{
+      0%,100%{ opacity:1; transform:scale(1); }
+      50%{ opacity:.5; transform:scale(.72); }
+    }
+
+    .slide-in{
+      animation:slideIn .35s ease-out both;
+    }
+
+    @keyframes slideIn{
+      from{ opacity:0; transform:translateY(10px); }
+      to{ opacity:1; transform:translateY(0); }
+    }
+
+    ::selection{
+      background:rgba(214,188,126,.28);
+      color:#fff;
+    }
+
+    ::-webkit-scrollbar{
+      width:8px;
+      height:8px;
+    }
+
+    ::-webkit-scrollbar-track{
+      background:transparent;
+    }
+
+    ::-webkit-scrollbar-thumb{
+      background:rgba(255,255,255,.10);
+      border-radius:999px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover{
+      background:rgba(255,255,255,.18);
+    }
+
+    @media (max-width: 1180px){
+      .hero-bar{
+        grid-template-columns:1fr;
       }
-      50% { 
-        opacity: 0.7; 
-        box-shadow: 0 0 15px #d6bc7e, 0 0 25px #d6bc7e;
+
+      .workspace{
+        grid-template-columns:1fr;
+        height:calc(100% - 320px);
+      }
+
+      .analytics-panel{
+        min-height:340px;
       }
     }
 
-    .animate-pulse-sigma {
-      animation: pulse-sigma 2s ease-in-out infinite;
-    }
-
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(15px);
+    @media (max-width: 820px){
+      html,body{
+        overflow:auto;
       }
-      to {
-        opacity: 1;
-        transform: translateY(0);
+
+      .terminal-shell{
+        width:calc(100vw - 12px);
+        height:auto;
+        min-height:calc(100vh - 12px);
+        margin:6px auto;
+        border-radius:18px;
       }
-    }
 
-    .slide-in {
-      animation: slideIn 0.4s ease-out forwards;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .fade-in {
-      animation: fadeIn 0.5s ease-out forwards;
-    }
-
-    /* Typography */
-    .font-tech {
-      font-family: 'Inter', system-ui, sans-serif;
-      letter-spacing: 0.05em;
-    }
-
-    .font-mono-tech {
-      font-family: 'JetBrains Mono', 'Fira Code', monospace;
-    }
-
-    /* Selection */
-    ::selection {
-      background: #a68b4c;
-      color: white;
-    }
-
-    /* Input glass effect */
-    .glass-input {
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 8px;
-      transition: all 0.3s ease;
-    }
-
-    .glass-input:focus-within {
-      border-color: rgba(214, 188, 126, 0.3);
-      box-shadow: 0 0 20px rgba(214, 188, 126, 0.1);
-    }
-
-    /* Sidebar glass */
-    .sidebar-glass {
-      background: rgba(15, 15, 18, 0.7);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-left: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    /* Header glass */
-    .header-glass {
-      background: rgba(3, 3, 3, 0.8);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    /* Status tag pulsando */
-    .status-pulse {
-      animation: goldPulse 4s ease-in-out infinite;
-    }
-
-    @keyframes goldPulse {
-      0% {
-        opacity: 0.5;
-        text-shadow: 0 0 0px rgba(214, 188, 126, 0);
+      .hero-actions{
+        grid-template-columns:1fr;
       }
-      50% {
-        opacity: 1;
-        text-shadow: 0 0 15px rgba(214, 188, 126, 0.5);
+
+      .workspace{
+        height:auto;
       }
-      100% {
-        opacity: 0.5;
-        text-shadow: 0 0 0px rgba(214, 188, 126, 0);
+
+      .main-console{
+        min-height:68vh;
+      }
+
+      .console-output{
+        padding:16px;
+      }
+
+      .console-input-wrap{
+        padding:14px 16px 16px;
+      }
+
+      .input-shell{
+        flex-wrap:wrap;
+        align-items:stretch;
+      }
+
+      .analyze-btn{
+        width:100%;
+        min-width:0;
+      }
+
+      .hint-row{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .response-grid{
+        grid-template-columns:1fr;
+      }
+
+      .panel-head{
+        flex-direction:column;
+        align-items:flex-start;
       }
     }
   </style>
 </head>
 
-<body class="text-zinc-300 min-h-screen flex flex-col selection:bg-sigma-dim selection:text-white">
-  
-  <!-- Background -->
-  <div class="bg-grid">
-    <div class="holo-grid"></div>
-  </div>
-  <div class="scanline-overlay"></div>
-  
-  <!-- HEADER -->
-  <header class="h-16 header-glass flex items-center justify-between px-6 z-40 relative">
-    <div class="flex items-center gap-4">
-      <div class="w-10 h-10 border border-sigma/30 flex items-center justify-center bg-sigma/10 rounded-sm">
-        <span class="font-tech text-sigma font-bold text-xl">Σ</span>
-      </div>
-      <div class="flex flex-col">
-        <h1 class="font-tech text-sm tracking-[0.25em] text-white uppercase font-semibold">c-ECO AI Protocol</h1>
-        <span class="text-xs text-zinc-500 uppercase tracking-wider font-tech">Decisional Guardian v1.0 (Stable)</span>
-      </div>
-    </div>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
 
-    <div class="hidden md:flex items-center gap-3 px-5 py-2 rounded-full border border-sigma/20 bg-sigma/5">
-      <div class="w-2 h-2 rounded-full bg-sigma animate-pulse-sigma"></div>
-      <span class="font-tech text-xs tracking-[0.2em] text-sigma font-medium">SYSTEM ACTIVE</span>
-    </div>
-
-    <div class="flex items-center gap-4">
-      <button class="text-xs font-tech text-zinc-400 hover:text-sigma transition-colors duration-200" onclick="window.location.href='index.html'">
-        EXIT TERMINAL
-      </button>
-    </div>
-  </header>
-
-  <!-- MAIN -->
-  <main class="flex-1 flex overflow-hidden relative z-10 p-4 gap-4">
-    
-    <!-- CONSOLE PRINCIPAL -->
-    <section class="flex-1 flex flex-col relative max-w-4xl mx-auto w-full">
-      
-      <!-- Console Header -->
-      <div class="px-6 py-4 flex justify-between items-center">
-        <div class="flex items-center gap-3">
-          <span class="text-sigma text-sm">◆</span>
-          <span class="font-tech text-sm text-zinc-400 tracking-wide">
-            CONTEXT: <span class="text-zinc-200 font-medium">STATE MACHINE MONITORING</span> 
-            <span class="mx-2 text-zinc-600">//</span> 
-            MODE: <span class="text-zinc-200 font-medium">OPERATION</span>
-          </span>
+  <div class="terminal-shell glass-shell">
+    <!-- HEADER -->
+    <header class="header-glass h-16 px-5 md:px-6 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-4 min-w-0">
+        <div class="w-11 h-11 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center flex-shrink-0">
+          <span class="text-sigma font-semibold text-xl">Σ</span>
         </div>
-        <div class="text-xs font-mono text-zinc-500">STATE_REF: CECO-ART-083 / 085</div>
+
+        <div class="min-w-0">
+          <h1 class="text-[0.78rem] md:text-[0.82rem] tracking-[0.28em] uppercase text-white font-semibold truncate">
+            c-ECO AI Protocol
+          </h1>
+          <p class="text-[11px] md:text-xs text-zinc-500 tracking-[0.14em] uppercase truncate">
+            Decisional Guardian Terminal
+          </p>
+        </div>
       </div>
 
-      <!-- ÁREA DE OUTPUT COM VIDRO - AUMENTADA -->
-      <div class="flex-1 overflow-y-auto px-6 pb-4 space-y-6" id="console-output">
-        
-        <!-- Mensagem inicial -->
-        <div class="flex justify-start slide-in">
-          <div class="w-full">
-            <!-- GLASS RESPONSE BOX -->
-            <div class="glass-response p-8">
-              <div class="flex gap-4 mb-5 font-mono text-xs text-sigma/80 tracking-wide uppercase border-b border-white/10 pb-4">
-                <span class="font-medium flex items-center gap-2">
-                  <span class="w-1.5 h-1.5 rounded-full bg-sigma animate-pulse"></span>
-                  [ SYSTEM READY ]
-                </span>
-                <span>[ 80% GAP MONITORING: ON ]</span>
-              </div>
-              
-              <div class="space-y-4">
-                <p class="text-zinc-300 font-light text-base leading-relaxed">
-                  <strong class="text-white font-tech text-lg">Protocol initialized.</strong>
-                </p>
-                <p class="text-zinc-400 text-sm leading-relaxed">
-                  Submit the command to analyze systemic parameters. Available commands:
-                </p>
-                
-                <!-- Comandos em grid -->
-                <div class="grid grid-cols-2 gap-3 mt-4">
-                  <div class="flex items-center gap-2 text-sm">
-                    <span class="text-sigma font-mono bg-sigma/10 px-2 py-1 rounded">Iex</span>
-                    <span class="text-zinc-500">Ex-Ante Unenforceability</span>
-                  </div>
-                  <div class="flex items-center gap-2 text-sm">
-                    <span class="text-sigma font-mono bg-sigma/10 px-2 py-1 rounded">safe</span>
-                    <span class="text-zinc-500">Safe Mode Protocol</span>
-                  </div>
-                  <div class="flex items-center gap-2 text-sm">
-                    <span class="text-sigma font-mono bg-sigma/10 px-2 py-1 rounded">status</span>
-                    <span class="text-zinc-500">System Status Check</span>
-                  </div>
-                  <div class="flex items-center gap-2 text-sm">
-                    <span class="text-sigma font-mono bg-sigma/10 px-2 py-1 rounded">art 85</span>
-                    <span class="text-zinc-500">Statute Query</span>
-                  </div>
-                  <div class="flex items-center gap-2 text-sm">
-                    <span class="text-sigma font-mono bg-sigma/10 px-2 py-1 rounded">code</span>
-                    <span class="text-zinc-500">Codebook Reference</span>
-                  </div>
-                  <div class="flex items-center gap-2 text-sm">
-                    <span class="text-sigma font-mono bg-sigma/10 px-2 py-1 rounded">index</span>
-                    <span class="text-zinc-500">Statute Index</span>
-                  </div>
-                </div>
-              </div>
+      <div class="hidden md:flex items-center gap-3">
+        <span class="status-tag">
+          <span class="pulse-dot"></span>
+          system active
+        </span>
+
+        <a
+          href="system-architecture.html"
+          class="quick-link"
+          data-label="System Architecture"
+          aria-label="System Architecture"
+          title="System Architecture"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.64 5.64l2.12 2.12M16.24 16.24l2.12 2.12M18.36 5.64l-2.12 2.12M7.76 16.24l-2.12 2.12"/>
+            <circle cx="12" cy="12" r="3.5"/>
+          </svg>
+        </a>
+
+        <a
+          href="index.html"
+          class="text-xs tracking-[0.18em] uppercase text-zinc-500 hover:text-zinc-300 transition-colors"
+        >
+          exit
+        </a>
+      </div>
+    </header>
+
+    <!-- HERO / QUICK ACCESS -->
+    <section class="hero-bar">
+      <div class="hero-card glass-subtle">
+        <div class="hero-title">Operational Interface</div>
+        <div class="hero-subtitle">
+          Unified terminal view for textual response, trajectory assessment, diagnostic signals and audit traces
+          inside a single large glass environment.
+        </div>
+      </div>
+
+      <div class="hero-actions">
+        <a href="system-architecture.html" class="action-card glass-subtle">
+          <div class="action-top">
+            <div>
+              <div class="action-label">Access</div>
+              <div class="action-title">System Architecture</div>
+            </div>
+            <div class="action-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.64 5.64l2.12 2.12M16.24 16.24l2.12 2.12M18.36 5.64l-2.12 2.12M7.76 16.24l-2.12 2.12"/>
+                <circle cx="12" cy="12" r="3.5"/>
+              </svg>
             </div>
           </div>
-        </div>
-      </div>
+          <span class="action-cta">Open</span>
+        </a>
 
-      <!-- INPUT COM VIDRO -->
-      <div class="px-6 pt-2 pb-4">
-        <div class="glass-input relative flex items-center p-1">
-          <span class="pl-4 pr-3 text-sigma font-tech text-lg font-bold">Σ</span>
-          <input
-            type="text"
-            id="command-input"
-            placeholder='Enter systemic parameters...'
-            class="w-full bg-transparent border-none text-sm text-white placeholder-zinc-500 focus:ring-0 px-2 py-4 font-mono focus:outline-none"
-          />
-          <button
-            id="execute-btn"
-            class="px-6 py-2.5 mr-1 bg-sigma/10 hover:bg-sigma hover:text-obsidian-deep border border-sigma/30 hover:border-sigma text-xs font-tech tracking-wider text-sigma transition-all duration-200 uppercase rounded font-medium"
-          >
-            Analyze
-          </button>
-        </div>
-        <div class="mt-3 text-xs font-mono text-zinc-500 flex justify-between items-center">
-          <span>Tip: Use <span class="text-zinc-400">Live Server / localhost</span> for SHA-256 verification</span>
-          <span class="text-zinc-600">v1.0.4-stable</span>
-        </div>
+        <a href="tdr-framework.html" class="action-card glass-subtle">
+          <div class="action-top">
+            <div>
+              <div class="action-label">Framework</div>
+              <div class="action-title">TDR Framework</div>
+            </div>
+            <div class="action-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                <path d="M4 7h16M4 12h10M4 17h7"/>
+                <path d="M18 14l3 3-3 3"/>
+              </svg>
+            </div>
+          </div>
+          <span class="action-cta">View Explanation</span>
+        </a>
       </div>
     </section>
 
-    <!-- SIDEBAR COM VIDRO -->
-    <aside class="w-80 sidebar-glass rounded-xl flex-col hidden lg:flex overflow-hidden" id="system-sidebar">
-      
-      <!-- GAP -->
-      <div class="p-5 border-b border-white/5">
-        <h2 class="font-tech text-xs tracking-[0.2em] text-zinc-500 uppercase mb-4 font-medium">The 80% Cognitive Gap</h2>
-        <div class="relative h-3 w-full bg-zinc-800/50 rounded-full mb-2 overflow-hidden">
-          <div id="gap-indicator" class="absolute top-0 bottom-0 bg-sigma w-2 left-[65%] shadow-[0_0_15px_#d6bc7e] transition-all duration-1000 rounded-full"></div>
-        </div>
-        <div class="flex justify-between text-xs font-mono text-zinc-500 uppercase">
-          <span>Stable</span>
-          <span id="gap-status" class="text-zinc-400 font-medium status-pulse">Monitoring</span>
-          <span>Collapse</span>
-        </div>
-      </div>
+    <div class="section-divider"></div>
 
-      <!-- TRIPARTITE -->
-      <div class="p-5 border-b border-white/5 space-y-5">
-        <h2 class="font-tech text-xs tracking-[0.2em] text-zinc-500 uppercase mb-3 font-medium">Tripartite Agency (Inputs)</h2>
-
-        <div>
-          <div class="flex justify-between text-xs text-zinc-400 mb-2 uppercase font-tech">
-            <span>Human / Institutional</span>
-            <span id="status-human" class="text-green-500 font-medium">Stable</span>
-          </div>
-          <div id="bar-human" class="h-2 bg-zinc-800/50 rounded-full overflow-hidden">
-            <div class="h-full bg-green-500 transition-all duration-1000 rounded-full" style="width: 30%"></div>
-          </div>
+    <!-- WORKSPACE -->
+    <section class="workspace">
+      <!-- MAIN CONSOLE -->
+      <section class="main-console glass-subtle">
+        <div class="panel-head">
+          <h2>Integrated Response Field</h2>
+          <div class="panel-meta">CONTEXT: STATE MACHINE MONITORING // MODE: OPERATION</div>
         </div>
 
-        <div>
-          <div class="flex justify-between text-xs text-zinc-400 mb-2 uppercase font-tech">
-            <span>Algorithmic Impact</span>
-            <span id="status-alg" class="text-sigma font-medium">High Load</span>
+        <div class="console-stage">
+          <div class="console-output" id="console-output">
+            <div class="message-card message-system slide-in">
+              <div class="msg-kicker">
+                <span class="msg-kicker-dot"></span>
+                system ready
+              </div>
+
+              <div class="msg-body">
+                <p><strong>Protocol initialized.</strong></p>
+                <p>
+                  Submit the command to analyze systemic parameters. Textual response and diagnostic
+                  indicators are rendered in the same integrated terminal environment.
+                </p>
+              </div>
+
+              <div class="response-grid">
+                <div class="response-chip"><code>Iex</code> Ex-Ante Unenforceability</div>
+                <div class="response-chip"><code>safe</code> Safe Mode Protocol</div>
+                <div class="response-chip"><code>status</code> System Status Check</div>
+                <div class="response-chip"><code>art 85</code> Statute Query</div>
+                <div class="response-chip"><code>code</code> Codebook Reference</div>
+                <div class="response-chip"><code>index</code> Statute Index</div>
+              </div>
+            </div>
           </div>
-          <div id="bar-algorithmic" class="h-2 bg-zinc-800/50 rounded-full overflow-hidden">
-            <div class="h-full bg-sigma transition-all duration-1000 rounded-full" style="width: 75%"></div>
+
+          <div class="console-input-wrap">
+            <div class="input-shell">
+              <div class="input-sigil">Σ</div>
+
+              <input
+                type="text"
+                id="command-input"
+                placeholder="Enter systemic parameters..."
+              />
+
+              <button id="execute-btn" class="analyze-btn">Analyze</button>
+            </div>
+
+            <div class="hint-row">
+              <span>Tip: Use Live Server / localhost for SHA-256 verification</span>
+              <span>v1.1.0-glass</span>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div>
-          <div class="flex justify-between text-xs text-zinc-400 mb-2 uppercase font-tech">
-            <span>Ecological / Biophysical</span>
-            <span id="status-eco" class="text-red-400 font-medium">Critical</span>
-          </div>
-          <div id="bar-ecological" class="h-2 bg-zinc-800/50 rounded-full overflow-hidden">
-            <div class="h-full bg-red-500 transition-all duration-1000 rounded-full" style="width: 88%"></div>
-          </div>
+      <!-- ANALYTICS INSIDE SAME SCREEN -->
+      <aside class="analytics-panel glass-subtle" id="system-sidebar">
+        <div class="panel-head">
+          <h2>System Analytics</h2>
+          <div class="panel-meta">Integrated Diagnostic Layer</div>
         </div>
-      </div>
 
-      <!-- DIAGNOSTIC -->
-      <div class="p-5 flex-1 overflow-y-auto" id="diagnostic-engine">
-        <h2 class="font-tech text-xs tracking-[0.2em] text-zinc-500 uppercase mb-4 font-medium">Diagnostic Engine</h2>
-        <div class="space-y-3" id="engine-checks">
-          <div class="flex items-center gap-3 text-xs text-zinc-400 font-mono p-2 rounded bg-white/5">
-            <span class="text-sigma text-sm">✓</span> Interdependency Sieve
-          </div>
-          <div class="flex items-center gap-3 text-xs text-zinc-400 font-mono p-2 rounded bg-white/5">
-            <span class="text-sigma text-sm">✓</span> Intensity Check
-          </div>
-          <div class="flex items-center gap-3 text-xs text-zinc-400 font-mono p-2 rounded bg-white/5">
-            <span class="text-sigma text-sm">✓</span> State Machine Binding
-          </div>
-          <div class="flex items-center gap-3 text-xs text-zinc-400 font-mono p-2 rounded bg-white/5">
-            <span class="text-sigma text-sm">✓</span> Trajectory Analysis
-          </div>
+        <div class="analytics-scroll">
+          <section class="metric-card glass-subtle">
+            <div class="metric-title">80% Cognitive Gap</div>
+            <div class="metric-row">
+              <span>Blind Interval Detection</span>
+              <span id="gap-status">Monitoring</span>
+            </div>
+            <div class="track">
+              <div id="gap-indicator" class="fill fill-gold" style="width:65%"></div>
+            </div>
+          </section>
+
+          <section class="metric-card glass-subtle">
+            <div class="metric-title">Tripartite Agency Inputs</div>
+
+            <div class="metric-row">
+              <span>Human / Institutional</span>
+              <span id="status-human">Stable</span>
+            </div>
+            <div class="track mb-4">
+              <div id="bar-human-fill" class="fill fill-green" style="width:30%"></div>
+            </div>
+
+            <div class="metric-row">
+              <span>Algorithmic Impact</span>
+              <span id="status-alg">High Load</span>
+            </div>
+            <div class="track mb-4">
+              <div id="bar-algorithmic-fill" class="fill fill-gold" style="width:75%"></div>
+            </div>
+
+            <div class="metric-row">
+              <span>Ecological / Biophysical</span>
+              <span id="status-eco">Critical</span>
+            </div>
+            <div class="track">
+              <div id="bar-ecological-fill" class="fill fill-red" style="width:88%"></div>
+            </div>
+          </section>
+
+          <div class="section-divider"></div>
+
+          <section class="metric-card glass-subtle">
+            <div class="metric-title">Diagnostic Engine</div>
+            <div class="check-list" id="engine-checks">
+              <div class="check-item"><span class="tick">✓</span><span>Interdependency Sieve</span></div>
+              <div class="check-item"><span class="tick">✓</span><span>Intensity Check</span></div>
+              <div class="check-item"><span class="tick">✓</span><span>State Machine Binding</span></div>
+              <div class="check-item"><span class="tick">✓</span><span>Trajectory Analysis</span></div>
+            </div>
+          </section>
+
+          <section class="metric-card glass-subtle">
+            <div class="metric-title">Immutable Audit Log</div>
+            <div class="audit-list" id="audit-logs">
+              <div class="audit-entry">
+                <div class="audit-time">session</div>
+                <div class="audit-text">No records in current session.</div>
+              </div>
+            </div>
+          </section>
         </div>
-      </div>
-
-      <!-- AUDIT LOG -->
-      <div class="p-5 border-t border-white/5 bg-black/20">
-        <h2 class="font-tech text-xs tracking-[0.2em] text-zinc-500 uppercase mb-4 font-medium">Immutable Audit Log</h2>
-        <div id="audit-logs" class="space-y-3 max-h-32 overflow-y-auto text-xs font-mono">
-          <div class="text-zinc-500 italic">No records in current session.</div>
-        </div>
-      </div>
-
-    </aside>
-  </main>
-
-  <!-- FOOTER COM LINK CENTRALIZADO -->
-  <footer class="border-t border-white/5 bg-obsidian-deep/80 backdrop-blur-sm z-40 relative">
-    <div class="max-w-6xl mx-auto px-6 py-4">
-      
-      <!-- Link da Framework Centralizado -->
-      <div class="flex justify-center mb-4">
-        <a
-          href="system-architecture.html"
-          class="group inline-flex items-center gap-3 px-6 py-3 bg-sigma/5 hover:bg-sigma/10 border border-sigma/20 hover:border-sigma/40 rounded-lg transition-all duration-300"
-        >
-          <span class="text-sigma text-lg">◆</span>
-          <div class="flex flex-col items-start">
-            <span class="text-sm font-tech tracking-[0.15em] uppercase text-sigma font-semibold group-hover:text-glow transition-all">
-              c-ECO System Architecture
-            </span>
-            <span class="text-xs text-zinc-500 font-mono mt-0.5">Framework Documentation & Technical Reference</span>
-          </div>
-          <span class="text-sigma text-lg ml-2 group-hover:translate-x-1 transition-transform">→</span>
-        </a>
-      </div>
-
-      <p class="text-center text-xs tracking-widest text-zinc-600 uppercase">
-        Conceptual Protocol Interface — Analytical Infrastructure Under Development
-      </p>
-    </div>
-  </footer>
+      </aside>
+    </section>
+  </div>
 
   <script>
   document.addEventListener('DOMContentLoaded', () => {
 
     /* ============================================================
-       0) DADOS (DOS SEUS PDFs) — EMBUTIDOS
+       0) COLE AQUI, SEM ALTERAR, OS SEUS ARRAYS E OBJETOS:
+       - CECO_INDEX
+       - CECO_CODES
+       - STATUTE_EXCERPTS
     ============================================================ */
 
     const CECO_INDEX = [
@@ -549,133 +1015,20 @@
     ];
 
     const CECO_CODES = [
-      { id: "CECO-PRE-000", title: "PREAMBLE: International Statute on Systemic Governance, Biophysical Supremacy, and Binding Legal Automation (c-ƩCO Regime)." },
+      { id: "CECO-PRE-000", title: "PREAMBLE: International Statute on Systemic Governance, Biophysical Supremacy, and Binding Legal Automation (c-ECO Regime)." },
       { id: "CECO-MEM-000", title: "EXPLANATORY MEMORANDUM: Transition from Retrospective Causality to the Systemic Predictive Nexus and Trajectory Protection." },
       { id: "CECO-ART-001", title: "Principle of Supremacy of the Safe Operating Space (SOS)." },
-      { id: "CECO-ART-002", title: "In Dubio Pro Systema Principle and Technical Thresholds." },
-      { id: "CECO-ART-003", title: "Physical Primacy and Non-Disposability of Systemic Collapse Risk (I)." },
-      { id: "CECO-ART-004", title: "Non-Disposability of Systemic Collapse Risk (II)." },
-      { id: "CECO-ART-005", title: "Ex-Ante Governance and Systemic Preclusion." },
-      { id: "CECO-ART-006", title: "Systemic Paradigm and Functional Integrity." },
-      { id: "CECO-ART-007", title: "Rule of Systemic Compatibility." },
-      { id: "CECO-ART-008", title: "Conditional Subsistence of Legal Bonds." },
-      { id: "CECO-ART-009", title: "Conditioned Immediate Object." },
-      { id: "CECO-ART-010", title: "Conditioned Existence of the Obligation." },
-      { id: "CECO-ART-011", title: "Prohibition of Enforceability Detached from Habitability." },
-      { id: "CECO-ART-012", title: "Continuous Validity and Dynamic Verification." },
-      { id: "CECO-ART-013", title: "Conditioned Persistence of Validity." },
-      { id: "CECO-ART-014", title: "Automatic Lapse due to Loss of Systemic Conditions." },
       { id: "CECO-ART-015", title: "Ex-Ante Unenforceability (IEX) as Autonomous Legal Category." },
-      { id: "CECO-ART-016", title: "Automatic Lock Triggered by Irreversible Technical Trajectory." },
-      { id: "CECO-ART-017", title: "Objective Systemic Criterion (replacing subjective legal cause)." },
-      { id: "CECO-ART-018", title: "Immediacy and Erga Omnes Opposability of Technical IEX." },
-      { id: "CECO-ART-019", title: "Systemic Preclusion." },
-      { id: "CECO-ART-020", title: "Blocking of Lawful Acts through Collapse Trajectory Construction." },
-      { id: "CECO-ART-021", title: "Trajectory Preclusion." },
-      { id: "CECO-ART-022", title: "Opposability of Preclusion to Successors and Substitutes." },
-      { id: "CECO-ART-023", title: "Safe Operating Space (SOS)." },
-      { id: "CECO-ART-024", title: "Subordination of Price/Value/Remuneration to Systemic Limits." },
-      { id: "CECO-ART-025", title: "Legal Nullity of Prices Formed Outside SOS." },
-      { id: "CECO-ART-026", title: "Erga Omnes Unenforceability of Prices Null due to Systemic Violation." },
-      { id: "CECO-ART-027", title: "Habitability Link." },
-      { id: "CECO-ART-028", title: "Dependence of Economic Value on Ecosystem Preservation." },
-      { id: "CECO-ART-029", title: "Prohibition of Dissociation between Financial Assets and Life-Support Systems." },
-      { id: "CECO-ART-030", title: "Non-Opposability of Incompatible Asset-Segregation Structures." },
-      { id: "CECO-ART-031", title: "Biophysical Conditioning of Guarantees." },
-      { id: "CECO-ART-032", title: "Non-Opposability of Anti-Systemic Enforcement." },
-      { id: "CECO-ART-033", title: "Automatic Conversion into Systemic Restoration Obligations." },
-      { id: "CECO-ART-034", title: "Absolute Priority of Restoration and Safe Decommissioning." },
       { id: "CECO-ART-035", title: "Systemic Proof." },
-      { id: "CECO-ART-036", title: "Centrality of Certified Sensory Data." },
-      { id: "CECO-ART-037", title: "Prevalence of Systemic Proof." },
-      { id: "CECO-ART-038", title: "Erga Omnes Opposability and Immediate Effectiveness of Systemic Proof." },
-      { id: "CECO-ART-039", title: "Burden of Technical Challenge." },
-      { id: "CECO-ART-040", title: "Curatorial Trigger." },
-      { id: "CECO-ART-041", title: "Automatic Release of Funds for Correction and Restoration." },
-      { id: "CECO-ART-042", title: "Priority of Correction over Ex Post Indemnification." },
-      { id: "CECO-ART-043", title: "Unenforceability of Substitute Indemnification Solutions." },
       { id: "CECO-ART-044", title: "Safe Mode." },
-      { id: "CECO-ART-045", title: "Coordinated Suspension to Prevent Systemic Cascades." },
-      { id: "CECO-ART-046", title: "Priority of System Preservation over Individual Performance." },
-      { id: "CECO-ART-047", title: "Unenforceability of Penalties for Suspension in Safe Mode." },
       { id: "CECO-ART-048", title: "State Machine." },
-      { id: "CECO-ART-049", title: "Progressive Phased Execution." },
-      { id: "CECO-ART-050", title: "Overcoming Binary Logic of Execution or Rupture." },
-      { id: "CECO-ART-051", title: "Legal Binding of State Transitions." },
-      { id: "CECO-ART-052", title: "Legal Irreversibility of Critical Transitions." },
-      { id: "CECO-ART-142", title: "Exclusion of Habitability." },
-      { id: "CECO-ART-143", title: "Intergenerational Indemnification." },
-      { id: "CECO-ART-144", title: "Calculation of Intergenerational Indemnification." },
-      { id: "CECO-ART-145", title: "Evidentiary Publicity and Public Registry." },
-      { id: "CECO-ART-146", title: "Opposability of the Public Registry." },
-      { id: "CECO-ART-147", title: "Unenforceability of Sanction Waivers or Settlements." },
-      { id: "CECO-ART-148", title: "Inapplicability of Force Majeure/Fortuitous Event in Systemic Context." },
-      { id: "CECO-ART-149", title: "Mandatory Internalization of Systemic Risks." },
-      { id: "CECO-ART-150", title: "Act of Third Parties and Systemic Contribution Nexus." },
-      { id: "CECO-ART-151", title: "Co-Liability for Omission re: Third-Party Acts." },
-      { id: "CECO-ART-152", title: "Supremacy of Sensorial and Technical Evidence." },
-      { id: "CECO-ART-153", title: "Unenforceability of Non-Technical Challenges." },
-      { id: "CECO-ART-154", title: "Shielding against Political/Administrative Interference." },
-      { id: "CECO-ART-155", title: "Prevalence of Biophysical Reality over State Authorization." },
-      { id: "CECO-ART-156", title: "Limitation of Good Faith in Predictive Risks." },
-      { id: "CECO-ART-157", title: "Continuous Duty of Systemic Vigilance." },
-      { id: "CECO-ART-158", title: "Unenforceability of Conventional Exemptions." },
+      { id: "CECO-ART-085", title: "Automatic legal effects from state transitions." },
+      { id: "CECO-ART-086", title: "Immutable technical traceability and logs." },
+      { id: "CECO-ART-097", title: "Automatic Duty of Cooperation (Join Duty)." },
       { id: "CECO-ART-159", title: "Systemic Risk Management Fund." },
-      { id: "CECO-ART-160", title: "Algorithmic Custody of Resources." },
-      { id: "CECO-ART-161", title: "Tripartite Governance of the Fund." },
-      { id: "CECO-ART-162", title: "Purpose-Bound Allocation of the Fund." },
-      { id: "CECO-ART-163", title: "Autonomous Execution of Expenditures." },
-      { id: "CECO-ART-164", title: "Suspension of Human Management in Critical States." },
-      { id: "CECO-ART-165", title: "Prohibition of Misuse of Funds." },
-      { id: "CECO-ART-166", title: "Unenforceability of Claims against the Fund." },
-      { id: "CECO-ART-167", title: "Traceability and Transparency of Fund Operations." },
-      { id: "CECO-ART-168", title: "Mandatory Initial Reserve." },
-      { id: "CECO-ART-169", title: "Composition and Liquidity of the Initial Reserve." },
-      { id: "CECO-ART-170", title: "Dynamic Updating of the Initial Reserve." },
-      { id: "CECO-ART-171", title: "Prohibition of Operation without Reversibility Capital." },
-      { id: "CECO-ART-172", title: "Entry Condition into the c-ƩCO Regime." },
-      { id: "CECO-ART-173", title: "Condition for Release of Execution Rights." },
-      { id: "CECO-ART-174", title: "Preferential Allocation of the Initial Reserve." },
-      { id: "CECO-ART-175", title: "Unenforceability of Insufficient Substitute Guarantees." },
       { id: "CECO-ART-176", title: "Systemic Function of Restoration Providers." },
-      { id: "CECO-ART-177", title: "Mandatory Certification and Prior Approval." },
-      { id: "CECO-ART-178", title: "Legal Binding of Providers to the c-ƩCO Regime." },
-      { id: "CECO-ART-179", title: "Faithful Curatorship of the Systemic Trajectory." },
-      { id: "CECO-ART-180", title: "Guarantee of Technical Result." },
-      { id: "CECO-ART-181", title: "Algorithmic Subordination of Execution." },
-      { id: "CECO-ART-182", title: "Direct and Autonomous Execution." },
-      { id: "CECO-ART-183", title: "Joint Liability of the Provider." },
-      { id: "CECO-ART-184", title: "Substitution of the Provider." },
-      { id: "CECO-ART-185", title: "Mandatory Contingency List." },
-      { id: "CECO-ART-186", title: "Emergency Intervention." },
-      { id: "CECO-ART-187", title: "Affection of Provider Guarantees." },
-      { id: "CECO-ART-188", title: "Mandatory Order of Systemic Activation." },
-      { id: "CECO-ART-189", title: "Minimum Initialization Stages." },
-      { id: "CECO-ART-190", title: "Binding Technical–Legal Sequencing." },
-      { id: "CECO-ART-191", title: "Prohibition of Parallel/Fragmented Execution." },
-      { id: "CECO-ART-192", title: "Ineffectiveness of Misaligned External Acts." },
-      { id: "CECO-ART-193", title: "Mandatory Technical Record (Systemic Logs)." },
-      { id: "CECO-ART-194", title: "Permanent Auditability." },
-      { id: "CECO-ART-195", title: "Secure Termination of Execution." },
-      { id: "CECO-ART-196", title: "Prohibition of Fictitious or Formal Termination." },
-      { id: "CECO-ART-197", title: "Liability for Disruption of the Execution Chain." },
-      { id: "CECO-ART-198", title: "Application to Ongoing Contracts." },
-      { id: "CECO-ART-199", title: "Prohibition of Material Retroactivity." },
-      { id: "CECO-ART-200", title: "Voluntary Adhesion (Opt-In)." },
-      { id: "CECO-ART-201", title: "Full Binding Effect after Opt-In." },
-      { id: "CECO-ART-202", title: "Compatibility with Arbitration and Courts." },
-      { id: "CECO-ART-203", title: "Technical Autonomy vis-à-vis Litigation." },
-      { id: "CECO-ART-204", title: "Compatibility with Insolvency Regimes." },
-      { id: "CECO-ART-205", title: "Systemic Priority in Collective Proceedings." },
-      { id: "CECO-ART-206", title: "Transnational Recognition of the c-ƩCO Regime." },
-      { id: "CECO-ART-207", title: "Normative and Technical Interoperability." },
-      { id: "CECO-ART-208", title: "Systemic Safeguard Clause." },
-      { id: "CECO-ART-209", title: "Model Law and Normative Standard Nature." },
-      { id: "CECO-ART-210", title: "Supplementary and Interpretive Application." },
-      { id: "CECO-ART-211", title: "Systemic Integrity Clause." },
-      { id: "CECO-ART-212", title: "Prohibition of Waiver of Structural Principles." },
-      { id: "CECO-ART-213", title: "Finalistic and Evolutive Interpretation." },
-      { id: "CECO-ART-214", title: "Entry into Force." },
+      { id: "CECO-ART-206", title: "Transnational Recognition of the c-ECO Regime." },
+      { id: "CECO-ART-214", title: "Entry into Force." }
     ];
 
     const STATUTE_EXCERPTS = {
@@ -697,7 +1050,7 @@
     };
 
     /* ============================================================
-       1) MAPEAMENTO DO DOM
+       1) DOM
     ============================================================ */
     const inputField = document.getElementById('command-input');
     const executeBtn = document.getElementById('execute-btn');
@@ -709,7 +1062,7 @@
     };
 
     /* ============================================================
-       2) UTILITÁRIOS / SANITIZAÇÃO
+       2) UTILS
     ============================================================ */
     const escapeHtml = (str = '') =>
       String(str).replace(/[&<>"']/g, (m) => ({
@@ -734,93 +1087,80 @@
     const normalizeCmd = (s='') => s.trim().replace(/\s+/g, ' ');
 
     /* ============================================================
-       3) COMPONENTES DE UI COM VIDRO
+       3) UI COMPONENTS
     ============================================================ */
     function createUserMessage(text) {
       const div = document.createElement('div');
-      div.className = "flex justify-end pl-12 mb-6 slide-in";
+      div.className = 'message-card message-user slide-in';
       div.innerHTML = `
-        <div class="glass-response p-4 max-w-xl">
-          <span class="text-xs text-sigma/60 font-mono block mb-2 uppercase tracking-wide">Input Source: Human Agency ></span>
-          <p class="text-sm font-mono text-zinc-300">${escapeHtml(text)}</p>
-        </div>`;
+        <div class="msg-kicker">
+          <span class="msg-kicker-dot"></span>
+          input source: human agency
+        </div>
+        <div class="msg-body">
+          <p><code style="font-family:'JetBrains Mono', monospace; color:#f0f0f2;">${escapeHtml(text)}</code></p>
+        </div>
+      `;
       return div;
     }
 
     function createSystemMessage(html, isAlert, proofId) {
       const div = document.createElement('div');
-      div.className = "flex justify-start pr-12 mb-6 slide-in";
-      const borderColor = isAlert ? "border-red-500/50" : "border-sigma/50";
-      const header = isAlert ? "[ PREDICTIVE ALERT ]" : "[ TRAJECTORY ASSESSMENT ]";
-      const headerColor = isAlert ? "text-red-400" : "text-sigma/80";
-
+      div.className = 'message-card message-system slide-in';
       div.innerHTML = `
-        <div class="w-full">
-          <div class="glass-response p-6 md:p-8">
-            <div class="flex gap-4 mb-5 font-mono text-xs ${headerColor} tracking-wide uppercase border-b border-white/10 pb-4">
-              <span class="font-medium flex items-center gap-2">
-                <span class="w-1.5 h-1.5 rounded-full ${isAlert ? 'bg-red-500' : 'bg-sigma'} animate-pulse"></span>
-                ${header}
-              </span>
-              <span class="text-zinc-500">PROOF-ID: ${escapeHtml(proofId || "—")}</span>
-            </div>
-            <div class="text-zinc-300 font-light">
-              ${html}
-            </div>
-          </div>
-        </div>`;
+        <div class="msg-kicker" style="color:${isAlert ? '#fca5a5' : '#d6bc7e'};">
+          <span class="msg-kicker-dot" style="background:${isAlert ? '#ef4444' : '#d6bc7e'}; box-shadow:0 0 14px ${isAlert ? 'rgba(239,68,68,.42)' : 'rgba(214,188,126,.45)'};"></span>
+          ${isAlert ? 'predictive alert' : 'trajectory assessment'}
+          <span style="margin-left:auto; color:#737782;">proof-id: ${escapeHtml(proofId || '—')}</span>
+        </div>
+        <div class="msg-body">${html}</div>
+      `;
       return div;
     }
 
     function renderCECOOutput(payload) {
       const refs = (arr) =>
         (arr || []).map(r =>
-          `<code class="text-xs bg-white/5 px-2 py-1 font-mono text-sigma/80 rounded border border-white/5">${escapeHtml(r)}</code>`
+          `<code style="font-family:'JetBrains Mono', monospace; color:#d6bc7e; background:rgba(214,188,126,.06); padding:3px 8px; border-radius:8px; border:1px solid rgba(214,188,126,.12); font-size:.75rem;">${escapeHtml(r)}</code>`
         ).join(' ');
 
       const triggersHtml = (payload.triggers && payload.triggers.length)
-        ? payload.triggers.map(t => `<div class="text-sm mb-2 text-zinc-300 flex items-start gap-2"><span class="text-sigma mt-1">▶</span> <span>${escapeHtml(t)}</span></div>`).join('')
-        : '<span class="text-zinc-500 text-sm italic">No triggers activated.</span>';
+        ? payload.triggers.map(t => `<div style="display:flex; gap:10px; margin-bottom:10px; color:#d7dae0;"><span style="color:#d6bc7e;">▶</span><span>${escapeHtml(t)}</span></div>`).join('')
+        : `<span style="color:#7a7f89;">No triggers activated.</span>`;
 
-      const effectsHtml = (payload.effects || []).map(e => `<li class="mb-2 leading-relaxed">${escapeHtml(e)}</li>`).join('');
+      const effectsHtml = (payload.effects || []).map(e => `<li style="margin-bottom:10px;">${escapeHtml(e)}</li>`).join('');
 
       return `
-        <div class="space-y-6">
-          <section>
-            <h3 class="text-white font-tech text-xs uppercase tracking-widest border-b border-white/10 mb-4 pb-2 font-semibold flex items-center gap-2">
-              <span class="w-1 h-1 bg-sigma rounded-full"></span>
-              A) Systemic State
-            </h3>
-            <div class="flex items-center gap-3 mb-3">
-              <span class="px-3 py-1.5 rounded-md bg-sigma/10 border border-sigma/30 text-sigma text-xs font-mono font-medium">${escapeHtml(payload.state)}</span>
-              <span class="text-xs text-zinc-500 font-mono">CONFIDENCE: ${escapeHtml(payload.confidence)}</span>
+        <div style="display:grid; gap:18px;">
+          <section class="glass-subtle" style="padding:16px; border-radius:16px;">
+            <div style="font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:#babec6; margin-bottom:12px; font-weight:600;">Systemic State</div>
+            <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-bottom:10px;">
+              <span style="display:inline-flex; align-items:center; min-height:36px; padding:0 12px; border-radius:999px; background:rgba(214,188,126,.08); border:1px solid rgba(214,188,126,.18); color:#d6bc7e; font-size:.78rem; font-family:'JetBrains Mono', monospace;">
+                ${escapeHtml(payload.state)}
+              </span>
+              <span style="font-size:.78rem; color:#7b8089; font-family:'JetBrains Mono', monospace;">
+                CONFIDENCE: ${escapeHtml(payload.confidence)}
+              </span>
             </div>
-            <p class="text-xs text-zinc-400">Basis: ${refs(payload.state_basis)}</p>
+            <div style="font-size:.85rem; color:#9da2ab;">Basis: ${refs(payload.state_basis)}</div>
           </section>
 
-          <section>
-            <h3 class="text-white font-tech text-xs uppercase tracking-widest border-b border-white/10 mb-4 pb-2 font-semibold flex items-center gap-2">
-              <span class="w-1 h-1 bg-sigma rounded-full"></span>
-              B) Mandatory Triggers
-            </h3>
-            ${triggersHtml}
+          <section class="glass-subtle" style="padding:16px; border-radius:16px;">
+            <div style="font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:#babec6; margin-bottom:12px; font-weight:600;">Mandatory Triggers</div>
+            <div>${triggersHtml}</div>
           </section>
 
-          <section>
-            <h3 class="text-white font-tech text-xs uppercase tracking-widest border-b border-white/10 mb-4 pb-2 font-semibold flex items-center gap-2">
-              <span class="w-1 h-1 bg-sigma rounded-full"></span>
-              C) Binding Legal Effects
-            </h3>
-            <ul class="list-disc pl-5 space-y-2 text-sm text-zinc-300">${effectsHtml}</ul>
+          <section class="glass-subtle" style="padding:16px; border-radius:16px;">
+            <div style="font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:#babec6; margin-bottom:12px; font-weight:600;">Binding Legal Effects</div>
+            <ul style="padding-left:18px; color:#d7dae0; line-height:1.8;">${effectsHtml}</ul>
           </section>
 
-          <section class="bg-blue-950/20 p-5 border-l-2 border-blue-500/40 rounded-r-lg">
-            <h3 class="text-blue-400 font-tech text-xs uppercase tracking-widest mb-3 font-semibold flex items-center gap-2">
-              <span class="w-1 h-1 bg-blue-400 rounded-full"></span>
-              D) Proof & Immutable Logs
-            </h3>
-            <p class="text-sm font-mono text-zinc-400 leading-relaxed">${escapeHtml(payload.proof || '')}</p>
-            <div class="mt-3 text-xs text-blue-300/60 uppercase font-mono">
+          <section class="glass-subtle" style="padding:16px; border-radius:16px;">
+            <div style="font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:#babec6; margin-bottom:12px; font-weight:600;">Proof & Immutable Logs</div>
+            <p style="font-family:'JetBrains Mono', monospace; color:#cfd3da; line-height:1.8; font-size:.9rem;">
+              ${escapeHtml(payload.proof || '')}
+            </p>
+            <div style="margin-top:12px; font-size:.8rem; color:#95a0b5;">
               Evidence Bound: ${refs(payload.proof_basis)}
             </div>
           </section>
@@ -832,29 +1172,29 @@
       const container = document.getElementById('audit-logs');
       if (!container) return;
 
-      const placeholder = container.querySelector('.italic');
-      if (placeholder) placeholder.remove();
+      const first = container.querySelector('.audit-entry');
+      if (first && /No records in current session/i.test(first.textContent)) {
+        first.remove();
+      }
 
       const ts = new Date().toISOString().replace('T', ' ').slice(0, 19);
       const div = document.createElement('div');
-      div.className = "border-l-2 border-white/10 pl-3 slide-in py-1";
-
+      div.className = 'audit-entry slide-in';
       div.innerHTML = `
-        <div class="text-xs font-mono text-zinc-500 mb-0.5">${escapeHtml(ts)}</div>
-        <div class="text-xs font-mono text-zinc-300 leading-relaxed">${escapeHtml(entry)}</div>
+        <div class="audit-time">${escapeHtml(ts)}</div>
+        <div class="audit-text">${escapeHtml(entry)}</div>
       `;
 
-      container.appendChild(div);
-      container.scrollTop = container.scrollHeight;
+      container.prepend(div);
     }
 
     /* ============================================================
-       4) SIDEBAR (Tripartite + Gap) + Blind Interval
+       4) SIDEBAR / ANALYTICS
     ============================================================ */
     function updateSidebar(payload) {
-      const humanFill = document.querySelector('#bar-human > div');
-      const algFill = document.querySelector('#bar-algorithmic > div');
-      const ecoFill = document.querySelector('#bar-ecological > div');
+      const humanFill = document.getElementById('bar-human-fill');
+      const algFill = document.getElementById('bar-algorithmic-fill');
+      const ecoFill = document.getElementById('bar-ecological-fill');
 
       const humanTxt = document.getElementById('status-human');
       const algTxt = document.getElementById('status-alg');
@@ -865,42 +1205,41 @@
 
       if (!humanFill || !algFill || !ecoFill || !gapStatus || !gapIndicator) return;
 
-      const setFill = (fillEl, labelEl, width, label, bgClass, textClass) => {
+      const setFill = (fillEl, labelEl, width, label, fillClass, labelColor) => {
         fillEl.style.width = `${width}%`;
-        fillEl.className = `h-full transition-all duration-1000 rounded-full ${bgClass}`;
+        fillEl.className = `fill ${fillClass}`;
         if (labelEl) {
           labelEl.textContent = label;
-          labelEl.className = `${textClass} font-medium`;
+          labelEl.style.color = labelColor;
+          labelEl.style.fontWeight = '600';
         }
       };
 
       const state = String(payload.state || "").toUpperCase();
       const score = Number(payload.confidence_score ?? 80);
 
-      // Gap indicator
-      const clamped = Math.max(5, Math.min(95, score));
-      gapIndicator.style.left = `${clamped}%`;
+      gapIndicator.style.width = `${Math.max(6, Math.min(100, score))}%`;
 
       if (score < 60) {
-        gapStatus.textContent = "BLIND INTERVAL";
-        gapStatus.className = "text-red-500 animate-pulse font-medium";
+        gapStatus.textContent = "Blind Interval";
+        gapStatus.style.color = "#ef4444";
       } else {
-        gapStatus.textContent = "MONITORING";
-        gapStatus.className = "text-zinc-400 font-medium status-pulse";
+        gapStatus.textContent = "Monitoring";
+        gapStatus.style.color = "#d6bc7e";
       }
 
       if (state.includes("RED")) {
-        setFill(humanFill, humanTxt, 20, "DELETED", "bg-red-500", "text-red-400");
-        setFill(algFill, algTxt, 98, "CRITICAL", "bg-red-500", "text-red-400");
-        setFill(ecoFill, ecoTxt, 100, "COLLAPSE", "bg-red-500", "text-red-400");
+        setFill(humanFill, humanTxt, 20, "Deleted", "fill-red", "#fca5a5");
+        setFill(algFill, algTxt, 98, "Critical", "fill-red", "#fca5a5");
+        setFill(ecoFill, ecoTxt, 100, "Collapse", "fill-red", "#fca5a5");
       } else if (state.includes("ORANGE")) {
-        setFill(humanFill, humanTxt, 40, "SUSPENDED", "bg-orange-500", "text-orange-400");
-        setFill(algFill, algTxt, 80, "HIGH LOAD", "bg-orange-500", "text-orange-400");
-        setFill(ecoFill, ecoTxt, 65, "WARNING", "bg-orange-500", "text-orange-400");
+        setFill(humanFill, humanTxt, 40, "Suspended", "fill-orange", "#fdba74");
+        setFill(algFill, algTxt, 80, "High Load", "fill-orange", "#fdba74");
+        setFill(ecoFill, ecoTxt, 65, "Warning", "fill-orange", "#fdba74");
       } else {
-        setFill(humanFill, humanTxt, 60, "ACTIVE", "bg-green-500", "text-green-400");
-        setFill(algFill, algTxt, 40, "OPTIMAL", "bg-sigma", "text-sigma");
-        setFill(ecoFill, ecoTxt, 30, "STABLE", "bg-green-700", "text-green-400");
+        setFill(humanFill, humanTxt, 60, "Active", "fill-green", "#86efac");
+        setFill(algFill, algTxt, 40, "Optimal", "fill-gold", "#d6bc7e");
+        setFill(ecoFill, ecoTxt, 30, "Stable", "fill-green", "#86efac");
       }
     }
 
@@ -910,14 +1249,14 @@
       const score = Number(payload.confidence_score ?? 80);
 
       if (score < 60) {
-        sidebar.classList.add('opacity-30', 'blur-[2px]', 'pointer-events-none');
+        sidebar.style.opacity = '.55';
       } else {
-        sidebar.classList.remove('opacity-30', 'blur-[2px]', 'pointer-events-none');
+        sidebar.style.opacity = '1';
       }
     }
 
     /* ============================================================
-       5) ENGINE DECISIONAL (CORE)
+       5) ENGINE
     ============================================================ */
     function findCode(query) {
       const q = query.toUpperCase();
@@ -957,7 +1296,7 @@
           state_basis,
           triggers: ["Codebook Query"],
           effects: listCodesSample(),
-          proof: "AI CODES codebook loaded (local).",
+          proof: "AI codes codebook loaded (local).",
           proof_basis: ["CECO-PRE-000"],
           isAlert: false
         };
@@ -989,7 +1328,7 @@
           triggers: ["Ex-Ante Unenforceability (IEX)", "Trajectory Lock"],
           effects: [
             "Immediate suspension of any executive action.",
-            "The trajectory is aggravated and Execution is blocked.",
+            "The trajectory is aggravated and execution is blocked.",
             "Automatic and enforceable effects (erga omnes) based on technical grounds."
           ],
           proof: "Certified sensory + legal data (state lock).",
@@ -1050,7 +1389,7 @@
     }
 
     /* ============================================================
-       6) ORQUESTRADOR (Interface)
+       6) ORCHESTRATOR
     ============================================================ */
     async function executeCommand() {
       if (!inputField || !consoleOutput) return;
@@ -1058,15 +1397,21 @@
       const command = normalizeCmd(inputField.value);
       if (!command) return;
 
-      // user msg
       consoleOutput.appendChild(createUserMessage(command));
       inputField.value = '';
       scrollToBottom();
 
-      // loader
       const loader = document.createElement('div');
-      loader.className = "flex items-center gap-3 p-4 slide-in";
-      loader.innerHTML = `<div class="w-3 h-3 bg-sigma animate-ping rounded-full"></div><span class="text-xs font-mono text-sigma uppercase tracking-wide">Running Sieve Analysis...</span>`;
+      loader.className = 'message-card message-system slide-in';
+      loader.innerHTML = `
+        <div class="msg-kicker">
+          <span class="msg-kicker-dot"></span>
+          running sieve analysis
+        </div>
+        <div class="msg-body">
+          <p style="font-family:'JetBrains Mono', monospace; color:#d6bc7e;">Processing systemic parameters...</p>
+        </div>
+      `;
       consoleOutput.appendChild(loader);
       scrollToBottom();
 
@@ -1074,34 +1419,27 @@
         loader.remove();
 
         const payload = decide(command);
-
-        // Prova sistêmica (SHA-256)
         const ts = new Date().toISOString();
         const rawData = `${command}|${payload.state}|${payload.confidence_score ?? ''}|${ts}`;
         const proofId = await generateSigmaHash(rawData);
 
-        // atualizar sidebar + blind interval
         updateSidebar(payload);
         applyBlindInterval(payload);
 
-        // audit log
         appendAuditLog(`TS=${ts} | CMD="${command.toUpperCase()}" | STATE=${payload.state} | SIGMA-SHA256-${proofId}`);
 
-        // render output
         const html = renderCECOOutput(payload);
         const sysMsg = createSystemMessage(html, payload.isAlert, proofId);
         consoleOutput.appendChild(sysMsg);
         scrollToBottom();
-      }, 900);
+      }, 700);
     }
 
     executeBtn?.addEventListener('click', executeCommand);
-    inputField?.addEventListener('keydown', (e) => { 
-      if (e.key === 'Enter') executeCommand(); 
+    inputField?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') executeCommand();
     });
-
   });
   </script>
 </body>
 </html>
-
