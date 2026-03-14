@@ -1,775 +1,1105 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hasse Foundation | Law · Memory · Living Systems</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>c-ECO // Decisional Guardian Terminal</title>
 
-  <!-- Tailwind config must come BEFORE the CDN script -->
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          gold: "#d6bc7e",
-          stone: { 950: "#0c0a09" }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            sigma: { 
+              DEFAULT: '#d6bc7e', 
+              dim: '#a68b4c',
+              glow: 'rgba(214, 188, 126, 0.3)'
+            },
+            obsidian: {
+              deep: '#030303',
+              mist: '#0f0f12',
+            },
+            slate: {
+              950: '#020617',
+              900: '#0f172a',
+              850: '#0a0f1d',
+              800: '#1e293b',
+            }
+          },
+          fontFamily: {
+            tech: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+          }
         }
       }
     }
-  }
   </script>
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    :root { --stone-950: #0c0a09; --gold: #d6bc7e; }
-    body { background-color: var(--stone-950); color: #e7e5e4; font-family: 'Inter', sans-serif; line-height: 1.8; }
-    h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    .reveal { opacity: 0; transform: translateY(20px); transition: all 1s ease-out; }
-    .reveal.active { opacity: 1; transform: translateY(0); }
+    html, body {
+      height: 100%;
+      background: #030303;
+      color: #e0e0e0;
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.6;
+      overflow: hidden;
+    }
 
-    .glass-panel { background: rgba(28, 25, 23, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(214, 188, 126, 0.1); }
+    /* Fundo com grid sutil */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background: radial-gradient(circle at 50% 50%, #0f0f12 0%, #030303 90%);
+    }
 
-    .dropcap::first-letter { float: left; font-size: 3.5rem; line-height: 0.8; padding-right: 0.6rem; color: var(--gold); font-family: 'Playfair Display'; }
+    .holo-grid {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      background-size: 60px 60px;
+      transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
+      animation: gridMove 30s linear infinite;
+      pointer-events: none;
+      mask-image: radial-gradient(circle, black 30%, transparent 80%);
+    }
+
+    @keyframes gridMove {
+      0% { transform: perspective(500px) rotateX(60deg) translateY(0) translateZ(-200px); }
+      100% { transform: perspective(500px) rotateX(60deg) translateY(60px) translateZ(-200px); }
+    }
+
+    /* Scanline overlay */
+    .scanline-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0,0,0,0.04) 50%,
+        rgba(0,0,0,0.04)
+      );
+      background-size: 100% 3px;
+      pointer-events: none;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { 
+      width: 6px; 
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track { 
+      background: #09090b; 
+    }
+    ::-webkit-scrollbar-thumb { 
+      background: #27272a; 
+      border-radius: 3px; 
+    }
+    ::-webkit-scrollbar-thumb:hover { 
+      background: #3f3f46; 
+    }
+
+    /* Glass Effect - O CUBO DE VIDRO APLICADO NA RESPOSTA */
+    .glass-response {
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      box-shadow: 
+        0 0 60px rgba(0, 0, 0, 0.8),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Brilho do Scanner na resposta */
+    .glass-response::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to bottom,
+        transparent 45%,
+        rgba(214, 188, 126, 0.03) 50%,
+        transparent 55%
+      );
+      transform: rotate(45deg);
+      animation: shine 8s infinite;
+      pointer-events: none;
+    }
+
+    @keyframes shine {
+      0% { transform: translateY(-100%) rotate(45deg); }
+      100% { transform: translateY(100%) rotate(45deg); }
+    }
+
+    /* Hover no glass */
+    .glass-response:hover {
+      border-color: rgba(214, 188, 126, 0.2);
+      box-shadow: 
+        0 0 80px rgba(0, 0, 0, 0.9),
+        0 0 30px rgba(214, 188, 126, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    /* Status colors */
+    .status-green { color: #22c55e; }
+    .status-orange { color: #f97316; }
+    .status-red { color: #ef4444; }
     
-.divider-gold {
-  width: 60px;
-  height: 1px;
-  background: rgba(214,188,126,0.55);
-  margin: 2rem auto;
-}
+    .bg-status-green { background-color: #22c55e; }
+    .bg-status-orange { background-color: #f97316; }
+    .bg-status-red { background-color: #ef4444; }
 
-    /* small helper for your existing class */
-    .prose-custom p { margin-bottom: 1.25rem; }
-    .prose-custom strong { color:#fff; font-weight:600; }
-    /* gold consistente (evita var + alpha quebrar) */
-.gold-soft { color: rgba(214,188,126,0.70); }
-.gold      { color: rgba(214,188,126,1); }
-.gold-line { border-color: rgba(214,188,126,0.35); }
+    /* Glow effects */
+    .sigma-glow {
+      box-shadow: 0 0 20px rgba(214, 188, 126, 0.3);
+    }
 
-.prose-custom p {
-  text-align: justify;
-  text-justify: inter-word;
-  hyphens: auto;
-}
-}
-.bio-image-container {
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(214, 188, 126, 0.2);
-            background: #18181b;
-            aspect-ratio: 3/4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    .text-glow {
+      text-shadow: 0 0 10px rgba(214, 188, 126, 0.3);
+    }
 
-        .text-accent-link {
-            color: var(--orange-ceco);
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-            transition: border 0.3s;
-        }
-        .text-accent-link:hover {
-            border-bottom: 1px solid var(--orange-ceco);
-        }
+    /* Animations */
+    @keyframes pulse-sigma {
+      0%, 100% { 
+        opacity: 1; 
+        box-shadow: 0 0 5px #d6bc7e;
+      }
+      50% { 
+        opacity: 0.7; 
+        box-shadow: 0 0 15px #d6bc7e, 0 0 25px #d6bc7e;
+      }
+    }
+
+    .animate-pulse-sigma {
+      animation: pulse-sigma 2s ease-in-out infinite;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .slide-in {
+      animation: slideIn 0.4s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s ease-out forwards;
+    }
+
+    /* Typography */
+    .font-tech {
+      font-family: 'Inter', system-ui, sans-serif;
+      letter-spacing: 0.05em;
+    }
+
+    .font-mono-tech {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    }
+
+    /* Selection */
+    ::selection {
+      background: #a68b4c;
+      color: white;
+    }
+
+    /* Input glass effect */
+    .glass-input {
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .glass-input:focus-within {
+      border-color: rgba(214, 188, 126, 0.3);
+      box-shadow: 0 0 20px rgba(214, 188, 126, 0.1);
+    }
+
+    /* Sidebar glass */
+    .sidebar-glass {
+      background: rgba(15, 15, 18, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-left: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* Header glass */
+    .header-glass {
+      background: rgba(3, 3, 3, 0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* Status tag pulsando */
+    .status-pulse {
+      animation: goldPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes goldPulse {
+      0% {
+        opacity: 0.5;
+        text-shadow: 0 0 0px rgba(214, 188, 126, 0);
+      }
+      50% {
+        opacity: 1;
+        text-shadow: 0 0 15px rgba(214, 188, 126, 0.5);
+      }
+      100% {
+        opacity: 0.5;
+        text-shadow: 0 0 0px rgba(214, 188, 126, 0);
+      }
+    }
   </style>
 </head>
 
-<body class="selection:bg-gold/30">
-
-  <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-stone-950/90 backdrop-blur-md">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-
-      <div class="flex items-center gap-4">
-        <!-- Make Σ clickable to english.html -->
-        <a href="english.html" class="inline-flex items-center gap-3 group">
-          <span class="text-gold border gold-line px-2 py-1 text-sm bg-black/40 transition-all group-hover:shadow-[0_0_16px_rgba(214,188,126,0.22)]">
-  Σ
-</span>
-          <span class="text-[10px] uppercase tracking-[0.3em] font-bold">Hasse Foundation</span>
-        </a>
+<body class="text-zinc-300 min-h-screen flex flex-col selection:bg-sigma-dim selection:text-white">
+  
+  <!-- Background -->
+  <div class="bg-grid">
+    <div class="holo-grid"></div>
+  </div>
+  <div class="scanline-overlay"></div>
+  
+  <!-- HEADER -->
+  <header class="h-16 header-glass flex items-center justify-between px-6 z-40 relative">
+    <div class="flex items-center gap-4">
+      <div class="w-10 h-10 border border-sigma/30 flex items-center justify-center bg-sigma/10 rounded-sm">
+        <span class="font-tech text-sigma font-bold text-xl">Σ</span>
       </div>
-
-      <div class="hidden lg:flex gap-8 text-[9px] uppercase tracking-widest text-stone-500 items-center">
-        <a href="#note" class="hover:text-gold transition-colors">Note</a>
-        <a href="#feature" class="hover:text-gold transition-colors">Feature</a>
-        <a href="#dossier" class="hover:text-gold transition-colors">Dossier</a>
-        <a href="#ceco" class="hover:text-gold transition-colors">c-ECO</a>
-
-        <!-- Return link -->
-        <a href="english.html" class="ml-2 border border-white/10 hover:border-gold/50 px-4 py-2 text-[9px] uppercase tracking-widest text-stone-500 hover:text-gold transition-all">
-          Return to c-ECO Portal
-        </a>
+      <div class="flex flex-col">
+        <h1 class="font-tech text-sm tracking-[0.25em] text-white uppercase font-semibold">c-ECO AI Protocol</h1>
+        <span class="text-xs text-zinc-500 uppercase tracking-wider font-tech">Decisional Guardian v1.0 (Stable)</span>
       </div>
-
     </div>
-  </nav>
 
-  <header class="min-h-screen flex items-center justify-center text-center px-6">
-    <div class="max-w-4xl reveal">
-      <h1 class="text-6xl md:text-8xl mb-8 leading-tight">H A S S E</h1>
-      <p class="text-stone-500 uppercase tracking-[0.4em] text-[14px]">— Foundation —</p>
+    <div class="hidden md:flex items-center gap-3 px-5 py-2 rounded-full border border-sigma/20 bg-sigma/5">
+      <div class="w-2 h-2 rounded-full bg-sigma animate-pulse-sigma"></div>
+      <span class="font-tech text-xs tracking-[0.2em] text-sigma font-medium">SYSTEM ACTIVE</span>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <button class="text-xs font-tech text-zinc-400 hover:text-sigma transition-colors duration-200" onclick="window.location.href='index.html'">
+        EXIT TERMINAL
+      </button>
     </div>
   </header>
 
-  <main class="max-w-6xl mx-auto px-6 space-y-48 pb-48">
-
-    <section id="note" class="reveal">
-      <div class="grid lg:grid-cols-12 gap-12">
-        <div class="lg:col-span-4 italic text-gold serif text-2xl">"Because time remembers. And what we build now will remain."</div>
-        <div class="lg:col-span-8 prose-custom text-stone-400">
-          <p class="dropcap mb-6">In 2014, a realization emerged—not as theory, but as lived understanding:
-    <strong>time is life as memory</strong>.
-    Time is not an external container in which events occur.
-    It is the way life records itself.
-    It is continuity, inscription, and consequence.
-  </p>
-
-  <p>
-    Every action leaves a trace.
-    Every structure carries history.
-    Nothing that truly matters is reversible.
-  </p>
-
-  <p>
-    That insight did not arise from books or institutions.
-    It arose from experience—through the body, through territory,
-    through the slow recognition that life is shaped not by isolated moments,
-    but by what endures, accumulates, and binds.
-    Only later did language catch up.
-    Only later did philosophy, law, and systems theory provide names
-    for what had already been lived.
-  </p>
-
-  <p>
-    This understanding reframes responsibility.
-    If time is memory, then every decision participates in the future.
-    Law, in this light, cannot be merely reactive.
-    It must be architectural.
-    It must be capable of holding continuity,
-    preventing irreversibility,
-    and preserving the conditions that allow life—human and non-human—to persist.
-  </p>
-
-  <p>
-    The Hasse Foundation stands within a lineage
-    that understood this long before the present moment demanded it.
-  </p>
-
-  <p>
-    Across generations, its figures approached the same intuition
-    from different domains:
-    philosophy and theology,
-    science and medicine,
-    law and institutional design,
-    urbanism and ecology.
-    They did not share a doctrine,
-    but a method—a way of thinking in which systems were understood
-    as living structures,
-    governed by internal logic,
-    memory,
-    and limits.
-  </p>
-
-  <p>
-    From the rational cosmology and institutional discipline of the Weber tradition,
-    to the juridical architecture articulated by Johann Christian Hasse;
-    from the botanical and medical systems thinking of Georg Heinrich Weber,
-    to the urban ecological practice realized in the Amazon
-    by Eduard Johannes Heinrich Hass,
-    the same principle recurs:
-    <em>life cannot be governed as if it were static, fragmentary, or reversible</em>.
-  </p>
-<div class="grid lg:grid-cols-12 gap-16">
-            <div class="lg:col-span-4">
-                <div class="bio-image-container rounded-sm shadow-2xl overflow-hidden">
-                    <img 
-                        src="hasse-memory.png" 
-                        alt="Hasse Weber" 
-                        class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500"
-                    >
-                 </div>
-                <div class="mt-8">
-                    <h4 class="text-2xl font-bold text-white mb-2"></h4>
-                    <p class="text-[#d6bc7e] text-sm uppercase items-center justify-center text-center tracking-widest font-semibold">Johann C. Hasse | Georg H. Weber</p>
-                    </div>
-                </div>
-            </div>
-  <div class="lg:col-span-8 prose-custom text-stone-400">
-          <p class="dropcap mb-6">
-  <p>
-    They understood that institutions are not inert.
-    That systems are living structures.
-    That order, when designed with rigor and care,
-    can protect life across time.
-  </p>
-
-  <p>
-    History also records the cost of forgetting this.
-    Tragedy, collapse, displacement,
-    political rupture,
-    and ecological constraint
-    are part of this lineage’s memory as well.
-    They are not failures to be erased,
-    but lessons inscribed in time—evidence of what occurs
-    when systems are pushed beyond their limits.
-  </p>
-
-  <p>
-    This Foundation exists to hold that memory.
-  </p>
-
-  <p>
-    It exists to support work that refuses immediacy in favor of continuity.
-    That treats law as a structure of responsibility rather than control.
-    That understands ecology not as an external concern,
-    but as an ontological condition.
-    That recognizes time as the deepest system of all.
-  </p>
-
-  <p>
-    The c-ECO Doctrine is one expression of this inheritance—
-    not as culmination,
-    but as translation.
-    It brings into legal form what life has always known:
-    that systems endure,
-    that damage accumulates,
-    and that care must precede harm.
-  </p>
-
-  <p>
-    This publication is not an archive of the past.
-    It is a commitment to the future.
-  </p>
-
-  <p>
-    <em>Because time remembers.</em><br>
-    <em>And what we build now will remain.</em>
-  </p>
-
-</section>
-
-    <section id="feature" class="reveal border-t border-white/10 pt-24">
-      <span class="text-gold uppercase tracking-widest text-[10px] block mb-8">Feature Story</span>
-      <h2 class="text-5xl mb-16">Institutions Are <span class="italic">Living Structures</span></h2>
-     <div class="lg:col-span-8 prose-custom text-stone-400">
-          <p class="dropcap mb-6">
-          <p>Institutions are often treated as static objects: buildings, statutes, procedures, offices, titles. Law schools teach them as architectures of competence; political theory frames them as instruments of authority; economics reduces them to incentive containers. But this view misses their most decisive characteristic.</p>
-
-        <p>Institutions are not inert.
-They live.</p>
-
-        <p>They persist through time, accumulate memory, respond unevenly to pressure, resist change, adapt slowly, and—under certain conditions—collapse irreversibly. Like living systems, institutions carry histories within their structure. They remember what they were designed to do, even when actors forget. And they constrain what can be done long after their original authors are gone.</p>
-
-          <p>To understand institutions merely as rules is to misunderstand their nature. Rules can be amended overnight. Institutions cannot. They metabolize change.</p>
-
-          <p>This is why institutional failure is rarely sudden. It is preceded by long periods of internal stress, distortion, delay, and denial—signals that are visible only when one understands institutions as temporal organisms rather than mechanical devices.</p>
-          <div class="divider-gold"></div>
-          <h3 class="text-white serif text-2xl mb-4">Law as Temporal Architecture</h3>
-          <p> Within the German intellectual tradition of the late eighteenth and early nineteenth centuries, this insight was already present, though rarely articulated in contemporary terms. Jurists such as Friedrich Carl von Savigny and Johann Christian Hasse did not conceive law as an instantaneous command backed by force. Law, for them, was a historical structure—a framework that allowed social life to flow through time with order, continuity, and intelligibility. </p>
-
-<p> Savigny’s historical jurisprudence insisted that law emerges organically from the life of a people (Volksgeist), not from abstract rational design detached from history. Hasse, working within this same intellectual atmosphere, translated that insight into institutional form. As a professor and later Rector of the University of Bonn, he understood that legal institutions were not neutral containers of action. They were formative structures, shaping conduct over generations. </p>
-
-<p> The jurist, in this view, was not merely an interpreter of norms, but a constructor of temporal frames—someone responsible for designing legal forms capable of enduring without suffocating life itself. </p>
-
-<p> This conception implies a profound responsibility: if institutions live through time, then bad institutional design does not merely fail—it harms future generations by locking them into rigid trajectories they did not choose. </p>
-          <div class="divider-gold"></div>
-          <h3 class="text-white serif text-2xl mb-4">Why This Still Matters</h3>
-          <p>Modern legal systems, especially in the context of ecological and technological risk, continue to operate as if institutions were neutral tools and contracts were isolated acts. They are not.</p>
-          <p>Every institution carries memory. Every contract creates trajectory. Every system accumulates pressure.</p>
-          <p>The failure to recognize institutions as living structures explains why law so often intervenes too late—after harm has become irreversible, after futures have been foreclosed.</p>
-          <p>This is the unresolved gap the Hasse Foundation exists to explore.</p>
-          <p>Not nostalgia. Not genealogy for prestige. But continuity of method: thinking law, institutions, and systems as temporal, living architectures that must be designed with care for life—human and non-human—across time.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="dossier" class="reveal bg-stone-900/40 p-12 md:p-24 rounded-sm border border-white/5">
-      <h2 class="text-4xl mb-16 text-center italic text-white">A Family of Thought: <br><span class="text-gold">Kiel to the Amazon</span></h2>
-      <div class="space-y-24">
-        <div class="flex flex-col md:flex-row gap-12">
-          <div class="md:w-1/3 text-gold uppercase tracking-widest text-[10px] font-bold border-l-2 border-gold/50 pl-6">
-            Kiel: Origin & <br>Public Governance
-          </div>
-          <div class="md:w-2/3 text-stone-400 prose-custom">
-            <p><strong>Andreas Weber</strong> and <strong>Georg Heinrich Weber</strong> were not merely theorists; they served as <strong>Rectors of the University of Kiel</strong> and as distinguished <strong>public administrators</strong>. In these leadership roles, they transformed rationalism into early systems biology. They understood that nature imposes biological and systemic limits that cannot be legislated away—integrating scientific discipline directly into the heart of state administration.</p>
-          </div>
-        </div>
-
-        <div class="flex flex-col md:flex-row gap-12">
-          <div class="md:w-1/3 text-gold uppercase tracking-widest text-[10px] font-bold border-l-2 border-gold/50 pl-6">
-            Bonn: Juridical <br>Architecture
-          </div>
-          <div class="md:w-2/3 text-stone-400 prose-custom">
-            <p><strong>Johann Christian Hasse</strong>, also a <strong>Rector of the University of Bonn</strong>, translated this systemic legacy into the legal realm. He conceived law as a temporal architecture, framing the jurist not merely as an interpreter of norms, but as a designer of institutional durability. His leadership at Bonn structured the technical frameworks of 'culpa' and 'actio', ensuring the legal system's logical coherence and historical grounding, and solidified the responsibility of the law toward the future shape of society.</p>
-          </div>
-        </div>
-
-        <div class="flex flex-col md:flex-row gap-12">
-          <div class="md:w-1/3 text-gold uppercase tracking-widest text-[10px] font-bold border-l-2 border-gold/50 pl-6">
-            Belém: Territory <br>& Execution
-          </div>
-          <div class="md:w-2/3 text-stone-400 prose-custom">
-            <p><strong>Eduard Hass</strong> carried this legacy of rectors and administrators into the Amazon. In Belém, systemic thought ceased to be academic and became physical infrastructure. Botany was deployed as public health, and engineering was submitted to climate. The administrative rigor inherited from Kiel and Bonn became the literal shade that protects the citizens of the Amazon to this day.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <section id="ceco" class="reveal max-w-4xl mx-auto text-center border-y border-gold/10 py-32">
-      <span class="text-gold uppercase tracking-widest text-[10px] block mb-8">Column: 2014</span>
-      <h2 class="text-5xl mb-12 italic">The Birth of c-ΣCO</h2>
-      <p class="text-stone-300 text-xl serif leading-relaxed mb-8 italic">"Time is not something that passes outside of us. Time is what remains inside of us."</p>
-      <div class="lg:col-span-8 prose-custom text-stone-400">
-          <p class="dropcap mb-6">
-  <p>
-    There are forms of knowledge that do not arise from abstraction, but from recognition.
-    They are not conceived as theories, but apprehended as realities already at work.
-    The foundational intuition of what would later become the c-ECO Doctrine emerged in this way in 2014—
-    not as a response to a regulatory gap, nor as a conceptual exercise,
-    but as a lived understanding of time and of its juridical significance for life.
-  </p>
-
-  <p>
-    What became clear was not merely that harm unfolds over time,
-    but that time itself is the medium through which life records consequence.
-    Law, as traditionally structured, had failed to account for this fact.
-  </p>
-
-  <p><strong>A Lineage of Method, Not of Theory</strong></p>
-
-  <p>
-    Although its legal articulation is recent, the intellectual impulse sustaining c-ECO is not.
-    It belongs to a lineage in which law, science, and institutional responsibility were understood
-    as continuous structures rather than isolated acts.
-    Following the trajectory of this lineage, I crossed the Atlantic and entered
-    the legal environment of the United States.
-  </p>
-
-  <p>
-    It was within the technical rigor of American contract law—its emphasis on structure,
-    enforceability, and design—that an inherited intuition could finally assume juridical form.
-    c-ECO is therefore not a departure from tradition,
-    but the maturation of a method: an understanding of responsibility grounded in continuity,
-    constraint, and consequence.
-  </p>
-
-  <p><strong>Time as Structure: Life as Memory</strong></p>
-
-  <p>
-    The premise of the doctrine is both simple and irreversible:
-    <em>time is life as memory</em>.
-  </p>
-
-  <p>
-    Time is not merely what passes. It is what remains.
-    It is the accumulation of relations, the sedimentation of actions,
-    and the inscription left by every interaction between bodies, territories, and systems.
-    Life does not occur within time as an external container;
-    life constitutes time insofar as it records, carries, and transforms experience.
-  </p>
-
-  <p>
-    Every contractual decision leaves a trace.
-    Every legal structure inscribes memory.
-  </p>
-
-  <p><strong>Memory Beyond Recollection</strong></p>
-
-  <p>
-    When c-ECO asserts that systems remember, it does so in an ontological sense.
-    Memory is not psychological recollection, but structural persistence.
-    Territories remember through degradation and resilience.
-    Institutions remember through rigidity, inertia, and collapse.
-    Bodies remember through thresholds beyond which repair is no longer possible.
-  </p>
-
-  <p>
-    This recognition transforms the meaning of responsibility.
-    Responsibility ceases to be merely retrospective—an allocation of blame after failure—
-    and becomes a forward-looking obligation toward the future.
-    If systems retain the memory of what is done to them,
-    law must ensure that this memory does not become a permanent record of irreversibility.
-  </p>
-
-  <p><strong>From Harm to the Design of Obligation</strong></p>
-
-  <p>
-    If harm is cumulative rather than instantaneous, law cannot remain reactive.
-    The central question posed by the c-ECO Doctrine is therefore not remedial, but architectural:
-  </p>
-
-  <p>
-    <em>
-      How must legal obligations be designed so that irreversible memory
-      is never inscribed into living systems?
-    </em>
-  </p>
-
-  <p>
-    Under c-ECO, contracts are no longer static instruments.
-    They become temporal architectures—structures calibrated to operate
-    before thresholds of collapse are crossed.
-    Legal validity is linked not only to consent and enforceability,
-    but to the preservation of systemic integrity in a context of acceleration,
-    extraction, and ecological constraint.
-  </p>
-
-  <p><strong>The Discipline of Continuity</strong></p>
-
-  <p>
-    At its core, the c-ECO Doctrine is a discipline of care.
-    It holds that the legitimacy of a legal act is inseparable from its capacity
-    to sustain habitability—social, environmental, and intergenerational.
-    The moment of recognition in 2014 was not an academic event, but a convergence:
-    inherited systemic awareness meeting juridical technique.
-  </p>
-
-  <p>
-    It marks the point at which law is compelled to accept its most demanding function—
-    not merely to regulate behavior, but to honor the memory of life
-    in order to protect the future.
-  </p>
-
-</section>
-      </div>
-      </section>
+  <!-- MAIN -->
+  <main class="flex-1 flex overflow-hidden relative z-10 p-4 gap-4">
     
-     <section id="hasse" class="reveal max-w-4xl mx-auto text-center border-y border-gold/10 py-32">
-      <span class="text-gold uppercase tracking-widest text-[10px] block mb-8">1779–1830</span>
-      <h2 class="text-5xl mb-12 italic">Johann Christian Hasse</h2>
-      <p class="text-stone-300 text-xl serif leading-relaxed mb-8 italic">"Law as System, Institution, and Temporal Order."</p>
-      <div class="lg:col-span-8 prose-custom text-stone-400">
-          <p class="dropcap mb-6">
-<p>Johann Christian Hasse was born on 24 July 1779 in Kiel and stands as one of the most significant jurists of his generation within the German historical tradition of law. He was distinguished equally as a Romanist and a Germanist, combining rigorous historical method with exceptional clarity of legal exposition.</p>
-
-<p>Hasse received his early education at the Husum Classical School and pursued legal studies at the University of Kiel, where he became Doctor of Law in 1811. Already from 1805, he served as <em>Privatdozent</em> and University Syndicus, participating directly in the legal-administrative life of the university.</p>
-
-<p>In 1811, Hasse was appointed to Jena, where he combined academic work with service as a Senior Judge at the Higher Court of Appeal (<em>Oberappellationsgericht</em>). He subsequently held academic positions in Königsberg (1813) and Berlin (1818), before assuming the chair of law at the University of Bonn (1821–1830) as Full Professor of Law, where he taught until his death on 18 November 1830.</p>
-
-<p><strong>Legal Method and Institutional Thought.</strong></p>
-
-<p>Hasse’s scholarship is characterized by an exceptional depth of analysis combined with a restrained, precise, and elegant style. His work reflects a conception of law not as an abstract normative system detached from social reality, but as a historically embedded institutional structure, shaped by doctrine, practice, and continuity over time.</p>
-
-<p>His principal works include: Beiträge zur Revision der bisherigen Theorie von der ehelichen Gütergemeinschaft (1808); An novatio voluntaria esse possit citra stipulationem? (1812); Die Culpa des römischen Rechts (1815; second edition edited by Bethmann-Hollweg, 1838); Das Güterrecht der Ehegatten nach römischem Recht (1824); and De variis eorum sententiis… (1827).</p>
-
-<p>From 1827, Hasse served as co-editor of the <em>Rheinisches Museum für Jurisprudenz</em> alongside Blume, Puchta, and Peter Gottlieb Eduard Puggé, situating him at the core of nineteenth-century debates on the historical and systematic foundations of law.</p>
-
-<p><strong>Law as a Living Institutional System.</strong></p>
-
-<p>Across his academic and judicial career, Johann Christian Hasse consistently treated legal doctrine as a living institutional system rather than a static set of rules. Courts, universities, and legal concepts possessed continuity, internal logic, and historical inertia. Responsibility, in this view, was not limited to individual acts, but distributed across institutional arrangements that persist through time.</p>
-
-<p>This understanding situates Hasse firmly within a tradition that recognizes the temporal nature of law, the interdependence between legal doctrine and institutional form, and the idea that legality itself can become structurally misaligned with evolving social and material conditions.</p>
-
-<p><strong>Methodological Affinity with the c-ECO Doctrine.</strong></p>
-
-<p>The methodological affinity between Johann Christian Hasse’s legal thought and the c-ECO Doctrine lies not in subject matter, but in structure. Hasse approached law as historically constrained, institutionally embedded, and operative across generations.</p>
-
-<p>Similarly, the c-ECO Doctrine treats legal and contractual systems as temporal architectures that must internalize structural constraints—now understood as ecological thresholds and systemic limits—before irreversible outcomes occur.</p>
-
-<p>Where Hasse emphasized that legal responsibility cannot be reduced to isolated decisions detached from institutional continuity, c-ECO extends this logic to the planetary scale: legal systems themselves can become drivers of systemic harm when they fail to register the limits of the systems they govern.</p>
-
-<p><strong>Position within the Lineage.</strong></p>
-
-<p>As the juridical pillar of the lineage, Johann Christian Hasse provides the institutional and temporal grammar that complements the cosmological and philosophical systems thinking of Andreas Weber, the scientific and ecological empiricism of Georg Heinrich Weber, and the territorial application of systemic knowledge later realized in the Amazon by Eduard Johannes Heinrich Hass.</p>
-
-<p>Within this lineage, Hasse represents the moment at which systemic thinking becomes legal architecture—a necessary condition for the later emergence of c-ECO as a framework capable of translating ecological reality into juridical form.</p>
+    <!-- CONSOLE PRINCIPAL -->
+    <section class="flex-1 flex flex-col relative max-w-4xl mx-auto w-full">
+      
+      <!-- Console Header -->
+      <div class="px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+          <span class="text-sigma text-sm">◆</span>
+          <span class="font-tech text-sm text-zinc-400 tracking-wide">
+            CONTEXT: <span class="text-zinc-200 font-medium">STATE MACHINE MONITORING</span> 
+            <span class="mx-2 text-zinc-600">//</span> 
+            MODE: <span class="text-zinc-200 font-medium">OPERATION</span>
+          </span>
+        </div>
+        <div class="text-xs font-mono text-zinc-500">STATE_REF: CECO-ART-083 / 085</div>
       </div>
-      </section>
-       <section id="andreas" class="reveal max-w-4xl mx-auto text-center border-y border-gold/10 py-32">
-      <span class="text-gold uppercase tracking-widest text-[10px] block mb-8">1718–1781</span>
-      <h2 class="text-5xl mb-12 italic">Andreas Weber</h2>
-      <p class="text-stone-300 text-xl serif leading-relaxed mb-8 italic">"Cosmology, System, and Institutional Order."</p>
-     <div class="lg:col-span-8 prose-custom text-stone-400">
-          <p class="dropcap mb-6">
 
-<p>The deepest intellectual root of this lineage lies in the Weber tradition, inaugurated by Andreas Weber (1718–1781)—philosopher, Lutheran theologian, and senior academic administrator in the German university system of the eighteenth century.</p>
-
-<p>Formed within the rationalist school of Christian Wolff, Andreas Weber advanced a conception of reality in which nature, morality, law, theology, and institutional order formed a single intelligible system. His central concern was not the sovereignty of the individual subject, but the conditions under which a finite human mind could understand and operate within a larger rational cosmos.</p>
-
-<p>Crucially, Andreas Weber was not only a theorist. His career places him at the intersection of knowledge production and institutional governance, at a time when universities functioned as integral components of state administration.</p>
-
-<p><strong>Academic and Institutional Roles</strong></p>
-
-<p>Between 1742 and 1749, Andreas Weber served as <em>Privatdozent</em> in Mathematics and Philosophy at the Friedrichs-Universität Halle, combining formal instruction with early institutional responsibility.</p>
-
-<p>In 1749–1750, he was appointed Associate Professor of Philosophy at the Georg-August-Universität zu Göttingen, followed by promotion to Full Professor of Philosophy (1750–1770). During this period, he also served as Vice-Rector (1753–1754), participating directly in the governance of one of the most influential universities of the German Enlightenment.</p>
-
-<p>From 1770 to 1781, Andreas Weber held senior positions at the Christian-Albrechts-Universität zu Kiel, where his academic and administrative roles converged. He served as Associate Professor of Theology, Full Professor of Metaphysics, Logic, and Mathematics, and Vice-Rector in 1771 and again in 1777.</p>
-
-<p>These roles situate Andreas Weber firmly within the state–university nexus of his time, where education, moral formation, scientific knowledge, and public order were treated as interdependent dimensions of governance.</p>
-
-<p><strong>Major Work and the Principle of Systemic Coherence</strong></p>
-
-<p>The intellectual orientation of Andreas Weber is most clearly articulated in his principal work, <em>Die Übereinstimmung der Natur und Gnade</em> (The Concordance of Nature and Grace), a foundational text of Protestant Enlightenment theology influenced by the rationalist philosophy of Christian Wolff.</p>
-
-<p>In this work, Weber advances a decisive premise: grace does not operate in contradiction to nature, but in structural coherence with it. Addressing readers trained in scientific and philosophical reasoning, Weber explicitly rejects belief without justification. He argues that those who have exercised their intellect in the sciences require grounds, internal consistency, and rational explanation for any principle meant to guide life, conduct, or welfare.</p>
-
-<p>For Weber, systems—whether natural, moral, or theological—do not function through exception or rupture. They operate through order, continuity, and intelligible structure. Intervention is legitimate only when it aligns with the internal logic of the system itself.</p>
-
-<p>In contemporary c-ECO terms, this represents an early articulation of systemic coherence and memory: systems carry internal constraints shaped by their own nature and history, and any form of governance that ignores those constraints becomes unstable or destructive.</p>
-
-<p>This principle, articulated by Andreas Weber in theological language, reappears transformed but intact, in the c-ECO Doctrine. Where Weber argued that grace must respect the structure of nature, c-ECO holds that law and decision-making must respect the structure, limits, and accumulated memory of ecological systems.</p>
-
-<p>The continuity is methodological rather than doctrinal. It lies in the shared conviction that no system can be sustainably governed from the outside.</p>
-
-<p><strong>Cosmology, Governance, and Systemic Memory</strong></p>
-
-<p>Within this institutional context, Andreas Weber developed a worldview in which systems precede individuals and order precedes choice. Reason did not separate humanity from the world; it integrated human action into a larger architecture governed by coherence, proportion, and limits.</p>
-
-<p>In contemporary c-ECO terms, Andreas Weber’s work anticipates the idea of systemic memory, in which institutions carry accumulated structures that constrain present and future decisions; governance as continuity, through which authority operates across time rather than by momentary command; and embedded responsibility, whereby individual action is always situated within inherited institutional and moral frameworks.</p>
-
-<p>This combination of cosmological rationalism and institutional governance constitutes the earliest articulation of what later becomes the “memory of life” within the c-ECO Doctrine: the recognition that systems—natural, legal, and institutional—do not reset at each decision point, but operate through historically accumulated constraints.</p>
-
-<p><strong>Andreas Weber as Foundational Influence on Georg Heinrich Weber</strong></p>
-
-<p>The intellectual formation of Georg Heinrich Weber cannot be understood without recognizing the decisive influence of his father, Andreas Weber. Georg did not inherit merely a household of books, but a method of thinking forged at the intersection of philosophy, mathematics, theology, and metaphysics.</p>
-
-<p>Growing up in an environment shaped by Andreas Weber’s academic and administrative roles, Georg was exposed from an early age to the idea that knowledge forms a coherent system, not a collection of isolated disciplines. Mathematics provided structure and proportion; philosophy offered logical architecture; theology framed moral order; and metaphysics supplied the conceptual bridge between abstract reason and the material world.</p>
-
-<p>This interdisciplinary formation deeply shaped Georg Heinrich Weber’s later scientific work. His approach to medicine and botany was never purely empirical or technical. Instead, it reflected a philosophically grounded understanding of living systems—where organisms, environments, and institutions operate according to intelligible, interrelated principles.</p>
-
-<p>This father–son transmission represents an early articulation of systems thinking grounded in multiple epistemic layers. Georg’s scientific practice carried forward Andreas Weber’s conviction that reality is structured, ordered, and historically conditioned—an insight that later reappears in c-ECO as the integration of scientific signals, institutional design, and temporal responsibility.</p>
-
-<p>This continuity explains why Georg Heinrich Weber was able to move seamlessly between medicine, botany, education, and public governance. His work did not reduce life to mechanics, nor dissolve it into abstraction. It treated living systems as structured wholes, capable of being studied, cared for, and governed—yet never fully controlled.</p>
-      </div>
-      </section>
-       <section id="georg" class="reveal max-w-4xl mx-auto text-center border-y border-gold/10 py-32">
-      <span class="text-gold uppercase tracking-widest text-[10px] block mb-8">1752–1828</span>
-      <h2 class="text-5xl mb-12 italic">Georg Heinrich Weber</h2>
-      <p class="text-stone-300 text-xl serif leading-relaxed mb-8 italic">"Science as system, not control. "</p>
-      <div class="lg:col-span-8 prose-custom text-stone-400">
-          <p class="dropcap mb-6">
+      <!-- ÁREA DE OUTPUT COM VIDRO - AUMENTADA -->
+      <div class="flex-1 overflow-y-auto px-6 pb-4 space-y-6" id="console-output">
         
-        <p>That orientation deepened with Georg Heinrich Weber (1752–1828), physician, botanist, professor, and later Rector of the University of Kiel. His work marked a decisive shift: from philosophical system to biological system.</p>
-
-<p>As founder of Kiel’s botanical garden and a central figure in medical education, Georg Heinrich Weber understood life as relational, fragile, and internally regulated. Bodies—human or vegetal—were not machines to be commanded, but systems to be observed, respected, and supported.</p>
-
-<p>Here, a crucial insight enters the lineage: nature imposes limits. Health, growth, and decay obey logics that cannot be legislated away. Institutions, if they are to endure, must learn from living systems rather than attempt to override them.</p>
-
-<p>The Weber line thus transformed rationalism into early systems biology—still disciplined, still institutional, but increasingly aware of vulnerability and irreversibility.</p>
-        
-        <p><strong>Scientific Works and Botanical Legacy</strong></p>
-        
-        <p>The scientific legacy of Georg Heinrich Weber is anchored in a substantial body of botanical scholarship that reflects the methodological foundations of his time: systematic observation, empirical classification, and attention to ecological context. His work focused primarily on cryptogamic plants, lichens, and regional flora—organisms that exist at the margins of visibility yet play a decisive role in ecological stability.</p>
-
-<p>Weber’s publications demonstrate a consistent effort to document local ecosystems as coherent systems, shaped by climate, soil, and geographic continuity rather than abstract universality. This regional, system-based approach anticipates later ecological thinking by treating flora as embedded within living territorial structures.</p>
-
-<p><strong>Principal Botanical Works</strong></p>
-
-<p>Among his most significant contributions are <em>Spicilegium Florae Goettingensis</em> (1778), an early botanical work illustrating plants of the Göttingen region with particular emphasis on cryptogamic species, reflecting Weber’s commitment to empirical observation and careful taxonomic method; <em>Primitiae Florae Holsaticae</em> (1780–1787), his foundational study of the flora of Holstein, documenting plant life across the region and establishing a scientific baseline for understanding local biodiversity and ecological continuity; and <em>Novitiae Florae Holsaticae</em> (1826), a later supplement expanding and refining his earlier botanical surveys in collaboration with subsequent generations of botanists, reflecting the cumulative nature of scientific knowledge and long-term ecological observation.</p>
-
-<p>These works were produced in collaboration with other prominent naturalists of the period, including Friedrich Heinrich Wiggers, Johann Christian Kerstens, and Ernst Ferdinand Nolte, reinforcing Weber’s role within a networked scientific community rather than as an isolated scholar.</p>
-
-<p><strong>Methodological Significance</strong></p>
-
-<p>Weber’s botanical corpus is notable not for speculative theory, but for systematic documentation of living systems over time. His work embodies principles that resonate directly with the c-ECO Doctrine, including the recognition of ecological memory, whereby flora is understood as historically situated and shaped by accumulated conditions rather than instantaneous states; territorial specificity, in which ecological knowledge is grounded in place rather than abstraction; and interdependence, treating plants as part of broader biological and environmental systems rather than isolated specimens.</p>
-
-<p>This methodological orientation informed Weber’s institutional initiatives, including the founding of the university-linked botanical garden in Kiel in 1802, which functioned as a living archive of regional ecology, medical knowledge, and educational practice.</p>
-
-<p><strong>From Botanical Memory to Legal-Ecological Memory</strong></p>
-
-<p>Within the c-ECO framework, Weber’s work illustrates an early form of what is now described as the “memory of life”: the recognition that living systems retain the imprint of past conditions, classifications, and interventions. Just as Weber’s flora studies required continuity, revision, and respect for natural structure, c-ECO treats ecological thresholds as historically accumulated constraints that must be integrated into legal and institutional decision-making before irreversibility occurs.</p>
-
-<p>Through his scientific publications and institutional contributions, Georg Heinrich Weber stands as a key transitional figure in the lineage—bridging the philosophical system-thinking inherited from Andreas Weber with empirical ecological practice that would later find territorial expression in the Amazon through Eduard Johannes Heinrich Hass.</p>
-      </div>
-      </section>
-       <section id="hass" class="reveal max-w-4xl mx-auto text-center border-y border-gold/10 py-32">
-      <span class="text-gold uppercase tracking-widest text-[10px] block mb-8">1874-1908</span>
-      <h2 class="text-5xl mb-12 italic">Eduard Johannes Heinrich Hass</h2>
-      <p class="text-stone-300 text-xl serif leading-relaxed mb-8 italic">"From Europe to the Amazon: System Becomes Territory."</p>
-      <div class="lg:col-span-8 prose-custom text-stone-400">
-          <p class="dropcap mb-6">
-<p>The most radical transformation of the lineage occurs when it leaves Europe altogether.</p>
-
-<p>With Eduard Hass, the family of thought exits the university and enters the Amazon. Hass was not a professor. He did not become rector. He emigrated to Brazil at the age of twenty-five, carrying with him a systemic sensibility forged in European science and discipline.</p>
-
-<p>In Belém do Pará, systems ceased to be theoretical. They became climatic, botanical, urban, and biological. Decisions about trees became decisions about public health. Urban design became ecological intervention. Knowledge became irreversible.</p>
-
-<p>Hass died young, at thirty-six, from tuberculosis contracted in the course of his work. But the city absorbed his intelligence. To this day, citizens live within the effects of an integrated vision that united botany, health, engineering, and disciplined execution.</p>
-
-<p>Here, institutional memory becomes physical.</p>
-<div class="bio-image-container rounded-sm shadow-2xl">
-  <img
-    src="eduard.jpg"
-    alt="E Hass"
-    class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500"
-  />
-</div>
-                <div class="mt-8">
-                    <h4 class="text-2xl font-bold text-white mb-2"></h4>
-                    <p class="text-[#d6bc7e] text-sm uppercase items-center text-center tracking-widest font-semibold">Eduard Johannes H. Hass</p>
+        <!-- Mensagem inicial -->
+        <div class="flex justify-start slide-in">
+          <div class="w-full">
+            <!-- GLASS RESPONSE BOX -->
+            <div class="glass-response p-8">
+              <div class="flex gap-4 mb-5 font-mono text-xs text-sigma/80 tracking-wide uppercase border-b border-white/10 pb-4">
+                <span class="font-medium flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-sigma animate-pulse"></span>
+                  [ SYSTEM READY ]
+                </span>
+                <span>[ 80% GAP MONITORING: ON ]</span>
+              </div>
+              
+              <div class="space-y-4">
+                <p class="text-zinc-300 font-light text-base leading-relaxed">
+                  <strong class="text-white font-tech text-lg">Protocol initialized.</strong>
+                </p>
+                <p class="text-zinc-400 text-sm leading-relaxed">
+                  Submit the command to analyze systemic parameters. Available commands:
+                </p>
+                
+                <!-- Comandos em grid -->
+                <div class="grid grid-cols-2 gap-3 mt-4">
+                  <div class="flex items-center gap-2 text-sm">
+                    <span class="text-sigma font-mono bg-sigma/10 px-2 py-1 rounded">Iex</span>
+                    <span class="text-zinc-500">Ex-Ante Unenforceability</span>
                   </div>
+                  <div class="flex items-center gap-2 text-sm">
+                    <span class="text-sigma font-mono bg-sigma/10 px-2 py-1 rounded">safe</span>
+                    <span class="text-zinc-500">Safe Mode Protocol</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm">
+                    <span class="text-sigma font-mono bg-sigma/10 px-2 py-1 rounded">status</span>
+                    <span class="text-zinc-500">System Status Check</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm">
+                    <span class="text-sigma font-mono bg-sigma/10 px-2 py-1 rounded">art 85</span>
+                    <span class="text-zinc-500">Statute Query</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm">
+                    <span class="text-sigma font-mono bg-sigma/10 px-2 py-1 rounded">code</span>
+                    <span class="text-zinc-500">Codebook Reference</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm">
+                    <span class="text-sigma font-mono bg-sigma/10 px-2 py-1 rounded">index</span>
+                    <span class="text-zinc-500">Statute Index</span>
+                  </div>
+                </div>
+              </div>
             </div>
-  <div class="lg:col-span-8 prose-custom text-stone-400">
-          <p class="dropcap mb-6">
-
-  <div class="lg:col-span-8 prose-custom text-stone-400">
-          <p class="dropcap mb-6">
-<p><strong>Praça Batista Campos: Botanical Lineage and the Garden City in Practice</strong></p>
-
-<p>The transformation of the former Praça Sergipe into what is now Praça Batista Campos stands as the most refined expression of Eduard Johannes Heinrich Hass’s botanical and urban vision in Belém. While Intendant Antônio Lemos supplied political authority and financial support, it was Hass who provided the technical, botanical, and architectural intelligence that shaped the square into what is widely regarded as one of the most beautiful public spaces in Brazil.</p>
-
-<p>This project marks the moment when a lineage rooted in philosophical system-thinking and scientific botany reached its highest level of urban articulation in the Amazon.</p>
-
-<p><strong>The Garden City Blueprint</strong></p>
-
-<p>Departing from the rigid symmetry of French urban models, Hass applied principles of the English Garden style, aiming to simulate the appearance of “wild” nature within a carefully controlled and artistically composed urban environment. This choice reflects a deep botanical sensibility inherited from his European predecessors: nature was not to be suppressed, but guided, structured, and allowed to perform its regulatory functions.</p>
-
-<p>The square was designed as a layered ecological system rather than a flat civic plaza. Winding paths replaced straight axes; artificial lakes and interconnected streams introduced movement and humidity; rustic bridges, sculpted to resemble tree branches through rocaille techniques, dissolved the boundary between built form and vegetation.</p>
-
-<p><strong>Microclimate as Urban Strategy</strong></p>
-
-<p>Central to Hass’s design was the creation of a self-regulating microclimate, a direct continuation of the botanical logic developed by Georg Heinrich Weber in his studies of plant systems and climatic interaction. Hass selected tree species not for ornament alone, but for canopy density, evapotranspiration capacity, and shade performance, achieving a measurable reduction in ground temperature—an essential intervention under Belém’s equatorial conditions.</p>
-
-<p>Water played a complementary role. Hass engineered a system of fountains, channels, and basins that circulated water continuously through the square. Beyond aesthetics, this hydraulic design moderated heat, increased humidity, and produced the characteristic soundscape of flowing water that remains one of Praça Batista Campos’s defining features.</p>
-
-<p><strong>Botanical Composition and Living Structure</strong></p>
-
-<p>The botanical palette of Praça Batista Campos reflects Hass’s inherited method: a calibrated coexistence of native Amazonian species and acclimatized exotics, forming a multi-layered canopy.</p>
-
-<p>Mango trees (<em>Mangifera indica</em>), though originally Asian, were deliberately promoted by Hass as primary shade providers due to their dense foliage and resilience. Monumental sumaúmas (<em>Ceiba pentandra</em>), revered as giants of the Amazon forest, anchored the space with deep shade and symbolic presence. Ornamental palms, including the Royal Palm, introduced vertical rhythm and a sense of tropical dignity, while the inclusion of Pau-Brasil and other hardwoods affirmed the botanical identity of the region.</p>
-
-<p>This approach mirrors the botanical gardens of Kiel established by Georg Heinrich Weber: vegetation is treated as infrastructure, archive, and regulator rather than decoration.</p>
-
-<p><strong>Architecture within the Living System</strong></p>
-
-<p>Under Hass’s supervision, Praça Batista Campos also became a curated gallery of European industrial and ornamental architecture embedded within the vegetal structure. German and French cast-iron elements, including bandstands and the Chafariz das Sereias, were integrated as functional and aesthetic nodes within the landscape.</p>
-
-<p>At the center of the square, the small Castelinho, serving as a guard post and gardeners’ facility, blends fantasy architecture with ecological utility. Even built structures were conceived as subordinate elements within the living system of the park.</p>
-
-<p><strong>The Visionary Duo: Politics and Ecology</strong></p>
-
-<p>The success of Praça Batista Campos illustrates the complementary roles of its two architects. Antônio Lemos, guided by hygienist and modernizing ideals, envisioned monumental urban reform as an instrument of progress and international legitimacy. Eduard Hass supplied the ecological intelligence that made these ambitions viable in the Amazonian environment.</p>
-
-<p>Where Lemos structured policy and budgets, Hass designed living infrastructure—trees, water, soil, and shade—without which modernization would have remained purely formal.</p>
-
-<p><strong>Institutional Legacy</strong></p>
-
-<p>The Batista Campos project contributed directly to the establishment of one of Brazil’s earliest municipal departments of parks and gardens, institutionalizing ecological maintenance as a permanent function of urban governance. While the Antônio Lemos Palace stands as a monument to this period, it is the city’s vegetal structure that continues to carry the legacy forward.</p>
-
-<p><strong>Lineage and the c-ECO Continuum</strong></p>
-
-<p>Praça Batista Campos crystallizes the lineage that precedes the c-ECO Doctrine. From the philosophical systems of Andreas Weber, through the botanical science and public institutions of Georg Heinrich Weber, to the urban ecology practiced by Eduard Hass, the same method persists: life is structured, memory-bearing, and resistant to domination.</p>
-
-<p>What Hass achieved empirically—aligning urban form with ecological function—c-ECO seeks to formalize juridically. The square is not merely a park. It is a living demonstration that governance succeeds only when it respects the systems it inhabits.</p>
-
-<p>Eduard Hass did not theorize this principle. He built it—in water, trees, shade, and time.</p>
-
+          </div>
+        </div>
       </div>
-      </section>
-       <section id="question" class="reveal max-w-4xl mx-auto text-center border-y border-gold/10 py-32">
-      <span class="text-gold uppercase tracking-widest text-[10px] block mb-8">A Living Dossier</span>
-      <h2 class="text-5xl mb-12 italic">The Unfinished Question</h2>
-      <p class="text-stone-300 text-xl serif leading-relaxed mb-8 italic">"System, Memory, and Responsibility Across Time."</p>
-      <div class="lg:col-span-8 prose-custom text-stone-400">
-          <p class="dropcap mb-6">
 
-<p>As the nineteenth century advanced, the lineage no longer moved along a single disciplinary axis. It widened. What had begun as philosophical system, botanical science, and juridical structure became increasingly entangled with politics, social rupture, and the emerging question of industrial modernity.</p>
-
-<p>Within this expanded field appear figures whose historical visibility is uneven, but whose presence is nonetheless documented within the intellectual networks of the time. Their importance lies not in the creation of a unified doctrine, but in the dispersion of a shared method across divergent domains.</p>
-
-<p><strong>Friedrich Weber</strong> represents a moment of transition within the family tradition. Active in the nineteenth century, his work and correspondence situate him within scientific and philosophical circles shaped by post-Enlightenment rationalism and the growing influence of historical material conditions. Sources do not support the attribution of a single foundational theory to Friedrich Weber; rather, they indicate participation in an intellectual environment increasingly attentive to social structure, empirical constraint, and the limits of abstract system-building.</p>
-
-<p><strong>Eduard Puggé</strong>, a documented collaborator and editor within nineteenth-century German jurisprudence, appears not as a member of the Weber or Hasse families, but as part of the same institutional ecosystem. His involvement in legal periodicals and scholarly exchange situates him within the methodological circle that treated law as a historically situated system rather than a set of timeless commands. Puggé’s role reinforces an important point: this lineage was never purely genealogical. It functioned through networks, journals, universities, and shared standards of rigor.</p>
-
-<p><strong>Ferdinand Weber</strong> emerges in the record as another carrier of scientific and institutional continuity. While surviving sources provide limited biographical detail, his work aligns with the nineteenth-century emphasis on disciplined observation, administrative responsibility, and the translation of knowledge into institutional form. Here again, the absence of grand theoretical authorship does not indicate insignificance. The lineage advanced as much through custodianship and execution as through innovation.</p>
-
-<p>A more politically charged inflection appears with <strong>Georg Weber</strong>, son of Georg Heinrich Weber. This Georg must be carefully distinguished from his father. Historical correspondence places him within intellectual environments that overlapped with early socialist and materialist thought, including documented exchanges with figures in the orbit of Karl Marx. The surviving letters do not support claims of doctrinal alignment or formal collaboration. What they do reveal is exposure to a radically different register of systemic thinking—one in which economic structure, labor, and historical rupture entered explicitly into the analysis of society.</p>
-
-<p>This contact marks a subtle but decisive shift. Where earlier generations focused on coherence, continuity, and institutional endurance, the Marxian horizon introduced fracture, conflict, and the possibility that systems themselves could become engines of harm. The lineage did not abandon its commitment to structure; it encountered the limits of structure under industrial and political strain.</p>
-
-<section id="unfinished-question" class="max-w-4xl mx-auto space-y-6 leading-relaxed">
-
-  <p><strong>The Unfinished Question</strong></p>
-
-  <p>By the end of the nineteenth century, the family of thought had thus assembled its core elements:</p>
-
-  <div class="border-l border-white/10 pl-6 space-y-2">
-    <p>Systemic philosophy and institutional leadership.</p>
-    <p>Scientific respect for living limits.</p>
-    <p>Law as temporal structure.</p>
-    <p>Political consciousness and rupture.</p>
-    <p>Ecological practice under extreme conditions.</p>
-  </div>
-
-  <p>What remained unresolved was legal form.</p>
-
-  <div class="border-l border-gold/30 pl-6 space-y-2">
-    <p>How does law learn from living systems before collapse?</p>
-    <p>How does responsibility operate when harm is irreversible?</p>
-    <p>How does time—understood as living memory—enter legal design?</p>
-  </div>
-
-  <p>This question does not belong to the past.</p>
-  <p>It belongs to the present.</p>
-
-<section id="Continuity, Not Inheritance" class="max-w-4xl mx-auto space-y-6 leading-relaxed">
-
-<p><strong>Continuity, Not Inheritance</strong></p>
-
-<p>The Johann Christian Hasse Foundation does not exist to canonize ancestors. It exists to preserve a method of thinking that treats institutions as living structures and law as a temporal responsibility.</p>
-
-<p>From Kiel to the Amazon, this family of thought insists on a simple but demanding premise.</p>
-
-<p>If systems live through time, then those who design them are responsible for the futures they constrain.</p>
-
-<p>The dossier closes here.</p>
-<p>The question remains open.</p>
+      <!-- INPUT COM VIDRO -->
+      <div class="px-6 pt-2 pb-4">
+        <div class="glass-input relative flex items-center p-1">
+          <span class="pl-4 pr-3 text-sigma font-tech text-lg font-bold">Σ</span>
+          <input
+            type="text"
+            id="command-input"
+            placeholder='Enter systemic parameters...'
+            class="w-full bg-transparent border-none text-sm text-white placeholder-zinc-500 focus:ring-0 px-2 py-4 font-mono focus:outline-none"
+          />
+          <button
+            id="execute-btn"
+            class="px-6 py-2.5 mr-1 bg-sigma/10 hover:bg-sigma hover:text-obsidian-deep border border-sigma/30 hover:border-sigma text-xs font-tech tracking-wider text-sigma transition-all duration-200 uppercase rounded font-medium"
+          >
+            Analyze
+          </button>
+        </div>
+        <div class="mt-3 text-xs font-mono text-zinc-500 flex justify-between items-center">
+          <span>Tip: Use <span class="text-zinc-400">Live Server / localhost</span> for SHA-256 verification</span>
+          <span class="text-zinc-600">v1.0.4-stable</span>
+        </div>
       </div>
     </section>
 
-    <section class="reveal grid md:grid-cols-3 gap-12 border-t border-white/5 pt-24">
-    
-         <div>
-        <h3 class="text-gold uppercase tracking-widest text-[10px] font-bold mb-6">Research</h3>
-        <p class="text-stone-500 text-sm">Integrating ecological and temporal dimensions into governance frameworks. Reality as process, not snapshot.</p>
+    <!-- SIDEBAR COM VIDRO -->
+    <aside class="w-80 sidebar-glass rounded-xl flex-col hidden lg:flex overflow-hidden" id="system-sidebar">
+      
+      <!-- GAP -->
+      <div class="p-5 border-b border-white/5">
+        <h2 class="font-tech text-xs tracking-[0.2em] text-zinc-500 uppercase mb-4 font-medium">The 80% Cognitive Gap</h2>
+        <div class="relative h-3 w-full bg-zinc-800/50 rounded-full mb-2 overflow-hidden">
+          <div id="gap-indicator" class="absolute top-0 bottom-0 bg-sigma w-2 left-[65%] shadow-[0_0_15px_#d6bc7e] transition-all duration-1000 rounded-full"></div>
+        </div>
+        <div class="flex justify-between text-xs font-mono text-zinc-500 uppercase">
+          <span>Stable</span>
+          <span id="gap-status" class="text-zinc-400 font-medium status-pulse">Monitoring</span>
+          <span>Collapse</span>
+        </div>
       </div>
-      <div>
-        <h3 class="text-gold uppercase tracking-widest text-[10px] font-bold mb-6">Writing</h3>
-        <p class="text-stone-500 text-sm">Supporting texts meant to remain meaningful across time, resisting passing intellectual trends.</p>
-      </div>
-      <div>
-        <h3 class="text-gold uppercase tracking-widest text-[10px] font-bold mb-6">Memory</h3>
-        <p class="text-stone-500 text-sm">Translating territorial and institutional memory into structures capable of guiding future action.</p>
-      </div>
-    </section>
 
+      <!-- TRIPARTITE -->
+      <div class="p-5 border-b border-white/5 space-y-5">
+        <h2 class="font-tech text-xs tracking-[0.2em] text-zinc-500 uppercase mb-3 font-medium">Tripartite Agency (Inputs)</h2>
+
+        <div>
+          <div class="flex justify-between text-xs text-zinc-400 mb-2 uppercase font-tech">
+            <span>Human / Institutional</span>
+            <span id="status-human" class="text-green-500 font-medium">Stable</span>
+          </div>
+          <div id="bar-human" class="h-2 bg-zinc-800/50 rounded-full overflow-hidden">
+            <div class="h-full bg-green-500 transition-all duration-1000 rounded-full" style="width: 30%"></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex justify-between text-xs text-zinc-400 mb-2 uppercase font-tech">
+            <span>Algorithmic Impact</span>
+            <span id="status-alg" class="text-sigma font-medium">High Load</span>
+          </div>
+          <div id="bar-algorithmic" class="h-2 bg-zinc-800/50 rounded-full overflow-hidden">
+            <div class="h-full bg-sigma transition-all duration-1000 rounded-full" style="width: 75%"></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex justify-between text-xs text-zinc-400 mb-2 uppercase font-tech">
+            <span>Ecological / Biophysical</span>
+            <span id="status-eco" class="text-red-400 font-medium">Critical</span>
+          </div>
+          <div id="bar-ecological" class="h-2 bg-zinc-800/50 rounded-full overflow-hidden">
+            <div class="h-full bg-red-500 transition-all duration-1000 rounded-full" style="width: 88%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DIAGNOSTIC -->
+      <div class="p-5 flex-1 overflow-y-auto" id="diagnostic-engine">
+        <h2 class="font-tech text-xs tracking-[0.2em] text-zinc-500 uppercase mb-4 font-medium">Diagnostic Engine</h2>
+        <div class="space-y-3" id="engine-checks">
+          <div class="flex items-center gap-3 text-xs text-zinc-400 font-mono p-2 rounded bg-white/5">
+            <span class="text-sigma text-sm">✓</span> Interdependency Sieve
+          </div>
+          <div class="flex items-center gap-3 text-xs text-zinc-400 font-mono p-2 rounded bg-white/5">
+            <span class="text-sigma text-sm">✓</span> Intensity Check
+          </div>
+          <div class="flex items-center gap-3 text-xs text-zinc-400 font-mono p-2 rounded bg-white/5">
+            <span class="text-sigma text-sm">✓</span> State Machine Binding
+          </div>
+          <div class="flex items-center gap-3 text-xs text-zinc-400 font-mono p-2 rounded bg-white/5">
+            <span class="text-sigma text-sm">✓</span> Trajectory Analysis
+          </div>
+        </div>
+      </div>
+
+      <!-- AUDIT LOG -->
+      <div class="p-5 border-t border-white/5 bg-black/20">
+        <h2 class="font-tech text-xs tracking-[0.2em] text-zinc-500 uppercase mb-4 font-medium">Immutable Audit Log</h2>
+        <div id="audit-logs" class="space-y-3 max-h-32 overflow-y-auto text-xs font-mono">
+          <div class="text-zinc-500 italic">No records in current session.</div>
+        </div>
+      </div>
+
+    </aside>
   </main>
 
-  <footer class="bg-stone-900/50 py-24 px-6 text-center border-t border-white/5">
-    <div class="max-w-2xl mx-auto space-y-8">
-      <p class="text-gold serif italic text-xl">Time is life as memory.</p>
-
-      <p class="text-stone-500 text-xs tracking-widest uppercase">
-        <a class="hover:text-gold transition-colors" href="mailto:contact@hassefoundation.org">contact@c-eco.org</a>
-      </p>
-
-      <div class="pt-6">
-        <a href="english.html" class="text-[9px] text-stone-600 uppercase tracking-widest hover:text-gold transition-colors border-b border-white/10 hover:border-gold/40 pb-1">
-          <p>Primary biographical sources include the <em>Allgemeine Deutsche Biographie</em>, vol. 10 (1879), entry by Albert Teichmann, and the Christian-Albrechts-Universität zu Kiel Gelehrtenverzeichnis.</p>
-          
-          Return to c-ECO Portal
+  <!-- FOOTER COM LINK CENTRALIZADO -->
+  <footer class="border-t border-white/5 bg-obsidian-deep/80 backdrop-blur-sm z-40 relative">
+    <div class="max-w-6xl mx-auto px-6 py-4">
+      
+      <!-- Link da Framework Centralizado -->
+      <div class="flex justify-center mb-4">
+        <a
+          href="system-architecture.html"
+          class="group inline-flex items-center gap-3 px-6 py-3 bg-sigma/5 hover:bg-sigma/10 border border-sigma/20 hover:border-sigma/40 rounded-lg transition-all duration-300"
+        >
+          <span class="text-sigma text-lg">◆</span>
+          <div class="flex flex-col items-start">
+            <span class="text-sm font-tech tracking-[0.15em] uppercase text-sigma font-semibold group-hover:text-glow transition-all">
+              c-ECO System Architecture
+            </span>
+            <span class="text-xs text-zinc-500 font-mono mt-0.5">Framework Documentation & Technical Reference</span>
+          </div>
+          <span class="text-sigma text-lg ml-2 group-hover:translate-x-1 transition-transform">→</span>
         </a>
       </div>
 
-      <div class="pt-12 text-[9px] text-stone-700 uppercase tracking-widest">© 2026 Johann Christian Hasse Foundation</div>
+      <p class="text-center text-xs tracking-widest text-zinc-600 uppercase">
+        Conceptual Protocol Interface — Analytical Infrastructure Under Development
+      </p>
     </div>
   </footer>
 
   <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('active');
-      });
-    }, { threshold: 0.1 });
+  document.addEventListener('DOMContentLoaded', () => {
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    /* ============================================================
+       0) DADOS (DOS SEUS PDFs) — EMBUTIDOS
+    ============================================================ */
+
+    const CECO_INDEX = [
+      { k: "PRE-000", t: "Preamble: International Statute on Systemic Governance, Biophysical Supremacy, and Binding Legal Automation" },
+      { k: "MEM-000", t: "Explanatory Memorandum: Transition from Retrospective Causality to the Systemic Predictive Nexus and Trajectory Protection" },
+      { k: "STRUCT",  t: "Structural Principles (Art. 1–5)" },
+      { k: "CH1",     t: "Operating Regime (Art. 6–52)" },
+      { k: "DUTIES",  t: "Duties and Causation (Art. 53–72)" },
+      { k: "ARCH",    t: "Institutional & Operational Architecture (Art. 73–127)" },
+      { k: "LIAB",    t: "Liability, Sanctions & Risk Management (Art. 128–175)" },
+      { k: "EXEC",    t: "Execution & Final Provisions (Art. 176–214)" },
+    ];
+
+    const CECO_CODES = [
+      { id: "CECO-PRE-000", title: "PREAMBLE: International Statute on Systemic Governance, Biophysical Supremacy, and Binding Legal Automation (c-ƩCO Regime)." },
+      { id: "CECO-MEM-000", title: "EXPLANATORY MEMORANDUM: Transition from Retrospective Causality to the Systemic Predictive Nexus and Trajectory Protection." },
+      { id: "CECO-ART-001", title: "Principle of Supremacy of the Safe Operating Space (SOS)." },
+      { id: "CECO-ART-002", title: "In Dubio Pro Systema Principle and Technical Thresholds." },
+      { id: "CECO-ART-003", title: "Physical Primacy and Non-Disposability of Systemic Collapse Risk (I)." },
+      { id: "CECO-ART-004", title: "Non-Disposability of Systemic Collapse Risk (II)." },
+      { id: "CECO-ART-005", title: "Ex-Ante Governance and Systemic Preclusion." },
+      { id: "CECO-ART-006", title: "Systemic Paradigm and Functional Integrity." },
+      { id: "CECO-ART-007", title: "Rule of Systemic Compatibility." },
+      { id: "CECO-ART-008", title: "Conditional Subsistence of Legal Bonds." },
+      { id: "CECO-ART-009", title: "Conditioned Immediate Object." },
+      { id: "CECO-ART-010", title: "Conditioned Existence of the Obligation." },
+      { id: "CECO-ART-011", title: "Prohibition of Enforceability Detached from Habitability." },
+      { id: "CECO-ART-012", title: "Continuous Validity and Dynamic Verification." },
+      { id: "CECO-ART-013", title: "Conditioned Persistence of Validity." },
+      { id: "CECO-ART-014", title: "Automatic Lapse due to Loss of Systemic Conditions." },
+      { id: "CECO-ART-015", title: "Ex-Ante Unenforceability (IEX) as Autonomous Legal Category." },
+      { id: "CECO-ART-016", title: "Automatic Lock Triggered by Irreversible Technical Trajectory." },
+      { id: "CECO-ART-017", title: "Objective Systemic Criterion (replacing subjective legal cause)." },
+      { id: "CECO-ART-018", title: "Immediacy and Erga Omnes Opposability of Technical IEX." },
+      { id: "CECO-ART-019", title: "Systemic Preclusion." },
+      { id: "CECO-ART-020", title: "Blocking of Lawful Acts through Collapse Trajectory Construction." },
+      { id: "CECO-ART-021", title: "Trajectory Preclusion." },
+      { id: "CECO-ART-022", title: "Opposability of Preclusion to Successors and Substitutes." },
+      { id: "CECO-ART-023", title: "Safe Operating Space (SOS)." },
+      { id: "CECO-ART-024", title: "Subordination of Price/Value/Remuneration to Systemic Limits." },
+      { id: "CECO-ART-025", title: "Legal Nullity of Prices Formed Outside SOS." },
+      { id: "CECO-ART-026", title: "Erga Omnes Unenforceability of Prices Null due to Systemic Violation." },
+      { id: "CECO-ART-027", title: "Habitability Link." },
+      { id: "CECO-ART-028", title: "Dependence of Economic Value on Ecosystem Preservation." },
+      { id: "CECO-ART-029", title: "Prohibition of Dissociation between Financial Assets and Life-Support Systems." },
+      { id: "CECO-ART-030", title: "Non-Opposability of Incompatible Asset-Segregation Structures." },
+      { id: "CECO-ART-031", title: "Biophysical Conditioning of Guarantees." },
+      { id: "CECO-ART-032", title: "Non-Opposability of Anti-Systemic Enforcement." },
+      { id: "CECO-ART-033", title: "Automatic Conversion into Systemic Restoration Obligations." },
+      { id: "CECO-ART-034", title: "Absolute Priority of Restoration and Safe Decommissioning." },
+      { id: "CECO-ART-035", title: "Systemic Proof." },
+      { id: "CECO-ART-036", title: "Centrality of Certified Sensory Data." },
+      { id: "CECO-ART-037", title: "Prevalence of Systemic Proof." },
+      { id: "CECO-ART-038", title: "Erga Omnes Opposability and Immediate Effectiveness of Systemic Proof." },
+      { id: "CECO-ART-039", title: "Burden of Technical Challenge." },
+      { id: "CECO-ART-040", title: "Curatorial Trigger." },
+      { id: "CECO-ART-041", title: "Automatic Release of Funds for Correction and Restoration." },
+      { id: "CECO-ART-042", title: "Priority of Correction over Ex Post Indemnification." },
+      { id: "CECO-ART-043", title: "Unenforceability of Substitute Indemnification Solutions." },
+      { id: "CECO-ART-044", title: "Safe Mode." },
+      { id: "CECO-ART-045", title: "Coordinated Suspension to Prevent Systemic Cascades." },
+      { id: "CECO-ART-046", title: "Priority of System Preservation over Individual Performance." },
+      { id: "CECO-ART-047", title: "Unenforceability of Penalties for Suspension in Safe Mode." },
+      { id: "CECO-ART-048", title: "State Machine." },
+      { id: "CECO-ART-049", title: "Progressive Phased Execution." },
+      { id: "CECO-ART-050", title: "Overcoming Binary Logic of Execution or Rupture." },
+      { id: "CECO-ART-051", title: "Legal Binding of State Transitions." },
+      { id: "CECO-ART-052", title: "Legal Irreversibility of Critical Transitions." },
+      { id: "CECO-ART-142", title: "Exclusion of Habitability." },
+      { id: "CECO-ART-143", title: "Intergenerational Indemnification." },
+      { id: "CECO-ART-144", title: "Calculation of Intergenerational Indemnification." },
+      { id: "CECO-ART-145", title: "Evidentiary Publicity and Public Registry." },
+      { id: "CECO-ART-146", title: "Opposability of the Public Registry." },
+      { id: "CECO-ART-147", title: "Unenforceability of Sanction Waivers or Settlements." },
+      { id: "CECO-ART-148", title: "Inapplicability of Force Majeure/Fortuitous Event in Systemic Context." },
+      { id: "CECO-ART-149", title: "Mandatory Internalization of Systemic Risks." },
+      { id: "CECO-ART-150", title: "Act of Third Parties and Systemic Contribution Nexus." },
+      { id: "CECO-ART-151", title: "Co-Liability for Omission re: Third-Party Acts." },
+      { id: "CECO-ART-152", title: "Supremacy of Sensorial and Technical Evidence." },
+      { id: "CECO-ART-153", title: "Unenforceability of Non-Technical Challenges." },
+      { id: "CECO-ART-154", title: "Shielding against Political/Administrative Interference." },
+      { id: "CECO-ART-155", title: "Prevalence of Biophysical Reality over State Authorization." },
+      { id: "CECO-ART-156", title: "Limitation of Good Faith in Predictive Risks." },
+      { id: "CECO-ART-157", title: "Continuous Duty of Systemic Vigilance." },
+      { id: "CECO-ART-158", title: "Unenforceability of Conventional Exemptions." },
+      { id: "CECO-ART-159", title: "Systemic Risk Management Fund." },
+      { id: "CECO-ART-160", title: "Algorithmic Custody of Resources." },
+      { id: "CECO-ART-161", title: "Tripartite Governance of the Fund." },
+      { id: "CECO-ART-162", title: "Purpose-Bound Allocation of the Fund." },
+      { id: "CECO-ART-163", title: "Autonomous Execution of Expenditures." },
+      { id: "CECO-ART-164", title: "Suspension of Human Management in Critical States." },
+      { id: "CECO-ART-165", title: "Prohibition of Misuse of Funds." },
+      { id: "CECO-ART-166", title: "Unenforceability of Claims against the Fund." },
+      { id: "CECO-ART-167", title: "Traceability and Transparency of Fund Operations." },
+      { id: "CECO-ART-168", title: "Mandatory Initial Reserve." },
+      { id: "CECO-ART-169", title: "Composition and Liquidity of the Initial Reserve." },
+      { id: "CECO-ART-170", title: "Dynamic Updating of the Initial Reserve." },
+      { id: "CECO-ART-171", title: "Prohibition of Operation without Reversibility Capital." },
+      { id: "CECO-ART-172", title: "Entry Condition into the c-ƩCO Regime." },
+      { id: "CECO-ART-173", title: "Condition for Release of Execution Rights." },
+      { id: "CECO-ART-174", title: "Preferential Allocation of the Initial Reserve." },
+      { id: "CECO-ART-175", title: "Unenforceability of Insufficient Substitute Guarantees." },
+      { id: "CECO-ART-176", title: "Systemic Function of Restoration Providers." },
+      { id: "CECO-ART-177", title: "Mandatory Certification and Prior Approval." },
+      { id: "CECO-ART-178", title: "Legal Binding of Providers to the c-ƩCO Regime." },
+      { id: "CECO-ART-179", title: "Faithful Curatorship of the Systemic Trajectory." },
+      { id: "CECO-ART-180", title: "Guarantee of Technical Result." },
+      { id: "CECO-ART-181", title: "Algorithmic Subordination of Execution." },
+      { id: "CECO-ART-182", title: "Direct and Autonomous Execution." },
+      { id: "CECO-ART-183", title: "Joint Liability of the Provider." },
+      { id: "CECO-ART-184", title: "Substitution of the Provider." },
+      { id: "CECO-ART-185", title: "Mandatory Contingency List." },
+      { id: "CECO-ART-186", title: "Emergency Intervention." },
+      { id: "CECO-ART-187", title: "Affection of Provider Guarantees." },
+      { id: "CECO-ART-188", title: "Mandatory Order of Systemic Activation." },
+      { id: "CECO-ART-189", title: "Minimum Initialization Stages." },
+      { id: "CECO-ART-190", title: "Binding Technical–Legal Sequencing." },
+      { id: "CECO-ART-191", title: "Prohibition of Parallel/Fragmented Execution." },
+      { id: "CECO-ART-192", title: "Ineffectiveness of Misaligned External Acts." },
+      { id: "CECO-ART-193", title: "Mandatory Technical Record (Systemic Logs)." },
+      { id: "CECO-ART-194", title: "Permanent Auditability." },
+      { id: "CECO-ART-195", title: "Secure Termination of Execution." },
+      { id: "CECO-ART-196", title: "Prohibition of Fictitious or Formal Termination." },
+      { id: "CECO-ART-197", title: "Liability for Disruption of the Execution Chain." },
+      { id: "CECO-ART-198", title: "Application to Ongoing Contracts." },
+      { id: "CECO-ART-199", title: "Prohibition of Material Retroactivity." },
+      { id: "CECO-ART-200", title: "Voluntary Adhesion (Opt-In)." },
+      { id: "CECO-ART-201", title: "Full Binding Effect after Opt-In." },
+      { id: "CECO-ART-202", title: "Compatibility with Arbitration and Courts." },
+      { id: "CECO-ART-203", title: "Technical Autonomy vis-à-vis Litigation." },
+      { id: "CECO-ART-204", title: "Compatibility with Insolvency Regimes." },
+      { id: "CECO-ART-205", title: "Systemic Priority in Collective Proceedings." },
+      { id: "CECO-ART-206", title: "Transnational Recognition of the c-ƩCO Regime." },
+      { id: "CECO-ART-207", title: "Normative and Technical Interoperability." },
+      { id: "CECO-ART-208", title: "Systemic Safeguard Clause." },
+      { id: "CECO-ART-209", title: "Model Law and Normative Standard Nature." },
+      { id: "CECO-ART-210", title: "Supplementary and Interpretive Application." },
+      { id: "CECO-ART-211", title: "Systemic Integrity Clause." },
+      { id: "CECO-ART-212", title: "Prohibition of Waiver of Structural Principles." },
+      { id: "CECO-ART-213", title: "Finalistic and Evolutive Interpretation." },
+      { id: "CECO-ART-214", title: "Entry into Force." },
+    ];
+
+    const STATUTE_EXCERPTS = {
+      "ART 85": [
+        "State transitions shall produce automatic and binding legal effects upon the validity, enforceability, and continuity of obligations, independently of notice, manifestation of will by the parties, or any judicial/administrative/arbitral pronouncement."
+      ],
+      "ART 86": [
+        "Every state transition, alert issued, or trigger activation shall be recorded in immutable and auditable technical infrastructure, ensuring traceability, transparency, and integrity of systemic decisions."
+      ],
+      "ART 87": [
+        "Upon reaching the Orange or Red States, the systemic decisions recorded shall become legally irreversible for as long as the technical conditions that caused them persist, and their suspension or reversal by private agreement or non-technical decision is prohibited."
+      ],
+      "ART 88": [
+        "Automatic continuation of execution of contracts or operations after transition to alert/containment states is prohibited."
+      ],
+      "ART 97": [
+        "Automatic Duty of Cooperation (Join Duty) imposes immediate technical and informational cooperation whenever a systemic risk trajectory is identified."
+      ]
+    };
+
+    /* ============================================================
+       1) MAPEAMENTO DO DOM
+    ============================================================ */
+    const inputField = document.getElementById('command-input');
+    const executeBtn = document.getElementById('execute-btn');
+    const consoleOutput = document.getElementById('console-output');
+
+    const scrollToBottom = () => {
+      if (!consoleOutput) return;
+      consoleOutput.scrollTop = consoleOutput.scrollHeight;
+    };
+
+    /* ============================================================
+       2) UTILITÁRIOS / SANITIZAÇÃO
+    ============================================================ */
+    const escapeHtml = (str = '') =>
+      String(str).replace(/[&<>"']/g, (m) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
+      }[m]));
+
+    async function generateSigmaHash(text) {
+      try {
+        if (!window.crypto || !crypto.subtle) {
+          return ("NONSECURE-" + Math.random().toString(16).slice(2, 8)).toUpperCase();
+        }
+        const msgUint8 = new TextEncoder().encode(text);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        return hashHex.substring(0, 12).toUpperCase();
+      } catch (e) {
+        return ("HASHERR-" + Math.random().toString(16).slice(2, 8)).toUpperCase();
+      }
+    }
+
+    const normalizeCmd = (s='') => s.trim().replace(/\s+/g, ' ');
+
+    /* ============================================================
+       3) COMPONENTES DE UI COM VIDRO
+    ============================================================ */
+    function createUserMessage(text) {
+      const div = document.createElement('div');
+      div.className = "flex justify-end pl-12 mb-6 slide-in";
+      div.innerHTML = `
+        <div class="glass-response p-4 max-w-xl">
+          <span class="text-xs text-sigma/60 font-mono block mb-2 uppercase tracking-wide">Input Source: Human Agency ></span>
+          <p class="text-sm font-mono text-zinc-300">${escapeHtml(text)}</p>
+        </div>`;
+      return div;
+    }
+
+    function createSystemMessage(html, isAlert, proofId) {
+      const div = document.createElement('div');
+      div.className = "flex justify-start pr-12 mb-6 slide-in";
+      const borderColor = isAlert ? "border-red-500/50" : "border-sigma/50";
+      const header = isAlert ? "[ PREDICTIVE ALERT ]" : "[ TRAJECTORY ASSESSMENT ]";
+      const headerColor = isAlert ? "text-red-400" : "text-sigma/80";
+
+      div.innerHTML = `
+        <div class="w-full">
+          <div class="glass-response p-6 md:p-8">
+            <div class="flex gap-4 mb-5 font-mono text-xs ${headerColor} tracking-wide uppercase border-b border-white/10 pb-4">
+              <span class="font-medium flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full ${isAlert ? 'bg-red-500' : 'bg-sigma'} animate-pulse"></span>
+                ${header}
+              </span>
+              <span class="text-zinc-500">PROOF-ID: ${escapeHtml(proofId || "—")}</span>
+            </div>
+            <div class="text-zinc-300 font-light">
+              ${html}
+            </div>
+          </div>
+        </div>`;
+      return div;
+    }
+
+    function renderCECOOutput(payload) {
+      const refs = (arr) =>
+        (arr || []).map(r =>
+          `<code class="text-xs bg-white/5 px-2 py-1 font-mono text-sigma/80 rounded border border-white/5">${escapeHtml(r)}</code>`
+        ).join(' ');
+
+      const triggersHtml = (payload.triggers && payload.triggers.length)
+        ? payload.triggers.map(t => `<div class="text-sm mb-2 text-zinc-300 flex items-start gap-2"><span class="text-sigma mt-1">▶</span> <span>${escapeHtml(t)}</span></div>`).join('')
+        : '<span class="text-zinc-500 text-sm italic">No triggers activated.</span>';
+
+      const effectsHtml = (payload.effects || []).map(e => `<li class="mb-2 leading-relaxed">${escapeHtml(e)}</li>`).join('');
+
+      return `
+        <div class="space-y-6">
+          <section>
+            <h3 class="text-white font-tech text-xs uppercase tracking-widest border-b border-white/10 mb-4 pb-2 font-semibold flex items-center gap-2">
+              <span class="w-1 h-1 bg-sigma rounded-full"></span>
+              A) Systemic State
+            </h3>
+            <div class="flex items-center gap-3 mb-3">
+              <span class="px-3 py-1.5 rounded-md bg-sigma/10 border border-sigma/30 text-sigma text-xs font-mono font-medium">${escapeHtml(payload.state)}</span>
+              <span class="text-xs text-zinc-500 font-mono">CONFIDENCE: ${escapeHtml(payload.confidence)}</span>
+            </div>
+            <p class="text-xs text-zinc-400">Basis: ${refs(payload.state_basis)}</p>
+          </section>
+
+          <section>
+            <h3 class="text-white font-tech text-xs uppercase tracking-widest border-b border-white/10 mb-4 pb-2 font-semibold flex items-center gap-2">
+              <span class="w-1 h-1 bg-sigma rounded-full"></span>
+              B) Mandatory Triggers
+            </h3>
+            ${triggersHtml}
+          </section>
+
+          <section>
+            <h3 class="text-white font-tech text-xs uppercase tracking-widest border-b border-white/10 mb-4 pb-2 font-semibold flex items-center gap-2">
+              <span class="w-1 h-1 bg-sigma rounded-full"></span>
+              C) Binding Legal Effects
+            </h3>
+            <ul class="list-disc pl-5 space-y-2 text-sm text-zinc-300">${effectsHtml}</ul>
+          </section>
+
+          <section class="bg-blue-950/20 p-5 border-l-2 border-blue-500/40 rounded-r-lg">
+            <h3 class="text-blue-400 font-tech text-xs uppercase tracking-widest mb-3 font-semibold flex items-center gap-2">
+              <span class="w-1 h-1 bg-blue-400 rounded-full"></span>
+              D) Proof & Immutable Logs
+            </h3>
+            <p class="text-sm font-mono text-zinc-400 leading-relaxed">${escapeHtml(payload.proof || '')}</p>
+            <div class="mt-3 text-xs text-blue-300/60 uppercase font-mono">
+              Evidence Bound: ${refs(payload.proof_basis)}
+            </div>
+          </section>
+        </div>
+      `;
+    }
+
+    function appendAuditLog(entry) {
+      const container = document.getElementById('audit-logs');
+      if (!container) return;
+
+      const placeholder = container.querySelector('.italic');
+      if (placeholder) placeholder.remove();
+
+      const ts = new Date().toISOString().replace('T', ' ').slice(0, 19);
+      const div = document.createElement('div');
+      div.className = "border-l-2 border-white/10 pl-3 slide-in py-1";
+
+      div.innerHTML = `
+        <div class="text-xs font-mono text-zinc-500 mb-0.5">${escapeHtml(ts)}</div>
+        <div class="text-xs font-mono text-zinc-300 leading-relaxed">${escapeHtml(entry)}</div>
+      `;
+
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    /* ============================================================
+       4) SIDEBAR (Tripartite + Gap) + Blind Interval
+    ============================================================ */
+    function updateSidebar(payload) {
+      const humanFill = document.querySelector('#bar-human > div');
+      const algFill = document.querySelector('#bar-algorithmic > div');
+      const ecoFill = document.querySelector('#bar-ecological > div');
+
+      const humanTxt = document.getElementById('status-human');
+      const algTxt = document.getElementById('status-alg');
+      const ecoTxt = document.getElementById('status-eco');
+
+      const gapStatus = document.getElementById('gap-status');
+      const gapIndicator = document.getElementById('gap-indicator');
+
+      if (!humanFill || !algFill || !ecoFill || !gapStatus || !gapIndicator) return;
+
+      const setFill = (fillEl, labelEl, width, label, bgClass, textClass) => {
+        fillEl.style.width = `${width}%`;
+        fillEl.className = `h-full transition-all duration-1000 rounded-full ${bgClass}`;
+        if (labelEl) {
+          labelEl.textContent = label;
+          labelEl.className = `${textClass} font-medium`;
+        }
+      };
+
+      const state = String(payload.state || "").toUpperCase();
+      const score = Number(payload.confidence_score ?? 80);
+
+      // Gap indicator
+      const clamped = Math.max(5, Math.min(95, score));
+      gapIndicator.style.left = `${clamped}%`;
+
+      if (score < 60) {
+        gapStatus.textContent = "BLIND INTERVAL";
+        gapStatus.className = "text-red-500 animate-pulse font-medium";
+      } else {
+        gapStatus.textContent = "MONITORING";
+        gapStatus.className = "text-zinc-400 font-medium status-pulse";
+      }
+
+      if (state.includes("RED")) {
+        setFill(humanFill, humanTxt, 20, "DELETED", "bg-red-500", "text-red-400");
+        setFill(algFill, algTxt, 98, "CRITICAL", "bg-red-500", "text-red-400");
+        setFill(ecoFill, ecoTxt, 100, "COLLAPSE", "bg-red-500", "text-red-400");
+      } else if (state.includes("ORANGE")) {
+        setFill(humanFill, humanTxt, 40, "SUSPENDED", "bg-orange-500", "text-orange-400");
+        setFill(algFill, algTxt, 80, "HIGH LOAD", "bg-orange-500", "text-orange-400");
+        setFill(ecoFill, ecoTxt, 65, "WARNING", "bg-orange-500", "text-orange-400");
+      } else {
+        setFill(humanFill, humanTxt, 60, "ACTIVE", "bg-green-500", "text-green-400");
+        setFill(algFill, algTxt, 40, "OPTIMAL", "bg-sigma", "text-sigma");
+        setFill(ecoFill, ecoTxt, 30, "STABLE", "bg-green-700", "text-green-400");
+      }
+    }
+
+    function applyBlindInterval(payload) {
+      const sidebar = document.getElementById('system-sidebar');
+      if (!sidebar) return;
+      const score = Number(payload.confidence_score ?? 80);
+
+      if (score < 60) {
+        sidebar.classList.add('opacity-30', 'blur-[2px]', 'pointer-events-none');
+      } else {
+        sidebar.classList.remove('opacity-30', 'blur-[2px]', 'pointer-events-none');
+      }
+    }
+
+    /* ============================================================
+       5) ENGINE DECISIONAL (CORE)
+    ============================================================ */
+    function findCode(query) {
+      const q = query.toUpperCase();
+      return CECO_CODES.find(c => c.id === q) || null;
+    }
+
+    function listCodesSample() {
+      const must = ["CECO-ART-001","CECO-ART-015","CECO-ART-035","CECO-ART-044","CECO-ART-048","CECO-ART-085","CECO-ART-086","CECO-ART-097","CECO-ART-159","CECO-ART-176","CECO-ART-206","CECO-ART-214"];
+      const picked = CECO_CODES.filter(c => must.includes(c.id));
+      return picked.map(c => `${c.id} — ${c.title}`);
+    }
+
+    function decide(commandRaw) {
+      const command = normalizeCmd(commandRaw);
+      const lower = command.toLowerCase();
+      const state_basis = ["CECO-ART-083", "CECO-ART-085"];
+
+      if (lower === "index" || lower.includes("sumário") || lower.includes("indice")) {
+        return {
+          state: "GREEN / REFERENCE",
+          confidence: "STABLE",
+          confidence_score: 85,
+          state_basis,
+          triggers: ["Reference Query"],
+          effects: CECO_INDEX.map(x => `${x.k} — ${x.t}`),
+          proof: "Index snapshot loaded (local).",
+          proof_basis: ["CECO-MEM-000"],
+          isAlert: false
+        };
+      }
+
+      if (lower === "code" || lower === "codes" || lower.includes("lista de códigos")) {
+        return {
+          state: "GREEN / REFERENCE",
+          confidence: "STABLE",
+          confidence_score: 85,
+          state_basis,
+          triggers: ["Codebook Query"],
+          effects: listCodesSample(),
+          proof: "AI CODES codebook loaded (local).",
+          proof_basis: ["CECO-PRE-000"],
+          isAlert: false
+        };
+      }
+
+      const artMatch = lower.match(/\bart\s*\.?\s*(\d{1,3})\b/);
+      if (artMatch) {
+        const key = `ART ${artMatch[1]}`;
+        const lines = STATUTE_EXCERPTS[key] || null;
+        return {
+          state: "GREEN / REFERENCE",
+          confidence: lines ? "STABLE" : "LIMITED",
+          confidence_score: lines ? 85 : 70,
+          state_basis,
+          triggers: ["Statute Query"],
+          effects: lines ? lines : [`Não achei o trecho embutido para ${key}.`],
+          proof: `Lookup: ${key}`,
+          proof_basis: lines ? [key] : ["CECO-MEM-000"],
+          isAlert: false
+        };
+      }
+
+      if (lower.includes("iex") || lower.includes("inexequ")) {
+        return {
+          state: "RED / CRITICAL",
+          confidence: "40% (UNCERTAIN)",
+          confidence_score: 40,
+          state_basis,
+          triggers: ["Ex-Ante Unenforceability (IEX)", "Trajectory Lock"],
+          effects: [
+            "Immediate suspension of any executive action.",
+            "The trajectory is aggravated and Execution is blocked.",
+            "Automatic and enforceable effects (erga omnes) based on technical grounds."
+          ],
+          proof: "Certified sensory + legal data (state lock).",
+          proof_basis: ["CECO-ART-015", "CECO-ART-016", "CECO-ART-018", "CECO-ART-086"],
+          isAlert: true
+        };
+      }
+
+      if (lower.includes("safe")) {
+        return {
+          state: "ORANGE / CONTAINMENT",
+          confidence: "HIGH",
+          confidence_score: 72,
+          state_basis,
+          triggers: ["Safe Mode Protocol"],
+          effects: [
+            "Activation of Safe Mode (coordinated suspension).",
+            "Modulation of interdependent obligations.",
+            "Waiver of penalties associated with the suspension."
+          ],
+          proof: "Containment logs active.",
+          proof_basis: ["CECO-ART-044", "CECO-ART-045", "CECO-ART-047", "CECO-ART-086"],
+          isAlert: true
+        };
+      }
+
+      if (lower.includes("status")) {
+        return {
+          state: "YELLOW / MONITORING",
+          confidence: "STABLE",
+          confidence_score: 68,
+          state_basis,
+          triggers: ["Reinforced Monitoring"],
+          effects: [
+            "Execution permitted under continuous monitoring.",
+            "Automatic continuation is prohibited if a critical transition occurs."
+          ],
+          proof: "Continuous stream active.",
+          proof_basis: ["CECO-ART-086", "CECO-ART-088"],
+          isAlert: false
+        };
+      }
+
+      return {
+        state: "GREEN / COMPATIBLE",
+        confidence: "STABLE",
+        confidence_score: 85,
+        state_basis,
+        triggers: [],
+        effects: [
+          "Trajectory compatible with declared parameters.",
+          "Execution permitted under continuous monitoring."
+        ],
+        proof: "No critical triggers detected.",
+        proof_basis: ["CECO-ART-001", "CECO-ART-012"],
+        isAlert: false
+      };
+    }
+
+    /* ============================================================
+       6) ORQUESTRADOR (Interface)
+    ============================================================ */
+    async function executeCommand() {
+      if (!inputField || !consoleOutput) return;
+
+      const command = normalizeCmd(inputField.value);
+      if (!command) return;
+
+      // user msg
+      consoleOutput.appendChild(createUserMessage(command));
+      inputField.value = '';
+      scrollToBottom();
+
+      // loader
+      const loader = document.createElement('div');
+      loader.className = "flex items-center gap-3 p-4 slide-in";
+      loader.innerHTML = `<div class="w-3 h-3 bg-sigma animate-ping rounded-full"></div><span class="text-xs font-mono text-sigma uppercase tracking-wide">Running Sieve Analysis...</span>`;
+      consoleOutput.appendChild(loader);
+      scrollToBottom();
+
+      setTimeout(async () => {
+        loader.remove();
+
+        const payload = decide(command);
+
+        // Prova sistêmica (SHA-256)
+        const ts = new Date().toISOString();
+        const rawData = `${command}|${payload.state}|${payload.confidence_score ?? ''}|${ts}`;
+        const proofId = await generateSigmaHash(rawData);
+
+        // atualizar sidebar + blind interval
+        updateSidebar(payload);
+        applyBlindInterval(payload);
+
+        // audit log
+        appendAuditLog(`TS=${ts} | CMD="${command.toUpperCase()}" | STATE=${payload.state} | SIGMA-SHA256-${proofId}`);
+
+        // render output
+        const html = renderCECOOutput(payload);
+        const sysMsg = createSystemMessage(html, payload.isAlert, proofId);
+        consoleOutput.appendChild(sysMsg);
+        scrollToBottom();
+      }, 900);
+    }
+
+    executeBtn?.addEventListener('click', executeCommand);
+    inputField?.addEventListener('keydown', (e) => { 
+      if (e.key === 'Enter') executeCommand(); 
+    });
+
+  });
   </script>
-
 </body>
 </html>
