@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>c-ECO // TDR Framework</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Urbanist:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            sigma: { DEFAULT: '#d6bc7e', dim: '#a68b4c' },
+          },
+          fontFamily: {
+            tech: ['Urbanist', 'sans-serif'],
+            mono: ['Inter', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+          },
+          boxShadow: {
+            sigGlow: "0 0 18px rgba(214,188,126,0.25)"
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: #020617;
+      color: #d4d4d8;
+      font-family: Inter, sans-serif;
+    }
+    .scanline-overlay{
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background: linear-gradient(to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0,0,0,0.06) 50%,
+        rgba(0,0,0,0.06));
+      background-size: 100% 4px;
+      pointer-events:none;
+    }
+    .content { position: relative; z-index: 1; }
+    ::-webkit-scrollbar{ width: 6px; }
+    ::-webkit-scrollbar-track{ background: #09090b; }
+    ::-webkit-scrollbar-thumb{ background: #27272a; border-radius: 3px; }
+    .layer-connector {
+      width: 2px;
+      height: 24px;
+      background: linear-gradient(to bottom, #d6bc7e, #a68b4c);
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body class="bg-[#020617] text-zinc-300 font-sans min-h-screen flex flex-col overflow-hidden selection:bg-sigma-dim selection:text-white">
+  <div class="scanline-overlay"></div>
+
+  <!-- HEADER -->
+  <header class="h-14 border-b border-white/5 bg-slate-950/80 backdrop-blur-sm flex items-center justify-between px-6 z-40 content">
+    <div class="flex items-center gap-4">
+      <div class="w-8 h-8 border border-white/10 flex items-center justify-center bg-white/5">
+        <span class="font-tech text-sigma font-bold text-lg">Σ</span>
+      </div>
+      <div class="flex flex-col">
+        <h1 class="font-tech text-sm tracking-[0.2em] text-white uppercase font-semibold">c-ECO System Architecture</h1>
+        <span class="text-[0.65rem] text-zinc-500 uppercase tracking-wider font-tech">Threshold Dynamics Research Framework</span>
+      </div>
+    </div>
+
+    <div class="hidden md:flex items-center gap-3 px-4 py-1 rounded-full border border-white/5 bg-white/5">
+      <div class="w-1.5 h-1.5 rounded-full bg-sigma animate-pulse"></div>
+      <span class="font-tech text-xs tracking-[0.15em] text-sigma">FRAMEWORK</span>
+    </div>
+
+    <div class="flex items-center gap-4 text-xs font-tech text-zinc-500">
+      <button class="hover:text-sigma transition-colors" onclick="window.location.href='protocol.html'">BACK TO TERMINAL</button>
+      <button class="hover:text-sigma transition-colors" onclick="window.location.href='index.html'">EXIT</button>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="flex-1 overflow-y-auto content">
+    <div class="max-w-5xl mx-auto px-6 py-10 space-y-8">
+
+      <!-- HERO -->
+      <section class="border border-white/5 bg-white/[0.02] p-8 text-center">
+        <div class="flex items-center justify-center gap-2 mb-3">
+          <span class="text-sigma text-xs">◆</span>
+          <span class="font-tech text-[0.7rem] tracking-[0.22em] text-zinc-400 uppercase">Complete System Architecture</span>
+          <span class="text-sigma text-xs">◆</span>
+        </div>
+        <h2 class="font-tech text-3xl text-white tracking-wide mb-4">TDR Framework</h2>
+        <p class="text-sm text-zinc-400 leading-relaxed max-w-2xl mx-auto">
+          Threshold Dynamics Research Framework — from Earth system observation to institutional governance. 
+          A layered architecture translating scientific signals into automated prudential responses.
+        </p>
+      </section>
+
+      <!-- LAYER 0: EARTH SYSTEM OBSERVATION -->
+      <section class="space-y-3">
+        <div class="border border-sigma/30 bg-sigma/5 p-4">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-8 h-8 border border-sigma/50 bg-sigma/20 flex items-center justify-center">
+              <span class="font-tech text-sigma font-bold">0</span>
+            </div>
+            <div>
+              <h3 class="font-tech text-sm text-white uppercase tracking-wider">Earth System Observation Layer</h3>
+              <p class="text-xs text-zinc-500">Physical interface with monitored systems</p>
+            </div>
+          </div>
+          <div class="grid md:grid-cols-4 gap-3">
+            <div class="border border-white/10 bg-black/20 px-3 py-2 text-center">
+              <span class="text-sigma text-lg">🛰️</span>
+              <p class="text-xs text-zinc-400 mt-1">Environmental sensors</p>
+            </div>
+            <div class="border border-white/10 bg-black/20 px-3 py-2 text-center">
+              <span class="text-sigma text-lg">📡</span>
+              <p class="text-xs text-zinc-400 mt-1">Remote sensing / satellites</p>
+            </div>
+            <div class="border border-white/10 bg-black/20 px-3 py-2 text-center">
+              <span class="text-sigma text-lg">⚡</span>
+              <p class="text-xs text-zinc-400 mt-1">Infrastructure monitoring</p>
+            </div>
+            <div class="border border-white/10 bg-black/20 px-3 py-2 text-center">
+              <span class="text-sigma text-lg">📊</span>
+              <p class="text-xs text-zinc-400 mt-1">Economic & operational datasets</p>
+            </div>
+          </div>
+        </div>
+        <div class="layer-connector"></div>
+      </section>
+
+      <!-- LAYER 1: DATA GOVERNANCE -->
+      <section class="space-y-3">
+        <div class="border border-sigma/30 bg-sigma/5 p-4">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-8 h-8 border border-sigma/50 bg-sigma/20 flex items-center justify-center">
+              <span class="font-tech text-sigma font-bold">1</span>
+            </div>
+            <div>
+              <h3 class="font-tech text-sm text-white uppercase tracking-wider">Data Governance Layer</h3>
+              <p class="text-xs text-zinc-500">Epistemic integrity and quality assurance</p>
+            </div>
+          </div>
+          <div class="grid md:grid-cols-3 gap-3">
+            <a href="tdr-data.html" class="border border-sigma/30 bg-sigma/10 p-4 hover:border-sigma/60 hover:bg-sigma/20 transition-all group">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-tech text-sigma text-sm">tdr-data.html</span>
+                <span class="text-sigma group-hover:translate-x-1 transition-transform">→</span>
+              </div>
+              <ul class="text-xs text-zinc-400 space-y-1">
+                <li>• Data ingestion</li>
+                <li>• Admissibility rules</li>
+                <li>• Source authentication</li>
+                <li>• Data classes and lineage</li>
+              </ul>
+            </a>
+
+            <a href="tdr-dvb.html" class="border border-sigma/30 bg-sigma/10 p-4 hover:border-sigma/60 hover:bg-sigma/20 transition-all group">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-tech text-sigma text-sm">tdr-dvb.html</span>
+                <span class="text-sigma group-hover:translate-x-1 transition-transform">→</span>
+              </div>
+              <ul class="text-xs text-zinc-400 space-y-1">
+                <li>• Data Verification Body</li>
+                <li>• Data custodians</li>
+                <li>• Certification procedures</li>
+                <li>• QA/QC controls</li>
+              </ul>
+            </a>
+
+            <a href="tdr-audit-traceability.html" class="border border-sigma/30 bg-sigma/10 p-4 hover:border-sigma/60 hover:bg-sigma/20 transition-all group">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-tech text-sigma text-sm">tdr-audit-traceability.html</span>
+                <span class="text-sigma group-hover:translate-x-1 transition-transform">→</span>
+              </div>
+              <ul class="text-xs text-zinc-400 space-y-1">
+                <li>• Hashing / immutable records</li>
+                <li>• Historical reconstruction</li>
+                <li>• Independent audit</li>
+                <li>• Procedural integrity</li>
+              </ul>
+            </a>
+          </div>
+        </div>
+        <div class="layer-connector"></div>
+      </section>
+
+      <!-- LAYER 2: INDICATOR ARCHITECTURE -->
+      <section class="space-y-3">
+        <div class="border border-sigma/30 bg-sigma/5 p-4">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-8 h-8 border border-sigma/50 bg-sigma/20 flex items-center justify-center">
+              <span class="font-tech text-sigma font-bold">2</span>
+            </div>
+            <div>
+              <h3 class="font-tech text-sm text-white uppercase tracking-wider">Indicator Architecture</h3>
+              <p class="text-xs text-zinc-500">Semantic structure and sectoral mapping</p>
+            </div>
+          </div>
+          <div class="grid md:grid-cols-2 gap-3">
+            <a href="tdr-indicator-architecture.html" class="border border-sigma/30 bg-sigma/10 p-4 hover:border-sigma/60 hover:bg-sigma/20 transition-all group">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-tech text-sigma text-sm">tdr-indicator-architecture.html</span>
+                <span class="text-sigma group-hover:translate-x-1 transition-transform">→</span>
+              </div>
+              <ul class="text-xs text-zinc-400 space-y-1">
+                <li>• Indicator taxonomy</li>
+                <li>• Hierarchies</li>
+                <li>• Metadata logic</li>
+                <li>• Sectoral mapping</li>
+              </ul>
+            </a>
+
+            <div class="border border-white/10 bg-black/20 p-4">
+              <div class="font-tech text-zinc-400 text-sm mb-2">Sector Implementations</div>
+              <div class="space-y-2">
+                <a href="tdr-escis.html" class="flex items-center justify-between border border-sigma/20 bg-sigma/5 px-3 py-2 hover:border-sigma/40 hover:bg-sigma/10 transition-all group">
+                  <span class="text-xs text-zinc-300">tdr-escis.html — Energy Systems Critical Indicators Set</span>
+                  <span class="text-sigma text-xs group-hover:translate-x-1 transition-transform">→</span>
+                </a>
+                <div class="border border-white/10 bg-black/20 px-3 py-2">
+                  <span class="text-xs text-zinc-500">tdr-[sector].html — Water, Finance, Mining, AI, etc.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="layer-connector"></div>
+      </section>
+
+      <!-- LAYER 3: TDR ANALYTICAL ENGINE -->
+      <section class="space-y-3">
+        <div class="border border-sigma/30 bg-sigma/5 p-4">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-8 h-8 border border-sigma/50 bg-sigma/20 flex items-center justify-center">
+              <span class="font-tech text-sigma font-bold">3</span>
+            </div>
+            <div>
+              <h3 class="font-tech text-sm text-white uppercase tracking-wider">TDR Analytical Engine</h3>
+              <p class="text-xs text-zinc-500">Scientific detection and signal processing</p>
+            </div>
+          </div>
+          <div class="grid md:grid-cols-2 gap-3">
+            <a href="tdr-core.html" class="border border-sigma/30 bg-sigma/10 p-4 hover:border-sigma/60 hover:bg-sigma/20 transition-all group">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-tech text-sigma text-sm">tdr-core.html</span>
+                <span class="text-sigma group-hover:translate-x-1 transition-transform">→</span>
+              </div>
+              <ul class="text-xs text-zinc-400 space-y-1">
+                <li>• Early Warning Signals (EWS)</li>
+                <li>• Critical Slowing Down (CSD)</li>
+                <li>• Resilience loss theory</li>
+              </ul>
+            </a>
+
+            <a href="tdr-signal-processing.html" class="border border-sigma/30 bg-sigma/10 p-4 hover:border-sigma/60 hover:bg-sigma/20 transition-all group">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-tech text-sigma text-sm">tdr-signal-processing.html</span>
+                <span class="text-sigma group-hover:translate-x-1 transition-transform">→</span>
+              </div>
+              <ul class="text-xs text-zinc-400 space-y-1">
+                <li>• Filtering</li>
+                <li>• Detrending</li>
+                <li>• Rolling windows</li>
+                <li>• Signal extraction</li>
+              </ul>
+            </a>
+          </div>
+          <div class="mt-3 border border-white/10 bg-black/20 p-3">
+            <p class="text-xs text-zinc-500 text-center">
+              <span class="text-sigma">Statistical outputs:</span> Variance escalation • Autocorrelation trends • Recovery-rate decline • Spectral reddening
+            </p>
+          </div>
+        </div>
+        <div class="layer-connector"></div>
+      </section>
+
+      <!-- LAYER 4: CALIBRATION -->
+      <section class="space-y-3">
+        <div class="border border-sigma/30 bg-sigma/5 p-4">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-8 h-8 border border-sigma/50 bg-sigma/20 flex items-center justify-center">
+              <span class="font-tech text-sigma font-bold">4</span>
+            </div>
+            <div>
+              <h3 class="font-tech text-sm text-white uppercase tracking-wider">Calibration Layer</h3>
+              <p class="text-xs text-zinc-500">Institutional validation of boundaries</p>
+            </div>
+          </div>
+          <a href="tdr-calibration.html" class="block border border-sigma/30 bg-sigma/10 p-4 hover:border-sigma/60 hover:bg-sigma/20 transition-all group">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-tech text-sigma text-sm">tdr-calibration.html</span>
+              <span class="text-sigma group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+            <div class="grid md:grid-cols-4 gap-3">
+              <div class="text-xs text-zinc-400">• Baseline construction</div>
+              <div class="text-xs text-zinc-400">• Safe Operating Space (SOS) boundaries</div>
+              <div class="text-xs text-zinc-400">• Calibration Council validation</div>
+              <div class="text-xs text-zinc-400">• Methodological admissibility</div>
+            </div>
+          </a>
+        </div>
+        <div class="layer-connector"></div>
+      </section>
+
+      <!-- LAYER 5: TFP VARIABLE GENERATION (IMPLIED) -->
+      <section class="space-y-3">
+        <div class="border border-white/10 bg-black/20 p-4">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-8 h-8 border border-white/20 bg-white/10 flex items-center justify-center">
+              <span class="font-tech text-zinc-400 font-bold">5</span>
+            </div>
+            <div>
+              <h3 class="font-tech text-sm text-zinc-300 uppercase tracking-wider">TFP Variable Generation</h3>
+              <p class="text-xs text-zinc-600">Core resilience variables (implied layer)</p>
+            </div>
+          </div>
+          <div class="grid md:grid-cols-4 gap-3">
+            <div class="border border-sigma/20 bg-sigma/5 p-3 text-center">
+              <span class="font-tech text-2xl text-sigma">P</span>
+              <p class="text-xs text-zinc-400 mt-1">Position relative to SOS</p>
+            </div>
+            <div class="border border-sigma/20 bg-sigma/5 p-3 text-center">
+              <span class="font-tech text-2xl text-sigma">ΔV</span>
+              <p class="text-xs text-zinc-400 mt-1">Trajectory velocity</p>
+            </div>
+            <div class="border border-sigma/20 bg-sigma/5 p-3 text-center">
+              <span class="font-tech text-2xl text-sigma">σ</span>
+              <p class="text-xs text-zinc-400 mt-1">Uncertainty</p>
+            </div>
+            <div class="border border-sigma/20 bg-sigma/5 p-3 text-center">
+              <span class="font-tech text-2xl text-sigma">Lr</span>
+              <p class="text-xs text-zinc-400 mt-1">Reversibility Liquidity</p>
+            </div>
+          </div>
+        </div>
+        <div class="layer-connector"></div>
+      </section>
+
+      <!-- LAYER 6: OPERATIONAL SCORE -->
+      <section class="space-y-3">
+        <div class="border border-sigma/30 bg-sigma/5 p-4">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-8 h-8 border border-sigma/50 bg-sigma/20 flex items-center justify-center">
+              <span class="font-tech text-sigma font-bold">6</span>
+            </div>
+            <div>
+              <h3 class="font-tech text-sm text-white uppercase tracking-wider">Operational Score Layer</h3>
+              <p class="text-xs text-zinc-500">Aggregated resilience metrics</p>
+            </div>
+          </div>
+          <a href="tdr-scores.html" class="block border border-sigma/30 bg-sigma/10 p-4 hover:border-sigma/60 hover:bg-sigma/20 transition-all group">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-tech text-sigma text-sm">tdr-scores.html</span>
+              <span class="text-sigma group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+            <div class="grid md:grid-cols-3 gap-3">
+              <div class="text-xs text-zinc-400">• <span class="text-sigma">SPS</span> — Safe Operating Space Proximity Score</div>
+              <div class="text-xs text-zinc-400">• <span class="text-sigma">TRS</span> — Trajectory Risk Score</div>
+              <div class="text-xs text-zinc-400">• <span class="text-sigma">RLS</span> — Reversibility Liquidity Score</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="layer-connector"></div>
+      </section>
+
+      <!-- LAYER 7: REVERSIBILITY FINANCE -->
+      <section class="space-y-3">
+        <div class="border border-sigma/30 bg-sigma/5 p-4">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-8 h-8 border border-sigma/50 bg-sigma/20 flex items-center justify-center">
+              <span class="font-tech text-sigma font-bold">7</span>
+            </div>
+            <div>
+              <h3 class="font-tech text-sm text-white uppercase tracking-wider">Reversibility Finance Layer</h3>
+              <p class="text-xs text-zinc-500">Capital architecture for restoration capacity</p>
+            </div>
+          </div>
+          <a href="tdr-financial-architecture.html" class="block border border-sigma/30 bg-sigma/10 p-4 hover:border-sigma/60 hover:bg-sigma/20 transition-all group">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-tech text-sigma text-sm">tdr-financial-architecture.html</span>
+              <span class="text-sigma group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+            <div class="grid md:grid-cols-3 gap-3">
+              <div class="text-xs text-zinc-400">• Restoration Fund mechanics</div>
+              <div class="text-xs text-zinc-400">• Reversibility Liquidity (Lr) financial basis</div>
+              <div class="text-xs text-zinc-400">• Capital buffers and margin calls</div>
+              <div class="text-xs text-zinc-400">• Bonds, insurance, and guarantee structures</div>
+              <div class="text-xs text-zinc-400">• Mutualized Restoration Reserve (MRR)</div>
+              <div class="text-xs text-zinc-400">• Parametric sovereign guarantees</div>
+            </div>
+            <div class="mt-3 pt-3 border-t border-sigma/20">
+              <span class="text-xs font-tech text-sigma">Level 4 (Black) financial finality → Irreversible capital lock-in for terminal risk states</span>
+            </div>
+          </a>
+        </div>
+        <div class="layer-connector"></div>
+      </section>
+
+      <!-- LAYER 8: PRUDENTIAL GOVERNANCE ENGINE -->
+      <section class="space-y-3">
+        <div class="border border-sigma/30 bg-sigma/5 p-4">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-8 h-8 border border-sigma/50 bg-sigma/20 flex items-center justify-center">
+              <span class="font-tech text-sigma font-bold">8</span>
+            </div>
+            <div>
+              <h3 class="font-tech text-sm text-white uppercase tracking-wider">Prudential Governance Engine</h3>
+              <p class="text-xs text-zinc-500">Automated response and state management</p>
+            </div>
+          </div>
+          <div class="grid md:grid-cols-2 gap-3">
+            <a href="tdr-trigger-catalogue.html" class="border border-sigma/30 bg-sigma/10 p-4 hover:border-sigma/60 hover:bg-sigma/20 transition-all group">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-tech text-sigma text-sm">tdr-trigger-catalogue.html</span>
+                <span class="text-sigma group-hover:translate-x-1 transition-transform">→</span>
+              </div>
+              <ul class="text-xs text-zinc-400 space-y-1">
+                <li>• Band thresholds (Green/Yellow/Orange/Red/Black)</li>
+                <li>• Trigger conditions and crossing detection</li>
+                <li>• Automatic prudential effects mapping</li>
+                <li>• Escalation protocols</li>
+              </ul>
+            </a>
+
+            <a href="tdr-state-machine.html" class="border border-sigma/30 bg-sigma/10 p-4 hover:border-sigma/60 hover:bg-sigma/20 transition-all group">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-tech text-sigma text-sm">tdr-state-machine.html</span>
+                <span class="text-sigma group-hover:translate-x-1 transition-transform">→</span>
+              </div>
+              <ul class="text-xs text-zinc-400 space-y-1">
+                <li>• System states definition</li>
+                <li>• State transitions and guards</li>
+                <li>• Safe Mode logic activation</li>
+                <li>• Restoration-first automation</li>
+              </ul>
+            </a>
+          </div>
+        </div>
+        <div class="layer-connector"></div>
+      </section>
+
+      <!-- LAYER 9: TDR → TFP INTERFACE -->
+      <section class="space-y-3">
+        <div class="border border-white/10 bg-black/20 p-4">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-8 h-8 border border-white/20 bg-white/10 flex items-center justify-center">
+              <span class="font-tech text-zinc-400 font-bold">9</span>
+            </div>
+            <div>
+              <h3 class="font-tech text-sm text-zinc-300 uppercase tracking-wider">TDR → TFP Interface</h3>
+              <p class="text-xs text-zinc-600">Translation layer to governance protocol</p>
+            </div>
+          </div>
+          <a href="tdr-tfp-interface.html" class="block border border-sigma/30 bg-sigma/10 p-4 hover:border-sigma/60 hover:bg-sigma/20 transition-all group">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-tech text-sigma text-sm">tdr-tfp-interface.html</span>
+              <span class="text-sigma group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+            <div class="grid md:grid-cols-3 gap-3">
+              <div class="text-xs text-zinc-400">• Translation of scientific signals</div>
+              <div class="text-xs text-zinc-400">• into governance variables</div>
+              <div class="text-xs text-zinc-400">• Prudential classification</div>
+              <div class="text-xs text-zinc-400">• Institutional response mapping</div>
+              <div class="text-xs text-zinc-400">• Cross-layer protocol alignment</div>
+            </div>
+          </a>
+        </div>
+        <div class="layer-connector"></div>
+      </section>
+
+      <!-- LAYER 10: INSTITUTIONAL EFFECTS -->
+      <section class="space-y-3">
+        <div class="border border-sigma/30 bg-sigma/5 p-4">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-8 h-8 border border-sigma/50 bg-sigma/20 flex items-center justify-center">
+              <span class="font-tech text-sigma font-bold">10</span>
+            </div>
+            <div>
+              <h3 class="font-tech text-sm text-white uppercase tracking-wider">Institutional Effects Layer</h3>
+              <p class="text-xs text-zinc-500">Governance execution and operational impact</p>
+            </div>
+          </div>
+          <div class="grid md:grid-cols-4 gap-3">
+            <div class="border border-white/10 bg-black/20 px-3 py-3 text-center">
+              <span class="text-sigma text-lg">🔍</span>
+              <p class="text-xs text-zinc-400 mt-1 font-tech">Enhanced monitoring</p>
+            </div>
+            <div class="border border-white/10 bg-black/20 px-3 py-3 text-center">
+              <span class="text-sigma text-lg">📋</span>
+              <p class="text-xs text-zinc-400 mt-1 font-tech">Technical audit escalation</p>
+            </div>
+            <div class="border border-white/10 bg-black/20 px-3 py-3 text-center">
+              <span class="text-sigma text-lg">⚠️</span>
+              <p class="text-xs text-zinc-400 mt-1 font-tech">Prudential constraints</p>
+            </div>
+            <div class="border border-white/10 bg-black/20 px-3 py-3 text-center">
+              <span class="text-sigma text-lg">🛡️</span>
+              <p class="text-xs text-zinc-400 mt-1 font-tech">Safe Mode activation</p>
+            </div>
+            <div class="border border-white/10 bg-black/20 px-3 py-3 text-center">
+              <span class="text-sigma text-lg">🔄</span>
+              <p class="text-xs text-zinc-400 mt-1 font-tech">Restoration-first allocation</p>
+            </div>
+            <div class="border border-white/10 bg-black/20 px-3 py-3 text-center">
+              <span class="text-sigma text-lg">🚨</span>
+              <p class="text-xs text-zinc-400 mt-1 font-tech">External intervention</p>
+            </div>
+            <div class="border border-white/10 bg-black/20 px-3 py-3 text-center md:col-span-2">
+              <span class="text-sigma text-lg">⚡</span>
+              <p class="text-xs text-zinc-400 mt-1 font-tech">Legal-operational automation</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="h-12 border-t border-white/5 bg-slate-950/80 flex items-center justify-center px-6 z-40 content">
+    <div class="flex items-center gap-2">
+      <span class="text-sigma text-xs">◆</span>
+      <span class="font-tech text-xs tracking-[0.2em] text-zinc-500">THRESHOLD DYNAMICS RESEARCH</span>
+      <span class="text-sigma text-xs">◆</span>
+    </div>
+  </footer>
+
+</body>
+</html>
+
