@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
   <title>c-ECO // TFP Manual — Operational Procedures</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,9 +33,15 @@
     html, body {
       height: 100%;
       margin: 0;
+      padding: 0;
       background: #020617;
       color: #d4d4d8;
       font-family: Inter, sans-serif;
+      overflow-x: hidden;
+      box-sizing: border-box;
+    }
+    *, *::before, *::after {
+      box-sizing: inherit;
     }
     .scanline-overlay{
       position: fixed;
@@ -71,699 +77,1081 @@
       font-family: 'Urbanist', sans-serif;
       font-weight: 600;
     }
-    .integration-badge {
-      display: inline-block;
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
-      font-size: 0.65rem;
-      font-family: 'Urbanist', sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      background: rgba(214, 188, 126, 0.15);
-      color: #d6bc7e;
-      border: 1px solid rgba(214, 188, 126, 0.3);
+    .band-card {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
     }
+    .band-card:hover {
+      border-color: rgba(214, 188, 126, 0.3);
+    }
+    .band-green { border-color: rgba(34, 197, 94, 0.3); background: rgba(34, 197, 94, 0.05); }
+    .band-green:hover { border-color: rgba(34, 197, 94, 0.5); background: rgba(34, 197, 94, 0.1); }
+    .band-amber { border-color: rgba(234, 179, 8, 0.3); background: rgba(234, 179, 8, 0.05); }
+    .band-amber:hover { border-color: rgba(234, 179, 8, 0.5); background: rgba(234, 179, 8, 0.1); }
+    .band-red { border-color: rgba(239, 68, 68, 0.3); background: rgba(239, 68, 68, 0.05); }
+    .band-red:hover { border-color: rgba(239, 68, 68, 0.5); background: rgba(239, 68, 68, 0.1); }
+    .band-black { border-color: rgba(255, 255, 255, 0.2); background: rgba(255, 255, 255, 0.05); }
+    .band-black:hover { border-color: rgba(255, 255, 255, 0.4); background: rgba(255, 255, 255, 0.1); }
+    .mapping-card {
+      border: 1px solid rgba(214, 188, 126, 0.2);
+      background: rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+    .mapping-card:hover {
+      border-color: rgba(214, 188, 126, 0.4);
+      background: rgba(214, 188, 126, 0.08);
+    }
+    .risk-indicator {
+      display: inline-block;
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      margin-right: 0.5rem;
+    }
+    .article-ref {
+      font-family: 'Urbanist', sans-serif;
+      color: #d6bc7e;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    
+    /* Boot Screen */
+    #bootScreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #020617;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Urbanist', monospace;
+      overflow: hidden;
+    }
+    
+    .boot-line {
+      color: #d6bc7e;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: bootFade 0.4s ease forwards;
+      margin: 0.25rem 0;
+    }
+    
+    @keyframes bootFade {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .boot-cursor {
+      display: inline-block;
+      width: 8px;
+      height: 15px;
+      background: #d6bc7e;
+      margin-left: 4px;
+      animation: blink 1s step-end infinite;
+    }
+    
+    @keyframes blink { 50% { opacity: 0; } }
+    
+    .hidden-content { opacity: 0; pointer-events: none; visibility: hidden; }
+    .visible-content { opacity: 1; pointer-events: all; visibility: visible; transition: opacity 0.6s ease; }
   </style>
 </head>
 
 <body class="bg-[#020617] text-zinc-300 font-sans min-h-screen flex flex-col overflow-hidden selection:bg-sigma-dim selection:text-white">
   <div class="scanline-overlay"></div>
 
-  <!-- HEADER -->
-  <header class="h-14 border-b border-white/5 bg-slate-950/80 backdrop-blur-sm flex items-center justify-between px-6 z-40 content">
-    <div class="flex items-center gap-4">
-      <div class="w-8 h-8 border border-white/10 flex items-center justify-center bg-white/5">
-        <span class="font-tech text-sigma font-bold text-lg">Σ</span>
+  <!-- BOOT SCREEN -->
+  <div id="bootScreen">
+    <div class="w-full max-w-md px-6">
+      <div class="boot-line" style="animation-delay: 0.1s;">> INITIALIZING TFP MANUAL PROTOCOLS...</div>
+      <div class="boot-line" style="animation-delay: 0.3s;">> LOADING CECO-IOM-001...</div>
+      <div class="boot-line" style="animation-delay: 0.5s;">> MOUNTING THRESHOLD FUNCTION...</div>
+      <div class="boot-line" style="animation-delay: 0.7s;">> CALIBRATING P, ΔV, σ, Lr...</div>
+      <div class="boot-line" style="animation-delay: 0.9s;">> RISK MAPPING MODULES LOADED.</div>
+      <div class="boot-line" style="animation-delay: 1.1s;">> SYSTEM READY. OPERATIONAL PROCEDURES ACTIVE.<span class="boot-cursor"></span></div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div id="mainContent" class="hidden-content flex flex-col h-full">
+    
+    <!-- HEADER -->
+    <header class="h-14 border-b border-white/5 bg-slate-950/80 backdrop-blur-sm flex items-center justify-between px-6 z-40 content">
+      <div class="flex items-center gap-4">
+        <div class="w-8 h-8 border border-white/10 flex items-center justify-center bg-white/5">
+          <span class="font-tech text-sigma font-bold text-lg">Σ</span>
+        </div>
+        <div class="flex flex-col">
+          <h1 class="font-tech text-sm tracking-[0.2em] text-white uppercase font-semibold">c-ECO Systemic Governance</h1>
+          <span class="text-[0.65rem] text-zinc-500 uppercase tracking-wider font-tech">TFP Manual // CECO-IOM-001</span>
+        </div>
       </div>
-      <div class="flex flex-col">
-        <h1 class="font-tech text-sm tracking-[0.2em] text-white uppercase font-semibold">c-ECO Systemic Governance</h1>
-        <span class="text-[0.65rem] text-zinc-500 uppercase tracking-wider font-tech">TFP Manual // Layer 10 — Institutional Effects</span>
+
+      <div class="hidden md:flex items-center gap-3 px-4 py-1 rounded-full border border-white/5 bg-white/5">
+        <div class="w-1.5 h-1.5 rounded-full bg-sigma animate-pulse"></div>
+        <span class="font-tech text-xs tracking-[0.15em] text-sigma">OPERATIONAL MANUAL</span>
       </div>
-    </div>
 
-    <div class="hidden md:flex items-center gap-3 px-4 py-1 rounded-full border border-white/5 bg-white/5">
-      <div class="w-1.5 h-1.5 rounded-full bg-sigma animate-pulse"></div>
-      <span class="font-tech text-xs tracking-[0.15em] text-sigma">OPERATIONAL MANUAL</span>
-    </div>
+      <div class="flex items-center gap-4 text-xs font-tech text-zinc-500">
+        <button class="hover:text-sigma transition-colors" onclick="window.location.href='protocol.html'">BACK TO TERMINAL</button>
+        <button class="hover:text-sigma transition-colors" onclick="window.location.href='index.html'">EXIT</button>
+      </div>
+    </header>
 
-    <div class="flex items-center gap-4 text-xs font-tech text-zinc-500">
-      <button class="hover:text-sigma transition-colors" onclick="window.location.href='protocol.html'">BACK TO TERMINAL</button>
-      <button class="hover:text-sigma transition-colors" onclick="window.location.href='index.html'">EXIT</button>
-    </div>
-  </header>
+    <!-- MAIN -->
+    <main class="flex-1 overflow-y-auto overflow-x-hidden content" style="width: 100%; max-width: 100vw;">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10">
 
-  <!-- MAIN -->
-  <main class="flex-1 overflow-y-auto content">
-    <div class="max-w-4xl mx-auto px-6 py-10">
-
-      <!-- HERO -->
-      <section class="border border-white/5 bg-white/[0.02] p-8 text-center mb-8">
-        <div class="flex items-center justify-center gap-2 mb-3">
-          <span class="text-sigma text-xs">◆</span>
-          <span class="font-tech text-[0.7rem] tracking-[0.22em] text-zinc-400 uppercase">Integrated Operational Procedures</span>
-          <span class="text-sigma text-xs">◆</span>
-        </div>
-        <h2 class="font-tech text-3xl text-white tracking-wide mb-4">TFP Manual</h2>
-        <p class="text-sm text-zinc-400 leading-relaxed max-w-2xl mx-auto">
-          Threshold Function Protocol Operational Manual — translating the normative architecture of the c-ECO Statute 
-          and TFP Blueprint into concrete, auditable, and operational procedures. Specifies how legal binding 
-          pre-threshold governance duties are operationalized through standardized procedures for data collection, 
-          certification, monitoring, audit, intervention, and restoration.
-        </p>
-        <div class="mt-4 flex items-center justify-center gap-2">
-          <span class="integration-badge">CECO-IOM-001</span>
-          <span class="text-zinc-600">|</span>
-          <span class="integration-badge">Integrated with Model Law & Hasse Foundation</span>
-        </div>
-      </section>
-
-      <!-- INTEGRATION NOTICE -->
-      <section class="border border-sigma/30 bg-sigma/5 p-4 mb-8">
-        <div class="flex items-start gap-3">
-          <span class="text-sigma text-xl">⚙</span>
-          <div>
-            <h4 class="font-tech text-sigma text-sm mb-1">System Integration Context</h4>
-            <p class="text-xs text-zinc-400 leading-relaxed">
-              This TFP Manual operates as <span class="text-sigma">Layer 2 (Technical Implementation)</span> of the c-ECO Integrated System. 
-              It operationalizes the <a href="model-law.html" class="text-sigma hover:underline">Model Law</a> (legal architecture) 
-              under stewardship of the <a href="hasse-foundation.html" class="text-sigma hover:underline">Hasse Foundation</a> (institutional governance). 
-              The Manual implements the TFP equation Γ = f(P, ΔV, σ, Lr) defined in <span class="text-sigma">Model Law Art. 217</span>, 
-              producing the technical classifications that trigger automatic legal effects.
-            </p>
+        <!-- HERO -->
+        <section class="border border-white/5 bg-white/[0.02] p-4 sm:p-8 text-center mb-8 mt-2">
+          <div class="flex items-center justify-center gap-2 mb-3">
+            <span class="text-sigma text-xs">◆</span>
+            <span class="font-tech text-[0.7rem] tracking-[0.22em] text-zinc-400 uppercase">Operational Procedures & Technical Standards</span>
+            <span class="text-sigma text-xs">◆</span>
           </div>
-        </div>
-      </section>
-
-      <!-- MANUAL IDENTITY -->
-      <section class="space-y-4 mb-8">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-6 h-6 border border-sigma/50 bg-sigma/20 flex items-center justify-center">
-            <span class="font-tech text-sigma text-xs font-bold">I</span>
-          </div>
-          <h3 class="font-tech text-sm text-white uppercase tracking-wider">Manual Identity and Legal Nature</h3>
-        </div>
-        
-        <div class="border border-sigma/30 bg-sigma/5 p-4">
-          <p class="text-sm text-zinc-400 leading-relaxed mb-4">
-            This Operational Manual constitutes an integral component of the <span class="text-sigma">c-ECO Systemic Governance framework</span> 
-            established by <span class="text-sigma">Model Law Art. 215-232</span>. 
-            Its purpose is to translate the normative architecture established by the c-ECO Statute and the Threshold Function 
-            Protocol (TFP) into concrete, auditable, and operational procedures capable of governing economic activity under 
-            conditions of systemic, non-linear, and potentially irreversible risk.
+          <h2 class="font-tech text-3xl text-white tracking-wide mb-4">TFP Manual</h2>
+          <p class="text-sm text-zinc-400 leading-relaxed max-w-3xl mx-auto mb-6">
+            The <span class="text-sigma">Threshold Function Protocol Operational Manual</span> translates the normative 
+            architecture of the <a href="model-law.html" class="text-sigma hover:underline">Model Law</a> into concrete, 
+            auditable, and operational procedures. It specifies how <span class="text-sigma">Γ = f(P, ΔV, σ, Lr)</span> 
+            transforms planetary signals into automatic legal effects — through standardized processes for data collection, 
+            certification, monitoring, and trigger activation under 
+            <a href="hasse-foundation.html" class="text-sigma hover:underline">Foundation stewardship</a>.
           </p>
           
-          <div class="grid md:grid-cols-3 gap-3">
-            <div class="variable-card p-4">
-              <div class="flex items-center justify-between mb-2">
-                <span class="font-tech text-sigma text-sm">Prudential Function</span>
-                <span class="integration-badge">Art. 215</span>
-              </div>
-              <p class="text-xs text-zinc-400">
-                Specifies how legal binding pre-threshold governance duties are operationalized in practice, 
-                through standardized procedures that reduce discretion, mitigate strategic behavior, and 
-                preserve epistemic integrity of data and methodologies. Compliance is condition of prudential validity.
-              </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-left">
+            <div class="border border-sigma/30 bg-sigma/5 p-3">
+              <span class="score-badge text-2xl text-sigma block mb-1">P</span>
+              <span class="font-tech text-sigma text-sm">POSITION</span>
+              <span class="text-[0.65rem] text-zinc-500 block">SOS proximity</span>
             </div>
+            <div class="border border-sigma/30 bg-sigma/5 p-3">
+              <span class="score-badge text-2xl text-sigma block mb-1">ΔV</span>
+              <span class="font-tech text-sigma text-sm">VELOCITY</span>
+              <span class="text-[0.65rem] text-zinc-500 block">Rate of change</span>
+            </div>
+            <div class="border border-sigma/30 bg-sigma/5 p-3">
+              <span class="score-badge text-2xl text-sigma block mb-1">σ</span>
+              <span class="font-tech text-sigma text-sm">UNCERTAINTY</span>
+              <span class="text-[0.65rem] text-zinc-500 block">Asymmetric</span>
+            </div>
+            <div class="border border-sigma/30 bg-sigma/5 p-3">
+              <span class="score-badge text-2xl text-sigma block mb-1">Lr</span>
+              <span class="font-tech text-sigma text-sm">LIQUIDITY</span>
+              <span class="text-[0.65rem] text-zinc-500 block">Reversibility</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- MANUAL IDENTITY -->
+        <section class="space-y-4 mb-8">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-6 h-6 border border-sigma/50 bg-sigma/20 flex items-center justify-center">
+              <span class="font-tech text-sigma text-xs font-bold">I</span>
+            </div>
+            <h3 class="font-tech text-sm text-white uppercase tracking-wider">Manual Identity & Legal Nature</h3>
+          </div>
+          
+          <div class="border border-sigma/30 bg-sigma/5 p-4">
+            <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+              This Operational Manual constitutes an integral component of the c-ECO Systemic Governance framework, 
+              incorporated by reference into <a href="model-law.html" class="text-sigma hover:underline">Model Law Art. 215-232</a>. 
+              It is not purely regulatory nor merely informational — an <span class="text-sigma">intermediate prudential instrument</span> 
+              that makes legal automation technically feasible.
+            </p>
             
-            <div class="variable-card p-4">
-              <div class="flex items-center justify-between mb-2">
-                <span class="font-tech text-sigma text-sm">Technical-Normative Infrastructure</span>
-                <span class="integration-badge">Art. 224</span>
-              </div>
-              <p class="text-xs text-zinc-400">
-                Incorporated by reference into contracts, licenses, and institutional adherence regimes, 
-                binding to the extent expressly recognized by the c-ECO Statute and TFP. Not purely regulatory 
-                nor merely informational — an intermediate prudential instrument analogous to financial buffers.
-              </p>
-            </div>
-            
-            <div class="variable-card p-4">
-              <div class="flex items-center justify-between mb-2">
-                <span class="font-tech text-sigma text-sm">Institutional Legitimacy</span>
-                <span class="integration-badge">Sec. 1.3</span>
-              </div>
-              <p class="text-xs text-zinc-400">
-                Provides the due process layer necessary for the c-ECO framework to function credibly within 
-                financial markets, regulatory environments, and arbitration fora — the connective tissue between 
-                scientific signals, legal effects, and institutional accountability under Hasse Foundation oversight.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div class="section-divider"></div>
-
-      <!-- STRUCTURING PRINCIPLES -->
-      <section class="space-y-4 mb-8">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-6 h-6 border border-sigma/50 bg-sigma/20 flex items-center justify-center">
-            <span class="font-tech text-sigma text-xs font-bold">II</span>
-          </div>
-          <h3 class="font-tech text-sm text-white uppercase tracking-wider">Structuring Principles</h3>
-        </div>
-
-        <div class="border border-sigma/30 bg-sigma/5 p-4">
-          <div class="space-y-4">
-            <div class="border-l-2 border-sigma/50 pl-4">
-              <div class="flex items-center justify-between mb-1">
-                <h4 class="font-tech text-sigma text-sm">Material Primacy of the Earth System</h4>
-                <span class="integration-badge">ML Art. 1</span>
-              </div>
-              <p class="text-xs text-zinc-400 leading-relaxed">
-                Legal, economic, and institutional arrangements are ultimately constrained by biophysical realities 
-                that are non-negotiable and, in certain conditions, irreversible. Legal validity and contractual 
-                performance cannot be meaningfully assessed in abstraction from these material limits. The Manual 
-                operationalizes this primacy by requiring all procedures to detect and respond to material risk 
-                before irreversible thresholds are crossed.
-              </p>
-            </div>
-
-            <div class="border-l-2 border-sigma/50 pl-4">
-              <div class="flex items-center justify-between mb-1">
-                <h4 class="font-tech text-sigma text-sm">Pre-Threshold Governance</h4>
-                <span class="integration-badge">ML Art. 5</span>
-              </div>
-              <p class="text-xs text-zinc-400 leading-relaxed">
-                Traditional legal frameworks rely predominantly on ex post mechanisms: liability, remediation, 
-                and compensation after harm. The c-ECO framework shifts the locus of legal relevance upstream, 
-                to the zone where intervention remains possible and effective. The Manual embeds continuous 
-                monitoring, early warning signals, and automatic prudential responses into routine governance.
-              </p>
-            </div>
-
-            <div class="border-l-2 border-sigma/50 pl-4">
-              <div class="flex items-center justify-between mb-1">
-                <h4 class="font-tech text-sigma text-sm">Prudential Asymmetry of Uncertainty (Σ)</h4>
-                <span class="integration-badge">ML Art. 2; Sec. 4.5</span>
-              </div>
-              <p class="text-xs text-zinc-400 leading-relaxed">
-                Uncertainty is an inherent feature of complex systems. The principle of asymmetrical uncertainty 
-                holds that uncertainty must never be used to justify inaction where potential consequences include 
-                irreversible harm. Margins of error contract operational space rather than expand it; confidence 
-                intervals are applied in the direction of risk; worst-case plausible scenarios are privileged.
-              </p>
-            </div>
-
-            <div class="border-l-2 border-sigma/50 pl-4">
-              <div class="flex items-center justify-between mb-1">
-                <h4 class="font-tech text-sigma text-sm">Restoration First</h4>
-                <span class="integration-badge">ML Art. 7, 112-120</span>
-              </div>
-              <p class="text-xs text-zinc-400 leading-relaxed">
-                When certified risk of irreversibility emerges, preservation of systemic reversibility takes 
-                precedence over financial performance, contractual expectations, or creditor interests. Procedures 
-                for liquidity, guarantees, intervention, and execution ensure resources are available, mobilizable, 
-                and legally protected for restoration when needed. <span class="text-sigma">Level 4 (Black) activation per Model Law Art. 137-138.</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div class="section-divider"></div>
-
-      <!-- TFP CORE VARIABLES -->
-      <section class="space-y-4 mb-8">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-6 h-6 border border-sigma/50 bg-sigma/20 flex items-center justify-center">
-            <span class="font-tech text-sigma text-xs font-bold">III</span>
-          </div>
-          <h3 class="font-tech text-sm text-white uppercase tracking-wider">TFP Core Variables</h3>
-        </div>
-
-        <div class="border border-sigma/30 bg-sigma/5 p-4">
-          <p class="text-sm text-zinc-400 leading-relaxed mb-4">
-            The TFP is structured around fundamental variables defined in <span class="text-sigma">Model Law Art. 217</span> 
-            capturing different dimensions of systemic risk. The Manual defines standardized procedures for measuring, 
-            certifying, and combining these variables, ensuring consistency across sectors and jurisdictions:
-          </p>
-
-          <div class="grid md:grid-cols-2 gap-3 mb-4">
-            <div class="variable-card p-4">
-              <div class="flex items-center justify-between mb-2">
-                <span class="score-badge text-2xl text-sigma">P</span>
-                <div class="flex gap-1">
-                  <span class="integration-badge">POSITION</span>
-                  <span class="integration-badge">Art. 217 §1.I</span>
-                </div>
-              </div>
-              <p class="text-xs text-zinc-400">
-                Measures proximity to relevant biophysical or systemic limits. Not a generic environmental 
-                indicator — a boundary-referenced, context-locked metric whose meaning is defined by sectoral 
-                SPS specification and calibration parameters. Legal function: imposes non-negotiable material 
-                constraint upon contractual execution. <span class="text-sigma">Collection per Sec. 4; Calibration Council per Sec. 17.</span>
-              </p>
-            </div>
-
-            <div class="variable-card p-4">
-              <div class="flex items-center justify-between mb-2">
-                <span class="score-badge text-2xl text-sigma">ΔV</span>
-                <div class="flex gap-1">
-                  <span class="integration-badge">VELOCITY</span>
-                  <span class="integration-badge">Art. 217 §1.II</span>
-                </div>
-              </div>
-              <p class="text-xs text-zinc-400">
-                Captures the temporal dimension of change — direction and rate at which the system moves toward 
-                or away from limits. Functions as the primary anticipatory signal: systems far from threshold but 
-                accelerating rapidly may present higher danger than systems closer but stabilizing. 
-                <span class="text-sigma">Calculation per Sec. 7; TRS derivation per Sec. 8.</span>
-              </p>
-            </div>
-
-            <div class="variable-card p-4">
-              <div class="flex items-center justify-between mb-2">
-                <span class="score-badge text-2xl text-sigma">σ</span>
-                <div class="flex gap-1">
-                  <span class="integration-badge">UNCERTAINTY</span>
-                  <span class="integration-badge">Art. 217 §1.III</span>
-                </div>
-              </div>
-              <p class="text-xs text-zinc-400">
-                Modulates all other variables, ensuring prudential conservatism. Applied asymmetrically: where 
-                P approaches boundary, σ reduces distance to limit; where data suggests safety, σ erodes that 
-                safety margin. Never justifies delay or optimism — always contracts operational space. 
-                <span class="text-sigma">Treatment per Sec. 4.5; Prudential Asymmetry per Art. 218.</span>
-              </p>
-            </div>
-
-            <div class="variable-card p-4">
-              <div class="flex items-center justify-between mb-2">
-                <span class="score-badge text-2xl text-sigma">Lr</span>
-                <div class="flex gap-1">
-                  <span class="integration-badge">REVERSIBILITY LIQUIDITY</span>
-                  <span class="integration-badge">Art. 217 §1.IV</span>
-                </div>
-              </div>
-              <p class="text-xs text-zinc-400">
-                Assesses availability and mobilizability of resources required to reverse or contain harmful 
-                trajectories. Ratio between Resources Mobilizable Immediately (Rmi) and Projected Technical 
-                Cost of Containment (Ct). Lr ≥ 1.0 indicates sufficient capacity; Lr < 0.5 triggers Restoration First 
-                <span class="text-sigma">(Model Law Art. 137-138)</span>. <span class="text-sigma">Calculation per Sec. 9.</span>
-              </p>
-            </div>
-          </div>
-
-          <div class="border border-white/10 bg-black/20 p-3">
-            <p class="text-xs text-zinc-400 text-center">
-              <span class="text-sigma">Trigger Function (Art. 217):</span> Γ = f(P, ΔV, σ, Lr) → 
-              <span class="text-sigma">Output:</span> Normalized prudential score (0-100) → 
-              <span class="text-sigma">Classification:</span> Green/Amber/Red/Black Band → 
-              <span class="text-sigma">Legal Effects:</span> IEX, Safe Mode, Restoration First (Model Law Art. 15-22, 44-47)
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <div class="section-divider"></div>
-
-      <!-- OPERATIONAL SCORES -->
-      <section class="space-y-4 mb-8">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-6 h-6 border border-sigma/50 bg-sigma/20 flex items-center justify-center">
-            <span class="font-tech text-sigma text-xs font-bold">IV</span>
-          </div>
-          <h3 class="font-tech text-sm text-white uppercase tracking-wider">Operational Scores</h3>
-        </div>
-
-        <div class="border border-sigma/30 bg-sigma/5 p-4">
-          <p class="text-sm text-zinc-400 leading-relaxed mb-4">
-            From TFP variables, operational scores are derived enabling classification, comparison, and trigger 
-            activation per <span class="text-sigma">Model Law Art. 217-219</span>. The Manual specifies how these scores are calculated, 
-            audited, disclosed, and used to produce legally binding effects:
-          </p>
-
-          <div class="space-y-3">
-            <div class="flex items-start gap-3 border border-white/10 bg-black/20 p-3">
-              <span class="score-badge text-sigma text-lg">SPS</span>
-              <div>
-                <h4 class="font-tech text-white text-sm">Safe Operating Space Proximity Score</h4>
-                <p class="text-xs text-zinc-400 mt-1">
-                  Measures current distance between asset/operation and applicable SOS boundary. Scale 0-100: 
-                  80-100 (safe margin), 60-79 (attention zone), 40-59 (material risk), <40 (critical proximity). 
-                  Derived exclusively from certified data, not managerial discretion. <span class="text-sigma">SOS boundaries defined by Calibration Council per Sec. 17; legal effect per Model Law Art. 23-26.</span>
-                </p>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-3 border border-white/10 bg-black/20 p-3">
-              <span class="score-badge text-sigma text-lg">TRS</span>
-              <div>
-                <h4 class="font-tech text-white text-sm">Trajectory Risk Score</h4>
-                <p class="text-xs text-zinc-400 mt-1">
-                  Measures direction, speed, and persistence of movement toward material limits. Scale 0-100: 
-                  80-100 (stabilized/improving), 60-79 (slow deterioration), 40-59 (accelerating deterioration), 
-                  <40 (predictable collapse trajectory). Framework does not wait for limits to be crossed. 
-                  <span class="text-sigma">TRS < 60 triggers Safe Mode (Red Band) per Art. 219 §1.III; TRS < 40 triggers Restoration First (Black Band) per Art. 219 §1.IV.</span>
-                </p>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-3 border border-white/10 bg-black/20 p-3">
-              <span class="score-badge text-sigma text-lg">RLS</span>
-              <div>
-                <h4 class="font-tech text-white text-sm">Reversibility Liquidity Score (RLS/Lr)</h4>
-                <p class="text-xs text-zinc-400 mt-1">
-                  Measures immediate financial capacity to contain, mitigate, restore, or safely decommission. 
-                  Lr ≥ 1.2 (fully financeable), 0.8-1.19 (limited margin), 0.5-0.79 (relevant insufficiency), 
-                  <0.5 (reversibility insolvency). Operation may be financially solvent yet ecologically insolvent. 
-                  <span class="text-sigma">RLS < 0.8 triggers Safe Mode; RLS < 0.5 triggers Restoration First per Art. 219.</span>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div class="section-divider"></div>
-
-      <!-- DATA GOVERNANCE -->
-      <section class="space-y-4 mb-8">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-6 h-6 border border-sigma/50 bg-sigma/20 flex items-center justify-center">
-            <span class="font-tech text-sigma text-xs font-bold">V</span>
-          </div>
-          <h3 class="font-tech text-sm text-white uppercase tracking-wider">Data Verification & Certification (DVB)</h3>
-        </div>
-
-        <div class="border border-sigma/30 bg-sigma/5 p-4">
-          <div class="space-y-3">
-            <div class="border border-white/10 bg-black/20 p-3">
-              <div class="flex items-center justify-between mb-2">
-                <h4 class="font-tech text-sigma text-sm">Data Custodian Certification</h4>
-                <span class="integration-badge">Sec. 5-6; ML Art. 71</span>
-              </div>
-              <p class="text-xs text-zinc-400">
-                Data Custodians operate as <span class="text-sigma">epistemic fiduciaries</span> — their sole function 
-                is preserving signal chain integrity from physical reality to juridical fact. Certification requires: 
-                technical qualifications (Earth system science, environmental engineering, remote sensing), operational 
-                experience, doctrinal competence (pre-threshold logic, asymmetric uncertainty), and integrity/independence. 
-                <span class="text-sigma">Certification by Hasse Foundation per Sec. 5.3; revocation per Sec. 5.4.3.</span>
-              </p>
-            </div>
-
-            <div class="border border-white/10 bg-black/20 p-3">
-              <div class="flex items-center justify-between mb-2">
-                <h4 class="font-tech text-sigma text-sm">Chain of Custody & Immutability</h4>
-                <span class="integration-badge">Sec. 4.4; ML Art. 71</span>
-              </div>
-              <p class="text-xs text-zinc-400">
-                Mandatory procedures: continuous measurement (not episodic sampling), chain-of-custody constraints 
-                (sensor → extraction → attestation → hashing → ledger), minimum metadata completeness for P 
-                reconstruction, and procedural triggers converting integrity deficits into escalation events. 
-                <span class="text-sigma">Produces "Systemic Proof" per Model Law Art. 35-39.</span>
-              </p>
-            </div>
-
-            <div class="border border-white/10 bg-black/20 p-3">
-              <div class="flex items-center justify-between mb-2">
-                <h4 class="font-tech text-sigma text-sm">QA/QC and Asymmetric Uncertainty Treatment</h4>
-                <span class="integration-badge">Sec. 4.5; ML Art. 2, 218</span>
-              </div>
-              <p class="text-xs text-zinc-400">
-                Quality Assurance/Quality Control determines data admissibility for P, ΔV calculations, or 
-                triggers conservative adjustment. Strict distinction between measurement error (governed statistically) 
-                and procedural failure (escalatory, non-compensable). Uncertainty always contracts operational 
-                margin — never expands it. <span class="text-sigma">Prudential Asymmetry per Model Law Art. 218.</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div class="section-divider"></div>
-
-      <!-- TRIGGER CATALOGUE -->
-      <section class="space-y-4 mb-8">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-6 h-6 border border-sigma/50 bg-sigma/20 flex items-center justify-center">
-            <span class="font-tech text-sigma text-xs font-bold">VI</span>
-          </div>
-          <h3 class="font-tech text-sm text-white uppercase tracking-wider">Prudential Levels & Trigger Catalogue</h3>
-        </div>
-
-        <div class="border border-sigma/30 bg-sigma/5 p-4">
-          <p class="text-sm text-zinc-400 leading-relaxed mb-4">
-            The Trigger Catalogue defines conditions for prudential band activation and automatic effects per 
-            <span class="text-sigma">Model Law Art. 219</span>. Embodies graduated, proportional, non-discretionary response logic. 
-            The Manual ensures trigger activation is procedurally sound, transparently recorded, and resistant to manipulation:
-          </p>
-
-          <div class="grid md:grid-cols-4 gap-3 mb-4">
-            <div class="border border-green-500/30 bg-green-500/5 p-3 text-center">
-              <span class="score-badge text-green-400 text-lg">GREEN</span>
-              <p class="text-xs text-zinc-400 mt-1 font-tech">Watch</p>
-              <p class="text-[0.65rem] text-zinc-500 mt-1">SPS 80-100, TRS stable, Lr ≥ 1.0</p>
-              <p class="text-[0.65rem] text-zinc-500 mt-1">Enhanced monitoring, no execution restrictions</p>
-              <p class="text-[0.65rem] text-sigma mt-1">ML Art. 219 §1.I</p>
-            </div>
-
-            <div class="border border-yellow-500/30 bg-yellow-500/5 p-3 text-center">
-              <span class="score-badge text-yellow-400 text-lg">AMBER</span>
-              <p class="text-xs text-zinc-400 mt-1 font-tech">Capital Protection</p>
-              <p class="text-[0.65rem] text-zinc-500 mt-1">TRS 60-79 or SPS 60-79 or Lr 0.8-1.19</p>
-              <p class="text-[0.65rem] text-zinc-500 mt-1">Buffer reinforcement, partial cash flow redirection</p>
-              <p class="text-[0.65rem] text-sigma mt-1">ML Art. 219 §1.II</p>
-            </div>
-
-            <div class="border border-red-500/30 bg-red-500/5 p-3 text-center">
-              <span class="score-badge text-red-400 text-lg">RED</span>
-              <p class="text-xs text-zinc-400 mt-1 font-tech">Safe Mode</p>
-              <p class="text-[0.65rem] text-zinc-500 mt-1">TRS < 60 or SPS < 40 or Lr < 0.8</p>
-              <p class="text-[0.65rem] text-zinc-500 mt-1">Execution reconfiguration, NOT default</p>
-              <p class="text-[0.65rem] text-sigma mt-1">ML Art. 44-47; Art. 219 §1.III</p>
-            </div>
-
-            <div class="border border-black/50 bg-zinc-800/50 p-3 text-center">
-              <span class="score-badge text-white text-lg">BLACK</span>
-              <p class="text-xs text-zinc-400 mt-1 font-tech">Restoration First</p>
-              <p class="text-[0.65rem] text-zinc-500 mt-1">TRS < 40 or Lr < 0.5 or point-of-no-return</p>
-              <p class="text-[0.65rem] text-zinc-500 mt-1">External intervention, automatic asset conversion</p>
-              <p class="text-[0.65rem] text-sigma mt-1">ML Art. 137-138; Art. 219 §1.IV</p>
-            </div>
-          </div>
-
-          <div class="border border-white/10 bg-black/20 p-3">
-            <p class="text-xs text-zinc-400 text-center">
-              <span class="text-sigma">Master Rule (Art. 219 §3):</span> No trigger creates new obligations. It activates 
-              obligations already contractually pre-agreed. <span class="text-sigma">Safe Mode ≠ default (Art. 219 §4). 
-              Restoration First ≠ expropriation (Art. 220).</span> All effects are ex ante, non-discretionary, and scientifically justified.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <div class="section-divider"></div>
-
-      <!-- AUDITABILITY -->
-      <section class="space-y-4 mb-8">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-6 h-6 border border-sigma/50 bg-sigma/20 flex items-center justify-center">
-            <span class="font-tech text-sigma text-xs font-bold">VII</span>
-          </div>
-          <h3 class="font-tech text-sm text-white uppercase tracking-wider">Auditability, Transparency & Due Process</h3>
-        </div>
-
-        <div class="border border-sigma/30 bg-sigma/5 p-4">
-          <div class="space-y-3">
-            <div class="border border-white/10 bg-black/20 p-3">
-              <div class="flex items-center justify-between mb-2">
-                <h4 class="font-tech text-sigma text-sm">Continuous QA/QC and Technical Audits</h4>
-                <span class="integration-badge">Sec. 11; ML Art. 227</span>
-              </div>
-              <p class="text-xs text-zinc-400">
-                All data flows, calculations, classifications, and trigger activations subject to continuous 
-                Quality Assurance/Quality Control. Automatically intensified upon: procedural deviation detection, 
-                statistically significant anomalies, or activation of Level 2 (Amber) or higher. Audits are 
-                strictly technical — verify protocol application, not policy merit. <span class="text-sigma">Independent audit per Model Law Art. 227.</span>
-              </p>
-            </div>
-
-            <div class="border border-white/10 bg-black/20 p-3">
-              <div class="flex items-center justify-between mb-2">
-                <h4 class="font-tech text-sigma text-sm">Immutable Public Ledger</h4>
-                <span class="integration-badge">Sec. 13; ML Art. 71</span>
-              </div>
-              <p class="text-xs text-zinc-400">
-                All prudential indicators and classifications recorded in secure, immutable ledger preserving 
-                full data lineage: certified raw inputs, applied methodologies, uncertainty margins, resulting 
-                scores, triggered effects, timestamps, responsible custodians. Public access proportionate to 
-                systemic relevance. <span class="text-sigma">"Immutable Technical Record" per Model Law Art. 71.</span>
-              </p>
-            </div>
-
-            <div class="border border-white/10 bg-black/20 p-3">
-              <div class="flex items-center justify-between mb-2">
-                <h4 class="font-tech text-sigma text-sm">Execution During Review</h4>
-                <span class="integration-badge">Sec. 15; ML Art. 81, 222</span>
-              </div>
-              <p class="text-xs text-zinc-400">
-                Framework adopts <span class="text-sigma">execution during review</span> principle — where 
-                prudential triggers are activated, effects remain operative throughout any audit, review, or 
-                arbitral process. Due process preserved without granting suspensive effect. Arbitral review 
-                limited to: procedural failure, evidentiary integrity, fraud, material measurement error. 
-                <span class="text-sigma">Technical Curatorship Chamber per Model Law Art. 81; Anti-forum shopping per Art. 222.</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div class="section-divider"></div>
-
-      <!-- SYSTEM INTEGRATION MAP -->
-      <section class="space-y-4 mb-8">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-6 h-6 border border-sigma/50 bg-sigma/20 flex items-center justify-center">
-            <span class="font-tech text-sigma text-xs font-bold">VIII</span>
-          </div>
-          <h3 class="font-tech text-sm text-white uppercase tracking-wider">System Integration Map</h3>
-        </div>
-
-        <div class="border border-sigma/30 bg-sigma/5 p-4">
-          <p class="text-sm text-zinc-400 leading-relaxed mb-4">
-            How the TFP Manual integrates with the Model Law and Hasse Foundation to form the complete c-ECO governance regime:
-          </p>
-
-          <div class="space-y-3">
-            <div class="flex items-start gap-3 border border-white/10 bg-black/20 p-3">
-              <div class="w-8 h-8 border border-sigma/30 bg-sigma/20 flex items-center justify-center flex-shrink-0">
-                <span class="font-tech text-sigma text-xs">ML</span>
-              </div>
-              <div>
-                <h4 class="font-tech text-white text-sm mb-1">Model Law <span class="text-zinc-500">→</span> TFP Manual</h4>
+            <div class="grid md:grid-cols-3 gap-3">
+              <div class="variable-card p-4">
+                <div class="font-tech text-sigma text-sm mb-2">Prudential Function</div>
                 <p class="text-xs text-zinc-400">
-                  <a href="model-law.html" class="text-sigma hover:underline">Model Law Art. 215-232</a> (Threshold Function Protocol) establish TFP as "binding technical-prudential instrument". 
-                  Art. 217 defines Γ = f(P, ΔV, σ, Lr) — operationally implemented in this Manual, Part III. 
-                  Art. 224 requires compliance with Operational Manuals as condition of prudential validity.
+                  Operationalizes pre-threshold governance duties through standardized procedures that reduce 
+                  discretion, mitigate strategic behavior, and preserve epistemic integrity.
                 </p>
               </div>
-            </div>
-
-            <div class="flex items-start gap-3 border border-white/10 bg-black/20 p-3">
-              <div class="w-8 h-8 border border-sigma/30 bg-sigma/20 flex items-center justify-center flex-shrink-0">
-                <span class="font-tech text-sigma text-xs">TF</span>
-              </div>
-              <div>
-                <h4 class="font-tech text-white text-sm mb-1">TFP Manual <span class="text-zinc-500">→</span> Model Law</h4>
+              
+              <div class="variable-card p-4">
+                <div class="font-tech text-sigma text-sm mb-2">Binding Through ML</div>
                 <p class="text-xs text-zinc-400">
-                  All operations of DVB, Calibration Council, triggers and bands produce "Systemic Proof" 
-                  (<a href="model-law.html" class="text-sigma hover:underline">Model Law Art. 35-39</a>). 
-                  Automatic effects (IEX, Safe Mode) derive from 
-                  <a href="model-law.html" class="text-sigma hover:underline">Model Law Art. 15-22</a>. 
-                  Prudential bands trigger legal states defined in Art. 44-47 (Safe Mode) and Art. 137-138 (Asset Affection).
+                  Effects become legally binding only via <a href="model-law.html" class="text-sigma hover:underline">Model Law incorporation</a> 
+                  and <a href="hasse-foundation.html" class="text-sigma hover:underline">Foundation certification</a>. 
+                  Technical output alone creates no legal obligation.
                 </p>
               </div>
-            </div>
-
-            <div class="flex items-start gap-3 border border-sigma/50 bg-sigma/10 p-3">
-              <div class="w-8 h-8 border border-sigma/30 bg-sigma/20 flex items-center justify-center flex-shrink-0">
-                <span class="font-tech text-sigma text-xs">HF</span>
-              </div>
-              <div>
-                <h4 class="font-tech text-sigma text-sm mb-1">Hasse Foundation <span class="text-zinc-500">→</span> Both</h4>
+              
+              <div class="variable-card p-4">
+                <div class="font-tech text-sigma text-sm mb-2">Institutional Legitimacy</div>
                 <p class="text-xs text-zinc-400">
-                  Ensures TFP Manual operates within Model Law boundaries (SOS supremacy, <em>in dubio pro systema</em>). 
-                  Certifies DVB agents (Sec. 5-6). Designates Technical Curatorship Chamber for disputes 
-                  (<a href="model-law.html" class="text-sigma hover:underline">Model Law Art. 81, 222</a>). 
-                  Preserves doctrinal continuity and institutional memory.
+                  Provides due process layer necessary for financial market credibility — the connective tissue 
+                  between scientific signals, legal effects, and accountability.
                 </p>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <div class="section-divider"></div>
+        <div class="section-divider"></div>
 
-      <!-- SOURCE LINKS -->
-      <section class="space-y-4 mb-8">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-6 h-6 border border-sigma/50 bg-sigma/20 flex items-center justify-center">
-            <span class="font-tech text-sigma text-xs font-bold">→</span>
-          </div>
-          <h3 class="font-tech text-sm text-white uppercase tracking-wider">Source Documents & Navigation</h3>
-        </div>
-
-        <div class="border border-sigma/30 bg-sigma/5 p-4">
-          <div class="grid md:grid-cols-3 gap-3">
-            <a href="https://c-eco.org/manual.html" target="_blank" class="border border-sigma/30 bg-sigma/10 p-4 hover:border-sigma/60 hover:bg-sigma/20 transition-all group">
-              <div class="flex items-center justify-between mb-2">
-                <span class="font-tech text-sigma text-sm">c-eco.org/manual.html</span>
-                <span class="text-sigma group-hover:translate-x-1 transition-transform">→</span>
-              </div>
-              <p class="text-xs text-zinc-400">Complete TFP Manual (Operational Procedures & Technical Standards)</p>
-              <p class="text-[0.65rem] text-zinc-500 mt-2">CECO-IOM-001 | Technical Implementation Layer</p>
-            </a>
-
-            <a href="https://c-eco.org/law.html" target="_blank" class="border border-white/10 bg-black/20 p-4 hover:border-sigma/40 hover:bg-sigma/5 transition-all group">
-              <div class="flex items-center justify-between mb-2">
-                <span class="font-tech text-zinc-400 text-sm">c-eco.org/law.html</span>
-                <span class="text-sigma group-hover:translate-x-1 transition-transform">→</span>
-              </div>
-              <p class="text-xs text-zinc-500">Model Law (Legal Architecture & Binding Automation)</p>
-              <p class="text-[0.65rem] text-zinc-500 mt-2">CECO-STATUTE-001 | Legal Architecture Layer</p>
-            </a>
-
-            <a href="https://c-eco.org/foundation.html" target="_blank" class="border border-white/10 bg-black/20 p-4 hover:border-sigma/40 hover:bg-sigma/5 transition-all group">
-              <div class="flex items-center justify-between mb-2">
-                <span class="font-tech text-zinc-400 text-sm">c-eco.org/foundation.html</span>
-                <span class="text-sigma group-hover:translate-x-1 transition-transform">→</span>
-              </div>
-              <p class="text-xs text-zinc-500">Hasse Foundation (Protocol Stewardship & Governance)</p>
-              <p class="text-[0.65rem] text-zinc-500 mt-2">Institutional Integrity Layer</p>
-            </a>
+        <!-- RISK MAPPING -->
+        <section class="space-y-4 mb-8">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-6 h-6 border border-sigma/50 bg-sigma/20 flex items-center justify-center">
+              <span class="font-tech text-sigma text-xs font-bold">II</span>
+            </div>
+            <h3 class="font-tech text-sm text-white uppercase tracking-wider">Risk Mapping to TFP Variables</h3>
+            <span class="text-[0.6rem] text-zinc-500 ml-2">NEW</span>
           </div>
 
-          <div class="mt-4 border border-white/10 bg-black/20 p-3">
-            <p class="text-xs text-zinc-400 text-center">
-              <span class="text-sigma">Institutional Triad:</span> The TFP Manual provides the operational layer 
-              implementing the <span class="text-sigma">Model Law</span> (legal architecture) under stewardship 
-              of the <span class="text-sigma">Hasse Foundation</span> — together enabling automatic, auditable, 
-              non-discretionary systemic governance.
+          <div class="border border-sigma/30 bg-sigma/5 p-4">
+            <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+              Translate business risks from <a href="c-eco-screening.html" class="text-sigma hover:underline">Screening red flags</a> 
+              into operational TFP variables. Each risk category maps to predominant variable(s) and corresponding 
+              <a href="model-law.html" class="text-sigma hover:underline">Model Law clauses</a>.
             </p>
+
+            <div class="space-y-3">
+              <!-- TERRITORIAL -->
+              <div class="mapping-card p-4">
+                <div class="flex items-start gap-3">
+                  <div class="w-10 h-10 border border-green-500/30 bg-green-500/10 flex items-center justify-center flex-shrink-0">
+                    <span class="text-green-400 text-lg">🜛</span>
+                  </div>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between mb-2">
+                      <h4 class="font-tech text-white text-sm">Territorial / Spatial Risk</h4>
+                      <span class="text-[0.6rem] text-zinc-500">RED FLAG #1</span>
+                    </div>
+                    <p class="text-xs text-zinc-400 mb-2">
+                      Shared resources: water basins, biomes, aquifers, ecological corridors. Operations affecting 
+                      or affected by natural systems beyond property boundaries.
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-2 mb-2">
+                      <div class="border border-white/10 bg-black/20 p-2">
+                        <span class="text-[0.65rem] text-sigma block">PRIMARY VARIABLE</span>
+                        <span class="text-xs text-zinc-400">P (SOS proximity)</span>
+                      </div>
+                      <div class="border border-white/10 bg-black/20 p-2">
+                        <span class="text-[0.65rem] text-sigma block">SECONDARY</span>
+                        <span class="text-xs text-zinc-400">σ (climate/hydrology uncertainty)</span>
+                      </div>
+                      <div class="border border-white/10 bg-black/20 p-2">
+                        <span class="text-[0.65rem] text-sigma block">ML EFFECT</span>
+                        <span class="text-xs text-zinc-400">Restoration First (Art. 137-138)</span>
+                      </div>
+                    </div>
+                    <p class="text-[0.65rem] text-zinc-500">
+                      <span class="text-zinc-400">Example:</span> Mining in headwaters → P tracks aquifer levels, 
+                      σ increases with rainfall variability → triggers Amber/Red at hydric SOS approach
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- TECHNOLOGICAL -->
+              <div class="mapping-card p-4">
+                <div class="flex items-start gap-3">
+                  <div class="w-10 h-10 border border-yellow-500/30 bg-yellow-500/10 flex items-center justify-center flex-shrink-0">
+                    <span class="text-yellow-400 text-lg">⚙</span>
+                  </div>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between mb-2">
+                      <h4 class="font-tech text-white text-sm">Technological / Infrastructure Risk</h4>
+                      <span class="text-[0.6rem] text-zinc-500">RED FLAG #2</span>
+                    </div>
+                    <p class="text-xs text-zinc-400 mb-2">
+                      Critical dependence: cloud providers, satellite systems, AI models, proprietary platforms. 
+                      High switching costs, rapid obsolescence.
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-2 mb-2">
+                      <div class="border border-white/10 bg-black/20 p-2">
+                        <span class="text-[0.65rem] text-sigma block">PRIMARY VARIABLE</span>
+                        <span class="text-xs text-zinc-400">Lr (reversibility liquidity)</span>
+                      </div>
+                      <div class="border border-white/10 bg-black/20 p-2">
+                        <span class="text-[0.65rem] text-sigma block">SECONDARY</span>
+                        <span class="text-xs text-zinc-400">ΔV (degradation velocity)</span>
+                      </div>
+                      <div class="border border-white/10 bg-black/20 p-2">
+                        <span class="text-[0.65rem] text-sigma block">ML EFFECT</span>
+                        <span class="text-xs text-zinc-400">Safe Mode (Art. 44-47)</span>
+                      </div>
+                    </div>
+                    <p class="text-[0.65rem] text-zinc-500">
+                      <span class="text-zinc-400">Example:</span> Fintech on AWS → Lr measures migration cost to multi-cloud, 
+                      ΔV tracks service degradation rate → triggers Amber when Lr < 1.2
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SUPPLY CHAIN -->
+              <div class="mapping-card p-4">
+                <div class="flex items-start gap-3">
+                  <div class="w-10 h-10 border border-orange-500/30 bg-orange-500/10 flex items-center justify-center flex-shrink-0">
+                    <span class="text-orange-400 text-lg">⛓</span>
+                  </div>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between mb-2">
+                      <h4 class="font-tech text-white text-sm">Supply Chain / Concentration Risk</h4>
+                      <span class="text-[0.6rem] text-zinc-500">RED FLAG #3</span>
+                    </div>
+                    <p class="text-xs text-zinc-400 mb-2">
+                      Non-substitutable suppliers, geographic concentration, geopolitical exposure. 
+                      Single points of failure in critical inputs.
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-2 mb-2">
+                      <div class="border border-white/10 bg-black/20 p-2">
+                        <span class="text-[0.65rem] text-sigma block">PRIMARY VARIABLE</span>
+                        <span class="text-xs text-zinc-400">P (concentration risk position)</span>
+                      </div>
+                      <div class="border border-white/10 bg-black/20 p-2">
+                        <span class="text-[0.65rem] text-sigma block">SECONDARY</span>
+                        <span class="text-xs text-zinc-400">σ (geopolitical volatility)</span>
+                      </div>
+                      <div class="border border-white/10 bg-black/20 p-2">
+                        <span class="text-[0.65rem] text-sigma block">ML EFFECT</span>
+                        <span class="text-xs text-zinc-400">IEX partial (Art. 15-16)</span>
+                      </div>
+                    </div>
+                    <p class="text-[0.65rem] text-zinc-500">
+                      <span class="text-zinc-400">Example:</span> Semiconductor single-source → P tracks supplier stability index, 
+                      σ reflects trade policy uncertainty → triggers Amber at concentration threshold
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- TEMPORAL -->
+              <div class="mapping-card p-4">
+                <div class="flex items-start gap-3">
+                  <div class="w-10 h-10 border border-purple-500/30 bg-purple-500/10 flex items-center justify-center flex-shrink-0">
+                    <span class="text-purple-400 text-lg">◷</span>
+                  </div>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between mb-2">
+                      <h4 class="font-tech text-white text-sm">Temporal / Cumulative Risk</h4>
+                      <span class="text-[0.6rem] text-zinc-500">RED FLAG #4</span>
+                    </div>
+                    <p class="text-xs text-zinc-400 mb-2">
+                      Lag effects: emissions with delayed impact, soil degradation, technology obsolescence. 
+                      Present actions, future consequences.
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-2 mb-2">
+                      <div class="border border-white/10 bg-black/20 p-2">
+                        <span class="text-[0.65rem] text-sigma block">PRIMARY VARIABLE</span>
+                        <span class="text-xs text-zinc-400">ΔV (accumulation speed)</span>
+                      </div>
+                      <div class="border border-white/10 bg-black/20 p-2">
+                        <span class="text-[0.65rem] text-sigma block">SECONDARY</span>
+                        <span class="text-xs text-zinc-400">Γ (inflection trigger)</span>
+                      </div>
+                      <div class="border border-white/10 bg-black/20 p-2">
+                        <span class="text-[0.65rem] text-sigma block">ML EFFECT</span>
+                        <span class="text-xs text-zinc-400">IEX escalating (Art. 15-22)</span>
+                      </div>
+                    </div>
+                    <p class="text-[0.65rem] text-zinc-500">
+                      <span class="text-zinc-400">Example:</span> Carbon-intensive project → ΔV tracks cumulative emissions trajectory, 
+                      Γ triggers at climate SOS proximity → Red/Black at tipping point approach
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- IRREVERSIBILITY -->
+              <div class="mapping-card p-4">
+                <div class="flex items-start gap-3">
+                  <div class="w-10 h-10 border border-red-500/30 bg-red-500/10 flex items-center justify-center flex-shrink-0">
+                    <span class="text-red-400 text-lg">◉</span>
+                  </div>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between mb-2">
+                      <h4 class="font-tech text-white text-sm">Irreversibility Risk</h4>
+                      <span class="text-[0.65rem] text-zinc-500">RED FLAG #5</span>
+                    </div>
+                    <p class="text-xs text-zinc-400 mb-2">
+                      Non-remediable impacts: species extinction, deep contamination, community rupture. 
+                      Economic remediation impossible or inadequate.
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-2 mb-2">
+                      <div class="border border-white/10 bg-black/20 p-2">
+                        <span class="text-[0.65rem] text-sigma block">PRIMARY VARIABLE</span>
+                        <span class="text-xs text-zinc-400">Lr → 0 (total irreversibility)</span>
+                      </div>
+                      <div class="border border-white/10 bg-black/20 p-2">
+                        <span class="text-[0.65rem] text-sigma block">TRIGGER</span>
+                        <span class="text-xs text-zinc-400">Point-of-no-return detection</span>
+                      </div>
+                      <div class="border border-white/10 bg-black/20 p-2">
+                        <span class="text-[0.65rem] text-sigma block">ML EFFECT</span>
+                        <span class="text-xs text-zinc-400">Restoration First absolute (Art. 137)</span>
+                      </div>
+                    </div>
+                    <p class="text-[0.65rem] text-zinc-500">
+                      <span class="text-zinc-400">Example:</span> Endemic habitat destruction → Lr = 0 (no technical reversal), 
+                      automatic Black Band, asset conversion to restoration estate
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- COMMUNITY -->
+              <div class="mapping-card p-4">
+                <div class="flex items-start gap-3">
+                  <div class="w-10 h-10 border border-blue-500/30 bg-blue-500/10 flex items-center justify-center flex-shrink-0">
+                    <span class="text-blue-400 text-lg">◈</span>
+                  </div>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between mb-2">
+                      <h4 class="font-tech text-white text-sm">Community / Social License Risk</h4>
+                      <span class="text-[0.65rem] text-zinc-500">RED FLAG #6</span>
+                    </div>
+                    <p class="text-xs text-zinc-400 mb-2">
+                      Indigenous territories, conflict zones, essential service dependence. 
+                      Social legitimacy and operational continuity intertwined.
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-2 mb-2">
+                      <div class="border border-white/10 bg-black/20 p-2">
+                        <span class="text-[0.65rem] text-sigma block">PRIMARY VARIABLE</span>
+                        <span class="text-xs text-zinc-400">P (social pressure index)</span>
+                      </div>
+                      <div class="border border-white/10 bg-black/20 p-2">
+                        <span class="text-[0.65rem] text-sigma block">SECONDARY</span>
+                        <span class="text-xs text-zinc-400">σ (political instability), Lr (relocation cost)</span>
+                      </div>
+                      <div class="border border-white/10 bg-black/20 p-2">
+                        <span class="text-[0.65rem] text-sigma block">ML EFFECT</span>
+                        <span class="text-xs text-zinc-400">Safe Mode + arbitration (Art. 44-47, 222)</span>
+                      </div>
+                    </div>
+                    <p class="text-[0.65rem] text-zinc-500">
+                      <span class="text-zinc-400">Example:</span> Indigenous territory project → P tracks consent/consultation metrics, 
+                      σ reflects policy volatility → Red Band triggers Joint Duty Committee with community representation
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- FINANCIAL/FINTECH — EXPANDED -->
+              <div class="mapping-card p-4 border-cyan-500/30 bg-cyan-500/5">
+                <div class="flex items-start gap-3">
+                  <div class="w-10 h-10 border border-cyan-500/40 bg-cyan-500/15 flex items-center justify-center flex-shrink-0">
+                    <span class="text-cyan-400 text-lg">💰</span>
+                  </div>
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between mb-2">
+                      <h4 class="font-tech text-white text-sm">Financial / Fintech — Hidden Digital Risk</h4>
+                      <span class="text-[0.6rem] text-cyan-400 border border-cyan-500/30 px-2 py-0.5">CRITICAL DOMAIN</span>
+                    </div>
+                    
+                    <p class="text-xs text-zinc-400 mb-3">
+                      Risks invisible in traditional balance sheets: <span class="text-cyan-400">algorithmic black boxes</span> 
+                      (discriminatory decisions, undetected accumulated exposure), <span class="text-cyan-400">data liabilities</span> 
+                      (illegally collected/processed data transforming into giant judicial liability), 
+                      <span class="text-cyan-400">synthetic leverage</span> (chain interdependence — payment infrastructure → 
+                      cloud provider → collapse by contagion).
+                    </p>
+
+                    <div class="grid md:grid-cols-3 gap-2 mb-3">
+                      <div class="border border-cyan-500/20 bg-black/30 p-2">
+                        <span class="text-[0.65rem] text-cyan-400 block mb-1">ALGORITHMIC BLACK BOX</span>
+                        <span class="text-xs text-zinc-400 block">σ (model volatility)</span>
+                        <span class="text-xs text-zinc-400 block">ΔV (exposure accumulation speed)</span>
+                        <span class="text-[0.65rem] text-zinc-500 mt-1">Hidden bias, discrimination, concentration</span>
+                      </div>
+                      <div class="border border-cyan-500/20 bg-black/30 p-2">
+                        <span class="text-[0.65rem] text-cyan-400 block mb-1">DATA LIABILITIES</span>
+                        <span class="text-xs text-zinc-400 block">Lr (judicial remediation cost)</span>
+                        <span class="text-xs text-zinc-400 block">σ (regulatory uncertainty)</span>
+                        <span class="text-[0.65rem] text-zinc-500 mt-1">"Asset" becomes instant liability in crisis</span>
+                      </div>
+                      <div class="border border-cyan-500/20 bg-black/30 p-2">
+                        <span class="text-[0.65rem] text-cyan-400 block mb-1">SYNTHETIC LEVERAGE</span>
+                        <span class="text-xs text-zinc-400 block">P (chain concentration)</span>
+                        <span class="text-xs text-zinc-400 block">ΔV (contagion velocity)</span>
+                        <span class="text-[0.65rem] text-zinc-500 mt-1">Interdependence risk in other contracts</span>
+                      </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-2 mb-3">
+                      <div class="border border-cyan-500/30 bg-cyan-500/10 p-2">
+                        <span class="text-[0.65rem] text-cyan-400 block mb-1">ML EFFECT — SAFE MODE</span>
+                        <span class="text-xs text-zinc-400">Art. 44-47: Preemptive intervention before irreversible collapse. Model suspension, mandatory audit, joint curatorship committee.</span>
+                      </div>
+                      <div class="border border-cyan-500/30 bg-cyan-500/10 p-2">
+                        <span class="text-[0.65rem] text-cyan-400 block mb-1">ML EFFECT — INCORPORATION</span>
+                        <span class="text-xs text-zinc-400">Art. 198-201: Legal compliance and model audit as contractual validity conditions.</span>
+                      </div>
+                    </div>
+
+                    <div class="border border-cyan-500/20 bg-cyan-900/10 p-2">
+                      <p class="text-[0.65rem] text-zinc-400">
+                        <span class="text-cyan-400 font-tech">Why "hidden":</span> Unlike bank debt (on balance sheet), algorithmic bias or cloud security failure only become visible when the event occurs — and in finance, the <span class="text-sigma">velocity (ΔV)</span> of this impact is near-instantaneous. Safe Mode intercepts the <span class="text-white">"ghost in the machine"</span> before damage becomes irreversible.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- FOOTNOTE -->
+            <div class="mt-4 border border-cyan-500/30 bg-cyan-500/5 p-3">
+              <p class="text-xs text-zinc-300">
+                <span class="text-cyan-400 font-tech">Critical Domain — Financial/Fintech:</span> Where hidden risk is most acute. 
+                Digital velocity (ΔV) makes visible in milliseconds what takes months in other sectors. 
+                c-ECO treats the <span class="text-white">"ghost in the machine"</span> via <span class="text-sigma">σ (model volatility)</span> 
+                and <span class="text-sigma">preemptive Safe Mode (Art. 44-47)</span> — not waiting for collapse, but intercepting 
+                invisible accumulation trajectories.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- TFP CORE VARIABLES -->
+        <section class="space-y-4 mb-8">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-6 h-6 border border-sigma/50 bg-sigma/20 flex items-center justify-center">
+              <span class="font-tech text-sigma text-xs font-bold">III</span>
+            </div>
+            <h3 class="font-tech text-sm text-white uppercase tracking-wider">TFP Core Variables — Technical Specification</h3>
           </div>
 
-          <div class="mt-4 grid md:grid-cols-2 gap-3">
-            <a href="system-integration.html" class="border border-sigma/30 bg-sigma/10 p-3 hover:border-sigma/60 hover:bg-sigma/20 transition-all text-center">
-              <span class="font-tech text-sigma text-sm">View Complete System Integration →</span>
-              <p class="text-[0.65rem] text-zinc-400 mt-1">How all three instruments coordinate</p>
-            </a>
-            <a href="protocol.html" class="border border-white/10 bg-black/20 p-3 hover:border-sigma/40 hover:bg-sigma/5 transition-all text-center">
-              <span class="font-tech text-zinc-400 text-sm">Return to Main Terminal →</span>
-              <p class="text-[0.65rem] text-zinc-500 mt-1">c-ECO Protocol Overview</p>
-            </a>
-          </div>
-        </div>
-      </section>
+          <div class="border border-sigma/30 bg-sigma/5 p-4">
+            <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+              The Trigger Function is structured around four fundamental variables. Standardized procedures 
+              for measuring, certifying, and combining them ensure consistency across sectors and jurisdictions, 
+              with <a href="hasse-foundation.html" class="text-sigma hover:underline">Foundation certification</a> 
+              as validity condition.
+            </p>
 
-      <!-- NAVIGATION FOOTER -->
-      <section class="border border-white/5 bg-white/[0.02] p-4 mt-8">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <span class="text-sigma text-xs">←</span>
-            <a href="protocol.html" class="text-xs font-tech text-zinc-400 hover:text-sigma transition-colors">BACK TO TERMINAL</a>
-          </div>
-          <div class="flex items-center gap-4">
-            <a href="system-integration.html" class="text-xs font-tech text-zinc-400 hover:text-sigma transition-colors">SYSTEM INTEGRATION</a>
-            <a href="model-law.html" class="text-xs font-tech text-zinc-400 hover:text-sigma transition-colors">MODEL LAW →</a>
-            <a href="hasse-foundation.html" class="text-xs font-tech text-zinc-400 hover:text-sigma transition-colors">HASSE FOUNDATION →</a>
-          </div>
-        </div>
-      </section>
+            <div class="grid md:grid-cols-2 gap-3 mb-4">
+              <!-- P -->
+              <div class="variable-card p-4">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="score-badge text-3xl text-sigma">P</span>
+                  <div class="text-right">
+                    <span class="text-xs text-zinc-500 font-tech block">POSITION</span>
+                    <span class="text-[0.65rem] text-zinc-600">Safe Operating Space Proximity</span>
+                  </div>
+                </div>
+                <p class="text-xs text-zinc-400 mb-2">
+                  Measures distance to relevant biophysical or systemic limits. Not generic environmental 
+                  indicator — <span class="text-white">boundary-referenced, context-locked metric</span> whose 
+                  meaning is defined by sectoral SPS specification and calibration parameters.
+                </p>
+                <div class="space-y-1 text-[0.65rem] text-zinc-500">
+                  <div><span class="text-zinc-400">Measurement:</span> Certified sensors, remote sensing, scientific models</div>
+                  <div><span class="text-zinc-400">Legal function:</span> Imposes non-negotiable material constraint (ML Art. 2, 6-8)</div>
+                  <div><span class="text-zinc-400">Foundation role:</span> Certifies Data Custodian competence (Sec. 5-6)</div>
+                </div>
+              </div>
 
-    </div>
-  </main>
+              <!-- ΔV -->
+              <div class="variable-card p-4">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="score-badge text-3xl text-sigma">ΔV</span>
+                  <div class="text-right">
+                    <span class="text-xs text-zinc-500 font-tech block">VELOCITY</span>
+                    <span class="text-[0.65rem] text-zinc-600">Rate & Direction of Change</span>
+                  </div>
+                </div>
+                <p class="text-xs text-zinc-400 mb-2">
+                  Captures temporal dimension — direction and rate at which system moves toward or away from limits. 
+                  <span class="text-white">Primary anticipatory signal:</span> systems far from threshold but accelerating 
+                  rapidly may present higher danger than systems closer but stabilizing.
+                </p>
+                <div class="space-y-1 text-[0.65rem] text-zinc-500">
+                  <div><span class="text-zinc-400">Measurement:</span> Time-series analysis, trend persistence, acceleration detection</div>
+                  <div><span class="text-zinc-400">Legal function:</span> TRS calculation triggers early warning (ML Art. 44)</div>
+                  <div><span class="text-zinc-400">Foundation role:</span> Validates methodological updates (Sec. 17)</div>
+                </div>
+              </div>
 
-  <!-- FOOTER -->
-  <footer class="h-12 border-t border-white/5 bg-slate-950/80 flex items-center justify-center px-6 z-40 content">
-    <div class="flex items-center gap-2">
-      <span class="text-sigma text-xs">◆</span>
-      <span class="font-tech text-xs tracking-[0.2em] text-zinc-500">THRESHOLD DYNAMICS RESEARCH</span>
-      <span class="text-sigma text-xs">◆</span>
-    </div>
-  </footer>
+              <!-- σ -->
+              <div class="variable-card p-4">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="score-badge text-3xl text-sigma">σ</span>
+                  <div class="text-right">
+                    <span class="text-xs text-zinc-500 font-tech block">UNCERTAINTY</span>
+                    <span class="text-[0.65rem] text-zinc-600">Asymmetric Prudential Margin</span>
+                  </div>
+                </div>
+                <p class="text-xs text-zinc-400 mb-2">
+                  Modulates all other variables, ensuring prudential conservatism. 
+                  <span class="text-white">Applied asymmetrically:</span> where P approaches boundary, σ reduces 
+                  distance to limit; where data suggests safety, σ erodes that margin. 
+                  <span class="text-sigma">Never justifies delay or optimism.</span>
+                </p>
+                <div class="space-y-1 text-[0.65rem] text-zinc-500">
+                  <div><span class="text-zinc-400">Measurement:</span> Confidence intervals, model ensemble spread, structural uncertainty</div>
+                  <div><span class="text-zinc-400">Legal function:</span> ML Art. 2, 218 (in dubio pro systema)</div>
+                  <div><span class="text-zinc-400">Foundation role:</span> Certifies asymmetric application (Sec. 4.5)</div>
+                </div>
+              </div>
+
+              <!-- Lr -->
+              <div class="variable-card p-4">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="score-badge text-3xl text-sigma">Lr</span>
+                  <div class="text-right">
+                    <span class="text-xs text-zinc-500 font-tech block">REVERSIBILITY LIQUIDITY</span>
+                    <span class="text-[0.65rem] text-zinc-600">Resources Mobilizable Immediately</span>
+                  </div>
+                </div>
+                <p class="text-xs text-zinc-400 mb-2">
+                  Assesses availability and mobilizability of resources required to reverse or contain harmful 
+                  trajectories. <span class="text-white">Ratio: Rmi / Ct</span> (Resources Mobilizable Immediately / 
+                  Projected Technical Cost of Containment).
+                </p>
+                <div class="space-y-1 text-[0.65rem] text-zinc-500">
+                  <div><span class="text-zinc-400">Thresholds:</span> ≥1.2 (fully financeable), 0.8-1.19 (limited), 0.5-0.79 (insufficient), <0.5 (insolvency)</div>
+                  <div><span class="text-zinc-400">Legal function:</span> ML Art. 112-120 (Systemic Solvency), Art. 137 (Restoration First)</div>
+                  <div><span class="text-zinc-400">Foundation role:</span> Certifies Restoration Provider financial capacity (Part VIII)</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="border border-sigma/30 bg-sigma/10 p-3 text-center">
+              <p class="text-sm text-zinc-300">
+                <span class="font-tech text-sigma">Trigger Function:</span> Γ = f(P, ΔV, σ, Lr) → 
+                Normalized prudential score (0-100) → Band classification → 
+                <a href="model-law.html" class="text-sigma hover:underline">Automatic legal effects</a>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- OPERATIONAL SCORES -->
+        <section class="space-y-4 mb-8">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-6 h-6 border border-sigma/50 bg-sigma/20 flex items-center justify-center">
+              <span class="font-tech text-sigma text-xs font-bold">IV</span>
+            </div>
+            <h3 class="font-tech text-sm text-white uppercase tracking-wider">Operational Scores & Band Classification</h3>
+          </div>
+
+          <div class="border border-sigma/30 bg-sigma/5 p-4">
+            <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+              From TFP variables, operational scores enable classification, comparison, and trigger activation. 
+              Standardized calculation, audit, disclosure, and use procedures ensure procedural legitimacy.
+            </p>
+
+            <div class="space-y-3 mb-4">
+              <!-- SPS - CORRIGIDO -->
+              <div class="flex items-start gap-3 border border-white/10 bg-black/20 p-3 overflow-hidden" style="min-width: 0;">
+                <span class="score-badge text-sigma text-lg w-12 flex-shrink-0 text-center">SPS</span>
+                <div class="flex-1 min-w-0">
+                  <h4 class="font-tech text-white text-sm">Safe Operating Space Proximity Score</h4>
+                  <p class="text-xs text-zinc-400 mt-1 mb-2">
+                    Current distance between asset/operation and applicable SOS boundary. Scale 0-100.
+                  </p>
+                  <div class="flex flex-wrap gap-2 text-[0.65rem]">
+                    <span class="px-2 py-1 bg-green-500/10 text-green-400 border border-green-500/30">80-100 Safe</span>
+                    <span class="px-2 py-1 bg-yellow-500/10 text-yellow-400 border border-yellow-500/30">60-79 Attention</span>
+                    <span class="px-2 py-1 bg-red-500/10 text-red-400 border border-red-500/30">40-59 Material Risk</span>
+                    <span class="px-2 py-1 bg-white/10 text-white border border-white/30">&lt;40 Critical</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- TRS - CORRIGIDO (Predictable Collapse) -->
+              <div class="flex items-start gap-3 border border-white/10 bg-black/20 p-3 overflow-hidden" style="min-width: 0;">
+                <span class="score-badge text-sigma text-lg w-12 flex-shrink-0 text-center">TRS</span>
+                <div class="flex-1 min-w-0">
+                  <h4 class="font-tech text-white text-sm">Trajectory Risk Score</h4>
+                  <p class="text-xs text-zinc-400 mt-1 mb-2">
+                    Direction, speed, and persistence of movement toward material limits. Scale 0-100.
+                  </p>
+                  <div class="flex flex-wrap gap-2 text-[0.65rem]">
+                    <span class="px-2 py-1 bg-green-500/10 text-green-400 border border-green-500/30">80-100 Stabilized</span>
+                    <span class="px-2 py-1 bg-yellow-500/10 text-yellow-400 border border-yellow-500/30">60-79 Slow Deterioration</span>
+                    <span class="px-2 py-1 bg-red-500/10 text-red-400 border border-red-500/30">40-59 Accelerating</span>
+                    <span class="px-2 py-1 bg-white/10 text-white border border-white/30 whitespace-nowrap">&lt;40 Predictable Collapse</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- RLS - CORRIGIDO (Reversibility Insolvency) -->
+              <div class="flex items-start gap-3 border border-white/10 bg-black/20 p-3 overflow-hidden" style="min-width: 0;">
+                <span class="score-badge text-sigma text-lg w-12 flex-shrink-0 text-center">RLS</span>
+                <div class="flex-1 min-w-0">
+                  <h4 class="font-tech text-white text-sm">Reversibility Liquidity Score (Lr)</h4>
+                  <p class="text-xs text-zinc-400 mt-1 mb-2">
+                    Immediate financial capacity to contain, mitigate, restore, or decommission. 
+                    Operation may be financially solvent yet <span class="text-white">ecologically insolvent</span>.
+                  </p>
+                  <div class="flex flex-wrap gap-2 text-[0.65rem]">
+                    <span class="px-2 py-1 bg-green-500/10 text-green-400 border border-green-500/30">≥1.2 Fully Financeable</span>
+                    <span class="px-2 py-1 bg-yellow-500/10 text-yellow-400 border border-yellow-500/30">0.8-1.19 Limited Margin</span>
+                    <span class="px-2 py-1 bg-red-500/10 text-red-400 border border-red-500/30">0.5-0.79 Insufficient</span>
+                    <span class="px-2 py-1 bg-white/10 text-white border border-white/30 whitespace-nowrap">&lt;0.5 Reversibility Insolvency</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- BAND CARDS -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              <div class="band-card band-green p-3 text-center">
+                <span class="score-badge text-green-400 text-lg block mb-1">GREEN</span>
+                <span class="text-xs text-zinc-400 block mb-2">Watch</span>
+                <p class="text-[0.65rem] text-zinc-500">Enhanced monitoring, no execution restrictions</p>
+                <p class="text-[0.65rem] text-zinc-600 mt-1">SPS 80-100, stable TRS, Lr ≥ 1.0</p>
+              </div>
+
+              <div class="band-card band-amber p-3 text-center">
+                <span class="score-badge text-yellow-400 text-lg block mb-1">AMBER</span>
+                <span class="text-xs text-zinc-400 block mb-2">Capital Protection</span>
+                <p class="text-[0.65rem] text-zinc-500">Partial IEX, cash redirection, dividend retention</p>
+                <p class="text-[0.65rem] text-zinc-600 mt-1">TRS 60-79 or SPS 60-79 or Lr 0.8-1.19</p>
+              </div>
+
+              <div class="band-card band-red p-3 text-center">
+                <span class="score-badge text-red-400 text-lg block mb-1">RED</span>
+                <span class="text-xs text-zinc-400 block mb-2">Safe Mode</span>
+                <p class="text-[0.65rem] text-zinc-500">Execution reconfiguration, NOT default</p>
+                <p class="text-[0.65rem] text-zinc-600 mt-1">TRS &lt; 60 or SPS &lt; 40 or Lr &lt; 0.8</p>
+              </div>
+
+              <div class="band-card band-black p-3 text-center">
+                <span class="score-badge text-white text-lg block mb-1">BLACK</span>
+                <span class="text-xs text-zinc-400 block mb-2">Restoration First</span>
+                <p class="text-[0.65rem] text-zinc-500">External intervention, automatic asset conversion</p>
+                <p class="text-[0.65rem] text-zinc-600 mt-1">TRS &lt; 40 or Lr &lt; 0.5 or PNR</p>
+              </div>
+            </div>
+
+            <div class="mt-4 border border-white/10 bg-black/20 p-3">
+              <p class="text-xs text-zinc-400 text-center">
+                <span class="text-sigma">Master Rule:</span> No trigger creates new obligations. Activates obligations 
+                already contractually pre-agreed. All effects are <a href="model-law.html" class="text-sigma hover:underline">ex ante, non-discretionary, and scientifically justified</a>.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- DATA GOVERNANCE -->
+        <section class="space-y-4 mb-8">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-6 h-6 border border-sigma/50 bg-sigma/20 flex items-center justify-center">
+              <span class="font-tech text-sigma text-xs font-bold">V</span>
+            </div>
+            <h3 class="font-tech text-sm text-white uppercase tracking-wider">Data Verification & Certification (DVB)</h3>
+          </div>
+
+          <div class="border border-sigma/30 bg-sigma/5 p-4">
+            <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+              Data Custodians operate as <span class="text-sigma">epistemic fiduciaries</span> — sole function is 
+              preserving signal chain integrity from physical reality to juridical fact. 
+              <a href="hasse-foundation.html" class="text-sigma hover:underline">Foundation certification</a> is 
+              prerequisite for legal validity.
+            </p>
+
+            <div class="space-y-3">
+              <div class="border border-white/10 bg-black/20 p-3">
+                <h4 class="font-tech text-sigma text-sm mb-2">Data Custodian Certification <span class="article-ref">SEC. 5.2-5.3, 6</span></h4>
+                <div class="grid md:grid-cols-2 gap-2 text-xs text-zinc-400">
+                  <div>• <span class="text-zinc-300">Technical:</span> Earth system science, environmental engineering, remote sensing</div>
+                  <div>• <span class="text-zinc-300">Operational:</span> Proven track record in certified monitoring systems</div>
+                  <div>• <span class="text-zinc-300">Doctrinal:</span> Pre-threshold logic, asymmetric uncertainty, c-ECO principles</div>
+                  <div>• <span class="text-zinc-300">Integrity:</span> Independence from monitored operators, conflict disclosure</div>
+                </div>
+                <p class="text-[0.65rem] text-zinc-500 mt-2">
+                  <span class="text-zinc-400">Foundation process:</span> Initial certification → periodic renewal → permanent revocation for fraud (Sec. 5.4.3)
+                </p>
+              </div>
+
+              <!-- CHAIN OF CUSTODY - CORRIGIDO (Immutable ledger) -->
+              <div class="border border-white/10 bg-black/20 p-3">
+                <h4 class="font-tech text-sigma text-sm mb-2">Chain of Custody & Immutability <span class="article-ref">SEC. 4, 7</span></h4>
+                <p class="text-xs text-zinc-400 mb-2">
+                  Mandatory procedural sequence: <span class="text-white">sensor → extraction → attestation → hashing → ledger</span>. 
+                  Any break in chain invalidates data for trigger purposes and escalates to Foundation review.
+                </p>
+                <div class="flex flex-wrap gap-2 text-[0.65rem]">
+                  <span class="px-2 py-1 bg-zinc-800 text-zinc-400 whitespace-nowrap">Continuous measurement</span>
+                  <span class="px-2 py-1 bg-zinc-800 text-zinc-400 whitespace-nowrap">Metadata completeness</span>
+                  <span class="px-2 py-1 bg-zinc-800 text-zinc-400 whitespace-nowrap">Cryptographic attestation</span>
+                  <span class="px-2 py-1 bg-zinc-800 text-zinc-400 whitespace-nowrap">Immutable ledger</span>
+                </div>
+              </div>
+
+              <div class="border border-white/10 bg-black/20 p-3">
+                <h4 class="font-tech text-sigma text-sm mb-2">QA/QC & Asymmetric Uncertainty <span class="article-ref">SEC. 4.5</span></h4>
+                <p class="text-xs text-zinc-400">
+                  Quality Assurance/Quality Control determines data admissibility for P, ΔV calculations. 
+                  Strict distinction: <span class="text-white">measurement error</span> (governed statistically, compensable) 
+                  vs. <span class="text-white">procedural failure</span> (escalatory, non-compensable, Foundation notification required). 
+                  Uncertainty <span class="text-sigma">always contracts operational margin</span> — never expands it (ML Art. 2, 218).
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- CALIBRATION COUNCIL -->
+        <section class="space-y-4 mb-8">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-6 h-6 border border-sigma/50 bg-sigma/20 flex items-center justify-center">
+              <span class="font-tech text-sigma text-xs font-bold">VI</span>
+            </div>
+            <h3 class="font-tech text-sm text-white uppercase tracking-wider">Calibration Council & Methodological Governance</h3>
+          </div>
+
+          <div class="border border-sigma/30 bg-sigma/5 p-4">
+            <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+              Defines SOS boundaries, thresholds, and methodological parameters. Operates under 
+              <a href="hasse-foundation.html" class="text-sigma hover:underline">Foundation supervision</a> of independence 
+              and <a href="model-law.html" class="text-sigma hover:underline">ML Art. 221</a> separation of powers.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-3 mb-3">
+              <div class="variable-card p-3">
+                <span class="font-tech text-sigma text-sm block mb-1">SPS Boundaries</span>
+                <p class="text-xs text-zinc-400">Sectoral Safe Operating Space specification — biophysical limits by industry, ecosystem, jurisdiction</p>
+              </div>
+              <div class="variable-card p-3">
+                <span class="font-tech text-sigma text-sm block mb-1">Threshold Calibration</span>
+                <p class="text-xs text-zinc-400">Green/Amber/Red/Black band boundaries — score ranges triggering automatic legal effects</p>
+              </div>
+              <div class="variable-card p-3">
+                <span class="font-tech text-sigma text-sm block mb-1">Methodological Updates</span>
+                <p class="text-xs text-zinc-400">Version control for calculation algorithms, sensor specifications, QA/QC protocols</p>
+              </div>
+              <div class="variable-card p-3">
+                <span class="font-tech text-sigma text-sm block mb-1">σ Application</span>
+                <p class="text-xs text-zinc-400">Certification of asymmetric uncertainty treatment — ensuring prudential conservatism</p>
+              </div>
+            </div>
+
+            <div class="border border-sigma/30 bg-sigma/10 p-3">
+              <p class="text-xs text-zinc-300">
+                <span class="text-sigma">Update Protocol (Art. 229):</span> Technical public consultation → Calibration Council review → 
+                Foundation validation of doctrinal coherence → version-controlled deployment. 
+                <span class="text-white">Silent methodological drift = material integrity incident</span> (Sec. 4.3.2, 4.5.9).
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- RESTORATION PROVIDERS -->
+        <section class="space-y-4 mb-8">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-6 h-6 border border-sigma/50 bg-sigma/20 flex items-center justify-center">
+              <span class="font-tech text-sigma text-xs font-bold">VII</span>
+            </div>
+            <h3 class="font-tech text-sm text-white uppercase tracking-wider">Restoration Providers & Level 4 Execution</h3>
+          </div>
+
+          <div class="border border-sigma/30 bg-sigma/5 p-4">
+            <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+              Pre-certified technical entities for <a href="model-law.html" class="text-sigma hover:underline">Black Band/Restoration First</a> 
+              execution. <a href="hasse-foundation.html" class="text-sigma hover:underline">Foundation certification</a> 
+              ensures capacity, solvency, and institutional separation from operators.
+            </p>
+
+            <div class="space-y-3">
+              <div class="border border-white/10 bg-black/20 p-3">
+                <h4 class="font-tech text-sigma text-sm mb-2">Certification Requirements <span class="article-ref">ML ART. 176-177; PART VIII</span></h4>
+                <div class="grid md:grid-cols-3 gap-2 text-xs text-zinc-400">
+                  <div>• <span class="text-zinc-300">Track record:</span> Proven ecological restoration projects, similar scale/complexity</div>
+                  <div>• <span class="text-zinc-300">Financial solvency:</span> Audited capacity to execute without operational revenue</div>
+                  <div>• <span class="text-zinc-300">Institutional separation:</span> No operational, equity, or debt relationship with monitored entities</div>
+                </div>
+              </div>
+
+              <div class="border border-white/10 bg-black/20 p-3">
+                <h4 class="font-tech text-sigma text-sm mb-2">Contingency Architecture <span class="article-ref">ML ART. 185-186</span></h4>
+                <p class="text-xs text-zinc-400">
+                  <span class="text-white">Mandatory:</span> Minimum 3 pre-certified Restoration Providers designated for each c-ECO incorporated operation. 
+                  Emergency designation powers when all pre-approved providers unavailable (Art. 186). 
+                  Immediate substitution by Technical Curatorship Chamber for integrity breach or operational insolvency (Art. 184).
+                </p>
+              </div>
+
+              <div class="border border-sigma/30 bg-sigma/10 p-3">
+                <p class="text-xs text-zinc-300">
+                  <span class="text-sigma">Fiduciary Duty:</span> Restoration Providers hold fiduciary obligation to systemic preservation, 
+                  not to original operators or creditors. Operate under Technical Curatorship Chamber oversight during Black Band activation.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- AUDITABILITY -->
+        <section class="space-y-4 mb-8">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-6 h-6 border border-sigma/50 bg-sigma/20 flex items-center justify-center">
+              <span class="font-tech text-sigma text-xs font-bold">VIII</span>
+            </div>
+            <h3 class="font-tech text-sm text-white uppercase tracking-wider">Auditability, Transparency & Execution During Review</h3>
+          </div>
+
+          <div class="border border-sigma/30 bg-sigma/5 p-4">
+            <div class="space-y-3">
+              <div class="border border-white/10 bg-black/20 p-3">
+                <h4 class="font-tech text-sigma text-sm mb-2">Continuous QA/QC & Technical Audits</h4>
+                <p class="text-xs text-zinc-400">
+                  All data flows, calculations, classifications, and trigger activations subject to continuous Quality Assurance/Quality Control. 
+                  Automatically intensified upon: procedural deviation detection, statistically significant anomalies, or activation of 
+                  Level 2 (Amber) or higher. Audits are strictly technical — verify protocol application, not policy merit.
+                </p>
+              </div>
+
+              <div class="border border-white/10 bg-black/20 p-3">
+                <h4 class="font-tech text-sigma text-sm mb-2">Immutable Public Ledger <span class="article-ref">SEC. VII; ML ART. 35-39, 71</span></h4>
+                <p class="text-xs text-zinc-400">
+                  All prudential indicators and classifications recorded in secure, immutable ledger preserving full data lineage: 
+                  certified raw inputs, applied methodologies, uncertainty margins, resulting scores, triggered effects, timestamps, 
+                  responsible custodians. Public access proportionate to systemic relevance. 
+                  <span class="text-sigma">Systemic Proof prevails over declaratory evidence</span> (ML Art. 35-39).
+                </p>
+              </div>
+
+              <div class="border border-sigma/30 bg-sigma/10 p-3">
+                <h4 class="font-tech text-sigma text-sm mb-2">Execution During Review <span class="article-ref">SEC. 19; ML ART. 19, 81, 203</span></h4>
+                <p class="text-xs text-zinc-400">
+                  Framework adopts <span class="text-white">solve et repete</span> principle — where prudential triggers are activated, 
+                  effects remain operative throughout any audit, review, or arbitral process. Due process preserved without granting 
+                  suspensive effect. Arbitral review limited to: procedural failure, evidentiary integrity, fraud, material measurement error. 
+                  <span class="text-sigma">No review of ecological merit, economic desirability, or policy appropriateness.</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- INTEGRATION -->
+        <section class="space-y-4 mb-8">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-6 h-6 border border-sigma/50 bg-sigma/20 flex items-center justify-center">
+              <span class="font-tech text-sigma text-xs font-bold">→</span>
+            </div>
+            <h3 class="font-tech text-sm text-white uppercase tracking-wider">System Integration</h3>
+          </div>
+
+          <div class="border border-sigma/30 bg-sigma/5 p-4">
+            <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+              The TFP Manual provides the <span class="text-sigma">technical infrastructure</span> that makes 
+              <a href="model-law.html" class="text-sigma hover:underline">Model Law</a> automation operationally feasible. 
+              Without TFP, ML categories are unenforceable; without ML, TFP outputs are merely advisory.
+            </p>
+
+            <div class="grid md:grid-cols-4 gap-3">
+              <a href="c-eco-screening.html" class="border border-white/10 bg-black/20 p-4 hover:border-sigma/40 hover:bg-sigma/5 transition-all group">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-tech text-zinc-400 text-sm group-hover:text-sigma">SCREENING</span>
+                  <span class="text-sigma group-hover:translate-x-1 transition-transform">→</span>
+                </div>
+                <p class="text-xs text-zinc-400 mb-1">Case Identification</p>
+                <p class="text-[0.65rem] text-zinc-500">Is this a c-ECO case? Three tests, red flags, domain mapping</p>
+              </a>
+
+              <a href="model-law.html" class="border border-white/10 bg-black/20 p-4 hover:border-sigma/40 hover:bg-sigma/5 transition-all group">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-tech text-zinc-400 text-sm group-hover:text-sigma">MODEL LAW</span>
+                  <span class="text-sigma group-hover:translate-x-1 transition-transform">→</span>
+                </div>
+                <p class="text-xs text-zinc-400 mb-1">Legal Architecture</p>
+                <p class="text-[0.65rem] text-zinc-500">IEX, Safe Mode, Restoration First, incorporation, arbitration</p>
+              </a>
+
+              <div class="border border-sigma/30 bg-sigma/10 p-4">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-tech text-sigma text-sm">TFP MANUAL</span>
+                </div>
+                <p class="text-xs text-zinc-400 mb-1">Operational Procedures</p>
+                <p class="text-[0.65rem] text-zinc-500">Γ = f(P, ΔV, σ, Lr), Data Custodians, trigger catalogue, bands</p>
+              </div>
+
+              <a href="hasse-foundation.html" class="border border-white/10 bg-black/20 p-4 hover:border-sigma/40 hover:bg-sigma/5 transition-all group">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-tech text-zinc-400 text-sm group-hover:text-sigma">HASSE FOUNDATION</span>
+                  <span class="text-sigma group-hover:translate-x-1 transition-transform">→</span>
+                </div>
+                <p class="text-xs text-zinc-400 mb-1">Protocol Stewardship</p>
+                <p class="text-[0.65rem] text-zinc-500">Certification, arbitration, negotiation playbook, deployment</p>
+              </a>
+            </div>
+
+            <div class="mt-4 border border-white/10 bg-black/20 p-3 text-center">
+              <p class="text-xs text-zinc-400">
+                <span class="text-sigma">Technical-Legal Binding:</span> TFP outputs → Foundation certification → 
+                ML incorporation → automatic legal effects. No step can be skipped; no domain substitutes for another.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- NAVIGATION FOOTER -->
+        <section class="border border-white/5 bg-white/[0.02] p-4 mt-8">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="text-sigma text-xs">←</span>
+              <a href="c-eco-screening.html" class="text-xs font-tech text-zinc-400 hover:text-sigma transition-colors">SCREENING</a>
+              <span class="text-zinc-600">|</span>
+              <a href="protocol.html" class="text-xs font-tech text-zinc-400 hover:text-sigma transition-colors">TERMINAL</a>
+            </div>
+            <div class="flex items-center gap-4">
+              <a href="model-law.html" class="text-xs font-tech text-zinc-400 hover:text-sigma transition-colors">MODEL LAW →</a>
+              <a href="hasse-foundation.html" class="text-xs font-tech text-zinc-400 hover:text-sigma transition-colors">HASSE FOUNDATION →</a>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="h-12 border-t border-white/5 bg-slate-950/80 flex items-center justify-center px-6 z-40 content">
+      <div class="flex items-center gap-2">
+        <span class="text-sigma text-xs">◆</span>
+        <span class="font-tech text-xs tracking-[0.2em] text-zinc-500">THRESHOLD DYNAMICS RESEARCH</span>
+        <span class="text-sigma text-xs">◆</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const bootScreen = document.getElementById('bootScreen');
+        const mainContent = document.getElementById('mainContent');
+        
+        bootScreen.style.opacity = '0';
+        bootScreen.style.transition = 'opacity 0.5s ease';
+        
+        setTimeout(() => {
+          bootScreen.style.display = 'none';
+          mainContent.classList.remove('hidden-content');
+          mainContent.classList.add('visible-content');
+        }, 500);
+      }, 2000);
+    });
+  </script>
 
 </body>
 </html>
