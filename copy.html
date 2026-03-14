@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -7,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -15,13 +16,25 @@
       theme: {
         extend: {
           colors: {
-            sigma: { DEFAULT: '#d6bc7e', dim: '#a68b4c', glow: 'rgba(214, 188, 126, 0.2)' },
-            glass: 'rgba(255, 255, 255, 0.03)',
-            borderGlass: 'rgba(255, 255, 255, 0.08)'
+            sigma: { 
+              DEFAULT: '#d6bc7e', 
+              dim: '#a68b4c',
+              glow: 'rgba(214, 188, 126, 0.3)'
+            },
+            obsidian: {
+              deep: '#030303',
+              mist: '#0f0f12',
+            },
+            slate: {
+              950: '#020617',
+              900: '#0f172a',
+              850: '#0a0f1d',
+              800: '#1e293b',
+            }
           },
           fontFamily: {
-            tech: ['Inter', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
+            tech: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
           }
         }
       }
@@ -29,256 +42,1066 @@
   </script>
 
   <style>
-    :root { --sigma-gold: #d6bc7e; }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    body {
+    html, body {
+      height: 100%;
       background: #030303;
       color: #e0e0e0;
-      font-family: 'Inter', sans-serif;
-      height: 100vh;
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.6;
       overflow: hidden;
     }
 
-    /* Background Imersivo */
+    /* Fundo com grid sutil */
     .bg-grid {
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at 50% 50%, #0f0f12 0%, #000 100%);
-      z-index: -1;
+      z-index: 0;
+      background: radial-gradient(circle at 50% 50%, #0f0f12 0%, #030303 90%);
     }
 
     .holo-grid {
       position: absolute;
-      inset: -50%;
+      width: 200%;
+      height: 200%;
       background-image: 
-        linear-gradient(rgba(214, 188, 126, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(214, 188, 126, 0.03) 1px, transparent 1px);
-      background-size: 50px 50px;
-      transform: perspective(1000px) rotateX(60deg);
-      mask-image: radial-gradient(circle, black 20%, transparent 70%);
-      animation: gridMove 40s linear infinite;
+        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      background-size: 60px 60px;
+      transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
+      animation: gridMove 30s linear infinite;
+      pointer-events: none;
+      mask-image: radial-gradient(circle, black 30%, transparent 80%);
     }
 
     @keyframes gridMove {
-      from { transform: perspective(1000px) rotateX(60deg) translateY(0); }
-      to { transform: perspective(1000px) rotateX(60deg) translateY(50px); }
+      0% { transform: perspective(500px) rotateX(60deg) translateY(0) translateZ(-200px); }
+      100% { transform: perspective(500px) rotateX(60deg) translateY(60px) translateZ(-200px); }
     }
 
-    /* A Grande Tela de Vidro Central */
-    .glass-monolith {
-      background: rgba(255, 255, 255, 0.015);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 0 80px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255,255,255,0.02);
-      border-radius: 4px; /* Cantos quase retos para ar futurista */
-    }
-
-    .section-divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(214, 188, 126, 0.2), transparent);
-      margin: 1.5rem 0;
-    }
-
-    /* Scanlines */
-    .scanline {
-      position: absolute;
-      width: 100%;
-      height: 2px;
-      background: rgba(214, 188, 126, 0.05);
-      top: 0;
-      animation: scan 8s linear infinite;
+    /* Scanline overlay */
+    .scanline-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0,0,0,0.04) 50%,
+        rgba(0,0,0,0.04)
+      );
+      background-size: 100% 3px;
       pointer-events: none;
     }
 
-    @keyframes scan {
-      0% { top: 0; }
-      100% { top: 100%; }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { 
+      width: 6px; 
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track { 
+      background: #09090b; 
+    }
+    ::-webkit-scrollbar-thumb { 
+      background: #27272a; 
+      border-radius: 3px; 
+    }
+    ::-webkit-scrollbar-thumb:hover { 
+      background: #3f3f46; 
     }
 
-    /* Custom Scrollbar */
-    #console-output::-webkit-scrollbar { width: 4px; }
-    #console-output::-webkit-scrollbar-thumb { background: rgba(214, 188, 126, 0.1); border-radius: 10px; }
+    /* Glass Effect - O CUBO DE VIDRO APLICADO NA RESPOSTA */
+    .glass-response {
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      box-shadow: 
+        0 0 60px rgba(0, 0, 0, 0.8),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+      position: relative;
+      overflow: hidden;
+    }
 
-    .glow-text { text-shadow: 0 0 10px rgba(214, 188, 126, 0.4); }
+    /* Brilho do Scanner na resposta */
+    .glass-response::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to bottom,
+        transparent 45%,
+        rgba(214, 188, 126, 0.03) 50%,
+        transparent 55%
+      );
+      transform: rotate(45deg);
+      animation: shine 8s infinite;
+      pointer-events: none;
+    }
+
+    @keyframes shine {
+      0% { transform: translateY(-100%) rotate(45deg); }
+      100% { transform: translateY(100%) rotate(45deg); }
+    }
+
+    /* Hover no glass */
+    .glass-response:hover {
+      border-color: rgba(214, 188, 126, 0.2);
+      box-shadow: 
+        0 0 80px rgba(0, 0, 0, 0.9),
+        0 0 30px rgba(214, 188, 126, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    /* Status colors */
+    .status-green { color: #22c55e; }
+    .status-orange { color: #f97316; }
+    .status-red { color: #ef4444; }
     
-    input:focus { outline: none; }
+    .bg-status-green { background-color: #22c55e; }
+    .bg-status-orange { background-color: #f97316; }
+    .bg-status-red { background-color: #ef4444; }
+
+    /* Glow effects */
+    .sigma-glow {
+      box-shadow: 0 0 20px rgba(214, 188, 126, 0.3);
+    }
+
+    .text-glow {
+      text-shadow: 0 0 10px rgba(214, 188, 126, 0.3);
+    }
+
+    /* Animations */
+    @keyframes pulse-sigma {
+      0%, 100% { 
+        opacity: 1; 
+        box-shadow: 0 0 5px #d6bc7e;
+      }
+      50% { 
+        opacity: 0.7; 
+        box-shadow: 0 0 15px #d6bc7e, 0 0 25px #d6bc7e;
+      }
+    }
+
+    .animate-pulse-sigma {
+      animation: pulse-sigma 2s ease-in-out infinite;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .slide-in {
+      animation: slideIn 0.4s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s ease-out forwards;
+    }
+
+    /* Typography */
+    .font-tech {
+      font-family: 'Inter', system-ui, sans-serif;
+      letter-spacing: 0.05em;
+    }
+
+    .font-mono-tech {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    }
+
+    /* Selection */
+    ::selection {
+      background: #a68b4c;
+      color: white;
+    }
+
+    /* Input glass effect */
+    .glass-input {
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .glass-input:focus-within {
+      border-color: rgba(214, 188, 126, 0.3);
+      box-shadow: 0 0 20px rgba(214, 188, 126, 0.1);
+    }
+
+    /* Sidebar glass */
+    .sidebar-glass {
+      background: rgba(15, 15, 18, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-left: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* Header glass */
+    .header-glass {
+      background: rgba(3, 3, 3, 0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* Status tag pulsando */
+    .status-pulse {
+      animation: goldPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes goldPulse {
+      0% {
+        opacity: 0.5;
+        text-shadow: 0 0 0px rgba(214, 188, 126, 0);
+      }
+      50% {
+        opacity: 1;
+        text-shadow: 0 0 15px rgba(214, 188, 126, 0.5);
+      }
+      100% {
+        opacity: 0.5;
+        text-shadow: 0 0 0px rgba(214, 188, 126, 0);
+      }
+    }
   </style>
 </head>
 
-<body class="flex flex-col items-center justify-center p-4 md:p-8">
-  <div class="bg-grid"><div class="holo-grid"></div></div>
-  <div class="scanline"></div>
-
-  <div class="glass-monolith w-full max-w-7xl h-[90vh] flex flex-col relative overflow-hidden">
-    
-    <header class="flex items-center justify-between px-8 py-6 border-b border-white/5">
-      <div class="flex items-center gap-6">
-        <div class="text-sigma text-3xl font-light tracking-tighter">Σ <span class="text-xs tracking-[0.4em] ml-2 text-zinc-500 uppercase">c-ECO Protocol</span></div>
-        <div class="hidden md:block h-8 w-[1px] bg-white/10"></div>
-        <div class="hidden md:flex flex-col">
-          <span class="text-[10px] text-sigma/60 tracking-widest uppercase font-mono">Terminal ID</span>
-          <span class="text-xs text-zinc-400 font-mono">SYS-ARC.80-INFRA</span>
-        </div>
-      </div>
-
-      <div class="flex items-center gap-8">
-        <a href="system-architecture.html" class="group relative flex items-center gap-3 transition-all">
-            <div class="p-2 border border-sigma/30 group-hover:border-sigma group-hover:bg-sigma/10 transition-all rounded-sm">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-sigma">
-                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </div>
-            <div class="absolute right-full mr-4 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
-                <span class="text-[10px] tracking-[0.2em] text-sigma uppercase font-tech">System Architecture</span>
-            </div>
-            <span class="hidden md:block text-[10px] tracking-[0.2em] text-zinc-500 uppercase">Technical Ref.</span>
-        </a>
-
-        <button class="text-zinc-500 hover:text-sigma transition-colors">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <circle cx="12" cy="12" r="3"></circle>
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-            </svg>
-        </button>
-      </div>
-    </header>
-
-    <div class="flex-1 flex overflow-hidden">
-      
-      <section class="flex-1 flex flex-col p-8 overflow-y-auto" id="console-output">
-        <div class="max-w-4xl mx-auto w-full space-y-12">
-            
-            <div class="opacity-80">
-                <div class="text-[10px] font-mono text-sigma mb-4 tracking-[0.3em] uppercase">[ Protocol Initialized ]</div>
-                <h2 class="text-3xl font-extralight text-white mb-6 tracking-tight">Systemic Decisional Interface</h2>
-                <div class="section-divider"></div>
-                <p class="text-zinc-400 font-light leading-relaxed max-w-2xl">
-                    Bem-vindo ao terminal de curadoria biofísica. Todos os inputs são processados através do 
-                    <span class="text-sigma border-b border-sigma/20">c-ECO Framework</span> para garantir a integridade da trajetória sistêmica.
-                </p>
-            </div>
-
-            <div id="dynamic-content" class="space-y-12">
-                </div>
-        </div>
-      </section>
-
-      <aside class="w-80 border-l border-white/5 bg-white/[0.01] p-8 hidden lg:block">
-        <div class="space-y-10">
-            <div>
-                <h3 class="text-[10px] tracking-[0.3em] text-zinc-500 uppercase mb-6 font-semibold">Stability Index</h3>
-                <div class="relative h-[2px] w-full bg-white/10">
-                    <div id="gap-indicator" class="absolute -top-1 h-3 w-1 bg-sigma shadow-[0_0_10px_#d6bc7e] transition-all duration-700" style="left: 65%;"></div>
-                </div>
-                <div class="flex justify-between mt-3 text-[9px] font-mono text-zinc-600 uppercase">
-                    <span>Safe</span>
-                    <span class="text-sigma">80% Cognitive Gap</span>
-                    <span>Critical</span>
-                </div>
-            </div>
-
-            <div class="space-y-6">
-                <h3 class="text-[10px] tracking-[0.3em] text-zinc-500 uppercase font-semibold">Tripartite Agency</h3>
-                
-                <div class="space-y-1">
-                    <div class="flex justify-between text-[10px] uppercase font-mono mb-1">
-                        <span class="text-zinc-400">Human</span>
-                        <span class="text-green-500">Stable</span>
-                    </div>
-                    <div class="h-1 bg-white/5 w-full"><div class="h-full bg-green-500/40 w-[30%]"></div></div>
-                </div>
-
-                <div class="space-y-1">
-                    <div class="flex justify-between text-[10px] uppercase font-mono mb-1">
-                        <span class="text-zinc-400">Algorithmic</span>
-                        <span class="text-sigma">High</span>
-                    </div>
-                    <div class="h-1 bg-white/5 w-full"><div class="h-full bg-sigma/40 w-[75%]"></div></div>
-                </div>
-
-                <div class="space-y-1">
-                    <div class="flex justify-between text-[10px] uppercase font-mono mb-1">
-                        <span class="text-zinc-400">Ecological</span>
-                        <span class="text-red-500">Alert</span>
-                    </div>
-                    <div class="h-1 bg-white/5 w-full"><div class="h-full bg-red-500/40 w-[88%]"></div></div>
-                </div>
-            </div>
-        </div>
-      </aside>
-    </div>
-
-    <div class="p-8 border-t border-white/5 bg-white/[0.01]">
-        <div class="max-w-4xl mx-auto relative group">
-            <span class="absolute left-0 top-1/2 -translate-y-1/2 text-sigma font-light text-xl">Σ</span>
-            <input 
-                type="text" 
-                id="command-input"
-                placeholder="Aguardando parâmetros sistêmicos..." 
-                class="w-full bg-transparent pl-10 pr-32 py-4 text-white font-light tracking-wide placeholder-zinc-600 border-b border-white/10 focus:border-sigma/50 transition-all"
-            />
-            <button 
-                id="execute-btn"
-                class="absolute right-0 top-1/2 -translate-y-1/2 px-6 py-2 text-[10px] tracking-[0.2em] text-sigma border border-sigma/30 uppercase hover:bg-sigma hover:text-black transition-all"
-            >
-                Analyze
-            </button>
-        </div>
-        <div class="max-w-4xl mx-auto flex justify-between mt-4 text-[9px] font-mono text-zinc-600 uppercase tracking-widest">
-            <span>Kernel: CECO-V1.0</span>
-            <span>All decisions are immutable and logged</span>
-        </div>
-    </div>
+<body class="text-zinc-300 min-h-screen flex flex-col selection:bg-sigma-dim selection:text-white">
+  
+  <!-- Background -->
+  <div class="bg-grid">
+    <div class="holo-grid"></div>
   </div>
+  <div class="scanline-overlay"></div>
+  
+  <!-- HEADER -->
+  <header class="h-16 header-glass flex items-center justify-between px-6 z-40 relative">
+    <div class="flex items-center gap-4">
+      <div class="w-10 h-10 border border-sigma/30 flex items-center justify-center bg-sigma/10 rounded-sm">
+        <span class="font-tech text-sigma font-bold text-xl">Σ</span>
+      </div>
+      <div class="flex flex-col">
+        <h1 class="font-tech text-sm tracking-[0.25em] text-white uppercase font-semibold">c-ECO AI Protocol</h1>
+        <span class="text-xs text-zinc-500 uppercase tracking-wider font-tech">Decisional Guardian v1.0 (Stable)</span>
+      </div>
+    </div>
+
+    <div class="hidden md:flex items-center gap-3 px-5 py-2 rounded-full border border-sigma/20 bg-sigma/5">
+      <div class="w-2 h-2 rounded-full bg-sigma animate-pulse-sigma"></div>
+      <span class="font-tech text-xs tracking-[0.2em] text-sigma font-medium">SYSTEM ACTIVE</span>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <button class="text-xs font-tech text-zinc-400 hover:text-sigma transition-colors duration-200" onclick="window.location.href='index.html'">
+        EXIT TERMINAL
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="flex-1 flex overflow-hidden relative z-10 p-4 gap-4">
+    
+    <!-- CONSOLE PRINCIPAL -->
+    <section class="flex-1 flex flex-col relative max-w-4xl mx-auto w-full">
+      
+      <!-- Console Header -->
+      <div class="px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+          <span class="text-sigma text-sm">◆</span>
+          <span class="font-tech text-sm text-zinc-400 tracking-wide">
+            CONTEXT: <span class="text-zinc-200 font-medium">STATE MACHINE MONITORING</span> 
+            <span class="mx-2 text-zinc-600">//</span> 
+            MODE: <span class="text-zinc-200 font-medium">OPERATION</span>
+          </span>
+        </div>
+        <div class="text-xs font-mono text-zinc-500">STATE_REF: CECO-ART-083 / 085</div>
+      </div>
+
+      <!-- ÁREA DE OUTPUT COM VIDRO - AUMENTADA -->
+      <div class="flex-1 overflow-y-auto px-6 pb-4 space-y-6" id="console-output">
+        
+        <!-- Mensagem inicial -->
+        <div class="flex justify-start slide-in">
+          <div class="w-full">
+            <!-- GLASS RESPONSE BOX -->
+            <div class="glass-response p-8">
+              <div class="flex gap-4 mb-5 font-mono text-xs text-sigma/80 tracking-wide uppercase border-b border-white/10 pb-4">
+                <span class="font-medium flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-sigma animate-pulse"></span>
+                  [ SYSTEM READY ]
+                </span>
+                <span>[ 80% GAP MONITORING: ON ]</span>
+              </div>
+              
+              <div class="space-y-4">
+                <p class="text-zinc-300 font-light text-base leading-relaxed">
+                  <strong class="text-white font-tech text-lg">Protocol initialized.</strong>
+                </p>
+                <p class="text-zinc-400 text-sm leading-relaxed">
+                  Submit the command to analyze systemic parameters. Available commands:
+                </p>
+                
+                <!-- Comandos em grid -->
+                <div class="grid grid-cols-2 gap-3 mt-4">
+                  <div class="flex items-center gap-2 text-sm">
+                    <span class="text-sigma font-mono bg-sigma/10 px-2 py-1 rounded">Iex</span>
+                    <span class="text-zinc-500">Ex-Ante Unenforceability</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm">
+                    <span class="text-sigma font-mono bg-sigma/10 px-2 py-1 rounded">safe</span>
+                    <span class="text-zinc-500">Safe Mode Protocol</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm">
+                    <span class="text-sigma font-mono bg-sigma/10 px-2 py-1 rounded">status</span>
+                    <span class="text-zinc-500">System Status Check</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm">
+                    <span class="text-sigma font-mono bg-sigma/10 px-2 py-1 rounded">art 85</span>
+                    <span class="text-zinc-500">Statute Query</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm">
+                    <span class="text-sigma font-mono bg-sigma/10 px-2 py-1 rounded">code</span>
+                    <span class="text-zinc-500">Codebook Reference</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm">
+                    <span class="text-sigma font-mono bg-sigma/10 px-2 py-1 rounded">index</span>
+                    <span class="text-zinc-500">Statute Index</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INPUT COM VIDRO -->
+      <div class="px-6 pt-2 pb-4">
+        <div class="glass-input relative flex items-center p-1">
+          <span class="pl-4 pr-3 text-sigma font-tech text-lg font-bold">Σ</span>
+          <input
+            type="text"
+            id="command-input"
+            placeholder='Enter systemic parameters...'
+            class="w-full bg-transparent border-none text-sm text-white placeholder-zinc-500 focus:ring-0 px-2 py-4 font-mono focus:outline-none"
+          />
+          <button
+            id="execute-btn"
+            class="px-6 py-2.5 mr-1 bg-sigma/10 hover:bg-sigma hover:text-obsidian-deep border border-sigma/30 hover:border-sigma text-xs font-tech tracking-wider text-sigma transition-all duration-200 uppercase rounded font-medium"
+          >
+            Analyze
+          </button>
+        </div>
+        <div class="mt-3 text-xs font-mono text-zinc-500 flex justify-between items-center">
+          <span>Tip: Use <span class="text-zinc-400">Live Server / localhost</span> for SHA-256 verification</span>
+          <span class="text-zinc-600">v1.0.4-stable</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIDEBAR COM VIDRO -->
+    <aside class="w-80 sidebar-glass rounded-xl flex-col hidden lg:flex overflow-hidden" id="system-sidebar">
+      
+      <!-- GAP -->
+      <div class="p-5 border-b border-white/5">
+        <h2 class="font-tech text-xs tracking-[0.2em] text-zinc-500 uppercase mb-4 font-medium">The 80% Cognitive Gap</h2>
+        <div class="relative h-3 w-full bg-zinc-800/50 rounded-full mb-2 overflow-hidden">
+          <div id="gap-indicator" class="absolute top-0 bottom-0 bg-sigma w-2 left-[65%] shadow-[0_0_15px_#d6bc7e] transition-all duration-1000 rounded-full"></div>
+        </div>
+        <div class="flex justify-between text-xs font-mono text-zinc-500 uppercase">
+          <span>Stable</span>
+          <span id="gap-status" class="text-zinc-400 font-medium status-pulse">Monitoring</span>
+          <span>Collapse</span>
+        </div>
+      </div>
+
+      <!-- TRIPARTITE -->
+      <div class="p-5 border-b border-white/5 space-y-5">
+        <h2 class="font-tech text-xs tracking-[0.2em] text-zinc-500 uppercase mb-3 font-medium">Tripartite Agency (Inputs)</h2>
+
+        <div>
+          <div class="flex justify-between text-xs text-zinc-400 mb-2 uppercase font-tech">
+            <span>Human / Institutional</span>
+            <span id="status-human" class="text-green-500 font-medium">Stable</span>
+          </div>
+          <div id="bar-human" class="h-2 bg-zinc-800/50 rounded-full overflow-hidden">
+            <div class="h-full bg-green-500 transition-all duration-1000 rounded-full" style="width: 30%"></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex justify-between text-xs text-zinc-400 mb-2 uppercase font-tech">
+            <span>Algorithmic Impact</span>
+            <span id="status-alg" class="text-sigma font-medium">High Load</span>
+          </div>
+          <div id="bar-algorithmic" class="h-2 bg-zinc-800/50 rounded-full overflow-hidden">
+            <div class="h-full bg-sigma transition-all duration-1000 rounded-full" style="width: 75%"></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex justify-between text-xs text-zinc-400 mb-2 uppercase font-tech">
+            <span>Ecological / Biophysical</span>
+            <span id="status-eco" class="text-red-400 font-medium">Critical</span>
+          </div>
+          <div id="bar-ecological" class="h-2 bg-zinc-800/50 rounded-full overflow-hidden">
+            <div class="h-full bg-red-500 transition-all duration-1000 rounded-full" style="width: 88%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DIAGNOSTIC -->
+      <div class="p-5 flex-1 overflow-y-auto" id="diagnostic-engine">
+        <h2 class="font-tech text-xs tracking-[0.2em] text-zinc-500 uppercase mb-4 font-medium">Diagnostic Engine</h2>
+        <div class="space-y-3" id="engine-checks">
+          <div class="flex items-center gap-3 text-xs text-zinc-400 font-mono p-2 rounded bg-white/5">
+            <span class="text-sigma text-sm">✓</span> Interdependency Sieve
+          </div>
+          <div class="flex items-center gap-3 text-xs text-zinc-400 font-mono p-2 rounded bg-white/5">
+            <span class="text-sigma text-sm">✓</span> Intensity Check
+          </div>
+          <div class="flex items-center gap-3 text-xs text-zinc-400 font-mono p-2 rounded bg-white/5">
+            <span class="text-sigma text-sm">✓</span> State Machine Binding
+          </div>
+          <div class="flex items-center gap-3 text-xs text-zinc-400 font-mono p-2 rounded bg-white/5">
+            <span class="text-sigma text-sm">✓</span> Trajectory Analysis
+          </div>
+        </div>
+      </div>
+
+      <!-- AUDIT LOG -->
+      <div class="p-5 border-t border-white/5 bg-black/20">
+        <h2 class="font-tech text-xs tracking-[0.2em] text-zinc-500 uppercase mb-4 font-medium">Immutable Audit Log</h2>
+        <div id="audit-logs" class="space-y-3 max-h-32 overflow-y-auto text-xs font-mono">
+          <div class="text-zinc-500 italic">No records in current session.</div>
+        </div>
+      </div>
+
+    </aside>
+  </main>
+
+  <!-- FOOTER COM LINK CENTRALIZADO -->
+  <footer class="border-t border-white/5 bg-obsidian-deep/80 backdrop-blur-sm z-40 relative">
+    <div class="max-w-6xl mx-auto px-6 py-4">
+      
+      <!-- Link da Framework Centralizado -->
+      <div class="flex justify-center mb-4">
+        <a
+          href="system-architecture.html"
+          class="group inline-flex items-center gap-3 px-6 py-3 bg-sigma/5 hover:bg-sigma/10 border border-sigma/20 hover:border-sigma/40 rounded-lg transition-all duration-300"
+        >
+          <span class="text-sigma text-lg">◆</span>
+          <div class="flex flex-col items-start">
+            <span class="text-sm font-tech tracking-[0.15em] uppercase text-sigma font-semibold group-hover:text-glow transition-all">
+              c-ECO System Architecture
+            </span>
+            <span class="text-xs text-zinc-500 font-mono mt-0.5">Framework Documentation & Technical Reference</span>
+          </div>
+          <span class="text-sigma text-lg ml-2 group-hover:translate-x-1 transition-transform">→</span>
+        </a>
+      </div>
+
+      <p class="text-center text-xs tracking-widest text-zinc-600 uppercase">
+        Conceptual Protocol Interface — Analytical Infrastructure Under Development
+      </p>
+    </div>
+  </footer>
 
   <script>
-    // A lógica de JS permanece similar à sua, mas injetando no #dynamic-content
+  document.addEventListener('DOMContentLoaded', () => {
+
+    /* ============================================================
+       0) DADOS (DOS SEUS PDFs) — EMBUTIDOS
+    ============================================================ */
+
+    const CECO_INDEX = [
+      { k: "PRE-000", t: "Preamble: International Statute on Systemic Governance, Biophysical Supremacy, and Binding Legal Automation" },
+      { k: "MEM-000", t: "Explanatory Memorandum: Transition from Retrospective Causality to the Systemic Predictive Nexus and Trajectory Protection" },
+      { k: "STRUCT",  t: "Structural Principles (Art. 1–5)" },
+      { k: "CH1",     t: "Operating Regime (Art. 6–52)" },
+      { k: "DUTIES",  t: "Duties and Causation (Art. 53–72)" },
+      { k: "ARCH",    t: "Institutional & Operational Architecture (Art. 73–127)" },
+      { k: "LIAB",    t: "Liability, Sanctions & Risk Management (Art. 128–175)" },
+      { k: "EXEC",    t: "Execution & Final Provisions (Art. 176–214)" },
+    ];
+
+    const CECO_CODES = [
+      { id: "CECO-PRE-000", title: "PREAMBLE: International Statute on Systemic Governance, Biophysical Supremacy, and Binding Legal Automation (c-ƩCO Regime)." },
+      { id: "CECO-MEM-000", title: "EXPLANATORY MEMORANDUM: Transition from Retrospective Causality to the Systemic Predictive Nexus and Trajectory Protection." },
+      { id: "CECO-ART-001", title: "Principle of Supremacy of the Safe Operating Space (SOS)." },
+      { id: "CECO-ART-002", title: "In Dubio Pro Systema Principle and Technical Thresholds." },
+      { id: "CECO-ART-003", title: "Physical Primacy and Non-Disposability of Systemic Collapse Risk (I)." },
+      { id: "CECO-ART-004", title: "Non-Disposability of Systemic Collapse Risk (II)." },
+      { id: "CECO-ART-005", title: "Ex-Ante Governance and Systemic Preclusion." },
+      { id: "CECO-ART-006", title: "Systemic Paradigm and Functional Integrity." },
+      { id: "CECO-ART-007", title: "Rule of Systemic Compatibility." },
+      { id: "CECO-ART-008", title: "Conditional Subsistence of Legal Bonds." },
+      { id: "CECO-ART-009", title: "Conditioned Immediate Object." },
+      { id: "CECO-ART-010", title: "Conditioned Existence of the Obligation." },
+      { id: "CECO-ART-011", title: "Prohibition of Enforceability Detached from Habitability." },
+      { id: "CECO-ART-012", title: "Continuous Validity and Dynamic Verification." },
+      { id: "CECO-ART-013", title: "Conditioned Persistence of Validity." },
+      { id: "CECO-ART-014", title: "Automatic Lapse due to Loss of Systemic Conditions." },
+      { id: "CECO-ART-015", title: "Ex-Ante Unenforceability (IEX) as Autonomous Legal Category." },
+      { id: "CECO-ART-016", title: "Automatic Lock Triggered by Irreversible Technical Trajectory." },
+      { id: "CECO-ART-017", title: "Objective Systemic Criterion (replacing subjective legal cause)." },
+      { id: "CECO-ART-018", title: "Immediacy and Erga Omnes Opposability of Technical IEX." },
+      { id: "CECO-ART-019", title: "Systemic Preclusion." },
+      { id: "CECO-ART-020", title: "Blocking of Lawful Acts through Collapse Trajectory Construction." },
+      { id: "CECO-ART-021", title: "Trajectory Preclusion." },
+      { id: "CECO-ART-022", title: "Opposability of Preclusion to Successors and Substitutes." },
+      { id: "CECO-ART-023", title: "Safe Operating Space (SOS)." },
+      { id: "CECO-ART-024", title: "Subordination of Price/Value/Remuneration to Systemic Limits." },
+      { id: "CECO-ART-025", title: "Legal Nullity of Prices Formed Outside SOS." },
+      { id: "CECO-ART-026", title: "Erga Omnes Unenforceability of Prices Null due to Systemic Violation." },
+      { id: "CECO-ART-027", title: "Habitability Link." },
+      { id: "CECO-ART-028", title: "Dependence of Economic Value on Ecosystem Preservation." },
+      { id: "CECO-ART-029", title: "Prohibition of Dissociation between Financial Assets and Life-Support Systems." },
+      { id: "CECO-ART-030", title: "Non-Opposability of Incompatible Asset-Segregation Structures." },
+      { id: "CECO-ART-031", title: "Biophysical Conditioning of Guarantees." },
+      { id: "CECO-ART-032", title: "Non-Opposability of Anti-Systemic Enforcement." },
+      { id: "CECO-ART-033", title: "Automatic Conversion into Systemic Restoration Obligations." },
+      { id: "CECO-ART-034", title: "Absolute Priority of Restoration and Safe Decommissioning." },
+      { id: "CECO-ART-035", title: "Systemic Proof." },
+      { id: "CECO-ART-036", title: "Centrality of Certified Sensory Data." },
+      { id: "CECO-ART-037", title: "Prevalence of Systemic Proof." },
+      { id: "CECO-ART-038", title: "Erga Omnes Opposability and Immediate Effectiveness of Systemic Proof." },
+      { id: "CECO-ART-039", title: "Burden of Technical Challenge." },
+      { id: "CECO-ART-040", title: "Curatorial Trigger." },
+      { id: "CECO-ART-041", title: "Automatic Release of Funds for Correction and Restoration." },
+      { id: "CECO-ART-042", title: "Priority of Correction over Ex Post Indemnification." },
+      { id: "CECO-ART-043", title: "Unenforceability of Substitute Indemnification Solutions." },
+      { id: "CECO-ART-044", title: "Safe Mode." },
+      { id: "CECO-ART-045", title: "Coordinated Suspension to Prevent Systemic Cascades." },
+      { id: "CECO-ART-046", title: "Priority of System Preservation over Individual Performance." },
+      { id: "CECO-ART-047", title: "Unenforceability of Penalties for Suspension in Safe Mode." },
+      { id: "CECO-ART-048", title: "State Machine." },
+      { id: "CECO-ART-049", title: "Progressive Phased Execution." },
+      { id: "CECO-ART-050", title: "Overcoming Binary Logic of Execution or Rupture." },
+      { id: "CECO-ART-051", title: "Legal Binding of State Transitions." },
+      { id: "CECO-ART-052", title: "Legal Irreversibility of Critical Transitions." },
+      { id: "CECO-ART-142", title: "Exclusion of Habitability." },
+      { id: "CECO-ART-143", title: "Intergenerational Indemnification." },
+      { id: "CECO-ART-144", title: "Calculation of Intergenerational Indemnification." },
+      { id: "CECO-ART-145", title: "Evidentiary Publicity and Public Registry." },
+      { id: "CECO-ART-146", title: "Opposability of the Public Registry." },
+      { id: "CECO-ART-147", title: "Unenforceability of Sanction Waivers or Settlements." },
+      { id: "CECO-ART-148", title: "Inapplicability of Force Majeure/Fortuitous Event in Systemic Context." },
+      { id: "CECO-ART-149", title: "Mandatory Internalization of Systemic Risks." },
+      { id: "CECO-ART-150", title: "Act of Third Parties and Systemic Contribution Nexus." },
+      { id: "CECO-ART-151", title: "Co-Liability for Omission re: Third-Party Acts." },
+      { id: "CECO-ART-152", title: "Supremacy of Sensorial and Technical Evidence." },
+      { id: "CECO-ART-153", title: "Unenforceability of Non-Technical Challenges." },
+      { id: "CECO-ART-154", title: "Shielding against Political/Administrative Interference." },
+      { id: "CECO-ART-155", title: "Prevalence of Biophysical Reality over State Authorization." },
+      { id: "CECO-ART-156", title: "Limitation of Good Faith in Predictive Risks." },
+      { id: "CECO-ART-157", title: "Continuous Duty of Systemic Vigilance." },
+      { id: "CECO-ART-158", title: "Unenforceability of Conventional Exemptions." },
+      { id: "CECO-ART-159", title: "Systemic Risk Management Fund." },
+      { id: "CECO-ART-160", title: "Algorithmic Custody of Resources." },
+      { id: "CECO-ART-161", title: "Tripartite Governance of the Fund." },
+      { id: "CECO-ART-162", title: "Purpose-Bound Allocation of the Fund." },
+      { id: "CECO-ART-163", title: "Autonomous Execution of Expenditures." },
+      { id: "CECO-ART-164", title: "Suspension of Human Management in Critical States." },
+      { id: "CECO-ART-165", title: "Prohibition of Misuse of Funds." },
+      { id: "CECO-ART-166", title: "Unenforceability of Claims against the Fund." },
+      { id: "CECO-ART-167", title: "Traceability and Transparency of Fund Operations." },
+      { id: "CECO-ART-168", title: "Mandatory Initial Reserve." },
+      { id: "CECO-ART-169", title: "Composition and Liquidity of the Initial Reserve." },
+      { id: "CECO-ART-170", title: "Dynamic Updating of the Initial Reserve." },
+      { id: "CECO-ART-171", title: "Prohibition of Operation without Reversibility Capital." },
+      { id: "CECO-ART-172", title: "Entry Condition into the c-ƩCO Regime." },
+      { id: "CECO-ART-173", title: "Condition for Release of Execution Rights." },
+      { id: "CECO-ART-174", title: "Preferential Allocation of the Initial Reserve." },
+      { id: "CECO-ART-175", title: "Unenforceability of Insufficient Substitute Guarantees." },
+      { id: "CECO-ART-176", title: "Systemic Function of Restoration Providers." },
+      { id: "CECO-ART-177", title: "Mandatory Certification and Prior Approval." },
+      { id: "CECO-ART-178", title: "Legal Binding of Providers to the c-ƩCO Regime." },
+      { id: "CECO-ART-179", title: "Faithful Curatorship of the Systemic Trajectory." },
+      { id: "CECO-ART-180", title: "Guarantee of Technical Result." },
+      { id: "CECO-ART-181", title: "Algorithmic Subordination of Execution." },
+      { id: "CECO-ART-182", title: "Direct and Autonomous Execution." },
+      { id: "CECO-ART-183", title: "Joint Liability of the Provider." },
+      { id: "CECO-ART-184", title: "Substitution of the Provider." },
+      { id: "CECO-ART-185", title: "Mandatory Contingency List." },
+      { id: "CECO-ART-186", title: "Emergency Intervention." },
+      { id: "CECO-ART-187", title: "Affection of Provider Guarantees." },
+      { id: "CECO-ART-188", title: "Mandatory Order of Systemic Activation." },
+      { id: "CECO-ART-189", title: "Minimum Initialization Stages." },
+      { id: "CECO-ART-190", title: "Binding Technical–Legal Sequencing." },
+      { id: "CECO-ART-191", title: "Prohibition of Parallel/Fragmented Execution." },
+      { id: "CECO-ART-192", title: "Ineffectiveness of Misaligned External Acts." },
+      { id: "CECO-ART-193", title: "Mandatory Technical Record (Systemic Logs)." },
+      { id: "CECO-ART-194", title: "Permanent Auditability." },
+      { id: "CECO-ART-195", title: "Secure Termination of Execution." },
+      { id: "CECO-ART-196", title: "Prohibition of Fictitious or Formal Termination." },
+      { id: "CECO-ART-197", title: "Liability for Disruption of the Execution Chain." },
+      { id: "CECO-ART-198", title: "Application to Ongoing Contracts." },
+      { id: "CECO-ART-199", title: "Prohibition of Material Retroactivity." },
+      { id: "CECO-ART-200", title: "Voluntary Adhesion (Opt-In)." },
+      { id: "CECO-ART-201", title: "Full Binding Effect after Opt-In." },
+      { id: "CECO-ART-202", title: "Compatibility with Arbitration and Courts." },
+      { id: "CECO-ART-203", title: "Technical Autonomy vis-à-vis Litigation." },
+      { id: "CECO-ART-204", title: "Compatibility with Insolvency Regimes." },
+      { id: "CECO-ART-205", title: "Systemic Priority in Collective Proceedings." },
+      { id: "CECO-ART-206", title: "Transnational Recognition of the c-ƩCO Regime." },
+      { id: "CECO-ART-207", title: "Normative and Technical Interoperability." },
+      { id: "CECO-ART-208", title: "Systemic Safeguard Clause." },
+      { id: "CECO-ART-209", title: "Model Law and Normative Standard Nature." },
+      { id: "CECO-ART-210", title: "Supplementary and Interpretive Application." },
+      { id: "CECO-ART-211", title: "Systemic Integrity Clause." },
+      { id: "CECO-ART-212", title: "Prohibition of Waiver of Structural Principles." },
+      { id: "CECO-ART-213", title: "Finalistic and Evolutive Interpretation." },
+      { id: "CECO-ART-214", title: "Entry into Force." },
+    ];
+
+    const STATUTE_EXCERPTS = {
+      "ART 85": [
+        "State transitions shall produce automatic and binding legal effects upon the validity, enforceability, and continuity of obligations, independently of notice, manifestation of will by the parties, or any judicial/administrative/arbitral pronouncement."
+      ],
+      "ART 86": [
+        "Every state transition, alert issued, or trigger activation shall be recorded in immutable and auditable technical infrastructure, ensuring traceability, transparency, and integrity of systemic decisions."
+      ],
+      "ART 87": [
+        "Upon reaching the Orange or Red States, the systemic decisions recorded shall become legally irreversible for as long as the technical conditions that caused them persist, and their suspension or reversal by private agreement or non-technical decision is prohibited."
+      ],
+      "ART 88": [
+        "Automatic continuation of execution of contracts or operations after transition to alert/containment states is prohibited."
+      ],
+      "ART 97": [
+        "Automatic Duty of Cooperation (Join Duty) imposes immediate technical and informational cooperation whenever a systemic risk trajectory is identified."
+      ]
+    };
+
+    /* ============================================================
+       1) MAPEAMENTO DO DOM
+    ============================================================ */
     const inputField = document.getElementById('command-input');
     const executeBtn = document.getElementById('execute-btn');
-    const dynamicContent = document.getElementById('dynamic-content');
+    const consoleOutput = document.getElementById('console-output');
 
-    function createGlassResponse(payload) {
-        const div = document.createElement('div');
-        div.className = "fade-in space-y-8";
-        
-        div.innerHTML = `
-            <div class="section-divider"></div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="md:col-span-2 space-y-6">
-                    <div class="text-[10px] font-mono text-sigma/60 uppercase tracking-widest">Assessment Result</div>
-                    <div class="text-2xl font-extralight text-white leading-tight">
-                        ${payload.text || "Parâmetros analisados com sucesso. Trajetória confirmada dentro do Safe Operating Space."}
-                    </div>
-                    <div class="flex gap-4">
-                        ${payload.tags ? payload.tags.map(t => `<span class="px-3 py-1 border border-white/10 text-[9px] font-mono text-zinc-400 uppercase">${t}</span>`).join('') : ''}
-                    </div>
-                </div>
-                <div class="bg-white/[0.02] border border-white/5 p-6 rounded-sm">
-                    <div class="text-[9px] font-mono text-zinc-500 uppercase mb-4">State Probability</div>
-                    <div class="text-4xl font-light text-sigma mb-2">${payload.confidence || '94%'}</div>
-                    <div class="h-[1px] w-full bg-sigma/20"></div>
-                </div>
-            </div>
-        `;
-        return div;
+    const scrollToBottom = () => {
+      if (!consoleOutput) return;
+      consoleOutput.scrollTop = consoleOutput.scrollHeight;
+    };
+
+    /* ============================================================
+       2) UTILITÁRIOS / SANITIZAÇÃO
+    ============================================================ */
+    const escapeHtml = (str = '') =>
+      String(str).replace(/[&<>"']/g, (m) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
+      }[m]));
+
+    async function generateSigmaHash(text) {
+      try {
+        if (!window.crypto || !crypto.subtle) {
+          return ("NONSECURE-" + Math.random().toString(16).slice(2, 8)).toUpperCase();
+        }
+        const msgUint8 = new TextEncoder().encode(text);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        return hashHex.substring(0, 12).toUpperCase();
+      } catch (e) {
+        return ("HASHERR-" + Math.random().toString(16).slice(2, 8)).toUpperCase();
+      }
     }
 
-    executeBtn.addEventListener('click', () => {
-        const cmd = inputField.value;
-        if(!cmd) return;
-        
-        // Simulação de resposta integrada
-        const response = createGlassResponse({
-            text: `Análise técnica para "${cmd}" concluída. O Artigo 85 foi acionado preventivamente para garantir a estabilidade dos fluxos biofísicos.`,
-            tags: ['Art 85', 'Binding', 'Safe-Mode'],
-            confidence: '98.2%'
-        });
-        
-        dynamicContent.prepend(response);
-        inputField.value = '';
+    const normalizeCmd = (s='') => s.trim().replace(/\s+/g, ' ');
+
+    /* ============================================================
+       3) COMPONENTES DE UI COM VIDRO
+    ============================================================ */
+    function createUserMessage(text) {
+      const div = document.createElement('div');
+      div.className = "flex justify-end pl-12 mb-6 slide-in";
+      div.innerHTML = `
+        <div class="glass-response p-4 max-w-xl">
+          <span class="text-xs text-sigma/60 font-mono block mb-2 uppercase tracking-wide">Input Source: Human Agency ></span>
+          <p class="text-sm font-mono text-zinc-300">${escapeHtml(text)}</p>
+        </div>`;
+      return div;
+    }
+
+    function createSystemMessage(html, isAlert, proofId) {
+      const div = document.createElement('div');
+      div.className = "flex justify-start pr-12 mb-6 slide-in";
+      const borderColor = isAlert ? "border-red-500/50" : "border-sigma/50";
+      const header = isAlert ? "[ PREDICTIVE ALERT ]" : "[ TRAJECTORY ASSESSMENT ]";
+      const headerColor = isAlert ? "text-red-400" : "text-sigma/80";
+
+      div.innerHTML = `
+        <div class="w-full">
+          <div class="glass-response p-6 md:p-8">
+            <div class="flex gap-4 mb-5 font-mono text-xs ${headerColor} tracking-wide uppercase border-b border-white/10 pb-4">
+              <span class="font-medium flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full ${isAlert ? 'bg-red-500' : 'bg-sigma'} animate-pulse"></span>
+                ${header}
+              </span>
+              <span class="text-zinc-500">PROOF-ID: ${escapeHtml(proofId || "—")}</span>
+            </div>
+            <div class="text-zinc-300 font-light">
+              ${html}
+            </div>
+          </div>
+        </div>`;
+      return div;
+    }
+
+    function renderCECOOutput(payload) {
+      const refs = (arr) =>
+        (arr || []).map(r =>
+          `<code class="text-xs bg-white/5 px-2 py-1 font-mono text-sigma/80 rounded border border-white/5">${escapeHtml(r)}</code>`
+        ).join(' ');
+
+      const triggersHtml = (payload.triggers && payload.triggers.length)
+        ? payload.triggers.map(t => `<div class="text-sm mb-2 text-zinc-300 flex items-start gap-2"><span class="text-sigma mt-1">▶</span> <span>${escapeHtml(t)}</span></div>`).join('')
+        : '<span class="text-zinc-500 text-sm italic">No triggers activated.</span>';
+
+      const effectsHtml = (payload.effects || []).map(e => `<li class="mb-2 leading-relaxed">${escapeHtml(e)}</li>`).join('');
+
+      return `
+        <div class="space-y-6">
+          <section>
+            <h3 class="text-white font-tech text-xs uppercase tracking-widest border-b border-white/10 mb-4 pb-2 font-semibold flex items-center gap-2">
+              <span class="w-1 h-1 bg-sigma rounded-full"></span>
+              A) Systemic State
+            </h3>
+            <div class="flex items-center gap-3 mb-3">
+              <span class="px-3 py-1.5 rounded-md bg-sigma/10 border border-sigma/30 text-sigma text-xs font-mono font-medium">${escapeHtml(payload.state)}</span>
+              <span class="text-xs text-zinc-500 font-mono">CONFIDENCE: ${escapeHtml(payload.confidence)}</span>
+            </div>
+            <p class="text-xs text-zinc-400">Basis: ${refs(payload.state_basis)}</p>
+          </section>
+
+          <section>
+            <h3 class="text-white font-tech text-xs uppercase tracking-widest border-b border-white/10 mb-4 pb-2 font-semibold flex items-center gap-2">
+              <span class="w-1 h-1 bg-sigma rounded-full"></span>
+              B) Mandatory Triggers
+            </h3>
+            ${triggersHtml}
+          </section>
+
+          <section>
+            <h3 class="text-white font-tech text-xs uppercase tracking-widest border-b border-white/10 mb-4 pb-2 font-semibold flex items-center gap-2">
+              <span class="w-1 h-1 bg-sigma rounded-full"></span>
+              C) Binding Legal Effects
+            </h3>
+            <ul class="list-disc pl-5 space-y-2 text-sm text-zinc-300">${effectsHtml}</ul>
+          </section>
+
+          <section class="bg-blue-950/20 p-5 border-l-2 border-blue-500/40 rounded-r-lg">
+            <h3 class="text-blue-400 font-tech text-xs uppercase tracking-widest mb-3 font-semibold flex items-center gap-2">
+              <span class="w-1 h-1 bg-blue-400 rounded-full"></span>
+              D) Proof & Immutable Logs
+            </h3>
+            <p class="text-sm font-mono text-zinc-400 leading-relaxed">${escapeHtml(payload.proof || '')}</p>
+            <div class="mt-3 text-xs text-blue-300/60 uppercase font-mono">
+              Evidence Bound: ${refs(payload.proof_basis)}
+            </div>
+          </section>
+        </div>
+      `;
+    }
+
+    function appendAuditLog(entry) {
+      const container = document.getElementById('audit-logs');
+      if (!container) return;
+
+      const placeholder = container.querySelector('.italic');
+      if (placeholder) placeholder.remove();
+
+      const ts = new Date().toISOString().replace('T', ' ').slice(0, 19);
+      const div = document.createElement('div');
+      div.className = "border-l-2 border-white/10 pl-3 slide-in py-1";
+
+      div.innerHTML = `
+        <div class="text-xs font-mono text-zinc-500 mb-0.5">${escapeHtml(ts)}</div>
+        <div class="text-xs font-mono text-zinc-300 leading-relaxed">${escapeHtml(entry)}</div>
+      `;
+
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    /* ============================================================
+       4) SIDEBAR (Tripartite + Gap) + Blind Interval
+    ============================================================ */
+    function updateSidebar(payload) {
+      const humanFill = document.querySelector('#bar-human > div');
+      const algFill = document.querySelector('#bar-algorithmic > div');
+      const ecoFill = document.querySelector('#bar-ecological > div');
+
+      const humanTxt = document.getElementById('status-human');
+      const algTxt = document.getElementById('status-alg');
+      const ecoTxt = document.getElementById('status-eco');
+
+      const gapStatus = document.getElementById('gap-status');
+      const gapIndicator = document.getElementById('gap-indicator');
+
+      if (!humanFill || !algFill || !ecoFill || !gapStatus || !gapIndicator) return;
+
+      const setFill = (fillEl, labelEl, width, label, bgClass, textClass) => {
+        fillEl.style.width = `${width}%`;
+        fillEl.className = `h-full transition-all duration-1000 rounded-full ${bgClass}`;
+        if (labelEl) {
+          labelEl.textContent = label;
+          labelEl.className = `${textClass} font-medium`;
+        }
+      };
+
+      const state = String(payload.state || "").toUpperCase();
+      const score = Number(payload.confidence_score ?? 80);
+
+      // Gap indicator
+      const clamped = Math.max(5, Math.min(95, score));
+      gapIndicator.style.left = `${clamped}%`;
+
+      if (score < 60) {
+        gapStatus.textContent = "BLIND INTERVAL";
+        gapStatus.className = "text-red-500 animate-pulse font-medium";
+      } else {
+        gapStatus.textContent = "MONITORING";
+        gapStatus.className = "text-zinc-400 font-medium status-pulse";
+      }
+
+      if (state.includes("RED")) {
+        setFill(humanFill, humanTxt, 20, "DELETED", "bg-red-500", "text-red-400");
+        setFill(algFill, algTxt, 98, "CRITICAL", "bg-red-500", "text-red-400");
+        setFill(ecoFill, ecoTxt, 100, "COLLAPSE", "bg-red-500", "text-red-400");
+      } else if (state.includes("ORANGE")) {
+        setFill(humanFill, humanTxt, 40, "SUSPENDED", "bg-orange-500", "text-orange-400");
+        setFill(algFill, algTxt, 80, "HIGH LOAD", "bg-orange-500", "text-orange-400");
+        setFill(ecoFill, ecoTxt, 65, "WARNING", "bg-orange-500", "text-orange-400");
+      } else {
+        setFill(humanFill, humanTxt, 60, "ACTIVE", "bg-green-500", "text-green-400");
+        setFill(algFill, algTxt, 40, "OPTIMAL", "bg-sigma", "text-sigma");
+        setFill(ecoFill, ecoTxt, 30, "STABLE", "bg-green-700", "text-green-400");
+      }
+    }
+
+    function applyBlindInterval(payload) {
+      const sidebar = document.getElementById('system-sidebar');
+      if (!sidebar) return;
+      const score = Number(payload.confidence_score ?? 80);
+
+      if (score < 60) {
+        sidebar.classList.add('opacity-30', 'blur-[2px]', 'pointer-events-none');
+      } else {
+        sidebar.classList.remove('opacity-30', 'blur-[2px]', 'pointer-events-none');
+      }
+    }
+
+    /* ============================================================
+       5) ENGINE DECISIONAL (CORE)
+    ============================================================ */
+    function findCode(query) {
+      const q = query.toUpperCase();
+      return CECO_CODES.find(c => c.id === q) || null;
+    }
+
+    function listCodesSample() {
+      const must = ["CECO-ART-001","CECO-ART-015","CECO-ART-035","CECO-ART-044","CECO-ART-048","CECO-ART-085","CECO-ART-086","CECO-ART-097","CECO-ART-159","CECO-ART-176","CECO-ART-206","CECO-ART-214"];
+      const picked = CECO_CODES.filter(c => must.includes(c.id));
+      return picked.map(c => `${c.id} — ${c.title}`);
+    }
+
+    function decide(commandRaw) {
+      const command = normalizeCmd(commandRaw);
+      const lower = command.toLowerCase();
+      const state_basis = ["CECO-ART-083", "CECO-ART-085"];
+
+      if (lower === "index" || lower.includes("sumário") || lower.includes("indice")) {
+        return {
+          state: "GREEN / REFERENCE",
+          confidence: "STABLE",
+          confidence_score: 85,
+          state_basis,
+          triggers: ["Reference Query"],
+          effects: CECO_INDEX.map(x => `${x.k} — ${x.t}`),
+          proof: "Index snapshot loaded (local).",
+          proof_basis: ["CECO-MEM-000"],
+          isAlert: false
+        };
+      }
+
+      if (lower === "code" || lower === "codes" || lower.includes("lista de códigos")) {
+        return {
+          state: "GREEN / REFERENCE",
+          confidence: "STABLE",
+          confidence_score: 85,
+          state_basis,
+          triggers: ["Codebook Query"],
+          effects: listCodesSample(),
+          proof: "AI CODES codebook loaded (local).",
+          proof_basis: ["CECO-PRE-000"],
+          isAlert: false
+        };
+      }
+
+      const artMatch = lower.match(/\bart\s*\.?\s*(\d{1,3})\b/);
+      if (artMatch) {
+        const key = `ART ${artMatch[1]}`;
+        const lines = STATUTE_EXCERPTS[key] || null;
+        return {
+          state: "GREEN / REFERENCE",
+          confidence: lines ? "STABLE" : "LIMITED",
+          confidence_score: lines ? 85 : 70,
+          state_basis,
+          triggers: ["Statute Query"],
+          effects: lines ? lines : [`Não achei o trecho embutido para ${key}.`],
+          proof: `Lookup: ${key}`,
+          proof_basis: lines ? [key] : ["CECO-MEM-000"],
+          isAlert: false
+        };
+      }
+
+      if (lower.includes("iex") || lower.includes("inexequ")) {
+        return {
+          state: "RED / CRITICAL",
+          confidence: "40% (UNCERTAIN)",
+          confidence_score: 40,
+          state_basis,
+          triggers: ["Ex-Ante Unenforceability (IEX)", "Trajectory Lock"],
+          effects: [
+            "Immediate suspension of any executive action.",
+            "The trajectory is aggravated and Execution is blocked.",
+            "Automatic and enforceable effects (erga omnes) based on technical grounds."
+          ],
+          proof: "Certified sensory + legal data (state lock).",
+          proof_basis: ["CECO-ART-015", "CECO-ART-016", "CECO-ART-018", "CECO-ART-086"],
+          isAlert: true
+        };
+      }
+
+      if (lower.includes("safe")) {
+        return {
+          state: "ORANGE / CONTAINMENT",
+          confidence: "HIGH",
+          confidence_score: 72,
+          state_basis,
+          triggers: ["Safe Mode Protocol"],
+          effects: [
+            "Activation of Safe Mode (coordinated suspension).",
+            "Modulation of interdependent obligations.",
+            "Waiver of penalties associated with the suspension."
+          ],
+          proof: "Containment logs active.",
+          proof_basis: ["CECO-ART-044", "CECO-ART-045", "CECO-ART-047", "CECO-ART-086"],
+          isAlert: true
+        };
+      }
+
+      if (lower.includes("status")) {
+        return {
+          state: "YELLOW / MONITORING",
+          confidence: "STABLE",
+          confidence_score: 68,
+          state_basis,
+          triggers: ["Reinforced Monitoring"],
+          effects: [
+            "Execution permitted under continuous monitoring.",
+            "Automatic continuation is prohibited if a critical transition occurs."
+          ],
+          proof: "Continuous stream active.",
+          proof_basis: ["CECO-ART-086", "CECO-ART-088"],
+          isAlert: false
+        };
+      }
+
+      return {
+        state: "GREEN / COMPATIBLE",
+        confidence: "STABLE",
+        confidence_score: 85,
+        state_basis,
+        triggers: [],
+        effects: [
+          "Trajectory compatible with declared parameters.",
+          "Execution permitted under continuous monitoring."
+        ],
+        proof: "No critical triggers detected.",
+        proof_basis: ["CECO-ART-001", "CECO-ART-012"],
+        isAlert: false
+      };
+    }
+
+    /* ============================================================
+       6) ORQUESTRADOR (Interface)
+    ============================================================ */
+    async function executeCommand() {
+      if (!inputField || !consoleOutput) return;
+
+      const command = normalizeCmd(inputField.value);
+      if (!command) return;
+
+      // user msg
+      consoleOutput.appendChild(createUserMessage(command));
+      inputField.value = '';
+      scrollToBottom();
+
+      // loader
+      const loader = document.createElement('div');
+      loader.className = "flex items-center gap-3 p-4 slide-in";
+      loader.innerHTML = `<div class="w-3 h-3 bg-sigma animate-ping rounded-full"></div><span class="text-xs font-mono text-sigma uppercase tracking-wide">Running Sieve Analysis...</span>`;
+      consoleOutput.appendChild(loader);
+      scrollToBottom();
+
+      setTimeout(async () => {
+        loader.remove();
+
+        const payload = decide(command);
+
+        // Prova sistêmica (SHA-256)
+        const ts = new Date().toISOString();
+        const rawData = `${command}|${payload.state}|${payload.confidence_score ?? ''}|${ts}`;
+        const proofId = await generateSigmaHash(rawData);
+
+        // atualizar sidebar + blind interval
+        updateSidebar(payload);
+        applyBlindInterval(payload);
+
+        // audit log
+        appendAuditLog(`TS=${ts} | CMD="${command.toUpperCase()}" | STATE=${payload.state} | SIGMA-SHA256-${proofId}`);
+
+        // render output
+        const html = renderCECOOutput(payload);
+        const sysMsg = createSystemMessage(html, payload.isAlert, proofId);
+        consoleOutput.appendChild(sysMsg);
+        scrollToBottom();
+      }, 900);
+    }
+
+    executeBtn?.addEventListener('click', executeCommand);
+    inputField?.addEventListener('keydown', (e) => { 
+      if (e.key === 'Enter') executeCommand(); 
     });
+
+  });
   </script>
 </body>
 </html>
+
