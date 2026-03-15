@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="color-scheme" content="dark">
-  <title>c‑ECO // Decisional Guardian Terminal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta name="color-scheme" content="dark" />
+  <title>c-ECO // Decisional Guardian Terminal</title>
 
-  <!-- Fonts (CORRIGIDO) -->
+  <!-- ✅ Fonts (CORRIGIDO) -->
   https://fonts.googleapis.com
   https://fonts.gstatic.com
   https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Rajdhani:wght@300;400;500&family=Inter:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap
 
-  <!-- Tailwind (CORRIGIDO) -->
+  <!-- ✅ Tailwind (CORRIGIDO) -->
   https://cdn.tailwindcss.com</script>
   <script>
     tailwind.config = {
@@ -47,6 +47,14 @@
       background: radial-gradient(circle at 50% 50%, var(--obsidian-mist) 0%, var(--obsidian-deep) 90%);
       color:#e0e0e0;
       font-family: Inter, system-ui, sans-serif;
+    }
+
+    /* ✅ iOS viewport fix (100vh quebra no Safari) */
+    .vh-panel{
+      height: calc(100vh - 8rem);
+    }
+    @supports (height: 100dvh){
+      .vh-panel{ height: calc(100dvh - 8rem); }
     }
 
     /* Background grid */
@@ -106,7 +114,7 @@
       border-bottom: 1px solid rgba(255,255,255,0.06);
     }
 
-    /* === VIDRO com shine + dourado === */
+    /* === GLASS: shine + dourado === */
     .glass-response{
       background: rgba(0,0,0,0.62);
       backdrop-filter: blur(14px);
@@ -116,7 +124,7 @@
       box-shadow: 0 0 40px rgba(0,0,0,1);
       position: relative;
       overflow: hidden;
-      transition: transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s cubic-bezier(.2,.8,.2,1), border-color .35s ease;
+      transition: all .5s cubic-bezier(.2,.8,.2,1);
     }
     .glass-response::after{
       content:"";
@@ -218,7 +226,7 @@
     }
 
     /* Tooltip */
-    .tipwrap{ position: relative; display: inline-flex; align-items:center; }
+    .tipwrap{ position:relative; }
     .tip{
       position:absolute;
       top: 52px;
@@ -236,7 +244,7 @@
       letter-spacing: .22em;
       text-transform: uppercase;
       color: rgba(255,255,255,0.80);
-      z-index: 60;
+      z-index: 50;
     }
     .tipwrap:hover .tip,
     .tipwrap:focus-within .tip{ opacity:1; transform: translateY(0); }
@@ -249,16 +257,13 @@
 
     ::selection{ background: rgba(197,160,101,0.55); color: #0b0b0c; }
 
-    /* Mobile stability */
-    @media (max-width: 768px){
-      #console-output{ -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
+    /* ✅ Safe area iOS p/ input não ficar por trás da barra */
+    .safe-bottom{
+      padding-bottom: calc(1rem + env(safe-area-inset-bottom));
     }
 
-    /* Acessibilidade: reduz animações se o usuário preferir */
-    @media (prefers-reduced-motion: reduce){
-      .holo-grid{ animation: none !important; }
-      .glass-response::after{ animation: none !important; opacity: .25 !important; }
-      .status-pulse{ animation: none !important; text-shadow: none !important; }
+    @media (max-width: 768px){
+      #console-output{ -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
     }
   </style>
 </head>
@@ -271,19 +276,18 @@
   </div>
   <div class="scanline-overlay" aria-hidden="true"></div>
 
-  <!-- HEADER -->
+  <!-- ✅ HEADER (CORRIGIDO: links e tags quebradas) -->
   <header class="h-16 header-glass flex items-center justify-between px-4 sm:px-6 z-40 relative">
     <div class="flex items-center gap-4">
       <div class="w-10 h-10 flex items-center justify-center border border-white/10 bg-white/5 rounded-[10px] glass-response">
         <div class="hud-lines"></div>
-        <span class="font-orbit text-[color:var(--gold-sovereign)] text-2xl" aria-hidden="true">Σ</span>
-        <span class="sr-only">Sigma Terminal</span>
+        <span class="font-orbit text-[color:var(--gold-sovereign)] text-2xl">Σ</span>
       </div>
-      <div class="flex flex-col">
-        <h1 class="font-tech text-xs sm:text-sm tracking-[0.28em] text-white uppercase font-semibold">
-          c‑ECO AI Protocol
+      <div class="flex flex-col min-w-0">
+        <h1 class="font-tech text-xs sm:text-sm tracking-[0.28em] text-white uppercase font-semibold truncate">
+          c-ECO AI Protocol
         </h1>
-        <span class="text-[10px] sm:text-xs text-zinc-500 uppercase tracking-wider font-tech">
+        <span class="text-[10px] sm:text-xs text-zinc-500 uppercase tracking-wider font-tech truncate">
           Decisional Guardian v1.0 <span class="status-pulse">(Stable)</span>
         </span>
       </div>
@@ -296,15 +300,15 @@
 
     <div class="flex items-center gap-2 sm:gap-3">
 
-      <!-- TDR Framework -->
+      <!-- ✅ TDR Framework (CORRIGIDO: <a> completo) -->
       tdr-framework.html
-        <span aria-hidden="true">◆</span>
+        <span>◆</span>
         <span class="hidden sm:inline">TDR‑Framework</span>
         <span class="sm:hidden">TDR</span>
-        <span class="opacity-80" aria-hidden="true">→</span>
+        <span class="opacity-80">→</span>
       </a>
 
-      <!-- System Architecture -->
+      <!-- ✅ System Architecture (CORRIGIDO: <a> completo + svg com tamanho real via Tailwind) -->
       system-architecture.html
         <div class="hud-lines"></div>
         <svg class="w-4 h-4 text-[color:var(--gold-sovereign)] relative" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -324,13 +328,14 @@
   <!-- MAIN -->
   <main class="flex-1 relative z-10 overflow-hidden">
     <section class="max-w-6xl mx-auto h-full px-3 sm:px-4 py-4">
-      <div class="glass-response h-[calc(100vh-8rem)] flex flex-col">
+      <!-- ✅ painel principal com viewport fix (vh/dvh) -->
+      <div class="glass-response vh-panel flex flex-col">
         <div class="hud-lines"></div>
 
         <!-- TOP STRIP -->
         <div class="relative px-4 sm:px-6 py-3 flex items-center justify-between">
           <div class="flex items-center gap-3 min-w-0">
-            <span class="text-[color:var(--gold-sovereign)] text-sm" aria-hidden="true">◆</span>
+            <span class="text-[color:var(--gold-sovereign)] text-sm">◆</span>
             <span class="font-tech text-[10px] sm:text-xs tracking-[0.28em] text-zinc-400 uppercase truncate">
               Context: <span class="text-zinc-100">State Machine Monitoring</span>
               <span class="mx-2 text-zinc-700">//</span>
@@ -342,9 +347,10 @@
 
         <div class="sectiondivider"></div>
 
+        <!-- CONTENT GRID -->
         <div class="flex-1 overflow-hidden grid grid-cols-1 lg:grid-cols-2 gap-0">
 
-          <!-- CONSOLE -->
+          <!-- COLUNA TEXTO (console) -->
           <div class="flex flex-col overflow-hidden">
             <div id="console-output"
                  class="flex-1 overflow-y-auto px-4 sm:px-6 py-5 space-y-4 sm:space-y-6 pb-28 sm:pb-6">
@@ -398,18 +404,16 @@
                         </div>
                       </div>
                     </div>
-
                   </div>
                 </div>
               </div>
 
             </div>
 
-            <!-- INPUT -->
-            <div class="px-3 sm:px-6 pt-2 pb-4 sticky bottom-0 z-30 bg-black/35 backdrop-blur">
+            <!-- INPUT (✅ safe-area no iOS) -->
+            <div class="px-3 sm:px-6 pt-2 sticky bottom-0 z-30 bg-black/35 backdrop-blur safe-bottom">
               <div class="glass-input relative flex items-center p-1">
-                <span class="pl-4 pr-3 text-[color:var(--gold-sovereign)] font-orbit text-lg font-bold" aria-hidden="true">Σ</span>
-                <label class="sr-only" for="command-input">Comando</label>
+                <span class="pl-4 pr-3 text-[color:var(--gold-sovereign)] font-orbit text-lg font-bold">Σ</span>
                 <input type="text" id="command-input" placeholder="Enter systemic parameters..."
                        class="w-full bg-transparent border-none text-[13px] sm:text-sm text-white placeholder-zinc-600 focus:ring-0 px-2 py-4 font-mono focus:outline-none" />
                 <button id="execute-btn"
@@ -424,7 +428,7 @@
             </div>
           </div>
 
-          <!-- VISUAL -->
+          <!-- COLUNA VISUAL (globo + gráficos) -->
           <div class="relative border-t lg:border-t-0 lg:border-l border-white/5 overflow-hidden">
             <div class="flex flex-col h-full overflow-hidden">
 
@@ -440,6 +444,7 @@
                     </span>
                   </div>
 
+                  <!-- GLOBO CANVAS -->
                   <div class="mt-4 relative">
                     <canvas id="globeCanvas" class="w-full aspect-square rounded-[10px] border border-white/10 bg-black/30"></canvas>
                     <div class="absolute bottom-3 left-3 text-[10px] sm:text-xs font-mono tracking-widest text-zinc-400 uppercase">
@@ -512,8 +517,8 @@
             </div>
           </div>
 
-        </div>
-      </div>
+        </div><!-- /grid -->
+      </div><!-- /glass main -->
     </section>
   </main>
 
@@ -525,6 +530,12 @@
       </p>
     </div>
   </footer>
+
+  <noscript>
+    <div style="position:fixed;left:12px;right:12px;bottom:12px;padding:12px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.75);border-radius:10px;z-index:9999;color:#fff;font-family:Inter,system-ui,sans-serif">
+      Este terminal precisa de JavaScript habilitado.
+    </div>
+  </noscript>
 
   <script>
     /* ============================================================
@@ -580,7 +591,7 @@
     const normalizeCmd = (s='') => s.trim().replace(/\s+/g, ' ');
 
     /* ============================================================
-       3) UI
+       3) COMPONENTES UI
        ============================================================ */
     function createUserMessage(text){
       const div = document.createElement('div');
@@ -856,25 +867,18 @@
     inputField?.addEventListener('keydown', (e) => { if (e.key === 'Enter') executeCommand(); });
 
     /* ============================================================
-       6) GLOBO HUD (Canvas) — otimizado
+       6) GLOBO HUD (Canvas)
        ============================================================ */
     (function initGlobe(){
       const canvas = document.getElementById('globeCanvas');
       if (!canvas) return;
-
       const ctx = canvas.getContext('2d', { alpha: true });
-      let cssW = 1, cssH = 1, dpr = 1;
 
       function resize(){
-        dpr = Math.min(2, window.devicePixelRatio || 1);
+        const dpr = Math.min(2, window.devicePixelRatio || 1);
         const rect = canvas.getBoundingClientRect();
-        cssW = Math.max(1, rect.width);
-        cssH = Math.max(1, rect.height);
-
-        canvas.width  = Math.max(1, Math.floor(cssW * dpr));
-        canvas.height = Math.max(1, Math.floor(cssH * dpr));
-
-        // Coordenadas em CSS px
+        canvas.width  = Math.max(1, Math.floor(rect.width  * dpr));
+        canvas.height = Math.max(1, Math.floor(rect.height * dpr));
         ctx.setTransform(dpr,0,0,dpr,0,0);
       }
 
@@ -883,8 +887,9 @@
       function draw(){
         t += 0.002;
 
-        const w = cssW;
-        const h = cssH;
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width;
+        const h = rect.height;
 
         ctx.clearRect(0,0,w,h);
 
@@ -918,7 +923,6 @@
 
         ctx.lineWidth = 1;
 
-        // latitude
         for (let i= -60; i<=60; i+=20){
           const phi = i * Math.PI/180;
           ctx.beginPath();
@@ -938,7 +942,6 @@
           ctx.stroke();
         }
 
-        // longitude
         for (let i=0; i<180; i+=20){
           const th0 = (i*Math.PI/180) + rot;
           ctx.beginPath();
@@ -958,7 +961,6 @@
           ctx.stroke();
         }
 
-        // highlight dourado
         const grad = ctx.createRadialGradient(cx - r*0.35, cy - r*0.25, r*0.1, cx, cy, r*1.2);
         grad.addColorStop(0, 'rgba(197,160,101,0.30)');
         grad.addColorStop(0.35, 'rgba(197,160,101,0.10)');
@@ -969,7 +971,6 @@
         ctx.fillStyle = grad;
         ctx.fill();
 
-        // sweep
         const sweepY = (Math.sin(t*0.9) * 0.45 + 0.5) * (2*r) + (cy-r);
         ctx.save();
         ctx.beginPath();
@@ -986,7 +987,6 @@
         requestAnimationFrame(draw);
       }
 
-      // Resize hooks
       if ('ResizeObserver' in window){
         const ro = new ResizeObserver(resize);
         ro.observe(canvas);
