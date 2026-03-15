@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="color-scheme" content="dark">
+  <title>c‑ECO // Decisional Guardian Terminal</title>
 
-  <title>c-ECO // Decisional Guardian Terminal</title>
-
-  <!-- Fonts (igual sua linguagem do portal) -->
+  <!-- Fonts (CORRIGIDO) -->
   https://fonts.googleapis.com
   https://fonts.gstatic.com
   https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Rajdhani:wght@300;400;500&family=Inter:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap
 
-  https://cdn.tailwindcss.comscript>
+  <!-- Tailwind (CORRIGIDO) -->
+  https://cdn.tailwindcss.com</script>
   <script>
     tailwind.config = {
       theme: {
@@ -48,7 +49,7 @@
       font-family: Inter, system-ui, sans-serif;
     }
 
-    /* Background grid (no espírito do portal/terminal) */
+    /* Background grid */
     .bg-grid{
       position:fixed; inset:0; z-index:0;
       background: radial-gradient(circle at 50% 50%, var(--obsidian-mist) 0%, var(--obsidian-deep) 90%);
@@ -63,6 +64,7 @@
       animation: gridMove 30s linear infinite;
       pointer-events:none;
       mask-image: radial-gradient(circle, black 30%, transparent 80%);
+      -webkit-mask-image: radial-gradient(circle, black 30%, transparent 80%);
       opacity:.9;
     }
     @keyframes gridMove{
@@ -85,7 +87,7 @@
       opacity:.32;
     }
 
-    /* Divider (como você mencionou no PDF) */
+    /* Divider */
     .sectiondivider{
       height:1px;
       background: linear-gradient(90deg,
@@ -104,7 +106,7 @@
       border-bottom: 1px solid rgba(255,255,255,0.06);
     }
 
-    /* === VIDRO com DNA do index: shine + dourado === */
+    /* === VIDRO com shine + dourado === */
     .glass-response{
       background: rgba(0,0,0,0.62);
       backdrop-filter: blur(14px);
@@ -114,7 +116,7 @@
       box-shadow: 0 0 40px rgba(0,0,0,1);
       position: relative;
       overflow: hidden;
-      transition: all .5s cubic-bezier(.2,.8,.2,1);
+      transition: transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s cubic-bezier(.2,.8,.2,1), border-color .35s ease;
     }
     .glass-response::after{
       content:"";
@@ -158,9 +160,10 @@
       opacity:.22;
       pointer-events:none;
       mask-image: radial-gradient(circle at 30% 20%, black 12%, transparent 60%);
+      -webkit-mask-image: radial-gradient(circle at 30% 20%, black 12%, transparent 60%);
     }
 
-    /* Gold pulse (como seu portal) */
+    /* Gold pulse */
     .status-pulse{
       color: var(--gold-sovereign);
       animation: goldPulse 4s ease-in-out infinite;
@@ -215,6 +218,7 @@
     }
 
     /* Tooltip */
+    .tipwrap{ position: relative; display: inline-flex; align-items:center; }
     .tip{
       position:absolute;
       top: 52px;
@@ -232,6 +236,7 @@
       letter-spacing: .22em;
       text-transform: uppercase;
       color: rgba(255,255,255,0.80);
+      z-index: 60;
     }
     .tipwrap:hover .tip,
     .tipwrap:focus-within .tip{ opacity:1; transform: translateY(0); }
@@ -248,27 +253,35 @@
     @media (max-width: 768px){
       #console-output{ -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
     }
+
+    /* Acessibilidade: reduz animações se o usuário preferir */
+    @media (prefers-reduced-motion: reduce){
+      .holo-grid{ animation: none !important; }
+      .glass-response::after{ animation: none !important; opacity: .25 !important; }
+      .status-pulse{ animation: none !important; text-shadow: none !important; }
+    }
   </style>
 </head>
 
 <body class="min-h-screen flex flex-col text-zinc-200">
 
   <!-- Background -->
-  <div class="bg-grid">
+  <div class="bg-grid" aria-hidden="true">
     <div class="holo-grid"></div>
   </div>
-  <div class="scanline-overlay"></div>
+  <div class="scanline-overlay" aria-hidden="true"></div>
 
-  <!-- HEADER (botões subidos para junto do terminal, como você pediu no PDF) -->
+  <!-- HEADER -->
   <header class="h-16 header-glass flex items-center justify-between px-4 sm:px-6 z-40 relative">
     <div class="flex items-center gap-4">
       <div class="w-10 h-10 flex items-center justify-center border border-white/10 bg-white/5 rounded-[10px] glass-response">
         <div class="hud-lines"></div>
-        <span class="font-orbit text-[color:var(--gold-sovereign)] text-2xl">Σ</span>
+        <span class="font-orbit text-[color:var(--gold-sovereign)] text-2xl" aria-hidden="true">Σ</span>
+        <span class="sr-only">Sigma Terminal</span>
       </div>
       <div class="flex flex-col">
         <h1 class="font-tech text-xs sm:text-sm tracking-[0.28em] text-white uppercase font-semibold">
-          c-ECO AI Protocol
+          c‑ECO AI Protocol
         </h1>
         <span class="text-[10px] sm:text-xs text-zinc-500 uppercase tracking-wider font-tech">
           Decisional Guardian v1.0 <span class="status-pulse">(Stable)</span>
@@ -283,20 +296,18 @@
 
     <div class="flex items-center gap-2 sm:gap-3">
 
-      <!-- TDR Framework (botão de vidro aparente) -->
-      tdr-framework.html]">
-        <span>◆</span>
+      <!-- TDR Framework -->
+      tdr-framework.html
+        <span aria-hidden="true">◆</span>
         <span class="hidden sm:inline">TDR‑Framework</span>
         <span class="sm:hidden">TDR</span>
-        <span class="opacity-80">→</span>
+        <span class="opacity-80" aria-hidden="true">→</span>
       </a>
 
-      <!-- Settings / System Architecture -->
-      system-architecture.html]
-                transition glass-response"
-         aria-label="System Architecture">
+      <!-- System Architecture -->
+      system-architecture.html
         <div class="hud-lines"></div>
-        <svg class="w-4 h-4 text-[color:var(--gold-sovereign)] relative" viewBox="0 0 24 24" fill="none">
+        <svg class="w-4 h-4 text-[color:var(--gold-sovereign)] relative" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" stroke="currentColor" stroke-width="1.5"/>
           <path d="M19.4 15a7.9 7.9 0 0 0 .1-1l1.7-1.3-1.6-2.8-2 .8a7 7 0 0 0-.8-.5l-.3-2.1H9.5l-.3 2.1a7 7 0 0 0-.8.5l-2-.8-1.6 2.8L6.6 14a7.9 7.9 0 0 0 .1 1l-1.7 1.3 1.6 2.8 2-.8c.3.2.5.4.8.5l.3 2.1h5.9l.3-2.1c.3-.1.6-.3.8-.5l2 .8 1.6-2.8L19.4 15Z" stroke="currentColor" stroke-width="1.5" opacity=".85"/>
         </svg>
@@ -304,8 +315,7 @@
       </a>
 
       <!-- Exit -->
-      <button class="text-[10px] sm:text-xs font-tech tracking-[0.22em] uppercase text-zinc-400 hover:text-[color:var(--gold-sovereign)] transition"
-              onclick="window.location.href='index.html'">
+      index.html
         Exit
       </button>
     </div>
@@ -314,14 +324,13 @@
   <!-- MAIN -->
   <main class="flex-1 relative z-10 overflow-hidden">
     <section class="max-w-6xl mx-auto h-full px-3 sm:px-4 py-4">
-      <!-- “tela única” (painel principal) -->
       <div class="glass-response h-[calc(100vh-8rem)] flex flex-col">
         <div class="hud-lines"></div>
 
-        <!-- TOP STRIP dentro do painel -->
+        <!-- TOP STRIP -->
         <div class="relative px-4 sm:px-6 py-3 flex items-center justify-between">
           <div class="flex items-center gap-3 min-w-0">
-            <span class="text-[color:var(--gold-sovereign)] text-sm">◆</span>
+            <span class="text-[color:var(--gold-sovereign)] text-sm" aria-hidden="true">◆</span>
             <span class="font-tech text-[10px] sm:text-xs tracking-[0.28em] text-zinc-400 uppercase truncate">
               Context: <span class="text-zinc-100">State Machine Monitoring</span>
               <span class="mx-2 text-zinc-700">//</span>
@@ -333,13 +342,13 @@
 
         <div class="sectiondivider"></div>
 
-        <!-- CONTENT GRID: Opção 1 (mobile 1 col / desktop 2 col) -->
         <div class="flex-1 overflow-hidden grid grid-cols-1 lg:grid-cols-2 gap-0">
 
-          <!-- COLUNA TEXTO (console) -->
+          <!-- CONSOLE -->
           <div class="flex flex-col overflow-hidden">
             <div id="console-output"
                  class="flex-1 overflow-y-auto px-4 sm:px-6 py-5 space-y-4 sm:space-y-6 pb-28 sm:pb-6">
+
               <!-- Mensagem inicial -->
               <div class="flex justify-start">
                 <div class="w-full">
@@ -389,16 +398,18 @@
                         </div>
                       </div>
                     </div>
+
                   </div>
                 </div>
               </div>
 
             </div>
 
-            <!-- INPUT (sticky no mobile; dentro do painel) -->
+            <!-- INPUT -->
             <div class="px-3 sm:px-6 pt-2 pb-4 sticky bottom-0 z-30 bg-black/35 backdrop-blur">
               <div class="glass-input relative flex items-center p-1">
-                <span class="pl-4 pr-3 text-[color:var(--gold-sovereign)] font-orbit text-lg font-bold">Σ</span>
+                <span class="pl-4 pr-3 text-[color:var(--gold-sovereign)] font-orbit text-lg font-bold" aria-hidden="true">Σ</span>
+                <label class="sr-only" for="command-input">Comando</label>
                 <input type="text" id="command-input" placeholder="Enter systemic parameters..."
                        class="w-full bg-transparent border-none text-[13px] sm:text-sm text-white placeholder-zinc-600 focus:ring-0 px-2 py-4 font-mono focus:outline-none" />
                 <button id="execute-btn"
@@ -413,7 +424,7 @@
             </div>
           </div>
 
-          <!-- COLUNA VISUAL (globo + gráficos) -->
+          <!-- VISUAL -->
           <div class="relative border-t lg:border-t-0 lg:border-l border-white/5 overflow-hidden">
             <div class="flex flex-col h-full overflow-hidden">
 
@@ -429,7 +440,6 @@
                     </span>
                   </div>
 
-                  <!-- GLOBO CANVAS (animação lenta) -->
                   <div class="mt-4 relative">
                     <canvas id="globeCanvas" class="w-full aspect-square rounded-[10px] border border-white/10 bg-black/30"></canvas>
                     <div class="absolute bottom-3 left-3 text-[10px] sm:text-xs font-mono tracking-widest text-zinc-400 uppercase">
@@ -442,14 +452,13 @@
               <div class="sectiondivider"></div>
 
               <div class="flex-1 overflow-y-auto px-4 sm:px-6 py-4">
-                <!-- Gráficos (2-up em sm+, 1-up no mobile) -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div class="glass-response p-4 sm:p-5 relative">
                     <div class="hud-lines"></div>
                     <div class="text-[10px] sm:text-xs tracking-[0.22em] uppercase text-zinc-400 mb-2">
                       Trajectory Signal
                     </div>
-                    <svg viewBox="0 0 120 38" class="w-full h-10">
+                    <svg viewBox="0 0 120 38" class="w-full h-10" aria-hidden="true">
                       <polyline fill="none" stroke="rgba(197,160,101,.85)" stroke-width="2"
                         points="0,28 12,25 24,27 36,18 48,20 60,14 72,16 84,10 96,14 108,8 120,12"/>
                       <line x1="0" y1="34" x2="120" y2="34" stroke="rgba(255,255,255,.06)"/>
@@ -462,7 +471,7 @@
                     <div class="text-[10px] sm:text-xs tracking-[0.22em] uppercase text-zinc-400 mb-2">
                       Risk Load
                     </div>
-                    <svg viewBox="0 0 120 38" class="w-full h-10">
+                    <svg viewBox="0 0 120 38" class="w-full h-10" aria-hidden="true">
                       <polyline fill="none" stroke="rgba(197,160,101,.85)" stroke-width="2"
                         points="0,20 12,22 24,18 36,24 48,16 60,22 72,14 84,20 96,12 108,16 120,10"/>
                       <line x1="0" y1="34" x2="120" y2="34" stroke="rgba(255,255,255,.06)"/>
@@ -503,12 +512,12 @@
             </div>
           </div>
 
-        </div><!-- /grid -->
-      </div><!-- /glass main -->
+        </div>
+      </div>
     </section>
   </main>
 
-  <!-- FOOTER (só copyright, como você pediu) -->
+  <!-- FOOTER -->
   <footer class="border-t border-white/5 bg-black/40 backdrop-blur z-40 relative">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3">
       <p class="text-center text-[10px] sm:text-xs tracking-[0.35em] uppercase text-zinc-600">
@@ -519,16 +528,8 @@
 
   <script>
     /* ============================================================
-       0) DADOS — cole aqui os seus arrays originais do arquivo atual
-       (no PDF eles aparecem como CECO_INDEX, CECO_CODES, STATUTE_EXCERPTS etc.)
+       0) DADOS — placeholders mínimos
        ============================================================ */
-
-    // ✅ COLE AQUI o conteúdo completo que você já tem:
-    // const CECO_INDEX = [...]
-    // const CECO_CODES = [...]
-    // const STATUTE_EXCERPTS = {...}
-
-    // Para o arquivo rodar mesmo antes de colar tudo, deixo mínimos:
     const CECO_INDEX = [
       { k: "PRE-000", t: "Preamble (snapshot)" },
       { k: "MEM-000", t: "Explanatory Memorandum (snapshot)" }
@@ -579,7 +580,7 @@
     const normalizeCmd = (s='') => s.trim().replace(/\s+/g, ' ');
 
     /* ============================================================
-       3) COMPONENTES UI
+       3) UI
        ============================================================ */
     function createUserMessage(text){
       const div = document.createElement('div');
@@ -588,7 +589,7 @@
         <div class="glass-response p-4 sm:p-5 max-w-[90%] sm:max-w-xl relative" tabindex="0">
           <div class="hud-lines"></div>
           <span class="text-[10px] sm:text-xs text-[color:var(--gold-sovereign)]/70 font-mono block mb-2 uppercase tracking-[0.22em]">
-            Input Source: Human Agency >
+            Input Source: Human Agency &gt;
           </span>
           <p class="text-[13px] sm:text-sm font-mono text-zinc-200 leading-relaxed">${escapeHtml(text)}</p>
         </div>`;
@@ -688,7 +689,7 @@
     }
 
     /* ============================================================
-       4) ENGINE (mantém sua lógica base do PDF, com placeholders)
+       4) ENGINE
        ============================================================ */
     function listCodesSample(){
       return CECO_CODES.slice(0, 12).map(c => `${c.id} — ${c.title}`);
@@ -855,34 +856,41 @@
     inputField?.addEventListener('keydown', (e) => { if (e.key === 'Enter') executeCommand(); });
 
     /* ============================================================
-       6) GLOBO HUD (Canvas) — animação lenta
+       6) GLOBO HUD (Canvas) — otimizado
        ============================================================ */
     (function initGlobe(){
       const canvas = document.getElementById('globeCanvas');
       if (!canvas) return;
+
       const ctx = canvas.getContext('2d', { alpha: true });
+      let cssW = 1, cssH = 1, dpr = 1;
 
       function resize(){
-        const dpr = Math.min(2, window.devicePixelRatio || 1);
+        dpr = Math.min(2, window.devicePixelRatio || 1);
         const rect = canvas.getBoundingClientRect();
-        canvas.width  = Math.max(1, Math.floor(rect.width  * dpr));
-        canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+        cssW = Math.max(1, rect.width);
+        cssH = Math.max(1, rect.height);
+
+        canvas.width  = Math.max(1, Math.floor(cssW * dpr));
+        canvas.height = Math.max(1, Math.floor(cssH * dpr));
+
+        // Coordenadas em CSS px
         ctx.setTransform(dpr,0,0,dpr,0,0);
       }
 
       let t = 0;
 
       function draw(){
-        t += 0.002; // velocidade lenta
+        t += 0.002;
 
-        const w = canvas.getBoundingClientRect().width;
-        const h = canvas.getBoundingClientRect().height;
+        const w = cssW;
+        const h = cssH;
+
         ctx.clearRect(0,0,w,h);
 
         const cx = w/2, cy = h/2;
         const r = Math.min(w,h)*0.38;
 
-        // fundo suave
         const bg = ctx.createRadialGradient(cx, cy, r*0.2, cx, cy, r*1.4);
         bg.addColorStop(0, 'rgba(197,160,101,0.08)');
         bg.addColorStop(0.35, 'rgba(0,0,0,0.0)');
@@ -890,7 +898,6 @@
         ctx.fillStyle = bg;
         ctx.fillRect(0,0,w,h);
 
-        // esfera base
         ctx.beginPath();
         ctx.arc(cx, cy, r, 0, Math.PI*2);
         ctx.fillStyle = 'rgba(0,0,0,0.22)';
@@ -899,7 +906,6 @@
         ctx.strokeStyle = 'rgba(255,255,255,0.10)';
         ctx.stroke();
 
-        // glow dourado externo
         ctx.shadowBlur = 25;
         ctx.shadowColor = 'rgba(197,160,101,0.18)';
         ctx.beginPath();
@@ -908,17 +914,16 @@
         ctx.stroke();
         ctx.shadowBlur = 0;
 
-        // rotação (lon/lat)
         const rot = t;
 
-        // latitude lines
         ctx.lineWidth = 1;
+
+        // latitude
         for (let i= -60; i<=60; i+=20){
           const phi = i * Math.PI/180;
           ctx.beginPath();
           for (let a=0; a<=360; a+=6){
             const th = (a*Math.PI/180) + rot;
-            // esfera 3D simplificada projetada em 2D
             const x = Math.cos(phi) * Math.cos(th);
             const y = Math.sin(phi);
             const z = Math.cos(phi) * Math.sin(th);
@@ -926,7 +931,6 @@
             const px = cx + x * r;
             const py = cy + y * r;
 
-            // oculta parte de trás (z<0) com alpha menor
             const alpha = z > 0 ? 0.18 : 0.06;
             ctx.strokeStyle = `rgba(255,255,255,${alpha})`;
             if (a===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
@@ -934,7 +938,7 @@
           ctx.stroke();
         }
 
-        // longitude lines
+        // longitude
         for (let i=0; i<180; i+=20){
           const th0 = (i*Math.PI/180) + rot;
           ctx.beginPath();
@@ -954,7 +958,7 @@
           ctx.stroke();
         }
 
-        // “terminator” dourado / highlight
+        // highlight dourado
         const grad = ctx.createRadialGradient(cx - r*0.35, cy - r*0.25, r*0.1, cx, cy, r*1.2);
         grad.addColorStop(0, 'rgba(197,160,101,0.30)');
         grad.addColorStop(0.35, 'rgba(197,160,101,0.10)');
@@ -965,7 +969,7 @@
         ctx.fillStyle = grad;
         ctx.fill();
 
-        // scanner sweep leve (similar ao shine mas no globo)
+        // sweep
         const sweepY = (Math.sin(t*0.9) * 0.45 + 0.5) * (2*r) + (cy-r);
         ctx.save();
         ctx.beginPath();
@@ -982,10 +986,14 @@
         requestAnimationFrame(draw);
       }
 
-      const ro = new ResizeObserver(() => { resize(); });
-      ro.observe(canvas);
+      // Resize hooks
+      if ('ResizeObserver' in window){
+        const ro = new ResizeObserver(resize);
+        ro.observe(canvas);
+      } else {
+        window.addEventListener('resize', resize);
+      }
 
-      window.addEventListener('resize', resize);
       resize();
       draw();
     })();
