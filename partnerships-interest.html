@@ -1,0 +1,829 @@
+Vou criar uma página dedicada para registrar o interesse da Hasse Foundation em futuras parcerias estratégicas, organizada pelos três grupos que você mencionou. Esta página servirá como um "manifesto de intenções" para potenciais colaboradores.
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    gold: "#d6bc7e",
+                    stone: { 950: "#0c0a09" }
+                }
+            }
+        }
+    }
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+    :root { --stone-950: #0c0a09; --gold: #d6bc7e; }
+    body { background-color: var(--stone-950); color: #e7e5e4; font-family: 'Inter', sans-serif; line-height: 1.8; }
+    h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+    
+    .reveal { opacity: 0; transform: translateY(20px); transition: all 1s ease-out; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+
+    .glass-panel { background: rgba(28, 25, 23, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(214, 188, 126, 0.1); }
+    
+    .divider-gold { width: 60px; height: 1px; background: rgba(214,188,126,0.55); margin: 2rem auto; }
+    
+    .partner-card {
+        transition: all 0.4s ease;
+        border: 1px solid rgba(214, 188, 126, 0.1);
+    }
+    .partner-card:hover {
+        border-color: rgba(214, 188, 126, 0.3);
+        transform: translateY(-4px);
+    }
+    
+    .status-interest {
+        background: rgba(214, 188, 126, 0.1);
+        color: #d6bc7e;
+        border: 1px solid rgba(214, 188, 126, 0.3);
+    }
+    .status-active {
+        background: rgba(34, 197, 94, 0.15);
+        color: #22c55e;
+        border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+    .status-discussion {
+        background: rgba(59, 130, 246, 0.15);
+        color: #60a5fa;
+        border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .pillar-icon {
+        width: 48px;
+        height: 48px;
+        border: 1px solid rgba(214, 188, 126, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+    }
+</style>
+
+<!-- Navigation -->
+<nav id="siteNav" class="fixed top-0 w-full z-50 border-b border-white/5 bg-stone-950/90 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <a href="english.html" class="inline-flex items-center gap-3 group">
+            <span class="text-gold border border-[#d6bc7e]/30 px-2 py-1 text-sm bg-black/40 transition-all group-hover:shadow-[0_0_16px_rgba(214,188,126,0.22)]">Σ</span>
+            <span class="text-[10px] uppercase tracking-[0.3em] font-bold">c-ECO Doctrine</span>
+        </a>
+
+        <div class="hidden lg:flex gap-8 text-[9px] uppercase tracking-widest text-stone-500 items-center">
+            <a href="english.html" class="hover:text-gold transition">Home</a>
+            <a href="hasse-foundation.html" class="hover:text-gold transition">Foundation</a>
+            <a href="institutional.html" class="hover:text-gold transition">Institutional</a>
+            <a href="partnerships-interest.html" class="text-gold">Partnerships</a>
+            <a href="tdr-framework.html" class="hover:text-gold transition">TDR</a>
+            <a href="request-pilot.html" class="text-gold border border-gold/40 px-3 py-1 hover:bg-gold hover:text-black transition">Request Pilot</a>
+        </div>
+
+        <button id="mobileMenuBtn" class="lg:hidden text-stone-400 hover:text-gold transition text-xl" type="button">☰</button>
+    </div>
+
+    <div id="mobile-menu" class="lg:hidden hidden w-full px-6 pb-6 pt-4 bg-stone-950/98 border-t border-white/5 backdrop-blur-md">
+        <div class="flex flex-col gap-4 text-[11px] uppercase tracking-widest">
+            <a href="english.html" class="hover:text-gold transition">Home</a>
+            <a href="hasse-foundation.html" class="hover:text-gold transition">Foundation</a>
+            <a href="institutional.html" class="hover:text-gold transition">Institutional</a>
+            <a href="partnerships-interest.html" class="text-gold">Partnerships</a>
+            <a href="request-pilot.html" class="text-gold border border-gold/30 px-4 py-2 mt-2 text-center hover:bg-gold hover:text-black transition">Request Pilot</a>
+        </div>
+    </div>
+</nav>
+<div id="navSpacer" style="height: 72px;"></div>
+
+<!-- Hero -->
+<header class="min-h-[70vh] flex items-center justify-center text-center px-6 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-stone-950/90 pointer-events-none"></div>
+    <div class="max-w-4xl reveal relative z-10">
+        <p class="text-gold uppercase tracking-[0.4em] text-[10px] mb-6">Johann Christian Hasse Foundation</p>
+        <h1 class="text-5xl md:text-7xl mb-6 leading-tight serif italic">Strategic Partnership Interest</h1>
+        <div class="divider-gold"></div>
+        <p class="text-stone-400 text-lg max-w-2xl mx-auto">
+            The Hasse Foundation actively seeks collaboration with leading institutions to advance the c-ECO Platform's three pillars: scientific innovation, Amazon Living Lab, and institutional governance.
+        </p>
+        <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="#scientific-innovation" class="inline-block border border-gold/40 text-gold px-8 py-3 text-[10px] uppercase tracking-[0.4em] font-bold hover:bg-gold hover:text-black transition-all duration-500">Explore Pillars</a>
+            <a href="#contact" class="inline-block border border-white/10 text-white px-8 py-3 text-[10px] uppercase tracking-[0.4em] font-bold hover:border-gold/40 hover:text-gold transition-all duration-500">Express Interest</a>
+        </div>
+    </div>
+</header>
+
+<main class="w-full pb-24">
+
+    <!-- Introduction -->
+    <section class="reveal py-24 px-6 lg:px-24 bg-[#050505]">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="text-stone-300 text-lg leading-relaxed serif italic mb-8">
+                "While the Hasse Foundation has established its foundational partnership with the Instituto Silvio Meira, we recognize that addressing systemic risk at planetary scale requires a network of excellence. This page registers our formal interest in collaborating with institutions that share our commitment to pre-threshold governance."
+            </p>
+            <div class="flex justify-center items-center gap-4 text-[10px] uppercase tracking-widest text-stone-500">
+                <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500"></span>Active Partnership</span>
+                <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-blue-500"></span>Discussion</span>
+                <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-yellow-500"></span>Interest Registered</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- PILLAR 1: Scientific Innovation -->
+    <section id="scientific-innovation" class="section-anchor reveal py-24 px-6 lg:px-24">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid lg:grid-cols-12 gap-16 items-start">
+                
+                <div class="lg:col-span-4">
+                    <div class="pillar-icon text-gold mb-6">🔬</div>
+                    <span class="text-gold uppercase tracking-[0.6em] text-[10px] font-bold mb-4 block">Pillar 1</span>
+                    <h2 class="text-4xl md:text-5xl text-white serif italic leading-tight mb-4">Scientific Innovation</h2>
+                    <p class="text-stone-500 text-sm">The Threshold Dynamics Research (TDR) Framework</p>
+                    <div class="w-12 h-px bg-gold/50 mt-6"></div>
+                </div>
+
+                <div class="lg:col-span-8 space-y-8">
+                    
+                    <div class="glass-panel p-8 border-l-4 border-l-gold/30">
+                        <h3 class="text-white serif text-xl mb-4">The TDR Framework</h3>
+                        <p class="text-stone-400 text-sm leading-relaxed mb-6">
+                            At the core of the c-ECO Platform lies the Threshold Dynamics Research (TDR), an original methodology for early detection of critical changes in socio-ecological systems. TDR fills a global gap by translating complex scientific signals into operational variables capable of guiding institutional decisions.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4 text-sm">
+                            <div class="flex items-start gap-3">
+                                <span class="text-gold mt-1">◆</span>
+                                <span class="text-stone-300">Complex systems dynamics and tipping point analysis</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="text-gold mt-1">◆</span>
+                                <span class="text-stone-300">Remote sensing and AI applied to territorial resilience</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="text-gold mt-1">◆</span>
+                                <span class="text-stone-300">Prudential Triggers: Evidence-based automatic responses</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="text-gold mt-1">◆</span>
+                                <span class="text-stone-300">Audits, restrictions, or restoration fund activation</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Target Partners -->
+                    <div>
+                        <h4 class="text-white text-xs uppercase tracking-widest mb-6 text-[#d6bc7e]">Institutions of Interest</h4>
+                        
+                        <div class="grid md:grid-cols-2 gap-4">
+                            
+                            <div class="partner-card p-6 bg-black/20">
+                                <div class="flex justify-between items-start mb-4">
+                                    <h5 class="text-white font-semibold">MIT</h5>
+                                    <span class="status-interest text-[10px] px-2 py-1 rounded-full">Interest Registered</span>
+                                </div>
+                                <p class="text-stone-500 text-xs uppercase tracking-wider mb-2">Massachusetts Institute of Technology</p>
+                                <p class="text-stone-400 text-sm">Complex systems modeling, AI/ML for environmental monitoring, and institutional innovation.</p>
+                            </div>
+                                                            <div class="partner-card p-6 bg-black/20">
+                                    <div class="flex justify-between items-start mb-4">
+                                        <h5 class="text-white font-semibold">MIT</h5>
+                                        <span class="status-interest text-[10px] px-2 py-1 rounded-full">Interest Registered</span>
+                                    </div>
+                                    <p class="text-stone-500 text-xs uppercase tracking-wider mb-2">Massachusetts Institute of Technology</p>
+                                    <p class="text-stone-400 text-sm mb-4">Complex systems modeling, AI/ML for environmental monitoring, and institutional innovation.</p>
+                                    <div class="border-t border-white/10 pt-3 mt-3">
+                                        <p class="text-[10px] text-stone-500 uppercase tracking-wider">Areas of Collaboration</p>
+                                        <ul class="mt-2 space-y-1 text-xs text-stone-400">
+                                            <li>• Climate modeling & tipping points</li>
+                                            <li>• AI for Earth system prediction</li>
+                                            <li>• Policy-science interface design</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="partner-card p-6 bg-black/20">
+                                    <div class="flex justify-between items-start mb-4">
+                                        <h5 class="text-white font-semibold">Caltech</h5>
+                                        <span class="status-interest text-[10px] px-2 py-1 rounded-full">Interest Registered</span>
+                                    </div>
+                                    <p class="text-stone-500 text-xs uppercase tracking-wider mb-2">California Institute of Technology</p>
+                                    <p class="text-stone-400 text-sm mb-4">Planetary science, environmental engineering, and high-precision monitoring systems.</p>
+                                    <div class="border-t border-white/10 pt-3 mt-3">
+                                        <p class="text-[10px] text-stone-500 uppercase tracking-wider">Areas of Collaboration</p>
+                                        <ul class="mt-2 space-y-1 text-xs text-stone-400">
+                                            <li>• Satellite-based ecosystem monitoring</li>
+                                            <li>• Hydrological system dynamics</li>
+                                            <li>• Sensor network deployment</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="partner-card p-6 bg-black/20">
+                                    <div class="flex justify-between items-start mb-4">
+                                        <h5 class="text-white font-semibold">NASA</h5>
+                                        <span class="status-interest text-[10px] px-2 py-1 rounded-full">Interest Registered</span>
+                                    </div>
+                                    <p class="text-stone-500 text-xs uppercase tracking-wider mb-2">National Aeronautics and Space Administration</p>
+                                    <p class="text-stone-400 text-sm mb-4">Earth observation systems, planetary boundaries research, and open data infrastructure.</p>
+                                    <div class="border-t border-white/10 pt-3 mt-3">
+                                        <p class="text-[10px] text-stone-500 uppercase tracking-wider">Areas of Collaboration</p>
+                                        <ul class="mt-2 space-y-1 text-xs text-stone-400">
+                                            <li>• MODIS/VIIRS data integration</li>
+                                            <li>• Amazon deforestation early warning</li>
+                                            <li>• Open science data protocols</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="partner-card p-6 bg-black/20">
+                                    <div class="flex justify-between items-start mb-4">
+                                        <h5 class="text-white font-semibold">ETH Zurich</h5>
+                                        <span class="status-interest text-[10px] px-2 py-1 rounded-full">Interest Registered</span>
+                                    </div>
+                                    <p class="text-stone-500 text-xs uppercase tracking-wider mb-2">Swiss Federal Institute of Technology</p>
+                                    <p class="text-stone-400 text-sm mb-4">Environmental systems analysis, ecological economics, and sustainability governance.</p>
+                                    <div class="border-t border-white/10 pt-3 mt-3">
+                                        <p class="text-[10px] text-stone-500 uppercase tracking-wider">Areas of Collaboration</p>
+                                        <ul class="mt-2 space-y-1 text-xs text-stone-400">
+                                            <li>• Socio-ecological systems modeling</li>
+                                            <li>• Planetary boundaries framework</li>
+                                            <li>• Sustainable finance integration</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="glass-panel p-6 border-l-4 border-l-blue-500/30">
+                            <p class="text-stone-300 text-sm leading-relaxed">
+                                <strong class="text-white">Collaboration Model:</strong> Joint research programs, data sharing agreements, co-development of TDR algorithms, and shared PhD/postdoc positions. The Foundation offers field access through its Amazon Living Lab and institutional partnerships in Brazil.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PILLAR 2: Amazon Living Lab -->
+        <section id="amazon-living-lab" class="section-anchor reveal py-24 px-6 lg:px-24 bg-[#050505]">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid lg:grid-cols-12 gap-16 items-start">
+                    
+                    <div class="lg:col-span-4">
+                        <div class="pillar-icon text-gold mb-6">🌿</div>
+                        <span class="text-gold uppercase tracking-[0.6em] text-[10px] font-bold mb-4 block">Pillar 2</span>
+                        <h2 class="text-4xl md:text-5xl text-white serif italic leading-tight mb-4">Amazon Living Lab</h2>
+                        <p class="text-stone-500 text-sm">Field implementation and territorial validation</p>
+                        <div class="w-12 h-px bg-gold/50 mt-6"></div>
+                    </div>
+
+                    <div class="lg:col-span-8 space-y-8">
+                        
+                        <div class="glass-panel p-8 border-l-4 border-l-green-500/30">
+                            <h3 class="text-white serif text-xl mb-4">The Living Lab Concept</h3>
+                            <p class="text-stone-400 text-sm leading-relaxed mb-6">
+                                The Amazon Living Lab is the Foundation's field implementation arm—a territory where c-ECO protocols are tested, validated, and refined in real-world conditions. This is not a simulation: it is a living socio-ecological system where science meets governance under operational pressure.
+                            </p>
+                            <div class="grid md:grid-cols-2 gap-4 text-sm">
+                                <div class="flex items-start gap-3">
+                                    <span class="text-green-500 mt-1">◆</span>
+                                    <span class="text-stone-300">Real-time TDR validation in tropical forest ecosystems</span>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <span class="text-green-500 mt-1">◆</span>
+                                    <span class="text-stone-300">Community-engaged monitoring and data sovereignty</span>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <span class="text-green-500 mt-1">◆</span>
+                                    <span class="text-stone-300">Pre-threshold intervention testing and documentation</span>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <span class="text-green-500 mt-1">◆</span>
+                                    <span class="text-stone-300">Integration with Brazil's environmental governance</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Target Partners -->
+                        <div>
+                            <h4 class="text-white text-xs uppercase tracking-widest mb-6 text-[#d6bc7e]">Institutions of Interest</h4>
+                            
+                            <div class="grid md:grid-cols-2 gap-4">
+                                
+                                <div class="partner-card p-6 bg-black/20">
+                                    <div class="flex justify-between items-start mb-4">
+                                        <h5 class="text-white font-semibold">INPA</h5>
+                                        <span class="status-discussion text-[10px] px-2 py-1 rounded-full">Discussion</span>
+                                    </div>
+                                    <p class="text-stone-500 text-xs uppercase tracking-wider mb-2">National Institute for Amazonian Research</p>
+                                    <p class="text-stone-400 text-sm mb-4">Brazil's premier Amazon research institution with 70+ years of field data and ecological expertise.</p>
+                                    <div class="border-t border-white/10 pt-3 mt-3">
+                                        <p class="text-[10px] text-stone-500 uppercase tracking-wider">Areas of Collaboration</p>
+                                        <ul class="mt-2 space-y-1 text-xs text-stone-400">
+                                            <li>• Biodiversity baseline data sharing</li>
+                                            <li>• Co-located research stations</li>
+                                            <li>• Joint publication protocols</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="partner-card p-6 bg-black/20">
+                                    <div class="flex justify-between items-start mb-4">
+                                        <h5 class="text-white font-semibold">MPEG</h5>
+                                        <span class="status-interest text-[10px] px-2 py-1 rounded-full">Interest Registered</span>
+                                    </div>
+                                    <p class="text-stone-500 text-xs uppercase tracking-wider mb-2">Museu Paraense Emílio Goeldi</p>
+                                    <p class="text-stone-400 text-sm mb-4">Historic Amazon research institution with unique ethnographic and botanical collections.</p>
+                                    <div class="border-t border-white/10 pt-3 mt-3">
+                                        <p class="text-[10px] text-stone-500 uppercase tracking-wider">Areas of Collaboration</p>
+                                        <ul class="mt-2 space-y-1 text-xs text-stone-400">
+                                            <li>• Traditional knowledge integration</li>
+                                            <li>• Ethnobotanical monitoring protocols</li>
+                                            <li>• Museum-digitization partnerships</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="partner-card p-6 bg-black/20">
+                                    <div class="flex justify-between items-start mb-4">
+                                        <h5 class="text-white font-semibold">WWF Brazil</h5>
+                                        <span class="status-interest text-[10px] px-2 py-1 rounded-full">Interest Registered</span>
+                                    </div>
+                                    <p class="text-stone-500 text-xs uppercase tracking-wider mb-2">World Wildlife Fund</p>
+                                    <p class="text-stone-400 text-sm mb-4">Conservation implementation at scale with established community networks and policy influence.</p>
+                                    <div class="border-t border-white/10 pt-3 mt-3">
+                                        <p class="text-[10px] text-stone-500 uppercase tracking-wider">Areas of Collaboration</p>
+                                        <ul class="mt-2 space-y-1 text-xs text-stone-400">
+                                            <li>• Zero-deforestation monitoring</li>
+                                            <li>• Community-based conservation</li>
+                                            <li>• Policy advocacy coordination</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="partner-card p-6 bg-black/20">
+                                    <div class="flex justify-between items-start mb-4">
+                                        <h5 class="text-white font-semibold">ICMBio</h5>
+                                        <span class="status-interest text-[10px] px-2 py-1 rounded-full">Interest Registered</span>
+                                    </div>
+                                    <p class="text-stone-500 text-xs uppercase tracking-wider mb-2">Chico Mendes Institute for Biodiversity Conservation</p>
+                                    <p class="text-stone-400 text-sm mb-4">Federal agency managing Brazil's protected areas with regulatory authority and field presence.</p>
+                                    <div class="border-t border-white/10 pt-3 mt-3">
+                                        <p class="text-[10px] text-stone-500 uppercase tracking-wider">Areas of Collaboration</p>
+                                        <ul class="mt-2 space-y-1 text-xs text-stone-400">
+                                            <li>• Protected area management protocols</li>
+                                            <li>• Regulatory compliance frameworks</li>
+                                            <li>• Fire and deforestation early warning</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="glass-panel p-6 border-l-4 border-l-green-500/30">
+                            <p class="text-stone-300 text-sm leading-relaxed">
+                                <strong class="text-white">Collaboration Model:</strong> Field station access, data co-ownership agreements, joint grant applications, and shared technical staff. Partners gain优先 access to TDR-derived insights for their territories of interest.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PILLAR 3: Institutional Governance -->
+        <section id="institutional-governance" class="section-anchor reveal py-24 px-6 lg:px-24">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid lg:grid-cols-12 gap-16 items-start">
+                    
+                    <div class="lg:col-span-4">
+                        <div class="pillar-icon text-gold mb-6">⚖️</div>
+                        <span class="text-gold uppercase tracking-[0.6em] text-[10px] font-bold mb-4 block">Pillar 3</span>
+                        <h2 class="text-4xl md:text-5xl text-white serif italic leading-tight mb-4">Institutional Governance</h2>
+                        <p class="text-stone-500 text-sm">Legal frameworks and policy integration</p>
+                        <div class="w-12 h-px bg-gold/50 mt-6"></div>
+                    </div>
+
+                    <div class="lg:col-span-8 space-y-8">
+                        
+                        <div class="glass-panel p-8 border-l-4 border-l-amber-500/30">
+                            <h3 class="text-white serif text-xl mb-4">The Model Law Initiative</h3>
+                            <p class="text-stone-400 text-sm leading-relaxed mb-6">
+                                The Foundation develops and promotes the c-ECO Model Law—a legal framework translating scientific thresholds into binding institutional obligations. This is not soft law: it is a template for national legislation with enforcement mechanisms and auditability built in.
+                            </p>
+                            <div class="grid md:grid-cols-2 gap-4 text-sm">
+                                <div class="flex items-start gap-3">
+                                    <span class="text-amber-500 mt-1">◆</span>
+                                    <span class="text-stone-300">Pre-threshold legal obligations for environmental risk</span>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <span class="text-amber-500 mt-1">◆</span>
+                                    <span class="text-stone-300">Automatic triggers and prudential response protocols</span>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <span class="text-amber-500 mt-1">◆</span>
+                                    <span class="text-stone-300">Audit trails and institutional accountability</span>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <span class="text-amber-500 mt-1">◆</span>
+                                    <span class="text-stone-300">Integration with international environmental law</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Target Partners -->
+                        <div>
+                            <h4 class="text-white text-xs uppercase tracking-widest mb-6 text-[#d6bc7e]">Institutions of Interest</h4>
+                            
+                            <div class="grid md:grid-cols-2 gap-4">
+                                
+                                <div class="partner-card p-6 bg-black/20">
+                                    <div class="flex justify-between items-start mb-4">
+                                        <h5 class="text-white font-semibold">IUCN</h5>
+                                        <span class="status-interest text-[10px] px-2 py-1 rounded-full">Interest Registered</span>
+                                    </div>
+                                    <p class="text-stone-500 text-xs uppercase tracking-wider mb-2">International Union for Conservation of Nature</p>
+                                    <p class="text-stone-400 text-sm mb-4">Global authority on conservation law and policy with direct access to national legislators.</p>
+                                    <div class="border-t border-white/10 pt-3 mt-3">
+                                        <p class="text-[10px] text-stone-500 uppercase tracking-wider">Areas of Collaboration</p>
+                                        <ul class="mt-2 space-y-1 text-xs text-stone-400">
+                                            <li>• Model law peer review and endorsement</li>
+                                            <li>• World Conservation Congress advocacy</li>
+                                            <li>• Commission on Environmental Law coordination</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="partner-card p-6 bg-black/20">
+                                    <div class="flex justify-between items-start mb-4">
+                                        <h5 class="text-white font-semibold">UNEP</h5>
+                                        <span class="status-interest text-[10px] px-2 py-1 rounded-full">Interest Registered</span>
+                                    </div>
+                                    <p class="text-stone-500 text-xs uppercase tracking-wider mb-2">United Nations Environment Programme</p>
+                                    <p class="text-stone-400 text-sm mb-4">Global environmental governance with mandate for early warning and assessment systems.</p>
+                                    <div class="border-t border-white/10 pt-3 mt-3">
+                                        <p class="text-[10px] text-stone-500 uppercase tracking-wider">Areas of Collaboration</p>
+                                        <ul class="mt-2 space-y-1 text-xs text-stone-400">
+                                            <li>• Early warning system integration</li>
+                                            <li>• World Environment Outlook contributions</li>
+                                            <li>• National policy implementation support</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="partner-card p-6 bg-black/20">
+                                    <div class="flex justify-between items-start mb-4">
+                                        <h5 class="text-white font-semibold">World Bank</h5>
+                                        <span class="status-interest text-[10px] px-2 py-1 rounded-full">Interest Registered</span>
+                                    </div>
+                                    <p class="text-stone-500 text-xs uppercase tracking-wider mb-2">International Bank for Reconstruction and Development</p>
+                                    <p class="text-stone-400 text-sm mb-4">Development finance with environmental safeguards and policy-based lending instruments.</p>
+                                    <div class="border-t border-white/10 pt-3 mt-3">
+                                        <p class="text-[10px] text-stone-500 uppercase tracking-wider">Areas of Collaboration</p>
+                                        <ul class="mt-2 space-y-1 text-xs text-stone-400">
+                                            <li>• Environmental safeguard integration</li>
+                                            <li>• Policy-based lending conditionality</li>
+                                            <li>• Green bond framework alignment</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="partner-card p-6 bg-black/20">
+                                    <div class="flex justify-between items-start mb-4">
+                                        <h5 class="text-white font-semibold">CISDL</h5>
+                                        <span class="status-interest text-[10px] px-2 py-1 rounded-full">Interest Registered</span>
+                                    </div>
+                                    <p class="text-stone-500 text-xs uppercase tracking-wider mb-2">Centre for International Sustainable Development Law</p>
+                                    <p class="text-stone-400 text-sm mb-4">Academic center bridging international law and sustainable development with policy impact.</p>
+                                    <div class="border-t border-white/10 pt-3 mt-3">
+                                        <p class="text-[10px] text-stone-500 uppercase tracking-wider">Areas of Collaboration</p>
+                                        <ul class="mt-2 space-y-1 text-xs text-stone-400">
+                                            <li>• International law research partnership</li>
+                                            <li>• Model law comparative analysis</li>
+                                            <li>• Capacity building programs</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="glass-panel p-6 border-l-4 border-l-amber-500/30">
+                            <p class="text-stone-300 text-sm leading-relaxed">
+                                <strong class="text-white">Collaboration Model:</strong> Technical assistance for legislative drafting, joint policy briefs, convening power for multi-stakeholder dialogues, and pilot implementation in partner countries. The Foundation provides the scientific-legal methodology; partners provide institutional access and legitimacy.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Active Partnership Highlight -->
+        <section class="reveal py-24 px-6 lg:px-24 bg-[#050505]">
+            <div class="max-w-4xl mx-auto text-center">
+                <span class="text-green-500 uppercase tracking-[0.6em] text-[10px] font-bold mb-6 block">Active Partnership</span>
+                <h2 class="text-3xl md:text-4xl text-white serif italic mb-6">Instituto Silvio Meira</h2>
+                <p class="text-stone-400 text-lg leading-relaxed mb-8">
+                    Our foundational partnership with ISM (February 2026) demonstrates the c-ECO collaboration model in practice: combining ISM's expertise in innovation ecosystems with the Foundation's TDR framework to build operational capacity in Brazil's Northeast and Amazon regions.
+                </p>
+                <a href="MOU_ISM_022026_signed.pdf" target="_blank" class="inline-flex items-center gap-3 border border-green-500/30 text-green-500 px-8 py-4 text-[10px] uppercase tracking-[0.4em] font-bold hover:bg-green-500/10 transition-all duration-500">
+                    <span>View Executed MOU</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                </a>
+            </div>
+        </section>
+
+        <!-- Contact / Expression of Interest -->
+        <section id="contact" class="section-anchor reveal py-24 px-6 lg:px-24">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid lg:grid-cols-12 gap-16 items-start">
+                    
+                    <div class="lg:col-span-4">
+                        <span class="text-gold uppercase tracking-[0.6em] text-[10px] font-bold mb-4 block">#ENGAGE</span>
+                        <h2 class="text-4xl md:text-5xl text-white serif italic leading-tight mb-4">Expression of Interest</h2>
+                        <p class="text-stone-500 text-sm">How to initiate collaboration with the Foundation</p>
+                        <div class="w-12 h-px bg-gold/50 mt-6"></div>
+                    </div>
+
+                    <div class="lg:col-span-8 space-y-8">
+                        
+                        <div class="glass-panel p-8">
+                            <h3 class="text-white serif text-xl mb-6">Contact Protocol</h3>
+                            <p class="text-stone-400 text-sm leading-relaxed mb-8">
+                                The Foundation welcomes formal expressions of interest from institutions aligned with our three pillars. Initial contact should include institutional capacity statement, proposed collaboration area, and expected mutual outcomes.
+                            </p>
+
+                            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                                <div class="text-center p-6 border border-white/10">
+                                    <div class="text-2xl mb-3">📧</div>
+                                    <h4 class="text-white text-sm font-semibold mb-2">Email</h4>
+                                    <a href="mailto:partnerships@hassefoundation.org" class="text-gold text-xs hover:underline">partnerships@hassefoundation.org</a>
+                                </div>
+                                <div class="text-center p-6 border border-white/10">
+                                    <div class="text-2xl mb-3">📋</div>
+                                    <h4 class="text-white text-sm font-semibold mb-2">Form</h4>
+                                    <a href="#" class="text-gold text-xs hover:underline">Partnership Inquiry Form</a>
+                                    <span class="block text-stone-600 text-[10px] mt-1">(Coming soon)</span>
+                                </div>
+                                <div class="text-center p-6 border border-white/10">
+                                    <div class="text-2xl mb-3">🤝</div>
+                                    <h4 class="text-white text-sm font-semibold mb-2">Direct</h4>
+                                    <a href="institutional.html" class="text-gold text-xs hover:underline">Institutional Page</a>
+                                    <span class="block text-stone-600 text-[10px] mt-1">Governance docs</span>
+                                </div>
+                            </div>
+
+                            <div class="border-t border-white/10 pt-6">
+                                <h4 class="text-white text-xs uppercase tracking-widest mb-4">Required Initial Information</h4>
+                                <ul class="grid md:grid-cols-2 gap-3 text-sm text-stone-400">
+                                    <li class="flex items-start gap-2"><span class="text-gold">•</span> Institutional mandate and relevant expertise</li>
+                                    <li class="flex items-start gap-2"><span class="text-gold">•</span> Proposed pillar(s) and collaboration model</li>
+                                    <li class="flex items-start gap-2"><span class="text-gold">•</span> Geographic and sectoral scope of interest</li>
+                                    <li class="flex items-start gap-2"><span class="text-gold">•</span> Expected outcomes and success metrics</li>
+                                    <li class="flex items-start gap-2"><span class="text-gold">•</span> Resource contribution (financial, in-kind, data)</li>
+                                    <li class="flex items-start gap-2"><span class="text-gold">•</span> Governance and compliance standards</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="glass-panel p-6 border-l-4 border-l-gold/30">
+                            <p class="text-stone-300 text-sm leading-relaxed italic">
+                                "Partnerships are not transactions. They are institutional commitments to shared method, mutual accountability, and durable outcomes. The Foundation selects partners based on alignment with these principles, not scale alone."
+                            </p>
+                            <p class="text-stone-500 text-xs mt-4 uppercase tracking-wider">— Board Resolution 001, Article 7</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary Table -->
+        <section class="reveal py-24 px-6 lg:px-24 bg-[#050505]">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl text-white serif italic mb-12 text-center">Partnership Interest Summary</h2>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-white/20">
+                                <th class="py-4 px-4 text-[10px] uppercase tracking-widest text-gold font-semibold">Pillar</th>
+                                <th class="py-4 px-4 text-[10px] uppercase tracking-widest text-gold font-semibold">Institution</th>
+                                <th class="py-4 px-4 text-[10px] uppercase tracking-widest text-gold font-semibold">Status</th>
+                                <th class="py-4 px-4 text-[10px] uppercase tracking-widest text-gold font-semibold">Primary Interest</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm text-stone-400">
+                            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                <td class="py-4 px-4 text-stone-300">Scientific Innovation</td>
+                                <td class="py-4 px-4">MIT</td>
+                                <td class="py-4 px-4"><span class="status-interest text-[10px] px-2 py-1 rounded-full">Interest</span></td>
+                                <td class="py-4 px-4">Complex systems & AI</td>
+                            </tr>
+                            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                <td class="py-4 px-4 text-stone-300">Scientific Innovation</td>
+                                <td class="py-4 px-4">Caltech</td>
+                                <td class="py-4 px-4"><span class="status-interest text-[10px] px-2 py-1 rounded-full">Interest</span></td>
+                                <td class="py-4 px-4">Planetary monitoring</td>
+                            </tr>
+                            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                <td class="py-4 px-4 text-stone-300">Scientific Innovation</td>
+                                <td class="py-4 px-4">NASA</td>
+                                <td class="py-4 px-4"><span class="status-interest text-[10px] px-2 py-1 rounded-full">Interest</span></td>
+                                <td class="py-4 px-4">Earth observation</td>
+                            </tr>
+                            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                <td class="py-4 px-4 text-stone-300">Scientific Innovation</td>
+                                <td class="py-4 px-4">ETH Zurich</td>
+                                <td class="py-4 px-4"><span class="status-interest text-[10px] px-2 py-1 rounded-full">Interest</span></td>
+                                <td class="py-4 px-4">Systems analysis</td>
+                            </tr>
+                            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                <td class="py-4 px-4 text-green-400">Amazon Living Lab</td>
+                                <td class="py-4 px-4">INPA</td>
+                                <td class="py-4 px-4"><span class="status-discussion text-[10px] px-2 py-1 rounded-full">Discussion</span></td>
+                                <td class="py-4 px-4">Research stations</td>
+                            </tr>
+                            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                <td class="py-4 px-4 text-green-400">Amazon Living Lab</td>
+                                <td class="py-4 px-4">MPEG</td>
+                                <td class="py-4 px-4"><span class="status-interest text-[10px] px-2 py-1 rounded-full">Interest</span></td>
+                                <td class="py-4 px-4">Traditional knowledge</td>
+                            </tr>
+                            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                <td class="py-4 px-4 text-green-400">Amazon Living Lab</td>
+                                <td class="py-4 px-4">WWF Brazil</td>
+                                <td class="py-4 px-4"><span class="status-interest text-[10px] px-2 py-1 rounded-full">Interest</span></td>
+                                <td class="py-4 px-4">Conservation scale</td>
+                            </tr>
+                            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                <td class="py-4 px-4 text-green-400">Amazon Living Lab</td>
+                                <td class="py-4 px-4">ICMBio</td>
+                                <td class="py-4 px-4"><span class="status-interest text-[10px] px-2 py-1 rounded-full">Interest</span></td>
+                                <td class="py-4 px-4">Protected areas</td>
+                            </tr>
+                            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                <td class="py-4 px-4 text-amber-400">Institutional Governance</td>
+                                <td class="py-4 px-4">IUCN</td>
+                                <td class="py-4 px-4"><span class="status-interest text-[10px] px-2 py-1 rounded-full">Interest</span></td>
+                                <td class="py-4 px-4">Conservation law</td>
+                            </tr>
+                            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                <td class="py-4 px-4 text-amber-400">Institutional Governance</td>
+                                <td class="py-4 px-4">UNEP</td>
+                                <td class="py-4 px-4"><span class="status-interest text-[10px] px-2 py-1 rounded-full">Interest</span></td>
+                                <td class="py-4 px-4">Early warning systems</td>
+                            </tr>
+                            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                <td class="py-4 px-4 text-amber-400">Institutional Governance</td>
+                                <td class="py-4 px-4">World Bank</td>
+                                <td class="py-4 px-4"><span class="status-interest text-[10px] px-2 py-1 rounded-full">Interest</span></td>
+                                <td class="py-4 px-4">Development finance</td>
+                            </tr>
+                            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                <td class="py-4 px-4 text-amber-400">Institutional Governance</td>
+                                <td class="py-4 px-4">CISDL</td>
+                                <td class="py-4 px-4"><span class="status-interest text-[10px] px-2 py-1 rounded-full">Interest</span></td>
+                                <td class="py-4 px-4">Sustainable development law</td>
+                            </tr>
+                            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors bg-green-500/5">
+                                <td class="py-4 px-4 text-green-400">Multi-Pillar</td>
+                                <td class="py-4 px-4 font-semibold text-white">Instituto Silvio Meira</td>
+                                <td class="py-4 px-4"><span class="status-active text-[10px] px-2 py-1 rounded-full">Active</span></td>
+                                <td class="py-4 px-4">Innovation ecosystem</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Foundation Essay -->
+        <section class="reveal py-24 px-6 text-center">
+            <div class="max-w-3xl mx-auto">
+                <p class="text-stone-500 serif italic text-2xl md:text-3xl leading-relaxed mb-8">
+                    "No institution achieves systemic impact alone. The c-ECO Platform is designed as an open architecture—inviting those who can strengthen its scientific rigor, its field presence, or its institutional legitimacy to join in building governance that operates before failure."
+                </p>
+                <div class="w-16 h-px bg-gold/30 mx-auto mb-6"></div>
+                <p class="text-[10px] uppercase tracking-[0.4em] text-stone-600">Strategic Partnership Framework, 2026</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#0c0a09] border-t border-white/10 text-[#e7e5e4] text-xs">
+        <div class="max-w-7xl mx-auto px-6 py-16">
+            
+            <!-- Desktop Grid -->
+            <nav class="hidden md:grid md:grid-cols-6 gap-8 text-left mb-12" aria-label="Footer Navigation">
+                
+                <div class="space-y-4">
+                    <h3 class="font-semibold text-white text-xs uppercase tracking-widest text-[#d6bc7e]">Foundation</h3>
+                    <ul class="space-y-3 text-[#a8a29e] text-xs">
+                        <li><a href="hasse-foundation.html" class="hover:text-[#d6bc7e] transition-colors block">About</a></li>
+                        <li><a href="institutional.html" class="hover:text-[#d6bc7e] transition-colors block">Institutional</a></li>
+                        <li><a href="partnerships-interest.html" class="text-[#d6bc7e] block">Partnerships</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="font-semibold text-white text-xs uppercase tracking-widest text-[#d6bc7e]">TDR Framework</h3>
+                    <ul class="space-y-3 text-[#a8a29e] text-xs">
+                        <li><a href="tdr-framework.html" class="hover:text-[#d6bc7e] transition-colors block">Overview</a></li>
+                        <li><a href="tdr.html" class="hover:text-[#d6bc7e] transition-colors block">Core</a></li>
+                        <li><a href="tdr-data.html" class="hover:text-[#d6bc7e] transition-colors block">Data</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="font-semibold text-white text-xs uppercase tracking-widest text-[#d6bc7e]">Manual TFP</h3>
+                    <ul class="space-y-3 text-[#a8a29e] text-xs">
+                        <li><a href="tfp-manual.html" class="hover:text-[#d6bc7e] transition-colors block">Manual</a></li>
+                        <li><a href="tdr-financial-architecture.html" class="hover:text-[#d6bc7e] transition-colors block">Finance</a></li>
+                        <li><a href="tfp-risco.html" class="hover:text-[#d6bc7e] transition-colors block">Risk</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="font-semibold text-white text-xs uppercase tracking-widest text-[#d6bc7e]">Legal</h3>
+                    <ul class="space-y-3 text-[#a8a29e] text-xs">
+                        <li><a href="model-law.html" class="hover:text-[#d6bc7e] transition-colors block">Model Law</a></li>
+                        <li><a href="protocol.html" class="hover:text-[#d6bc7e] transition-colors block">AI Protocol</a></li>
+                        <li><a href="estatuto.pdf" class="hover:text-[#d6bc7e] transition-colors block">Statute</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="font-semibold text-white text-xs uppercase tracking-widest text-[#d6bc7e]">Sectors</h3>
+                    <ul class="space-y-3 text-[#a8a29e] text-xs">
+                        <li><a href="emergency-sectors.html" class="hover:text-[#d6bc7e] transition-colors block">Emergency</a></li>
+                        <li><a href="escis.html" class="hover:text-[#d6bc7e] transition-colors block">Energy</a></li>
+                        <li><a href="niobio.html" class="hover:text-[#d6bc7e] transition-colors block">Niobio</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="font-semibold text-white text-xs uppercase tracking-widest text-[#d6bc7e]">Deploy</h3>
+                    <ul class="space-y-3 text-[#a8a29e] text-xs">
+                        <li><a href="pilot.html" class="hover:text-[#d6bc7e] transition-colors block">Pilot</a></li>
+                        <li><a href="request-pilot.html" class="hover:text-[#d6bc7e] transition-colors block">Request</a></li>
+                        <li><a href="partnerships.html" class="hover:text-[#d6bc7e] transition-colors block">Partner</a></li>
+                    </ul>
+                </div>
+
+            </nav>
+
+            <!-- Bottom -->
+            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row md:justify-between md:items-center gap-4 text-[10px] text-[#6b7280] uppercase tracking-widest">
+                <div class="flex items-center gap-3">
+                    <span class="text-[#d6bc7e] border border-[#d6bc7e]/30 px-2 py-1 text-sm bg-black/40">Σ</span>
+                    <span>© 2026 Johann Christian Hasse Foundation</span>
+                </div>
+                <div class="flex flex-wrap gap-x-6 gap-y-2">
+                    <a href="privacy.html" class="hover:text-[#d6bc7e] transition-colors">Privacy</a>
+                    <a href="terms.html" class="hover:text-[#d6bc7e] transition-colors">Terms</a>
+                    <a href="license.html" class="hover:text-[#d6bc7e] transition-colors">License</a>
+                </div>
+                <div>USA · Amazon · Brazil</div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Nav spacer
+        function updateNavSpacer() {
+            const nav = document.getElementById('siteNav');
+            const spacer = document.getElementById('navSpacer');
+            if (nav && spacer) spacer.style.height = nav.offsetHeight + 'px';
+        }
+        updateNavSpacer();
+        window.addEventListener('resize', updateNavSpacer);
+    </script>
+
+</body>
+</html>
+
