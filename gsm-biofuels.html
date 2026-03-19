@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>c-ECO | Global System Map — Biofuels</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: "#d6bc7e",
+            black: "#000000",
+            dark: {
+              950: "#000000",
+              900: "#0a0a0a",
+              800: "#141414",
+              700: "#1a1a1a",
+              600: "#262626",
+              500: "#404040",
+              400: "#737373"
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --pure-black: #000000;
+      --dark-900: #0a0a0a;
+      --dark-800: #141414;
+      --gold: #d6bc7e;
+    }
+
+    body {
+      background-color: var(--pure-black);
+      color: #e5e5e5;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.8;
+    }
+
+    h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+
+    .glass-panel {
+      background: #0f0f0f;
+      border: 1px solid rgba(214, 188, 126, 0.15);
+    }
+
+    .divider-gold {
+      width: 60px;
+      height: 1px;
+      background: rgba(214,188,126,0.55);
+      margin: 2rem auto;
+    }
+
+    .gold-line { border-color: rgba(214,188,126,0.35); }
+
+    .kicker {
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .institution-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      border: 1px solid rgba(214,188,126,0.2);
+      background: #0a0a0a;
+      color: #d4d4d4;
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+      line-height: 1.2;
+      transition: all 0.25s ease;
+      text-decoration: none;
+      min-width: 140px;
+    }
+
+    .institution-chip:hover {
+      border-color: rgba(214,188,126,0.4);
+      color: #fff;
+      background: #141414;
+    }
+
+    .logo-placeholder {
+      width: 32px;
+      height: 32px;
+      background: transparent;
+      border: 1px solid rgba(214,188,126,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      flex-shrink: 0;
+    }
+
+    .institution-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      width: 100%;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease-out;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .sticky-mini-nav a {
+      border-bottom: 1px solid transparent;
+    }
+
+    .sticky-mini-nav a:hover {
+      color: #d6bc7e;
+      border-color: rgba(214,188,126,0.35);
+    }
+
+    .layer-border {
+      border-left: 3px solid rgba(214,188,126,0.5);
+    }
+
+    .mini-card {
+      background: #0a0a0a;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      border: 1px solid rgba(214,188,126,0.15);
+      padding: 1rem;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    .comparison-table th {
+      color: #fff;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      background: #0a0a0a;
+    }
+
+    .comparison-table td {
+      color: #a3a3a3;
+      font-size: 0.92rem;
+      line-height: 1.7;
+      background: #0f0f0f;
+    }
+  </style>
+</head>
+
+<body class="selection:bg-gold/30">
+
+  <!-- Minimal nav -->
+  <nav class="fixed top-0 w-full z-50 border-b border-white/10 bg-black/95 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="inline-flex items-center gap-3 group">
+        <span class="text-gold border gold-line px-2 py-1 text-sm bg-black">Σ</span>
+        <span class="text-[10px] uppercase tracking-[0.3em] font-bold text-gray-300">c-ECO Doctrine</span>
+      </a>
+
+      <div class="hidden lg:flex gap-8 text-[9px] uppercase tracking-widest text-gray-500 items-center sticky-mini-nav">
+        <a href="#overview" class="hover:text-gold transition">Overview</a>
+        <a href="#types" class="hover:text-gold transition">Types</a>
+        <a href="#generations" class="hover:text-gold transition">Generations</a>
+        <a href="#framework" class="hover:text-gold transition">Framework</a>
+        <a href="#maps" class="hover:text-gold transition">Maps</a>
+        <a href="request-pilot.html" class="text-gold border border-gold/40 px-3 py-1 hover:bg-gold hover:text-black transition">Request Pilot</a>
+      </div>
+    </div>
+  </nav>
+
+  <div style="height:72px;"></div>
+
+  <main class="pb-24">
+
+    <!-- Header -->
+    <section id="overview" class="py-24 px-6">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 border border-gold/30 bg-transparent px-3 py-1 mb-6">
+          <span class="w-1.5 h-1.5 rounded-full bg-gold animate-pulse"></span>
+          <span class="text-gold text-[10px] uppercase tracking-[0.3em] font-bold">Global System Map</span>
+        </div>
+
+        <h1 class="text-4xl md:text-6xl text-white serif italic leading-tight">
+          Biofuels<br />
+          as a Coupled Planetary System
+        </h1>
+
+        <div class="divider-gold"></div>
+
+        <p class="text-gray-400 text-lg max-w-3xl mx-auto">
+          A cross-layer c-ECO architecture for understanding how biofuel expansion propagates through feedstocks,
+          land, water, biomass, conversion infrastructure, logistics, carbon accounting, finance, certification,
+          and ex-ante governance.
+        </p>
+
+        <div class="mt-10 glass-panel p-8">
+          <p class="text-gray-300 text-base md:text-lg italic serif">
+            “Biofuels are not a single fuel category. They are a global system of biological extraction,
+            industrial conversion, logistics, standards, finance, and ecological thresholds.”
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How to read -->
+    <section class="py-14 px-6 bg-[#0a0a0a]">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-10">
+          <span class="kicker block">Interpretive Key</span>
+          <h2 class="text-3xl md:text-4xl text-white serif italic mt-4">How to Read This Page</h2>
+          <div class="divider-gold"></div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="glass-panel p-7 reveal">
+            <h3 class="text-white serif text-xl mb-3">Sectoral Reading</h3>
+            <p class="text-gray-400 text-sm">
+              This page moves from basic classification to systemic architecture. It begins with the main fuel types,
+              compares the four generations, maps the complete chain of each generation, and only then reorganizes the
+              sector as a global system of pressure, conversion, ecological exposure, detection, capital conditioning,
+              and governance.
+            </p>
+          </div>
+
+          <div class="glass-panel p-7 reveal">
+            <h3 class="text-white serif text-xl mb-3">c-ECO Reading</h3>
+            <p class="text-gray-400 text-sm">
+              c-ECO does not treat biofuels as inherently sustainable or unsustainable. It governs the conditions
+              under which expansion remains viable. The focus is on where pressure originates, where it becomes physical,
+              where risk is real, how signals are measured, and how institutions can intervene before irreversibility.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What biofuels are -->
+    <section class="py-20 px-6">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-12">
+          <span class="kicker block">Foundational Reading</span>
+          <h2 class="text-3xl md:text-5xl text-white serif italic mt-4">What Biofuels Are</h2>
+          <div class="divider-gold"></div>
+        </div>
+
+        <div class="glass-panel p-8 md:p-10 reveal">
+          <p class="text-gray-400 text-lg">
+            Biofuels are fuels derived from biological material rather than fossil carbon. They include conventional
+            fuels such as ethanol and biodiesel, as well as advanced pathways such as renewable diesel, sustainable
+            aviation fuel, biomethane, lignocellulosic fuels, algae-based fuels, and other frontier systems. In c-ECO
+            terms, biofuels are not simply alternative fuels. They are a global system linking biological extraction,
+            waste capture, industrial conversion, logistics, certification, carbon accounting, finance, and ecological exposure.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Types -->
+    <section id="types" class="py-20 px-6 bg-[#0a0a0a]">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-14">
+          <span class="kicker block">Foundational Taxonomy</span>
+          <h2 class="text-3xl md:text-5xl text-white serif italic mt-4">Main Types of Biofuels</h2>
+          <div class="divider-gold"></div>
+          <p class="text-gray-400 text-lg max-w-4xl mx-auto">
+            The fuel families below are the main building blocks of the sector. They precede the generational
+            classification and help clarify what is actually being produced, used, and governed.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+          <div class="glass-panel p-7 reveal">
+            <h3 class="text-white serif text-2xl mb-3">Bioethanol</h3>
+            <p class="text-gray-400 text-sm">
+              Produced mainly from sugar and starch crops such as sugarcane, corn, wheat, and sugar beet.
+              It remains one of the most commercially established biofuels in road transport.
+            </p>
+          </div>
+
+          <div class="glass-panel p-7 reveal">
+            <h3 class="text-white serif text-2xl mb-3">Biodiesel</h3>
+            <p class="text-gray-400 text-sm">
+              Typically produced from vegetable oils, used cooking oil, and animal fats. It is commonly blended
+              into diesel pools and remains a major decarbonization route in road systems.
+            </p>
+          </div>
+
+          <div class="glass-panel p-7 reveal">
+            <h3 class="text-white serif text-2xl mb-3">Renewable Diesel / HVO</h3>
+            <p class="text-gray-400 text-sm">
+              A hydrotreated fuel derived from oils and fats, chemically closer to fossil diesel and often more
+              compatible with existing engines and infrastructure.
+            </p>
+          </div>
+
+          <div class="glass-panel p-7 reveal">
+            <h3 class="text-white serif text-2xl mb-3">SAF</h3>
+            <p class="text-gray-400 text-sm">
+              Sustainable aviation fuel includes a range of lower-carbon aviation pathways such as HEFA, ATJ,
+              Fischer–Tropsch, and other approved or emerging routes.
+            </p>
+          </div>
+
+          <div class="glass-panel p-7 reveal">
+            <h3 class="text-white serif text-2xl mb-3">Biogas / Biomethane</h3>
+            <p class="text-gray-400 text-sm">
+              Produced from anaerobic digestion of agricultural residues, sewage, landfill gas, and organic waste.
+              It connects biofuel expansion directly to waste systems and gas infrastructure.
+            </p>
+          </div>
+
+          <div class="glass-panel p-7 reveal">
+            <h3 class="text-white serif text-2xl mb-3">Lignocellulosic Fuels</h3>
+            <p class="text-gray-400 text-sm">
+              Derived from agricultural residues, forest residues, and other non-food biomass streams.
+              These pathways are central to advanced scaling.
+            </p>
+          </div>
+
+          <div class="glass-panel p-7 reveal">
+            <h3 class="text-white serif text-2xl mb-3">Algae-Based Fuels</h3>
+            <p class="text-gray-400 text-sm">
+              Produced from algae biomass and lipid systems. Strategically important, but still less commercially
+              mature than conventional and waste-based pathways.
+            </p>
+          </div>
+
+          <div class="glass-panel p-7 reveal">
+            <h3 class="text-white serif text-2xl mb-3">Frontier Pathways</h3>
+            <p class="text-gray-400 text-sm">
+              Includes engineered biological systems, carbon-integrated fuels, and other architectures with
+              potential for very low or even negative carbon intensity under tightly governed conditions.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Generations -->
+    <section id="generations" class="py-20 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-14">
+          <span class="kicker block">Sectoral Classification</span>
+          <h2 class="text-3xl md:text-5xl text-white serif italic mt-4">Classification by Generation</h2>
+          <div class="divider-gold"></div>
+        </div>
+
+        <div class="space-y-6">
+          <div class="glass-panel p-8 reveal layer-border">
+            <span class="kicker block">Generation 1</span>
+            <h3 class="text-white serif text-2xl mt-3">Conventional Biofuels</h3>
+            <p class="text-gray-400 text-sm mt-4">
+              Based mainly on food crops such as sugarcane, corn, soy, rapeseed, and palm. These pathways are
+              commercially mature, but more exposed to land-use pressure, water dependence, food competition,
+              and agricultural input intensity.
+            </p>
+          </div>
+
+          <div class="glass-panel p-8 reveal layer-border">
+            <span class="kicker block">Generation 2</span>
+            <h3 class="text-white serif text-2xl mt-3">Advanced Biofuels</h3>
+            <p class="text-gray-400 text-sm mt-4">
+              Based mainly on residues, lignocellulosic biomass, waste oils, municipal waste, and biomethane pathways.
+              This is the generation with the strongest institutional alignment to c-ECO because traceability, feedstock
+              integrity, logistics control, and carbon accounting are decisive.
+            </p>
+          </div>
+
+          <div class="glass-panel p-8 reveal layer-border">
+            <span class="kicker block">Generation 3</span>
+            <h3 class="text-white serif text-2xl mt-3">Algae-Based Fuels</h3>
+            <p class="text-gray-400 text-sm mt-4">
+              Based on algae systems positioned as high-potential but still commercially constrained.
+              Their main challenge is scale, nutrient intensity, water use, and cost.
+            </p>
+          </div>
+
+          <div class="glass-panel p-8 reveal layer-border">
+            <span class="kicker block">Generation 4</span>
+            <h3 class="text-white serif text-2xl mt-3">Frontier / Carbon-Integrated Biofuels</h3>
+            <p class="text-gray-400 text-sm mt-4">
+              Includes engineered biological systems and biofuel architectures integrated with advanced MRV,
+              low-carbon hydrogen, carbon management, and tighter governance-sensitive deployment.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick comparison -->
+    <section class="py-20 px-6 bg-[#0a0a0a]">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-14">
+          <span class="kicker block">Comparative Reading</span>
+          <h2 class="text-3xl md:text-5xl text-white serif italic mt-4">Quick Comparison Across Generations</h2>
+          <div class="divider-gold"></div>
+        </div>
+
+        <div class="glass-panel p-4 md:p-6 reveal overflow-x-auto">
+          <table class="comparison-table min-w-[980px]">
+            <thead>
+              <tr>
+                <th>Generation</th>
+                <th>Main Feedstock Base</th>
+                <th>Main Fuel Families</th>
+                <th>Maturity</th>
+                <th>Main Systemic Risk</th>
+                <th>Best c-ECO Entry Point</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Generation 1</td>
+                <td>Sugar, starches, vegetable oils</td>
+                <td>Ethanol, biodiesel</td>
+                <td>High</td>
+                <td>Land, water, food competition, agricultural intensity</td>
+                <td>Expansion conditioning, land-water thresholds, territorial sequencing</td>
+              </tr>
+              <tr>
+                <td>Generation 2</td>
+                <td>Residues, waste oils, lignocellulosic biomass, waste streams</td>
+                <td>SAF, HVO, renewable diesel, biomethane, cellulosic fuels</td>
+                <td>Medium to high</td>
+                <td>Feedstock authenticity, competing claims, logistics, carbon-intensity integrity</td>
+                <td>Traceability, MRV, certification, conditional finance, contracts</td>
+              </tr>
+              <tr>
+                <td>Generation 3</td>
+                <td>Algae</td>
+                <td>Algae-derived diesel, jet, specialty fuels</td>
+                <td>Low to medium</td>
+                <td>Scale-up, nutrient and water intensity, cost</td>
+                <td>Sandbox governance, staged deployment, monitoring-first architecture</td>
+              </tr>
+              <tr>
+                <td>Generation 4</td>
+                <td>Engineered biological systems, carbon-integrated platforms</td>
+                <td>Frontier low-CI fuels</td>
+                <td>Low</td>
+                <td>Claims integrity, MRV, technological uncertainty</td>
+                <td>MRV-first deployment, finance gating, ex-ante governance</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Complete chain -->
+    <section class="py-20 px-6">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-14">
+          <span class="kicker block">Operational Reading</span>
+          <h2 class="text-3xl md:text-5xl text-white serif italic mt-4">Complete Chain by Generation</h2>
+          <div class="divider-gold"></div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="glass-panel p-8 reveal">
+            <span class="kicker block">Generation 1</span>
+            <h3 class="text-white serif text-2xl mt-3 mb-4">Complete Chain</h3>
+            <p class="text-gray-400 text-sm">
+              Crop cultivation → agricultural inputs → harvesting → crushing or milling → fermentation or transesterification →
+              storage → blending → fuel distribution → end use.
+            </p>
+          </div>
+
+          <div class="glass-panel p-8 reveal">
+            <span class="kicker block">Generation 2</span>
+            <h3 class="text-white serif text-2xl mt-3 mb-4">Complete Chain</h3>
+            <p class="text-gray-400 text-sm">
+              Residue generation → collection and aggregation → sorting and traceability → pretreatment →
+              biochemical or thermochemical conversion → upgrading → certification →
+              blending or dedicated fuel logistics → end use.
+            </p>
+          </div>
+
+          <div class="glass-panel p-8 reveal">
+            <span class="kicker block">Generation 3</span>
+            <h3 class="text-white serif text-2xl mt-3 mb-4">Complete Chain</h3>
+            <p class="text-gray-400 text-sm">
+              Strain selection → nutrient and CO₂ supply → cultivation → harvesting and dewatering →
+              extraction or direct conversion → upgrading → certification → limited strategic deployment.
+            </p>
+          </div>
+
+          <div class="glass-panel p-8 reveal">
+            <span class="kicker block">Generation 4</span>
+            <h3 class="text-white serif text-2xl mt-3 mb-4">Complete Chain</h3>
+            <p class="text-gray-400 text-sm">
+              Bioengineering or advanced pathway design → controlled feedstock and carbon integration →
+              conversion and upgrading → advanced MRV → premium procurement or policy-linked monetization →
+              staged deployment.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Transition -->
+    <section class="py-16 px-6 bg-[#0a0a0a]">
+      <div class="max-w-5xl mx-auto text-center">
+        <span class="kicker block">System Transition</span>
+        <h2 class="text-3xl md:text-4xl text-white serif italic mt-4">From Fuel Classification to Systemic Architecture</h2>
+        <div class="divider-gold"></div>
+        <div class="glass-panel p-8 reveal">
+          <p class="text-gray-400 text-lg">
+            Once biofuels are understood by type and by generation, the sector can be re-read as a coupled
+            global system rather than as isolated fuel categories. The critical question is no longer only
+            which fuel is produced, but where expansion pressure originates, how it becomes physical,
+            where ecological viability is tested, how signals are observed, and how capital and governance
+            condition scale. The c-ECO Global System Map reorganizes the sector accordingly.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Framework -->
+    <section id="framework" class="py-20 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+          <span class="kicker block">System Logic</span>
+          <h2 class="text-3xl md:text-5xl text-white serif italic mt-4">Global System Map Framework</h2>
+          <div class="divider-gold"></div>
+        </div>
+
+        <div class="glass-panel p-8 md:p-10 reveal">
+          <div class="grid md:grid-cols-5 gap-4 text-center">
+            <div class="p-4 border border-white/10 bg-black">
+              <div class="text-gold text-[10px] uppercase tracking-[0.3em] font-bold mb-2">1</div>
+              <div class="text-white font-semibold text-sm">Pressure</div>
+              <p class="text-gray-500 text-xs mt-2">Feedstock competition, expansion demand, waste capture, and biomass extraction accelerate.</p>
+            </div>
+
+            <div class="p-4 border border-white/10 bg-black">
+              <div class="text-gold text-[10px] uppercase tracking-[0.3em] font-bold mb-2">2</div>
+              <div class="text-white font-semibold text-sm">Materialization</div>
+              <p class="text-gray-500 text-xs mt-2">Mills, biorefineries, digesters, terminals, and logistics convert pressure into physical scale.</p>
+            </div>
+
+            <div class="p-4 border border-white/10 bg-black">
+              <div class="text-gold text-[10px] uppercase tracking-[0.3em] font-bold mb-2">3</div>
+              <div class="text-white font-semibold text-sm">Biophysical Exposure</div>
+              <p class="text-gray-500 text-xs mt-2">Land, water, biomass, nutrients, and ecological viability determine the real limits of expansion.</p>
+            </div>
+
+            <div class="p-4 border border-white/10 bg-black">
+              <div class="text-gold text-[10px] uppercase tracking-[0.3em] font-bold mb-2">4</div>
+              <div class="text-white font-semibold text-sm">Detection</div>
+              <p class="text-gray-500 text-xs mt-2">MRV, traceability, carbon accounting, and chain-of-custody systems translate signals into thresholds.</p>
+            </div>
+
+            <div class="p-4 border border-white/10 bg-black">
+              <div class="text-gold text-[10px] uppercase tracking-[0.3em] font-bold mb-2">5</div>
+              <div class="text-white font-semibold text-sm">Conditioning</div>
+              <p class="text-gray-500 text-xs mt-2">Capital, certification, procurement, public policy, and ex-ante control govern how the sector scales.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-12 glass-panel p-8 reveal">
+          <h3 class="text-white serif text-2xl mb-5">The 15 Sublayers</h3>
+          <div class="grid md:grid-cols-3 gap-4 text-sm text-gray-400">
+            <div class="mini-card p-4">1. Feedstock Expansion Pressure</div>
+            <div class="mini-card p-4">2. Feedstock Supply & Aggregation</div>
+            <div class="mini-card p-4">3. Conversion & Biorefining Infrastructure</div>
+            <div class="mini-card p-4">4. Fuel Distribution, Storage & Blending</div>
+            <div class="mini-card p-4">5. End-Use Demand Systems</div>
+            <div class="mini-card p-4">6. Land, Water & Biomass Condition</div>
+            <div class="mini-card p-4">7. Monitoring, Traceability & MRV</div>
+            <div class="mini-card p-4">8. Carbon Accounting & Market Interface</div>
+            <div class="mini-card p-4">9. Food–Energy–Materials Coupling</div>
+            <div class="mini-card p-4">10. Energy, Hydrogen & Process Inputs</div>
+            <div class="mini-card p-4">11. Finance, Insurance & Risk Transfer</div>
+            <div class="mini-card p-4">12. Corporate Procurement & Offtake Structures</div>
+            <div class="mini-card p-4">13. Standards, Certification & Sustainability Regimes</div>
+            <div class="mini-card p-4">14. Public Policy, Mandates & Incentives</div>
+            <div class="mini-card p-4">15. Ex-Ante Constraint & System Control</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Maps by generation -->
+    <section id="maps" class="py-20 px-6 bg-[#0a0a0a]">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-14">
+          <span class="kicker block">Layered Architecture</span>
+          <h2 class="text-3xl md:text-5xl text-white serif italic mt-4">Global Counterparty Universe by Generation</h2>
+          <div class="divider-gold"></div>
+          <p class="text-gray-400 text-lg max-w-4xl mx-auto">
+            The same fifteen sublayers are present across the sector, but they behave differently across generations.
+            Each generation below should contain its own cross-layer institutional universe.
+          </p>
+        </div>
+
+        <!-- Generation 1 -->
+        <div class="space-y-8 mb-20">
+          <div class="text-center">
+            <span class="kicker block">Generation 1</span>
+            <h3 class="text-3xl text-white serif italic mt-4">Conventional Biofuels — Global System Map</h3>
+            <div class="divider-gold"></div>
+            <p class="text-gray-400 max-w-4xl mx-auto">
+              Conventional biofuels are the most commercially mature segment, but also the most exposed to land,
+              water, food-system stress, and territorial scaling pressure.
+            </p>
+          </div>
+
+          <!-- Sample sublayer card -->
+          <article class="glass-panel p-8 reveal layer-border">
+            <div class="grid lg:grid-cols-4 gap-8">
+              <div class="lg:col-span-1">
+                <span class="kicker block">Sublayer 1</span>
+                <h4 class="text-white serif text-2xl mt-3">Feedstock Expansion Pressure</h4>
+                <p class="text-gray-400 text-sm mt-4">
+                  This is where the initial expansion pressure originates through sugar, starch, oilseed,
+                  and agricultural biomass demand.
+                </p>
+                <div class="mt-5 text-xs text-gray-500">
+                  Function in c-ECO: <span class="text-gold">ΔV acceleration, crop expansion pressure, territorial exposure.</span>
+                </div>
+              </div>
+
+              <div class="lg:col-span-3">
+                <div class="institution-row">
+                  <span class="institution-chip"><span class="logo-placeholder">CG</span>Cargill</span>
+                  <span class="institution-chip"><span class="logo-placeholder">BG</span>Bunge</span>
+                  <span class="institution-chip"><span class="logo-placeholder">AD</span>ADM</span>
+                  <span class="institution-chip"><span class="logo-placeholder">LD</span>Louis Dreyfus</span>
+                  <span class="institution-chip"><span class="logo-placeholder">CF</span>COFCO</span>
+                  <span class="institution-chip"><span class="logo-placeholder">WI</span>Wilmar</span>
+                  <span class="institution-chip"><span class="logo-placeholder">OL</span>Olam</span>
+                  <span class="institution-chip"><span class="logo-placeholder">YA</span>Yara</span>
+                  <span class="institution-chip"><span class="logo-placeholder">NU</span>Nutrien</span>
+                  <span class="institution-chip"><span class="logo-placeholder">SY</span>Syngenta</span>
+                </div>
+                <div class="institution-row mt-3">
+                  <span class="institution-chip"><span class="logo-placeholder">CR</span>Corteva</span>
+                  <span class="institution-chip"><span class="logo-placeholder">BY</span>Bayer Crop Science</span>
+                  <span class="institution-chip"><span class="logo-placeholder">MO</span>Mosaic</span>
+                  <span class="institution-chip"><span class="logo-placeholder">SL</span>SLC Agrícola</span>
+                  <span class="institution-chip"><span class="logo-placeholder">CS</span>Cosan</span>
+                  <span class="institution-chip"><span class="logo-placeholder">JB</span>JBS</span>
+                  <span class="institution-chip"><span class="logo-placeholder">TY</span>Tyson Foods</span>
+                  <span class="institution-chip"><span class="logo-placeholder">BR</span>BRF</span>
+                  <span class="institution-chip"><span class="logo-placeholder">IO</span>IOI Group</span>
+                  <span class="institution-chip"><span class="logo-placeholder">FG</span>FGV Holdings</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Placeholder note -->
+          <div class="glass-panel p-8 reveal">
+            <p class="text-gray-400 text-sm">
+              Continue here with Sublayers 2–15 for Generation 1 using the same card structure:
+              <span class="text-gold">Feedstock Supply & Aggregation → Conversion & Biorefining → Distribution →
+              End-Use Demand → Land, Water & Biomass Condition → Monitoring & MRV → Carbon Accounting →
+              Coupling → Process Inputs → Finance → Procurement → Certification → Policy → Ex-Ante Constraint.</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Generation 2 -->
+        <div class="space-y-8 mb-20">
+          <div class="text-center">
+            <span class="kicker block">Generation 2</span>
+            <h3 class="text-3xl text-white serif italic mt-4">Advanced Biofuels — Global System Map</h3>
+            <div class="divider-gold"></div>
+            <p class="text-gray-400 max-w-4xl mx-auto">
+              This is the most institutionally strategic generation for c-ECO because traceability, feedstock integrity,
+              carbon accounting, logistics control, certification, and conditional finance are all decisive.
+            </p>
+          </div>
+
+          <article class="glass-panel p-8 reveal layer-border">
+            <div class="grid lg:grid-cols-4 gap-8">
+              <div class="lg:col-span-1">
+                <span class="kicker block">Priority Read</span>
+                <h4 class="text-white serif text-2xl mt-3">Most Critical Sublayers</h4>
+                <p class="text-gray-400 text-sm mt-4">
+                  In Generation 2, the decisive layers are not only physical production but also traceability,
+                  feedstock integrity, certification, procurement, and finance.
+                </p>
+              </div>
+
+              <div class="lg:col-span-3 grid md:grid-cols-2 gap-4">
+                <div class="mini-card p-5">
+                  <h5 class="text-white font-semibold mb-2">Key c-ECO Emphasis</h5>
+                  <p class="text-gray-400 text-sm">Supply & aggregation, MRV, carbon accounting, procurement, standards, and ex-ante contractual gating.</p>
+                </div>
+                <div class="mini-card p-5">
+                  <h5 class="text-white font-semibold mb-2">Systemic Focus</h5>
+                  <p class="text-gray-400 text-sm">Waste authenticity, competing claims, residue logistics, CI integrity, SAF pathways, biomethane, and renewable diesel scaling.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <div class="glass-panel p-8 reveal">
+            <p class="text-gray-400 text-sm">
+              Insert here the 15 full sublayer cards for Generation 2 with global institutional coverage.
+            </p>
+          </div>
+        </div>
+
+        <!-- Generation 3 -->
+        <div class="space-y-8 mb-20">
+          <div class="text-center">
+            <span class="kicker block">Generation 3</span>
+            <h3 class="text-3xl text-white serif italic mt-4">Algae-Based Fuels — Global System Map</h3>
+            <div class="divider-gold"></div>
+            <p class="text-gray-400 max-w-4xl mx-auto">
+              Generation 3 remains less mature commercially, but it is highly relevant for staged governance,
+              pilot design, tight monitoring, and controlled deployment architectures.
+            </p>
+          </div>
+
+          <div class="glass-panel p-8 reveal">
+            <p class="text-gray-400 text-sm">
+              Insert here the 15 full sublayer cards for Generation 3, with emphasis on water, nutrients,
+              process inputs, monitoring, staged finance, and sandbox governance.
+            </p>
+          </div>
+        </div>
+
+        <!-- Generation 4 -->
+        <div class="space-y-8">
+          <div class="text-center">
+            <span class="kicker block">Generation 4</span>
+            <h3 class="text-3xl text-white serif italic mt-4">Frontier / Carbon-Integrated Biofuels — Global System Map</h3>
+            <div class="divider-gold"></div>
+            <p class="text-gray-400 max-w-4xl mx-auto">
+              Frontier biofuels require governance before scale. In this generation, c-ECO operates most strongly
+              through MRV-first deployment, claims integrity, finance gating, and pre-threshold institutional control.
+            </p>
+          </div>
+
+          <div class="glass-panel p-8 reveal">
+            <p class="text-gray-400 text-sm">
+              Insert here the 15 full sublayer cards for Generation 4, with emphasis on MRV, carbon-claim integrity,
+              insurance, finance, standards, incentives, and ex-ante restriction.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Governance readout -->
+    <section class="py-20 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+          <span class="kicker block">Interpretive Output</span>
+          <h2 class="text-3xl md:text-5xl text-white serif italic mt-4">Governance Readout</h2>
+          <div class="divider-gold"></div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="glass-panel p-7 reveal">
+            <h3 class="text-white serif text-xl mb-3">What TDR Sees</h3>
+            <p class="text-gray-400 text-sm">
+              Biofuels are legible as a coupled global system. Expansion pressure begins in feedstock capture,
+              becomes physical through conversion and logistics, propagates through land, water, biomass, and
+              industrial inputs, and is then amplified or constrained by carbon accounting, finance, and governance.
+            </p>
+          </div>
+
+          <div class="glass-panel p-7 reveal">
+            <h3 class="text-white serif text-xl mb-3">What c-ECO Adds</h3>
+            <p class="text-gray-400 text-sm">
+              c-ECO converts these dynamics into operational thresholds, conditional finance, contractual safeguards,
+              sequencing rules, and reversibility logic. It governs the conditions under which expansion remains viable.
+            </p>
+          </div>
+
+          <div class="glass-panel p-7 reveal">
+            <h3 class="text-white serif text-xl mb-3">Why This Matters</h3>
+            <p class="text-gray-400 text-sm">
+              Biofuels sit at the intersection of climate ambition, industrial decarbonization, food systems,
+              natural-resource pressure, infrastructure growth, and fragmented regulation. That makes them one of
+              the clearest sectors for demonstrating ex-ante governance in practice.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-24 px-6 bg-[#0a0a0a]">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="glass-panel p-12 reveal">
+          <h2 class="text-3xl md:text-4xl text-white serif italic mb-6">Deploy c-ECO in Biofuels</h2>
+          <p class="text-gray-400 text-lg mb-8">
+            Request a pilot for ex-ante governance in ethanol, SAF, renewable diesel, biomethane, waste-based fuels,
+            or broader biofuel-linked infrastructure systems.
+          </p>
+          <div class="flex flex-col md:flex-row gap-4 justify-center">
+            <a href="request-pilot.html" class="inline-block bg-gold text-black px-8 py-3 text-sm uppercase tracking-widest font-semibold hover:bg-white transition">
+              Request Pilot
+            </a>
+            <a href="tdr-framework.html" class="inline-block border border-gold/40 text-gold px-8 py-3 text-sm uppercase tracking-widest hover:bg-gold hover:text-black transition">
+              Explore TDR
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="py-20 px-6 border-t border-white/10 bg-[#0a0a0a] text-center">
+    <div class="max-w-4xl mx-auto">
+      <div class="flex justify-center gap-4 mb-10">
+        <span class="text-gold border border-gold/30 px-3 py-1">Σ</span>
+      </div>
+
+      <div class="flex flex-col md:flex-row justify-center gap-6 text-[10px] uppercase tracking-[0.35em] text-gray-500 mb-8">
+        <a href="protocol.html" class="hover:text-gold transition">Biofuels Protocol</a>
+        <a href="system-architecture.html" class="hover:text-gold transition">System Architecture</a>
+        <a href="tdr-framework.html" class="hover:text-gold transition">TDR Framework</a>
+        <a href="request-pilot.html" class="hover:text-gold transition">Request Pilot</a>
+      </div>
+
+      <p class="text-gray-600 text-[10px] uppercase tracking-[0.5em] mb-4">
+        © 2026 Hasse Foundation · c-ECO Doctrine
+      </p>
+
+      <p class="text-gray-700 text-[9px] uppercase tracking-[0.4em]">
+        Global System Mapping · Ex-Ante Governance
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('active');
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: "0px 0px -40px 0px"
+      });
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    });
+  </script>
+</body>
+</html>
