@@ -1,398 +1,763 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protocol Σ // AI Console</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Urbanist:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        slate: {
-                            950: '#09090b', // Deep background
-                            900: '#18181b', // Surface
-                        },
-                        sigma: {
-                            DEFAULT: '#d6bc7e', // O Dourado Sigma
-                            dim: 'rgba(214, 188, 126, 0.35)',
-                            glow: 'rgba(214, 188, 126, 0.15)',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        tech: ['Urbanist', 'sans-serif'],
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'scanline': 'scanline 8s linear infinite',
-                    },
-                    keyframes: {
-                        scanline: {
-                            '0%': { transform: 'translateY(-100%)' },
-                            '100%': { transform: 'translateY(100%)' }
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>c-ECO | Global System Map — AI & Digital Infrastructure as a Planetary System</title>
 
-    <style>
-        /* Efeito sutil de Scanline CRT */
-        .scanline-overlay {
-            background: linear-gradient(
-                to bottom,
-                rgba(255,255,255,0),
-                rgba(255,255,255,0) 50%,
-                rgba(0,0,0,0.05) 50%,
-                rgba(0,0,0,0.05)
-            );
-            background-size: 100% 4px;
-            pointer-events: none;
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: "#d6bc7e",
+            stone: {
+              950: "#0c0a09",
+              900: "#1c1917",
+              800: "#292524",
+              700: "#44403c",
+              600: "#57534e",
+              500: "#78716c",
+              400: "#a8a29e"
+            }
+          },
+          boxShadow: {
+            glow: "0 0 0 1px rgba(214,188,126,0.16), 0 10px 40px rgba(0,0,0,0.35)"
+          }
         }
-        
-        /* Scrollbar customizada fina e escura */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #09090b; 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #27272a; 
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #3f3f46; 
-        }
-    </style>
+      }
+    }
+  </script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --stone-950:#0c0a09;
+      --gold:#d6bc7e;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at top, rgba(214,188,126,0.10), transparent 35%),
+        linear-gradient(180deg, #0c0a09 0%, #15110f 100%);
+      color: #e7e5e4;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.75;
+    }
+
+    h1,h2,h3,h4,.serif { font-family: 'Playfair Display', serif; }
+
+    .glass-panel {
+      background: rgba(28,25,23,0.58);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(214,188,126,0.12);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+    }
+
+    .gold-line { border-color: rgba(214,188,126,0.3); }
+    .divider-gold {
+      width: 68px;
+      height: 1px;
+      background: rgba(214,188,126,0.55);
+      margin: 2rem auto;
+    }
+
+    .layer-band {
+      border-left: 4px solid rgba(214,188,126,0.72);
+      background:
+        linear-gradient(90deg, rgba(214,188,126,0.09) 0%, rgba(214,188,126,0.02) 35%, transparent 100%);
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid rgba(214,188,126,0.14);
+      background: rgba(255,255,255,0.02);
+      color: #d6d3d1;
+      padding: 0.42rem 0.68rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      line-height: 1.2;
+      transition: all 0.25s ease;
+    }
+
+    .chip:hover {
+      border-color: rgba(214,188,126,0.36);
+      color: #fff;
+      transform: translateY(-1px);
+      background: rgba(214,188,126,0.07);
+    }
+
+    .kicker {
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease-out;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .logic-arrow {
+      color: rgba(214,188,126,0.86);
+      font-size: 1.4rem;
+      line-height: 1;
+    }
+
+    .subtle-grid {
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+
+    .sticky-mini-nav a {
+      border-bottom: 1px solid transparent;
+    }
+
+    .sticky-mini-nav a:hover {
+      color: #d6bc7e;
+      border-color: rgba(214,188,126,0.35);
+    }
+  </style>
 </head>
-<body class="bg-slate-950 text-zinc-300 font-sans h-screen flex flex-col overflow-hidden selection:bg-sigma-dim selection:text-white">
 
-    <div class="fixed inset-0 scanline-overlay z-50 opacity-20 pointer-events-none"></div>
+<body class="selection:bg-gold/30">
 
-    <header class="h-14 border-b border-white/5 bg-slate-950/80 backdrop-blur-sm flex items-center justify-between px-6 z-40 relative">
-        <div class="flex items-center gap-4">
-            <div class="w-8 h-8 border border-white/10 flex items-center justify-center bg-white/5">
-                <span class="font-tech text-sigma font-bold text-lg">Σ</span>
-            </div>
-            
-            <div class="flex flex-col">
-                <h1 class="font-tech text-sm tracking-[0.2em] text-white uppercase font-semibold">
-                    c-ECO AI Protocol
-                </h1>
-                <span class="text-[0.65rem] text-zinc-500 uppercase tracking-wider font-tech">
-                    Pre-Threshold Decision Guardian
-                </span>
-            </div>
+  <!-- Top nav -->
+  <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-stone-950/90 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="inline-flex items-center gap-3 group">
+        <span class="text-gold border gold-line px-2 py-1 text-sm bg-black/40">Σ</span>
+        <span class="text-[10px] uppercase tracking-[0.3em] font-bold">c-ECO Doctrine</span>
+      </a>
+
+      <div class="hidden xl:flex gap-6 text-[9px] uppercase tracking-widest text-stone-500 sticky-mini-nav items-center">
+        <a href="#overview" class="transition">Overview</a>
+        <a href="#logic" class="transition">Cross-Layer Logic</a>
+        <a href="#layers" class="transition">System Layers</a>
+        <a href="#governance" class="transition">Governance Readout</a>
+        <a href="request-pilot.html" class="text-gold border border-gold/40 px-3 py-1 hover:bg-gold hover:text-black transition">Request Pilot</a>
+      </div>
+    </div>
+  </nav>
+
+  <div style="height:72px;"></div>
+
+  <main class="pb-24">
+
+    <!-- Header -->
+    <section id="overview" class="py-24 px-6 subtle-grid">
+      <div class="max-w-5xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 border border-gold/30 bg-gold/5 px-3 py-1 mb-6">
+          <span class="w-1.5 h-1.5 rounded-full bg-gold animate-pulse"></span>
+          <span class="text-gold text-[10px] uppercase tracking-[0.3em] font-bold">Global System Map</span>
         </div>
 
-        <div class="hidden md:flex items-center gap-3 px-4 py-1 rounded-full border border-white/5 bg-white/5">
-            <div class="w-1.5 h-1.5 rounded-full bg-sigma animate-pulse"></div>
-            <span class="font-tech text-xs tracking-[0.15em] text-sigma">SYSTEM ACTIVE</span>
+        <h1 class="text-4xl md:text-6xl text-white serif italic leading-tight">
+          AI &amp; Digital Infrastructure<br />
+          as a Planetary System
+        </h1>
+
+        <div class="divider-gold"></div>
+
+        <p class="text-stone-400 text-lg max-w-4xl mx-auto">
+          A cross-layer map of the global AI and digital infrastructure stack — from compute demand and data center deployment
+          to energy-water coupling, capital allocation, Earth-system intelligence, and institutional enforcement.
+        </p>
+
+        <div class="mt-10 max-w-4xl mx-auto glass-panel p-8 border-gold/20">
+          <p class="text-stone-300 text-base md:text-lg italic serif">
+            “AI is not virtual. It is a planetary-scale physical system.
+            c-ECO is designed to govern its expansion before irreversibility.”
+          </p>
         </div>
-        
-        <div class="flex items-center gap-4 text-xs font-tech text-zinc-500">
-            <span>SESSION: 4X-99</span>
-            <button class="hover:text-sigma transition-colors" onclick="window.location.href='index.html'">
-                EXIT TERMINAL
-            </button>
+      </div>
+    </section>
+
+    <!-- How to read -->
+    <section class="py-14 px-6 bg-black/20">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-10">
+          <span class="kicker block">Interpretive Key</span>
+          <h2 class="text-3xl md:text-4xl text-white serif italic mt-4">How to Read This Map</h2>
+          <div class="divider-gold"></div>
         </div>
-    </header>
 
-    <main class="flex-1 flex overflow-hidden relative z-10">
-        
-        <section class="flex-1 flex flex-col relative max-w-5xl mx-auto w-full border-r border-white/5">
-            
-            <div class="px-6 py-3 border-b border-white/5 bg-white/[0.02] flex justify-between items-center">
-                <div class="flex items-center gap-2">
-                    <span class="text-sigma text-xs">◆</span>
-                    <span class="font-tech text-sm text-zinc-400 tracking-wide">
-                        SCENARIO: <span class="text-zinc-200">AMAZON BASIN CONCESSION</span> // CONTRACT v3.2
-                    </span>
-                </div>
-                <div class="text-[0.6rem] font-mono text-zinc-600">ID: 8821-CX</div>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="glass-panel p-7 reveal">
+            <h3 class="text-white serif text-xl mb-3">Systemic Reading</h3>
+            <p class="text-stone-400 text-sm">
+              Each sublayer below represents a functional role in the formation, acceleration, financing, measurement,
+              or governance of AI-driven digital expansion. Institutions are organized not as “partners already engaged,”
+              but as a global counterparty universe relevant to pilot deployment, contractual conditioning, prudential
+              governance, and restoration-capacity logic.
+            </p>
+          </div>
+
+          <div class="glass-panel p-7 reveal">
+            <h3 class="text-white serif text-xl mb-3">c-ECO Reading</h3>
+            <p class="text-stone-400 text-sm">
+              The c-ECO/TDR architecture interprets this system as a sequence:
+              signal generation, infrastructure manifestation, biophysical coupling, financial conditioning,
+              and institutional response. This allows AI infrastructure to be governed ex ante rather than after damage
+              or after path dependency has become irreversible.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cross-layer logic -->
+    <section id="logic" class="py-20 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+          <span class="kicker block">Core Mechanism</span>
+          <h2 class="text-3xl md:text-5xl text-white serif italic mt-4">Cross-Layer Logic</h2>
+          <div class="divider-gold"></div>
+        </div>
+
+        <div class="glass-panel p-8 md:p-10 reveal">
+          <div class="grid md:grid-cols-7 gap-4 text-center items-center">
+            <div class="p-4 border border-white/10 rounded-md">
+              <div class="text-gold text-[10px] uppercase tracking-[0.3em] font-bold mb-2">1</div>
+              <div class="text-white font-semibold">AI Demand</div>
+              <p class="text-stone-500 text-xs mt-2">Model training, inference, and platform competition accelerate growth trajectories.</p>
             </div>
 
-            <div class="flex-1 overflow-y-auto p-6 space-y-8" id="console-output">
-                
-                <div class="flex justify-end pl-12">
-                    <div class="bg-zinc-900/60 border border-white/5 text-zinc-200 p-4 rounded-sm max-w-2xl backdrop-blur-sm">
-                        <p class="text-sm leading-relaxed">
-                            Analise a viabilidade de estender a operação para o setor norte considerando os níveis atuais de seca e o impacto na comunidade ribeirinha local.
-                        </p>
-                    </div>
-                </div>
+            <div class="logic-arrow hidden md:block">→</div>
 
-                <div class="flex justify-start pr-12">
-                    <div class="w-full max-w-3xl">
-                        <div class="border-l-[1px] border-sigma-dim bg-[#18181b]/80 p-5 pl-6 relative">
-                            
-                            <div class="flex gap-4 mb-3 font-mono text-[0.65rem] text-sigma/80 tracking-wide uppercase border-b border-white/5 pb-2">
-                                <span>[ t-state: −2 cycles to threshold ]</span>
-                                <span>[ Focus: Water Governance ]</span>
-                            </div>
-
-                            <div class="prose prose-invert prose-sm max-w-none text-zinc-300 font-light">
-                                <p class="mb-3">
-                                    <strong class="text-white font-medium font-tech">Analysis initiated. System State: Drifting.</strong>
-                                </p>
-                                <p class="mb-3">
-                                    A expansão para o setor norte apresenta um risco sistêmico elevado. Os dados de satélite indicam que o lençol freático está 15% abaixo da média decenal (pre-threshold warning).
-                                </p>
-                                <p>
-                                    A comunidade ribeirinha atua como um regulador natural do ecossistema local; deslocá-los ou impactar seu acesso à água acelerará a degradação ambiental, reduzindo o <em class="text-zinc-400 not-italic">tempo-capacidade</em> do projeto em aproximadamente 3 ciclos de revisão.
-                                </p>
-                            </div>
-
-                            <div class="mt-4 pt-2 border-t border-white/5 flex gap-2">
-                                <span class="px-1.5 py-0.5 bg-red-900/20 border border-red-900/30 text-red-400 text-[0.6rem] font-tech uppercase rounded">High Risk Vector</span>
-                                <span class="px-1.5 py-0.5 bg-blue-900/20 border border-blue-900/30 text-blue-400 text-[0.6rem] font-tech uppercase rounded">Social Compliance</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex justify-start items-center gap-3 opacity-80 pl-1 pt-2">
-                    <div class="relative w-4 h-4 flex items-center justify-center">
-                        <div class="absolute w-full h-full border border-sigma rounded-full animate-ping opacity-20"></div>
-                        <div class="w-2 h-2 bg-sigma rounded-full"></div>
-                    </div>
-                    <span class="font-tech text-[0.6rem] tracking-[0.2em] text-sigma uppercase animate-pulse">
-                        Computing pre-threshold trajectories...
-                    </span>
-                </div>
-
+            <div class="p-4 border border-white/10 rounded-md">
+              <div class="text-gold text-[10px] uppercase tracking-[0.3em] font-bold mb-2">2</div>
+              <div class="text-white font-semibold">Infrastructure Buildout</div>
+              <p class="text-stone-500 text-xs mt-2">Data centers, fiber, edge, towers, and compute hardware materialize the expansion.</p>
             </div>
 
-            <div class="p-6 pt-2">
-                <div class="relative group">
-                    <div class="absolute -inset-0.5 bg-gradient-to-r from-sigma/20 to-transparent rounded opacity-0 group-hover:opacity-100 transition duration-500 blur"></div>
-                    <div class="relative flex items-center bg-slate-950 border border-white/10 p-1">
-                        <span class="pl-3 pr-2 text-sigma font-tech">Σ</span>
-                        <input 
-                            type="text" 
-                            id="command-input"
-                            placeholder="Input command or query system parameters..." 
-                            class="w-full bg-transparent border-none text-sm text-white placeholder-zinc-600 focus:ring-0 px-2 py-3 font-mono focus:outline-none h-12">
-                        <button 
-                            id="execute-btn"
-                            class="px-4 py-1 mr-1 bg-white/5 hover:bg-sigma hover:text-black border border-white/10 text-xs font-tech tracking-wider text-zinc-400 transition-all uppercase">
-                            Execute
-                        </button>
-                    </div>
-                </div>
-                <div class="text-center mt-2">
-                    <p class="text-[0.55rem] text-zinc-600 font-mono tracking-widest uppercase">
-                        Protocol Σ v2.4 // All interactions monitored for systemic integrity
-                    </p>
-                </div>
+            <div class="logic-arrow hidden md:block">→</div>
+
+            <div class="p-4 border border-white/10 rounded-md">
+              <div class="text-gold text-[10px] uppercase tracking-[0.3em] font-bold mb-2">3</div>
+              <div class="text-white font-semibold">Energy-Water Coupling</div>
+              <p class="text-stone-500 text-xs mt-2">Grid capacity, cooling demand, water stress, and land-use constraints emerge.</p>
             </div>
 
-        </section>
+            <div class="logic-arrow hidden md:block">→</div>
 
-        <aside class="w-80 bg-[#0c0c0e] border-l border-white/5 flex flex-col hidden lg:flex">
-            <div class="p-5 border-b border-white/5">
-                <h2 class="font-tech text-xs tracking-[0.2em] text-zinc-500 uppercase mb-4">System Integrity State</h2>
-                
-                <div class="relative h-2 w-full bg-zinc-800 rounded-full mb-2 overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-r from-zinc-600 via-sigma to-red-900 opacity-80"></div>
-                </div>
-                
-                <div class="relative w-full h-4 mb-1">
-                    <div class="absolute left-[60%] -top-3 transform -translate-x-1/2 flex flex-col items-center">
-                        <div class="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-t-[6px] border-t-sigma mb-1"></div>
-                        <span class="text-[0.6rem] font-tech text-sigma tracking-wider uppercase">Drifting</span>
-                    </div>
-                </div>
+            <div class="p-4 border border-white/10 rounded-md">
+              <div class="text-gold text-[10px] uppercase tracking-[0.3em] font-bold mb-2">4</div>
+              <div class="text-white font-semibold">TDR Detection</div>
+              <p class="text-stone-500 text-xs mt-2">Signals are measured, interpreted, and translated into thresholds and trajectories.</p>
+            </div>
+          </div>
+
+          <div class="mt-8 grid md:grid-cols-3 gap-4 text-center">
+            <div class="p-4 border border-gold/20 bg-gold/5 rounded-md">
+              <div class="text-gold text-[10px] uppercase tracking-[0.3em] font-bold mb-2">5</div>
+              <div class="text-white font-semibold">Capital Conditioning</div>
+              <p class="text-stone-500 text-xs mt-2">Finance, insurance, and investment terms internalize reversibility and systemic exposure.</p>
             </div>
 
-            <div class="p-5 flex-1 overflow-y-auto">
-                
-                <div class="mb-8">
-                    <h3 class="font-tech text-[0.65rem] text-zinc-500 uppercase mb-3 tracking-widest">Time-Capacity Horizon</h3>
-                    <div class="relative pl-2 border-l border-white/10 space-y-6">
-                        
-                        <div class="relative">
-                            <div class="absolute -left-[13px] top-1 w-2 h-2 bg-zinc-700 rounded-full border border-black"></div>
-                            <p class="text-[0.65rem] text-zinc-500 uppercase mb-0.5">Cycle -1</p>
-                            <p class="text-xs text-zinc-400">Initial Assessment</p>
-                        </div>
-
-                        <div class="relative">
-                            <div class="absolute -left-[13px] top-1 w-2 h-2 bg-sigma rounded-full border border-black shadow-[0_0_10px_rgba(214,188,126,0.4)]"></div>
-                            <p class="text-[0.65rem] text-sigma uppercase mb-0.5">Current Cycle</p>
-                            <p class="text-xs text-white">Impact Analysis</p>
-                            <div class="mt-2 p-2 bg-white/5 border-l-2 border-sigma text-[0.6rem] text-zinc-300 leading-tight">
-                                DECISION WINDOW CLOSING IN<br>
-                                <span class="text-white font-mono">3 REVIEW CYCLES</span>
-                            </div>
-                        </div>
-
-                        <div class="relative opacity-50">
-                            <div class="absolute -left-[13px] top-1 w-2 h-2 bg-zinc-800 rounded-full border border-black"></div>
-                            <p class="text-[0.65rem] text-zinc-500 uppercase mb-0.5">Threshold Event</p>
-                            <p class="text-xs text-zinc-600">Irreversible State</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mb-6">
-                    <h3 class="font-tech text-[0.65rem] text-zinc-500 uppercase mb-3 tracking-widest">Active Pillars</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <div class="flex items-center gap-2 px-3 py-1.5 border border-sigma/30 bg-sigma/10 rounded-sm">
-                            <span class="text-sigma text-xs">Σ</span>
-                            <span class="text-[0.6rem] text-sigma font-tech uppercase tracking-wider">Protocol</span>
-                        </div>
-                        <div class="flex items-center gap-2 px-3 py-1.5 border border-white/5 bg-zinc-900/50 rounded-sm opacity-60">
-                            <span class="text-zinc-500 text-xs">♽</span>
-                            <span class="text-[0.6rem] text-zinc-400 font-tech uppercase tracking-wider">Circular</span>
-                        </div>
-                        <div class="flex items-center gap-2 px-3 py-1.5 border border-blue-500/30 bg-blue-900/10 rounded-sm">
-                            <span class="text-blue-400 text-xs">⊘</span>
-                            <span class="text-[0.6rem] text-blue-300 font-tech uppercase tracking-wider">Water</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-2 mt-4">
-                    <div class="bg-zinc-900/50 p-2 border border-white/5">
-                        <span class="block text-[0.55rem] text-zinc-500 uppercase">Risk Score</span>
-                        <span class="text-lg font-tech text-zinc-200">72<span class="text-xs text-zinc-600">/100</span></span>
-                    </div>
-                    <div class="bg-zinc-900/50 p-2 border border-white/5">
-                        <span class="block text-[0.55rem] text-zinc-500 uppercase">Confidence</span>
-                        <span class="text-lg font-tech text-sigma">94%</span>
-                    </div>
-                </div>
-
+            <div class="p-4 border border-gold/20 bg-gold/5 rounded-md">
+              <div class="text-gold text-[10px] uppercase tracking-[0.3em] font-bold mb-2">6</div>
+              <div class="text-white font-semibold">Institutional Translation</div>
+              <p class="text-stone-500 text-xs mt-2">Standards, regulators, and protocols convert scientific signals into operational governance.</p>
             </div>
-        </aside>
 
-    </main>
+            <div class="p-4 border border-gold/20 bg-gold/5 rounded-md">
+              <div class="text-gold text-[10px] uppercase tracking-[0.3em] font-bold mb-2">7</div>
+              <div class="text-white font-semibold">Ex-Ante Constraint</div>
+              <p class="text-stone-500 text-xs mt-2">System growth can be throttled, sequenced, or reconditioned before irreversible stress.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <script>
+    <!-- Layers -->
+    <section id="layers" class="py-20 px-6 bg-black/20">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-14">
+          <span class="kicker block">Layered Architecture</span>
+          <h2 class="text-3xl md:text-5xl text-white serif italic mt-4">Global Counterparty Universe</h2>
+          <div class="divider-gold"></div>
+          <p class="text-stone-400 text-lg max-w-4xl mx-auto">
+            Each sublayer below contains a minimum of twenty institutions or entities, distributed across multiple world regions.
+          </p>
+        </div>
+
+        <div class="space-y-8">
+
+          <!-- Layer 1 -->
+          <article class="glass-panel layer-band p-8 reveal">
+            <div class="grid lg:grid-cols-4 gap-8">
+              <div class="lg:col-span-1">
+                <span class="kicker block">Sublayer 1</span>
+                <h3 class="text-white serif text-2xl mt-3">Demand Drivers</h3>
+                <p class="text-stone-400 text-sm mt-4">
+                  The institutions below drive AI compute expansion, model competition, cloud growth, and deployment pressure.
+                </p>
+                <div class="mt-5 text-xs text-stone-500">
+                  Function in c-ECO: <span class="text-gold">ΔV acceleration, siting pressure, expansion sequencing.</span>
+                </div>
+              </div>
+
+              <div class="lg:col-span-3">
+                <div class="flex flex-wrap gap-2">
+                  <span class="chip">Microsoft</span>
+                  <span class="chip">Google</span>
+                  <span class="chip">Amazon Web Services</span>
+                  <span class="chip">Meta</span>
+                  <span class="chip">Oracle Cloud</span>
+                  <span class="chip">Alibaba Cloud</span>
+                  <span class="chip">Tencent Cloud</span>
+                  <span class="chip">IBM Cloud</span>
+                  <span class="chip">OpenAI</span>
+                  <span class="chip">Anthropic</span>
+                  <span class="chip">xAI</span>
+                  <span class="chip">Cohere</span>
+                  <span class="chip">Mistral AI</span>
+                  <span class="chip">Stability AI</span>
+                  <span class="chip">Baidu AI Cloud</span>
+                  <span class="chip">Huawei Cloud</span>
+                  <span class="chip">ByteDance</span>
+                  <span class="chip">Naver Cloud</span>
+                  <span class="chip">Yandex Cloud</span>
+                  <span class="chip">SAP</span>
+                  <span class="chip">Snowflake</span>
+                  <span class="chip">ServiceNow</span>
+                  <span class="chip">Salesforce</span>
+                  <span class="chip">Palantir</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Layer 2 -->
+          <article class="glass-panel layer-band p-8 reveal">
+            <div class="grid lg:grid-cols-4 gap-8">
+              <div class="lg:col-span-1">
+                <span class="kicker block">Sublayer 2</span>
+                <h3 class="text-white serif text-2xl mt-3">Data Center Infrastructure Operators</h3>
+                <p class="text-stone-400 text-sm mt-4">
+                  This is the physical hyperscale and colocation layer where digital expansion becomes land, cooling, power, and water demand.
+                </p>
+                <div class="mt-5 text-xs text-stone-500">
+                  Function in c-ECO: <span class="text-gold">physical manifestation of systemic stress.</span>
+                </div>
+              </div>
+
+              <div class="lg:col-span-3">
+                <div class="flex flex-wrap gap-2">
+                  <span class="chip">Equinix</span>
+                  <span class="chip">Digital Realty</span>
+                  <span class="chip">NTT Global Data Centers</span>
+                  <span class="chip">QTS</span>
+                  <span class="chip">CyrusOne</span>
+                  <span class="chip">Vantage Data Centers</span>
+                  <span class="chip">Aligned Data Centers</span>
+                  <span class="chip">AirTrunk</span>
+                  <span class="chip">STACK Infrastructure</span>
+                  <span class="chip">CoreSite</span>
+                  <span class="chip">DataBank</span>
+                  <span class="chip">Global Switch</span>
+                  <span class="chip">Telehouse</span>
+                  <span class="chip">Iron Mountain Data Centers</span>
+                  <span class="chip">EdgeConneX</span>
+                  <span class="chip">Yondr</span>
+                  <span class="chip">Switch</span>
+                  <span class="chip">Scala Data Centers</span>
+                  <span class="chip">Ascenty</span>
+                  <span class="chip">ODATA</span>
+                  <span class="chip">Tecto</span>
+                  <span class="chip">GDS Holdings</span>
+                  <span class="chip">DayOne</span>
+                  <span class="chip">Africa Data Centres</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Layer 3 -->
+          <article class="glass-panel layer-band p-8 reveal">
+            <div class="grid lg:grid-cols-4 gap-8">
+              <div class="lg:col-span-1">
+                <span class="kicker block">Sublayer 3</span>
+                <h3 class="text-white serif text-2xl mt-3">Telecom &amp; Edge Infrastructure</h3>
+                <p class="text-stone-400 text-sm mt-4">
+                  Towers, fiber, carrier backbones, exchange points, and edge networks distribute AI expansion geographically.
+                </p>
+                <div class="mt-5 text-xs text-stone-500">
+                  Function in c-ECO: <span class="text-gold">corridor growth, distributed load, regional concentration effects.</span>
+                </div>
+              </div>
+
+              <div class="lg:col-span-3">
+                <div class="flex flex-wrap gap-2">
+                  <span class="chip">American Tower</span>
+                  <span class="chip">Crown Castle</span>
+                  <span class="chip">SBA Communications</span>
+                  <span class="chip">Cellnex</span>
+                  <span class="chip">Vodafone</span>
+                  <span class="chip">Deutsche Telekom</span>
+                  <span class="chip">Orange</span>
+                  <span class="chip">Telefónica</span>
+                  <span class="chip">BT Group</span>
+                  <span class="chip">AT&amp;T</span>
+                  <span class="chip">Verizon</span>
+                  <span class="chip">China Mobile</span>
+                  <span class="chip">China Telecom</span>
+                  <span class="chip">NTT Communications</span>
+                  <span class="chip">Reliance Jio</span>
+                  <span class="chip">Bharti Airtel</span>
+                  <span class="chip">MTN Group</span>
+                  <span class="chip">Zayo</span>
+                  <span class="chip">Lumen Technologies</span>
+                  <span class="chip">Colt Technology Services</span>
+                  <span class="chip">euNetworks</span>
+                  <span class="chip">EXA Infrastructure</span>
+                  <span class="chip">Cloudflare</span>
+                  <span class="chip">Akamai</span>
+                  <span class="chip">Fastly</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Layer 4 -->
+          <article class="glass-panel layer-band p-8 reveal">
+            <div class="grid lg:grid-cols-4 gap-8">
+              <div class="lg:col-span-1">
+                <span class="kicker block">Sublayer 4</span>
+                <h3 class="text-white serif text-2xl mt-3">Semiconductor &amp; Compute Hardware</h3>
+                <p class="text-stone-400 text-sm mt-4">
+                  Chips, memory, servers, and fabrication tools govern rack density, compute efficiency, and hardware throughput.
+                </p>
+                <div class="mt-5 text-xs text-stone-500">
+                  Function in c-ECO: <span class="text-gold">efficiency modulation, density pressure, hardware-constrained acceleration.</span>
+                </div>
+              </div>
+
+              <div class="lg:col-span-3">
+                <div class="flex flex-wrap gap-2">
+                  <span class="chip">NVIDIA</span>
+                  <span class="chip">AMD</span>
+                  <span class="chip">Intel</span>
+                  <span class="chip">TSMC</span>
+                  <span class="chip">Samsung Electronics</span>
+                  <span class="chip">Broadcom</span>
+                  <span class="chip">Qualcomm</span>
+                  <span class="chip">Arm</span>
+                  <span class="chip">Micron</span>
+                  <span class="chip">SK hynix</span>
+                  <span class="chip">Kioxia</span>
+                  <span class="chip">Western Digital</span>
+                  <span class="chip">ASML</span>
+                  <span class="chip">Applied Materials</span>
+                  <span class="chip">Lam Research</span>
+                  <span class="chip">KLA</span>
+                  <span class="chip">Supermicro</span>
+                  <span class="chip">Dell Technologies</span>
+                  <span class="chip">HPE</span>
+                  <span class="chip">Lenovo</span>
+                  <span class="chip">Quanta</span>
+                  <span class="chip">Wiwynn</span>
+                  <span class="chip">Inspur</span>
+                  <span class="chip">Foxconn</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Layer 5 -->
+          <article class="glass-panel layer-band p-8 reveal">
+            <div class="grid lg:grid-cols-4 gap-8">
+              <div class="lg:col-span-1">
+                <span class="kicker block">Sublayer 5</span>
+                <h3 class="text-white serif text-2xl mt-3">Energy, Water &amp; Cooling Coupling</h3>
+                <p class="text-stone-400 text-sm mt-4">
+                  This is the physical bottleneck layer where AI growth meets power capacity, cooling engineering, water intensity, and site viability.
+                </p>
+                <div class="mt-5 text-xs text-stone-500">
+                  Function in c-ECO: <span class="text-gold">biophysical thresholds, siting viability, throttling logic.</span>
+                </div>
+              </div>
+
+              <div class="lg:col-span-3">
+                <div class="flex flex-wrap gap-2">
+                  <span class="chip">Schneider Electric</span>
+                  <span class="chip">Vertiv</span>
+                  <span class="chip">Johnson Controls</span>
+                  <span class="chip">Siemens</span>
+                  <span class="chip">ABB</span>
+                  <span class="chip">Trane Technologies</span>
+                  <span class="chip">Carrier Global</span>
+                  <span class="chip">Munters</span>
+                  <span class="chip">Stulz</span>
+                  <span class="chip">Airedale</span>
+                  <span class="chip">Cummins</span>
+                  <span class="chip">Eaton</span>
+                  <span class="chip">GE Vernova</span>
+                  <span class="chip">Hitachi Energy</span>
+                  <span class="chip">Bloom Energy</span>
+                  <span class="chip">Engie</span>
+                  <span class="chip">EDF</span>
+                  <span class="chip">Iberdrola</span>
+                  <span class="chip">NextEra Energy</span>
+                  <span class="chip">Enel</span>
+                  <span class="chip">American Electric Power</span>
+                  <span class="chip">Duke Energy</span>
+                  <span class="chip">Sempra</span>
+                  <span class="chip">Xylem</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Layer 6 -->
+          <article class="glass-panel layer-band p-8 reveal">
+            <div class="grid lg:grid-cols-4 gap-8">
+              <div class="lg:col-span-1">
+                <span class="kicker block">Sublayer 6</span>
+                <h3 class="text-white serif text-2xl mt-3">Finance &amp; Capital Allocation</h3>
+                <p class="text-stone-400 text-sm mt-4">
+                  These institutions fund hyperscale expansion, infrastructure rollouts, and digital asset concentration at planetary scale.
+                </p>
+                <div class="mt-5 text-xs text-stone-500">
+                  Function in c-ECO: <span class="text-gold">covenants, capital conditioning, reversibility liquidity, portfolio thresholds.</span>
+                </div>
+              </div>
+
+              <div class="lg:col-span-3">
+                <div class="flex flex-wrap gap-2">
+                  <span class="chip">Blackstone</span>
+                  <span class="chip">Brookfield</span>
+                  <span class="chip">KKR</span>
+                  <span class="chip">Macquarie</span>
+                  <span class="chip">DigitalBridge</span>
+                  <span class="chip">Stonepeak</span>
+                  <span class="chip">EQT</span>
+                  <span class="chip">BlackRock</span>
+                  <span class="chip">Apollo Global Management</span>
+                  <span class="chip">Carlyle</span>
+                  <span class="chip">GIC</span>
+                  <span class="chip">ADIA</span>
+                  <span class="chip">Mubadala</span>
+                  <span class="chip">QIA</span>
+                  <span class="chip">Temasek</span>
+                  <span class="chip">Ontario Teachers'</span>
+                  <span class="chip">AustralianSuper</span>
+                  <span class="chip">CDPQ</span>
+                  <span class="chip">SoftBank</span>
+                  <span class="chip">Goldman Sachs</span>
+                  <span class="chip">Morgan Stanley</span>
+                  <span class="chip">JPMorgan Chase</span>
+                  <span class="chip">HSBC</span>
+                  <span class="chip">MUFG</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Layer 7 -->
+          <article class="glass-panel layer-band p-8 reveal">
+            <div class="grid lg:grid-cols-4 gap-8">
+              <div class="lg:col-span-1">
+                <span class="kicker block">Sublayer 7</span>
+                <h3 class="text-white serif text-2xl mt-3">Data, Monitoring &amp; Environmental Intelligence</h3>
+                <p class="text-stone-400 text-sm mt-4">
+                  This is the observational layer that converts climate, land, water, heat, and infrastructure conditions into governance inputs.
+                </p>
+                <div class="mt-5 text-xs text-stone-500">
+                  Function in c-ECO: <span class="text-gold">Layer 0 signal acquisition, verification, environmental stress interpretation.</span>
+                </div>
+              </div>
+
+              <div class="lg:col-span-3">
+                <div class="flex flex-wrap gap-2">
+                  <span class="chip">Google Earth Engine</span>
+                  <span class="chip">NASA</span>
+                  <span class="chip">European Space Agency</span>
+                  <span class="chip">NOAA</span>
+                  <span class="chip">World Resources Institute</span>
+                  <span class="chip">MapBiomas</span>
+                  <span class="chip">INPE</span>
+                  <span class="chip">Copernicus Programme</span>
+                  <span class="chip">Planet Labs</span>
+                  <span class="chip">Maxar</span>
+                  <span class="chip">Descartes Labs</span>
+                  <span class="chip">Palantir</span>
+                  <span class="chip">Esri</span>
+                  <span class="chip">ClimateAI</span>
+                  <span class="chip">Jupiter Intelligence</span>
+                  <span class="chip">ICEYE</span>
+                  <span class="chip">Spire Global</span>
+                  <span class="chip">Tomorrow.io</span>
+                  <span class="chip">Global Forest Watch</span>
+                  <span class="chip">OpenAQ</span>
+                  <span class="chip">GHGSat</span>
+                  <span class="chip">Kayrros</span>
+                  <span class="chip">SAS</span>
+                  <span class="chip">IBM Environmental Intelligence Suite</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Layer 8 -->
+          <article id="governance" class="glass-panel layer-band p-8 reveal">
+            <div class="grid lg:grid-cols-4 gap-8">
+              <div class="lg:col-span-1">
+                <span class="kicker block">Sublayer 8</span>
+                <h3 class="text-white serif text-2xl mt-3">Standards, Governance &amp; Policy Translation</h3>
+                <p class="text-stone-400 text-sm mt-4">
+                  This layer translates digital infrastructure metrics, environmental exposure, and technical norms into enforceable institutional behavior.
+                </p>
+                <div class="mt-5 text-xs text-stone-500">
+                  Function in c-ECO: <span class="text-gold">institutional translation, compliance logic, prudential governance.</span>
+                </div>
+              </div>
+
+              <div class="lg:col-span-3">
+                <div class="flex flex-wrap gap-2">
+                  <span class="chip">ISO</span>
+                  <span class="chip">IEC</span>
+                  <span class="chip">IEEE</span>
+                  <span class="chip">Uptime Institute</span>
+                  <span class="chip">The Green Grid</span>
+                  <span class="chip">Open Compute Project</span>
+                  <span class="chip">iMasons</span>
+                  <span class="chip">BICSI</span>
+                  <span class="chip">ASHRAE</span>
+                  <span class="chip">ITU</span>
+                  <span class="chip">OECD</span>
+                  <span class="chip">UNEP</span>
+                  <span class="chip">UNFCCC</span>
+                  <span class="chip">European Commission</span>
+                  <span class="chip">US Department of Energy</span>
+                  <span class="chip">US EPA</span>
+                  <span class="chip">Ofgem</span>
+                  <span class="chip">ANEEL</span>
+                  <span class="chip">NERC</span>
+                  <span class="chip">ICANN</span>
+                  <span class="chip">Federal Energy Regulatory Commission</span>
+                  <span class="chip">European Data Centre Association</span>
+                  <span class="chip">Singapore IMDA</span>
+                  <span class="chip">Japan METI</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Governance readout -->
+    <section class="py-20 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+          <span class="kicker block">Interpretive Output</span>
+          <h2 class="text-3xl md:text-5xl text-white serif italic mt-4">Governance Readout</h2>
+          <div class="divider-gold"></div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="glass-panel p-7 reveal">
+            <h3 class="text-white serif text-xl mb-3">What TDR Sees</h3>
+            <p class="text-stone-400 text-sm">
+              AI growth is legible as a coupled physical system. Demand pressure, hardware density, infrastructure concentration,
+              grid strain, water dependence, and financial scaling produce interpretable trajectories rather than isolated events.
+            </p>
+          </div>
+
+          <div class="glass-panel p-7 reveal">
+            <h3 class="text-white serif text-xl mb-3">What c-ECO Adds</h3>
+            <p class="text-stone-400 text-sm">
+              c-ECO connects Earth-system observation to contractual, prudential, and institutional consequences.
+              It converts environmental signals into operational thresholds, conditional financing, and restoration-aware governance.
+            </p>
+          </div>
+
+          <div class="glass-panel p-7 reveal">
+            <h3 class="text-white serif text-xl mb-3">Why This Matters</h3>
+            <p class="text-stone-400 text-sm">
+              The digital economy is often narrated as intangible. This map demonstrates the opposite:
+              AI infrastructure is materially embedded in land, power, water, cooling, supply chains, and finance.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-24 px-6 bg-black/20">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="glass-panel p-12 reveal border-gold/30">
+          <h2 class="text-3xl md:text-4xl text-white serif italic mb-6">Deploy c-ECO in AI Infrastructure</h2>
+          <p class="text-stone-400 text-lg mb-8">
+            Request a pilot for ex-ante governance in hyperscale, colocation, digital corridors, or AI-linked infrastructure systems.
+          </p>
+          <div class="flex flex-col md:flex-row gap-4 justify-center">
+            <a href="request-pilot.html" class="inline-block bg-gold text-black px-8 py-3 text-sm uppercase tracking-widest font-semibold hover:bg-white transition">
+              Request Pilot
+            </a>
+            <a href="tdr-framework.html" class="inline-block border border-gold/40 text-gold px-8 py-3 text-sm uppercase tracking-widest hover:bg-gold hover:text-black transition">
+              Explore TDR
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="py-20 px-6 border-t border-white/10 bg-black/20 text-center">
+    <div class="max-w-4xl mx-auto">
+      <div class="flex justify-center gap-4 mb-10">
+        <span class="text-gold border border-gold/30 px-3 py-1">Σ</span>
+      </div>
+
+      <div class="flex flex-col md:flex-row justify-center gap-6 text-[10px] uppercase tracking-[0.35em] text-stone-500 mb-8">
+        <a href="protocol.html" class="hover:text-gold transition">AI Protocol</a>
+        <a href="system-architecture.html" class="hover:text-gold transition">System Architecture</a>
+        <a href="tdr-framework.html" class="hover:text-gold transition">TDR Framework</a>
+        <a href="request-pilot.html" class="hover:text-gold transition">Request Pilot</a>
+      </div>
+
+      <p class="text-stone-600 text-[10px] uppercase tracking-[0.5em] mb-4">
+        © 2026 Hasse Foundation · c-ECO Doctrine
+      </p>
+
+      <p class="text-stone-700 text-[9px] uppercase tracking-[0.4em]">
+        Global System Mapping · Ex-Ante Governance
+      </p>
+    </div>
+  </footer>
+
+  <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const inputField = document.getElementById('command-input');
-        const executeBtn = document.getElementById('execute-btn');
-        const consoleOutput = document.getElementById('console-output');
-
-        if (!inputField || !executeBtn || !consoleOutput) return;
-
-        function scrollToBottom() {
-            consoleOutput.scrollTop = consoleOutput.scrollHeight;
-        }
-
-        function createUserMessage(text) {
-            const div = document.createElement('div');
-            div.className = "flex justify-end pl-12 opacity-0 transition-opacity duration-200";
-            
-            const inner = document.createElement('div');
-            inner.className = "bg-zinc-800/50 border border-sigma/20 text-zinc-300 p-3 rounded-sm max-w-xl backdrop-blur-sm";
-
-            const label = document.createElement('span');
-            label.className = "text-[0.6rem] text-sigma/50 font-mono block mb-1";
-            label.textContent = "COMMAND INPUT >";
-
-            const p = document.createElement('p');
-            p.className = "text-sm font-mono";
-            p.textContent = text;
-
-            inner.appendChild(label);
-            inner.appendChild(p);
-            div.appendChild(inner);
-
-            requestAnimationFrame(() => {
-                div.classList.remove('opacity-0');
-            });
-
-            return div;
-        }
-
-        function createSystemMessage(text) {
-            const div = document.createElement('div');
-            div.className = "flex justify-start pr-12";
-
-            div.innerHTML = `
-                <div class="w-full max-w-3xl">
-                    <div class="border-l-[1px] border-sigma-dim bg-[#18181b]/80 p-5 pl-6 relative">
-                        <div class="flex gap-4 mb-3 font-mono text-[0.65rem] text-sigma/80 tracking-wide uppercase border-b border-white/5 pb-2">
-                            <span>[ SYSTEM RESPONSE ]</span>
-                            <span>[ T-STATE: NOW ]</span>
-                        </div>
-                        <div class="prose prose-invert prose-sm max-w-none text-zinc-300 font-light">
-                            <p>${text}</p>
-                        </div>
-                    </div>
-                </div>
-            `;
-            return div;
-        }
-
-        function executeCommand() {
-            const command = inputField.value.trim();
-            if (!command) return;
-
-            consoleOutput.appendChild(createUserMessage(command));
-            inputField.value = '';
-            scrollToBottom();
-
-            const loadingId = 'loading-' + Date.now();
-            const loadingDiv = document.createElement('div');
-            loadingDiv.id = loadingId;
-            loadingDiv.className = "flex justify-start items-center gap-3 opacity-80 pl-1 pt-2";
-            loadingDiv.innerHTML = `
-                <div class="relative w-4 h-4 flex items-center justify-center">
-                    <div class="absolute w-full h-full border border-sigma rounded-full animate-ping opacity-20"></div>
-                    <div class="w-2 h-2 bg-sigma rounded-full"></div>
-                </div>
-                <span class="font-tech text-[0.6rem] tracking-[0.2em] text-sigma uppercase animate-pulse">
-                    Processing Protocol...
-                </span>
-            `;
-            consoleOutput.appendChild(loadingDiv);
-            scrollToBottom();
-
-            setTimeout(() => {
-                const loader = document.getElementById(loadingId);
-                if (loader) loader.remove();
-
-                let responseText = "Command received. Parameters accepted. Analysis executing on background cycle.";
-
-                const lower = command.toLowerCase();
-                if (lower.includes("status")) {
-                    responseText = "System Integrity at 94%. Drifting detected in Sector North. Recommendation: Initiate re-balancing protocol.";
-                } else if (lower.includes("help")) {
-                    responseText = "Available Commands: STATUS, ANALYZE, OVERRIDE, EXIT.";
-                } else if (lower.includes("analyze") || lower.includes("analyse") || lower.includes("analisar")) {
-                    responseText = "Initiating multi-layer analysis. Mapping temporal validity, systemic risk vectors and contract exposure...";
-                }
-
-                consoleOutput.appendChild(createSystemMessage(responseText));
-                scrollToBottom();
-            }, 1500);
-        }
-
-        executeBtn.addEventListener('click', executeCommand);
-
-        inputField.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                executeCommand();
-            }
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('active');
         });
+      }, {
+        threshold: 0.1,
+        rootMargin: "0px 0px -40px 0px"
+      });
 
-        scrollToBottom();
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     });
-    </script>
-
+  </script>
 </body>
 </html>
