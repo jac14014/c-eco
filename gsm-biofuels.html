@@ -3917,7 +3917,7 @@
 
   </main>
 
-  <footer class="py-20 px-6 border-t border-white/10 bg-[#0a0a0a] text-center">
+   <footer class="py-20 px-6 border-t border-white/10 bg-[#0a0a0a] text-center">
     <div class="max-w-4xl mx-auto">
       <div class="flex justify-center gap-4 mb-10">
         <span class="text-gold border border-gold/30 px-3 py-1">Σ</span>
@@ -3939,6 +3939,21 @@
       </p>
     </div>
   </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('active');
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: "0px 0px -40px 0px"
+      });
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    });
+  </script>
 
         <script>
   function toggleAccordion(button) {
