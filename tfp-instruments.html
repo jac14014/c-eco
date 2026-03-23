@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Financial Instruments | TFP · Threshold Function Protocol · c-ECO</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: "#d6bc7e",
+                        stone: { 950: "#0c0a09" }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root { --stone-950: #0c0a09; --gold: #d6bc7e; }
+        body { background-color: var(--stone-950); color: #e7e5e4; font-family: 'Inter', sans-serif; line-height: 1.8; }
+        h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 1s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .glass-panel { background: rgba(28, 25, 23, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(214, 188, 126, 0.1); }
+
+        .dropcap::first-letter { float: left; font-size: 3.5rem; line-height: 0.8; padding-right: 0.6rem; color: var(--gold); font-family: 'Playfair Display'; }
+        
+        .divider-gold { width: 60px; height: 1px; background: rgba(214,188,126,0.55); margin: 2rem auto; }
+
+        .prose-custom p { margin-bottom: 1.5rem; text-align: justify; text-justify: inter-word; hyphens: auto; color: #a8a29e; }
+        .prose-custom strong { color:#fff; font-weight:600; }
+        
+        .gold-soft { color: rgba(214,188,126,0.70); }
+        .gold { color: #d6bc7e; }
+        .gold-line { border-color: rgba(214,188,126,0.35); }
+
+        .instrument-card {
+            border: 1px solid rgba(214, 188, 126, 0.15);
+            background: rgba(28, 25, 23, 0.4);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .instrument-card:hover {
+            border-color: rgba(214, 188, 126, 0.4);
+            background: rgba(28, 25, 23, 0.7);
+            transform: translateY(-4px);
+        }
+        .instrument-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(214,188,126,0.4), transparent);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .instrument-card:hover::before {
+            opacity: 1;
+        }
+
+        .waterfall-step {
+            position: relative;
+            padding-left: 2rem;
+            border-left: 2px solid rgba(214,188,126,0.2);
+        }
+        .waterfall-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: -1rem;
+            top: 0;
+            width: 2rem;
+            height: 2rem;
+            border: 1px solid rgba(214,188,126,0.4);
+            background: rgba(28,25,23,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 0.875rem;
+            color: #d6bc7e;
+        }
+        .waterfall-step.active {
+            border-left-color: rgba(214,188,126,0.6);
+        }
+
+        .metric-box {
+            border: 1px solid rgba(214,188,126,0.2);
+            background: rgba(0,0,0,0.3);
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+        .status-green { background: rgba(34,197,94,0.8); box-shadow: 0 0 8px rgba(34,197,94,0.4); }
+        .status-gold { background: rgba(214,188,126,0.8); box-shadow: 0 0 8px rgba(214,188,126,0.4); }
+        .status-red { background: rgba(239,68,68,0.8); box-shadow: 0 0 8px rgba(239,68,68,0.4); }
+
+        @media (max-width: 768px) {
+            .reveal { opacity: 1; transform: none; }
+        }
+    </style>
+</head>
+
+<body class="selection:bg-gold/30">
+
+    <!-- Navigation -->
+    <nav id="siteNav" class="fixed top-0 w-full z-50 border-b border-white/5 bg-stone-950/90 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="inline-flex items-center gap-3 group">
+                <span class="text-gold border gold-line px-2 py-1 text-sm bg-black/40 transition-all group-hover:shadow-[0_0_16px_rgba(214,188,126,0.22)]">Σ</span>
+                <span class="text-[10px] uppercase tracking-[0.3em] font-bold">c-ECO Doctrine</span>
+            </a>
+
+            <div class="hidden lg:flex gap-8 text-[9px] uppercase tracking-widest text-stone-500 items-center">
+                <a href="protocol.html" class="hover:text-gold transition">AI Test Design</a>
+                <a href="tdr-tfp-variables.html" class="hover:text-gold transition">TFP Variables</a>
+                <a href="tfp-intro.html" class="hover:text-gold transition">Introduction</a>
+                <a href="tfp-concepts.html" class="hover:text-gold transition">Core Concepts</a>
+                <a href="tfp-instruments.html" class="text-gold">Financial Instruments</a>
+                <a href="tfp-operational.html" class="hover:text-gold transition">Operations</a>
+                <a href="tfp-risk.html" class="hover:text-gold transition">Risk Management</a>
+                <a href="system-architecture.html" class="hover:text-gold transition">System Architecture</a>
+            </div>
+
+            <button id="mobileMenuBtn" class="lg:hidden text-stone-400 hover:text-gold transition text-xl" type="button">☰</button>
+        </div>
+
+        <div id="mobile-menu" class="lg:hidden hidden w-full px-6 pb-6 pt-4 bg-stone-950/98 border-t border-white/5 backdrop-blur-md">
+            <div class="flex flex-col gap-4 text-[11px] uppercase tracking-widest">
+                <a href="protocol.html" class="hover:text-gold transition">AI Test Design</a>
+                <a href="tdr-tfp-variables.html" class="hover:text-gold transition">TFP Variables</a>
+                <a href="tfp-intro.html" class="hover:text-gold transition">Introduction</a>
+                <a href="tfp-concepts.html" class="hover:text-gold transition">Core Concepts</a>
+                <a href="tfp-instruments.html" class="text-gold">Financial Instruments</a>
+                <a href="tfp-operational.html" class="hover:text-gold transition">Operations</a>
+                <a href="tfp-risk.html" class="hover:text-gold transition">Risk Management</a>
+                <a href="system-architecture.html" class="hover:text-gold transition">System Architecture</a>
+            </div>
+        </div>
+    </nav>
+    <div id="navSpacer"></div>
+
+    <!-- Hero Section -->
+    <header class="min-h-[60vh] flex items-center justify-center text-center px-6">
+        <div class="max-w-4xl reveal">
+            <p class="text-gold uppercase tracking-[0.4em] text-[10px] mb-6">Prudential Architecture</p>
+            <h1 class="text-5xl md:text-7xl mb-8 leading-tight serif italic">Financial <span class="text-gold">Instruments</span></h1>
+            <p class="text-stone-500 uppercase tracking-[0.3em] text-[10px] max-w-2xl mx-auto">
+                Ring-fenced resources for systemic reversibility
+            </p>
+        </div>
+    </header>
+
+    <main class="w-full pb-24">
+
+        <!-- Introductory Text -->
+        <section class="reveal py-16 px-6 lg:px-24 bg-[#050505]">
+            <div class="max-w-4xl mx-auto prose-custom text-stone-400 text-lg">
+                <p class="dropcap">
+                    The c-ECO framework establishes a <strong>layered financial architecture</strong> designed to ensure that sufficient resources are available to arrest, contain, and reverse adverse trajectories before they become irreversible. Unlike conventional environmental liability or compensation schemes, these instruments operate <strong>ex ante</strong> — they are pre-positioned, segregated, and automatically deployable.
+                </p>
+                <p>
+                    All instruments share three core characteristics: <strong>ring-fencing</strong> (bankruptcy-remote from operational entities), <strong>parametric activation</strong> (triggered by certified data, not discretionary decisions), and <strong>hierarchical deployment</strong> (waterfall structure ensuring optimal resource use).
+                </p>
+            </div>
+        </section>
+
+        <!-- Instrument 1: Restoration Fund -->
+        <section class="reveal py-24 px-6 lg:px-24">
+            <div class="max-w-6xl mx-auto">
+                <div class="instrument-card p-10 md:p-12">
+                    <div class="grid md:grid-cols-12 gap-8 items-start">
+                        <div class="md:col-span-4">
+                            <div class="flex items-center gap-3 mb-6">
+                                <span class="status-indicator status-gold"></span>
+                                <p class="text-gold text-[10px] uppercase tracking-[0.3em]">Primary Instrument</p>
+                            </div>
+                            <h2 class="text-3xl md:text-4xl text-white serif italic mb-4">Restoration Fund</h2>
+                            <p class="text-stone-500 text-sm">Fundo de Restauração Segregado</p>
+                            
+                            <div class="mt-8 space-y-3">
+                                <div class="metric-box">
+                                    <p class="text-gold text-2xl font-bold serif">100%</p>
+                                    <p class="text-stone-500 text-[10px] uppercase tracking-widest mt-1">Ring-Fenced</p>
+                                </div>
+                                <div class="metric-box">
+                                    <p class="text-gold text-2xl font-bold serif">L4</p>
+                                    <p class="text-stone-500 text-[10px] uppercase tracking-widest mt-1">Auto-Activation</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md:col-span-8 prose-custom text-stone-400">
+                            <p>
+                                The <strong>Restoration Fund</strong> constitutes the cornerstone of the c-ECO financial architecture. It is a <strong>dedicated, segregated reserve</
