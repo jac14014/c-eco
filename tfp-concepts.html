@@ -1,0 +1,692 @@
+Vou criar a página Core Concepts (tfp-concepts.html) seguindo o mesmo estilo dark acadêmico do c-ECO, com todos os 8 conceitos fundamentais organizados de forma clara e visual.
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    gold: "#d6bc7e",
+                    stone: { 950: "#0c0a09" }
+                }
+            }
+        }
+    }
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+    :root { --stone-950: #0c0a09; --gold: #d6bc7e; }
+    body { background-color: var(--stone-950); color: #e7e5e4; font-family: 'Inter', sans-serif; line-height: 1.8; }
+    h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+
+    .reveal { opacity: 0; transform: translateY(20px); transition: all 1s ease-out; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+
+    .glass-panel { background: rgba(28, 25, 23, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(214, 188, 126, 0.1); }
+
+    .dropcap::first-letter { float: left; font-size: 3.5rem; line-height: 0.8; padding-right: 0.6rem; color: var(--gold); font-family: 'Playfair Display'; }
+    
+    .divider-gold { width: 60px; height: 1px; background: rgba(214,188,126,0.55); margin: 2rem auto; }
+
+    .prose-custom p { margin-bottom: 1.5rem; text-align: justify; text-justify: inter-word; hyphens: auto; color: #a8a29e; }
+    .prose-custom strong { color:#fff; font-weight:600; }
+    
+    .gold-soft { color: rgba(214,188,126,0.70); }
+    .gold { color: #d6bc7e; }
+    .gold-line { border-color: rgba(214,188,126,0.35); }
+
+    .concept-card {
+        border: 1px solid rgba(214, 188, 126, 0.15);
+        background: rgba(28, 25, 23, 0.4);
+        transition: all 0.5s ease;
+    }
+    .concept-card:hover {
+        border-color: rgba(214, 188, 126, 0.4);
+        background: rgba(28, 25, 23, 0.7);
+    }
+    .concept-number {
+        font-family: 'Playfair Display', serif;
+        font-size: 4rem;
+        line-height: 1;
+        color: rgba(214, 188, 126, 0.15);
+        position: absolute;
+        top: 1rem;
+        right: 1.5rem;
+    }
+    .concept-icon {
+        width: 48px;
+        height: 48px;
+        border: 1px solid rgba(214, 188, 126, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .state-indicator {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        margin-right: 0.5rem;
+    }
+    .state-watch { background: rgba(34,197,94,0.8); }
+    .state-amber { background: rgba(234,179,8,0.8); }
+    .state-red { background: rgba(239,68,68,0.8); }
+    .state-black { background: rgba(255,255,255,0.6); }
+
+    @media (max-width: 768px) {
+        .reveal { opacity: 1; transform: none; }
+        .concept-number { font-size: 3rem; }
+    }
+</style>
+
+<!-- Navigation -->
+<nav id="siteNav" class="fixed top-0 w-full z-50 border-b border-white/5 bg-stone-950/90 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <a href="index.html" class="inline-flex items-center gap-3 group">
+            <span class="text-gold border gold-line px-2 py-1 text-sm bg-black/40 transition-all group-hover:shadow-[0_0_16px_rgba(214,188,126,0.22)]">Σ</span>
+            <span class="text-[10px] uppercase tracking-[0.3em] font-bold">c-ECO Doctrine</span>
+        </a>
+
+        <div class="hidden lg:flex gap-8 text-[9px] uppercase tracking-widest text-stone-500 items-center">
+            <a href="protocol.html" class="hover:text-gold transition">AI Test Design</a>
+            <a href="tdr-tfp-variables.html" class="hover:text-gold transition">TFP Variables</a>
+            <a href="tfp-intro.html" class="hover:text-gold transition">Introduction</a>
+            <a href="tfp-concepts.html" class="text-gold">Core Concepts</a>
+            <a href="tfp-instruments.html" class="hover:text-gold transition">Financial Instruments</a>
+            <a href="tfp-operational.html" class="hover:text-gold transition">Operations</a>
+            <a href="tfp-risk.html" class="hover:text-gold transition">Risk Management</a>
+            <a href="system-architecture.html" class="hover:text-gold transition">System Architecture</a>
+        </div>
+
+        <button id="mobileMenuBtn" class="lg:hidden text-stone-400 hover:text-gold transition text-xl" type="button">☰</button>
+    </div>
+
+    <div id="mobile-menu" class="lg:hidden hidden w-full px-6 pb-6 pt-4 bg-stone-950/98 border-t border-white/5 backdrop-blur-md">
+        <div class="flex flex-col gap-4 text-[11px] uppercase tracking-widest">
+            <a href="protocol.html" class="hover:text-gold transition">AI Test Design</a>
+            <a href="tdr-tfp-variables.html" class="hover:text-gold transition">TFP Variables</a>
+            <a href="tfp-intro.html" class="hover:text-gold transition">Introduction</a>
+            <a href="tfp-concepts.html" class="text-gold">Core Concepts</a>
+            <a href="tfp-instruments.html" class="hover:text-gold transition">Financial Instruments</a>
+            <a href="tfp-operational.html" class="hover:text-gold transition">Operations</a>
+            <a href="tfp-risk.html" class="hover:text-gold transition">Risk Management</a>
+            <a href="system-architecture.html" class="hover:text-gold transition">System Architecture</a>
+        </div>
+    </div>
+</nav>
+<div id="navSpacer"></div>
+
+<!-- Hero Section -->
+<header class="min-h-[60vh] flex items-center justify-center text-center px-6">
+    <div class="max-w-4xl reveal">
+        <p class="text-gold uppercase tracking-[0.4em] text-[10px] mb-6">Doctrinal Foundations</p>
+        <h1 class="text-5xl md:text-7xl mb-8 leading-tight serif italic">Core <span class="text-gold">Concepts</span></h1>
+        <p class="text-stone-500 uppercase tracking-[0.3em] text-[10px] max-w-2xl mx-auto">
+            The legal ontology of pre-threshold governance
+        </p>
+    </div>
+</header>
+
+<main class="w-full pb-24">
+
+    <!-- Introductory Text -->
+    <section class="reveal py-16 px-6 lg:px-24 bg-[#050505]">
+        <div class="max-w-4xl mx-auto prose-custom text-stone-400 text-lg">
+            <p class="dropcap">
+                The c-ECO framework operates through a distinct set of legal concepts that reconstitute contractual validity, systemic risk, and enforceability around the material conditions of the Earth System. These concepts are not interpretive tools but constitutive categories that determine when law remains possible — and when it must interrupt itself.
+            </p>
+            <p>
+                Unlike conventional environmental or financial regulation, which operates through compliance thresholds and ex post liability, the c-ECO regime institutes <strong>predictive governance</strong>: legal effects are triggered by trajectories toward irreversibility, not by the materialization of harm.
+            </p>
+        </div>
+    </section>
+
+    <!-- Concept 1: Safe Operating Space -->
+    <section class="reveal py-24 px-6 lg:px-24">
+        <div class="max-w-6xl mx-auto">
+            <div class="concept-card relative p-10 md:p-12">
+                <span class="concept-number">01</span>
+                <div class="relative z-10 grid md:grid-cols-12 gap-8 items-start">
+                    <div class="md:col-span-4">
+                        <div class="concept-icon">🌍</div>
+                        <h2 class="text-2xl md:text-3xl text-white serif italic mb-2">Safe Operating Space</h2>
+                        <p class="text-gold text-[10px] uppercase tracking-[0.3em]">SOS</p>
+                    </div>
+                    <div class="md:col-span-8 prose-custom text-stone-400">
+                        <p>
+                            The <strong>Safe Operating Space (SOS)</strong> constitutes the legal-material limit within which contracts, assets, operations, and infrastructures may be validly executed. It corresponds to the set of biophysical parameters whose violation compromises habitability, systemic integrity, or reversibility.
+                        </p>
+                        <p>
+                            The SOS is not a regulatory standard or a policy objective. It is a <strong>supremacy constraint</strong> over authorizations, contracts, and economic arrangements that would tolerate execution incompatible with systemic stability. No legal effect may be recognized for acts whose execution presupposes or entails the violation of such limits.
+                        </p>
+                        <div class="mt-6 p-4 border border-white/10 bg-black/20">
+                            <p class="text-stone-500 text-xs uppercase tracking-widest mb-2">Normative Basis</p>
+                            <p class="text-stone-300 text-sm">CECO-ART-001; CECO-ART-023; TFP-1.2</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Concept 2: Position -->
+    <section class="reveal py-24 px-6 lg:px-24 bg-[#050505]">
+        <div class="max-w-6xl mx-auto">
+            <div class="concept-card relative p-10 md:p-12">
+                <span class="concept-number">02</span>
+                <div class="relative z-10 grid md:grid-cols-12 gap-8 items-start">
+                    <div class="md:col-span-4">
+                        <div class="concept-icon">📍</div>
+                        <h2 class="text-2xl md:text-3xl text-white serif italic mb-2">Position</h2>
+                        <p class="text-gold text-[10px] uppercase tracking-[0.3em]">P</p>
+                    </div>
+                    <div class="md:col-span-8 prose-custom text-stone-400">
+                        <p>
+                            <strong>Position (P)</strong> expresses the measured distance of a system, asset, or operation from the applicable Safe Operating Space boundary. It is not a generic environmental indicator, nor a performance metric, but a <strong>boundary-referenced, context-locked metric</strong> whose meaning is defined by sectoral calibration.
+                        </p>
+                        <p>
+                            The closer P is to the boundary, the stronger the regime's prudential sensitivity and the narrower the latitude for interpretive ambiguity. P operationalizes the principle that <strong>contractual validity cannot outrun material reversibility</strong>: increasing proximity increases legal salience, tightening audit frequency, uncertainty treatment, and escalation readiness.
+                        </p>
+                        <div class="mt-6 flex flex-wrap gap-3">
+                            <span class="px-3 py-1 border border-green-500/30 text-green-400/80 text-[10px] uppercase tracking-widest">80–100: Safe Margin</span>
+                            <span class="px-3 py-1 border border-yellow-500/30 text-yellow-400/80 text-[10px] uppercase tracking-widest">60–79: Attention Zone</span>
+                            <span class="px-3 py-1 border border-orange-500/30 text-orange-400/80 text-[10px] uppercase tracking-widest">40–59: Material Risk</span>
+                            <span class="px-3 py-1 border border-red-500/30 text-red-400/80 text-[10px] uppercase tracking-widest">&lt;40: Critical Proximity</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Concept 3: Velocity -->
+    <section class="reveal py-24 px-6 lg:px-24">
+        <div class="max-w-6xl mx-auto">
+            <div class="concept-card relative p-10 md:p-12">
+                <span class="concept-number">03</span>
+                <div class="relative z-10 grid md:grid-cols-12 gap-8 items-start">
+                    <div class="md:col-span-4">
+                        <div class="concept-icon">⚡</div>
+                        <h2 class="text-2xl md:text-3xl text-white serif italic mb-2">Velocity</h2>
+                        <p class="text-gold text-[10px] uppercase tracking-[0.3em]">ΔV</p>
+                    </div>
+                    <div class="md:col-span-8 prose-custom text-stone-400">
+                        <p>
+                            <strong>Velocity (ΔV)</strong> constitutes the temporal derivative of Position: the mechanism through which the c-ECO framework internalizes <strong>time as a legally relevant variable</strong>. While P expresses proximity to a limit, ΔV expresses the direction and rate at which that boundary is being approached or retreated.
+                        </p>
+                        <p>
+                            In Earth system dynamics, proximity alone is insufficient. Systems far from a threshold but accelerating rapidly toward it may present higher systemic danger than systems closer to the boundary but stabilizing. ΔV therefore functions as the <strong>primary anticipatory signal</strong>, enabling intervention before irreversibility becomes probable or unavoidable.
+                        </p>
+                        <div class="mt-6 p-4 border border-white/10 bg-black/20">
+                            <p class="text-stone-500 text-xs uppercase tracking-widest mb-2">Calculation</p>
+                            <p class="text-stone-300 text-sm font-mono">ΔV = (P<sub>final</sub> − P<sub>initial</sub>) / T<sub>ref</sub></p>
+                            <p class="text-stone-500 text-xs mt-2">Negative values: movement toward boundary. Positive values: movement away.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Concept 4: Reversibility Liquidity -->
+    <section class="reveal py-24 px-6 lg:px-24 bg-[#050505]">
+        <div class="max-w-6xl mx-auto">
+            <div class="concept-card relative p-10 md:p-12">
+                <span class="concept-number">04</span>
+                <div class="relative z-10 grid md:grid-cols-12 gap-8 items-start">
+                    <div class="md:col-span-4">
+                        <div class="concept-icon">💧</div>
+                        <h2 class="text-2xl md:text-3xl text-white serif italic mb-2">Reversibility Liquidity</h2>
+                        <p class="text-gold text-[10px] uppercase tracking-[0.3em]">Lr</p>
+                    </div>
+                    <div class="md:col-span-8 prose-custom text-stone-400">
+                        <p>
+                            <strong>Reversibility Liquidity (Lr)</strong> expresses the operational and financial capacity of a system to arrest, contain, and reverse an adverse trajectory before irreversible harm occurs. Unlike P and ΔV, which describe where the system is and how it is moving, Lr describes <strong>whether the system can still respond</strong>.
+                        </p>
+                        <p>
+                            Reversibility is treated as a <strong>finite, depletable resource</strong>. Once lost, it cannot be reconstructed ex post through compensation, liability, or remediation narratives. Lr therefore functions as the decisive variable for escalation to Safe Mode (Level 3) and Restoration First (Level 4).
+                        </p>
+                        <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <div class="p-3 border border-green-500/30 text-center">
+                                <p class="text-green-400 text-lg font-bold">≥1.2</p>
+                                <p class="text-stone-500 text-[10px] uppercase tracking-widest">Fully Financeable</p>
+                            </div>
+                            <div class="p-3 border border-yellow-500/30 text-center">
+                                <p class="text-yellow-400 text-lg font-bold">0.8–1.19</p>
+                                <p class="text-stone-500 text-[10px] uppercase tracking-widest">Limited Margin</p>
+                            </div>
+                            <div class="p-3 border border-orange-500/30 text-center">
+                                <p class="text-orange-400 text-lg font-bold">0.5–0.79</p>
+                                <p class="text-stone-500 text-[10px] uppercase tracking-widest">Relevant Insufficiency</p>
+                            </div>
+                            <div class="p-3 border border-red-500/30 text-center">
+                                <p class="text-red-400 text-lg font-bold">&lt;0.5</p>
+                                <p class="text-stone-500 text-[10px] uppercase tracking-widest">Reversibility Insolvency</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 p-4 border border-white/10 bg-black/20">
+                            <p class="text-stone-500 text-xs uppercase tracking-widest mb-2">Formula</p>
+                            <p class="text-stone-300 text-sm font-mono">Lr = R<sub>mi</sub> / C<sub>t</sub></p>
+                            <p class="text-stone-500 text-xs mt-2">Resources Mobilizable Immediately / Projected Technical Cost of Reversal</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Concept 5: Uncertainty -->
+    <section class="reveal py-24 px-6 lg:px-24">
+        <div class="max-w-6xl mx-auto">
+            <div class="concept-card relative p-10 md:p-12">
+                <span class="concept-number">05</span>
+                <div class="relative z-10 grid md:grid-cols-12 gap-8 items-start">
+                    <div class="md:col-span-4">
+                        <div class="concept-icon">◊</div>
+                        <h2 class="text-2xl md:text-3xl text-white serif italic mb-2">Uncertainty</h2>
+                        <p class="text-gold text-[10px] uppercase tracking-[0.3em]">σ</p>
+                    </div>
+                    <div class="md:col-span-8 prose-custom text-stone-400">
+                        <p>
+                            <strong>Uncertainty (σ)</strong> represents the statistical confidence interval associated with sensors, models, or measurement methodologies. Under the c-ECO framework, uncertainty is never used to justify inaction or delay — it operates as a <strong>conservative prudential factor</strong>.
+                        </p>
+                        <p>
+                            The <strong>Prudential Asymmetry Principle</strong> governs: errors from early or conservative trigger activation are economically reversible; errors from delay, omission, or under-activation are biophysically irreversible. Therefore, uncertainty <strong>always contracts operational margins</strong>, never expands them.
+                        </p>
+                        <div class="mt-6 p-4 border-l-4 border-gold/40 bg-black/20">
+                            <p class="text-stone-300 text-sm italic">
+                                "Statistical uncertainty never expands operational margin. It always contracts it."
+                            </p>
+                            <p class="text-stone-500 text-xs mt-2">— Golden Rule of Asymmetric Prudence</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Concept 6: Trajectory Illegality -->
+    <section class="reveal py-24 px-6 lg:px-24 bg-[#050505]">
+        <div class="max-w-6xl mx-auto">
+            <div class="concept-card relative p-10 md:p-12 border-red-900/20">
+                <span class="concept-number">06</span>
+                <div class="relative z-10 grid md:grid-cols-12 gap-8 items-start">
+                    <div class="md:col-span-4">
+                        <div class="concept-icon">⚠</div>
+                        <h2 class="text-2xl md:text-3xl text-white serif italic mb-2">Trajectory Illegality</h2>
+                        <p class="text-gold text-[10px] uppercase tracking-[0.3em]">Ilicitude de Trajetória</p>
+                    </div>
+                    <div class="md
+                                            <div class="md:col-span-8 prose-custom text-stone-400">
+                            <p>
+                                <strong>Trajectory Illegality</strong> constitutes a fundamental doctrinal innovation of the c-ECO framework. It establishes that an act legally valid at its inception may become <strong>legally inadmissible</strong> if its execution, continuation, or natural evolution produces a trajectory toward systemic collapse or irreversible harm.
+                            </p>
+                            <p>
+                                Unlike conventional legal doctrines that focus on the validity of acts at their moment of formation, trajectory illegality introduces <strong>temporal continuity</strong> as a legal category. The law does not merely ask "was this act valid when created?" but "does this act remain valid as it unfolds toward irreversibility?"
+                            </p>
+                            <div class="mt-6 p-4 border-l-4 border-red-500/40 bg-black/20">
+                                <p class="text-stone-300 text-sm italic">
+                                    "The law must not protect the validity of acts that destroy the conditions of its own possibility."
+                                </p>
+                                <p class="text-stone-500 text-xs mt-2">— CECO-ART-007</p>
+                            </div>
+                            <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="p-4 border border-white/10">
+                                    <p class="text-stone-500 text-[10px] uppercase tracking-widest mb-2">Temporal Dimension</p>
+                                    <p class="text-stone-300 text-sm">Continuous monitoring of act evolution</p>
+                                </div>
+                                <div class="p-4 border border-white/10">
+                                    <p class="text-stone-500 text-[10px] uppercase tracking-widest mb-2">Material Threshold</p>
+                                    <p class="text-stone-300 text-sm">Approach to irreversibility boundary</p>
+                                </div>
+                                <div class="p-4 border border-white/10">
+                                    <p class="text-stone-500 text-[10px] uppercase tracking-widest mb-2">Legal Effect</p>
+                                    <p class="text-stone-300 text-sm">Automatic suspension/termination</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Concept 7: Ex-Ante Unenforceability (IEX) -->
+        <section class="reveal py-24 px-6 lg:px-24">
+            <div class="max-w-6xl mx-auto">
+                <div class="concept-card relative p-10 md:p-12 border-gold/20">
+                    <span class="concept-number">07</span>
+                    <div class="relative z-10 grid md:grid-cols-12 gap-8 items-start">
+                        <div class="md:col-span-4">
+                            <div class="concept-icon">⚖</div>
+                            <h2 class="text-2xl md:text-3xl text-white serif italic mb-2">Ex-Ante Unenforceability</h2>
+                            <p class="text-gold text-[10px] uppercase tracking-[0.3em]">IEX</p>
+                        </div>
+                        <div class="md:col-span-8 prose-custom text-stone-400">
+                            <p>
+                                <strong>Ex-Ante Unenforceability (IEX)</strong> is the mechanism through which the c-ECO framework suspends the enforceability of contractual obligations <strong>before</strong> systemic damage materializes. It represents a shift from ex post liability (compensation after harm) to ex ante prevention (interruption before irreversibility).
+                            </p>
+                            <p>
+                                Under IEX, parties to contracts within the c-ECO regime pre-authorize the automatic suspension of their obligations when certified data indicates trajectory toward systemic limits. This is not a breach, default, or force majeure — it is a <strong>contractually agreed protective mechanism</strong> that preserves systemic integrity over contractual rigidity.
+                            </p>
+                            <div class="mt-6 p-4 border border-white/10 bg-black/20">
+                                <p class="text-stone-500 text-xs uppercase tracking-widest mb-2">Key Characteristics</p>
+                                <ul class="text-stone-300 text-sm space-y-2 mt-3">
+                                    <li class="flex items-start gap-2"><span class="text-gold mt-1">◆</span> <span>Pre-authorized by contract, not imposed by external regulation</span></li>
+                                    <li class="flex items-start gap-2"><span class="text-gold mt-1">◆</span> <span>Triggered by certified data, not discretionary authority</span></li>
+                                    <li class="flex items-start gap-2"><span class="text-gold mt-1">◆</span> <span>Temporary suspension, not permanent termination</span></li>
+                                    <li class="flex items-start gap-2"><span class="text-gold mt-1">◆</span> <span>Protects reversibility, not economic expectations</span></li>
+                                </ul>
+                            </div>
+                            <div class="mt-6 flex flex-wrap gap-3">
+                                <span class="px-3 py-1 border border-gold/30 text-gold/80 text-[10px] uppercase tracking-widest">Contractual Pre-Authorization</span>
+                                <span class="px-3 py-1 border border-gold/30 text-gold/80 text-[10px] uppercase tracking-widest">Automatic Trigger</span>
+                                <span class="px-3 py-1 border border-gold/30 text-gold/80 text-[10px] uppercase tracking-widest">Certified Data Only</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Concept 8: Systemic Perclusion -->
+        <section class="reveal py-24 px-6 lg:px-24 bg-[#050505]">
+            <div class="max-w-6xl mx-auto">
+                <div class="concept-card relative p-10 md:p-12 border-red-900/20">
+                    <span class="concept-number">08</span>
+                    <div class="relative z-10 grid md:grid-cols-12 gap-8 items-start">
+                        <div class="md:col-span-4">
+                            <div class="concept-icon">⊘</div>
+                            <h2 class="text-2xl md:text-3xl text-white serif italic mb-2">Systemic Perclusion</h2>
+                            <p class="text-gold text-[10px] uppercase tracking-[0.3em]">Perclusão Sistêmica</p>
+                        </div>
+                        <div class="md:col-span-8 prose-custom text-stone-400">
+                            <p>
+                                <strong>Systemic Perclusion</strong> is the legal mechanism that <strong>blocks the formation of new acts</strong> that would, by their nature or context, contribute to trajectories of systemic collapse. While IEX suspends existing obligations, perclusion prevents the creation of new obligations that would accelerate deterioration.
+                            </p>
+                            <p>
+                                Perclusion operates as a <strong>negative competence</strong>: the legal system temporarily loses the capacity to recognize certain categories of acts as valid. This is not a prohibition addressed to agents, but a <strong>structural incapacity</strong> of the legal order to accommodate acts incompatible with systemic preservation during critical periods.
+                            </p>
+                            <div class="mt-6 p-4 border-l-4 border-red-500/40 bg-black/20">
+                                <p class="text-stone-300 text-sm italic">
+                                    "In moments of systemic proximity, the law must refuse to be instrumentalized against its own material conditions of possibility."
+                                </p>
+                                <p class="text-stone-500 text-xs mt-2">— CECO-ART-012</p>
+                            </div>
+                            <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="p-4 border border-white/10">
+                                    <p class="text-stone-500 text-[10px] uppercase tracking-widest mb-2">Scope of Perclusion</p>
+                                    <ul class="text-stone-300 text-sm space-y-1 mt-2">
+                                        <li>• New debt instruments in affected sectors</li>
+                                        <li>• Expansion authorizations near boundaries</li>
+                                        <li>• M&A in critical bioregions</li>
+                                        <li>• Derivatives on stressed assets</li>
+                                    </ul>
+                                </div>
+                                <div class="p-4 border border-white/10">
+                                    <p class="text-stone-500 text-[10px] uppercase tracking-widest mb-2">Duration</p>
+                                    <p class="text-stone-300 text-sm">Perclusion remains active until TFP variables indicate sustainable trajectory (P ≥ 60, ΔV ≥ 0, Lr ≥ 0.8 for 90 consecutive days).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conceptual Architecture Diagram -->
+        <section class="reveal py-24 px-6 lg:px-24">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <span class="text-gold uppercase tracking-[0.6em] text-[10px] font-bold mb-4 block">Architectural Integration</span>
+                    <h2 class="text-4xl md:text-5xl text-white serif italic">How Concepts Interact</h2>
+                </div>
+
+                <div class="glass-panel p-8 md:p-12 border border-white/10">
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <!-- Foundation Layer -->
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="w-8 h-8 border border-gold/40 flex items-center justify-center text-gold text-xs">1</div>
+                                <h3 class="text-white font-bold text-sm uppercase tracking-widest">Foundation</h3>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="p-4 border border-white/10 bg-black/20">
+                                    <p class="text-gold text-xs uppercase tracking-widest mb-1">SOS</p>
+                                    <p class="text-stone-400 text-xs">Defines the absolute boundary</p>
+                                </div>
+                                <div class="p-4 border border-white/10 bg-black/20">
+                                    <p class="text-gold text-xs uppercase tracking-widest mb-1">P, ΔV, σ, Lr</p>
+                                    <p class="text-stone-400 text-xs">Measure trajectory and capacity</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Evaluation Layer -->
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="w-8 h-8 border border-gold/40 flex items-center justify-center text-gold text-xs">2</div>
+                                <h3 class="text-white font-bold text-sm uppercase tracking-widest">Evaluation</h3>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="p-4 border border-white/10 bg-black/20">
+                                    <p class="text-gold text-xs uppercase tracking-widest mb-1">Trajectory Illegality</p>
+                                    <p class="text-stone-400 text-xs">Assesses temporal validity</p>
+                                </div>
+                                <div class="p-4 border border-white/10 bg-black/20">
+                                    <p class="text-gold text-xs uppercase tracking-widest mb-1">TFP Function Γ</p>
+                                    <p class="text-stone-400 text-xs">Calculates prudential level</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Intervention Layer -->
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="w-8 h-8 border border-gold/40 flex items-center justify-center text-gold text-xs">3</div>
+                                <h3 class="text-white font-bold text-sm uppercase tracking-widest">Intervention</h3>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="p-4 border border-white/10 bg-black/20">
+                                    <p class="text-gold text-xs uppercase tracking-widest mb-1">IEX</p>
+                                    <p class="text-stone-400 text-xs">Suspends existing obligations</p>
+                                </div>
+                                <div class="p-4 border border-white/10 bg-black/20">
+                                    <p class="text-gold text-xs uppercase tracking-widest mb-1">Systemic Perclusion</p>
+                                    <p class="text-stone-400 text-xs">Blocks new harmful acts</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Arrows -->
+                    <div class="hidden md:flex justify-center items-center gap-4 my-8">
+                        <div class="h-px w-24 bg-gradient-to-r from-transparent via-gold/40 to-transparent"></div>
+                        <span class="text-gold/60 text-xs uppercase tracking-widest">Automatic Cascade</span>
+                        <div class="h-px w-24 bg-gradient-to-r from-transparent via-gold/40 to-transparent"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation to Next Pages -->
+        <section class="reveal py-24 px-6 lg:px-24 bg-[#050505]">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="divider-gold"></div>
+                <p class="text-stone-500 uppercase tracking-[0.3em] text-[10px] mb-6">Continue to</p>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <a href="tfp-instruments.html" class="glass-panel p-6 border border-white/10 hover:border-gold/40 transition-all duration-300 group">
+                        <p class="text-gold text-[10px] uppercase tracking-widest mb-2">Finance</p>
+                        <h4 class="text-white font-bold text-sm uppercase tracking-widest group-hover:text-gold transition-colors">Financial Instruments</h4>
+                        <p class="text-stone-500 text-xs mt-2">Restoration Funds & Guarantees</p>
+                    </a>
+                    <a href="tfp-operational.html" class="glass-panel p-6 border border-white/10 hover:border-gold/40 transition-all duration-300 group">
+                        <p class="text-gold text-[10px] uppercase tracking-widest mb-2">Execution</p>
+                        <h4 class="text-white font-bold text-sm uppercase tracking-widest group-hover:text-gold transition-colors">Operations</h4>
+                        <p class="text-stone-500 text-xs mt-2">Real-time Monitoring</p>
+                    </a>
+                    <a href="tfp-risk.html" class="glass-panel p-6 border border-white/10 hover:border-gold/40 transition-all duration-300 group">
+                        <p class="text-gold text-[10px] uppercase tracking-widest mb-2">Control</p>
+                        <h4 class="text-white font-bold text-sm uppercase tracking-widest group-hover:text-gold transition-colors">Risk Management</h4>
+                        <p class="text-stone-500 text-xs mt-2">Heatmaps & Triggers</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#0c0a09] border-t border-white/10 text-[#e7e5e4] text-xs mt-24">
+        <div class="max-w-7xl mx-auto px-6 py-16">
+            <!-- Mobile Accordion Menu -->
+            <nav class="md:hidden space-y-3" aria-label="Footer Navigation">
+                <div class="border border-white/10">
+                    <button type="button" class="w-full inline-flex justify-between items-center px-6 py-4 text-[10px] uppercase tracking-[0.5em] font-bold text-white hover:border-gold/40 hover:text-gold transition-all duration-500" onclick="toggleFooterSection(this)">
+                        <span>Integrated Operation</span>
+                        <svg class="w-4 h-4 text-[#d6bc7e] transition-transform duration-300 chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <ul class="hidden px-6 pb-5 space-y-3 text-[11px] uppercase tracking-[0.18em] text-white/65">
+                        <li><a href="protocol.html" class="block hover:text-[#d6bc7e] transition-all duration-300">AI test design</a></li>
+                        <li><a href="tdr-tfp-variables.html" class="block hover:text-[#d6bc7e] transition-all duration-300">TFP Variables</a></li>
+                        <li><a href="tfp-intro.html" class="block hover:text-[#d6bc7e] transition-all duration-300">Introduction</a></li>
+                        <li><a href="tfp-concepts.html" class="block text-gold">Core Concepts</a></li>
+                        <li><a href="tfp-instruments.html" class="block hover:text-[#d6bc7e] transition-all duration-300">Financial Instruments</a></li>
+                        <li><a href="tfp-operational.html" class="block hover:text-[#d6bc7e] transition-all duration-300">Operations</a></li>
+                        <li><a href="tfp-risk.html" class="block hover:text-[#d6bc7e] transition-all duration-300">Risk Management</a></li>
+                        <li><a href="system-architecture.html" class="block hover:text-[#d6bc7e] transition-all duration-300">System Architecture</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Desktop Grid Menu -->
+            <nav class="hidden md:grid md:grid-cols-6 gap-8 text-left" aria-label="Footer Navigation">
+                <div class="space-y-4">
+                    <h3 class="font-semibold text-white text-xs uppercase tracking-widest text-[#d6bc7e]">Hasse Foundation</h3>
+                    <ul class="space-y-3 text-[#a8a29e] text-xs">
+                        <li><a href="foundation.html" class="hover:text-[#d6bc7e] transition-colors block">Home</a></li>
+                        <li><a href="foundation.html" class="hover:text-[#d6bc7e] transition-colors block">Mission</a></li>
+                        <li><a href="partnerships-interest.html" class="hover:text-[#d6bc7e] transition-colors block">Partnerships</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="font-semibold text-white text-xs uppercase tracking-widest text-[#d6bc7e]">TDR Framework</h3>
+                    <ul class="space-y-3 text-[#a8a29e] text-xs">
+                        <li><a href="tdr.html" class="hover:text-[#d6bc7e] transition-colors block">TDR Overview</a></li>
+                        <li><a href="tdr-framework.html" class="hover:text-[#d6bc7e] transition-colors block">TDR Framework</a></li>
+                        <li><a href="tdr-data.html" class="hover:text-[#d6bc7e] transition-colors block">Data Ingestion</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="font-semibold text-white text-xs uppercase tracking-widest text-[#d6bc7e]">Integrated Operation</h3>
+                    <ul class="space-y-3 text-[#a8a29e] text-xs">
+                        <li><a href="protocol.html" class="hover:text-[#d6bc7e] transition-colors block">AI test design</a></li>
+                        <li><a href="tdr-tfp-variables.html" class="hover:text-[#d6bc7e] transition-colors block">TFP Variables</a></li>
+                        <li><a href="tfp-intro.html" class="hover:text-[#d6bc7e] transition-colors block">Introduction</a></li>
+                        <li><a href="tfp-concepts.html" class="text-gold block">Core Concepts</a></li>
+                        <li><a href="tfp-instruments.html" class="hover:text-[#d6bc7e] transition-colors block">Financial Instruments</a></li>
+                        <li><a href="tfp-operational.html" class="hover:text-[#d6bc7e] transition-colors block">Operations</a></li>
+                        <li><a href="tfp-risk.html" class="hover:text-[#d6bc7e] transition-colors block">Risk Management</a></li>
+                        <li><a href="system-architecture.html" class="hover:text-[#d6bc7e] transition-colors block">System Architecture</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="font-semibold text-white text-xs uppercase tracking-widest text-[#d6bc7e]">Legal</h3>
+                    <ul class="space-y-3 text-[#a8a29e] text-xs">
+                        <li><a href="law.html" class="hover:text-[#d6bc7e] transition-colors block">Model Law</a></li>
+                        <li><a href="manual.html" class="hover:text-[#d6bc7e] transition-colors block">Integrated Operational Manual</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="font-semibold text-white text-xs uppercase tracking-widest text-[#d6bc7e]">Emergency Sectors</h3>
+                    <ul class="space-y-3 text-[#a8a29e] text-xs">
+                        <li><a href="emergency-sectors.html" class="hover:text-[#d6bc7e] transition-colors block">Overview</a></li>
+                        <li><a href="prudential-risk.html" class="hover:text-[#d6bc7e] transition-colors block">Prudential Infrastructure</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="font-semibold text-white text-xs uppercase tracking-widest text-[#d6bc7e]">Deploy</h3>
+                    <ul class="space-y-3 text-[#a8a29e] text-xs">
+                        <li><a href="cs-tapajos.html" class="hover:text-[#d6bc7e] transition-colors block">Case: Tapajós</a></li>
+                        <li><a href="cs-yemen.html" class="hover:text-[#d6bc7e] transition-colors block">Case: Yemen</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Bottom Section -->
+            <div class="pt-8 mt-12 border-t border-white/10">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
+                    <div class="flex items-center gap-3">
+                        <span class="text-[#d6bc7e] border border-[#d6bc7e]/30 px-2 py-1 text-sm bg-black/40">Σ</span>
+                        <span class="text-[10px] uppercase tracking-[0.3em] font-bold text-[#a8a29e]">c-ECO Doctrine</span>
+                    </div>
+                    <p class="text-[#6b7280] text-xs max-w-md">
+                        Pre-threshold governance frameworks for systemic risk environments. Earth System Law compliance and institutional integrity.
+                    </p>
+                </div>
+
+                <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 text-[10px] text-[#6b7280] uppercase tracking-widest">
+                    <div class="flex flex-wrap gap-x-6 gap-y-2">
+                        <span>© 2026 Hasse Foundation</span>
+                        <a href="privacy.html" class="hover:text-[#d6bc7e] transition-colors">Privacy Policy</a>
+                        <a href="terms.html" class="hover:text-[#d6bc7e] transition-colors">Terms of Use</a>
+                    </div>
+                    <div class="text-[#6b7280]">USA · Amazon · Brazil</div>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Footer accordion
+        function toggleFooterSection(btn) {
+            const ul = btn.nextElementSibling;
+            const chevron = btn.querySelector('.chevron');
+            if (ul.classList.contains('hidden')) {
+                ul.classList.remove('hidden');
+                chevron.classList.add('rotate-180');
+            } else {
+                ul.classList.add('hidden');
+                chevron.classList.remove('rotate-180');
+            }
+        }
+
+        // Reveal animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('active');
+                });
+            }, { threshold: 0.01, rootMargin: "0px 0px -50px 0px" });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            // Nav spacer
+            const nav = document.getElementById('siteNav');
+            const spacer = document.getElementById('navSpacer');
+            if (nav && spacer) spacer.style.height = nav.offsetHeight + 'px';
+        });
+    </script>
+
+</body>
+</html>
+
+
+
