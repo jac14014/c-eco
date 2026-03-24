@@ -1,16 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TFP-c-ECO para Contratos do Setor Elétrico</title>
-
-   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
-
+  <title>c-ECO | Energia & Infraestrutura Brasil-EUA — Manual TFP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-        /* --- CORES --- */
-        --sidebar-width: 320px;
+        --sidebar-width: 340px;
         --legal-blue: #1a2b3c;
         --legal-blue-dark: #0f1a25;
         --gold-accent: #c5a059;
@@ -18,1060 +15,1076 @@
         --text-main: #222;
         --text-muted: #555;
         --border-color: #e0e0e0;
-
-        /* --- TIPOGRAFIA (ESCALA) --- */
         --font-serif: 'Libre Baskerville', serif;
         --font-sans: 'Inter', sans-serif;
-
-        /* Tamanhos Padronizados */
-        --size-h1: 26px;       /* Títulos de Artigos/Anexos */
-        --size-h2: 18px;       /* Subtítulos (1.1, 1.2) */
-        --size-h3: 15px;       /* Sub-subtítulos (A., B.) */
-        --size-body: 16px;     /* Texto corrido padrão */
-        --size-ui: 14px;       /* Elementos de UI/Diagramas */
-        --size-small: 13px;    /* Notas de rodapé/Sidebar */
+        --size-h1: 26px;
+        --size-h2: 18px;
+        --size-h3: 15px;
+        --size-body: 16px;
+        --size-ui: 14px;
+        --size-small: 13px;
     }
-* { box-sizing: border-box; }
 
-body {
-    margin: 0;
-    background: var(--bg-body);
-    font-family: var(--font-sans);
-    color: var(--text-main);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-}
+    * { box-sizing: border-box; }
 
-.sidebar {
-    width: var(--sidebar-width);
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    background: #fff;
-    border-right: 1px solid var(--border-color);
-    padding: 20px 22px 80px;
-    overflow-y: auto;
-    z-index: 1000;
-    transition: transform .3s ease;
-}
+    body {
+        margin: 0;
+        background: var(--bg-body);
+        font-family: var(--font-sans);
+        color: var(--text-main);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+    }
 
-.sidebar::-webkit-scrollbar { width: 5px; }
-.sidebar::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+    .sidebar {
+        width: var(--sidebar-width);
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        background: #fff;
+        border-right: 1px solid var(--border-color);
+        padding: 20px 22px 80px;
+        overflow-y: auto;
+        z-index: 1000;
+        transition: transform .3s ease;
+    }
 
-.sidebar-top {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding-bottom: 15px;
-    margin-bottom: 15px;
-    border-bottom: 2px solid var(--gold-accent);
-    position: sticky;
-    top: 0;
-    background: #fff;
-    z-index: 10;
-}
+    .sidebar::-webkit-scrollbar { width: 5px; }
+    .sidebar::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
 
-.logo-box {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 42px;
-    height: 42px;
-    border: 1px solid var(--border-color);
-    background: #fff;
-    color: var(--legal-blue);
-    font-weight: 900;
-    font-size: 1.4rem;
-    text-decoration: none;
-}
+    .sidebar-top {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+        border-bottom: 2px solid var(--gold-accent);
+        position: sticky;
+        top: 0;
+        background: #fff;
+        z-index: 10;
+    }
 
-.sidebar-title {
-    font-weight: 800;
-    font-size: 11px;
-    letter-spacing: 1px;
-    color: var(--legal-blue);
-    text-transform: uppercase;
-    line-height: 1.2;
-}
+    .logo-box {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        border: 1px solid var(--border-color);
+        background: #fff;
+        color: var(--legal-blue);
+        font-weight: 900;
+        font-size: 1.4rem;
+        text-decoration: none;
+    }
 
-.search-container {
-    margin-bottom: 20px;
-    position: sticky;
-    top: 70px;
-    background: #fff;
-    z-index: 9;
-    padding-bottom: 10px;
-}
+    .sidebar-title {
+        font-weight: 800;
+        font-size: 11px;
+        letter-spacing: 1px;
+        color: var(--legal-blue);
+        text-transform: uppercase;
+        line-height: 1.2;
+    }
 
-#sidebarSearch {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.2s;
-}
+    .search-container {
+        margin-bottom: 20px;
+        position: sticky;
+        top: 70px;
+        background: #fff;
+        z-index: 9;
+        padding-bottom: 10px;
+    }
 
-#sidebarSearch:focus {
-    border-color: var(--gold-accent);
-    box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15);
-}
-
-.nav-list { list-style: none; padding: 0; margin: 0; }
-
-.nav-section-title {
-    font-size: 10px;
-    font-weight: 800;
-    color: var(--gold-accent);
-    margin-top: 25px;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    border-top: 1px solid #eee;
-    padding-top: 15px;
-    letter-spacing: 1px;
-}
-
-.nav-item-chapter a {
-    font-weight: 700;
-    color: var(--legal-blue);
-    font-size: 12px;
-    display: block;
-    padding: 8px 0 4px 0;
-    text-decoration: none;
-    border-bottom: 1px solid #f5f5f5;
-}
-
-.nav-sub-item a {
-    font-size: 11.5px;
-    color: #666;
-    display: block;
-    padding: 4px 0 4px 12px;
-    text-decoration: none;
-    border-left: 2px solid #eee;
-    margin-left: 2px;
-    transition: all 0.2s;
-}
-
-.nav-sub-item a:hover {
-    border-left-color: var(--gold-accent);
-    color: var(--legal-blue);
-    background: linear-gradient(90deg, rgba(197,160,89,0.05), transparent);
-}
-
-.nav-item.hidden, .nav-section-title.hidden { display: none; }
-
-.main-content {
-    margin-left: var(--sidebar-width);
-    padding: 60px 50px;
-    display: flex;
-    justify-content: center;
-    min-height: 100vh;
-}
-
-.document-page {
-    background: #fff;
-    width: 100%;
-    max-width: 950px;
-    padding: 80px;
-    box-shadow: 0 4px 30px rgba(0,0,0,0.03);
-    border: 1px solid #eef0f2;
-}
-
-.article-title {
-    font-family: var(--font-serif);
-    font-weight: 700;
-    font-size: var(--size-h1);
-    color: var(--legal-blue);
-    margin-bottom: 25px;
-    line-height: 1.3;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 15px;
-}
-
-.doc-subtitle {
-    font-family: var(--font-sans);
-    font-weight: 700;
-    font-size: var(--size-h2);
-    color: var(--legal-blue);
-    margin-top: 40px;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border-left: 4px solid var(--gold-accent);
-    padding-left: 15px;
-}
-
-.doc-sub-subtitle {
-    font-family: var(--font-sans);
-    font-weight: 700;
-    font-size: var(--size-h3);
-    color: var(--text-muted);
-    margin-top: 25px;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-}
-
-.caput {
-    font-family: var(--font-serif);
-    font-size: 18px;
-    line-height: 1.8;
-    color: #111;
-    margin-bottom: 20px;
-    text-align: justify;
-}
-
-.paragraph {
-    font-family: var(--font-sans);
-    font-size: var(--size-body);
-    line-height: 1.7;
-    color: #333;
-    margin-bottom: 15px;
-    text-align: justify;
-}
-
-.inciso {
-    font-family: var(--font-sans);
-    font-size: var(--size-body);
-    line-height: 1.6;
-    color: #444;
-    margin-left: 30px;
-    margin-bottom: 10px;
-    padding-left: 15px;
-    border-left: 2px solid #f0f0f0;
-    text-align: justify;
-}
-
-.bullet-list {
-    margin-left: 20px;
-    margin-bottom: 20px;
-}
-
-.bullet-list li {
-    font-size: var(--size-body);
-    color: #444;
-    margin-bottom: 8px;
-    line-height: 1.6;
-}
-
-.article-box {
-    margin-bottom: 60px;
-    scroll-margin-top: 40px;
-}
-
-.chapter-title {
-    font-family: var(--font-sans);
-    font-weight: 800;
-    font-size: 14px;
-    color: var(--gold-accent);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-align: center;
-    margin: 80px 0 40px 0;
-    padding-bottom: 15px;
-    border-bottom: 2px solid var(--legal-blue);
-}
-
-.legal-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 30px 0;
-    font-size: var(--size-ui);
-}
-
-.legal-table th {
-    background-color: var(--legal-blue);
-    color: #fff;
-    font-weight: 700;
-    text-align: left;
-    padding: 12px 15px;
-    text-transform: uppercase;
-    font-size: 11px;
-    letter-spacing: 1px;
-}
-
-.legal-table td {
-    border: 1px solid #e0e0e0;
-    padding: 12px 15px;
-    color: #333;
-    vertical-align: top;
-}
-
-.legal-table tr:nth-child(even) { background-color: #fcfcfc; }
-
-.math-box {
-    background: #f0f4f8;
-    border-left: 4px solid var(--gold-accent);
-    padding: 20px;
-    margin: 30px 0;
-    font-family: 'Courier New', monospace;
-    font-weight: 700;
-    color: var(--legal-blue);
-    text-align: center;
-    font-size: 16px;
-    border-radius: 4px;
-}
-
-.mobile-btn { 
-    display: none; 
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: var(--legal-blue);
-    color: #fff;
-    border: none;
-    padding: 15px 20px;
-    font-weight: 800;
-    z-index: 2000;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-}
-
-.highlight-box {
-    background: #f8f9fa;
-    border-left: 4px solid var(--gold-accent);
-    padding: 20px;
-    margin: 30px 0;
-}
-
-.warning-box {
-    background: #fff3cd;
-    border-left: 4px solid #ffc107;
-    padding: 15px;
-    margin: 20px 0;
-}
-
-.critical-box {
-    background: #f8d7da;
-    border-left: 4px solid #dc3545;
-    padding: 15px;
-    margin: 20px 0;
-}
-
-.info-box {
-    background: #d1ecf1;
-    border-left: 4px solid #17a2b8;
-    padding: 15px;
-    margin: 20px 0;
-}
-
-.tree-diagram {
-    font-family: 'Courier New', monospace;
-    font-size: 13px;
-    line-height: 1.4;
-    background: #f8f9fa;
-    padding: 20px;
-    overflow-x: auto;
-    white-space: pre;
-    margin: 20px 0;
-}
-
-@media (max-width: 1024px) {
-    .sidebar { transform: translateX(-100%); width: 280px; }
-    .sidebar.open { transform: translateX(0); box-shadow: 10px 0 50px rgba(0,0,0,0.3); }
-    .main-content { margin-left: 0; padding: 20px; }
-    .document-page { padding: 40px 20px; }
-    .mobile-btn { display: block; }
-    
-    html, body {
+    #sidebarSearch {
         width: 100%;
-        max-width: 100vw;
-        overflow-x: hidden;
-        position: relative;
+        padding: 12px 15px;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        font-family: 'Inter', sans-serif;
+        font-size: 14px;
+        outline: none;
+        transition: border-color 0.2s;
     }
 
-    .article-title { font-size: 22px !important; }
-    .doc-subtitle { font-size: 18px !important; }
-    .doc-sub-subtitle { font-size: 15px !important; }
-    .caput { font-size: 16px !important; text-align: left; }
-    .paragraph, .inciso { font-size: 15px !important; text-align: left; }
-    .inciso { margin-left: 15px !important; padding-left: 10px !important; }
-    
-    .legal-table {
+    #sidebarSearch:focus {
+        border-color: var(--gold-accent);
+        box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15);
+    }
+
+    .nav-list { list-style: none; padding: 0; margin: 0; }
+
+    .nav-section-title {
+        font-size: 10px;
+        font-weight: 800;
+        color: var(--gold-accent);
+        margin-top: 25px;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        border-top: 1px solid #eee;
+        padding-top: 15px;
+        letter-spacing: 1px;
+    }
+
+    .nav-item-chapter a {
+        font-weight: 700;
+        color: var(--legal-blue);
+        font-size: 12px;
         display: block;
-        width: 100%;
-        overflow-x: auto;
-        white-space: nowrap;
-        font-size: 13px !important;
+        padding: 8px 0 4px 0;
+        text-decoration: none;
+        border-bottom: 1px solid #f5f5f5;
     }
-}
-</style>
-</head>
 
+    .nav-sub-item a {
+        font-size: 11.5px;
+        color: #666;
+        display: block;
+        padding: 4px 0 4px 12px;
+        text-decoration: none;
+        border-left: 2px solid #eee;
+        margin-left: 2px;
+        transition: all 0.2s;
+    }
+
+    .nav-sub-item a:hover {
+        border-left-color: var(--gold-accent);
+        color: var(--legal-blue);
+        background: linear-gradient(90deg, rgba(197,160,89,0.05), transparent);
+    }
+
+    .nav-item.hidden, .nav-section-title.hidden { display: none; }
+
+    .main-content {
+        margin-left: var(--sidebar-width);
+        padding: 60px 50px;
+        display: flex;
+        justify-content: center;
+        min-height: 100vh;
+    }
+
+    .document-page {
+        background: #fff;
+        width: 100%;
+        max-width: 950px;
+        padding: 80px;
+        box-shadow: 0 4px 30px rgba(0,0,0,0.03);
+        border: 1px solid #eef0f2;
+    }
+
+    .article-title {
+        font-family: var(--font-serif);
+        font-weight: 700;
+        font-size: var(--size-h1);
+        color: var(--legal-blue);
+        margin-bottom: 25px;
+        line-height: 1.3;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 15px;
+    }
+
+    .doc-subtitle {
+        font-family: var(--font-sans);
+        font-weight: 700;
+        font-size: var(--size-h2);
+        color: var(--legal-blue);
+        margin-top: 40px;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-left: 4px solid var(--gold-accent);
+        padding-left: 15px;
+    }
+
+    .doc-sub-subtitle {
+        font-family: var(--font-sans);
+        font-weight: 700;
+        font-size: var(--size-h3);
+        color: var(--text-muted);
+        margin-top: 25px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+    }
+
+    .caput {
+        font-family: var(--font-serif);
+        font-size: 18px;
+        line-height: 1.8;
+        color: #111;
+        margin-bottom: 20px;
+        text-align: justify;
+    }
+
+    .paragraph {
+        font-family: var(--font-sans);
+        font-size: var(--size-body);
+        line-height: 1.7;
+        color: #333;
+        margin-bottom: 15px;
+        text-align: justify;
+    }
+
+    .inciso {
+        font-family: var(--font-sans);
+        font-size: var(--size-body);
+        line-height: 1.6;
+        color: #444;
+        margin-left: 30px;
+        margin-bottom: 10px;
+        padding-left: 15px;
+        border-left: 2px solid #f0f0f0;
+        text-align: justify;
+    }
+
+    .bullet-list {
+        margin-left: 20px;
+        margin-bottom: 20px;
+    }
+
+    .bullet-list li {
+        font-size: var(--size-body);
+        color: #444;
+        margin-bottom: 8px;
+        line-height: 1.6;
+    }
+
+    .article-box {
+        margin-bottom: 60px;
+        scroll-margin-top: 40px;
+    }
+
+    .chapter-title {
+        font-family: var(--font-sans);
+        font-weight: 800;
+        font-size: 14px;
+        color: var(--gold-accent);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-align: center;
+        margin: 80px 0 40px 0;
+        padding-bottom: 15px;
+        border-bottom: 2px solid var(--legal-blue);
+    }
+
+    .legal-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 30px 0;
+        font-size: var(--size-ui);
+    }
+
+    .legal-table th {
+        background-color: var(--legal-blue);
+        color: #fff;
+        font-weight: 700;
+        text-align: left;
+        padding: 12px 15px;
+        text-transform: uppercase;
+        font-size: 11px;
+        letter-spacing: 1px;
+    }
+
+    .legal-table td {
+        border: 1px solid #e0e0e0;
+        padding: 12px 15px;
+        color: #333;
+        vertical-align: top;
+    }
+
+    .legal-table tr:nth-child(even) { background-color: #fcfcfc; }
+
+    .math-box {
+        background: #f0f4f8;
+        border-left: 4px solid var(--gold-accent);
+        padding: 20px;
+        margin: 30px 0;
+        font-family: 'Courier New', monospace;
+        font-weight: 700;
+        color: var(--legal-blue);
+        text-align: center;
+        font-size: 16px;
+        border-radius: 4px;
+    }
+
+    .mobile-btn { 
+        display: none; 
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: var(--legal-blue);
+        color: #fff;
+        border: none;
+        padding: 15px 20px;
+        font-weight: 800;
+        z-index: 2000;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        cursor: pointer;
+    }
+
+    .highlight-box {
+        background: #f8f9fa;
+        border-left: 4px solid var(--gold-accent);
+        padding: 20px;
+        margin: 30px 0;
+    }
+
+    .warning-box {
+        background: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 15px;
+        margin: 20px 0;
+    }
+
+    .critical-box {
+        background: #f8d7da;
+        border-left: 4px solid #dc3545;
+        padding: 15px;
+        margin: 20px 0;
+    }
+
+    .info-box {
+        background: #d1ecf1;
+        border-left: 4px solid #17a2b8;
+        padding: 15px;
+        margin: 20px 0;
+    }
+
+    .tree-diagram {
+        font-family: 'Courier New', monospace;
+        font-size: 13px;
+        line-height: 1.4;
+        background: #f8f9fa;
+        padding: 20px;
+        overflow-x: auto;
+        white-space: pre;
+        margin: 20px 0;
+    }
+
+    @media (max-width: 1024px) {
+        .sidebar { transform: translateX(-100%); width: 280px; }
+        .sidebar.open { transform: translateX(0); box-shadow: 10px 0 50px rgba(0,0,0,0.3); }
+        .main-content { margin-left: 0; padding: 20px; }
+        .document-page { padding: 40px 20px; }
+        .mobile-btn { display: block; }
+        
+        html, body {
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .article-title { font-size: 22px !important; }
+        .doc-subtitle { font-size: 18px !important; }
+        .doc-sub-subtitle { font-size: 15px !important; }
+        .caput { font-size: 16px !important; text-align: left; }
+        .paragraph, .inciso { font-size: 15px !important; text-align: left; }
+        .inciso { margin-left: 15px !important; padding-left: 10px !important; }
+        
+        .legal-table {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
+            font-size: 13px !important;
+        }
+    }
+  </style>
+</head>
 <body>
 
 <button class="mobile-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">INDEX</button>
-  <li class="nav-section-title">MÓDULO 2 — VARIÁVEIS TFP</li>
-  <li class="nav-item nav-item-chapter"><a href="#M2">2. Fórmula de Ativação</a></li>
-  <li class="nav-item nav-sub-item"><a href="#M2-1">2.1 Position (P)</a></li>
-  <li class="nav-item nav-sub-item"><a href="#M2-2">2.2 Velocity (ΔV)</a></li>
-  <li class="nav-item nav-sub-item"><a href="#M2-3">2.3 Sigma (σ)</a></li>
-  <li class="nav-item nav-sub-item"><a href="#M2-4">2.4 Lr Transnacional</a></li>
-  <li class="nav-item nav-sub-item"><a href="#M2-5">2.5 Tabela SEC/FERC/ANEEL</a></li>
 
-  <li class="nav-section-title">MÓDULO 3 — CLÁUSULAS CONTRATUAIS</li>
-  <li class="nav-item nav-item-chapter"><a href="#M3">3. Cláusulas Executáveis</a></li>
-  <li class="nav-item nav-sub-item"><a href="#M3-1">3.1 CVS-T BR-US</a></li>
-  <li class="nav-item nav-sub-item"><a href="#M3-2">3.2 Safe Mode RET</a></li>
-  <li class="nav-item nav-sub-item"><a href="#M3-3">3.3 Join Duty Transnacional</a></li>
-  <li class="nav-item nav-sub-item"><a href="#M3-4">3.4 Look-Through TLTDE</a></li>
-  <li class="nav-item nav-sub-item"><a href="#M3-5">3.5 Arbitragem DREAP</a></li>
-
-  <li class="nav-section-title">MÓDULO 4 — FLUXOGRAMA</li>
-  <li class="nav-item nav-item-chapter"><a href="#M4">4. Decisório Automático</a></li>
-  <li class="nav-item nav-sub-item"><a href="#M4-1">4.1 Ciclo 24H Contínuo</a></li>
-  <li class="nav-item nav-sub-item"><a href="#M4-2">4.2 Matriz de Comunicação</a></li>
-  <li class="nav-item nav-sub-item"><a href="#M4-3">4.3 Protocolo de Escalada</a></li>
-
-  <li class="nav-section-title">MÓDULO 5 — IMPLEMENTAÇÃO</li>
-  <li class="nav-item nav-item-chapter"><a href="#M5">5. Roadmap 60 Dias</a></li>
-  <li class="nav-item nav-sub-item"><a href="#M5-1">5.1 Semanas 1-2</a></li>
-  <li class="nav-item nav-sub-item"><a href="#M5-2">5.2 Semanas 3-4</a></li>
-  <li class="nav-item nav-sub-item"><a href="#M5-3">5.3 Semanas 5-6</a></li>
-  <li class="nav-item nav-sub-item"><a href="#M5-4">5.4 Semanas 7-8</a></li>
-  <li class="nav-item nav-sub-item"><a href="#M5-5">5.5 Governança Contínua</a></li>
-
-  <li class="nav-section-title">ANEXOS</li>
-  <li class="nav-item nav-sub-item"><a href="#ANEXO-A">A. Templates</a></li>
-  <li class="nav-item nav-sub-item"><a href="#ANEXO-B">B. Árvore de Decisão</a></li>
-  <li class="nav-item nav-sub-item"><a href="#ANEXO-C">C. Regras Especiais</a></li>
-
-  <li style="height: 100px;"></li>
-</ul>
-
-<section class="article-box">
-  <div class="chapter-title">⚡ ENERGIA & INFRAESTRUTURA — MANUAL DE APLICAÇÃO IMEDIATA</div>
-  <h1 class="article-title" style="text-align: center; border: none;">Protocolo TFP-c-ECO para Contratos do Setor Elétrico<br>Edição Brasil-EUA: Transnational Energy Infrastructure Governance</h1>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-top">
+    <a href="#" class="logo-box">Σ</a>
+    <div class="sidebar-title">ENERGIA & INFRAESTRUTURA<br>BRASIL-EUA — TFP</div>
+  </div>
   
-  <div class="caput" style="text-align: center; font-style: italic;">
-    Este Manual constitui instrumento técnico-normativo de aplicação imediata do Protocolo TFP-c-ECO ao setor de energia e infraestrutura na relação comercial Brasil-EUA, integrando governança sistêmica, compliance regulatório bilateral e estruturação financeira transnacional.
-  </div>
-</section>
-
-<section id="M1" class="article-box">
-  <h2 class="article-title">MÓDULO 1 — ATIVAÇÃO IMEDIATA (Checklist 0-15 dias)<br>Due diligence bilateral e estruturação transnacional</h2>
-
-  <h3 id="M1-1" class="doc-subtitle">1.1 Mapeamento de Jurisdição e Regulação Cruzada</h3>
-  
-  <div class="caput">
-    Análise de Nexus Jurisdicional Brasil-EUA: identificação de todas as jurisdições aplicáveis, mecanismos de coordenação regulatória e requisitos de compliance simultâneo em ambos os países.
+  <div class="search-container">
+    <input type="text" id="sidebarSearch" placeholder="Buscar artigo ou título..." aria-label="Buscar índice">
   </div>
 
-  <table class="legal-table">
-    <thead>
-      <tr>
-        <th>Fator de Conexão</th>
-        <th>Jurisdição Primária</th>
-        <th>Jurisdição Secundária</th>
-        <th>Mecanismo de Coordenação</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Investidor americano > 10% do capital</td>
-        <td>CFIUS review (EUA)</td>
-        <td>CADE (Brasil)</td>
-        <td>Protocolo de notificação simultânea</td>
-      </tr>
-      <tr>
-        <td>Financiamento via DFC/Ex-Im Bank</td>
-        <td>OPIC/DFC conditions</td>
-        <td>BNDES/FINEP</td>
-        <td>Co-financing agreement c-ECO clause</td>
-      </tr>
-      <tr>
-        <td>Listagem ADR/NYSE</td>
-        <td>SEC disclosure</td>
-        <td>CVM</td>
-        <td>Cross-listing ESG reporting</td>
-      </tr>
-      <tr>
-        <td>Garantia sovereign (PR-13)</td>
-        <td>Tesouro Nacional</td>
-        <td>US Treasury (se covered)</td>
-        <td>Mutual recognition of guarantees</td>
-      </tr>
-      <tr>
-        <td>Arbitragem ICSID/ICC</td>
-        <td>Washington Convention</td>
-        <td>Lei 13.129/2015</td>
-        <td>Dual-seat arbitration clause</td>
-      </tr>
-      <tr>
-        <td>Sanções OFAC/SDN</td>
-        <td>OFAC compliance</td>
-        <td>BACEN/CNJ</td>
-        <td>Blocked party screening</td>
-      </tr>
-    </tbody>
-  </table>
+  <nav>
+    <ul class="nav-list">
+      <li class="nav-section-title">MÓDULO 1 — ATIVAÇÃO IMEDIATA</li>
+      <li class="nav-item nav-item-chapter"><a href="#M1">1. Checklist 0-15 Dias</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M1-1">1.1 Nexus Jurisdicional</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M1-2">1.2 CFIUS Checklist</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M1-3">1.3 Dados e Sensores</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M1-4">1.4 SOS Transnacional</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M1-5">1.5 Garantias Bilaterais</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M1-6">1.6 Matriz Completa de Ativos</a></li>
 
-  <h3 id="M1-2" class="doc-subtitle">1.2 Checklist CFIUS (Committee on Foreign Investment in the United States)</h3>
+      <li class="nav-section-title">MÓDULO 2 — VARIÁVEIS TFP</li>
+      <li class="nav-item nav-item-chapter"><a href="#M2">2. Fórmula de Ativação</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M2-1">2.1 Position (P)</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M2-2">2.2 Velocity (ΔV)</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M2-3">2.3 Sigma (σ)</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M2-4">2.4 Lr Transnacional</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M2-5">2.5 Tabela SEC/FERC/ANEEL</a></li>
 
-  <div class="paragraph">
-    <strong>Declaração obrigatória:</strong> Investimento em infraestrutura crítica energética (Critical Infrastructure)
-  </div>
+      <li class="nav-section-title">MÓDULO 3 — CLÁUSULAS CONTRATUAIS</li>
+      <li class="nav-item nav-item-chapter"><a href="#M3">3. Cláusulas Executáveis</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M3-1">3.1 CVS-T BR-US</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M3-2">3.2 Safe Mode RET</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M3-3">3.3 Join Duty Transnacional</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M3-4">3.4 Look-Through TLTDE</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M3-5">3.5 Arbitragem DREAP</a></li>
 
-  <div class="inciso">
-    <strong>Análise de controle:</strong> Acima de 10% com direitos de governança → review obrigatório
-  </div>
-  <div class="inciso">
-    <strong>TID (Technology, Infrastructure, Data):</strong> Usinas nucleares, smart grids, armazenamento ≥ 100MWh → mandatory declaration
-  </div>
-  <div class="inciso">
-    <strong>Mitigation agreement:</strong> Compromissos de segurança cibernética e supply chain
-  </div>
-  <div class="inciso">
-    <strong>c-ECO addendum:</strong> Inserir TFP como mecanismo de mitigação de risco sistêmico aceito pelo CFIUS
-  </div>
+      <li class="nav-section-title">MÓDULO 4 — FLUXOGRAMA</li>
+      <li class="nav-item nav-item-chapter"><a href="#M4">4. Decisório Automático</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M4-1">4.1 Ciclo 24H Contínuo</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M4-2">4.2 Matriz de Comunicação</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M4-3">4.3 Protocolo de Escalada</a></li>
 
-  <div class="highlight-box">
-    <strong>Template 1A-BR/US — Ficha de Nexus Transnacional:</strong>
-    <div style="font-family: monospace; font-size: 13px; margin-top: 10px;">
-      Projeto: [Nome]<br>
-      Localização física: [Estado/Município, Brasil]<br>
-      Investidor americano: [Nome, %, sede]<br>
-      Veículo de investimento: [HoldCo Delaware / Cayman / Luxembourg]<br>
-      Financiamento estruturado: [DFC/BNDES/Ex-Im/Private]<br>
-      Garantia de exportação: [Ex-Im covered / DFC political risk / MIGA]<br>
-      Arbitragem: [ICSID/ICC/MIAMI/UNCITRAL]<br>
-      Sede arbitral: [Miami/Londres/Singapura/São Paulo]<br>
-      Lei aplicável: [NY/DE/Delaware/Brasileira]<br>
-      c-ECO DAA: [Entidade certificada nos dois países]
-    </div>
-  </div>
+      <li class="nav-section-title">MÓDULO 5 — IMPLEMENTAÇÃO</li>
+      <li class="nav-item nav-item-chapter"><a href="#M5">5. Roadmap 60 Dias</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M5-1">5.1 Semanas 1-2</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M5-2">5.2 Semanas 3-4</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M5-3">5.3 Semanas 5-6</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M5-4">5.4 Semanas 7-8</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M5-5">5.5 Governança Contínua</a></li>
 
-  <h3 id="M1-3" class="doc-subtitle">1.3 Estruturação de Dados e Sensores Transnacionais</h3>
+      <li class="nav-section-title">ANEXOS</li>
+      <li class="nav-item nav-sub-item"><a href="#ANEXO-A">A. Templates</a></li>
+      <li class="nav-item nav-sub-item"><a href="#ANEXO-B">B. Árvore de Decisão</a></li>
+      <li class="nav-item nav-sub-item"><a href="#ANEXO-C">C. Regras Especiais</a></li>
 
-  <div class="caput">
-    Arquitetura de Dados Bilateral: integração de fontes primárias brasileiras e americanas com certificação mútua, replicação criptografada e auditoria conjunta.
-  </div>
+      <li style="height: 100px;"></li>
+    </ul>
+  </nav>
+</aside>
 
-  <table class="legal-table">
-    <thead>
-      <tr>
-        <th>Camada</th>
-        <th>Brasil</th>
-        <th>EUA</th>
-        <th>Integração</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Fonte primária</td>
-        <td>ONS, ANA, ANEEL, INMET</td>
-        <td>EIA, FERC, NOAA, NREL</td>
-        <td>API gateway bilateral</td>
-      </tr>
-      <tr>
-        <td>Certificação</td>
-        <td>DAA certificado pela ANEEL</td>
-        <td>DAA reconhecido por FERC/NARUC</td>
-        <td>Mutual recognition agreement</td>
-      </tr>
-      <tr>
-        <td>Armazenamento</td>
-        <td>Data center Tier III (São Paulo)</td>
-        <td>AWS GovCloud / Azure US</td>
-        <td>Replicação criptografada</td>
-      </tr>
-      <tr>
-        <td>Auditoria</td>
-        <td>Auditor brasileiro (CRC)</td>
-        <td>Auditor PCAOB-registered</td>
-        <td>Joint audit protocol</td>
-      </tr>
-      <tr>
-        <td>Blockchain/imutabilidade</td>
-        <td>RSK/Prova (Brasil)</td>
-        <td>Ethereum/Hyperledger (EUA)</td>
-        <td>Cross-chain notarization</td>
-      </tr>
-    </tbody>
-  </table>
+<main class="main-content">
+  <article class="document-page">
 
-  <div class="info-box">
-    <strong>Sensores Específicos para Ativos Brasil-EUA:</strong><br><br>
-    <strong>Para exportação de energia (interligação futura) ou H2:</strong><br>
-    • Medição de fluxo bidirecional (reconciliation ONS ↔ EIA)<br>
-    • Qualidade do hidrogênio (ISO 14687-2:2023) — certificação dual<br>
-    • Rastreabilidade de carbono (certificado de origem renovável reconhecido SEC/RGGI/LCFS)<br><br>
-    <strong>Para projetos com conteúdo local e technology transfer:</strong><br>
-    • Monitoramento de local content (% contratual vs. real)<br>
-    • Transferência de tecnologia (milestone-based)<br>
-    • Capacitação de trabalhadores (hours training/certifications)<br><br>
-    <strong>Para compliance ESG americano:</strong><br>
-    • Dados para SEC Climate Disclosure (proposed rules)<br>
-    • Alinhamento TCFD (Task Force on Climate-related Financial Disclosures)<br>
-    • Materiality assessment SASB — setor Utilities/Energy
-  </div>
+    <!-- CAPA -->
+    <section class="article-box">
+      <div class="chapter-title">⚡ ENERGIA & INFRAESTRUTURA — MANUAL DE APLICAÇÃO IMEDIATA</div>
+      <h1 class="article-title" style="text-align: center; border: none;">Protocolo TFP-c-ECO para Contratos do Setor Elétrico<br>Edição Brasil-EUA: Transnational Energy Infrastructure Governance</h1>
+      
+      <div class="caput" style="text-align: center; font-style: italic;">
+        Este Manual constitui instrumento técnico-normativo de aplicação imediata do Protocolo TFP-c-ECO ao setor de energia e infraestrutura na relação comercial Brasil-EUA, integrando governança sistêmica, compliance regulatório bilateral e estruturação financeira transnacional.
+      </div>
+    </section>
 
-  <h3 id="M1-4" class="doc-subtitle">1.4 Definição de Limites SOS Transnacionais</h3>
+    <!-- MÓDULO 1 -->
+    <section id="M1" class="article-box">
+      <h2 class="article-title">MÓDULO 1 — ATIVAÇÃO IMEDIATA (Checklist 0-15 dias)<br>Due diligence bilateral e estruturação transnacional</h2>
 
-  <div class="caput">
-    Safe Operating Space (SOS) Híbrido Brasil-EUA: integração de limites ambientais, hídricos, climáticos, trabalhistas, anticorrupção e sanções de ambos os países.
-  </div>
+      <h3 id="M1-1" class="doc-subtitle">1.1 Mapeamento de Jurisdição e Regulação Cruzada</h3>
+      
+      <div class="caput">
+        Análise de Nexus Jurisdicional Brasil-EUA: identificação de todas as jurisdições aplicáveis, mecanismos de coordenação regulatória e requisitos de compliance simultâneo em ambos os países.
+      </div>
 
-  <table class="legal-table">
-    <thead>
-      <tr>
-        <th>Dimensão</th>
-        <th>Limite Brasil</th>
-        <th>Limite EUA</th>
-        <th>Limite Integrado c-ECO</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Ambiental</td>
-        <td>Licenças IBAMA/CPRM</td>
-        <td>NEPA review, EPA permits</td>
-        <td>Intersection + buffer 20%</td>
-      </tr>
-      <tr>
-        <td>Hídrico</td>
-        <td>Reserva legal ANA</td>
-        <td>State water rights (se aplicável)</td>
-        <td>Mínimo dos dois + σ</td>
-      </tr>
-      <tr>
-        <td>Climático</td>
-        <td>Compromissos NDC Brasil</td>
-        <td>IRA (Inflation Reduction Act) credits</td>
-        <td>Conformidade dual obrigatória</td>
-      </tr>
-      <tr>
-        <td>Trabalhista</td>
-        <td>CLT + NR's</td>
-        <td>OSHA standards (se aplicável)</td>
-        <td>Mais restritivo dos dois</td>
-      </tr>
-      <tr>
-        <td>Anticorrupção</td>
-        <td>Lei 12.846/2013 (Anticorrupção)</td>
-        <td>FCPA</td>
-        <td>Compliance programa integrado</td>
-      </tr>
-      <tr>
-        <td>Sanções</td>
-        <td>Resoluções ONU/CNUDC</td>
-        <td>OFAC/SDN/EAR</td>
-        <td>Screening conjunto diário</td>
-      </tr>
-    </tbody>
-  </table>
+      <table class="legal-table">
+        <thead>
+          <tr>
+            <th>Fator de Conexão</th>
+            <th>Jurisdição Primária</th>
+            <th>Jurisdição Secundária</th>
+            <th>Mecanismo de Coordenação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Investidor americano > 10% do capital</td>
+            <td>CFIUS review (EUA)</td>
+            <td>CADE (Brasil)</td>
+            <td>Protocolo de notificação simultânea</td>
+          </tr>
+          <tr>
+            <td>Financiamento via DFC/Ex-Im Bank</td>
+            <td>OPIC/DFC conditions</td>
+            <td>BNDES/FINEP</td>
+            <td>Co-financing agreement c-ECO clause</td>
+          </tr>
+          <tr>
+            <td>Listagem ADR/NYSE</td>
+            <td>SEC disclosure</td>
+            <td>CVM</td>
+            <td>Cross-listing ESG reporting</td>
+          </tr>
+          <tr>
+            <td>Garantia sovereign (PR-13)</td>
+            <td>Tesouro Nacional</td>
+            <td>US Treasury (se covered)</td>
+            <td>Mutual recognition of guarantees</td>
+          </tr>
+          <tr>
+            <td>Arbitragem ICSID/ICC</td>
+            <td>Washington Convention</td>
+            <td>Lei 13.129/2015</td>
+            <td>Dual-seat arbitration clause</td>
+          </tr>
+          <tr>
+            <td>Sanções OFAC/SDN</td>
+            <td>OFAC compliance</td>
+            <td>BACEN/CNJ</td>
+            <td>Blocked party screening</td>
+          </tr>
+        </tbody>
+      </table>
 
-  <div class="paragraph">
-    <strong>Variáveis Específicas de Risco Transnacional:</strong>
-  </div>
+      <h3 id="M1-2" class="doc-subtitle">1.2 Checklist CFIUS (Committee on Foreign Investment in the United States)</h3>
 
-  <table class="legal-table">
-    <thead>
-      <tr>
-        <th>Variável</th>
-        <th>Fonte Brasil</th>
-        <th>Fonte EUA</th>
-        <th>Cálculo Integrado</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>σ_regulatório</td>
-        <td>ANEEL, IBAMA, Petrobras</td>
-        <td>FERC, EPA, State PUCs</td>
-        <td>σ = max(σ_BR, σ_US) + 0,15</td>
-      </tr>
-      <tr>
-        <td>σ_cambiário</td>
-        <td>BACEN, PTAX</td>
-        <td>Federal Reserve, FX markets</td>
-        <td>σ = volatilidade 90d + σ_política</td>
-      </tr>
-      <tr>
-        <td>σ_geopolítico</td>
-        <td>Risco Brasil (EMBI+)</td>
-        <td>Risco EUA (Treasury spread)</td>
-        <td>σ = correlação × stress test</td>
-      </tr>
-      <tr>
-        <td>σ_supply chain</td>
-        <td>Importação de equipamentos (US content)</td>
-        <td>Export controls (EAR)</td>
-        <td>σ = lead time × criticalidade</td>
-      </tr>
-    </tbody>
-  </table>
+      <div class="paragraph">
+        <strong>Declaração obrigatória:</strong> Investimento em infraestrutura crítica energética (Critical Infrastructure)
+      </div>
 
-  <div class="math-box">
-    <strong>Limite de Reversibilidade Financeira (Lr) Transnacional:</strong><br><br>
-    Lr_transnacional = min(Lr_local, Lr_convertido)<br><br>
-    Onde:<br>
-    • Lr_local = Recursos em Reais / Custo de reversão em Reais<br>
-    • Lr_convertido = (Recursos em USD × hedge rate) / (Custo de reversão em USD × FX stress)<br><br>
-    FX stress = PTAX spot × (1 + σ_cambiário × 2)<br><br>
-    Se hedge cambial < 80% do exposure → σ_cambiário aumenta 25%
-  </div>
+      <div class="inciso">
+        <strong>Análise de controle:</strong> Acima de 10% com direitos de governança → review obrigatório
+      </div>
+      <div class="inciso">
+        <strong>TID (Technology, Infrastructure, Data):</strong> Usinas nucleares, smart grids, armazenamento ≥ 100MWh → mandatory declaration
+      </div>
+      <div class="inciso">
+        <strong>Mitigation agreement:</strong> Compromissos de segurança cibernética e supply chain
+      </div>
+      <div class="inciso">
+        <strong>c-ECO addendum:</strong> Inserir TFP como mecanismo de mitigação de risco sistêmico aceito pelo CFIUS
+      </div>
 
-  <h3 id="M1-5" class="doc-subtitle">1.5 Estruturação de Garantias e Reservas Bilaterais</h3>
+      <div class="highlight-box">
+        <strong>Template 1A-BR/US — Ficha de Nexus Transnacional:</strong>
+        <div style="font-family: monospace; font-size: 13px; margin-top: 10px;">
+          Projeto: [Nome]<br>
+          Localização física: [Estado/Município, Brasil]<br>
+          Investidor americano: [Nome, %, sede]<br>
+          Veículo de investimento: [HoldCo Delaware / Cayman / Luxembourg]<br>
+          Financiamento estruturado: [DFC/BNDES/Ex-Im/Private]<br>
+          Garantia de exportação: [Ex-Im covered / DFC political risk / MIGA]<br>
+          Arbitragem: [ICSID/ICC/MIAMI/UNCITRAL]<br>
+          Sede arbitral: [Miami/Londres/Singapura/São Paulo]<br>
+          Lei aplicável: [NY/DE/Delaware/Brasileira]<br>
+          c-ECO DAA: [Entidade certificada nos dois países]
+        </div>
+      </div>
 
-  <div class="caput">
-    Estrutura de Garantia Cruzada (Cross-Border Collateral): camadas de proteção em múltiplas jurisdições com governing law específico e mecanismos de enforcement coordenados.
-  </div>
+      <h3 id="M1-3" class="doc-subtitle">1.3 Estruturação de Dados e Sensores Transnacionais</h3>
 
-  <table class="legal-table">
-    <thead>
-      <tr>
-        <th>Camada</th>
-        <th>Garantia</th>
-        <th>Jurisdição</th>
-        <th>Governing Law</th>
-        <th>Enforcement</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Primeira</td>
-        <td>Cash collateral (USD)</td>
-        <td>NY trust account</td>
-        <td>NY law</td>
-        <td>UCC Article 9</td>
-      </tr>
-      <tr>
-        <td>Segunda</td>
-        <td>Letter of Credit (LC)</td>
-        <td>Banco americano confirmado</td>
-        <td>UCP 600</td>
-        <td>ISP 98</td>
-      </tr>
-      <tr>
-        <td>Terceira</td>
-        <td>Fiança bancária (Reais)</td>
-        <td>Banco brasileiro</td>
-        <td>Lei brasileira</td>
-        <td>Execução extrajudicial</td>
-      </tr>
-      <tr>
-        <td>Quarta</td>
-        <td>Corporate guarantee (HoldCo)</td>
-        <td>Delaware</td>
-        <td>Delaware law</td>
-        <td>Chancery Court</td>
-      </tr>
-      <tr>
-        <td>Quinta</td>
-        <td>Project assets (usina)</td>
-        <td>Brasil</td>
-        <td>Lei brasileira</td>
-        <td>Arrendamento fiduciário</td>
-      </tr>
-      <tr>
-        <td>Sexta</td>
-        <td>MIGA/OPIC political risk</td>
-        <td>Washington D.C.</td>
-        <td>Convenção ICSID</td>
-        <td>Arbitragem</td>
-      </tr>
-    </tbody>
-  </table>
+      <div class="caput">
+        Arquitetura de Dados Bilateral: integração de fontes primárias brasileiras e americanas com certificação mútua, replicação criptografada e auditoria conjunta.
+      </div>
 
-  <div class="highlight-box">
-    <strong>Systemic Risk Management Fund — Estrutura Bilateral:</strong>
-    <div style="font-family: monospace; font-size: 13px; margin-top: 10px;">
-      Estrutura de escrow dual:<br><br>
-      [Projeto SPV Brasil] ←──→ [Escrow Agent NY] ←──→ [Systemic Risk Fund]<br>
-               │                        │<br>
-               │                 [Investment Manager SEC-registered]<br>
-               │<br>
-          [Conta segregada Brasil]<br>
-          (Banco com correspondente NY)<br><br>
-      Gatilhos de liberação:<br>
-      1. Certificação DAA Brasil + DAA EUA (joint trigger)<br>
-      2. Ordem técnica do Technical Curatorial Chamber (bilateral)<br>
-      3. Decisão arbitral de emergência (provisional measures)
-    </div>
-  </div>
+      <table class="legal-table">
+        <thead>
+          <tr>
+            <th>Camada</th>
+            <th>Brasil</th>
+            <th>EUA</th>
+            <th>Integração</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Fonte primária</td>
+            <td>ONS, ANA, ANEEL, INMET</td>
+            <td>EIA, FERC, NOAA, NREL</td>
+            <td>API gateway bilateral</td>
+          </tr>
+          <tr>
+            <td>Certificação</td>
+            <td>DAA certificado pela ANEEL</td>
+            <td>DAA reconhecido por FERC/NARUC</td>
+            <td>Mutual recognition agreement</td>
+          </tr>
+          <tr>
+            <td>Armazenamento</td>
+            <td>Data center Tier III (São Paulo)</td>
+            <td>AWS GovCloud / Azure US</td>
+            <td>Replicação criptografada</td>
+          </tr>
+          <tr>
+            <td>Auditoria</td>
+            <td>Auditor brasileiro (CRC)</td>
+            <td>Auditor PCAOB-registered</td>
+            <td>Joint audit protocol</td>
+          </tr>
+          <tr>
+            <td>Blockchain/imutabilidade</td>
+            <td>RSK/Prova (Brasil)</td>
+            <td>Ethereum/Hyperledger (EUA)</td>
+            <td>Cross-chain notarization</td>
+          </tr>
+        </tbody>
+      </table>
 
-  <h3 id="M1-6" class="doc-subtitle">1.6 Matriz Completa de Ativos Elegíveis TFP-c-ECO</h3>
+      <div class="info-box">
+        <strong>Sensores Específicos para Ativos Brasil-EUA:</strong><br><br>
+        <strong>Para exportação de energia (interligação futura) ou H2:</strong><br>
+        • Medição de fluxo bidirecional (reconciliation ONS ↔ EIA)<br>
+        • Qualidade do hidrogênio (ISO 14687-2:2023) — certificação dual<br>
+        • Rastreabilidade de carbono (certificado de origem renovável reconhecido SEC/RGGI/LCFS)<br><br>
+        <strong>Para projetos com conteúdo local e technology transfer:</strong><br>
+        • Monitoramento de local content (% contratual vs. real)<br>
+        • Transferência de tecnologia (milestone-based)<br>
+        • Capacitação de trabalhadores (hours training/certifications)<br><br>
+        <strong>Para compliance ESG americano:</strong><br>
+        • Dados para SEC Climate Disclosure (proposed rules)<br>
+        • Alinhamento TCFD (Task Force on Climate-related Financial Disclosures)<br>
+        • Materiality assessment SASB — setor Utilities/Energy
+      </div>
 
-  <div class="caput">
-    Classificação completa de ativos energéticos por categoria, código TFP, potência/capacidade e aplicação obrigatória ou recomendada do protocolo.
-  </div>
+      <h3 id="M1-4" class="doc-subtitle">1.4 Definição de Limites SOS Transnacionais</h3>
 
-  <div class="doc-sub-subtitle">A. GERAÇÃO ELÉTRICA — TRADICIONAL</div>
-  <table class="legal-table">
-    <thead>
-      <tr>
-        <th>Subcategoria</th>
-        <th>Tipo Específico</th>
-        <th>Código TFP</th>
-        <th>Potência/Capacidade</th>
-        <th>Aplicação</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td rowspan="5">Hidrelétricas</td>
-        <td>UHE (usina a fio d'água)</td>
-        <td>HYD-R</td>
-        <td>≥ 30 MW</td>
-        <td>Obrigatória</td>
-      </tr>
-      <tr>
-        <td>UHE (com reservatório)</td>
-        <td>HYD-L</td>
-        <td>≥ 50 MW</td>
-        <td>Obrigatória</td>
-      </tr>
-      <tr>
-        <td>PCH (pequena central)</td>
-        <td>HYD-M</td>
-        <td>1-30 MW</td>
-        <td>Obrigatória</td>
-      </tr>
-      <tr>
-        <td>CGH (central geradora hidrelétrica)</td>
-        <td>HYD-S</td>
-        <td>< 1 MW</td>
-        <td>Recomendada</td>
-      </tr>
-      <tr>
-        <td>Bombeamento (reversível)</td>
-        <td>HYD-P</td>
-        <td>Qualquer</td>
-        <td>Obrigatória</td>
-      </tr>
-      <tr>
-        <td rowspan="7">Termelétricas</td>
-        <td>Ciclo combinado a gás natural</td>
-        <td>CCG-H</td>
-        <td>≥ 100 MW</td>
-        <td>Obrigatória</td>
-      </tr>
-      <tr>
-        <td>Turbogás a gás natural</td>
-        <td>GTG-M</td>
-        <td>≥ 50 MW</td>
-        <td>Obrigatória</td>
-      </tr>
-      <tr>
-        <td>Carvão mineral (importado/nacional)</td>
-        <td>COA-H</td>
-        <td>Qualquer</td>
-        <td>Obrigatória</td>
-      </tr>
-      <tr>
-        <td>Óleo diesel/combustível</td>
-        <td>DIE-M</td>
-        <td>≥ 10 MW</td>
-        <td>Obrigatória</td>
-      </tr>
-      <tr>
-        <td>Biomassa (cana/bagaço)</td>
-        <td>BIO-M</td>
-        <td>≥ 20 MW</td>
-        <td>Obrigatória</td>
-      </tr>
-      <tr>
-        <td>Resíduos sólidos urbanos (incineração)</td>
-        <td>WTE-H</td>
-        <td>Qualquer</td>
-        <td>Obrigatória</td>
-      </tr>
-      <tr>
-        <td>Gaseificação</td>
-        <td>GAS-M</td>
-        <td>Qualquer</td>
-        <td>Obrigatória</td>
-      </tr>
-      <tr>
-        <td rowspan="3">Nuclear</td>
-        <td>Usina nuclear (PWR/BWR)</td>
-        <td>NUC-L</td>
-        <td>Qualquer</td>
-        <td><strong>Obrigatória</strong></td>
-      </tr>
-      <tr>
-        <td>Usina nuclear (SMR/modular)</td>
-        <td>NUC-M</td>
-        <td>Qualquer</td>
-        <td><strong>Obrigatória</strong></td>
-      </tr>
-      <tr>
-        <td>Depósito de rejeitos radioativos</td>
-        <td>RWD-L</td>
-        <td>Qualquer</td>
-        <td><strong>Obrigatória</strong></td>
-      </tr>
-    </tbody>
-  </table>
+      <div class="caput">
+        Safe Operating Space (SOS) Híbrido Brasil-EUA: integração de limites ambientais, hídricos, climáticos, trabalhistas, anticorrupção e sanções de ambos os países.
+      </div>
 
-  <div class="doc-sub-subtitle">B. GERAÇÃO ELÉTRICA — RENOVÁVEIS E EMERGENTES</div>
-  <table class="legal-table">
-    <thead>
-      <tr>
-        <th>Subcategoria</th>
-        <th>Tipo Específico</th>
-        <th>Código TFP</th>
-        <th>Potência/Capacidade</th>
-        <th>Aplicação</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td rowspan="6">Solar Fotovoltaica</td>
-        <td>Usina solar central (utility-scale)</td>
-        <td>PVU-L</td>
-        <td>≥ 75 MW</td>
-        <td>Obrigatória</td>
-      </tr>
-      <tr>
-        <td>Complexo solar híbrido (PV + storage)</td>
-        <td>PVH-L</td>
-        <td>≥ 50 MW</td>
-        <td>Obrigatória</td>
-      </tr>
-      <tr>
-        <td>Agrivoltaico (solar + agricultura)</td>
-        <td>PVA-M</td>
-        <td>≥ 10 MW</td>
-        <td>Obrigatória</td>
-      </tr>
-      <tr>
-        <td>Flutuante (floating PV)</td>
-        <td>PVF-M</td>
-        <td>≥ 5 MW</td>
-        <td>Obrigatória</td>
-      </tr>
-      <tr>
-        <td>Eólica offshore</td>
-        <td>WOF-L</td>
-        <td>Qualquer</td>
-        <td>Obrigatória</td>
-      </tr>
-      <tr>
-        <td>Complexo eólico híbrido (wind + storage)</td>
-        <td>WEH-L</td>
-        <td>≥ 50 MW</td>
-        <td>Obrigatória</td>
-      </tr>
-      <tr>
-        <td rowspan="4">Hidrogênio</td>
-        <td>Eletrólise (alkaline/PEM/SOEC)</td>
-        <td>H2E-M</td>
-        <td>≥ 10 MW</td>
-        <td>Obrigatória</td>
-      </tr>
-      <tr>
-        <td>Hidrogênio azul (SMR + CCUS)</td>
-        <td>H2B-H</td>
-        <td>Qualquer</td>
-        <td>Obrigatória</td>
-      </tr>
-      <tr>
-        <td>Armazenamento de H2 (caverna/tanque)</td>
-        <td>H2S-M</td>
-        <td>≥ 100 ton</td>
-        <td>Obrigatória</td>
-      </tr>
-      <tr>
-        <td>Hub de hidrogênio industrial</td>
-        <td>H2H-L</td>
-        <td>≥ 100 MW</td>
-        <td><strong>Obrigatória</strong></td>
-      </tr>
-    </tbody>
-  </table>
+      <table class="legal-table">
+        <thead>
+          <tr>
+            <th>Dimensão</th>
+            <th>Limite Brasil</th>
+            <th>Limite EUA</th>
+            <th>Limite Integrado c-ECO</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ambiental</td>
+            <td>Licenças IBAMA/CPRM</td>
+            <td>NEPA review, EPA permits</td>
+            <td>Intersection + buffer 20%</td>
+          </tr>
+          <tr>
+            <td>Hídrico</td>
+            <td>Reserva legal ANA</td>
+            <td>State water rights (se aplicável)</td>
+            <td>Mínimo dos dois + σ</td>
+          </tr>
+          <tr>
+            <td>Climático</td>
+            <td>Compromissos NDC Brasil</td>
+            <td>IRA (Inflation Reduction Act) credits</td>
+            <td>Conformidade dual obrigatória</td>
+          </tr>
+          <tr>
+            <td>Trabalhista</td>
+            <td>CLT + NR's</td>
+            <td>OSHA standards (se aplicável)</td>
+            <td>Mais restritivo dos dois</td>
+          </tr>
+          <tr>
+            <td>Anticorrupção</td>
+            <td>Lei 12.846/2013 (Anticorrupção)</td>
+            <td>FCPA</td>
+            <td>Compliance programa integrado</td>
+          </tr>
+          <tr>
+            <td>Sanções</td>
+            <td>Resoluções ONU/CNUDC</td>
+            <td>OFAC/SDN/EAR</td>
+            <td>Screening conjunto diário</td>
+          </tr>
+        </tbody>
+      </table>
 
-  <div class="doc-sub-subtitle">C. ARMAZENAMENTO E FLEXIBILIDADE</div>
-  <table class="legal-table">
-    <thead>
-      <tr>
-        <th>Subcategoria</th>
-        <th>Tipo Específico</th>
-        <th>Código TFP</th>
-        <th>Potência/Capacidade</th>
-        <th>Aplicação</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td rowspan="4">Baterias</td>
-        <td>Lítio-íon (utility-scale)</td>
-        <td>LIB-L</td>
-        <td>≥ 50 MW / 200 MWh</td>
-        <td>Obrigatória</td>
-      </tr>
-      <tr>
-        <td>Fluxo de vanádio (VRFB)</td>
-        <td>VFB-M</td>
-        <td>Qualquer</td>
-        <td>Obrigatória</td>
-      </tr>
-      <tr>
-        <td>Ferro-ar (Form Energy)</td>
-        <td>IAB-M</td>
-        <td>Qualquer</td>
-        <td>Obrigatória</td>
-      </tr>
-      <tr>
-        <td>Bateria em veículo (V2G) agregado</td>
-        <td>V2G-A</td>
-        <td>≥ 5 MW eq.</td>
-        <td>Recomendada</td>
-      </tr>
-      <tr>
-        <td>Mecânico</td>
-        <td>Bombeamento reversível (PSH)</td>
-        <td>PSP-L</td>
-        <td>Qualquer</td>
-        <td>Obrigatória</td>
-      </tr>
-    </tbody>
-  </table>
+      <div class="paragraph">
+        <strong>Variáveis Específicas de Risco Transnacional:</strong>
+      </div>
 
-  <div class="doc-sub-subtitle">D. TRANSMISSÃO E DISTRIBUIÇÃO</div>
-  <table class="legal-table">
-    <thead>
-      <tr>
-        <th>Subcategoria</th>
-        <th>Tipo Específico</th>
-        <th>Código TFP</th>
-        <th>Especificação</th>
-        <th>Aplicação</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td rowspan="3">Transmissão</td>
-        <td>Linha de transmissão ≥ 500 kV</td>
-        <td>LT5-L</td>
-        <td>≥ 200 km</td>
-        <td>Obrigatória</td>
-      </tr>
-      <tr>
-        <td>Subestação conversora (HVDC)</td>
-        <td>SDC-L</td>
-        <td>Qualquer</td>
-        <td>Obrigatória</td>
-      </tr>
-      <tr>
-        <td>Cabo submarino/subfluvial</td>
-        <td>SUB-M</td>
-        <td>≥ 10 km</td>
-        <td>Obrigatória</td>
-      </tr>
-      <tr>
-        <td rowspan="2">Distribuição</td>
-        <td>Concessionária de distribuição classe A</td>
-        <td>DIS-A</td>
-        <td>> 500 mil unidades</td>
-        <td>Obrigatória</td>
-      </tr>
-      <tr>
-        <td>Microgrid isolada (sistema isolado)</td>
-        <td>MIC-M
-                  <tr>
+      <table class="legal-table">
+        <thead>
+          <tr>
+            <th>Variável</th>
+            <th>Fonte Brasil</th>
+            <th>Fonte EUA</th>
+            <th>Cálculo Integrado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>σ_regulatório</td>
+            <td>ANEEL, IBAMA, Petrobras</td>
+            <td>FERC, EPA, State PUCs</td>
+            <td>σ = max(σ_BR, σ_US) + 0,15</td>
+          </tr>
+          <tr>
+            <td>σ_cambiário</td>
+            <td>BACEN, PTAX</td>
+            <td>Federal Reserve, FX markets</td>
+            <td>σ = volatilidade 90d + σ_política</td>
+          </tr>
+          <tr>
+            <td>σ_geopolítico</td>
+            <td>Risco Brasil (EMBI+)</td>
+            <td>Risco EUA (Treasury spread)</td>
+            <td>σ = correlação × stress test</td>
+          </tr>
+          <tr>
+            <td>σ_supply chain</td>
+            <td>Importação de equipamentos (US content)</td>
+            <td>Export controls (EAR)</td>
+            <td>σ = lead time × criticalidade</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="math-box">
+        <strong>Limite de Reversibilidade Financeira (Lr) Transnacional:</strong><br><br>
+        Lr_transnacional = min(Lr_local, Lr_convertido)<br><br>
+        Onde:<br>
+        • Lr_local = Recursos em Reais / Custo de reversão em Reais<br>
+        • Lr_convertido = (Recursos em USD × hedge rate) / (Custo de reversão em USD × FX stress)<br><br>
+        FX stress = PTAX spot × (1 + σ_cambiário × 2)<br><br>
+        Se hedge cambial < 80% do exposure → σ_cambiário aumenta 25%
+      </div>
+
+      <h3 id="M1-5" class="doc-subtitle">1.5 Estruturação de Garantias e Reservas Bilaterais</h3>
+
+      <div class="caput">
+        Estrutura de Garantia Cruzada (Cross-Border Collateral): camadas de proteção em múltiplas jurisdições com governing law específico e mecanismos de enforcement coordenados.
+      </div>
+
+      <table class="legal-table">
+        <thead>
+          <tr>
+            <th>Camada</th>
+            <th>Garantia</th>
+            <th>Jurisdição</th>
+            <th>Governing Law</th>
+            <th>Enforcement</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Primeira</td>
+            <td>Cash collateral (USD)</td>
+            <td>NY trust account</td>
+            <td>NY law</td>
+            <td>UCC Article 9</td>
+          </tr>
+          <tr>
+            <td>Segunda</td>
+            <td>Letter of Credit (LC)</td>
+            <td>Banco americano confirmado</td>
+            <td>UCP 600</td>
+            <td>ISP 98</td>
+          </tr>
+          <tr>
+            <td>Terceira</td>
+            <td>Fiança bancária (Reais)</td>
+            <td>Banco brasileiro</td>
+            <td>Lei brasileira</td>
+            <td>Execução extrajudicial</td>
+          </tr>
+          <tr>
+            <td>Quarta</td>
+            <td>Corporate guarantee (HoldCo)</td>
+            <td>Delaware</td>
+            <td>Delaware law</td>
+            <td>Chancery Court</td>
+          </tr>
+          <tr>
+            <td>Quinta</td>
+            <td>Project assets (usina)</td>
+            <td>Brasil</td>
+            <td>Lei brasileira</td>
+            <td>Arrendamento fiduciário</td>
+          </tr>
+          <tr>
+            <td>Sexta</td>
+            <td>MIGA/OPIC political risk</td>
+            <td>Washington D.C.</td>
+            <td>Convenção ICSID</td>
+            <td>Arbitragem</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="highlight-box">
+        <strong>Systemic Risk Management Fund — Estrutura Bilateral:</strong>
+        <div style="font-family: monospace; font-size: 13px; margin-top: 10px;">
+          Estrutura de escrow dual:<br><br>
+          [Projeto SPV Brasil] ←──→ [Escrow Agent NY] ←──→ [Systemic Risk Fund]<br>
+                   │                        │<br>
+                   │                 [Investment Manager SEC-registered]<br>
+                   │<br>
+              [Conta segregada Brasil]<br>
+              (Banco com correspondente NY)<br><br>
+          Gatilhos de liberação:<br>
+          1. Certificação DAA Brasil + DAA EUA (joint trigger)<br>
+          2. Ordem técnica do Technical Curatorial Chamber (bilateral)<br>
+          3. Decisão arbitral de emergência (provisional measures)
+        </div>
+      </div>
+
+      <h3 id="M1-6" class="doc-subtitle">1.6 Matriz Completa de Ativos Elegíveis TFP-c-ECO</h3>
+
+      <div class="caput">
+        Classificação completa de ativos energéticos por categoria, código TFP, potência/capacidade e aplicação obrigatória ou recomendada do protocolo.
+      </div>
+
+      <div class="doc-sub-subtitle">A. GERAÇÃO ELÉTRICA — TRADICIONAL</div>
+      <table class="legal-table">
+        <thead>
+          <tr>
+            <th>Subcategoria</th>
+            <th>Tipo Específico</th>
+            <th>Código TFP</th>
+            <th>Potência/Capacidade</th>
+            <th>Aplicação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="5">Hidrelétricas</td>
+            <td>UHE (usina a fio d'água)</td>
+            <td>HYD-R</td>
+            <td>≥ 30 MW</td>
+            <td>Obrigatória</td>
+          </tr>
+          <tr>
+            <td>UHE (com reservatório)</td>
+            <td>HYD-L</td>
+            <td>≥ 50 MW</td>
+            <td>Obrigatória</td>
+          </tr>
+          <tr>
+            <td>PCH (pequena central)</td>
+            <td>HYD-M</td>
+            <td>1-30 MW</td>
+            <td>Obrigatória</td>
+          </tr>
+          <tr>
+            <td>CGH (central geradora hidrelétrica)</td>
+            <td>HYD-S</td>
+            <td>< 1 MW</td>
+            <td>Recomendada</td>
+          </tr>
+          <tr>
+            <td>Bombeamento (reversível)</td>
+            <td>HYD-P</td>
+            <td>Qualquer</td>
+            <td>Obrigatória</td>
+          </tr>
+          <tr>
+            <td rowspan="7">Termelétricas</td>
+            <td>Ciclo combinado a gás natural</td>
+            <td>CCG-H</td>
+            <td>≥ 100 MW</td>
+            <td>Obrigatória</td>
+          </tr>
+          <tr>
+            <td>Turbogás a gás natural</td>
+            <td>GTG-M</td>
+            <td>≥ 50 MW</td>
+            <td>Obrigatória</td>
+          </tr>
+          <tr>
+            <td>Carvão mineral (importado/nacional)</td>
+            <td>COA-H</td>
+            <td>Qualquer</td>
+            <td>Obrigatória</td>
+          </tr>
+          <tr>
+            <td>Óleo diesel/combustível</td>
+            <td>DIE-M</td>
+            <td>≥ 10 MW</td>
+            <td>Obrigatória</td>
+          </tr>
+          <tr>
+            <td>Biomassa (cana/bagaço)</td>
+            <td>BIO-M</td>
+            <td>≥ 20 MW</td>
+            <td>Obrigatória</td>
+          </tr>
+          <tr>
+            <td>Resíduos sólidos urbanos (incineração)</td>
+            <td>WTE-H</td>
+            <td>Qualquer</td>
+            <td>Obrigatória</td>
+          </tr>
+          <tr>
+            <td>Gaseificação</td>
+            <td>GAS-M</td>
+            <td>Qualquer</td>
+            <td>Obrigatória</td>
+          </tr>
+          <tr>
+            <td rowspan="3">Nuclear</td>
+            <td>Usina nuclear (PWR/BWR)</td>
+            <td>NUC-L</td>
+            <td>Qualquer</td>
+            <td><strong>Obrigatória</strong></td>
+          </tr>
+          <tr>
+            <td>Usina nuclear (SMR/modular)</td>
+            <td>NUC-M</td>
+            <td>Qualquer</td>
+            <td><strong>Obrigatória</strong></td>
+          </tr>
+          <tr>
+            <td>Depósito de rejeitos radioativos</td>
+            <td>RWD-L</td>
+            <td>Qualquer</td>
+            <td><strong>Obrigatória</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="doc-sub-subtitle">B. GERAÇÃO ELÉTRICA — RENOVÁVEIS E EMERGENTES</div>
+      <table class="legal-table">
+        <thead>
+          <tr>
+            <th>Subcategoria</th>
+            <th>Tipo Específico</th>
+            <th>Código TFP</th>
+            <th>Potência/Capacidade</th>
+            <th>Aplicação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="6">Solar Fotovoltaica</td>
+            <td>Usina solar central (utility-scale)</td>
+            <td>PVU-L</td>
+            <td>≥ 75 MW</td>
+            <td>Obrigatória</td>
+          </tr>
+          <tr>
+            <td>Complexo solar híbrido (PV + storage)</td>
+            <td>PVH-L</td>
+            <td>≥ 50 MW</td>
+            <td>Obrigatória</td>
+          </tr>
+          <tr>
+            <td>Agrivoltaico (solar + agricultura)</td>
+            <td>PVA-M</td>
+            <td>≥ 10 MW</td>
+            <td>Obrigatória</td>
+          </tr>
+          <tr>
+            <td>Flutuante (floating PV)</td>
+            <td>PVF-M</td>
+            <td>≥ 5 MW</td>
+            <td>Obrigatória</td>
+          </tr>
+          <tr>
+            <td>Eólica offshore</td>
+            <td>WOF-L</td>
+            <td>Qualquer</td>
+            <td>Obrigatória</td>
+          </tr>
+          <tr>
+            <td>Complexo eólico híbrido (wind + storage)</td>
+            <td>WEH-L</td>
+            <td>≥ 50 MW</td>
+            <td>Obrigatória</td>
+          </tr>
+          <tr>
+            <td rowspan="4">Hidrogênio</td>
+            <td>Eletrólise (alkaline/PEM/SOEC)</td>
+            <td>H2E-M</td>
+            <td>≥ 10 MW</td>
+            <td>Obrigatória</td>
+          </tr>
+          <tr>
+            <td>Hidrogênio azul (SMR + CCUS)</td>
+            <td>H2B-H</td>
+            <td>Qualquer</td>
+            <td>Obrigatória</td>
+          </tr>
+          <tr>
+            <td>Armazenamento de H2 (caverna/tanque)</td>
+            <td>H2S-M</td>
+            <td>≥ 100 ton</td>
+            <td>Obrigatória</td>
+          </tr>
+          <tr>
+            <td>Hub de hidrogênio industrial</td>
+            <td>H2H-L</td>
+            <td>≥ 100 MW</td>
+            <td><strong>Obrigatória</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="doc-sub-subtitle">C. ARMAZENAMENTO E FLEXIBILIDADE</div>
+      <table class="legal-table">
+        <thead>
+          <tr>
+            <th>Subcategoria</th>
+            <th>Tipo Específico</th>
+            <th>Código TFP</th>
+            <th>Potência/Capacidade</th>
+            <th>Aplicação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="4">Baterias</td>
+            <td>Lítio-íon (utility-scale)</td>
+            <td>LIB-L</td>
+            <td>≥ 50 MW / 200 MWh</td>
+            <td>Obrigatória</td>
+          </tr>
+          <tr>
+            <td>Fluxo de vanádio (VRFB)</td>
+            <td>VFB-M</td>
+            <td>Qualquer</td>
+            <td>Obrigatória</td>
+          </tr>
+          <tr>
+            <td>Ferro-ar (Form Energy)</td>
+            <td>IAB-M</td>
+            <td>Qualquer</td>
+            <td>Obrigatória</td>
+          </tr>
+          <tr>
+            <td>Bateria em veículo (V2G) agregado</td>
+            <td>V2G-A</td>
+            <td>≥ 5 MW eq.</td>
+            <td>Recomendada</td>
+          </tr>
+          <tr>
+            <td>Mecânico</td>
+            <td>Bombeamento reversível (PSH)</td>
+            <td>PSP-L</td>
+            <td>Qualquer</td>
+            <td>Obrigatória</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="doc-sub-subtitle">D. TRANSMISSÃO E DISTRIBUIÇÃO</div>
+      <table class="legal-table">
+        <thead>
+          <tr>
+            <th>Subcategoria</th>
+            <th>Tipo Específico</th>
+            <th>Código TFP</th>
+            <th>Especificação</th>
+            <th>Aplicação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="3">Transmissão</td>
+            <td>Linha de transmissão ≥ 500 kV</td>
+            <td>LT5-L</td>
+            <td>≥ 200 km</td>
+            <td>Obrigatória</td>
+          </tr>
+          <tr>
+            <td>Subestação conversora (HVDC)</td>
+            <td>SDC-L</td>
+            <td>Qualquer</td>
+            <td>Obrigatória</td>
+          </tr>
+          <tr>
+            <td>Cabo submarino/subfluvial</td>
+            <td>SUB-M</td>
+            <td>≥ 10 km</td>
+            <td>Obrigatória</td>
+          </tr>
+          <tr>
             <td rowspan="2">Distribuição</td>
             <td>Concessionária de distribuição classe A</td>
             <td>DIS-A</td>
@@ -1087,7 +1100,7 @@ body {
         </tbody>
       </table>
 
-      <div class="doc-sub-subtitle">E. INFRAESTRUTURA DE COMBUSTÍVEIS E LOGÍSTICA</div>
+      <div class="doc-sub-subtitle">E. INFRAESTRUTURA DE COMBUSTÍVEIS</div>
       <table class="legal-table">
         <thead>
           <tr>
@@ -1189,6 +1202,7 @@ body {
       </div>
     </section>
 
+    <!-- MÓDULO 2 -->
     <section id="M2" class="article-box">
       <h2 class="article-title">MÓDULO 2 — VARIÁVEIS TFP APLICADAS À ENERGIA<br>Convergência regulatória e precificação transnacional</h2>
 
@@ -1201,9 +1215,9 @@ body {
         Lr<sub>local</sub>, Lr<sub>convertido</sub>, Lr<sub>alternativo</sub>)
       </div>
 
-      <h3 id="M2-2" class="doc-subtitle">2.2 Detalhamento das Variáveis Transnacionais</h3>
+      <h3 id="M2-2" class="doc-subtitle">2.2 Position (P) — Posição no SOS Integrado</h3>
 
-      <div class="doc-sub-subtitle">🔵 P (Position) — Posição no SOS Integrado</div>
+      <div class="doc-sub-subtitle">P_operacional (convergência ONS-FERC)</div>
       
       <table class="legal-table">
         <thead>
@@ -1242,7 +1256,46 @@ body {
         </tbody>
       </table>
 
-      <div class="doc-sub-subtitle">🔴 ΔV (Velocity) — Velocidade de Deterioração Transnacional</div>
+      <div class="doc-sub-subtitle">P_regulatório (compliance dual)</div>
+
+      <table class="legal-table">
+        <thead>
+          <tr>
+            <th>Licença/Permit</th>
+            <th>Brasil</th>
+            <th>EUA</th>
+            <th>Prazo Crítico</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ambiental</td>
+            <td>LI/LO/LP (IBAMA)</td>
+            <td>NEPA EA/EIS (EPA)</td>
+            <td>180 dias (mais restritivo)</td>
+          </tr>
+          <tr>
+            <td>Operacional</td>
+            <td>ONS/ANEEL</td>
+            <td>FERC license</td>
+            <td>365 dias</td>
+          </tr>
+          <tr>
+            <td>Nuclear</td>
+            <td>CNEN</td>
+            <td>NRC</td>
+            <td>730 dias</td>
+          </tr>
+          <tr>
+            <td>Importação equipamentos</td>
+            <td>SECEX/LI</td>
+            <td>BIS/EAR license</td>
+            <td>90 dias</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 id="M2-3" class="doc-subtitle">2.3 Velocity (ΔV) — Velocidade de Deterioração Transnacional</h3>
 
       <table class="legal-table">
         <thead>
@@ -1281,11 +1334,7 @@ body {
         </tbody>
       </table>
 
-      <h3 id="M2-3" class="doc-subtitle">2.3 Sigma (σ) — Incerteza Transnacional</h3>
-
-      <div class="paragraph">
-        <strong>Fatores de incerteza específicos Brasil-EUA:</strong>
-      </div>
+      <h3 id="M2-4" class="doc-subtitle">2.4 Sigma (σ) — Incerteza Transnacional</h3>
 
       <table class="legal-table">
         <thead>
@@ -1330,7 +1379,7 @@ body {
         Onde ρ = correlação histórica de risco Brasil-EUA (tipicamente 0,3-0,5)
       </div>
 
-      <h3 id="M2-4" class="doc-subtitle">2.4 Lr (Liquidez de Reversibilidade) — Estrutura Bilateral</h3>
+      <h3 id="M2-5" class="doc-subtitle">2.5 Lr (Liquidez de Reversibilidade) — Estrutura Bilateral</h3>
 
       <table class="legal-table">
         <thead>
@@ -1384,7 +1433,7 @@ body {
         Se Lr<sub>integrado</sub> < 0,5 → Restoration First + notificação DFC/Ex-Im/MIGA
       </div>
 
-      <h3 id="M2-5" class="doc-subtitle">2.5 Tabela de Conversão de Bandas TFP para Relatórios Regulatórios</h3>
+      <div class="doc-sub-subtitle">Tabela de Conversão de Bandas TFP para Relatórios Regulatórios</div>
 
       <table class="legal-table">
         <thead>
@@ -1429,6 +1478,7 @@ body {
       </table>
     </section>
 
+    <!-- MÓDULO 3 -->
     <section id="M3" class="article-box">
       <h2 class="article-title">MÓDULO 3 — CLÁUSULAS CONTRATUAIS EXECUTÁVEIS<br>Escolha de lei, arbitragem e enforcement transnacional</h2>
 
@@ -1611,6 +1661,7 @@ body {
       </div>
     </section>
 
+    <!-- MÓDULO 4 -->
     <section id="M4" class="article-box">
       <h2 class="article-title">MÓDULO 4 — FLUXOGRAMA DECISÓRIO AUTOMÁTICO<br>Coordenação temporal, triggers transnacionais e comunicação reguladores</h2>
 
@@ -1775,6 +1826,7 @@ NÍVEL 5 (Diplomático):
       </div>
     </section>
 
+    <!-- MÓDULO 5 -->
     <section id="M5" class="article-box">
       <h2 class="article-title">MÓDULO 5 — IMPLEMENTAÇÃO EM 60 DIAS<br>Roadmap integrado CVM/SEC, agências de crédito à exportação e compliance dual</h2>
 
@@ -2054,6 +2106,7 @@ NÍVEL 5 (Diplomático):
       </div>
     </section>
 
+    <!-- ANEXOS -->
     <section id="ANEXO-A" class="article-box">
       <h2 class="article-title">ANEXO A — TEMPLATES MODELO</h2>
 
@@ -2250,6 +2303,7 @@ ATIVO ENERGÉTICO IDENTIFICADO
       </div>
     </section>
 
+    <!-- RODAPÉ -->
     <section class="article-box" style="margin-top: 80px; border-top: 2px solid var(--gold-accent); padding-top: 40px;">
       <div class="caput" style="text-align: center; font-style: italic; color: var(--text-muted);">
         Documento elaborado conforme Protocolo TFP v1.1 e c-ECO Systemic Governance Statute.<br>
@@ -2342,4 +2396,3 @@ ATIVO ENERGÉTICO IDENTIFICADO
 
 </body>
 </html>
-
