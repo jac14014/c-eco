@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -24,6 +23,10 @@
         --size-body: 16px;
         --size-ui: 14px;
         --size-small: 13px;
+        --biofuel-green: #2E7D32;
+        --biofuel-green-light: #4CAF50;
+        --biofuel-amber: #FF8F00;
+        --biofuel-terracotta: #BF360C;
     }
 
     * { box-sizing: border-box; }
@@ -60,7 +63,7 @@
         gap: 12px;
         padding-bottom: 15px;
         margin-bottom: 15px;
-        border-bottom: 2px solid var(--gold-accent);
+        border-bottom: 2px solid var(--biofuel-green);
         position: sticky;
         top: 0;
         background: #fff;
@@ -74,8 +77,8 @@
         width: 42px;
         height: 42px;
         border: 1px solid var(--border-color);
-        background: #fff;
-        color: var(--legal-blue);
+        background: var(--biofuel-green);
+        color: #fff;
         font-weight: 900;
         font-size: 1.4rem;
         text-decoration: none;
@@ -111,8 +114,8 @@
     }
 
     #sidebarSearch:focus {
-        border-color: var(--gold-accent);
-        box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15);
+        border-color: var(--biofuel-green);
+        box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15);
     }
 
     .nav-list { list-style: none; padding: 0; margin: 0; }
@@ -120,7 +123,7 @@
     .nav-section-title {
         font-size: 10px;
         font-weight: 800;
-        color: var(--gold-accent);
+        color: var(--biofuel-green);
         margin-top: 25px;
         margin-bottom: 8px;
         text-transform: uppercase;
@@ -151,9 +154,9 @@
     }
 
     .nav-sub-item a:hover {
-        border-left-color: var(--gold-accent);
+        border-left-color: var(--biofuel-green);
         color: var(--legal-blue);
-        background: linear-gradient(90deg, rgba(197,160,89,0.05), transparent);
+        background: linear-gradient(90deg, rgba(46,125,50,0.05), transparent);
     }
 
     .nav-item.hidden, .nav-section-title.hidden { display: none; }
@@ -195,7 +198,7 @@
         margin-bottom: 15px;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        border-left: 4px solid var(--gold-accent);
+        border-left: 4px solid var(--biofuel-green);
         padding-left: 15px;
     }
 
@@ -260,7 +263,7 @@
         font-family: var(--font-sans);
         font-weight: 800;
         font-size: 14px;
-        color: var(--gold-accent);
+        color: var(--biofuel-green);
         text-transform: uppercase;
         letter-spacing: 2px;
         text-align: center;
@@ -298,7 +301,7 @@
 
     .math-box {
         background: #f0f4f8;
-        border-left: 4px solid var(--gold-accent);
+        border-left: 4px solid var(--biofuel-green);
         padding: 20px;
         margin: 30px 0;
         font-family: 'Courier New', monospace;
@@ -314,7 +317,7 @@
         position: fixed;
         bottom: 20px;
         right: 20px;
-        background: var(--legal-blue);
+        background: var(--biofuel-green);
         color: #fff;
         border: none;
         padding: 15px 20px;
@@ -326,7 +329,7 @@
 
     .highlight-box {
         background: #f8f9fa;
-        border-left: 4px solid var(--gold-accent);
+        border-left: 4px solid var(--biofuel-green);
         padding: 20px;
         margin: 30px 0;
     }
@@ -373,17 +376,87 @@
     .state-box {
         display: inline-block;
         padding: 10px 20px;
-        margin: 5px;
         border-radius: 4px;
         font-weight: 700;
         font-size: 12px;
-        text-transform: uppercase;
+        margin: 5px;
+        text-align: center;
     }
 
-    .state-green { background: #28a745; color: white; }
-    .state-yellow { background: #ffc107; color: #333; }
-    .state-orange { background: #fd7e14; color: white; }
-    .state-red { background: #dc3545; color: white; }
+    .state-green { background: #d4edda; color: #155724; border: 2px solid #28a745; }
+    .state-yellow { background: #fff3cd; color: #856404; border: 2px solid #ffc107; }
+    .state-orange { background: #ffe5cc; color: #7c2d12; border: 2px solid #ff8c00; }
+    .state-red { background: #f8d7da; color: #721c24; border: 2px solid #dc3545; }
+
+    .generation-card {
+        background: #fff;
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        padding: 20px;
+        margin: 15px 0;
+        transition: all 0.3s;
+    }
+
+    .generation-card:hover {
+        border-color: var(--biofuel-green);
+        box-shadow: 0 4px 15px rgba(46,125,50,0.1);
+    }
+
+    .generation-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+
+    .generation-badge {
+        background: var(--biofuel-green);
+        color: #fff;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .generation-title {
+        font-weight: 700;
+        font-size: 16px;
+        color: var(--legal-blue);
+    }
+
+    .mode-switch {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #fff;
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        padding: 5px;
+        display: flex;
+        gap: 5px;
+        z-index: 1001;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .mode-btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 15px;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .mode-btn.active {
+        background: var(--biofuel-green);
+        color: #fff;
+    }
+
+    .mode-btn:not(.active) {
+        background: transparent;
+        color: var(--text-muted);
+    }
 
     @media (max-width: 1024px) {
         .sidebar { transform: translateX(-100%); width: 280px; }
@@ -391,6 +464,7 @@
         .main-content { margin-left: 0; padding: 20px; }
         .document-page { padding: 40px 20px; }
         .mobile-btn { display: block; }
+        .mode-switch { top: 10px; right: 10px; }
         
         html, body {
             width: 100%;
@@ -411,7 +485,7 @@
             width: 100%;
             overflow-x: auto;
             white-space: nowrap;
-            font-size: 13px !important;
+            font-size: 10px !important;
         }
     }
   </style>
@@ -420,12 +494,15 @@
 
 <button class="mobile-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">INDEX</button>
 
-<!-- SUBSTITUA A SIDEBAR COMPLETA POR ESTE CÓDIGO -->
+<div class="mode-switch">
+    <button class="mode-btn active" onclick="setMode('didatico')">DIDÁTICO</button>
+    <button class="mode-btn" onclick="setMode('operacional')">OPERACIONAL</button>
+</div>
 
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-top">
     <a href="#" class="logo-box">Σ</a>
-    <div class="sidebar-title">BIOFUEL BRASIL-EUA<br>MANUAL TFP-c-ECO</div>
+    <div class="sidebar-title">BIOFUEL BRASIL-EUA<br>FRAMEWORK TFP</div>
   </div>
   
   <div class="search-container">
@@ -434,61 +511,77 @@
 
   <nav>
     <ul class="nav-list">
-      <li class="nav-section-title">INTRODUÇÃO</li>
-      <li class="nav-item nav-item-chapter"><a href="#CONTEXT">Contexto Estratégico</a></li>
-      <li class="nav-item nav-sub-item"><a href="#CONTEXT-1">Mercado Bilateral</a></li>
-      <li class="nav-item nav-sub-item"><a href="#CONTEXT-2">7 Categorias de Riscos</a></li>
+      <li class="nav-section-title">CONTEXTO ESTRATÉGICO</li>
+      <li class="nav-item nav-item-chapter"><a href="#CONTEXT">Panorama Estratégico</a></li>
+      <li class="nav-item nav-sub-item"><a href="#CONTEXT-1">Arquitetura Bilateral BR–US</a></li>
+      <li class="nav-item nav-sub-item"><a href="#CONTEXT-2">Dinâmica Regulatória e Comercial</a></li>
+      <li class="nav-item nav-sub-item"><a href="#CONTEXT-3">Taxonomia de Riscos Transnacionais</a></li>
+
+      <li class="nav-section-title">FUNDAMENTOS C-ECO</li>
+      <li class="nav-item nav-item-chapter"><a href="#FUNDAMENTOS">Princípios Estruturais</a></li>
+      <li class="nav-item nav-sub-item"><a href="#FUND-1">Artigos 1º-5º</a></li>
+      <li class="nav-item nav-sub-item"><a href="#FUND-2">Vínculo de Compatibilidade Sistêmica</a></li>
+
+      <li class="nav-section-title">CLASSIFICAÇÃO GERACIONAL</li>
+      <li class="nav-item nav-item-chapter"><a href="#GERACOES">Matriz de Gerações Biofuel</a></li>
+      <li class="nav-item nav-sub-item"><a href="#GEN-1">1ª Geração (1G)</a></li>
+      <li class="nav-item nav-sub-item"><a href="#GEN-2">2ª Geração (2G)</a></li>
+      <li class="nav-item nav-sub-item"><a href="#GEN-3">3ª Geração (3G)</a></li>
+      <li class="nav-item nav-sub-item"><a href="#GEN-4">4ª Geração (4G)</a></li>
+      <li class="nav-item nav-sub-item"><a href="#ROTAS-ANP">Rotas Tecnológicas ANP</a></li>
 
       <li class="nav-section-title">MÓDULO 1 — ATIVAÇÃO IMEDIATA</li>
       <li class="nav-item nav-item-chapter"><a href="#M1">Checklist 0-15 Dias</a></li>
       <li class="nav-item nav-sub-item"><a href="#M1-1">1.1 Nexus Jurisdicional</a></li>
-      <li class="nav-item nav-sub-item"><a href="#M1-2">1.2 RFS/RIN Compliance</a></li>
-      <li class="nav-item nav-sub-item"><a href="#M1-3">1.3 Dados e Sensores</a></li>
-      <li class="nav-item nav-sub-item"><a href="#M1-4">1.4 SOS Biofísico</a></li>
-      <li class="nav-item nav-sub-item"><a href="#M1-5">1.5 Garantias Bilaterais</a></li>
-      <li class="nav-item nav-sub-item"><a href="#M1-6">1.6 Matriz de Ativos</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M1-2">1.2 CFIUS Checklist</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M1-3">1.3 Matriz de Classificação Geracional</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M1-4">1.4 Rastreabilidade de Feedstock</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M1-5">1.5 Protocolo de Resposta Crítica Transnacional</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M1-6">1.6 Matriz de Garantias e Exposição de Ativos</a></li>
 
       <li class="nav-section-title">MÓDULO 2 — ARQUITETURA TFP</li>
-      <li class="nav-item nav-item-chapter"><a href="#M2">Protocolo TFP Biofuel</a></li>
-      <li class="nav-item nav-sub-item"><a href="#M2-1">2.1 Position (P)</a></li>
+      <li class="nav-item nav-item-chapter"><a href="#M2">Protocolo TFP</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M2-1">2.1 Posição Sistêmica (P)</a></li>
       <li class="nav-item nav-sub-item"><a href="#M2-2">2.2 Velocity (ΔV)</a></li>
-      <li class="nav-item nav-sub-item"><a href="#M2-3">2.3 Sigma (σ)</a></li>
-      <li class="nav-item nav-sub-item"><a href="#M2-4">2.4 Lr Transnacional</a></li>
-      <li class="nav-item nav-sub-item"><a href="#M2-5">2.5 Tabela EPA/ANP/Mapa</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M2-3">2.3 Volatilidade Jurídico-Regulatória (σ)</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M2-4">2.4 Liquidez de Reversibilidade (Lr)</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M2-5">2.5 Matriz Regulatória Comparada (ANP/EPA/RFS)</a></li>
 
       <li class="nav-section-title">MÓDULO 3 — CLÁUSULAS CONTRATUAIS</li>
-      <li class="nav-item nav-item-chapter"><a href="#M3">Templates Jurídicos</a></li>
-      <li class="nav-item nav-sub-item"><a href="#M3-1">3.1 CVS-T BR-US Biofuel</a></li>
-      <li class="nav-item nav-sub-item"><a href="#M3-2">3.2 ILUC e Degradação</a></li>
-      <li class="nav-item nav-sub-item"><a href="#M3-3">3.3 Join Duty Cadeia</a></li>
-      <li class="nav-item nav-sub-item"><a href="#M3-4">3.4 Rastreabilidade Carbono</a></li>
-      <li class="nav-item nav-sub-item"><a href="#M3-5">3.5 DREAP Arbitragem</a></li>
+      <li class="nav-item nav-item-chapter"><a href="#M3">Templates Fundamentais c-ECO</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M3-1">3.1 Objeto Condicionado</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M3-2">3.2 IEX — Inexecutabilidade</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M3-3">3.3 Garantias Regenerativas</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M3-4">3.4 Prova Sistêmica</a></li>
+      <li class="nav-item nav-item-chapter"><a href="#M3-T">Templates Transnacionais BR-US</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M3-5">3.5 CVS-T BR-US</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M3-6">3.6 Safe Mode RET</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M3-7">3.7 Transnational Joint Duty Clause</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M3-8">3.8 Look-Through TLTDE</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M3-9">3.9 Arbitragem DREAP</a></li>
 
-      <li class="nav-section-title">MÓDULO 4 — FLUXOGRAMA</li>
-      <li class="nav-item nav-item-chapter"><a href="#M4">Decisório Automático</a></li>
-      <li class="nav-item nav-sub-item"><a href="#M4-1">4.1 Ciclo Safra-Ano</a></li>
+      <li class="nav-section-title">MÓDULO 4 — FLUXOGRAMA DECISÓRIO</li>
+      <li class="nav-item nav-item-chapter"><a href="#M4">Ciclo Operacional</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M4-1">4.1 Ciclo Operacional Contínuo (24h)</a></li>
       <li class="nav-item nav-sub-item"><a href="#M4-2">4.2 Matriz de Comunicação</a></li>
       <li class="nav-item nav-sub-item"><a href="#M4-3">4.3 Protocolo de Escalada</a></li>
 
       <li class="nav-section-title">MÓDULO 5 — IMPLEMENTAÇÃO</li>
       <li class="nav-item nav-item-chapter"><a href="#M5">Roadmap 60 Dias</a></li>
-      <li class="nav-item nav-sub-item"><a href="#M5-1">5.1 Semanas 1-2</a></li>
-      <li class="nav-item nav-sub-item"><a href="#M5-2">5.2 Semanas 3-4</a></li>
-      <li class="nav-item nav-sub-item"><a href="#M5-3">5.3 Semanas 5-6</a></li>
-      <li class="nav-item nav-sub-item"><a href="#M5-4">5.4 Semanas 7-8</a></li>
-      <li class="nav-item nav-sub-item"><a href="#M5-5">5.5 Governança Contínua</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M5-1">5.1 Fases de Implementação</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M5-2">5.2 Anexos Setoriais</a></li>
+      <li class="nav-item nav-sub-item"><a href="#M5-3">5.3 Governança Contínua</a></li>
 
       <li class="nav-section-title">ANEXOS</li>
       <li class="nav-item nav-sub-item"><a href="#ANEXO-A">Anexo A — Templates</a></li>
-      <li class="nav-item nav-sub-item"><a href="#ANEXO-B">Anexo B — Árvore Decisão</a></li>
-      <li class="nav-item nav-sub-item"><a href="#ANEXO-C">Anexo C — Regras Especiais</a></li>
-      <li class="nav-item nav-sub-item"><a href="#ANEXO-D">Anexo D — Indicadores ILUC</a></li>
+      <li class="nav-item nav-sub-item"><a href="#ANEXO-B">Anexo B — Árvore de Decisão</a></li>
+      <li class="nav-item nav-sub-item"><a href="#ANEXO-C">Anexo C — Disposições Setoriais Específicas</a></li>
+      <li class="nav-item nav-sub-item"><a href="#ANEXO-D">Anexo D — Indicadores Setoriais</a></li>
 
       <li style="height: 100px;"></li>
     </ul>
   </nav>
 </aside>
-
 
 <main class="main-content">
   <article class="document-page">
@@ -496,28 +589,47 @@
     <!-- CAPA -->
     <section class="article-box">
       <div class="chapter-title">🌱 BIOFUEL — MANUAL DE APLICAÇÃO IMEDIATA</div>
-      <h1 class="article-title" style="text-align: center; border: none;">Protocolo TFP-c-ECO para Contratos do Setor de Biofuel<br>Edição Brasil-EUA: Transnational Biofuel Supply Chain Governance</h1>
+      <h1 class="article-title" style="text-align: center; border: none;">Threshold Function Protocol — Biofuel (TFP-Biofuel)<br>Edição Brasil-EUA: Transnational Biofuel Systems Governance</h1>
       
       <div class="caput" style="text-align: center; font-style: italic;">
-        Framework Jurídico-Sistêmico para Governança Preditiva de Cadeias de Suprimentos de Biocombustíveis. Aplicação a etanol, biodiesel, HVO, SAF e hidrogênio verde derivado de biomassa no mercado bilateral Brasil-EUA.
+        Framework Jurídico-Sistêmico para Governança Preditiva de Biocombustíveis Baseado em Limites Biofísicos. Aplicação a etanol, biodiesel, SAF (bioquerosene), HVO e biometano no mercado bilateral Brasil-EUA.
+      </div>
+      
+      <!-- AVISO DIDÁTICO HASSE FOUNDATION -->
+      <div class="info-box" style="text-align: center; margin-top: 30px; font-size: 12px; line-height: 1.6; border-color: #6c757d; background: #e9ecef;">
+        <strong>© 2026 Hasse Foundation — Material Didático e Acadêmico</strong><br>
+        Uso exclusivo para pesquisa, ensino e capacitação.<br>
+        <em>Não constitui playbook genérico para implementação comercial.</em>
       </div>
 
       <div class="highlight-box" style="text-align: center; margin-top: 40px;">
-        <strong>c-ΣCO Regime v1.0 • Março 2026</strong><br>
+        <strong>c-ΣCO v1.0 • Março 2026</strong><br>
         <em>"A validade, eficácia e continuidade de qualquer ato jurídico estão subordinadas à preservação do Safe Operating Space e à reversibilidade técnica das trajetórias de risco."</em><br>
-        <small>Estatuto c-ΣCO • Art. 1º</small>
+        <small>Framework c-ΣCO • Art. 1º</small>
       </div>
     </section>
 
     <!-- CONTEXTO ESTRATÉGICO -->
     <section id="CONTEXT" class="article-box">
-      <h2 class="article-title">CONTEXTO ESTRATÉGICO<br>Parceria Brasil-EUA para Biocombustíveis Avançados</h2>
+      <h2 class="article-title">CONTEXTO ESTRATÉGICO<br>Arquitetura Bilateral BR–US para Biocombustíveis</h2>
 
-      <h3 id="CONTEXT-1" class="doc-subtitle">O Mercado de Biofuel Bilateral</h3>
+      <h3 id="CONTEXT-1" class="doc-subtitle">Arquitetura Bilateral BR–US</h3>
 
       <div class="caput">
-        O Brasil e os Estados Unidos são os dois maiores produtores mundiais de etanol, com matrizes complementares: o Brasil lidera na produção de cana-de-açúcar e etanol de segunda geração (cellulosic), enquanto os EUA dominam o etanol de milho e os biocombustíveis avançados (HVO, SAF). A integração destes mercados através do regime c-ECO visa prevenir riscos sistêmicos únicos ao setor agroindustrial: mudança de uso da terra indireta (ILUC), degradação de solos, pressão hídrica em aquíferos, e volatilidade de commodities agrícolas.
+        Lançada pelos presidentes Lula e Biden, a parceria estabelece cooperação bilateral em transição energética com foco em biocombustíveis avançados, crescimento econômico, geração de empregos de alta qualidade e redução de emissões, mantendo metas de 1,5°C do Acordo de Paris.
       </div>
+
+      <div class="paragraph">
+        <strong>Instrumentos-chave:</strong>
+      </div>
+      <div class="bullet-list">
+        <li><strong>RenovaBio (Brasil):</strong> Programa Nacional de Biocombustíveis — metas de redução de emissões, certificação de biocombustíveis (CBIOs), rastreabilidade de feedstock</li>
+        <li><strong>RFS (Renewable Fuel Standard — EUA):</strong> Obrigatoriedade de 36 bilhões de galões de biocombustíveis até 2022, com categorias anuais de D3 (cellulosic), D4 (biomass-based diesel), D5 (advanced), D6 (renewable), D7 (cellulosic diesel)</li>
+        <li><strong>LCFS (Low Carbon Fuel Standard — Califórnia):</strong> Redução de 20% na intensidade de carbono dos combustíveis até 2030, sistema de créditos transferíveis</li>
+        <li><strong>Inflation Reduction Act (EUA):</strong> Créditos fiscais para SAF (Sec. 40B), tecnologias de captura de carbono (45Q), e hidrogênio limpo (45V)</li>
+      </div>
+
+      <h3 id="CONTEXT-2" class="doc-subtitle">Dinâmica Regulatória e Comercial</h3>
 
       <table class="legal-table">
         <thead>
@@ -530,36 +642,36 @@
         </thead>
         <tbody>
           <tr>
-            <td>Produção de etanol</td>
-            <td>~30 bilhões L/ano</td>
-            <td>~60 bilhões L/ano</td>
-            <td>Integração de certificação de carbono (LCFS/RFS)</td>
+            <td>Produção de Etanol</td>
+            <td>~30 bilhões L/ano (2º maior)</td>
+            <td>~60 bilhões L/ano (1º maior)</td>
+            <td>Integração de padrões de emissão (CI — Carbon Intensity)</td>
           </tr>
           <tr>
-            <td>Área cultivada cana/milho</td>
-            <td>~10 milhões ha</td>
-            <td>~15 milhões ha (milho)</td>
-            <td>Monitoramento ILUC e SOS territorial</td>
+            <td>Matriz de Feedstock</td>
+            <td>Cana-de-açúcar (87%), Milho (13%)</td>
+            <td>Milho (95%), Celulósico (5%)</td>
+            <td>Divergência de perfil de emissões indiretas (ILUC)</td>
           </tr>
           <tr>
-            <td>Exportações para EUA</td>
-            <td>~2 bilhões L/ano</td>
-            <td>Importador líder</td>
-            <td>Compliance RFS/RIN + LCFS California</td>
+            <td>SAF (Bioquerosene)</td>
+            <td>Programa Brasileiro de Bioquerosene (produção iniciada)</td>
+            <td>Great Green Fleet, SAF Grand Challenge (3 bilhões galões até 2030)</td>
+            <td>Nexus transnacional para certificação dual ASTM D7566</td>
           </tr>
           <tr>
-            <td>Investimentos DFC/Ex-Im</td>
-            <td>Projetos pipeline</td>
-            <td>US$ 2+ bilhões</td>
-            <td>Condições de financiamento sistêmico</td>
+            <td>Comércio Bilateral</td>
+            <td>Exportação de etanol anidro para EUA</td>
+            <td>Importação crescente de SAF brasileiro</td>
+            <td>Cláusulas c-ECO em contratos de offtake</td>
           </tr>
         </tbody>
       </table>
 
-      <h3 id="CONTEXT-2" class="doc-subtitle">7 Categorias de Riscos Sistêmicos em Biofuel</h3>
+      <h3 id="CONTEXT-3" class="doc-subtitle">Taxonomia de Riscos Transnacionais</h3>
 
       <div class="caput">
-        O setor de biofuel apresenta riscos sistêmicos específicos que escapam aos frameworks tradicionais de governança corporativa e regulatória setorial. A aplicação do regime c-ECO visa capturar estes riscos antes de sua materialização.
+        Os sistemas jurídicos contemporâneos estruturam-se predominantemente sobre modelos de responsabilidade retrospectiva, onde a intervenção normativa ocorre apenas após a materialização do dano. Essa arquitetura é estruturalmente insuficiente para riscos sistêmicos, cumulativos e irreversíveis específicos do setor de biocombustíveis.
       </div>
 
       <table class="legal-table">
@@ -574,54 +686,362 @@
           <tr>
             <td><strong>1. Risco de Lock-in (Travamento)</strong></td>
             <td>Infraestruturas que perpetuam trajetórias insustentáveis</td>
-            <td>Usinas de etanol de primeira geração sem pipeline para 2G/celulósico; monocultura extensiva de cana/milho com baixa rotação de culturas</td>
+            <td>Usinas 1G ineficientes com contratos de fornecimento de 20 anos impedindo transição para 2G</td>
           </tr>
           <tr>
             <td><strong>2. Riscos Silenciosos (Silent Risks)</strong></td>
             <td>Ameaças não detectadas até manifestação catastrófica</td>
-            <td>Degradação gradual de solos (perda de matéria orgânica); esgotamento de aquíferos para irrigação; resistência de pragas a herbicidas</td>
+            <td>Degradação gradual de solos por monocultura intensiva de cana/milho</td>
           </tr>
           <tr>
             <td><strong>3. Insolvência de Reversibilidade</strong></td>
             <td>Impossibilidade técnica/financeira de reverter danos</td>
-            <td>Desmatamento de Cerrado/Mata Atlântica para expansão de cana; compactação irreversível de solos; contaminação de lençóis freáticos</td>
+            <td>Conversão irreversível de áreas de alta biodiversidade para plantações de feedstock</td>
           </tr>
           <tr>
             <td><strong>4. Falha em Cascata (Cascade Failure)</strong></td>
             <td>Colapso de sistema por interdependência crítica</td>
-            <td>Falha de safra em região-chave → escassez de matéria-prima → default de múltiplos contratos de exportação; quebra de cadeia de frio para HVO/SAF</td>
+            <td>Escassez hídrica simultânea em múltiplas usinas de cana-de-açúcar afetando oferta global</td>
           </tr>
           <tr>
             <td><strong>5. Captura Institucional</strong></td>
             <td>Subordinação de agências reguladoras a interesses privados</td>
-            <td>ANP/EPA/IBAMA sob pressão de grandes usineiros para flexibilizar limites de ILUC; lobby por renovação automática de RINs sem verificação</td>
+            <td>ANP/EPA sob pressão de grandes traders para flexibilizar requisitos de rastreabilidade</td>
           </tr>
           <tr>
             <td><strong>6. Estruturação Jurídica Deficiente</strong></td>
             <td>Contratos que externalizam riscos sistêmicos</td>
-            <td>Contratos de offtake de SAF que não contemplam rastreabilidade de feedstock; pass-through de riscos de ILUC para fornecedores de óleos residuais</td>
+            <td>Contratos de offtake de SAF sem cláusulas de certificação de cadeia sustentável</td>
           </tr>
           <tr>
             <td><strong>7. Atraso Estratégico (Forum Shopping)</strong></td>
             <td>Migração para jurisdições com menor proteção sistêmica</td>
-            <td>Certificação de biocombustíveis em jurisdições com padrões ILUC mais frouxos (Argentine soybean loophole); arbitragem para evitar LCFS stringency</td>
+            <td>Certificação de SAF em jurisdições com padrões menores de ILUC</td>
           </tr>
         </tbody>
       </table>
 
       <div class="warning-box">
-        <strong>A Emergência da Ilicitude de Trajetória em Biofuel:</strong> A expansão de área de cana-de-açúcar ou milho para etanol, formalmente lícita sob legislação agrícola brasileira, torna-se juridicamente inadmissível quando sua continuação técnica previsível leva à transgressão de limites de uso da terra (ILUC), degradação de biomas críticos (Cerrado, Pantanal, Mata Atlântica) ou colapso de serviços ecossistêmicos (polinização, regulação hídrica).
+        <strong>A Emergência da Ilicitude de Trajetória:</strong> O Framework c-ECO reconhece a ilicitude de trajetória: atos formalmente lícitos tornam-se juridicamente inadmissíveis quando sua continuação técnica previsível leva ao colapso de ecossistemas, infraestruturas críticas ou comprometimento dos bens comuns globais.
       </div>
+    </section>
+
+    <!-- FUNDAMENTOS C-ECO -->
+    <section id="FUNDAMENTOS" class="article-box">
+      <h2 class="article-title">FUNDAMENTOS DO FRAMEWORK c-ECO<br>Princípios Estruturais da Governança Sistêmica</h2>
+
+      <h3 id="FUND-1" class="doc-subtitle">Princípios Estruturais (Artigos 1º-5º do Estatuto)</h3>
+
+      <div class="success-box">
+        <strong>Art. 1º — Supremacia do SOS</strong><br>
+        A validade, exequibilidade e continuidade de quaisquer atos, contratos ou operações estão subordinadas à preservação do Safe Operating Space — conjunto de limites biofísicos e sistêmicos cuja transgressão compromete a habitabilidade e a reversibilidade dos impactos projetados.
+      </div>
+
+      <div class="info-box">
+        <strong>Art. 2º — In Dubio Pro Systema</strong><br>
+        Onde existir incerteza técnica material sobre trajetórias de risco, reversibilidade de impactos ou integridade sistêmica, a decisão jurídica priorizará a proteção do sistema. A ausência de certeza técnica absoluta não perclui a suspensão imediata.
+      </div>
+
+      <div class="warning-box">
+        <strong>Art. 3º — Primazia do Tempo Físico</strong><br>
+        Qualquer ato administrativo, judicial ou arbitral que permita a continuação de trajetórias irreversíveis durante a pendência de processos é nulo e sem efeito jurídico. O tempo físico e a realidade biofísica prevalecem sobre o tempo jurídico-processual.
+      </div>
+
+      <div class="critical-box">
+        <strong>Art. 4º — Inalienabilidade do Risco</strong><br>
+        O risco de colapso sistêmico, exaustão de recursos críticos ou perda de habitabilidade constitui interesse jurídico indisponível. Qualquer renúncia, transação ou ato administrativo que admita a transgressão de limites sistêmicos monitorados é nulo.
+      </div>
+
+      <div class="highlight-box">
+        <strong>Art. 5º — Governança Ex-Ante</strong><br>
+        A governança opera primariamente ex ante, atuando sobre trajetórias de risco identificadas antes da materialização do dano. A Perclusão Sistêmica é o impedimento jurídico imediato à continuação de atos quando a trajetória técnica é incompatível com a estabilidade sistêmica.
+      </div>
+
+      <h3 id="FUND-2" class="doc-subtitle">Vínculo de Compatibilidade Sistêmica (Safe Operating Space)</h3>
+
+      <div class="caput">
+        O reconhecimento jurídico, relevância econômica e exequibilidade de ativos, contratos e operações estão inseparavelmente vinculados à preservação da habitabilidade dos ecossistemas. Nenhum ativo pode ser tratado como autônomo dos sistemas materiais que sustentam sua funcionalidade.
+      </div>
+
+      <div class="paragraph">
+        <strong>Características dos Riscos Sistêmicos no Setor Biofuel:</strong>
+      </div>
+
+      <div class="bullet-list">
+        <li><strong>Não-linearidade:</strong> Pequenas variações no preço de grãos geram grandes impactos na viabilidade de usinas 1G</li>
+        <li><strong>Irreversibilidade:</strong> Conversão de áreas de alta biodiversidade para monocultura de feedstock</li>
+        <li><strong>Transfronteiriço:</strong> Emissões indiretas de uso da terra (ILUC) afetam balanço de carbono global</li>
+        <li><strong>Cumulativo:</strong> Impactos hídricos de múltiplas usinas de cana em bacias hidrográficas</li>
+      </div>
+    </section>
+
+    <!-- CLASSIFICAÇÃO GERACIONAL -->
+    <section id="GERACOES" class="article-box">
+      <h2 class="article-title">CLASSIFICAÇÃO GERACIONAL DE BIOCOMBUSTÍVEIS<br>Matriz TFP por Geração Tecnológica</h2>
+
+      <div class="caput">
+        O Framework c-ECO estrutura a governança de biocombustíveis segundo quatro gerações tecnológicas distintas, cada uma com perfis de risco, matérias-primas, rotas de produção e parâmetros de sustentabilidade específicos. A classificação geracional determina o código TFP aplicável e os limiares de monitoramento obrigatório.
+      </div>
+
+      <!-- 1ª GERAÇÃO -->
+      <div class="generation-card" id="GEN-1">
+        <div class="generation-header">
+          <span class="generation-badge">1G</span>
+          <span class="generation-title">Primeira Geração — Matérias-Primas Comestíveis</span>
+        </div>
+        <div class="paragraph">
+          <strong>Definição:</strong> Biocombustíveis produzidos a partir de matérias-primas alimentícias tradicionais, com tecnologias de fermentação e transesterificação estabelecidas.
+        </div>
+        <table class="legal-table">
+          <thead>
+            <tr>
+              <th>Biocombustível</th>
+              <th>Feedstock Principal</th>
+              <th>Código TFP</th>
+              <th>Limiar Obrigatório</th>
+              <th>Elegibilidade CBIOs</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Etanol Anidro/Hidratado (Cana)</td>
+              <td>Cana-de-açúcar (Saccharum spp.)</td>
+              <td>E1C-M</td>
+              <td>≥ 10 milhões L/ano</td>
+              <td>87%</td>
+            </tr>
+            <tr>
+              <td>Etanol (Milho)</td>
+              <td>Milho (Zea mays)</td>
+              <td>E1M-M</td>
+              <td>≥ 10 milhões L/ano</td>
+              <td>13%</td>
+            </tr>
+            <tr>
+              <td>Biodiesel (B100)</td>
+              <td>Soja, algodão, sebo bovino</td>
+              <td>BD1-M</td>
+              <td>≥ 5 milhões L/ano</td>
+              <td>37,6%</td>
+            </tr>
+            <tr>
+              <td>Diesel Verde (HVO)</td>
+              <td>Óleos vegetais, gorduras residuais</td>
+              <td>HVO-M</td>
+              <td>Qualquer volume</td>
+              <td>100% (drop-in)</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="warning-box">
+          <strong>Risco Sistêmico 1G:</strong> Competição alimentar ("food vs fuel"), emissões indiretas de uso da terra (ILUC), volatilidade de preços de grãos. Requer monitoramento de área cultivada, estoque de carbono do solo e índice FAO Food.
+        </div>
+      </div>
+
+      <!-- 2ª GERAÇÃO -->
+      <div class="generation-card" id="GEN-2">
+        <div class="generation-header">
+          <span class="generation-badge">2G</span>
+          <span class="generation-title">Segunda Geração — Biomassas Lignocelulósicas e Resíduos</span>
+        </div>
+        <div class="paragraph">
+          <strong>Definição:</strong> Biocombustíveis avançados produzidos a partir de biomassas não alimentícias, resíduos agroindustriais e gorduras residuais, via tecnologias de hidrólise, gaseificação e processos HEFA/FT/ATJ.
+        </div>
+        <table class="legal-table">
+          <thead>
+            <tr>
+              <th>Biocombustível</th>
+              <th>Feedstock/Processo</th>
+              <th>Código TFP</th>
+              <th>Limiar Obrigatório</th>
+              <th>Redução de Emissões</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Etanol Celulósico (2G)</td>
+              <td>Palha de cana, bagaço, resíduos florestais</td>
+              <td>E2G-H</td>
+              <td>Qualquer volume</td>
+              <td>60-120%</td>
+            </tr>
+            <tr>
+              <td>Biometano (CBG)</td>
+              <td>Digestão anaeróbia de resíduos + upgrading</td>
+              <td>BIO-M</td>
+              <td>≥ 1 milhão Nm³/ano</td>
+              <td>86,7%</td>
+            </tr>
+            <tr>
+              <td>SAF (HEFA-SPK)</td>
+              <td>Hidroprocessamento de óleos/gorduras</td>
+              <td>SAF-H</td>
+              <td>Qualquer volume</td>
+              <td>65-85%</td>
+            </tr>
+            <tr>
+              <td>SAF (FT-SPK)</td>
+              <td>Gaseificação Fischer-Tropsch</td>
+              <td>SAF-FT</td>
+              <td>Qualquer volume</td>
+              <td>85-95%</td>
+            </tr>
+            <tr>
+              <td>SAF (ATJ)</td>
+              <td>Álcool para Jet (etanol/isobutanol)</td>
+              <td>SAF-ATJ</td>
+              <td>Qualquer volume</td>
+              <td>60-80%</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="info-box">
+          <strong>Risco Sistêmico 2G:</strong> Viabilidade tecnológica (TRL 6-8), disponibilidade logística de resíduos, sazonalidade de feedstock. Requer sensores de processo, GIS de disponibilidade de biomassas e eficiência enzimática.
+        </div>
+      </div>
+
+      <!-- 3ª GERAÇÃO -->
+      <div class="generation-card" id="GEN-3">
+        <div class="generation-header">
+          <span class="generation-badge">3G</span>
+          <span class="generation-title">Terceira Geração — Microalgas e Organismos Aquáticos</span>
+        </div>
+        <div class="paragraph">
+          <strong>Definição:</strong> Biocombustíveis produzidos a partir de microalgas e macroalgas, com alto rendimento por unidade de área e baixa competição por recursos terrestres.
+        </div>
+        <table class="legal-table">
+          <thead>
+            <tr>
+              <th>Biocombustível</th>
+              <th>Feedstock</th>
+              <th>Código TFP</th>
+              <th>Status</th>
+              <th>Potencial de Redução</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Bioquerosene de Algas</td>
+              <td>Microalgas (Chlorella, Spirulina)</td>
+              <td>A3G-H</td>
+              <td>Piloto/Escala demonstração</td>
+              <td>70-150%</td>
+            </tr>
+            <tr>
+              <td>Diesel de Algas</td>
+              <td>Macroalgas, lipídios algais</td>
+              <td>A3D-H</td>
+              <td>P&D avançado</td>
+              <td>80-200%</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="info-box">
+          <strong>Risco Sistêmico 3G:</strong> Custo de produção elevado, escalabilidade, consumo hídrico em cultivos abertos, contenção de OGMs. Requer monitoramento de produtividade por hectare, biossegurança e eficiência hídrica.
+        </div>
+      </div>
+
+      <!-- 4ª GERAÇÃO -->
+      <div class="generation-card" id="GEN-4">
+        <div class="generation-header">
+          <span class="generation-badge">4G</span>
+          <span class="generation-title">Quarta Geração — Biologia Sintética e Engenharia Genética</span>
+        </div>
+        <div class="paragraph">
+          <strong>Definição:</strong> Biocombustíveis produzidos via biologia sintética, utilizando microalgas geneticamente modificadas, CO₂ capturado e processos de conversão direta solar-combustível.
+        </div>
+        <table class="legal-table">
+          <thead>
+            <tr>
+              <th>Biocombustível</th>
+              <th>Processo</th>
+              <th>Código TFP</th>
+              <th>Status</th>
+              <th>Potencial de Redução</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Combustíveis Sintéticos Avançados</td>
+              <td>Microalgas GM, CO₂ + solar</td>
+              <td>S4G-H</td>
+              <td>P&D emergente</td>
+              <td>100-300%</td>
+            </tr>
+            <tr>
+              <td>Bio-hidrogênio</td>
+              <td>Fotossíntese artificial, eletrólise biológica</td>
+              <td>H2B-H</td>
+              <td>Programa Nacional em desenvolvimento</td>
+              <td>90-100%</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="critical-box">
+          <strong>Risco Sistêmico 4G:</strong> Segurança e ética em biologia sintética, governança de OGMs, viabilidade econômica incerta. Requer frameworks de governança biotecnológica, auditoria de protocolos de pesquisa e avaliação de riscos emergentes.
+        </div>
+      </div>
+
+      <h3 id="ROTAS-ANP" class="doc-subtitle">Rotas Tecnológicas Certificadas ANP</h3>
+
+      <table class="legal-table">
+        <thead>
+          <tr>
+            <th>Rota</th>
+            <th>Descrição Técnica</th>
+            <th>Produtos</th>
+            <th>Status ANP</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>HEFA</strong></td>
+            <td>Hidroprocessamento de Óleos e Gorduras — transesterificação com hidrogênio</td>
+            <td>Diesel Verde, SAF (HEFA-SPK)</td>
+            <td>Autorizada (Res. ANP 598/2016)</td>
+          </tr>
+          <tr>
+            <td><strong>FT</strong></td>
+            <td>Gaseificação Fischer-Tropsch — síntese de hidrocarbonetos líquidos</td>
+            <td>SAF (FT-SPK), Nafta Verde</td>
+            <td>Autorizada (Res. ANP 598/2016)</td>
+          </tr>
+          <tr>
+            <td><strong>ATJ</strong></td>
+            <td>Álcool para Jet — desidratação de etanol/isobutanol</td>
+            <td>SAF (ATJ-SPK)</td>
+            <td>Autorizada (Res. ANP 598/2016)</td>
+          </tr>
+          <tr>
+            <td><strong>SIP</strong></td>
+            <td>Síntese Isoparafínica — fermentação de açúcares por leveduras modificadas</td>
+            <td>SAF (SIP), Gasolina de Bioisoparafinas</td>
+            <td>Autorizada (Res. ANP 598/2016)</td>
+          </tr>
+          <tr>
+            <td><strong>Coprocessamento</strong></td>
+            <td>Co-processamento de óleos vegetais em refinarias de petróleo</td>
+            <td>Diesel Verde, SAF</td>
+            <td>Autorizada (Res. ANP 598/2016)</td>
+          </tr>
+          <tr>
+            <td><strong>CHJ</strong></td>
+            <td>Catalisadores para Hidroprocessamento — tecnologias patenteadas</td>
+            <td>Diesel Verde, SAF</td>
+            <td>Autorizada (Res. ANP 598/2016)</td>
+          </tr>
+        </tbody>
+      </table>
     </section>
 
     <!-- MÓDULO 1 -->
     <section id="M1" class="article-box">
-      <h2 class="article-title">MÓDULO 1 — ATIVAÇÃO IMEDIATA (Checklist 0-15 dias)<br>Due diligence bilateral e estruturação transnacional de cadeias de suprimentos</h2>
+      <h2 class="article-title">MÓDULO 1 — ATIVAÇÃO IMEDIATA (Checklist 0-15 dias)<br>Due diligence bilateral e estruturação transnacional</h2>
 
-      <h3 id="M1-1" class="doc-subtitle">1.1 Mapeamento de Jurisdição e Regulação Cruzada</h3>
+      <h3 id="M1-1" class="doc-subtitle">1.1 Nexus Jurisdicional</h3>
       
       <div class="caput">
-        Análise de Nexus Jurisdicional Brasil-EUA para biofuel: identificação de todas as jurisdições aplicáveis, mecanismos de coordenação regulatória e requisitos de compliance simultâneo em ambos os países, com foco específico em programas de combustíveis renováveis e padrões de carbono.
+        Análise de Nexus Jurisdicional Brasil-EUA: identificação de todas as jurisdições aplicáveis, mecanismos de coordenação regulatória e requisitos de compliance simultâneo em ambos os países para operações de biocombustíveis.
       </div>
 
       <table class="legal-table">
@@ -635,40 +1055,28 @@
         </thead>
         <tbody>
           <tr>
-            <td>Exportação de etanol para EUA</td>
-            <td>RFS/RIN (EPA)</td>
-            <td>ANP/Mapa (Brasil)</td>
-            <td>Certificação de pathway aprovado</td>
-          </tr>
-          <tr>
-            <td>Exportação para California/Oregon</td>
-            <td>LCFS (CARB)</td>
-            <td>IBAMA/Mapa (Brasil)</td>
-            <td>Verificação de ILUC regional</td>
-          </tr>
-          <tr>
-            <td>SAF (Sustainable Aviation Fuel)</td>
-            <td>CORSIA/ICAO + RFS</td>
-            <td>ANAC/ANP (Brasil)</td>
-            <td>Book-and-claim + mass balance</td>
-          </tr>
-          <tr>
-            <td>HVO (Hidrogenated Vegetable Oil)</td>
-            <td>RFS/RIN + LCFS</td>
-            <td>ANP/IBAMA</td>
-            <td>Certificação de feedstock sustentável</td>
-          </tr>
-          <tr>
-            <td>Investidor americano > 10%</td>
+            <td>Investidor americano > 10% do capital</td>
             <td>CFIUS review (EUA)</td>
             <td>CADE (Brasil)</td>
             <td>Protocolo de notificação simultânea</td>
           </tr>
           <tr>
-            <td>Financiamento via DFC/Ex-Im</td>
+            <td>Financiamento via DFC/Ex-Im Bank</td>
             <td>OPIC/DFC conditions</td>
             <td>BNDES/FINEP</td>
             <td>Co-financing agreement c-ECO clause</td>
+          </tr>
+          <tr>
+            <td>Exportação de SAF para EUA</td>
+            <td>EPA RFS (RINs)</td>
+            <td>ANP (CBIOs)</td>
+            <td>Dual certification (RINs + CBIOs)</td>
+          </tr>
+          <tr>
+            <td>Importação de etanol para EUA</td>
+            <td>EPA (renewable volume obligation)</td>
+            <td>ANP (registro de exportador)</td>
+            <td>Tracking system integration</td>
           </tr>
           <tr>
             <td>Arbitragem ICSID/ICC</td>
@@ -677,56 +1085,80 @@
             <td>Dual-seat arbitration clause</td>
           </tr>
           <tr>
-            <td>Sanções OFAC/SDN (soybean loophole)</td>
-            <td>OFAC compliance</td>
-            <td>MAPA/SECEX</td>
-            <td>Due diligence de origem de óleos</td>
+            <td>Certificação de sustentabilidade</td>
+            <td>EPA RFS (RINs), CARB LCFS</td>
+            <td>RenovaBio (CBIOs)</td>
+            <td>Mutual recognition of certification</td>
           </tr>
         </tbody>
       </table>
 
-      <h3 id="M1-2" class="doc-subtitle">1.2 Checklist RFS/RIN e LCFS Compliance</h3>
+      <h3 id="M1-2" class="doc-subtitle">1.2 CFIUS Checklist</h3>
 
       <div class="paragraph">
-        <strong>Programas de Combustíveis Renováveis dos EUA:</strong> Todo biocombustível exportado do Brasil para os EUA deve estar em conformidade com o Renewable Fuel Standard (RFS) da EPA e, se destinado à Califórnia, com o Low Carbon Fuel Standard (LCFS) da CARB.
+        <strong>Declaração obrigatória:</strong> Investimento em infraestrutura crítica de biocombustíveis (refinarias, usinas de SAF, terminais de exportação)
       </div>
 
       <div class="inciso">
-        <strong>RFS/RIN (Renewable Identification Number):</strong> Cada lote de etanol/biodiesel deve gerar RINs válidos, registrados no sistema EPA Moderated Transaction System (EMTS). RINs inválidos por não-conformidade com c-ECO (ILUC, degradação) resultam em obrigação de replacement + penalty.
+        <strong>Análise de controle:</strong> Acima de 10% com direitos de governança → review obrigatório
       </div>
       <div class="inciso">
-        <strong>LCFS Credit:</strong> Créditos de carbono gerados pelo pathway brasileiro devem ser verificados por terceira parte aprovada pela CARB, com dados de c-ECO (P, ΔV de emissões) integrados ao relatório de carbono intensity (CI).
+        <strong>TID (Technology, Infrastructure, Data):</strong> Tecnologias 2G/3G/4G, dados de rastreabilidade de feedstock → mandatory declaration
       </div>
       <div class="inciso">
-        <strong>Pathway Aprovado:</strong> O pathway brasileiro de cana-de-açúcar está aprovado pela EPA, mas sujeito a revalidação se houver mudança significativa no fator ILUC ou métodos de produção (ex: irrigação intensiva).
+        <strong>Mitigation agreement:</strong> Compromissos de segurança cibernética e proteção de dados de rastreabilidade
       </div>
       <div class="inciso">
-        <strong>c-ECO addendum:</strong> Inserir TFP como mecanismo de verificação contínua de sustentabilidade aceito pela EPA/CARB, substituindo ou complementando certificações pontuais (Bonsucro, ISCC).
+        <strong>c-ECO addendum:</strong> Inserir TFP como mecanismo de mitigação de risco sistêmico aceito pelo CFIUS
       </div>
 
-      <div class="highlight-box">
-        <strong>Template 1A-BR/US — Ficha de Nexus Transnacional Biofuel:</strong>
-        <div style="font-family: monospace; font-size: 13px; margin-top: 10px;">
-          Projeto: [Nome da Usina/Complexo]<br>
-          Localização física: [Estado/Município, Brasil]<br>
-          Bioma: [Cerrado/Atlantic Forest/Pantanal/Pampas/Amazon/Caatinga]<br>
-          Investidor americano: [Nome, %, sede]<br>
-          Veículo de investimento: [HoldCo Delaware / Cayman / Luxembourg]<br>
-          Financiamento estruturado: [DFC/BNDES/Ex-Im/Private]<br>
-          Programa de compliance: [RFS/LCFS/CORSIA/ISCC/Bonsucro]<br>
-          Pathway EPA: [Cana de açúcar / Milho / Biodiesel / SAF / HVO]<br>
-          Arbitragem: [ICC/MIAMI/UNCITRAL]<br>
-          Sede arbitral: [Miami/Londres/Singapura/São Paulo]<br>
-          Lei aplicável: [NY/Delaware/Brasileira]<br>
-          c-ECO DAA: [Entidade certificada nos dois países]<br>
-          Certificador de carbono: [CARB-verified / EPA-approved / ISCC]
-        </div>
-      </div>
-
-      <h3 id="M1-3" class="doc-subtitle">1.3 Estruturação de Dados e Sensores Agroindustriais</h3>
+      <h3 id="M1-3" class="doc-subtitle">1.3 Matriz de Classificação Geracional</h3>
 
       <div class="caput">
-        Arquitetura de Dados Agroindustrial Bilateral: integração de fontes primárias brasileiras (agrometeorologia, satélites de imagem, sensores de solo) e americanas (EPA emissions tracking, CARB verification), com certificação mútua, replicação criptografada e auditoria conjunta.
+        Identificação obrigatória do tipo de biocombustível e geração tecnológica para determinação do código TFP aplicável, limiares de risco e parâmetros de monitoramento específicos.
+      </div>
+
+      <table class="legal-table">
+        <thead>
+          <tr>
+            <th>Classificação</th>
+            <th>Documentação Requerida</th>
+            <th>Validação</th>
+            <th>Prazo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Geração (1G/2G/3G/4G)</td>
+            <td>Certificado de rota tecnológica ANP, descrição de processo</td>
+            <td>DAA Brasil + DAA EUA</td>
+            <td>D+3</td>
+          </tr>
+          <tr>
+            <td>Tipo de Biocombustível</td>
+            <td>Especificação de produto (ASTM D7566, ANP)</td>
+            <td>Laboratório acreditado</td>
+            <td>D+5</td>
+          </tr>
+          <tr>
+            <td>Feedstock Primário</td>
+            <td>Contratos de fornecimento, certificados de origem</td>
+            <td>Auditoria de cadeia</td>
+            <td>D+7</td>
+          </tr>
+          <tr>
+            <td>Elegibilidade de Créditos</td>
+            <td>Registro RenovaBio (Brasil), RFS (EUA), LCFS (CA)</td>
+            <td>ANP/EPA/CARB</td>
+            <td>D+10</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 id="M1-4" class="doc-subtitle">1.4 Rastreabilidade de Feedstock</h3>
+
+      <div class="caput">
+        Sistema de rastreamento de matéria-prima (RenovaBio/ANP) para compliance com elegibilidade de CBIOs e certificação de sustentabilidade bilateral.
       </div>
 
       <table class="legal-table">
@@ -740,71 +1172,36 @@
         </thead>
         <tbody>
           <tr>
-            <td>Fonte primária</td>
-            <td>INMET, CONAB, MAPA, INCRA, ANA</td>
-            <td>EPA, USDA-NASS, NOAA, USGS</td>
+            <td>Origem do feedstock</td>
+            <td>Geolocalização de canaviais (SIGTAP), monitoramento de desmatamento</td>
+            <td>Field-to-fleet tracking (RFS)</td>
             <td>API gateway bilateral</td>
           </tr>
           <tr>
-            <td>Sensoriamento remoto</td>
-            <td>INPE (Landsat/Sentinel), TerraClass</td>
-            <td>USDA Cropland Data Layer, Landsat</td>
-            <td>Reconciliação de classificação de uso do solo</td>
+            <td>Certificação de sustentabilidade</td>
+            <td>Certificados RenovaBio, ISCC, Bonsucro</td>
+            <td>RINs Q-RINs, LCFS credits</td>
+            <td>Cross-recognition protocol</td>
           </tr>
           <tr>
-            <td>Dados de produção</td>
-            <td>CONAB, UNICA, usinas (safra, produtividade)</td>
-            <td>EPA EMTS, RIN generation</td>
-            <td>Matching de volumes exportados × RINs gerados</td>
+            <td>Cadeia de custódia</td>
+            <td>Mass balance ou segregação (ISCC)</td>
+            <td>Book-and-claim (RFS)</td>
+            <td>Reconciliation system</td>
           </tr>
           <tr>
-            <td>Certificação</td>
-            <td>DAA certificado pelo MAPA/INMETRO</td>
-            <td>DAA reconhecido por EPA/CARB</td>
-            <td>Mutual recognition agreement</td>
-          </tr>
-          <tr>
-            <td>Armazenamento</td>
-            <td>Data center Tier III (São Paulo)</td>
-            <td>AWS GovCloud / Azure US</td>
-            <td>Replicação criptografada</td>
-          </tr>
-          <tr>
-            <td>Blockchain/imutabilidade</td>
-            <td>RSK/Prova (Brasil)</td>
-            <td>Ethereum/Hyperledger (EUA)</td>
-            <td>Cross-chain notarização de RINs/LCFS credits</td>
+            <td>Auditoria</td>
+            <td>Auditor brasileiro (ISCC, Bonsucro)</td>
+            <td>Auditor EPA-recognized</td>
+            <td>Joint audit protocol</td>
           </tr>
         </tbody>
       </table>
 
-      <div class="info-box">
-        <strong>Sensores Específicos para Biofuel Brasil-EUA:</strong><br><br>
-        <strong>Para monitoramento de ILUC (Indirect Land Use Change):</strong><br>
-        • Imagens de satélite (Landsat-8, Sentinel-2, Sentinel-1 SAR) — resolução 10-30m<br>
-        • Detecção de desmatamento (DETER/PRODES INPE, GLAD/UMD)<br>
-        • Mapeamento de expansão de fronteira agrícola (TerraClass, MapBiomas)<br>
-        • Monitoramento de áreas de reserva legal e APPs (SIGTAP, SIGMINE)<br><br>
-        <strong>Para rastreabilidade de feedstock:</strong><br>
-        • Geolocalização de canaviais (GPS de colhedoras, geofencing)<br>
-        • Rastreamento de caminhões de cana (RFID, QR code, blockchain)<br>
-        • Análise isotópica de etanol (δ¹³C, δ¹⁸O) — verificação de origem<br>
-        • Certificação de mass balance para HVO/SAF (ISCC PLUS)<br><br>
-        <strong>Para monitoramento hídrico e de solo:</strong><br>
-        • Sensores de umidade de solo (TDR, capacitância) — rede GRU/ANA<br>
-        • Monitoramento de aquíferos (poços tubulares, piezômetros)<br>
-        • Qualidade da água de processo (COD, BOD, pH, turbidez)<br>
-        • Índice de degradação de solo (matéria orgânica, compactação)<br><br>
-        <strong>Para compliance de carbono:</strong><br>
-        • Medição de emissões de N2O de fertilizantes (modelos IPCC Tier 2/3)<br>
-        • Rastreio de uso de diesel agrícola (GPS de máquinas, tanques)<br>
-        • Cálculo de Carbon Intensity (CI) via GREET ou modelos regionais
-      </div>
-
-      <h3 id="M1-4" class="doc-subtitle">1.4 Definição de Limites SOS Biofísico-Agrícola</h3>
+      <h3 id="M1-5" class="doc-subtitle">1.5 Protocolo de Resposta Crítica Transnacional</h3>
 
       <div class="caput">
-        Safe Operating Space (SOS) Agroindustrial Brasil-EUA: integração de limites de uso da terra, biodiversidade, recursos hídricos, emissões de carbono, e proteção de biomas críticos de ambos os países, com foco especial na prevenção de ILUC.
+        Safe Operating Space (SOS) Híbrido Brasil-EUA para biocombustíveis: integração de limites de produção sustentável, certificação de cadeia, metas de redução de emissões e compliance bilateral.
       </div>
 
       <table class="legal-table">
@@ -818,106 +1215,42 @@
         </thead>
         <tbody>
           <tr>
-            <td>Uso da terra (ILUC)</td>
-            <td>Protocolo de Intenções AGRO 2020; Moratória da soja</td>
-            <td>California LCFS ILUC factors (CARB)</td>
-            <td>Zero desmatamento líquido + buffer 20%</td>
+            <td>Ambiental</td>
+            <td>Monitoramento de desmatamento (SIGTAP), licenças IBAMA</td>
+            <td>EPA RFS (waivers, small refinery exemptions)</td>
+            <td>Intersection + buffer 20%</td>
           </tr>
           <tr>
-            <td>Biodiversidade</td>
-            <td>Biomas Cerrado, Pantanal, Mata Atlântica (CNF)</td>
-            <td>Prairie Pothole Region, Corn Belt (USFWS)</td>
-            <td>Áreas de alta biodiversidade — expansão proibida</td>
+            <td>Carbono</td>
+            <td>Intensidade de carbono máxima (RenovaBio)</td>
+            <td>CI reduction (LCFS), RFS RINs</td>
+            <td>Mais restritivo dos dois</td>
           </tr>
           <tr>
-            <td>Hídrico</td>
-            <td>Reserva legal ANA; outorgas de uso</td>
-            <td>Clean Water Act; state water rights</td>
-            <td>Balanço hídrico positivo na bacia</td>
+            <td>Social</td>
+            <td>Certificação Bonsucro, Protocolo Agroindustrial</td>
+            <td>EPA RFS (renewable biomass definition)</td>
+            <td>Conformidade dual obrigatória</td>
           </tr>
           <tr>
-            <td>Carbono (CI)</td>
-            <td>RenovaBio (ANP) — CBios</td>
-            <td>RFS RINs + LCFS credits</td>
-            <td>CI ≤ 50% do baseline gasolina/diesel</td>
+            <td>Rastreabilidade</td>
+            <td>RenovaBio, ISCC</td>
+            <td>RFS Q-RINs, LCFS</td>
+            <td>Certificação mútua</td>
           </tr>
           <tr>
-            <td>Solo</td>
-            <td>Classificação de solos (EMBRAPA); reserva de carbono</td>
-            <td>USDA NRCS; conservation programs</td>
-            <td>Perda de matéria orgânica ≤ 0,5%/ano</td>
-          </tr>
-          <tr>
-            <td>Agrotóxicos</td>
-            <td>Lei 7.802/1989; glifosato monitorado</td>
-            <td>EPA FIFRA; glyphosate assessment</td>
-            <td>Uso restrito em áreas de proteção</td>
+            <td>Anticorrupção</td>
+            <td>Lei 12.846/2013 (Anticorrupção)</td>
+            <td>FCPA</td>
+            <td>Compliance programa integrado</td>
           </tr>
         </tbody>
       </table>
 
-      <div class="paragraph">
-        <strong>Variáveis Específicas de Risco Agroindustrial:</strong>
-      </div>
-
-      <table class="legal-table">
-        <thead>
-          <tr>
-            <th>Variável</th>
-            <th>Fonte Brasil</th>
-            <th>Fonte EUA</th>
-            <th>Cálculo Integrado</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>σ_ILUC</td>
-            <td>MapBiomas, INPE, Agroicone</td>
-            <td>CARB GTAP model, Purdue</td>
-            <td>σ = max(σ_BR, σ_US) + 0,20 se fronteira agrícola</td>
-          </tr>
-          <tr>
-            <td>σ_climático-safra</td>
-            <td>INMET, modelos agrícolas (CONAB)</td>
-            <td>NOAA, USDA crop forecasts</td>
-            <td>σ = volatilidade de precipitação × sensibilidade de produtividade</td>
-          </tr>
-          <tr>
-            <td>σ_regulatório</td>
-            <td>ANP, MAPA, IBAMA</td>
-            <td>EPA RFS rules, CARB LCFS amendments</td>
-            <td>σ = max(σ_BR, σ_US) + 0,15 se revisão de pathway</td>
-          </tr>
-          <tr>
-            <td>σ_mercado</td>
-            <td>CEPEA, B3 (etanol futuro)</td>
-            <td>CBOT (corn futures), OPIS</td>
-            <td>σ = volatilidade de spread ethanol-gasoline</td>
-          </tr>
-          <tr>
-            <td>σ_cadeia de suprimentos</td>
-            <td>Dependência de insumos importados (lubrificantes, peças)</td>
-            <td>Export controls (EAR) para tecnologia de processo</td>
-            <td>σ = lead time × criticalidade da safra</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="math-box">
-        <strong>Limite de Reversibilidade Financeira (Lr) Agroindustrial:</strong><br><br>
-        Lr_biofuel = min(Lr_operacional, Lr_restauração_solo, Lr_compensação_ILUC)<br><br>
-        Onde:<br>
-        • Lr_operacional = (Caixa + LC + seguro safra) / Custo de colheita + processamento<br>
-        • Lr_restauração_solo = Reserva técnica / Custo de recuperação de área degradada<br>
-        • Lr_compensação_ILUC = Fundo de compensação / Custo de recomposição de reserva legal<br><br>
-        Se σ_ILUC > 0,30 → Lr reduzido em 20% (prudência assimétrica)<br>
-        Se detecção de desmatamento > 10ha → Lr < 0,5 automaticamente (Restoration First)
-      </div>
-
-      <h3 id="M1-5" class="doc-subtitle">1.5 Estruturação de Garantias e Reservas Bilaterais</h3>
+      <h3 id="M1-6" class="doc-subtitle">1.6 Matriz de Garantias e Exposição de Ativos</h3>
 
       <div class="caput">
-        Estrutura de Garantia Cruzada para Biofuel: camadas de proteção em múltiplas jurisdições considerando a sazonalidade da safra, riscos climáticos, e necessidade de liquidez para compra de matéria-prima (cana/milho/óleos).
+        Estrutura de Garantia Cruzada (Cross-Border Collateral) para operações de biocombustíveis: camadas de proteção em múltiplas jurisdições com governing law específico e mecanismos de enforcement coordenados.
       </div>
 
       <table class="legal-table">
@@ -933,21 +1266,21 @@
         <tbody>
           <tr>
             <td>Primeira</td>
-            <td>Cash collateral (USD) — revolving para safra</td>
+            <td>Cash collateral (USD)</td>
             <td>NY trust account</td>
             <td>NY law</td>
             <td>UCC Article 9</td>
           </tr>
           <tr>
             <td>Segunda</td>
-            <td>Letter of Credit (LC) — seasonal tranches</td>
+            <td>Letter of Credit (LC)</td>
             <td>Banco americano confirmado</td>
             <td>UCP 600</td>
             <td>ISP 98</td>
           </tr>
           <tr>
             <td>Terceira</td>
-            <td>Fiança bancária (Reais) — BNDES/FINEP</td>
+            <td>Fiança bancária (Reais)</td>
             <td>Banco brasileiro</td>
             <td>Lei brasileira</td>
             <td>Execução extrajudicial</td>
@@ -961,1590 +1294,1109 @@
           </tr>
           <tr>
             <td>Quinta</td>
-            <td>Seguro agrícola (safra) + revenue protection</td>
-            <td>Brasil (Proagro/seguradoras) + EUA (RCIS)</td>
-            <td>Lei local + NY law</td>
-            <td>Arbitragem</td>
+            <td>CBIOs/RINs em escrow</td>
+            <td>Brasil/EUA</td>
+            <td>Lei aplicável</td>
+            <td>Transferência regulada</td>
           </tr>
           <tr>
             <td>Sexta</td>
-            <td>MIGA/OPIC political risk + climate risk</td>
+            <td>MIGA/OPIC political risk</td>
             <td>Washington D.C.</td>
             <td>Convenção ICSID</td>
             <td>Arbitragem</td>
           </tr>
         </tbody>
       </table>
-
-      <div class="highlight-box">
-        <strong>Systemic Risk Management Fund — Estrutura Sazonal:</strong>
-        <div style="font-family: monospace; font-size: 13px; margin-top: 10px;">
-          Estrutura de escrow dual com sazonalidade:<br><br>
-          [Usina/Complexo SPV Brasil] ←──→ [Escrow Agent NY] ←──→ [Systemic Risk Fund]<br>
-                   │                        │<br>
-                   │                 [Investment Manager SEC-registered]<br>
-                   │<br>
-              [Conta segregada Brasil — sazonal]<br>
-              (Aumenta em março-abril para compra de cana)<br><br>
-          Gatilhos de liberação específicos biofuel:<br>
-          1. Detecção de desmatamento (INPE/MapBiomas) → Liberação imediata para compensação<br>
-          2. Falha de safra (CONAB) → Liberação para compra de matéria-prima alternativa<br>
-          3. Certificação DAA Brasil + DAA EUA (joint trigger) → Liberação para restoration<br>
-          4. Ordem técnica do Technical Curatorial Chamber (bilateral)<br>
-          5. Decisão arbitral de emergência (provisional measures)
-        </div>
-      </div>
-
-      <h3 id="M1-6" class="doc-subtitle">1.6 Matriz Completa de Ativos Elegíveis TFP-c-ECO — Biofuel</h3>
-
-      <div class="caput">
-        Classificação completa de ativos de biofuel por categoria, código TFP, capacidade de produção e aplicação obrigatória ou recomendada do protocolo, considerando a complexidade agroindustrial e riscos sistêmicos específicos.
-      </div>
-
-      <div class="doc-sub-subtitle">A. ETANOL — PRODUÇÃO E PROCESSAMENTO</div>
-      <table class="legal-table">
-        <thead>
-          <tr>
-            <th>Subcategoria</th>
-            <th>Tipo Específico</th>
-            <th>Código TFP</th>
-            <th>Capacidade</th>
-            <th>Aplicação</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td rowspan="5">Etanol de Cana (1G)</td>
-            <td>Usina integrada (açúcar + etanol + bioeletricidade)</td>
-            <td>ETC-L</td>
-            <td>≥ 500 mil m³/ano</td>
-            <td>Obrigatória</td>
-          </tr>
-          <tr>
-            <td>Usina autônoma (etanol only)</td>
-            <td>ETA-L</td>
-            <td>≥ 300 mil m³/ano</td>
-            <td>Obrigatória</td>
-          </tr>
-          <tr>
-            <td>Destilaria independente (processamento de melaço)</td>
-            <td>ETD-M</td>
-            <td>≥ 100 mil m³/ano</td>
-            <td>Obrigatória</td>
-          </tr>
-          <tr>
-            <td>Usina de pequeno porte (cachaça + etanol)</td>
-            <td>ETP-S</td>
-            <td>< 100 mil m³/ano</td>
-            <td>Recomendada</td>
-          </tr>
-          <tr>
-            <td>Usina flex (alternância açúcar/etanol)</td>
-            <td>ETF-L</td>
-            <td>Qualquer</td>
-            <td>Obrigatória</td>
-          </tr>
-          <tr>
-            <td rowspan="3">Etanol Celulósico (2G)</td>
-            <td>Planta de pré-tratamento + hidrólise</td>
-            <td>ET2-L</td>
-            <td>≥ 50 mil m³/ano</td>
-            <td><strong>Obrigatória</strong></td>
-          </tr>
-          <tr>
-            <td>Co-located 2G (adjacente a usina 1G)</td>
-            <td>ET2-M</td>
-            <td>≥ 20 mil m³/ano</td>
-            <td>Obrigatória</td>
-          </tr>
-          <tr>
-            <td>Bio-refinaria integrada (lignina + etanol)</td>
-            <td>BRE-L</td>
-            <td>Qualquer</td>
-            <td><strong>Obrigatória</strong></td>
-          </tr>
-          <tr>
-            <td rowspan="2">Etanol de Milho</td>
-            <td>Usina de etanol de milho (dry-grind)</td>
-            <td>ETM-L</td>
-            <td>≥ 200 mil m³/ano</td>
-            <td>Obrigatória</td>
-          </tr>
-          <tr>
-            <td>Co-located com processamento de grãos</td>
-            <td>ETM-M</td>
-            <td>≥ 100 mil m³/ano</td>
-            <td>Obrigatória</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="doc-sub-subtitle">B. BIODIESEL, HVO E COMBUSTÍVEIS AVANÇADOS</div>
-      <table class="legal-table">
-        <thead>
-          <tr>
-            <th>Subcategoria</th>
-            <th>Tipo Específico</th>
-            <th>Código TFP</th>
-            <th>Capacidade</th>
-            <th>Aplicação</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td rowspan="3">Biodiesel FAME</td>
-            <td>Usina de biodiesel (transesterificação)</td>
-            <td>BDF-L</td>
-            <td>≥ 300 mil m³/ano</td>
-            <td>Obrigatória</td>
-          </tr>
-          <tr>
-            <td>Co-processamento em refinaria</td>
-            <td>BDC-H</td>
-            <td>Qualquer</td>
-            <td>Obrigatória</td>
-          </tr>
-          <tr>
-            <td>Micro-usina (óleos residuais)</td>
-            <td>BDM-S</td>
-            <td>< 50 mil m³/ano</td>
-            <td>Recomendada</td>
-          </tr>
-          <tr>
-            <td rowspan="4">HVO (Hidrogenated Vegetable Oil)</td>
-            <td>Planta de HVO standalone</td>
-            <td>HVO-L</td>
-            <td>≥ 200 mil m³/ano</td>
-            <td><strong>Obrigatória</strong></td>
-          </tr>
-          <tr>
-            <td>Co-located em refinaria de petróleo</td>
-            <td>HVR-L</td>
-            <td>≥ 100 mil m³/ano</td>
-            <td>Obrigatória</td>
-          </tr>
-          <tr>
-            <td>HVO de óleos residuais (UCO, tallow)</td>
-            <td>HVC-M</td>
-            <td>≥ 50 mil m³/ano</td>
-            <td>Obrigatória</td>
-          </tr>
-          <tr>
-            <td>HVO de óleos vegetais virgens (soja, palma)</td>
-            <td>HVV-H</td>
-            <td>Qualquer</td>
-            <td><strong>Obrigatória</strong> (alto risco ILUC)</td>
-          </tr>
-          <tr>
-            <td rowspan="3">SAF (Sustainable Aviation Fuel)</td>
-            <td>Planta de SAF (HEFA-SPK)</td>
-            <td>SAF-L</td>
-            <td>≥ 100 mil m³/ano</td>
-            <td><strong>Obrigatória</strong></td>
-          </tr>
-          <tr>
-            <td>Co-processamento de óleos em refinaria</td>
-            <td>SAF-M</td>
-            <td>≥ 50 mil m³/ano</td>
-            <td>Obrigatória</td>
-          </tr>
-          <tr>
-            <td>ATJ (Alcohol-to-Jet) de etanol</td>
-            <td>SAJ-L</td>
-            <td>≥ 50 mil m³/ano</td>
-            <td>Obrigatória</td>
-          </tr>
-          <tr>
-            <td rowspan="2">Bio-nafta / Bio-LPG</td>
-            <td>Produção de bio-nafta (coproduto HVO)</td>
-            <td>BNA-M</td>
-            <td>Qualquer</td>
-            <td>Obrigatória</td>
-          </tr>
-          <tr>
-            <td>Bio-LPG (propane renovável)</td>
-            <td>BLP-S</td>
-            <td>Qualquer</td>
-            <td>Recomendada</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="doc-sub-subtitle">C. HIDROGÊNIO VERDE E DERIVADOS DE BIOMASSA</div>
-      <table class="legal-table">
-        <thead>
-          <tr>
-            <th>Subcategoria</th>
-            <th>Tipo Específico</th>
-            <th>Código TFP</th>
-            <th>Capacidade</th>
-            <th>Aplicação</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td rowspan="3">H2 Verde de Biomassa</td>
-            <td>Gas
-
-          <tr>
-            <td rowspan="3">H2 Verde de Biomassa</td>
-            <td>Gaseificação de biomassa lignocelulósica + reforma</td>
-            <td>H2B-L</td>
-            <td>≥ 50 MW equivalente</td>
-            <td><strong>Obrigatória</strong></td>
-          </tr>
-          <tr>
-            <td>Reforma de biogás/bioetanol (steam methane reforming)</td>
-            <td>H2R-M</td>
-            <td>≥ 20 MW equivalente</td>
-            <td>Obrigatória</td>
-          </tr>
-          <tr>
-            <td>Eletrólise com energia de biomassa (bioeletrolysis)</td>
-            <td>H2E-L</td>
-            <td>≥ 100 MW</td>
-            <td>Obrigatória</td>
-          </tr>
-          <tr>
-            <td rowspan="2">Metanol Verde</td>
-            <td>Produção de metanol de biomassa (gasificação)</td>
-            <td>MET-L</td>
-            <td>≥ 100 mil ton/ano</td>
-            <td>Obrigatória</td>
-          </tr>
-          <tr>
-            <td>Metanol de CO2 capturado + H2 verde (e-methanol)</td>
-            <td>MET-M</td>
-            <td>≥ 50 mil ton/ano</td>
-            <td>Obrigatória</td>
-          </tr>
-          <tr>
-            <td rowspan="2">Amonia Verde</td>
-            <td>Síntese de amônia com H2 de biomassa</td>
-            <td>NH3-L</td>
-            <td>≥ 500 mil ton/ano</td>
-            <td><strong>Obrigatória</strong></td>
-          </tr>
-          <tr>
-            <td>Amonia de H2 eletrolítico (renewable)</td>
-            <td>NH3-M</td>
-            <td>≥ 200 mil ton/ano</td>
-            <td>Obrigatória</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="doc-sub-subtitle">D. LOGÍSTICA E INFRAESTRUTURA DE BIOFUEL</div>
-      <table class="legal-table">
-        <thead>
-          <tr>
-            <th>Subcategoria</th>
-            <th>Tipo Específico</th>
-            <th>Código TFP</th>
-            <th>Capacidade</th>
-            <th>Aplicação</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td rowspan="3">Terminais de Exportação</td>
-            <td>Terminal de etanol (Santos/Paranaguá)</td>
-            <td>TET-L</td>
-            <td>≥ 500 mil m³/ano</td>
-            <td><strong>Obrigatória</strong></td>
-          </tr>
-          <tr>
-            <td>Terminal multiproduct (etanol/biodiesel/HVO)</td>
-            <td>TMP-L</td>
-            <td>≥ 1 milhão m³/ano</td>
-            <td>Obrigatória</td>
-          </tr>
-          <tr>
-            <td>Terminal de SAF/HVO (exportação EUA)</td>
-            <td>TSF-M</td>
-            <td>≥ 200 mil m³/ano</td>
-            <td>Obrigatória</td>
-          </tr>
-          <tr>
-            <td rowspan="2">Pipeline</td>
-            <td>Pipeline de etanol (Centro-Sul)</td>
-            <td>PET-L</td>
-            <td>≥ 1000 km</td>
-            <td>Obrigatória</td>
-          </tr>
-          <tr>
-            <td>Pipeline multiproduct (dedicated)</td>
-            <td>PMP-M</td>
-            <td>≥ 500 km</td>
-            <td>Obrigatória</td>
-          </tr>
-          <tr>
-            <td rowspan="2">Frota e Transporte</td>
-            <td>Frota de caminhões tanque (etanol/biodiesel)</td>
-            <td>FCT-L</td>
-            <td>≥ 1000 unidades</td>
-            <td>Recomendada</td>
-          </tr>
-          <tr>
-            <td>Vagões ferroviários (trem etanol)</td>
-            <td>VET-M</td>
-            <td>≥ 500 unidades</td>
-            <td>Recomendada</td>
-          </tr>
-          <tr>
-            <td rowspan="2">Armazenamento</td>
-            <td>Caixa de armazenamento de etanol (fazenda/usina)</td>
-            <td>CAE-S</td>
-            <td>≥ 50 mil m³</td>
-            <td>Recomendada</td>
-          </tr>
-          <tr>
-            <td>Reservatório estratégico (governo/ANP)</td>
-            <td>RES-L</td>
-            <td>≥ 5 milhões m³</td>
-            <td>Obrigatória</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="critical-box">
-        <strong>⚠️ Categorias de Alto Risco Sistêmico — Aplicação Obrigatória Reforçada:</strong><br><br>
-        <strong>HVO de óleos vegetais virgens (HVV-H):</strong> Alto risco de ILUC (Indirect Land Use Change) e desmatamento associado à expansão de soja ou palma. Requer monitoramento contínuo via TFP com σ_ILUC ≥ 0,40.<br><br>
-        <strong>SAF (SAF-L, SAF-M, SAJ-L):</strong> Risco de lock-in em tecnologias de baixa eficiência (HEFA vs. ATJ vs. FT). Requer análise de Lr considerando transição tecnológica prevista para 2030-2040.<br><br>
-        <strong>Hidrogênio de biomassa (H2B-L, H2R-M):</strong> Risco de competição por biomassa com aplicações de maior valor (biogás, etanol 2G). Requer análise de cascata de uso (cascading use) e priorização hierárquica.<br><br>
-        <strong>Terminais de exportação (TET-L, TMP-L, TSF-M):</strong> Risco de captura institucional e externalização de impactos de transporte marítimo (bunker fuels). Requer extensão de TFP para cadeia de suprimentos downstream (shipping).
-      </div>
     </section>
 
     <!-- MÓDULO 2 -->
     <section id="M2" class="article-box">
-      <h2 class="article-title">MÓDULO 2 — ARQUITETURA TFP-c-ECO<br>Threshold Function Protocol para Biofuel Brasil-EUA</h2>
+      <h2 class="article-title">MÓDULO 2 — ARQUITETURA TFP<br>Threshold Function Protocol para Biocombustíveis</h2>
 
-      <h3 id="M2-1" class="doc-subtitle">2.1 Position (P) — Proximidade a Limites de SOS Agroindustrial</h3>
+      <h3 id="M2-1" class="doc-subtitle">2.1 Posição Sistêmica (P)</h3>
 
       <div class="caput">
-        A variável Position (P) no setor de biofuel mede a proximidade da operação aos limites do Safe Operating Space (SOS) biofísico-agricola, considerando dimensões específicas: uso da terra (ILUC), biodiversidade, recursos hídricos, emissões de carbono (CI), e degradação de solos.
-      </div>
-
-      <div class="math-box">
-        <strong>Fórmula de Position Agroindustrial:</strong><br><br>
-        P_biofuel = max(P_ILUC, P_biodiv, P_hídrico, P_carbono, P_solo)<br><br>
-        Onde cada componente é normalizado entre 0 (seguro) e 1 (limite crítico):
+        Mede a distância mensurável do sistema, ativo ou operação em relação ao limite do Safe Operating Space aplicável no contexto de produção de biocombustíveis.
       </div>
 
       <table class="legal-table">
         <thead>
           <tr>
-            <th>Componente P</th>
-            <th>Métrica</th>
-            <th>Fonte de Dados</th>
-            <th>Limite Crítico (P=1)</th>
+            <th>Indicador</th>
+            <th>Fonte Brasil</th>
+            <th>Fonte EUA</th>
+            <th>Limite Integrado</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>P_ILUC</strong></td>
-            <td>Taxa de expansão de área agrícola em hectares/ano</td>
-            <td>MapBiomas, INPE, Agroicone, CARB GTAP</td>
-            <td>Expansão > 10% da área cultivada ou desmatamento > 0</td>
+            <td>Intensidade de Carbono (CI)</td>
+            <td>RenovaBio (gCO2eq/MJ)</td>
+            <td>LCFS (gCO2eq/MJ), GREET model</td>
+            <td>CI ≤ 50% da gasolina fóssil</td>
           </tr>
           <tr>
-            <td><strong>P_biodiv</strong></td>
-            <td>Pressão sobre áreas de alta biodiversidade (KBAs, APAs)</td>
-            <td>ICMBio, CNF, USFWS, NatureServe</td>
-            <td>Operação em buffer < 5km de área protegida</td>
+            <td>Área de Reserva Legal</td>
+            <td>SIGTAP, CAR (Cadastro Ambiental Rural)</td>
+            <td>Conservation Reserve Program (CRP)</td>
+            <td>20% da área total (Amazônia) / 35% (Cerrado)</td>
           </tr>
           <tr>
-            <td><strong>P_hídrico</strong></td>
-            <td>Índice de Pressão de Uso dos Recursos Hídricos (IWR)</td>
-            <td>ANA, USGS WaterWatch, state water agencies</td>
-            <td>IWR > 80% ou balanço hídrico negativo</td>
+            <td>Disponibilidade de Feedstock</td>
+            <td>CONAB, UNICA</td>
+            <td>USDA EIA</td>
+            <td>Buffer de 15% sobre demanda contratada</td>
           </tr>
           <tr>
-            <td><strong>P_carbono</strong></td>
-            <td>Carbon Intensity (CI) vs. baseline (gasolina/diesel)</td>
-            <td>GREET, EPA pathways, CARB LCFS</td>
-            <td>CI > 50% do baseline (perda de vantagem)</td>
-          </tr>
-          <tr>
-            <td><strong>P_solo</strong></td>
-            <td>Perda de matéria orgânica do solo (%/ano)</td>
-            <td>EMBRAPA, USDA NRCS, amostras de solo</td>
-            <td>Perda > 1%/ano ou compactação severa</td>
+            <td>Capacidade de Produção</td>
+            <td>ANP (registro de produtor)</td>
+            <td>EPA (RFS registration)</td>
+            <td>≥ 95% da capacidade instalada declarada</td>
           </tr>
         </tbody>
       </table>
 
-      <div class="highlight-box">
-        <strong>Cálculo de P_ILUC (Indirect Land Use Change):</strong><br><br>
-        P_ILUC = (Área_expandida_anual / Área_total_cultivada) × (Fator_desmatamento × 2)<br><br>
-        Fator_desmatamento = 1 se sem desmatamento detectado<br>
-        Fator_desmatamento = 5 se desmatamento > 10ha (INPE/PRODES)<br>
-        Fator_desmatamento = 10 se desmatamento em bioma crítico (Amazônia, Cerrado core)<br><br>
-        Se P_ILUC > 0,30 → Bandeira Âmbar (atenção)<br>
-        Se P_ILUC > 0,60 → Bandeira Vermelha (Safe Mode)<br>
-        Se P_ILUC > 0,80 + desmatamento confirmado → Bandeira Preta (Restoration First)
-      </div>
-
-      <h3 id="M2-2" class="doc-subtitle">2.2 Velocity (ΔV) — Taxa de Mudança em Variáveis Agroindustriais</h3>
+      <h3 id="M2-2" class="doc-subtitle">2.2 Velocity (ΔV)</h3>
 
       <div class="caput">
-        A variável Velocity (ΔV) mede a rapidez de alteração nas condições sistêmicas do setor de biofuel, capturando dinâmicas de curto prazo que podem levar a transições abruptas ou irreversíveis.
+        Taxa de mudança que captura a dimensão temporal da deterioração ou melhoria dos indicadores sistêmicos em biocombustíveis.
       </div>
 
       <table class="legal-table">
         <thead>
           <tr>
-            <th>Componente ΔV</th>
-            <th>Definição</th>
-            <th>Janela de Tempo</th>
-            <th>Threshold Crítico</th>
+            <th>Indicador</th>
+            <th>Cálculo Brasil</th>
+            <th>Cálculo EUA</th>
+            <th>Gatilho Integrado</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>ΔV_climático-safra</strong></td>
-            <td>Variação de produtividade por estresse climático</td>
-            <td>Safra atual vs. média 5 anos</td>
-            <td>Queda > 30% (severa) ou > 50% (extrema)</td>
+            <td>ΔV_regulatório</td>
+            <td>Mudanças ANP/Lei do Combustível do Futuro</td>
+            <td>EPA RFS rules, LCFS amendments</td>
+            <td>> 2 mudanças significativas/ano</td>
           </tr>
           <tr>
-            <td><strong>ΔV_regulatório</strong></td>
-            <td>Mudanças em RFS, LCFS, RenovaBio, CORSIA</td>
-            <td>12 meses</td>
-            <td>> 2 mudanças significativas/ano ou revisão de pathway</td>
+            <td>ΔV_preço_feedstock</td>
+            <td>Variação preço ATR (açúcar total recuperável)</td>
+            <td>Corn ethanol crush spread</td>
+            <td>> 20% em 30 dias</td>
           </tr>
           <tr>
-            <td><strong>ΔV_mercado</strong></td>
-            <td>Volatilidade de preços (etanol, RINs, LCFS credits, soja)</td>
-            <td>30 dias</td>
-            <td>σ > 25% anualizado ou crash > 40%</td>
+            <td>ΔV_preço_CBIOs/RINs</td>
+            <td>Variação preço CBIOs (B3)</td>
+            <td>Variação RINs (EPA)</td>
+            <td>> 30% em 30 dias</td>
           </tr>
           <tr>
-            <td><strong>ΔV_ILUC</strong></td>
-            <td>Aceleração de expansão agrícola (fronteira móvel)</td>
-            <td>6 meses</td>
-            <td>Taxa de expansão duplicada em relação à média histórica</td>
-          </tr>
-          <tr>
-            <td><strong>ΔV_cadeia</strong></td>
-            <td>Disrupção de supply chain (insumos, logística)</td>
-            <td>30 dias</td>
-            <td>Lead time aumentado > 50% ou indisponibilidade crítica</td>
-          </tr>
-          <tr>
-            <td><strong>ΔV_tecnológico</strong></td>
-            <td>Velocidade de adoção de novas tecnologias (2G, SAF, H2)</td>
-            <td>24 meses</td>
-            <td>Obsolescência tecnológica iminente (Lr < 0,5)</td>
+            <td>ΔV_cambiário</td>
+            <td>Variação PTAX 30d (%)</td>
+            <td>DXY index</td>
+            <td>> 15% em 30 dias</td>
           </tr>
         </tbody>
       </table>
 
-      <div class="math-box">
-        <strong>Fórmula de Velocity Integrado Biofuel:</strong><br><br>
-        ΔV_biofuel = √(ΔV_climático² + ΔV_regulatório² + ΔV_mercado² + ΔV_ILUC² + ΔV_cadeia² + ΔV_tecnológico²)<br><br>
-        Normalização: ΔV ∈ [0, 1] onde 1 = mudança mais rápida observada historicamente no setor
-      </div>
-
-      <h3 id="M2-3" class="doc-subtitle">2.3 Sigma (σ) — Incerteza Estatística Agroindustrial</h3>
+      <h3 id="M2-3" class="doc-subtitle">2.3 Volatilidade Jurídico-Regulatória (σ)</h3>
 
       <div class="caput">
-        A variável Sigma (σ) quantifica a incerteza epistêmica e estatística nas projeções de risco do setor de biofuel, incorporando incertezas climáticas, regulatórias, de modelo (ILUC), e geopolíticas específicas à relação Brasil-EUA.
+        Fator de incerteza que modula todas as outras variáveis, garantindo conservadorismo prudencial na avaliação de riscos transnacionais em biocombustíveis.
       </div>
 
       <table class="legal-table">
         <thead>
           <tr>
-            <th>Componente σ</th>
-            <th>Fonte de Incerteza</th>
-            <th>Magnitude Base</th>
+            <th>Fonte</th>
+            <th>σ base</th>
             <th>Ajuste c-ECO</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>σ_climático</strong></td>
-            <td>Variabilidade interanual de precipitação (ENSO, monções)</td>
-            <td>CV de precipitação (INMET/NOAA)</td>
-            <td>+15% se El Niño/La Niña confirmado</td>
+            <td>Risco político Brasil (eleições, transição)</td>
+            <td>25%</td>
+            <td>+10% em ano eleitoral</td>
           </tr>
           <tr>
-            <td><strong>σ_ILUC_modelo</strong></td>
-            <td>Incerteza em modelos econômicos de uso da terra (GTAP, FAPRI)</td>
-            <td>Intervalo de confiança 95% do fator ILUC</td>
-            <td>+20% se divergência CARB vs. EPA > 30%</td>
+            <td>Risco político EUA (mudança administração, RFS waivers)</td>
+            <td>20%</td>
+            <td>+15% se RFS em risco</td>
           </tr>
           <tr>
-            <td><strong>σ_regulatório_BR</strong></td>
-            <td>Mudanças em RenovaBio, MP da cana, legislação ambiental</td>
-            <td>Volatilidade histórica ANP/MAPA</td>
-            <td>+10% em ano eleitoral ou transição governamental</td>
+            <td>Risco de certificação (RenovaBio/RINs)</td>
+            <td>15%</td>
+            <td>+10% se auditoria pendente</td>
           </tr>
           <tr>
-            <td><strong>σ_regulatório_US</strong></td>
-            <td>Revisões anuais RFS (EPA), LCFS amendments (CARB), IRA changes</td>
-            <td>Volatilidade RINs/LCFS prices</td>
-            <td>+15% se risco de retrocessão climática (mudança administração)</td>
+            <td>Risco de ILUC (emissões indiretas)</td>
+            <td>20%</td>
+            <td>+15% se expansão para novas áreas</td>
           </tr>
           <tr>
-            <td><strong>σ_geopolítico</strong></td>
-            <td>Tensões comerciais Brasil-EUA (tarifas, subsídios)</td>
-            <td>Histórico de disputas WTO (cotton, ethanol)</td>
-            <td>+25% se investigação WTO ou ameaça tarifária ativa</td>
-          </tr>
-          <tr>
-            <td><strong>σ_científico</strong></td>
-            <td>Incerteza em ciência de solo, biodiversidade, feedbacks climáticos</td>
-            <td>Range de projeções IPCC, FAO</td>
-            <td>+10% se novos estudos contraditórios (ex: ILUC de milho)</td>
+            <td>Risco de sanções secundárias (OFAC)</td>
+            <td>15%</td>
+            <td>+10% se feedstock de origem controversa</td>
           </tr>
         </tbody>
       </table>
 
       <div class="math-box">
-        <strong>Fórmula de Sigma Integrado Biofuel:</strong><br><br>
-        σ_integrado = √(σ_BR² + σ_US² + 2ρσ_BRσ_US) + σ_geopolítico + σ_ILUC_modelo<br><br>
+        <strong>Composição do σ integrado:</strong><br><br>
+        σ_integrado = √(σ_BR² + σ_US² + 2×ρ×σ_BR×σ_US) + σ_regulatório<br><br>
+        Onde ρ = correlação histórica de risco Brasil-EUA no setor de biofuels (tipicamente 0,2-0,4)
+      </div>
+
+      <h3 id="M2-4" class="doc-subtitle">2.4 Liquidez de Reversibilidade (Lr)</h3>
+
+      <div class="caput">
+        Capacidade de ajuste de rotas e reversão de impactos calculada considerando recursos em ambas as moedas e jurisdições, com stress test cambial integrado.
+      </div>
+
+      <div class="math-box">
+        <strong>Fórmula do Lr transnacional:</strong><br><br>
+        Lr_transnacional = min(Lr_local, Lr_convertido)<br><br>
         Onde:<br>
-        • σ_BR = √(σ_climático_BR² + σ_regulatório_BR² + σ_mercado_BR²)<br>
-        • σ_US = √(σ_regulatório_US² + σ_mercado_US² + σ_científico_US²)<br>
-        • ρ = correlação entre regimes (tipicamente 0,3-0,5)<br>
-        • σ_geopolítico = premium adicional (0,10-0,25)<br><br>
-        <strong>Regra de In Dubio Pro Systema:</strong> Se σ_integrado > 0,30, aplicar fator de precaução 1,5x em todos os thresholds de P e ΔV.
+        • Lr_local = Recursos em Reais / Custo de reversão em Reais<br>
+        • Lr_convertido = (Recursos em USD × hedge rate) / (Custo de reversão em USD × FX stress)<br><br>
+        FX stress = PTAX spot × (1 + σ_cambiário × 2)<br><br>
+        Se hedge cambial < 80% do exposure → σ_cambiário aumenta 25%
       </div>
 
-      <h3 id="M2-4" class="doc-subtitle">2.4 Lr Transnacional — Liquidez de Reversibilidade Agroindustrial</h3>
+      <h3 id="M2-5" class="doc-subtitle">2.5 Matriz Regulatória Comparada (ANP/EPA/RFS)</h3>
 
       <div class="caput">
-        A Liquidez de Reversibilidade (Lr) no setor de biofuel mede a capacidade financeira e técnica de reverter operações agroindustriais, restaurar áreas degradadas, compensar ILUC, e transicionar para tecnologias alternativas, considerando a estrutura bilateral Brasil-EUA.
+        Conversão de bandas c-ECO para requisitos regulatórios de ambos os países no setor de biocombustíveis.
       </div>
 
       <table class="legal-table">
         <thead>
           <tr>
-            <th>Componente Lr</th>
-            <th>Definição</th>
-            <th>Cálculo</th>
-            <th>Threshold</th>
+            <th>Banda c-ECO</th>
+            <th>Equivalente RenovaBio</th>
+            <th>Equivalente EPA RFS</th>
+            <th>Equivalente CARB LCFS</th>
+            <th>Ação Obrigatória</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>Lr_operacional</strong></td>
-            <td>Capacidade de manter operações em stress</td>
-            <td>(Caixa + LC + Seguro safra) / (Custo colheita + processamento)</td>
-            <td>≥ 1,2 (cobertura 120%)</td>
+            <td>Verde (80-100)</td>
+            <td>Certificação plena</td>
+            <td>RINs generation normal</td>
+            <td>CI abaixo do benchmark</td>
+            <td>Relatório trimestral ANP/EPA</td>
           </tr>
           <tr>
-            <td><strong>Lr_restauração_solo</strong></td>
-            <td>Reserva para recuperação de áreas degradadas</td>
-            <td>Fundo de recuperação / Custo médio de restauração (R$/ha)</td>
-            <td>≥ 1,5 (cobertura 150%)</td>
+            <td>Âmbar (60-79)</td>
+            <td>Auditoria extraordinária</td>
+            <td>Heightened scrutiny</td>
+            <td>CI approaching benchmark</td>
+            <td>Relatório mensal + notificação</td>
           </tr>
           <tr>
-            <td><strong>Lr_compensação_ILUC</strong></td>
-            <td>Capacidade de compensar desmatamento/expansão</td>
-            <td>Fundo de compensação / Custo de recomposição de RL/APP</td>
-            <td>≥ 2,0 (cobertura 200%)</td>
+            <td>Vermelho (40-59)</td>
+            <td>Suspensão de CBIOs</td>
+            <td>RINs invalidation risk</td>
+            <td>Deficit de compliance</td>
+            <td>Notificação imediata ANP/EPA</td>
           </tr>
           <tr>
-            <td><strong>Lr_transição_tecnológica</strong></td>
-            <td>Reserva para upgrade 1G→2G ou transição SAF/H2</td>
-            <td>Reserva tecnológica / CAPEX de transição</td>
-            <td>≥ 0,8 (cobertura 80% do CAPEX)</td>
-          </tr>
-          <tr>
-            <td><strong>Lr_descomissionamento</strong></td>
-            <td>Reserva para desativação segura (remediação)</td>
-            <td>Trust de descomissionamento / Custo estimado</td>
-            <td>≥ 1,0 (cobertura 100%)</td>
+            <td>Preto (<40)</td>
+            <td>Cancelamento de registro</td>
+            <td>RFS violation</td>
+            <td>Enforcement action</td>
+            <td>Intervenção regulatória total</td>
           </tr>
         </tbody>
       </table>
+    </section>
 
-      <div class="math-box">
-        <strong>Fórmula de Lr Transnacional Biofuel:</strong><br><br>
-        Lr_biofuel = min(Lr_operacional, Lr_restauração_solo, Lr_compensação_ILUC, Lr_transição_tecnológica, Lr_descomissionamento)<br><br>
-        <strong>Estrutura Bilateral de Reservas:</strong><br>
-        Reserva_Total = 40% USD (T-bills/agency bonds) + 30% BRL (NTN-Bs/LFTs) + 15% LC standby + 10% MIGA/OPIC + 5% Corporate Guarantee<br><br>
-        <strong>Ajustes de Stress:</strong><br>
-        • Se σ_ILUC > 0,30 → Lr reduzido em 20% (prudência)<br>
-        • Se detecção desmatamento > 10ha → Lr < 0,5 (Restoration First)<br>
-        • Se El Niño forte → Lr_operacional reduzido em 15%<br>
-        • Se revisão de pathway EPA/CARB → Lr_transição aumentado em 25%
-      </div>
+    <!-- MÓDULO 3 — CLÁUSULAS CONTRATUAIS -->
+    <section id="M3" class="article-box">
+      <h2 class="article-title">MÓDULO 3 — CLÁUSULAS CONTRATUAIS<br>Templates Jurídicos c-ECO e Transnacionais BR-US</h2>
 
-      <h3 id="M2-5" class="doc-subtitle">2.5 Tabela Integrada de Calibração EPA/ANP/Mapa</h3>
+      <div class="chapter-title" style="margin-top: 40px;">TEMPLATES FUNDAMENTAIS C-ECO</div>
+
+      <h3 id="M3-1" class="doc-subtitle">3.1 Objeto Condicionado</h3>
 
       <div class="caput">
-        Tabela de calibração integrada das variáveis TFP com requisitos regulatórios específicos das agências americanas (EPA, CARB) e brasileiras (ANP, MAPA, IBAMA), estabelecendo correspondências e gatilhos conjuntos.
+        Sob o Framework c-ECO, o objeto imediato de qualquer relação jurídica está condicionado à preservação da estabilidade biofísica. O cumprimento de qualquer obrigação será válido e exequível apenas enquanto forem verificadas efetivamente as condições sistêmicas.
       </div>
 
-      <table class="legal-table">
-        <thead>
-          <tr>
-            <th>Variável TFP</th>
-            <th>EPA (RFS/RIN)</th>
-            <th>CARB (LCFS)</th>
-            <th>ANP (RenovaBio)</th>
-            <th>MAPA/IBAMA</th>
-            <th>Gatilho c-ECO</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>P_ILUC</td>
-            <td>Pathway validation; indirect effects review</td>
-            <td>GTAP model; ILUC factor > threshold</td>
-            <td>Indicador de sustentabilidade (IS)</td>
-            <td>CAR, SIGTAP, SIGMINE</td>
-            <td>P_ILUC > 0,60 → Safe Mode</td>
-          </tr>
-          <tr>
-            <td>P_carbono (CI)</td>
-            <td>Lifecycle GHG (GREET); 20% reduction vs gasoline</td>
-            <td>CI score; carbon intensity benchmark</td>
-            <td>Emissões evitadas (CBios)</td>
-            <td>SEEG, INVENTÁRIO DE EMISSÕES</td>
-            <td>CI > 50% baseline → Bandeira Vermelha</td>
-          </tr>
-          <tr>
-            <td>ΔV_regulatório</td>
-            <td>RVO (Renewable Volume Obligation) changes</td>
-            <td>LCFS amendments; credit price volatility</td>
-            <td>Metas de descarbonização ANP</td>
-            <td>Alterações na legislação ambiental</td>
-            <td>ΔV > 0,40 + σ > 0,30 → IEX trigger</td>
-          </tr>
-          <tr>
-            <td>σ_ILUC_modelo</td>
-            <td>Uncertainty range in RIA (Regulatory Impact Analysis)</td>
-            <td>Model sensitivity; scenario analysis</td>
-            <td>Incerteza em fatores de emissão</td>
-            <td>Incerteza em dados de desmatamento</td>
-            <td>σ > 0,35 → In Dubio Pro Systema</td>
-          </tr>
-          <tr>
-            <td>Lr_compensação</td>
-            <td>Replacement RINs; retirement obligations</td>
-            <td>Credit surrender; deficit carryover</td>
-            <td>Compensação de CBios; ajustes</td>
-            <td>Compensação de RL/APP; reserva legal</td>
-            <td>Lr < 1,0 → Cash sweep obrigatório</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="highlight-box">
+        <strong>CLÁUSULA X.X — OBJETO IMEDIATO CONDICIONADO</strong><br><br>
+        "O objeto deste contrato de [fornecimento de biocombustível/parceria tecnológica/offtake SAF] está condicionado à manutenção das condições sistêmicas que assegurem:<br>
+        (a) A estabilidade do Safe Operating Space (SOS) definido pelo Calibration Council;<br>
+        (b) A compatibilidade da intensidade de carbono (CI) com os limites RenovaBio/RFS/LCFS;<br>
+        (c) A rastreabilidade certificada do feedstock segundo ISCC/Bonsucro;<br>
+        (d) A reversibilidade técnica dos impactos projetados."<br><br>
+        <strong>§1º Suspensão Funcional Automática:</strong> Diante de certificação técnica objetiva de instabilidade sistêmica, a obrigação será suspensa automaticamente ex lege, independentemente de inadimplemento, notificação ou declaração judicial.<br><br>
+        <strong>§2º Ordem Pública Material:</strong> O condicionamento sistêmico do objeto imediato constitui regra de ordem pública material e é indisponível.
+      </div>
+
+      <h3 id="M3-2" class="doc-subtitle">3.2 IEX — Inexecutabilidade Ex-Ante</h3>
+
+      <div class="caput">
+        Categoria jurídica autônoma pela qual a exequibilidade de obrigações é suspensa automaticamente quando análise técnica preditiva indica trajetória incompatível com a estabilidade do SOS.
+      </div>
+
+      <div class="warning-box">
+        <strong>Distinção Fundamental:</strong> A IEX não se confunde com inadimplemento, impossibilidade superveniente, força maior, caso fortuito, hardship ou alteração adversa material.
+      </div>
+
+      <div class="highlight-box">
+        <strong>CLÁUSULA Y.Y — INEXECUTABILIDADE EX-ANTE (IEX)</strong><br><br>
+        "A exequibilidade das obrigações contratuais fica condicionada à compatibilidade da trajetória técnica da operação com o Safe Operating Space.<br><br>
+        <strong>Gatilhos Específicos Biofuel:</strong><br>
+        • CI (Intensidade de Carbono) excede 120% do valor contratado;<br>
+        • Feedstock perde certificação de sustentabilidade (ISCC, Bonsucro);<br>
+        • Área de cultivo identificada em desmatamento ilegal (SIGTAP);<br>
+        • Revogação de registro RenovaBio ou invalidação de RINs.<br><br>
+        <strong>§1º Circuit Breaker Jurídico:</strong> A IEX opera como circuit breaker jurídico automático, ativado exclusivamente por dados técnicos e sensoriais certificados.<br><br>
+        <strong>§2º Efeitos Jurídicos Automáticos:</strong><br>
+        I — Suspensão imediata da exequibilidade da obrigação;<br>
+        II — Proibição de qualquer ato que agrave, consolide ou acelere a trajetória incompatível;<br>
+        III — Precedência de contenção sistêmica ou reconfiguração funcional da obrigação.
+      </div>
+
+      <h3 id="M3-3" class="doc-subtitle">3.3 Garantias Regenerativas</h3>
+
+      <div class="caput">
+        As garantias estão juridicamente condicionadas à contínua viabilidade biofísica do ativo subjacente e ao alinhamento operacional com o SOS aplicável.
+      </div>
+
+      <div class="critical-box">
+        <strong>Conversão Automática:</strong> A ocorrência de colapso sistêmico resulta ex lege na conversão automática da garantia em Obrigação de Restauração Sistêmica.
+      </div>
+
+      <div class="highlight-box">
+        <strong>CLÁUSULA Z.Z — GARANTIAS REGENERATIVAS</strong><br><br>
+        "As garantias constituídas neste contrato são materialmente acessórias às condições ecológicas que sustentam a integridade funcional do ativo subjacente.<br><br>
+        <strong>§1º Ineficácia de Desacoplamento:</strong> Qualquer arranjo contratual destinado a desacoplar exposição financeira da integridade ecológica é ineficaz.<br><br>
+        <strong>§2º Conversão Automática:</strong> Na ocorrência de colapso sistêmico certificado pelo DAA, a garantia converte-se automaticamente em Obrigação de Restauração Sistêmica.<br><br>
+        <strong>§3º Prioridade Absoluta de Restauração:</strong> Todos os valores vinculados à garantia convertida constituem ativos segregados de restauração e serão alocados exclusivamente para:<br>
+        (a) Restauração ecológica imediata do ativo degradado;<br>
+        (b) Compensação de emissões excedentes (créditos de carbono);<br>
+        (c) Reabilitação de áreas impactadas por feedstock;<br>
+        (d) Compensação sistêmica para comunidades afetadas.
+      </div>
+
+      <h3 id="M3-4" class="doc-subtitle">3.4 Prova Sistêmica</h3>
+
+      <div class="caput">
+        Evidência técnica objetiva derivada de dados sensoriais certificados continuamente monitorados, capaz de demonstrar estado, trajetória e reversibilidade dos impactos.
+      </div>
 
       <div class="success-box">
-        <strong>Score SPS (Systemic Position Score) para Biofuel:</strong><br><br>
-        SPS = w_P × P + w_ΔV × ΔV + w_σ × σ + w_Lr × (1 - Lr)<br><br>
-        Pesos recomendados para biofuel:<br>
-        • w_P = 0,35 (proximidade a limites é crítica)<br>
-        • w_ΔV = 0,25 (velocidade de mudança no agro é alta)<br>
-        • w_σ = 0,25 (incerteza de ILUC é significativa)<br>
-        • w_Lr = 0,15 (reversibilidade é desafiadora no agro)<br><br>
-        <strong>Classificação:</strong><br>
-        • SPS < 0,30: Bandeira Verde (Normal)<br>
-        • 0,30 ≤ SPS < 0,50: Bandeira Âmbar (Atenção)<br>
-        • 0,50 ≤ SPS < 0,70: Bandeira Vermelha (Safe Mode)<br>
-        • SPS ≥ 0,70: Bandeira Preta (Restoration First)
-      </div>
-    </section>
-
-    <!-- MÓDULO 3 -->
-    <section id="M3" class="article-box">
-      <h2 class="article-title">MÓDULO 3 — CLÁUSULAS CONTRATUAIS EXECUTÁVEIS<br>Templates Jurídicos para Biofuel Brasil-EUA</h2>
-
-      <h3 id="M3-1" class="doc-subtitle">3.1 CVS-T BR-US Biofuel — Condição de Viabilidade Sistêmica Transnacional</h3>
-
-      <div class="caput" style="font-family: 'Courier New', monospace; font-size: 14px; background: #f8f9fa; padding: 20px; border-left: 4px solid var(--gold-accent);">
-        <strong>CLÁUSULA CVS-T BR-US — EDIÇÃO BIOFUEL</strong><br><br>
-        <strong>CONDIÇÃO DE VIABILIDADE SISTÊMICA TRANSNACIONAL (CVS-T)</strong><br><br>
-        <strong>1. APLICAÇÃO DUAL E NEXUS JURISDICIONAL</strong><br>
-        1.1. Este contrato de offtake/supply de [etanol/biodiesel/HVO/SAF] está sujeito simultaneamente às leis do Brasil (Código Civil, Lei 13.874/2019, ANP, MAPA, IBAMA) e, quanto às obrigações do Comprador/Investidor americano, às leis do Estado de [Nova York/Delaware] e às regulamentações federais aplicáveis dos EUA (RFS/LCFS/FCPA/OFAC/EAR).<br><br>
-        1.2. O objeto imediato — fornecimento de biocombustível para cumprimento de RFS/RIN ou LCFS credits — está condicionado à preservação do Safe Operating Space (SOS) biofísico-agricola bilateral, conforme definido no Protocolo TFP-c-ECO anexo.<br><br>
-        <strong>2. DEFINIÇÃO DE OBJETO CONDICIONADO</strong><br>
-        2.1. "Objeto Condicionado" significa que a eficácia, validade e exigibilidade das obrigações de fornecimento e pagamento estão subordinadas à manutenção das seguintes condições sistêmicas:<br>
-        (a) P_ILUC < 0,60 (sem desmatamento detectado > 10ha);<br>
-        (b) CI (Carbon Intensity) ≤ 50% do baseline de gasolina/diesel;<br>
-        (c) Certificação ativa de [RFS pathway/LCFS verification/Bonsucro/ISCC];<br>
-        (d) Lr_compensação ≥ 2,0 (capacidade de compensar ILUC).<br><br>
-        2.2. O fornecedor declara que a matéria-prima ([cana-de-açúcar/milho/soja/óleos residuais]) atende aos critérios de zero desmatamento líquido (deforestation-free) e não origina de áreas de expansão da fronteira agrícola após [data de corte: 31/12/2020].<br><br>
-        <strong>3. GATILHOS DE SUSPENSÃO E RESTORATION FIRST</strong><br>
-        3.1. <strong>Bandeira Vermelha (Safe Mode):</strong> Se P_ILUC ≥ 0,60 ou CI > 50% baseline, aciona-se automaticamente:<br>
-        (a) Suspensão temporária de novos embarques (standstill 90 dias);<br>
-        (b) Cash sweep de 30% do recebível para Fundo de Restauração;<br>
-        (c) Notificação obrigatória à EPA/CARB e ANP.<br><br>
-        3.2. <strong>Bandeira Preta (Restoration First):</strong> Se desmatamento > 100ha confirmado ou P_ILUC ≥ 0,80:<br>
-        (a) Rescisão automática do contrato sem penalidade ao comprador;<br>
-        (b) Obrigação de restauração imediata do fornecedor (custos próprios);<br>
-        (c) Perda de direito a RINs/LCFS credits gerados no período;<br>
-        (d) Execução de garantias sistêmicas (Lr_compensação).<br><br>
-        <strong>4. COMPLIANCE DUAL E CERTIFICAÇÃO</strong><br>
-        4.1. O fornecedor manterá certificação simultânea válida perante:<br>
-        (a) EPA (RFS pathway approval, QAP - Quality Assurance Program);<br>
-        (b) CARB (LCFS verification, se aplicável);<br>
-        (c) ANP (RenovaBio, cadastro de biocombustíveis);<br>
-        (d) Certificação voluntária (Bonsucro, ISCC EU/PLUS, RSB).<br><br>
-        4.2. A não-manutenção de qualquer certificação por > 30 dias constitui evento de default sistêmico, independentemente de inadimplemento contratual tradicional.<br><br>
-        <strong>5. RASTREABILIDADE E PROVA SISTÊMICA</strong><br>
-        5.1. O fornecedor implementará sistema de rastreabilidade de mass balance ou segregação (conforme ISCC/Bonsucro), integrado ao Data Bridge Brasil-EUA (Módulo 1).<br><br>
-        5.2. Dados de geolocalização de canaviais/plantações serão compartilhados com DAA certificado bilateral, com retenção mínima de 7 anos.<br><br>
-        5.3. Análise isotópica (δ¹³C, δ¹⁸O) poderá ser exigida pelo comprador para verificação de origem do etanol, a critério do DAA.<br><br>
-        <strong>6. GOVERNANÇA E DAA</strong><br>
-        6.1. As partes designam como Designated Assessment Authority (DAA) conjunto: [Entidade certificada MAPA/INMETRO no Brasil + EPA-recognized verifier nos EUA].<br><br>
-        6.2. O DAA emitirá parecer técnico mensal sobre conformidade com TFP-c-ECO, vinculante para efeitos de gatilhos contratuais.<br><br>
-        <strong>7. LEI APLICÁVEL E ARBITRAGEM</strong><br>
-        7.1. Lei substantiva: [Nova York/Delaware] para interpretação de cláusulas c-ECO; lei brasileira para aspectos de propriedade e operação.<br><br>
-        7.2. Arbitragem: Câmara de Comércio Internacional (ICC), sede em Miami, com painel de 3 árbitros (1 brasileiro, 1 americano, 1 presidente neutro).<br><br>
-        7.3. <strong>Arbitragem de Emergência (DREAP):</strong> Disputas sobre gatilhos c-ECO serão decididas em procedimento acelerado (72 horas) conforme Anexo DREAP.
+        <strong>Presunção de Veracidade:</strong> Os dados sensoriais certificados são presumidos verdadeiros, íntegros e suficientes para fins de avaliação de conformidade sistêmica, salvo prova técnica conclusiva de falha material do sistema de medição.
       </div>
 
-      <h3 id="M3-2" class="doc-subtitle">3.2 Cláusula de Indirect Land Use Change (ILUC) e Degradação de Solo</h3>
-
-      <div class="caput" style="font-family: 'Courier New', monospace; font-size: 14px; background: #f8f9fa; padding: 20px; border-left: 4px solid var(--gold-accent);">
-        <strong>CLÁUSULA ILUC-DEGRADAÇÃO — ANEXO À CVS-T</strong><br><br>
-        <strong>1. DEFINIÇÃO DE ILUC MONITORÁVEL</strong><br>
-        1.1. "ILUC Direto" é a mudança de uso da terra diretamente causada pela expansão da área cultivada para produção de feedstock do biocombustível coberto por este contrato.<br><br>
-        1.2. "ILUC Indireto" é a mudança de uso da terra em locais distintos, induzida por deslocamento de atividades agrícolas ou alteração de preços de commodities causada pela expansão do projeto.<br><br>
-        <strong>2. THRESHOLDS DE ILUC E GATILHOS</strong><br>
-        <table style="width:100%; border-collapse: collapse; margin: 10px 0; font-size: 12px;">
-          <tr style="background: #1a2b3c; color: white;">
-            <th style="padding: 8px; border: 1px solid #ccc;">Métrica</th>
-            <th style="padding: 8px; border: 1px solid #ccc;">Bandeira Verde</th>
-            <th style="padding: 8px; border: 1px solid #ccc;">Bandeira Âmbar</th>
-            <th style="padding: 8px; border: 1px solid #ccc;">Bandeira Vermelha</th>
-            <th style="padding: 8px; border: 1px solid #ccc;">Bandeira Preta</th>
-          </tr>
-          <tr>
-            <td style="padding: 8px; border: 1px solid #ccc;">Desmatamento detectado</td>
-            <td style="padding: 8px; border: 1px solid #ccc;">0 ha</td>
-            <td style="padding: 8px; border: 1px solid #ccc;">1-10 ha</td>
-            <td style="padding: 8px; border: 1px solid #ccc;">10-100 ha</td>
-            <td style="padding: 8px; border: 1px solid #ccc;">> 100 ha</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px; border: 1px solid #ccc;">Expansão de fronteira agrícola</td>
-            <td style="padding: 8px; border: 1px solid #ccc;">< 5% área/ano</td>
-            <td style="padding: 8px; border: 1px solid #ccc;">5-15%</td>
-            <td style="padding: 8px; border: 1px solid #ccc;">15-30%</td>
-            <td style="padding: 8px; border: 1px solid #ccc;">> 30%</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px; border: 1px solid #ccc;">Degradação de solo</td>
-            <td style="padding: 8px; border: 1px solid #ccc;">Perda < 0,3%/ano</td>
-            <td style="padding: 8px; border: 1px solid #ccc;">0,3-0,5%/ano</td>
-            <td style="padding: 8px; border: 1px solid #ccc;">0,5-1,0%/ano</td>
-            <td style="padding: 8px; border: 1px solid #ccc;">> 1,0%/ano</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px; border: 1px solid #ccc;">Compactação severa</td>
-            <td style="padding: 8px; border: 1px solid #ccc;">Ausente</td>
-            <td style="padding: 8px; border: 1px solid #ccc;">Localizada < 10%</td>
-            <td style="padding: 8px; border: 1px solid #ccc;">Moderada 10-25%</td>
-            <td style="padding: 8px; border: 1px solid #ccc;">Extensiva > 25%</td>
-          </tr>
-        </table>
-
-        <strong>3. MECANISMOS DE MITIGAÇÃO OBRIGATÓRIOS</strong><br>
-        3.1. <strong>Buffer de ILUC:</strong> O fornecedor manterá reserva de área equivalente a 20% da área cultivada como buffer de compensação de ILUC, registrada em CAR ou reserva legal.<br><br>
-        3.2. <strong>Rotação de Culturas:</strong> Obrigatoriedade de rotação mínima 3 anos (cana → leguminosa → pasto/cana) em áreas identificadas com risco de degradação.<br><br>
-        3.3. <strong>Recuperação de Áreas Degradadas:</strong> Compromisso de recuperação de áreas degradadas prévias à expansão (ratio 1:1 para área nova cultivada).<br><br>
-        <strong>4. MONITORAMENTO E VERIFICAÇÃO</strong><br>
-        4.1. Monitoramento via satélite (Landsat-8, Sentinel-2) com resolução mínima 10m, atualização mensal.<br><br>
-        4.2. Auditoria de solo anual (amostragem de matéria orgânica, densidade aparente) por laboratório certificado (EMBRAPA/USDA equivalent).<br><br>
-        4.3. Relatório de ILUC anual integrado ao DAA bilateral, submetido à EPA/CARB e ANP/IBAMA.
+      <div class="highlight-box">
+        <strong>CLÁUSULA W.W — PROVA SISTÊMICA E DADOS CERTIFICADOS</strong><br><br>
+        "Para todos os fins de avaliação de conformidade, ativação de gatilhos e resolução de disputas, prevalece a Prova Sistêmica sobre qualquer outra forma de evidência.<br><br>
+        <strong>Hierarquia Evidenciária Biofuel:</strong><br>
+        1º Caminho — Sensores de campo e SIGTAP: geolocalização de canaviais, monitoramento de desmatamento, sensores de produtividade (prevalente);<br>
+        2º Caminho — Modelos GREET/LCA: cálculo de intensidade de carbono (CI), autorizado pelo Calibration Council;<br>
+        3º Caminho — Certificações de cadeia: ISCC, Bonsucro, RenovaBio (subsidiário).<br><br>
+        <strong>§2º Oponibilidade Erga Omnes:</strong> A Prova Sistêmica produz efeitos imediatos e é oponível erga omnes, legitimando ativação de travas automáticas, IEX e perclusão sistêmica.<br><br>
+        <strong>§3º Ônus do Desafio Técnico:</strong> O ônus de contestar a Prova Sistêmica recai integralmente sobre a parte que a contesta, sem suspensão dos efeitos sistêmicos durante verificação pendente.
       </div>
 
-      <h3 id="M3-3" class="doc-subtitle">3.3 Join Duty Transnacional — Governança de Cadeia de Suprimentos</h3>
+      <div class="chapter-title" style="margin-top: 60px;">TEMPLATES TRANSNACIONAIS BR-US</div>
 
-      <div class="caput" style="font-family: 'Courier New', monospace; font-size: 14px; background: #f8f9fa; padding: 20px; border-left: 4px solid var(--gold-accent);">
-        <strong>CLÁUSULA JDT-BIOFUEL — JOIN DUTY TRANSNACIONAL</strong><br><br>
-        <strong>1. EXTENSÃO DE RESPONSABILIDADE SISTÊMICA</strong><br>
-        1.1. As partes reconhecem que riscos sistêmicos em biofuel (ILUC, desmatamento, degradação) frequentemente originam-se em níveis upstream da cadeia de suprimentos (fornecedores de cana, milho, óleos, logística).<br><br>
-        1.2. Estabelece-se "Join Duty" (Dever de Solidariedade Sistêmica) entre todas as entidades da cadeia: produtores rurais, usinas, traders, exportadores, importadores, refinadores, e off-takers.<br><br>
-        <strong>2. OBRIGAÇÕES DE GOVERNANÇA DE CADEIA</strong><br>
-        2.1. <strong>Due diligence de fornecedores:</strong> O fornecedor direto (usina/trader) deve:<br>
-        (a) Mapear 100% dos fornecedores de feedstock (nível 1);<br>
-        (b) Realizar due diligence c-ECO em fornecedores críticos (> 20% do volume);<br>
-        (c) Incluir cláusulas c-ECO em contratos com fornecedores (cascading clauses).<br><br>
-        2.2. <strong>Monitoramento conjunto:</strong> Implementação de plataforma compartilhada de monitoramento de ILUC/desmatamento (ex: MapBiomas + Global Forest Watch + TRASE).<br><br>
-        2.3. <strong>Joint Liability:</strong> Em caso de violação de SOS por fornecedor upstream, todas as partes da cadeia são solidariamente responsáveis por mitigação, sujeitas a contribuição proporcional ao volume comercializado.<br><br>
-        <strong>3. MECANISMOS DE GOVERNANÇA</strong><br>
-        3.1. <strong>Comitê de Cadeia c-ECO:</strong> Formado por representantes de cada elo da cadeia (mínimo 5 entidades), com reuniões trimestrais e poder de:<br>
-        (a) Suspender fornecedores não-conformes;<br>
-        (b) Aprovar planos de remediação;<br>
-        (c) Alocar recursos do Fundo de Restauração conjunto.<br><br>
-        3.2. <strong>Fundo de Resiliência de Cadeia:</strong> Contribuição de US$ 0,10/m³ de etanol ou equivalente, administrado por trustee independente (NY/Delaware), para:<br>
-        (a) Compensação de ILUC não-previsto;<br>
-        (b) Transição de fornecedores para práticas regenerativas;<br>
-        (c) Resiliência climática (seguro safra conjunto).<br><br>
-        <strong>4. TRANSPARÊNCIA E REPORTING</strong><br>
-        4.1. Publicação anual de "Supply Chain Sustainability Report" incluindo:<br>
-        (a) Mapa de fornecedores (geolocalização);<br>
-        (b) Resultados de auditorias c-ECO;<br>
-        (c) Métricas de ILUC agregadas;<br>
-        (d) Ações corretivas e status de remediação.<br><br>
-        4.2. Disponibilização de dados brutos (anonimizados) para pesquisa acadêmica e validação de modelos ILUC.
-      </div>
-
-      <h3 id="M3-4" class="doc-subtitle">3.4 Cláusula de Rastreabilidade de Carbono e Mass Balance</h3>
-
-      <div class="caput" style="font-family: 'Courier New', monospace; font-size: 14px; background: #f8f9fa; padding: 20px; border-left: 4px solid var(--gold-accent);">
-        <strong>CLÁUSULA RCC — RASTREABILIDADE DE CARBONO CERTIFICADA</strong><br><br>
-        <strong>1. SISTEMAS DE RASTREABILIDADE</strong><br>
-        1.1. O fornecedor implementará um dos seguintes sistemas, conforme aprovação do Comprador:<br>
-        (a) <strong>Segregação (Segregated):</strong> Biocombustível sustentável mantido fisicamente separado durante toda a cadeia;<br>
-        (b) <strong>Balanço de Massa (Mass Balance):</strong> Mistura física permitida, com contabilidade rigorosa de créditos sustentáveis;<br>
-        (c) <strong>Book-and-Claim:</strong> Aplicável apenas a SAF, com certificação via CORSIA/ICAO.<br><br>
-        <strong>2. REQUISITOS DE MASS BALANCE</strong><br>
-        2.1. Sistema de contabilidade dupla: física (volumes) e atributos (sustentabilidade).<br><br>
-        2.2. Período de compensação máximo: 3 meses (rolling average).<br><br>
-        2.3. Coeficiente de conversão: Documentação de yield de processo (litros de etanol por tonelada de cana/milho).<br><br>
-        2.4. Auditoria contínua por DAA certificado em ISCC EU/PLUS ou equivalente.<br><br>
-        <strong>3. RASTREIO DE CARBON INTENSITY (CI)</strong><br>
-        3.1. Cada lote deve ter CI calculado via:<br>
-        (a) Modelo GREET (EPA) para exportação EUA;<br>
-        (b) Metodologia CARB para LCFS;<br>
-        (c) Metodologia ANP para RenovaBio (CBios).<br><br>
-        3.2. Integração de dados de:<br>
-        • Uso de diesel agrícola (GPS de máquinas, faturamento);<br>
-        • Aplicação de fertilizantes nitrogenados (inventário, N2O);<br>
-        • Processo industrial (consumo de energia, bagasse/cogeração);<br>
-        • Transporte e distribuição (modal, distância).<br><br>
-        <strong>4. CERTIFICAÇÃO DE LOTES E RINS/LCFS</strong><br>
-        4.1. Geração de RINs (Renewable Identification Numbers) sujeita a:<br>
-        (a) Verificação de sustentabilidade por QAP (Quality Assurance Plan);<br>
-        (b) Conformidade com c-ECO (P_ILUC, CI);<br>
-        (c) Registro no EMTS (EPA Moderated Transaction System).<br><br>
-        4.2. Geração de LCFS credits sujeita a:<br>
-        (a) Verificação por terceira parte aprovada pela CARB;<br>
-        (b) CI score abaixo do benchmark;<br>
-        (c) Reporte no LCFS Reporting System.<br><br>
-        4.3. <strong>Invalidação de Créditos:</strong> Se verificação posterior indicar não-conformidade com c-ECO (ex: ILUC não-declarado), RINs/LCFS credits são invalidados e devem ser repostos (replacement) pelo fornecedor, com penalidades.
-      </div>
-
-      <h3 id="M3-5" class="doc-subtitle">3.5 DREAP — Dispute Resolution and Emergency Arbitration Protocol</h3>
-
-      <div class="caput" style="font-family: 'Courier New', monospace; font-size: 14px; background: #f8f9fa; padding: 20px; border-left: 4px solid var(--gold-accent);">
-        <strong>ANEXO DREAP — EDIÇÃO BIOFUEL BR-US</strong><br><br>
-        <strong>1. OBJETIVO</strong><br>
-        Protocolo de resolução de disputas e arbitragem de emergência para litígios envolvendo gatilhos c-ECO em contratos de biofuel, visando decisão em 72 horas para preservação de SOS.<br><br>
-        <strong>2. ESCOPO DE APLICAÇÃO</strong><br>
-        Aplica-se a:<br>
-        (a) Disputas sobre ativação de gatilhos (Bandeira Vermelha/Preta);<br>
-        (b) Suspensão de fornecimento por Safe Mode;<br>
-        (c) Execução de garantias sistêmicas;<br>
-        (d) Invalidação de RINs/LCFS credits;<br>
-        (e) Medidas cautelares de restauração.<br><br>
-        <strong>3. PROCEDIMENTO DE EMERGÊNCIA (72H)</strong><br>
-        <table style="width:100%; border-collapse: collapse; margin: 10px 0; font-size: 12px;">
-          <tr style="background: #1a2b3c; color: white;">
-            <th style="padding: 8px; border: 1px solid #ccc;">Horas</th>
-            <th style="padding: 8px; border: 1px solid #ccc;">Ação</th>
-            <th style="padding: 8px; border: 1px solid #ccc;">Responsável</th>
-          </tr>
-          <tr>
-            <td style="padding: 8px; border: 1px solid #ccc;">H0</td>
-            <td style="padding: 8px; border: 1px solid #ccc;">Notificação de disputa ao DAA e à Câmara de Arbitragem</td>
-            <td style="padding: 8px; border: 1px solid #ccc;">Parte requerente</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px; border: 1px solid #ccc;">H0-H6</td>
-            <td style="padding: 8px; border: 1px solid #ccc;">Designação de árbitro de emergência (Emergency Arbitrator)</td>
-            <td style="padding: 8px; border: 1px solid #ccc;">ICC Court</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px; border: 1px solid #ccc;">H6-H24</td>
-            <td style="padding: 8px; border: 1px solid #ccc;">Audiência virtual (videoconferência), apresentação de provas sistêmicas</td>
-            <td style="padding: 8px; border: 1px solid #ccc;">Partes + DAA</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px; border: 1px solid #ccc;">H24-H48</td>
-            <td style="padding: 8px; border: 1px solid #ccc;">Deliberação do árbitro, possível visita técnica virtual (drones/satélite)</td>
-            <td style="padding: 8px; border: 1px solid #ccc;">Árbitro de Emergência</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px; border: 1px solid #ccc;">H48-H72</td>
-            <td style="padding: 8px; border: 1px solid #ccc;">Sentença de emergência (provisional measures)</td>
-            <td style="padding: 8px; border: 1px solid #ccc;">Árbitro de Emergência</td>
-          </tr>
-        </table>
-
-        <strong>4. MEDIDAS PROVISÓRIAS POSSÍVEIS</strong><br>
-        O árbitro de emergência pode decretar:<br>
-        (a) <strong>Manutenção de status quo:</strong> Continuidade/fornecimento suspensão;<br>
-        (b) <strong>Cash escrow:</strong> Depósito de valores em disputa em conta escrow;<br>
-        (c) <strong>Restauração obrigatória:</strong> Ordem de início imediato de remediação;<br>
-        (d) <strong>Inspeção:</strong> Acesso a instalações para verificação de DAA;<br>
-        (e) <strong>Notificação regulatória:</strong> Comunicação obrigatória à EPA/CARB/ANP.<br><br>
-        <strong>5. SEDE E LEI APLICÁVEL</strong><br>
-        5.1. Sede: Miami, Florida (ponte Brasil-EUA, fuso BRT-1h).<br><br>
-        5.2. Idioma: Inglês (com tradução simultânea para português disponível).<br><br>
-        5.3. Lei aplicável à arbitragem: Lei federal de arbitragem dos EUA (9 U.S.C. § 1 et seq.) + Lei 13.129/2015 (Brasil) para reconhecimento.<br><br>
-        <strong>6. CUSTOS</strong><br>
-        6.1. Custo do procedimento de emergência: US$ 50.000 (dividido igualmente, exceto em caso de manifesta improcedência).<br><br>
-        6.2. Honorários do árbitro de emergência: US$ 15.000-25.000.<br><br>
-        6.3. Custos do DAA: Por conta da parte requerida em caso de procedência, ou divididos em caso de procedência parcial.
-      </div>
-    </section>
-
-    <!-- MÓDULO 4 -->
-    <section id="M4" class="article-box">
-      <h2 class="article-title">MÓDULO 4 — FLUXOGRAMA DECISÓRIO AUTOMÁTICO<br>State Machine e Protocolos de Comunicação</h2>
-
-      <h3 id="M4-1" class="doc-subtitle">4.1 Ciclo TFP Brasil-EUA — Ciclo Safra-Ano</h3>
+      <h3 id="M3-5" class="doc-subtitle">3.5 CVS-T BR-US — Condição de Viabilidade Sistêmica Transnacional</h3>
 
       <div class="caput">
-        O ciclo de monitoramento TFP-c-ECO para biofuel opera em duas frequências: (1) ciclo contínuo 24H para variáveis de mercado, regulatórias e climáticas de curto prazo; (2) ciclo safra-anual para variáveis agroindustriais (ILUC, produtividade, degradação de solo).
+        Aplicação Dual: este contrato está sujeito simultaneamente às leis do Brasil e, quanto às obrigações do Investidor/Controlador americano, às leis do Estado de [Nova York/Delaware] e às regulamentações federais aplicáveis dos EUA (EPA RFS, CARB LCFS, FCPA, OFAC).
+      </div>
+
+      <div class="highlight-box">
+        <strong>CLÁUSULA CVS-T — CONDIÇÃO DE VIABILIDADE SISTÊMICA TRANSNACIONAL</strong><br><br>
+        <strong>Definição de DAA Bilateral:</strong><br><br>
+        <strong>DAA Brasil:</strong> [Entidade certificada pela ANP/INMETRO], com sede em [São Paulo/Rio de Janeiro], responsável pela certificação de dados operacionais e rastreabilidade de feedstock;<br><br>
+        <strong>DAA EUA:</strong> [Entidade certificada por EPA/CARB], com sede em [Nova York/Houston/Miami], responsável pela certificação de compliance RFS/LCFS;<br><br>
+        <strong>Coordenação:</strong> Os DAAs operarão sob protocolo de cooperação técnica, com decisões conjuntas para ativação de bandas Vermelha ou Preta.<br><br>
+        <strong>Gatilhos de Safe Mode Bilateral:</strong><br>
+        • Suspensão de entregas: obrigações locais (transporte, armazenagem) no Brasil; offtake obligations (SAF/etanol) nos EUA<br>
+        • Subordinação: credores locais no Brasil; DFC/Ex-Im (se aplicável) nos EUA<br>
+        • Governo corporativo: intervenção conselheiro independente c-ECO no Brasil; direitos de observer DFC/Ex-Im nos EUA
+      </div>
+
+      <h3 id="M3-6" class="doc-subtitle">3.6 Safe Mode RET — Reestruturação Financeira Bilateral</h3>
+
+      <div class="caput">
+        Standstill Bilateral: ao atingir-se a banda Vermelha, inicia-se automaticamente período de standstill de 180 dias, durante o qual credores brasileiros e americanos não poderão acelerar dívidas nem exercer remedies de security interest.
+      </div>
+
+      <div class="highlight-box">
+        <strong>CLÁUSULA SAFE MODE RET — REESTRUTURAÇÃO FINANCEIRA BILATERAL</strong><br><br>
+        <strong>Mecanismo de Reestruturação c-ECO:</strong><br><br>
+        <strong>Technical Curatorial Chamber Bilateral:</strong> Comitê com 2 membros brasileiros, 2 americanos e 1 independente (indicado por [ICSID/ICC/MIAMI]) terá poderes para:<br>
+        a) Aprovar plano de transição tecnológica (1G → 2G);<br>
+        b) Reprogramar cronograma de dívidas;<br>
+        c) Autorizar injeção de capital de terceiros (white knight);<br>
+        d) Determinar swap de dívida por CBIOs/RINs (debt-for-credits swap).<br><br>
+        <strong>Conformidade EPA/CARB:</strong> A reconfiguração observará EPA RFS Quality Assurance Program; CARB LCFS Verification; e Renewable Energy Directive (RED) da UE se exportação.
+      </div>
+
+      <h3 id="M3-7" class="doc-subtitle">3.7 Transnational Joint Duty Clause (JDT)</h3>
+
+      <div class="caput">
+        Aplicação a Cadeia de Suprimentos Globais: o projeto está inserido em cadeia de suprimentos globais, incluindo fornecedores de tecnologia (enzimas, catalysts), traders de feedstock e offtakers de SAF.
+      </div>
+
+      <div class="math-box" style="text-align: left; font-family: monospace; font-size: 13px;">
+        <strong>MRR Bilateral — Estrutura:</strong><br><br>
+        MRR Total: USD [X] milhões / BRL [Y] milhões<br><br>
+        Sub-fundo NY (USD): Custodiado por [Banco NY], investido em T-bills<br>
+        Sub-fundo SP (BRL): Custodiado por [Banco Brasil], investido em NTN-Bs<br><br>
+        Gatilho de liberação: Certificação conjunta DAA Brasil + DAA EUA<br>
+        Liberação automática: SWIFT para fornecedores críticos em 24h
+      </div>
+
+      <div class="critical-box">
+        <strong>Consequências da Não-Cooperação:</strong> A recusa injustificada ao JDT acarreta: (a) piercing automático do SPV e acesso direto aos ativos do controlador; (b) exclusão do projeto de futuros benefícios do IRA (Inflation Reduction Act); (c) invalidação de RINs/CBIOs; (d) notificação às agências de crédito à exportação (DFC, Ex-Im, BNDES).
+      </div>
+
+      <h3 id="M3-8" class="doc-subtitle">3.8 Look-Through TLTDE — Transnational Legal Transparency & Disclosure Effect</h3>
+
+      <div class="caput">
+        Aplicação a Estruturas de Private Equity: reconhece-se que o investidor pode operar através de fundo de private equity (Delaware LP, Cayman LLC), blocker corporation (Delaware C-corp), HoldCo intermédia (Luxembourg/London), e OpCo local (Brasil).
+      </div>
+
+      <div class="highlight-box">
+        <strong>CLÁUSULA TLTDE — LOOK-THROUGH TRANSNACIONAL</strong><br><br>
+        <strong>Regra do Look-Through Transnacional:</strong> Para fins de cálculo de Lr (reversibilidade), responsabilidade por restoration, e aplicação de sanções (piercing), considera-se unidade material entre todas as entidades da cadeia de controle, desde o ultimate beneficial owner (UBO) até o OpCo brasileiro.<br><br>
+        <strong>Efeitos:</strong><br>
+        • <strong>Cash sweep:</strong> Free cash flow do OpCo brasileiro pode ser retido para restoration, independentemente de upstream dividendos aprovados;<br>
+        • <strong>Equity cure:</strong> Controlador americano obrigado a injetar capital adicional se Lr < 0,8, independentemente de capital call no LP agreement;<br>
+        • <strong>Cross-collateral:</strong> CBIOs brasileiros podem ser acionados para cobrir déficit do MRR, e vice-versa;<br>
+        • <strong>Disclosure:</strong> UBO obrigado a revelar estrutura completa à ANP/EPA para certificação de cadeia.
+      </div>
+
+      <h3 id="M3-9" class="doc-subtitle">3.9 DREAP — Dispute Resolution and Emergency Arbitration Protocol</h3>
+
+      <div class="caput">
+        Protocolo de resolução de disputas com arbitragem emergencial para crises sistêmicas em infraestrutura de biocombustíveis.
+      </div>
+
+      <table class="legal-table">
+        <thead>
+          <tr>
+            <th>Nível</th>
+            <th>Mecanismo</th>
+            <th>Prazo</th>
+            <th>Sede</th>
+            <th>Lei Aplicável</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Negociação direta (CEOs)</td>
+            <td>15 dias</td>
+            <td>[São Paulo/NY]</td>
+            <td>N/A</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Mediação (ICC/IMI)</td>
+            <td>30 dias</td>
+            <td>Miami</td>
+            <td>N/A</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Arbitragem emergencial</td>
+            <td>72 horas</td>
+            <td>Miami</td>
+            <td>UNCITRAL</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Arbitragem definitiva</td>
+            <td>12 meses</td>
+            <td>Miami/Washington D.C.</td>
+            <td>Lei do contrato</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Reconhecimento</td>
+            <td>180 dias</td>
+            <td>Corte competente</td>
+            <td>Lex fori</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="info-box">
+        <strong>Inarbitrabilidade de Matérias Ecológicas:</strong> São inarbitráveis: compatibilidade com Safe Operating Space (SOS); intensidade de carbono (CI) de feedstock; mérito de decisões técnicas do DAA sobre rastreabilidade. Estas matérias são reservadas à decisão dos DAAs e, em última instância, aos órgãos reguladores competentes (ANP, EPA, CARB, IBAMA).
+      </div>
+    </section>
+
+    <!-- MÓDULO 4 — FLUXOGRAMA DECISÓRIO -->
+    <section id="M4" class="article-box">
+      <h2 class="article-title">MÓDULO 4 — FLUXOGRAMA DECISÓRIO<br>Ciclo Operacional e Protocolos de Comunicação</h2>
+
+      <h3 id="M4-1" class="doc-subtitle">4.1 Ciclo Operacional Contínuo (24h)</h3>
+
+      <div class="caput">
+        Ciclo TFP Brasil-EUA operando em regime contínuo 24 horas, com fusos horários de referência UTC-3 (Brasília) e UTC-5 (Eastern Time), integrando dados de safra, produção, certificação e compliance.
       </div>
 
       <div class="tree-diagram">
-CICLO TFP BIOFUEL BRASIL-EUA
-══════════════════════════════════════════════════════════════════
-
-CICLO CONTÍNUO (24H) — Monitoramento em tempo real
-├── Janela 00:00-06:00 BRT (17:00-23:00 EST EUA)
-│   ├── Coleta de dados climáticos (INMET, NOAA)
-│   ├── Atualização de preços (CBOT, B3, OPIS)
-│   ├── Geração de RINs no EMTS (EPA)
-│   └── Alertas de desmatamento (GLAD/INPE/DETER)
-├── Janela 06:00-09:00 BRT (23:00-02:00 EST EUA)
-│   ├── Conference call DAA Brasil + DAA EUA (obrigatória)
-│   ├── Revisão de Γ integrado (SPS score)
-│   ├── Classificação de bandeira (Verde/Âmbar/Vermelha/Preta)
-│   └── Decisão de escalada ou manutenção
-└── Janela 09:00-24:00 BRT
-    ├── Execução de ações (cash sweep, notificações)
-    ├── Monitoramento de exportações (portos)
-    └── Atualização de dashboards (MapBiomas, TRASE)
-
-CICLO SAFRA (Anual) — Monitoramento estratégico
-├── Pré-safra (Set-Out)
-│   ├── Projeção de ILUC (modelos GTAP/FAPRI)
-│   ├── Definição de áreas de expansão permitidas
-│   ├── Calibração de σ_climático (ENSO forecast)
-│   └── Estabelecimento de Lr_safra
-├── Safra (Nov-Mar — Centro-Sul; Mai-Set — Norte/Nordeste)
-│   ├── Monitoramento de produtividade (CONAB/USDA)
-│   ├── Acompanhamento de colheita (GPS, geofencing)
-│   ├── Verificação de rastreabilidade (mass balance)
-│   └── Ajustes de P_ILUC em tempo real
-├── Pós-safra (Abr-Mai ou Out-Nov)
-│   ├── Balanço de ILUC anual
-│   ├── Auditoria de solo (amostragem)
-│   ├── Cálculo de CI final (GREET/LCFS)
-│   └── Revisão de certificações (RFS pathway)
-└── Inter-safra
-    ├── Planejamento de rotação de culturas
-    ├── Manutenção de reservas (Lr)
-    ├── Treinamento de fornecedores
-    └── Atualização de contratos c-ECO
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    CICLO TFP BIOFUEL BRASIL-EUA (24H)                   │
+│              Fuso horário de referência: UTC-3 (Brasília)               │
+│              Fuso horário secundário: UTC-5 (Eastern Time)              │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│  JANELA DE COLETA DE DADOS (00:00-06:00 BRT / 22:00-04:00 EST)         │
+│  • Coleta automática UNICA, CONAB, ANA (Brasil)                        │
+│  • Coleta automática USDA, EPA, EIA (EUA)                               │
+│  • Atualização de preços (CBIOs, RINs, etanol, ATR)                     │
+│  • Monitoramento de desmatamento (SIGTAP, INPE)                         │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│  JANELA DE PROCESSAMENTO (06:00-09:00 BRT / 04:00-07:00 EST)            │
+│  • Cálculo das variáveis P, ΔV, σ, Lr por DAA respectivo                │
+│  • Conference call DAA Brasil + DAA EUA (obrigatória)                   │
+│  • Resolução de divergências metodológicas (CI, ILUC)                   │
+│  • Consolidação do Γ integrado                                          │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+                    ┌─────────────────────────────┐
+                    │   CLASSIFICAÇÃO DE BANDA    │
+                    │      Γ integrado final       │
+                    └─────────────────────────────┘
+                                    │
+            ┌───────────────────────┼───────────────────────┐
+            │                       │                       │
+            ▼                       ▼                       ▼
+    ┌───────────────┐       ┌───────────────┐       ┌───────────────┐
+    │    VERDE      │       │    ÂMBAR      │       │   VERMELHO    │
+    │   (80-100)    │       │   (60-79)     │       │   (40-59)     │
+    │               │       │               │       │  SAFE MODE    │
+    └───────────────┘       └───────────────┘       └───────────────┘
+            │                       │                       │
+            │                       │                       ▼
+            │                       │               ┌───────────────┐
+            │                       │               │ ALERTA DUAL:  │
+            │                       │               │ • ANP (2h)    │
+            │                       │               │ • EPA (4h)    │
+            │                       │               │ • CARB (4h)   │
+            │                       │               │ • DFC/Ex-Im   │
+            │                       │               │   (imediato)  │
+            │                       │               │ • 8-K SEC     │
+            │                       │               │   (24h)       │
+            │                       │               └───────────────┘
+            │                       │                       │
+            ▼                       ▼                       ▼
+    ┌───────────────┐       ┌───────────────┐       ┌───────────────┐
+    │  RELATÓRIO    │       │  RELATÓRIO    │       │  REUNIÃO      │
+    │  TRIMESTRAL   │       │  MENSAL +     │       │  EMERGÊNCIAL  │
+    │  (ANP + EPA)  │       │  NOTIFICAÇÃO  │       │  (48h)        │
+    │               │       │  REGULADORES  │       │               │
+    └───────────────┘       └───────────────┘       └───────────────┘
+                                                            │
+                                                            ▼
+                                                ┌───────────────────┐
+                                                │  BANDA PRETA      │
+                                                │    (< 40)         │
+                                                │ RESTORATION FIRST │
+                                                └───────────────────┘
+                                                            │
+                                                            ▼
+                                                ┌───────────────────┐
+                                                │  INTERVENÇÃO      │
+                                                │   EXTERNA TOTAL   │
+                                                │                   │
+                                                │ • Notificação     │
+                                                │   imediata:       │
+                                                │   - Presidente    │
+                                                │   - Ministros     │
+                                                │   - Embaixada EUA │
+                                                │   - DFC/Ex-Im     │
+                                                │   - ANP/EPA       │
+                                                │                   │
+                                                │ • Ativação MRR    │
+                                                │   bilateral       │
+                                                │                   │
+                                                │ • Arbitragem de   │
+                                                │   emergência (72h)│
+                                                │                   │
+                                                │ • Possível        │
+                                                │   intervenção     │
+                                                │   estatal         │
+                                                └───────────────────┘
       </div>
 
-      <h3 id="M4-2" class="doc-subtitle">4.2 Matriz de Comunicação por Banda de Risco</h3>
+      <h3 id="M4-2" class="doc-subtitle">4.2 Matriz de Comunicação</h3>
 
       <div class="caput">
-        Protocolo de comunicação hierárquico baseado na classificação de bandeira do SPS (Systemic Position Score), definindo prazos de resposta, canais de comunicação e níveis de escalada.
+        Protocolo de comunicação obrigatória por banda de risco, com canais, prazos e destinatários definidos.
       </div>
 
       <table class="legal-table">
         <thead>
           <tr>
             <th>Banda</th>
-            <th>SPS Range</th>
-            <th>Prazo Resposta</th>
-            <th>Canais</th>
-            <th>Destinatários</th>
-            <th>Ações</th>
+            <th>Brasil (BRT)</th>
+            <th>EUA (EST)</th>
+            <th>Meio</th>
+            <th>Conteúdo</th>
           </tr>
         </thead>
         <tbody>
-          <tr style="background: #d4edda;">
-            <td><span class="state-box state-green">VERDE</span></td>
-            <td>&lt; 0,30</td>
-            <td>15 dias úteis</td>
-            <td>Email, dashboard</td>
-            <td>Gerentes de sustentabilidade</td>
-            <td>Relatório mensal normal</td>
+          <tr>
+            <td>Verde</td>
+            <td>Dia 15, 9h</td>
+            <td>Dia 15, 7h</td>
+            <td>Sistema eletrônico</td>
+            <td>Relatório consolidado de CI e produção</td>
           </tr>
-          <tr style="background: #fff3cd;">
-            <td><span class="state-box state-yellow">ÂMBAR</span></td>
-            <td>0,30-0,50</td>
-            <td>24 horas</td>
-            <td>Email + call + SMS</td>
-            <td>Diretores de operações, DAA</td>
-            <td>Plano de mitigação, aumento de Lr</td>
+          <tr>
+            <td>Âmbar</td>
+            <td>Dia 1, 9h</td>
+            <td>Dia 1, 7h</td>
+            <td>Email + teleconferência</td>
+            <td>Alerta de CI elevado + plano de ação</td>
           </tr>
-          <tr style="background: #ffe5cc;">
-            <td><span class="state-box state-orange">VERMELHA</span></td>
-            <td>0,50-0,70</td>
-            <td>4 horas</td>
-            <td>Call de emergência + WhatsApp + SMS</td>
-            <td>CEOs, CFOs, Conselheiros c-ECO</td>
-            <td>Safe Mode: standstill, cash sweep, notificação ANP/EPA</td>
+          <tr>
+            <td>Vermelho</td>
+            <td>Imediato, 24h</td>
+            <td>Imediato, 24h</td>
+            <td>Phone call + escrito</td>
+            <td>Safe Mode ativado, suspensão de CBIOs/RINs</td>
           </tr>
-          <tr style="background: #f8d7da;">
-            <td><span class="state-box state-red">PRETA</span></td>
-            <td>≥ 0,70</td>
-            <td>2 horas</td>
-            <td>Todos os canais + contato direto</td>
-            <td>Conselho, Reguladores (ANP/EPA/CARB), Embaixadas</td>
-            <td>Restoration First, arbitragem emergencial, rescisão</td>
+          <tr>
+            <td>Preto</td>
+            <td>Imediato, 2h</td>
+            <td>Imediato, 2h</td>
+            <td>Phone call + email + mensagem criptografada</td>
+            <td>Restoration First, autoridades notificadas</td>
           </tr>
         </tbody>
       </table>
 
-      <div class="highlight-box">
-        <strong>Protocolo de Notificação Regulatória Automática:</strong><br><br>
-        <strong>Banda Vermelha:</strong> Notificação simultânea em 4h para:<br>
-        • ANP (Agência Nacional do Petróleo) — RenovaBio<br>
-        • EPA (Environmental Protection Agency) — RFS compliance<br>
-        • CARB (California Air Resources Board) — se aplicável LCFS<br>
-        • IBAMA — se envolver desmatamento<br>
-        • CVM (Brasil) + SEC (EUA) — se empresa listada<br><br>
-        <strong>Banda Preta:</strong> Notificação em 2h + briefing em 8h para:<br>
-        • Ministério de Minas e Energia (Brasil)<br>
-        • Department of Energy (EUA)<br>
-        • USTR (United States Trade Representative) — se risco comercial<br>
-        • Embaixadas (Brasília e Washington)<br>
-        • ICSID (se investimento protegido por tratado)
-      </div>
-
-      <h3 id="M4-3" class="doc-subtitle">4.3 Protocolo de Escalada Transnacional</h3>
+      <h3 id="M4-3" class="doc-subtitle">4.3 Protocolo de Escalada</h3>
 
       <div class="caput">
-        Hierarquia de escalada para resolução de crises sistêmicas em biofuel, desde nível operacional até soberano e diplomático, com definição clara de responsabilidades e prazos.
+        Estrutura de escalada hierárquica para resolução de crises sistêmicas em infraestrutura de biocombustíveis.
       </div>
 
       <div class="tree-diagram">
-PROTOCOLO DE ESCALADA TRANSNACIONAL — BIOFUEL BR-US
-══════════════════════════════════════════════════════════════════
-
-NÍVEL 1: OPERAÇÕES (0-4h)
-├── Gerentes de sustentabilidade (Brasil + EUA)
-├── Analistas de compliance c-ECO
-├── DAA operacional (técnicos de campo)
-└── Ações: Coleta de dados, verificação inicial, contenção
-
-NÍVEL 2: EXECUTIVO (4-12h)
-├── CEOs das OpCos (usinas/traders/terminals)
-├── CFOs (gestão de Lr, cash sweep)
-├── Diretores jurídicos (avaliação de risco contratual)
-└── Ações: Decisão de Safe Mode, ativação de garantias
-
-NÍVEL 3: CONSELHO c-ECO (12-24h)
-├── 2 Conselheiros c-ECO (Brasil — indicados por MAPA/ANP)
-├── 2 Conselheiros c-ECO (EUA — indicados por EPA/CARB)
-├── 1 Presidente neutro (internacional)
-└── Ações: Validação de gatilhos, aprovação de restoration
-
-NÍVEL 4: SOBERANO/REGULATÓRIO (24-48h)
-├── Brasil: MME + ANP + IBAMA + CADE (se necessário)
-├── EUA: DOE + EPA + USTR + CFIUS (se investimento)
-├── Coordenação via Joint Committee Brasil-EUA (se existente)
-└── Ações: Mediação regulatória, flexibilização temporária
-
-NÍVEL 5: DIPLOMÁTICO/ARBITRAL (> 48h)
-├── Embaixadas (Brasília ↔ Washington)
-├── ICC Arbitration (Miami) — DREAP se emergência
-├── ICSID (se violação de tratado de investimento)
-└── Ações: Arbitragem, mediação diplomática, sanções comerciais
-      </div>
-
-      <div class="critical-box">
-        <strong>⚠️ Gatilho de Soberania Compartilhada:</strong><br><br>
-        Em situações de Bandeira Preta com impacto transfronteiriço (ex: desmatamento massivo afetando RINs de múltiplos importadores americanos), ativa-se o <strong>Protocolo de Soberania Compartilhada</strong>:<br><br>
-        • Suspensão temporária de exportações para EUA (por ANP, com concordância EPA)<br>
-        • Ativação de reservas estratégicas bilaterais (SPR biofuel)<br>
-        • Mediação conjunta via USTR-MRE (Ministério das Relações Exteriores)<br>
-        • Possível intervenção do DFC/Ex-Im para financiamento de restoration
+NÍVEL 1 (Operacional): Gerentes de operações Brasil + EUA
+    │
+    ▼ (não resolvido em 4h ou banda Vermelha)
+NÍVEL 2 (Executivo): CEOs das OpCos Brasil e EUA
+    │
+    ▼ (não resolvido em 12h ou banda Preta)
+NÍVEL 3 (Governança): Conselheiros independentes c-ECO (2 BR + 2 US)
+    │
+    ▼ (crise sistêmica)
+NÍVEL 4 (Sovereign): 
+    • Brasil: Ministério de Minas e Energia + ANP + IBAMA
+    • EUA: EPA + Department of Energy + USTR
+    │
+    ▼ (emergência internacional)
+NÍVEL 5 (Diplomático): 
+    • Embaixada dos EUA no Brasil
+    • Embaixada do Brasil em Washington
+    • ICSID/ICC (se arbitragem emergencial)
       </div>
     </section>
 
-    <!-- MÓDULO 5 -->
+    <!-- MÓDULO 5 — IMPLEMENTAÇÃO -->
     <section id="M5" class="article-box">
-      <h2 class="article-title">MÓDULO 5 — IMPLEMENTAÇÃO<br>Roadmap 60 Dias para Ativação c-ECO em Biofuel</h2>
+      <h2 class="article-title">MÓDULO 5 — IMPLEMENTAÇÃO<br>Roadmap 60 Dias para Adoção do Framework c-ECO</h2>
 
-      <h3 id="M5-1" class="doc-subtitle">5.1 Semanas 1-2: Fundação e Due Diligence</h3>
-
-      <div class="caput">
-        Fase de estabelecimento das bases legais, estruturação da governança e identificação de ativos elegíveis para aplicação do protocolo c-ECO.
-      </div>
+      <h3 id="M5-1" class="doc-subtitle">5.1 Fases de Implementação</h3>
 
       <table class="legal-table">
         <thead>
           <tr>
-            <th>Dia</th>
-            <th>Atividade</th>
-            <th>Responsável</th>
-            <th>Entregável</th>
+            <th>Fase</th>
+            <th>Prazo</th>
+            <th>Atividades</th>
+            <th>Entregáveis</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>1-3</td>
-            <td>Assinatura de Termo de Cooperação Bilateral (NDA + data sharing)</td>
-            <td>Jurídicos BR + US</td>
-            <td>Acordo de confidencialidade e troca de dados</td>
+            <td><strong>1. Adequação Contratual</strong></td>
+            <td>Dias 1-15</td>
+            <td>Revisão e adequação de contratos de offtake, fornecimento de feedstock e financiamento para incorporação das cláusulas c-ECO</td>
+            <td>Contratos revisados com cláusulas c-ECO integradas; Fichas de Nexus Transnacional preenchidas</td>
           </tr>
           <tr>
-            <td>3-5</td>
-            <td>Mapeamento de ativos elegíveis (matriz TFP)</td>
-            <td>DAA conjunto</td>
-            <td>Lista de ativos com códigos TFP</td>
+            <td><strong>2. Capacitação</strong></td>
+            <td>Dias 16-30</td>
+            <td>Formação de Data Custodians certificados no Brasil e EUA, com treinamento obrigatório nos 4 módulos do programa c-ECO</td>
+            <td>Certificação de Data Custodians; Manual de Procedimentos Operacionais</td>
           </tr>
           <tr>
-            <td>5-7</td>
-            <td>Pré-filing CFIUS (se investidor americano > 10%)</td>
-            <td>Consultor CFIUS</td>
-            <td>Notificação prévia ao CFIUS</td>
+            <td><strong>3. Autoridades de Dados</strong></td>
+            <td>Dias 31-45</td>
+            <td>Estabelecimento de Autoridades de Avaliação de Dados (DAA) bilaterais, com independência funcional e certificação técnica</td>
+            <td>DAA Brasil e DAA EUA operacionais; Protocolo de Cooperação Técnica assinado</td>
           </tr>
           <tr>
-            <td>7-10</td>
-            <td>Seleção e contratação de DAA certificado bilateral</td>
-            <td>Compliance</td>
-            <td>Contrato de prestação de serviços DAA</td>
-          </tr>
-          <tr>
-            <td>10-14</td>
-            <td>Auditoria inicial de ILUC e certificações existentes</td>
-            <td>DAA + consultor agrícola</td>
-            <td>Relatório de baseline (P_ILUC inicial)</td>
+            <td><strong>4. Integração Regulatória</strong></td>
+            <td>Dias 46-60</td>
+            <td>Integração com frameworks regulatórios brasileiros (ANP, RenovaBio) e americanos (EPA RFS, CARB LCFS), alinhamento com ISCC/Bonsucro</td>
+            <td>Cartas de Entendimento com reguladores; Relatório de conformidade dual</td>
           </tr>
         </tbody>
       </table>
 
-      <h3 id="M5-2" class="doc-subtitle">5.2 Semanas 3-4: Configuração Técnica e Data Bridge</h3>
-
-      <div class="caput">
-        Estabelecimento da infraestrutura de dados, integração de sistemas de monitoramento e calibração das variáveis TFP para o contexto específico do projeto.
-      </div>
+      <h3 id="M5-2" class="doc-subtitle">5.2 Anexos Setoriais</h3>
 
       <table class="legal-table">
         <thead>
           <tr>
-            <th>Dia</th>
-            <th>Atividade</th>
-            <th>Responsável</th>
-            <th>Entregável</th>
+            <th>Setor</th>
+            <th>Parâmetros SOS Específicos</th>
+            <th>Sensores Prioritários</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>15-18</td>
-            <td>Configuração de Data Bridge (APIs INMET, CONAB, EPA EMTS)</td>
-            <td>TI/Data Engineering</td>
-            <td>Conectores de dados operacionais</td>
+            <td><strong>ETANOL 1G (CANA)</strong></td>
+            <td>ATR (açúcar total recuperável), produtividade por hectare, área cultivada</td>
+            <td>Sensores de produtividade, SIGTAP, monitoramento de desmatamento</td>
           </tr>
           <tr>
-            <td>18-21</td>
-            <td>Integração de dados de satélite (MapBiomas, GLAD, INPE)</td>
-            <td>Provedor de dados geoespaciais</td>
-            <td>Dashboard de monitoramento de ILUC</td>
+            <td><strong>ETANOL 2G (CELULÓSICO)</strong></td>
+            <td>Yield de conversão, eficiência enzimática, disponibilidade de palha/bagaço</td>
+            <td>Sensores de processo, GIS de disponibilidade de resíduos</td>
           </tr>
           <tr>
-            <td>21-24</td>
-            <td>Calibração de σ_ILUC com modelos GTAP/FAPRI</td>
-            <td>Economistas/DAA</td>
-            <td>Parâmetros de incerteza calibrados</td>
+            <td><strong>SAF (HEFA/FT/ATJ)</strong></td>
+            <td>CI (intensidade de carbono), certificação ASTM D7566, rastreabilidade de feedstock</td>
+            <td>Rastreamento de cadeia, auditorias ISCC, análises de laboratório</td>
           </tr>
           <tr>
-            <td>24-28</td>
-            <td>Configuração de alertas automáticos (bandeiras)</td>
-            <td>TI/c-ECO Tech</td>
-            <td>Sistema de alertas 24H operacional</td>
+            <td><strong>BIODIESEL/HVO</strong></td>
+            <td>Teor de mistura (B15/B20), qualidade de FFA (ácidos graxos livres), origem de óleos</td>
+            <td>Análises de qualidade, rastreamento de origem de óleos</td>
+          </tr>
+          <tr>
+            <td><strong>BIOMETANO</strong></td>
+            <td>Pureza (>96% CH4), upgrading, injeção na rede</td>
+            <td>Cromatógrafos, medidores de vazão, sensores de pureza</td>
+          </tr>
+          <tr>
+            <td><strong>BIO-HIDROGÊNIO</strong></td>
+            <td>Eficiência eletrolítica, fonte de energia (renovável), emissões de produção</td>
+            <td>Medidores de eficiência, certificação de energia renovável</td>
           </tr>
         </tbody>
       </table>
 
-      <h3 id="M5-3" class="doc-subtitle">5.3 Semanas 5-6: Estruturação Financeira e Garantias</h3>
-
-      <div class="caput">
-        Constituição das reservas financeiras, garantias sistêmicas e estrutura de escrow bilateral para suporte ao Lr transnacional.
-      </div>
-
-      <table class="legal-table">
-        <thead>
-          <tr>
-            <th>Dia</th>
-            <th>Atividade</th>
-            <th>Responsável</th>
-            <th>Entregável</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>29-32</td>
-            <td>Abertura de contas escrow (NY + São Paulo)</td>
-            <td>Banking/Trustee</td>
-            <td>Contas segregadas ativas</td>
-          </tr>
-          <tr>
-            <td>32-35</td>
-            <td>Constituição de reservas iniciais (Lr_operacional)</td>
-            <td>CFO/Tesouraria</td>
-            <td>Depósito de 40% USD + 30% BRL</td>
-          </tr>
-          <tr>
-            <td>35-38</td>
-            <td>Contratação de LC standby e seguro agrícola</td>
-            <td>Risk Management</td>
-            <td>LC emitida + apólice de seguro</td>
-          </tr>
-          <tr>
-            <td>38-42</td>
-            <td>Negociação de cobertura MIGA/OPIC (political risk)</td>
-            <td>DFC/Ex-Im</td>
-            <td>Term sheet de garantia política</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3 id="M5-4" class="doc-subtitle">5.4 Semanas 7-8: Testes, Simulações e Go-Live</h3>
-
-      <div class="caput">
-        Fase de testes integrados, simulações de cenários de stress e ativação oficial do protocolo c-ECO com emissão do selo de conformidade.
-      </div>
-
-      <table class="legal-table">
-        <thead>
-          <tr>
-            <th>Dia</th>
-            <th>Atividade</th>
-            <th>Responsável</th>
-            <th>Entregável</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>43-46</td>
-            <td>Simulação de Safe Mode (dry-run)</td>
-            <td>DAA + Operações</td>
-            <td>Relatório de simulação e ajustes</td>
-          </tr>
-          <tr>
-            <td>46-49</td>
-            <td>Teste de arbitragem de emergência (DREAP dry-run)</td>
-            <td>Jurídico + ICC</td>
-            <td>Procedimento validado</td>
-          </tr>
-          <tr>
-            <td>49-52</td>
-            <td>Auditoria conjunta (DAA Brasil + DAA EUA)</td>
-            <td>Auditores c-ECO</td>
-            <td>Certificado de conformidade prévio</td>
-          </tr>
-          <tr>
-            <td>52-56</td>
-            <td>Treinamento de equipes (BR + US) em protocolos</td>
-            <td>Capacitação c-ECO</td>
-            <td>Equipes certificadas</td>
-          </tr>
-          <tr>
-            <td>56-60</td>
-            <td>Go-Live e emissão do c-ECO Seal bilateral</td>
-            <td>Conselho c-ECO</td>
-            <td>Selo c-ECO Biofuel BR-US ativo</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3 id="M5-5" class="doc-subtitle">5.5 Governança Contínua e Atualizações</h3>
-
-      <div class="caput">
-        Estrutura de governança pós-implementação para manutenção, atualização e evolução do protocolo c-ECO ao longo do ciclo de vida do projeto.
-      </div>
+      <h3 id="M5-3" class="doc-subtitle">5.3 Governança Contínua</h3>
 
       <div class="highlight-box">
-        <strong>Estrutura de Governança Contínua:</strong><br><br>
-        <strong>Reuniões Operacionais:</strong><br>
-        • Daily (09:00 BRT): Call DAA Brasil-EUA (15 min)<br>
-        • Semanal: Revisão de SPS e bandeiras<br>
-        • Mensal: Relatório de conformidade às partes<br><br>
-        <strong>Revisões Trimestrais:</strong><br>
-        • Calibração de parâmetros TFP (P, ΔV, σ, Lr)<br>
-        • Atualização de modelos ILUC (GTAP/FAPRI)<br>
-        • Revisão de garantias e reservas<br><br>
-        <strong>Revisões Anuais:</strong><br>
-        • Auditoria completa por terceira parte<br>
-        • Renovação do c-ECO Seal<br>
-        • Atualização de contratos e cláusulas<br>
-        • Planejamento estratégico de longo prazo (5 anos)
+        <strong>Estrutura Permanente de Governança c-ECO Bilateral:</strong><br><br>
+        <strong>BOARD LEVEL:</strong><br>
+        • 2 Conselheiros independentes c-ECO (Brasil)<br>
+        • 2 Conselheiros independentes c-ECO (EUA)<br>
+        • 1 Conselheiro independente (terceiro país, indicado ICC)<br>
+        Reuniões: Trimestrais (alternadas: São Paulo, Nova York, Miami)<br><br>
+        <strong>EXECUTIVE LEVEL:</strong><br>
+        • Co-CEOs (Brasil + EUA)<br>
+        • Chief Systemic Officer (CSO) — função c-ECO dedicada<br>
+        • DAA Brasil + DAA EUA (reporting direto ao Board c-ECO)<br><br>
+        <strong>TECHNICAL LEVEL:</strong><br>
+        • Technical Curatorial Chamber Bilateral (4 membros + 1 ind.)<br>
+        • Calibration Council (setorial, Brasil + EUA)<br>
+        • Data Custodians (certificados em ambas as jurisdições)<br><br>
+        <strong>ADVISORY LEVEL:</strong><br>
+        • Reguladores observadores (ANP, EPA, CARB — sem voto)<br>
+        • Agências de crédito à exportação (DFC, Ex-Im, BNDES)<br>
+        • Certificadoras (ISCC, Bonsucro, RSB)
       </div>
 
-      <div class="success-box">
-        <strong>✅ Checklist de Sucesso da Implementação:</strong><br><br>
-        □ Data Bridge operacional com 99,9% uptime<br>
-        □ DAA certificado bilateral ativo<br>
-        □ Reservas Lr constituídas (≥ 100% do mínimo)<br>
-        □ Cláusulas CVS-T assinadas em todos os contratos<br>
-        □ Sistema de alertas validado (4 bandeiras)<br>
-        □ Simulação DREAP realizada com sucesso<br>
-        □ Treinamento de 100% da equipe crítica<br>
-        □ c-ECO Seal emitido e válido<br>
-        □ Notificação aos reguladores (ANP/EPA/CARB)<br>
-        □ Primeiro relatório de conformidade publicado
+      <div class="doc-sub-subtitle">Checklist de Compliance Pós-Implementação</div>
+
+      <div class="paragraph">
+        <strong>Mensal:</strong>
+      </div>
+      <div class="bullet-list">
+        <li>[ ] Relatório TFP consolidado (bilingual: português/inglês)</li>
+        <li>[ ] Conference call DAA Brasil + DAA EUA</li>
+        <li>[ ] Atualização de CI e posição de CBIOs/RINs</li>
+        <li>[ ] Screening OFAC/SDN atualizado</li>
+        <li>[ ] Reconciliação de contas escrow</li>
+        <li>[ ] Monitoramento de desmatamento (SIGTAP)</li>
+      </div>
+
+      <div class="paragraph">
+        <strong>Trimestral:</strong>
+      </div>
+      <div class="bullet-list">
+        <li>[ ] Relatório ANP (se produtor brasileiro)</li>
+        <li>[ ] Relatório EPA RFS (RINs generation)</li>
+        <li>[ ] Relatório CARB LCFS (se aplicável)</li>
+        <li>[ ] Auditoria de cadeia (ISCC/Bonsucro)</li>
+        <li>[ ] Auditoria conjunta de dados</li>
+      </div>
+
+      <div class="paragraph">
+        <strong>Anual:</strong>
+      </div>
+      <div class="bullet-list">
+        <li>[ ] Recertificação dos DAAs</li>
+        <li>[ ] Revisão de limites SOS (Calibration Council)</li>
+        <li>[ ] Audit independente (BR + US firms)</li>
+        <li>[ ] Reunião anual de stakeholders (Miami/São Paulo)</li>
+        <li>[ ] Atualização de Technical Annexes</li>
+        <li>[ ] Avaliação de transição tecnológica (1G → 2G → 3G)</li>
+      </div>
+
+      <div class="success-box" style="margin-top: 40px;">
+        <strong>Benefícios da Implementação:</strong><br>
+        ✓ Prevenção de riscos de ILUC e desmatamento<br>
+        ✓ Acesso a mercados premium (SAF, LCFS)<br>
+        ✓ Conformidade antecipada com regulamentações futuras<br>
+        ✓ Redução de riscos sistêmicos não precificados<br>
+        ✓ Reputação de liderança em governança sustentável<br>
+        ✓ Acesso facilitado a financiamentos verdes (IRA, DFC, BNDES)
       </div>
     </section>
 
     <!-- ANEXOS -->
     <section id="ANEXO-A" class="article-box">
-      <h2 class="article-title">ANEXO A — TEMPLATES TÉCNICOS</h2>
-      
-      <h3 class="doc-subtitle">Template de Ficha Técnica de Ativo TFP</h3>
-      <div class="tree-diagram">
-══════════════════════════════════════════════════════════════════
-FICHA TÉCNICA TFP-c-ECO — BIOFUEL
-══════════════════════════════════════════════════════════════════
-Código TFP: [ETC-L/ETA-L/HVO-L/etc.]
-Nome do Ativo: [Nome da Usina/Terminal/Complexo]
-Localização: [Município, Estado, Brasil]
-Bioma: [Cerrado/Atlantic Forest/Pantanas/Amazon/Caatinga/Pampas]
-Coordenadas: [LAT, LONG] (centroide da instalação)
+      <h2 class="article-title">ANEXO A — TEMPLATES MODELO</h2>
 
-CAPACIDADE E PRODUÇÃO:
-• Capacidade instalada: [XXX mil m³/ano]
-• Produção média (últimos 3 anos): [XXX mil m³/ano]
-• Feedstock principal: [Cana-de-açúcar/Milho/Soja/UCO/etc.]
-• Área cultivada/fornecida: [XXX hectares]
-• Número de fornecedores: [XXX]
+      <div class="doc-sub-subtitle">Template A1 — Ficha Técnica c-ECO Biofuel</div>
+      <div class="highlight-box" style="font-family: monospace; font-size: 13px;">
+Ativo: [Nome da Usina/Projeto]<br>
+Código TFP: [E1C-M/E2G-H/SAF-H/etc.]<br>
+Geração: [1G/2G/3G/4G]<br>
+Capacidade: [milhões L/ano]<br>
+Feedstock Principal: [Cana/Palha/Óleos/Algas]<br>
+Rota Tecnológica: [HEFA/FT/ATJ/Fermentação]<br>
+Data de entrada em operação: [DD/MM/AAAA]<br>
+Operadora: [Razão Social]<br>
+Controlador ultimate: [Nome]<br>
+Contratos principais: [Offtake/Fornecimento/Financiamento]<br>
+DAA designado: [Nome/Entidade]<br>
+Data de início da vigência c-ECO: [DD/MM/AAAA]
+      </div>
 
-CERTIFICAÇÕES:
-□ RFS Pathway (EPA): [Válido até DD/MM/AAAA]
-□ LCFS Verification (CARB): [Se aplicável]
-□ RenovaBio (ANP): [Número de cadastro]
-□ Bonsucro: [Nível de certificação]
-□ ISCC EU/PLUS: [Número]
-□ RSB: [Se aplicável]
+      <div class="doc-sub-subtitle">Template A2 — Matriz de Dados Certificados</div>
+      <div class="highlight-box" style="font-family: monospace; font-size: 13px;">
+Variável | Fonte | Frequência | Última calibração | QA/QC<br>
+CI (Intensidade de Carbono) | GREET/RenovaBio | Mensal | [Data] | [OK/Falha]<br>
+Produção (L) | ANP/EPA | Mensal | N/A | [OK/Falha]<br>
+Área cultivada | SIGTAP | Trimestral | [Data] | [OK/Falha]<br>
+Certificação ISCC | Auditor | Anual | [Data] | [OK/Falha]<br>
+CBIOs/RINs gerados | B3/EPA | Mensal | N/A | [OK/Falha]
+      </div>
 
-VARIÁVEIS TFP (Baseline):
-• P_ILUC: [0,XX]
-• P_carbono: [0,XX]
-• ΔV_regulatório: [0,XX]
-• σ_ILUC: [0,XX]
-• Lr_compensação: [X,XX]
-• SPS Score: [0,XX] — Bandeira: [Verde/Âmbar/Vermelha/Preta]
+      <div class="doc-sub-subtitle">Template A3 — Especificação de Limites SOS</div>
+      <div class="highlight-box" style="font-family: monospace; font-size: 13px;">
+Limite | Valor atual | Valor crítico | Margem de segurança | Responsável técnico<br>
+CI máximo | XX gCO2eq/MJ | XX gCO2eq/MJ | XX% | [Nome]<br>
+Área desmatada | XX ha | 0 ha | XX% | [Nome]<br>
+Disponibilidade feedstock | XX% | XX% | XX% | [Nome]<br>
+Produção vs. contratado | XX% | XX% | XX% | [Nome]
+      </div>
 
-GARANTIAS E RESERVAS:
-• Reserva USD: US$ [XXX]
-• Reserva BRL: R$ [XXX]
-• LC Standby: US$ [XXX]
-• Seguro Safra: R$ [XXX]
-• MIGA/OPIC: US$ [XXX]
-
-DAA RESPONSÁVEL:
-• Brasil: [Nome da entidade, certificação MAPA/INMETRO]
-• EUA: [Nome da entidade, reconhecimento EPA/CARB]
-
-PRÓXIMA AUDITORIA: [DD/MM/AAAA]
+      <div class="doc-sub-subtitle">Template A4 — Certificação de Lr</div>
+      <div class="highlight-box" style="font-family: monospace; font-size: 13px;">
+Data de cálculo: [DD/MM/AAAA]<br>
+Período de referência: [Mês/Ano]<br>
+Recursos mobilizáveis (BRL): R$ [valor]<br>
+Recursos mobilizáveis (USD): $ [valor]<br>
+CBIOs em escrow: [quantidade]<br>
+RINs em escrow: [quantidade]<br>
+Custo de reversão técnica: R$ [valor] / $ [valor]<br>
+Lr local: [X,XX]<br>
+Lr convertido: [X,XX]<br>
+Lr integrado: [X,XX]<br>
+Banda resultante: [Verde/Âmbar/Vermelho/Preto]<br>
+Certificado por: [Nome/CRC]<br>
+Validade: [90 dias]
       </div>
     </section>
 
     <section id="ANEXO-B" class="article-box">
-      <h2 class="article-title">ANEXO B — ÁRVORE DE DECISÃO TFP</h2>
-      
+      <h2 class="article-title">ANEXO B — ÁRVORE DE DECISÃO PARA CLASSIFICAÇÃO</h2>
+
       <div class="tree-diagram">
-ÁRVORE DE DECISÃO c-ECO — BIOFUEL BR-US
-══════════════════════════════════════════════════════════════════
-
-INÍCIO (Coleta de dados 24H)
-│
-├─→ Cálculo de P_ILUC
-│   ├─→ P_ILUC < 0,30 → Continuar monitoramento
-│   ├─→ 0,30 ≤ P_ILUC < 0,60 → BANDEIRA ÂMBAR
-│   │   ├─→ Notificar DAA em 24h
-│   │   ├─→ Aumentar Lr em 10%
-│   │   └─→ Plano de mitigação em 7 dias
-│   │
-│   ├─→ 0,60 ≤ P_ILUC < 0,80 → BANDEIRA VERMELHA
-│   │   ├─→ SAFE MODE (standstill 90 dias)
-│   │   ├─→ Cash sweep 30%
-│   │   ├─→ Notificar ANP/EPA em 4h
-│   │   └─→ Reunião Conselho c-ECO em 24h
-│   │
-│   └─→ P_ILUC ≥ 0,80 → BANDEIRA PRETA
-│       ├─→ RESTORATION FIRST
-│       ├─→ Suspensão imediata de exportações
-│       ├─→ Ativação de garantias (Lr)
-│       ├─→ Notificar reguladores em 2h
-│       └─→ Arbitragem de emergência (DREAP)
-│
-├─→ Cálculo de CI (Carbon Intensity)
-│   ├─→ CI ≤ 50% baseline → OK
-│   ├─→ 50% < CI ≤ 70% baseline → Alerta
-│   └─→ CI > 70% baseline → Bandeira Vermelha
-│
-├─→ Cálculo de σ_integrado
-│   ├─→ σ < 0,20 → Normal
-│   ├─→ 0,20 ≤ σ < 0,30 → Atenção (aumentar monitoramento)
-│   └─→ σ ≥ 0,30 → In Dubio Pro Systema (fator 1,5x)
-│
-└─→ Cálculo de Lr
-    ├─→ Lr ≥ 1,5 → OK
-    ├─→ 1,0 ≤ Lr < 1,5 → Aumentar reservas
-    └─→ Lr < 1,0 → Cash sweep obrigatório + Bandeira Âmbar
-
-DECISÃO FINAL (SPS Score)
-├─→ SPS < 0,30: Operação normal
-├─→ 0,30 ≤ SPS < 0,50: Mitigação ativa
-├─→ 0,50 ≤ SPS < 0,70: Safe Mode
-└─→ SPS ≥ 0,70: Restoration First
+ATIVO BIOFUEL IDENTIFICADO
+            │
+            ▼
+    ┌─────────────────┐
+    │ É BIOCOMBUSTÍVEL?│
+    │ (Etanol, Biodiesel,│
+    │ SAF, HVO, Biometano) │
+    └─────────────────┘
+            │
+    ┌───────┴───────┐
+    │ SIM           │ NÃO
+    ▼               ▼
+┌──────────┐   ┌─────────────────┐
+│ VER      │   │ NÃO SE APLICA   │
+│ SEÇÃO    │   │ PROTOCOLO TFP   │
+│ GERACIONAL│   └─────────────────┘
+└──────────┘
+            │
+            ▼
+    ┌─────────────────────────────┐
+    │ IDENTIFICAR GERAÇÃO:        │
+    │ • Feedstock é comestível?   │
+    │ • Processo é fermentação/   │
+    │   transesterificação?       │
+    └─────────────────────────────┘
+            │
+    ┌───────┴───────┐
+    │ SIM           │ NÃO
+    ▼               ▼
+┌──────────┐   ┌─────────────────────────┐
+│ 1ª GERAÇÃO│   │ Feedstock é resíduo/    │
+│ (E1C-M,  │   │ lignocelulósico?        │
+│  E1M-M,  │   └─────────────────────────┘
+│  BD1-M)  │           │
+│  HVO-M   │    ┌───────┴───────┐
+└──────────┘    │ SIM           │ NÃO
+                ▼               ▼
+            ┌──────────┐   ┌─────────────────┐
+            │ 2ª GERAÇÃO│   │ Feedstock é     │
+            │ (E2G-H,  │   │ microalga?      │
+            │  SAF-H,  │   └─────────────────┘
+            │  BIO-M)  │           │
+            └──────────┘    ┌───────┴───────┐
+                            │ SIM           │ NÃO
+                            ▼               ▼
+                        ┌──────────┐   ┌─────────────────┐
+                        │ 3ª GERAÇÃO│   │ Processo usa    │
+                        │ (A3G-H,  │   │ biologia        │
+                        │  A3D-H)  │   │ sintética?      │
+                        └──────────┘   └─────────────────┘
+                                                │
+                                        ┌───────┴───────┐
+                                        │ SIM           │ NÃO
+                                        ▼               ▼
+                                    ┌──────────┐   ┌──────────┐
+                                    │ 4ª GERAÇÃO│   │ REVISAR  │
+                                    │ (S4G-H,  │   │ CLASSIFICAÇÃO│
+                                    │  H2B-H)  │   └──────────┘
+                                    └──────────┘
       </div>
     </section>
 
     <section id="ANEXO-C" class="article-box">
-      <h2 class="article-title">ANEXO C — REGRAS ESPECIAIS E EXCEÇÕES</h2>
-      
-      <h3 class="doc-subtitle">C.1 Regras Especiais para Etanol de Milho (US-BR Trade)</h3>
-      <div class="paragraph">
-        Dada a sensibilidade política do etanol de milho e disputas comerciais históricas (subsidios, tarifas), aplicam-se regras especiais:
-      </div>
-      <ul class="bullet-list">
-        <li><strong>σ_geopolítico mínimo:</strong> 0,20 para todo etanol de milho, independente de condições de mercado</li>
-        <li><strong>Dupla certificação:</strong> Além de RFS, exige-se certificação de não-subsídio distorcivo (WTO-compliant)</li>
-        <li><strong>Buffer tarifário:</strong> Reserva adicional de 10% do valor do contrato para contingências de tarifa</li>
-      </ul>
+      <h2 class="article-title">ANEXO C — DISPOSIÇÕES SETORIAIS ESPECÍFICAS</h2>
 
-      <h3 class="doc-subtitle">C.2 Regras para SAF (Sustainable Aviation Fuel)</h3>
+      <div class="doc-sub-subtitle">Regra 1: Agregação de Usinas e Terminais</div>
       <div class="paragraph">
-        O SAF apresenta desafios únicos de rastreabilidade e book-and-claim:
+        Usinas fisicamente dispersas mas operacionalmente integradas (mesma gestão, mesma certificação, offtake conjunto) devem ser classificadas como ativo único se: compartilham sistema de rastreabilidade centralizado; OU têm garantia/financiamento conjunto; OU estão sob mesmo registro ANP/EPA; OU soma das capacidades ≥ limiar da categoria superior.
       </div>
-      <ul class="bullet-list">
-        <li><strong>Mass balance rigoroso:</strong> Período de compensação máximo 1 mês (vs. 3 meses para outros)</li>
-        <li><strong>CORSIA alignment:</strong> Verificação adicional de conformidade com ICAO CORSIA</li>
-        <li><strong>Chain of custody:</strong> Documentação completa desde feedstock até blending no aeroporto</li>
-      </ul>
+      <div class="info-box">
+        <strong>Exemplo:</strong> 5 usinas de etanol de 20 milhões L/ano cada, mesmo grupo econômico, offtake conjunto para exportação = classificação E1C-M (≥ 10 milhões L/ano, agregado = 100 milhões L/ano)
+      </div>
 
-      <h3 class="doc-subtitle">C.3 Exceção por Força Maior Climática</h3>
+      <div class="doc-sub-subtitle">Regra 2: Ativos Híbridos e Complexos</div>
       <div class="paragraph">
-        Eventos climáticos extremos (El Niño severo, seca histórica, geada) podem afetar variáveis TFP de forma não-prevista:
+        Ativos com múltiplas tecnologias adotam o código mais crítico:
       </div>
-      <ul class="bullet-list">
-        <li><strong>Suspensão temporária de gatilhos:</strong> Por até 60 dias, mediante decisão do Conselho c-ECO</li>
-        <li><strong>Uso de reservas estratégicas:</strong> Liberação controlada de Lr para manutenção de operações</li>
-        <li><strong>Revisão de baseline:</strong> Ajuste de P_carbono e P_ILUC para refletir nova realidade climática</li>
-      </ul>
+      <table class="legal-table">
+        <thead>
+          <tr>
+            <th>Combinação</th>
+            <th>Código Adotado</th>
+            <th>Justificativa</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Usina 1G + 2G (cogeração)</td>
+            <td>E2G-H</td>
+            <td>2G aumenta criticidade tecnológica</td>
+          </tr>
+          <tr>
+            <td>SAF (HEFA) + HVO</td>
+            <td>SAF-H</td>
+            <td>SAF tem requisitos mais rigorosos</td>
+          </tr>
+          <tr>
+            <td>Etanol + Biometano</td>
+            <td>BIO-M</td>
+            <td>Biometano é infraestrutura crítica</td>
+          </tr>
+          <tr>
+            <td>Multi-feedstock (cana + milho)</td>
+            <td>E1C-M</td>
+            <td>Cana domina criticidade (ILUC)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="doc-sub-subtitle">Regra 3: Ativos em Transição Tecnológica</div>
+      <div class="paragraph">
+        Ativos passando por transição de geração tecnológica mantêm classificação original até certificação da nova configuração:
+      </div>
+      <table class="legal-table">
+        <thead>
+          <tr>
+            <th>Situação</th>
+            <th>Tratamento TFP</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Retrofit 1G → 2G</td>
+            <td>E2G-H prospectivo, monitoramento especial durante transição</td>
+          </tr>
+          <tr>
+            <td>Adição de co-processamento</td>
+            <td>HVO-M prospectivo, rastreabilidade de óleos</td>
+          </tr>
+          <tr>
+            <td>Conversão para SAF</td>
+            <td>SAF-H prospectivo, certificação ASTM D7566 obrigatória</td>
+          </tr>
+          <tr>
+            <td>Integração biometano</td>
+            <td>BIO-M prospectivo, upgrading para injeção na rede</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="doc-sub-subtitle">Regra 4: Ativos Estratégicos de Infraestrutura</div>
+      <div class="paragraph">
+        Independentemente da capacidade, são sempre obrigatórios:
+      </div>
+      <div class="bullet-list">
+        <li>Terminais de exportação de etanol/SAF</li>
+        <li>Usinas-piloto de tecnologias 3G/4G</li>
+        <li>Centros de pesquisa em bioquerosene</li>
+        <li>Infraestrutura de blending e distribuição de SAF</li>
+        <li>Projetos de integração com hidrogênio verde (bio-hidrogênio)</li>
+      </div>
     </section>
 
     <section id="ANEXO-D" class="article-box">
-      <h2 class="article-title">ANEXO D — INDICADORES DE ILUC E DEGRADAÇÃO</h2>
-      
-      <h3 class="doc-subtitle">D.1 Indicadores de Indirect Land Use Change (ILUC)</h3>
+      <h2 class="article-title">ANEXO D — INDICADORES SETORIAIS</h2>
+
+      <div class="doc-sub-subtitle">Indicadores por Tipo de Biocombustível</div>
+
       <table class="legal-table">
         <thead>
           <tr>
-            <th>Indicador</th>
-            <th>Fonte</th>
+            <th>Biocombustível</th>
+            <th>Indicador SOS</th>
+            <th>Limite Crítico</th>
             <th>Frequência</th>
-            <th>Threshold Crítico</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Taxa de desmatamento (PRODES/DETER)</td>
-            <td>INPE</td>
+            <td rowspan="4">ETANOL 1G (CANA)</td>
+            <td>Intensidade de carbono (CI)</td>
+            <td>28 gCO2eq/MJ (vs. 90 da gasolina)</td>
             <td>Mensal</td>
-            <td>> 10 ha no entorno do projeto</td>
           </tr>
           <tr>
-            <td>Expansão de fronteira agrícola (TerraClass)</td>
-            <td>INPE/EMBRAPA</td>
+            <td>Produtividade (ton cana/ha)</td>
+            <td>80 ton/ha (média histórica)</td>
+            <td>Safra</td>
+          </tr>
+          <tr>
+            <td>Área de reserva legal</td>
+            <td>20% (Amazônia) / 35% (Cerrado)</td>
             <td>Anual</td>
-            <td>> 15% da área cultivada</td>
           </tr>
           <tr>
-            <td>Mudança de uso do solo (MapBiomas)</td>
-            <td>Colaborativo</td>
-            <td>Anual</td>
-            <td>Conversão de vegetação nativa</td>
+            <td>Desmatamento vinculado</td>
+            <td>0 ha</td>
+            <td>Contínua</td>
           </tr>
           <tr>
-            <td>Preço de commodities agrícolas</td>
-            <td>CEPEA/CBOT</td>
-            <td>Diária</td>
-            <td>Volatilidade > 30% (σ)</td>
+            <td rowspan="3">ETANOL 2G</td>
+            <td>Yield de conversão (L/ton palha)</td>
+            <td>280 L/ton (tecnologia atual)</td>
+            <td>Mensal</td>
           </tr>
           <tr>
-            <td>Modelo econométrico (GTAP)</td>
-            <td>Purdue/CARB</td>
-            <td>Anual</td>
-            <td>Fator ILUC > 20 gCO2e/MJ</td>
+            <td>Eficiência enzimática</td>
+            <td>85% hidrólise</td>
+            <td>Contínua</td>
+          </tr>
+          <tr>
+            <td>Disponibilidade de resíduos</td>
+            <td>50% da palha disponível</td>
+            <td>Safra</td>
+          </tr>
+          <tr>
+            <td rowspan="3">SAF</td>
+            <td>CI (vs. querosene fóssil)</td>
+            <td>50% redução mínima</td>
+            <td>Lote</td>
+          </tr>
+          <tr>
+            <td>Certificação ASTM D7566</td>
+            <td>100% dos lotes</td>
+            <td>Lote</td>
+          </tr>
+          <tr>
+            <td>Rastreabilidade de feedstock</td>
+            <td>100% rastreável</td>
+            <td>Contínua</td>
+          </tr>
+          <tr>
+            <td rowspan="3">BIODIESEL/HVO</td>
+            <td>Teor de mistura (B15/B20)</td>
+            <td>Conformidade ANP</td>
+            <td>Mensal</td>
+          </tr>
+          <tr>
+            <td>FFA (ácidos graxos livres)</td>
+            <td>&lt; 0,5%</td>
+            <td>Lote</td>
+          </tr>
+          <tr>
+            <td>Origem sustentável de óleos</td>
+            <td>100% certificado</td>
+            <td>Trimestral</td>
+          </tr>
+          <tr>
+            <td rowspan="3">BIOMETANO</td>
+            <td>Pureza de CH4</td>
+            <td>≥ 96%</td>
+            <td>Contínua</td>
+          </tr>
+          <tr>
+            <td>Upgrading (CO2 removido)</td>
+            <td>≥ 98%</td>
+            <td>Contínua</td>
+          </tr>
+          <tr>
+            <td>Injeção na rede</td>
+            <td>Conformidade especificação gás natural</td>
+            <td>Contínua</td>
           </tr>
         </tbody>
       </table>
-
-      <h3 class="doc-subtitle">D.2 Indicadores de Degradação de Solo</h3>
-      <table class="legal-table">
-        <thead>
-          <tr>
-            <th>Indicador</th>
-            <th>Método</th>
-            <th>Frequência</th>
-            <th>Threshold Crítico</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Matéria orgânica do solo (MOS)</td>
-            <td>Análise laboratorial</td>
-            <td>Anual</td>
-            <td>Perda > 0,5%/ano</td>
-          </tr>
-          <tr>
-            <td>Densidade aparente</td>
-            <td>Análise física</td>
-            <td>Anual</td>
-            <td>Aumento > 10% (compactação)</td>
-          </tr>
-          <tr>
-            <td>Índice de saturação por bases (V%)</td>
-            <td>Análise química</td>
-            <td>Anual</td>
-            <td>Variação > 15%</td>
-          </tr>
-          <tr>
-            <td>Infiltração de água</td>
-            <td>Teste de campo</td>
-            <td>Semestral</td>
-            <td>Redução > 25%</td>
-          </tr>
-          <tr>
-            <td>Cobertura vegetal (NDVI)</td>
-            <td>Satélite</td>
-            <td>Mensal</td>
-            <td>Queda > 20% na safra</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="info-box">
-        <strong>Referências Normativas e Científicas:</strong><br><br>
-        • Searchinger et al. (2008) — "Use of U.S. Croplands for Biofuels Increases Greenhouse Gases Through Emissions from Land-Use Change"<br>
-        • CARB (2023) — LCFS Regulation and ILUC Analysis<br>
-        • EPA (2022) — Renewable Fuel Standard Program: Regulatory Impact Analysis<br>
-        • MapBiomas (2024) — Coleção 8 da série temporal de uso e cobertura da terra<br>
-        • EMBRAPA (2023) — Sistema Brasileiro de Classificação de Solos<br>
-        • Bonsucro Production Standard 5.2<br>
-        • ISCC EU/PLUS Certification System
-      </div>
     </section>
 
     <!-- RODAPÉ -->
-    <section class="article-box" style="margin-top: 100px; border-top: 2px solid var(--gold-accent); padding-top: 40px;">
-      <div class="caput" style="text-align: center; font-style: italic; color: #666;">
-        <strong>c-ΣCO Regime v1.0 — Março 2026</strong><br><br>
-        "A validade, eficácia e continuidade de qualquer ato jurídico estão subordinadas à preservação do Safe Operating Space e à reversibilidade técnica das trajetórias de risco."<br>
-        <small>Estatuto c-ΣCO • Art. 1º</small><br><br>
-        Documento elaborado em conformidade com:<br>
-        • Threshold Function Protocol (TFP) Manual c-ECO<br>
-        • Estatuto do Regime c-ECO<br>
-        • Risk Diagnosis c-ECO<br>
-        • Renewable Fuel Standard (EPA)<br>
-        • Low Carbon Fuel Standard (CARB)<br>
-        • RenovaBio (ANP)<br><br>
-        <strong>Contato:</strong> secretariat@c-eco.org<br>
-        <strong>Repositório:</strong> https://github.com/c-eco/protocols
+    <section class="article-box" style="margin-top: 80px; border-top: 2px solid var(--biofuel-green); padding-top: 40px;">
+      <div class="caput" style="text-align: center; font-style: italic; color: var(--text-muted);">
+        Documento elaborado conforme Protocolo TFP-Biofuel v1.0 e Framework c-ECO.<br>
+        Edição Brasil-EUA: Transnational Biofuel Systems Governance<br>
+        Aplicação imediata mediante incorporação por referência em contratos, licenças ou regimes institucionais.
       </div>
     </section>
 
@@ -2554,15 +2406,34 @@ DECISÃO FINAL (SPS Score)
 <script>
   // Search functionality
   document.getElementById('sidebarSearch').addEventListener('input', function(e) {
-    const term = e.target.value.toLowerCase();
-    const items = document.querySelectorAll('.nav-item, .nav-section-title');
+    const searchTerm = e.target.value.toLowerCase();
+    const navItems = document.querySelectorAll('.nav-item');
+    const sectionTitles = document.querySelectorAll('.nav-section-title');
     
-    items.forEach(item => {
+    navItems.forEach(item => {
       const text = item.textContent.toLowerCase();
-      if (text.includes(term)) {
+      if (text.includes(searchTerm)) {
         item.classList.remove('hidden');
       } else {
         item.classList.add('hidden');
+      }
+    });
+    
+    sectionTitles.forEach(title => {
+      const nextItems = [];
+      let next = title.nextElementSibling;
+      while (next && !next.classList.contains('nav-section-title')) {
+        if (next.classList.contains('nav-item')) {
+          nextItems.push(next);
+        }
+        next = next.nextElementSibling;
+      }
+      
+      const hasVisibleItems = nextItems.some(item => !item.classList.contains('hidden'));
+      if (hasVisibleItems || searchTerm === '') {
+        title.classList.remove('hidden');
+      } else {
+        title.classList.add('hidden');
       }
     });
   });
@@ -2577,11 +2448,53 @@ DECISÃO FINAL (SPS Score)
           behavior: 'smooth',
           block: 'start'
         });
-        // Close mobile menu if open
+        // Close mobile sidebar if open
         document.getElementById('sidebar').classList.remove('open');
       }
     });
   });
+
+  // Highlight active section in sidebar
+  const sections = document.querySelectorAll('.article-box[id]');
+  const navLinks = document.querySelectorAll('.nav-item a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      if (pageYOffset >= (sectionTop - 100)) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) {
+        link.classList.add('active');
+        link.style.color = 'var(--biofuel-green)';
+        link.style.fontWeight = '700';
+      } else {
+        link.style.color = '';
+        link.style.fontWeight = '';
+      }
+    });
+  });
+
+  // Mode switch functionality
+  function setMode(mode) {
+    const buttons = document.querySelectorAll('.mode-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    // Here you can add logic to show/hide didactic vs operational content
+    // For now, this is a visual toggle
+    if (mode === 'operacional') {
+      document.body.style.setProperty('--bg-body', '#f5f5f5');
+    } else {
+      document.body.style.setProperty('--bg-body', '#f8f9fa');
+    }
+  }
 </script>
 
 </body>
