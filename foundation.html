@@ -245,99 +245,41 @@
       width: 100%;
     }
     
-/* --- MENU MOBILE & HAMBURGUER --- */
+/* --- MENU MOBILE --- */
 
-.mobile-menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
+#mobile-menu {
   background: rgba(12, 10, 9, 0.98);
   backdrop-filter: blur(12px);
-  z-index: 40;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.mobile-menu.active {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.mobile-menu a {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.8rem;
-  font-weight: 400;
-  color: var(--gold);
-  text-decoration: none;
+#mobile-menu a {
+  color: #e7e5e4;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.2rem;
-  margin: 1.2rem 0;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: 0.15em;
+  text-decoration: none;
+  display: block;
+  padding: 0.5rem 0;
 }
 
-.mobile-menu.active a {
-  opacity: 1;
-  transform: translateY(0);
+#mobile-menu a:hover {
+  color: #d6bc7e;
 }
 
-.mobile-menu.active a:nth-child(1) { transition-delay: 0.1s; }
-.mobile-menu.active a:nth-child(2) { transition-delay: 0.15s; }
-.mobile-menu.active a:nth-child(3) { transition-delay: 0.2s; }
-.mobile-menu.active a:nth-child(4) { transition-delay: 0.25s; }
-.mobile-menu.active a:nth-child(5) { transition-delay: 0.3s; }
-.mobile-menu.active a:nth-child(6) { transition-delay: 0.35s; }
-
-.hamburger {
-  display: none;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 26px;
-  height: 18px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  z-index: 50;
-  padding: 0;
+#mobile-menu a.text-gold {
+  color: #d6bc7e;
+  border: 1px solid rgba(214, 188, 126, 0.3);
+  padding: 0.75rem 1rem;
+  text-align: center;
+  margin-top: 0.5rem;
 }
 
-.hamburger span {
-  width: 100%;
-  height: 2px;
-  background: var(--gold);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  transform-origin: center;
+#mobile-menu a.text-gold:hover {
+  background: #d6bc7e;
+  color: #0c0a09;
 }
 
-.hamburger.active span:nth-child(1) {
-  transform: translateY(8px) rotate(45deg);
-}
-
-.hamburger.active span:nth-child(2) {
-  opacity: 0;
-  transform: translateX(-10px);
-}
-
-.hamburger.active span:nth-child(3) {
-  transform: translateY(-8px) rotate(-45deg);
-}
-
-@media (max-width: 1024px) {
-  .hamburger { 
-    display: flex; 
-  }
-  .desktop-nav { 
-    display: none; 
-  }
-}
 
 
 /* Visibilidade em dispositivos móveis */
@@ -545,19 +487,6 @@
     }
   </style>
 </head>
-
-<body class="antialiased">
-
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-
-  <nav class="timeline-indicator no-print" aria-label="Section navigation">
-    <a href="#note" class="timeline-dot" aria-label="Note section" title="Note"></a>
-    <a href="#feature" class="timeline-dot" aria-label="Feature section" title="Feature"></a>
-    <a href="#dossier" class="timeline-dot" aria-label="Dossier section" title="Dossier"></a>
-    <a href="#ceco" class="timeline-dot" aria-label="c-ECO section" title="c-ECO"></a>
-    <a href="#lineage" class="timeline-dot" aria-label="Lineage section" title="Lineage"></a>
-  </nav>
-
   <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-stone-950/80 backdrop-blur-md transition-all duration-500" id="navbar">
     <div class="max-w-7xl mx-auto px-6 lg:px-12 py-6 flex justify-between items-center">
       
@@ -566,7 +495,7 @@
           <span class="text-gold border border-gold/20 px-3 py-1.5 text-sm bg-black/20 transition-all duration-500 group-hover:border-gold/50 group-hover:shadow-[0_0_20px_rgba(214,188,126,0.15)]">
             Σ
           </span>
-          <span class="text-[10px] uppercase tracking-[0.3em] font-medium text-stone-400 group-hover:text-stone-300 transition-colors">Hasse Foundation</span>
+          <span class="text-[10px] uppercase tracking-[0.3em] font-medium text-stone-400 group-hover:text-stone-300 transition-colors">c-ECO Doctrine</span>
         </a>
       </div>
 
@@ -582,23 +511,22 @@
         </a>
       </div>
 
-      <button class="hamburger no-print" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
-        <span></span>
-        <span></span>
-        <span></span>
+      <button id="mobileMenuBtn" class="lg:hidden text-stone-400 hover:text-gold transition text-xl" type="button">
+        ☰
       </button>
     </div>
-  </nav>
 
-      <!-- MENU MOBILE -->
-  <div class="mobile-menu no-print" id="mobile-menu" role="dialog" aria-label="Mobile navigation">
-    <a href="#note" onclick="closeMenu()">Note</a>
-    <a href="#feature" onclick="closeMenu()">Feature</a>
-    <a href="#dossier" onclick="closeMenu()">Dossier</a>
-    <a href="#ceco" onclick="closeMenu()">c-ECO</a>
-    <a href="#lineage" onclick="closeMenu()">Lineage</a>
-    <a href="english.html" onclick="closeMenu()" style="font-size: 1rem; margin-top: 2rem; opacity: 0.6;">Return to c-ECO Portal</a>
-  </div>
+    <div id="mobile-menu" class="lg:hidden hidden w-full px-6 pb-6 pt-4 bg-stone-950/98 border-t border-white/5 backdrop-blur-md">
+      <div class="flex flex-col gap-4 text-[11px] uppercase tracking-widest">
+        <a href="#note" class="hover:text-gold transition">Note</a>
+        <a href="#feature" class="hover:text-gold transition">Feature</a>
+        <a href="#dossier" class="hover:text-gold transition">Dossier</a>
+        <a href="#ceco" class="hover:text-gold transition">c-ECO</a>
+        <a href="#lineage" class="hover:text-gold transition">Lineage</a>
+        <a href="english.html" class="text-gold border border-gold/30 px-4 py-2 mt-2 text-center hover:bg-gold hover:text-black transition">Return to Portal</a>
+      </div>
+    </div>
+  </nav>
 
 
   <header class="min-h-[90vh] flex items-center justify-center text-center px-6 relative">
@@ -1218,33 +1146,15 @@ const observer = new IntersectionObserver((entries) => {
 
     document.querySelectorAll('.reveal, .reveal-group').forEach(el => observer.observe(el));
 
-   
-    const hamburger = document.querySelector('.hamburger');
-    const mobileMenu = document.querySelector('.mobile-menu');
-    let menuOpen = false;
-
-    function toggleMenu() {
-      menuOpen = !menuOpen;
-      hamburger.classList.toggle('active');
-      mobileMenu.classList.toggle('active');
-      hamburger.setAttribute('aria-expanded', menuOpen);
-      document.body.style.overflow = menuOpen ? 'hidden' : '';
-    }
-
-    function closeMenu() {
-      if (menuOpen) toggleMenu();
-    }
-
-    hamburger.addEventListener('click', toggleMenu);
-
-    mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', closeMenu);
+           // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
     });
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && menuOpen) closeMenu();
-    });
-
+    
 
     const sections = ['note', 'feature', 'dossier', 'ceco', 'lineage'];
     const dots = document.querySelectorAll('.timeline-dot');
