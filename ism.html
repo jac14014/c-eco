@@ -2,8 +2,8 @@
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-    <title>Institutional Cooperation Brief | Instituto Silvio Meira — c-ECO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instituto Silvio Meira | Institutional Cooperation — c-ECO</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -13,314 +13,286 @@
                     colors: {
                         gold: "#d6bc7e",
                         stone: { 950: "#0c0a09" }
-                    },
-                    fontSize: {
-                        'xxs': '0.65rem',
                     }
                 }
             }
         }
     </script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
         :root { --stone-950: #0c0a09; --gold: #d6bc7e; }
-        
-        html { font-size: 16px; }
         
         body { 
             background-color: var(--stone-950); 
             color: #e7e5e4; 
             font-family: 'Inter', sans-serif; 
-            line-height: 1.6; 
-            font-size: 16px;
-            -webkit-text-size-adjust: 100%;
+            line-height: 1.8; 
         }
         
         h1, h2, h3, .serif { 
             font-family: 'Playfair Display', serif; 
         }
-        
-        .hero-title {
-            font-size: clamp(2rem, 8vw, 4rem);
-            line-height: 1.1;
-        }
-        
-        .section-title {
-            font-size: clamp(1.75rem, 6vw, 3rem);
-            line-height: 1.15;
-        }
-        
-        .card-title {
-            font-size: 1.125rem;
-            font-weight: 600;
-        }
-        
-        .body-text {
-            font-size: 1rem;
-            line-height: 1.7;
-        }
-        
-        .small-text {
-            font-size: 0.875rem;
-        }
-        
-        .label-text {
-            font-size: 0.75rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-        }
-        
+
         .reveal { 
             opacity: 0; 
             transform: translateY(20px); 
-            transition: all 0.8s ease-out; 
+            transition: all 1s ease-out; 
         }
+        
         .reveal.active { 
             opacity: 1; 
             transform: translateY(0); 
         }
 
         .glass-panel { 
-            background: rgba(28, 25, 23, 0.7); 
-            backdrop-filter: blur(12px); 
-            border: 1px solid rgba(214, 188, 126, 0.15); 
-            border-radius: 12px;
+            background: rgba(28, 25, 23, 0.6); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(214, 188, 126, 0.1); 
         }
-        
+
         .divider-gold { 
-            width: 80px; 
-            height: 2px; 
-            background: rgba(214,188,126,0.6); 
-            margin: 1.5rem auto; 
+            width: 60px; 
+            height: 1px; 
+            background: rgba(214,188,126,0.55); 
+            margin: 2rem auto; 
+        }
+
+        .prose-custom p { 
+            margin-bottom: 1.5rem; 
+            text-align: justify; 
+            text-justify: inter-word; 
+            hyphens: auto; 
+            color: #a8a29e; 
         }
         
-        .status-badge {
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding: 0.35rem 0.75rem;
-            border-radius: 9999px;
-            white-space: nowrap;
+        .prose-custom strong { 
+            color:#fff; 
+            font-weight:600; 
         }
-        .status-active {
-            background: rgba(34, 197, 94, 0.2);
-            color: #22c55e;
-            border: 1px solid rgba(34, 197, 94, 0.4);
+        
+        .gold-soft { 
+            color: rgba(214,188,126,0.70); 
         }
-
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem 1.5rem;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            border-radius: 8px;
-            min-height: 48px;
-            transition: all 0.2s ease;
+        
+        .gold { 
+            color: #d6bc7e; 
         }
-        .btn-primary:active {
-            transform: scale(0.97);
+        
+        .gold-line { 
+            border-color: rgba(214,188,126,0.35); 
         }
 
-        .section-padding {
-            padding-top: 4rem;
-            padding-bottom: 4rem;
-        }
-
-        .logo-container {
-            width: 140px;
-            height: 140px;
-            background: rgba(255, 255, 255, 0.05);
+        .bio-image-container {
+            position: relative;
+            overflow: hidden;
             border: 1px solid rgba(214, 188, 126, 0.2);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
+            background: #18181b;
+            aspect-ratio: 3/4;
         }
 
-        .logo-container img {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-        }
-
-        .profile-photo {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 2px solid rgba(214, 188, 126, 0.3);
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-
-        .profile-photo img {
+        .bio-image-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            filter: grayscale(100%) contrast(1.25);
+            opacity: 0.8;
+            transition: all 0.7s ease;
         }
 
-        @media (min-width: 768px) {
-            .section-padding {
-                padding-top: 6rem;
-                padding-bottom: 6rem;
-            }
+        .bio-image-container:hover img {
+            filter: grayscale(0%) contrast(1);
+            opacity: 1;
+        }
+
+        .bio-image-container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 10;
+            pointer-events: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .bio-image-container:hover::before {
+            border-color: rgba(214, 188, 126, 0.3);
+        }
+
+        .dropcap::first-letter { 
+            float: left; 
+            font-size: 3.5rem; 
+            line-height: 0.8; 
+            padding-right: 0.6rem; 
+            color: var(--gold); 
+            font-family: 'Playfair Display'; 
         }
     </style>
 </head>
 
-<body class="selection:bg-gold/30 antialiased">
+<body class="selection:bg-gold/30">
 
     <!-- Navigation -->
-    <nav id="siteNav" class="fixed top-0 w-full z-50 border-b border-white/10 bg-stone-950/95 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
-            <a href="english.html" class="inline-flex items-center gap-3 group">
-                <span class="text-gold border border-[#d6bc7e]/40 px-2.5 py-1.5 text-lg font-bold bg-black/50 rounded">Σ</span>
-                <span class="text-xs uppercase tracking-[0.25em] font-bold text-stone-300">c-ECO Doctrine</span>
+    <nav id="siteNav" class="fixed top-0 w-full z-50 border-b border-white/5 bg-stone-950/90 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="inline-flex items-center gap-3 group">
+                <span class="text-gold border gold-line px-2 py-1 text-sm bg-black/40 transition-all group-hover:shadow-[0_0_16px_rgba(214,188,126,0.22)]">Σ</span>
+                <span class="text-[10px] uppercase tracking-[0.3em] font-bold">c-ECO Doctrine</span>
             </a>
 
-            <div class="hidden lg:flex gap-6 text-xs uppercase tracking-widest text-stone-400 items-center">
-                <a href="english.html" class="hover:text-gold transition py-2">Home</a>
-                <a href="foundation.html" class="hover:text-gold transition py-2">Foundation</a>
-
-                <a href="partnerships-interest.html" class="text-gold py-2">Partnerships</a>
-                <a href="pilot.html" class="text-gold border border-gold/50 px-4 py-2 rounded hover:bg-gold hover:text-black transition font-semibold">Request Pilot</a>
+            <div class="hidden lg:flex gap-8 text-[9px] uppercase tracking-widest text-stone-500 items-center">
+                <a href="english.html" class="hover:text-gold transition">Home</a>
+                <a href="#overview" class="hover:text-gold transition">Overview</a>
+                <a href="#leadership" class="hover:text-gold transition">Leadership</a>
+                <a href="#cooperation" class="hover:text-gold transition">Cooperation</a>
+                <a href="foundation.html" class="text-gold border border-gold/40 px-3 py-1 hover:bg-gold hover:text-black transition">Hasse Foundation</a>
             </div>
 
-            <button id="mobileMenuBtn" class="lg:hidden text-stone-300 hover:text-gold transition p-2" type="button" aria-label="Menu">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                </svg>
+            <button id="mobileMenuBtn" class="lg:hidden text-stone-400 hover:text-gold transition text-xl" type="button">
+                ☰
             </button>
         </div>
 
-        <div id="mobile-menu" class="lg:hidden hidden w-full px-4 pb-6 pt-4 bg-stone-950 border-t border-white/10">
-            <div class="flex flex-col gap-1 text-sm uppercase tracking-widest">
-                <a href="english.html" class="text-stone-300 hover:text-gold transition py-3 border-b border-white/5">Home</a>
-                <a href="hasse-foundation.html" class="text-stone-300 hover:text-gold transition py-3 border-b border-white/5">Foundation</a>
-
-                <a href="partnerships-interest.html" class="text-gold py-3 border-b border-white/5 font-semibold">Partnerships</a>
-                <a href="request-pilot.html" class="text-gold py-3 font-semibold">Request Pilot</a>
+        <div id="mobile-menu" class="lg:hidden hidden w-full px-6 pb-6 pt-4 bg-stone-950/98 border-t border-white/5 backdrop-blur-md">
+            <div class="flex flex-col gap-4 text-[11px] uppercase tracking-widest">
+                <a href="english.html" class="hover:text-gold transition">Home</a>
+                <a href="#overview" class="hover:text-gold transition">Overview</a>
+                <a href="#leadership" class="hover:text-gold transition">Leadership</a>
+                <a href="#cooperation" class="hover:text-gold transition">Cooperation</a>
+                <a href="foundation.html" class="text-gold border border-gold/30 px-4 py-2 mt-2 text-center hover:bg-gold hover:text-black transition">Hasse Foundation</a>
             </div>
         </div>
     </nav>
-    <div id="navSpacer" class="h-16 md:h-20"></div>
+
+    <div id="navSpacer"></div>
 
     <!-- Hero -->
-    <header class="min-h-[60vh] flex items-center justify-center text-center px-5 relative">
-        <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-stone-950 pointer-events-none"></div>
-        <div class="max-w-3xl reveal relative z-10">
-            <span class="text-green-500 label-text mb-4 block">Active Cooperation</span>
-            <h1 class="hero-title mb-6 serif italic text-white">Instituto Silvio Meira</h1>
+    <header class="min-h-[70vh] flex items-center justify-center text-center px-6 relative">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-stone-950 pointer-events-none"></div>
+        <div class="max-w-4xl reveal relative z-10">
+            <span class="text-green-500 uppercase tracking-[0.6em] text-[10px] font-bold mb-6 block">Active Cooperation</span>
+            <h1 class="text-5xl md:text-7xl mb-8 leading-tight serif italic">Instituto Silvio Meira</h1>
             <div class="divider-gold"></div>
-            <p class="body-text text-stone-300 max-w-xl mx-auto px-2">
-                Institutional Cooperation Brief
-            </p>
+            <p class="text-stone-500 uppercase tracking-[0.4em] text-[10px]">Institutional Cooperation Brief</p>
         </div>
     </header>
 
     <main class="w-full pb-24">
 
         <!-- Overview Statement -->
-        <section class="reveal section-padding px-5 bg-stone-900/50">
-            <div class="max-w-3xl mx-auto text-center">
-                <p class="text-stone-300 text-lg md:text-xl leading-relaxed serif italic mb-8 px-2">
+        <section id="overview" class="reveal py-24 px-6 lg:px-24 bg-[#050505]">
+            <div class="max-w-4xl mx-auto text-center">
+                <p class="text-stone-300 text-lg md:text-xl leading-relaxed serif italic mb-12">
                     "Our foundational institutional cooperation with ISM establishes a juridical and administrative basis for c-ECO in Brazil, integrating ISM's expertise in Roman Law and international legal scholarship with the Foundation's governance architecture for systemic risk."
                 </p>
             </div>
         </section>
 
-        <!-- Main Content -->
-        <section class="reveal section-padding px-5">
-            <div class="max-w-4xl mx-auto">
-                
-                <!-- Header Card with Logo -->
-                <div class="glass-panel p-6 md:p-8 mb-8">
-                    <div class="flex flex-col md:flex-row gap-8 items-center md:items-start">
-                        <div class="logo-container flex-shrink-0">
-                            <img src="ism.png" alt="Instituto Silvio Meira Logo">
+        <!-- Institutional Overview -->
+        <section class="reveal py-24 px-6 lg:px-24">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <span class="text-gold uppercase tracking-[0.6em] text-[10px] font-bold mb-4 block">Institutional Profile</span>
+                    <h2 class="text-4xl md:text-5xl text-white serif italic">Overview</h2>
+                </div>
+
+                <div class="grid lg:grid-cols-12 gap-16 items-start mb-24">
+                    <div class="lg:col-span-5">
+                        <div class="glass-panel p-8 border border-white/10">
+                            <div class="grid grid-cols-2 gap-6 text-sm">
+                                <div>
+                                    <span class="text-[9px] uppercase tracking-widest text-stone-600 block mb-2">Founded</span>
+                                    <span class="text-stone-300">September 2013</span>
+                                </div>
+                                <div>
+                                    <span class="text-[9px] uppercase tracking-widest text-stone-600 block mb-2">Location</span>
+                                    <span class="text-stone-300">Belém, Pará, Brazil</span>
+                                </div>
+                                <div class="col-span-2">
+                                    <span class="text-[9px] uppercase tracking-widest text-stone-600 block mb-2">Legal Status</span>
+                                    <span class="text-stone-300">Public utility entity (State Law 10.226/2023, Municipal Law 9.946/2023)</span>
+                                </div>
+                                <div class="col-span-2">
+                                    <span class="text-[9px] uppercase tracking-widest text-stone-600 block mb-2">Cooperation Term</span>
+                                    <span class="text-gold">February 2026 — February 2029</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex-1 text-center md:text-left">
-                            <h2 class="text-2xl md:text-3xl text-white serif italic mb-4">Overview</h2>
-                            <div class="grid md:grid-cols-2 gap-4 text-left">
-                                <div>
-                                    <p class="label-text text-stone-500 mb-1">Founded</p>
-                                    <p class="text-stone-300 small-text">September 2013</p>
-                                </div>
-                                <div>
-                                    <p class="label-text text-stone-500 mb-1">Location</p>
-                                    <p class="text-stone-300 small-text">Belém, Pará, Brazil</p>
-                                </div>
-                                <div>
-                                    <p class="label-text text-stone-500 mb-1">Legal Status</p>
-                                    <p class="text-stone-300 small-text">Public utility entity (State Law 10.226/2023, Municipal Law 9.946/2023)</p>
-                                </div>
-                                <div>
-                                    <p class="label-text text-stone-500 mb-1">Cooperation Term</p>
-                                    <p class="text-stone-300 small-text">February 2026 — February 2029</p>
-                                </div>
+                    </div>
+                    
+                    <div class="lg:col-span-7 prose-custom text-stone-400 text-lg lg:pt-4">
+                        <p class="dropcap mb-8">
+                            The <strong>Instituto Silvio Meira (ISM)</strong> is a nonprofit juridical and cultural institution dedicated to the advancement of juridical science, with particular emphasis on <strong>Roman Law</strong>, legal theory, and the preservation of Brazil's legal heritage.
+                        </p>
+                        <p>
+                            The institute honors <strong>Silvio Augusto de Bastos Meira (1919–1995)</strong> — a distinguished Brazilian jurist, professor emeritus at the Federal University of Pará (UFPA), and internationally recognized authority on Roman Law, whose work bridged Brazilian and European legal traditions.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Leadership -->
+        <section id="leadership" class="reveal py-24 px-6 lg:px-24 bg-[#050505]">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <span class="text-gold uppercase tracking-[0.6em] text-[10px] font-bold mb-4 block text-center">Leadership</span>
+                    <h2 class="text-4xl md:text-5xl text-white serif italic">Institutional Direction</h2>
+                </div>
+
+                <!-- Dr. André Augusto Malcher Meira -->
+                <div class="grid lg:grid-cols-12 gap-16 items-start mb-24">
+                    <div class="lg:col-span-5">
+                        <div class="bio-image-container group relative">
+                            <img src="andre.PNG" alt="Dr. André Augusto Malcher Meira">
+                        </div>
+                        <div class="mt-8">
+                            <h4 class="text serif text-2xl text-white">Dr. André Augusto Malcher Meira</h4>
+                            <p class="text-gold text-[10px] uppercase tracking-[0.4em] mt-2">President, Instituto Silvio Meira</p>
+                        </div>
+                    </div>
+                    
+                    <div class="lg:col-span-7 prose-custom text-stone-400 text-lg lg:pt-4">
+                        <p class="mb-8">
+                            President of the <strong>Colégio de Presidentes das Academias Jurídicas do Brasil (COPAJUB)</strong> (2025–2027), Dr. Meira is an advocate in Belém and Lisbon, professor and legal scholar. He led the institutional transition of ISM into a recognized public-interest entity.
+                        </p>
+                        <div class="grid grid-cols-2 gap-4 mt-12 border-t border-white/10 pt-8">
+                            <div>
+                                <span class="text-[9px] uppercase tracking-widest text-stone-600 block mb-2">Role</span>
+                                <span class="text-xs text-stone-300 block">Institutional President</span>
+                                <span class="text-xs text-stone-300 block">COPAJUB Leadership</span>
+                            </div>
+                            <div>
+                                <span class="text-[9px] uppercase tracking-widest text-stone-600 block mb-2">Jurisdiction</span>
+                                <span class="text-xs text-stone-300 block">Brazil</span>
+                                <span class="text-xs text-stone-300 block">Portugal</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Institutional Profile -->
-                <div class="glass-panel p-6 md:p-8 mb-8">
-                    <h3 class="text-white serif text-xl md:text-2xl mb-4">Institutional Profile</h3>
-                    <p class="text-stone-300 body-text mb-6">
-                        The <span class="text-white font-medium">Instituto Silvio Meira (ISM)</span> is a nonprofit juridical and cultural institution dedicated to the advancement of juridical science, with particular emphasis on <span class="text-white font-medium">Roman Law</span>, legal theory, and the preservation of Brazil's legal heritage.
-                    </p>
-                    <p class="text-stone-300 body-text">
-                        The institute honors <span class="text-white font-medium">Silvio Augusto de Bastos Meira (1919–1995)</span> — a distinguished Brazilian jurist, professor emeritus at the Federal University of Pará (UFPA), and internationally recognized authority on Roman Law, whose work bridged Brazilian and European legal traditions.
-                    </p>
-                </div>
-
-                <!-- Leadership -->
-                <div class="glass-panel p-6 md:p-8 mb-8 border-l-4 border-l-gold/50">
-                    <h3 class="text-white serif text-xl md:text-2xl mb-2">Dr. André Augusto Malcher Meira</h3>
-                    <p class="text-gold label-text mb-4">President, Instituto Silvio Meira</p>
-                    <ul class="space-y-3 text-stone-300 small-text">
-                        <li class="flex items-start gap-3">
-                            <span class="text-gold mt-1">•</span>
-                            <span>President of the <span class="text-white font-medium">Colégio de Presidentes das Academias Jurídicas do Brasil (COPAJUB)</span> (2025–2027)</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="text-gold mt-1">•</span>
-                            <span>Advocate in Belém and Lisbon</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="text-gold mt-1">•</span>
-                            <span>Professor and legal scholar</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="text-gold mt-1">•</span>
-                            <span>Led the institutional transition of ISM into a recognized public-interest entity</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Flávia Figueira - Direct c-ECO Contact -->
-                <div class="glass-panel p-6 md:p-8 mb-8 border-l-4 border-l-blue-500/50">
-                    <div class="flex flex-col md:flex-row gap-6 items-center md:items-start">
-                        <div class="profile-photo">
+                <!-- Flávia Figueira -->
+                <div class="grid lg:grid-cols-12 gap-16 items-start mb-24">
+                    <div class="lg:col-span-5 lg:order-2">
+                        <div class="bio-image-container group relative">
                             <img src="flavia.jpg" alt="Flávia Figueira">
                         </div>
-                        <div class="flex-1 text-center md:text-left">
-                            <h3 class="text-white serif text-xl md:text-2xl mb-2">Flávia Figueira</h3>
-                            <p class="text-blue-400 label-text mb-4">Direct c-ECO Liaison</p>
-                            <p class="text-stone-300 small-text mb-4">
-                                <span class="text-white font-medium">Director of the Digital Law and Technology Chair at Instituto Silvio Meira.
-                            </p>
-                            <p class="text-stone-400 small-text mb-4">
-                                Flávia leads ISM's interface with the c-ECO framework, coordinating operational implementation, legal-technical alignment, and day-to-day cooperation between the institutions.
-                            </p>
-                            <a href="mailto:flavia@figueiraelealadv.com" class="inline-flex items-center gap-2 text-gold hover:underline small-text">
+                        <div class="mt-8">
+                            <h4 class="text serif text-2xl text-white">Flávia Figueira</h4>
+                            <p class="text-blue-400 text-[10px] uppercase tracking-[0.4em] mt-2">Direct c-ECO Liaison</p>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-7 lg:order-1 prose-custom text-stone-400 text-lg lg:pt-4">
+                        <p class="mb-8">
+                            <strong>Director of the Digital Law and Technology Chair</strong> at Instituto Silvio Meira. Flávia leads ISM's interface with the c-ECO framework, coordinating operational implementation, legal-technical alignment, and day-to-day cooperation between the institutions.
+                        </p>
+                        <p class="mb-8">
+                            As the primary c-ECO liaison, she ensures seamless integration between ISM's institutional capabilities and the Foundation's governance requirements for systemic risk management.
+                        </p>
+                        <div class="mt-12 border-t border-white/10 pt-8">
+                            <a href="mailto:flavia@figueiraelealadv.com" class="inline-flex items-center gap-2 text-gold hover:underline text-sm">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                                 </svg>
@@ -329,175 +301,220 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- Institutional Activities -->
-                <div class="glass-panel p-6 md:p-8 mb-8">
-                    <h3 class="text-white serif text-xl md:text-2xl mb-4">Institutional Activities</h3>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div class="flex items-start gap-3 p-3 bg-black/20 rounded-lg">
-                            <span class="text-gold text-lg">◆</span>
-                            <div>
-                                <p class="text-white font-medium small-text mb-1">International Congresses</p>
-                                <p class="text-stone-400 text-xs">VII ISM Congress (Italy, 2026); I Brazilian-American Congress on Business Law (Orlando, 2026); recurring Ítalo-Luso-Brazilian congresses in Rome</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-3 p-3 bg-black/20 rounded-lg">
-                            <span class="text-gold text-lg">◆</span>
-                            <div>
-                                <p class="text-white font-medium small-text mb-1">Publications</p>
-                                <p class="text-stone-400 text-xs">Digesto journal, juridical bulletins, Juris Talks program, and a digital legal library</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-3 p-3 bg-black/20 rounded-lg">
-                            <span class="text-gold text-lg">◆</span>
-                            <div>
-                                <p class="text-white font-medium small-text mb-1">Academic Recognition</p>
-                                <p class="text-stone-400 text-xs">The Prêmio Silvio Meira, awarded to distinguished jurists</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-3 p-3 bg-black/20 rounded-lg">
-                            <span class="text-gold text-lg">◆</span>
-                            <div>
-                                <p class="text-white font-medium small-text mb-1">International Linkages</p>
-                                <p class="text-stone-400 text-xs">Strategic collaboration with the University of Lisbon through the Centro de Estudos Silvio Meira</p>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Institutional Activities -->
+        <section class="reveal py-24 px-6 lg:px-24">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <span class="text-gold uppercase tracking-[0.6em] text-[10px] font-bold mb-4 block">Activities</span>
+                    <h2 class="text-4xl md:text-5xl text-white serif italic">Institutional Activities</h2>
                 </div>
 
-                <!-- Strategic Cooperation -->
-                <div class="glass-panel p-6 md:p-8 mb-8 border-l-4 border-l-green-500/50">
-                    <h3 class="text-white serif text-xl md:text-2xl mb-4">Strategic Cooperation with c-ECO</h3>
-                    <p class="text-stone-300 body-text mb-6">
+                <div class="grid md:grid-cols-2 gap-0 border border-white/10">
+                    <div class="p-12 border-r border-b border-white/10 group hover:bg-white/[0.02] transition-all duration-700">
+                        <div class="text-gold/20 serif text-5xl text-center mb-12 group-hover:text-gold/40 transition-colors">◆</div>
+                        <h4 class="text-xl font-bold mb-6 text-white text-center uppercase tracking-tighter">International Congresses</h4>
+                        <p class="text-stone-500 text-sm text-center leading-relaxed font-light">
+                            VII ISM Congress (Italy, 2026); I Brazilian-American Congress on Business Law (Orlando, 2026); recurring Ítalo-Luso-Brazilian congresses in Rome
+                        </p>
+                    </div>
+
+                    <div class="p-12 border-b border-white/10 group hover:bg-white/[0.02] transition-all duration-700">
+                        <div class="text-gold/20 serif text-5xl text-center mb-12 group-hover:text-gold/40 transition-colors">◆</div>
+                        <h4 class="text-xl font-bold mb-6 text-white text-center uppercase tracking-tighter">Publications</h4>
+                        <p class="text-stone-500 text-sm text-center leading-relaxed font-light">
+                            Digesto journal, juridical bulletins, Juris Talks program, and a digital legal library
+                        </p>
+                    </div>
+
+                    <div class="p-12 border-r border-white/10 group hover:bg-white/[0.02] transition-all duration-700">
+                        <div class="text-gold/20 serif text-5xl text-center mb-12 group-hover:text-gold/40 transition-colors">◆</div>
+                        <h4 class="text-xl font-bold mb-6 text-white text-center uppercase tracking-tighter">Academic Recognition</h4>
+                        <p class="text-stone-500 text-sm text-center leading-relaxed font-light">
+                            The Prêmio Silvio Meira, awarded to distinguished jurists
+                        </p>
+                    </div>
+
+                    <div class="p-12 group hover:bg-white/[0.02] transition-all duration-700">
+                        <div class="text-gold/20 serif text-5xl text-center mb-12 group-hover:text-gold/40 transition-colors">◆</div>
+                        <h4 class="text-xl font-bold mb-6 text-white text-center uppercase tracking-tighter">International Linkages</h4>
+                        <p class="text-stone-500 text-sm text-center leading-relaxed font-light">
+                            Strategic collaboration with the University of Lisbon through the Centro de Estudos Silvio Meira
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Strategic Cooperation -->
+        <section id="cooperation" class="reveal py-24 px-6 lg:px-24 bg-[#050505]">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <span class="text-gold uppercase tracking-[0.6em] text-[10px] font-bold mb-4 block">Framework</span>
+                    <h2 class="text-4xl md:text-5xl text-white serif italic">Strategic Cooperation</h2>
+                </div>
+
+                <div class="max-w-4xl mx-auto">
+                    <p class="text-stone-400 text-lg leading-relaxed mb-12 text-center">
                         The cooperation establishes a structured institutional interface for c-ECO activities in Brazil. Within this framework, ISM may act as:
                     </p>
-                    <div class="space-y-4 mb-6">
-                        <div class="flex items-start gap-3">
-                            <span class="text-green-500 mt-1">•</span>
-                            <p class="text-stone-300 small-text"><span class="text-white font-medium">Administrative and institutional proponent</span> for grant applications under Brazilian law</p>
+
+                    <div class="grid md:grid-cols-3 gap-0 border border-white/10 mb-16">
+                        <div class="p-12 border-r border-white/10 group hover:bg-white/[0.02] transition-all duration-700">
+                            <div class="text-green-500/20 serif text-5xl text-center mb-12 group-hover:text-green-500/40 transition-colors">⊘</div>
+                            <h4 class="text-lg font-bold mb-6 text-white text-center uppercase tracking-tighter">Administrative Proponent</h4>
+                            <p class="text-stone-500 text-sm text-center leading-relaxed font-light">
+                                For grant applications under Brazilian law
+                            </p>
                         </div>
-                        <div class="flex items-start gap-3">
-                            <span class="text-green-500 mt-1">•</span>
-                            <p class="text-stone-300 small-text"><span class="text-white font-medium">Local coordination node</span> for research and technological development projects aligned with c-ECO</p>
+
+                        <div class="p-12 border-r border-white/10 group hover:bg-white/[0.02] transition-all duration-700">
+                            <div class="text-green-500/20 serif text-5xl text-center mb-12 group-hover:text-green-500/40 transition-colors">⊘</div>
+                            <h4 class="text-lg font-bold mb-6 text-white text-center uppercase tracking-tighter">Local Coordination Node</h4>
+                            <p class="text-stone-500 text-sm text-center leading-relaxed font-light">
+                                For research and technological development projects aligned with c-ECO
+                            </p>
                         </div>
-                        <div class="flex items-start gap-3">
-                            <span class="text-green-500 mt-1">•</span>
-                            <p class="text-stone-300 small-text"><span class="text-white font-medium">Facilitator of access</span> to national funding mechanisms and institutional networks</p>
+
+                        <div class="p-12 group hover:bg-white/[0.02] transition-all duration-700">
+                            <div class="text-green-500/20 serif text-5xl text-center mb-12 group-hover:text-green-500/40 transition-colors">⊘</div>
+                            <h4 class="text-lg font-bold mb-6 text-white text-center uppercase tracking-tighter">Access Facilitator</h4>
+                            <p class="text-stone-500 text-sm text-center leading-relaxed font-light">
+                                To national funding mechanisms and institutional networks
+                            </p>
                         </div>
                     </div>
-                    <p class="text-stone-400 small-text italic">
+
+                    <p class="text-stone-500 text-sm italic text-center">
                         All activities are subject to prior written approval by the Foundation and governed by project-specific agreements.
                     </p>
                 </div>
+            </div>
+        </section>
 
-                <!-- Governance Framework -->
-                <div class="glass-panel p-6 md:p-8 mb-8">
-                    <h3 class="text-white serif text-xl md:text-2xl mb-4">Governance Framework</h3>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div class="flex items-start gap-3 p-3 bg-black/20 rounded-lg">
-                            <span class="text-gold text-lg">◆</span>
-                            <div>
-                                <p class="text-white font-medium small-text mb-1">Non-binding structure</p>
-                                <p class="text-stone-400 text-xs">No obligations arise without formal Subsequent Definitive Agreements (SDAs)</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-3 p-3 bg-black/20 rounded-lg">
-                            <span class="text-gold text-lg">◆</span>
-                            <div>
-                                <p class="text-white font-medium small-text mb-1">Non-exclusivity</p>
-                                <p class="text-stone-400 text-xs">The Foundation retains full discretion to establish additional global partnerships</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-3 p-3 bg-black/20 rounded-lg">
-                            <span class="text-gold text-lg">◆</span>
-                            <div>
-                                <p class="text-white font-medium small-text mb-1">IP Protection</p>
-                                <p class="text-stone-400 text-xs">c-ECO remains the exclusive intellectual property of Jacqueline A. Ennis</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-3 p-3 bg-black/20 rounded-lg">
-                            <span class="text-gold text-lg">◆</span>
-                            <div>
-                                <p class="text-white font-medium small-text mb-1">Non-circumvention</p>
-                                <p class="text-stone-400 text-xs">ISM may not independently engage third parties in relation to c-ECO without prior authorization</p>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Governance Framework -->
+        <section class="reveal py-24 px-6 lg:px-24">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <span class="text-gold uppercase tracking-[0.6em] text-[10px] font-bold mb-4 block">Safeguards</span>
+                    <h2 class="text-4xl md:text-5xl text-white serif italic">Governance Framework</h2>
                 </div>
 
-                <!-- Contact Information -->
-                <div class="glass-panel p-6 md:p-8 mb-8">
-                    <h3 class="text-white serif text-xl md:text-2xl mb-6 text-center">Contact Information</h3>
-                    
-                    <!-- Primary c-ECO Liaison -->
-                    <div class="mb-6 p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-                        <p class="label-text text-blue-400 mb-3 text-center">Primary c-ECO Liaison</p>
-                        <div class="flex flex-col md:flex-row items-center justify-center gap-4 text-center">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center text-lg">👤</div>
-                                <div class="text-left">
-                                    <p class="text-white font-medium small-text">Flávia Figueira</p>
-                                    <p class="text-stone-400 text-xs">Diretora da Cátedra de Direito Digital e Tecnologia</p>
-                                </div>
+                <div class="grid md:grid-cols-2 gap-0 border border-white/10">
+                    <div class="p-12 border-r border-b border-white/10 group hover:bg-white/[0.02] transition-all duration-700">
+                        <div class="text-gold/20 serif text-5xl text-center mb-12 group-hover:text-gold/40 transition-colors">Σ</div>
+                        <h4 class="text-xl font-bold mb-6 text-white text-center uppercase tracking-tighter">Non-binding Structure</h4>
+                        <p class="text-stone-500 text-sm text-center leading-relaxed font-light">
+                            No obligations arise without formal Subsequent Definitive Agreements (SDAs)
+                        </p>
+                    </div>
+
+                    <div class="p-12 border-b border-white/10 group hover:bg-white/[0.02] transition-all duration-700">
+                        <div class="text-gold/20 serif text-5xl text-center mb-12 group-hover:text-gold/40 transition-colors">Σ</div>
+                        <h4 class="text-xl font-bold mb-6 text-white text-center uppercase tracking-tighter">Non-exclusivity</h4>
+                        <p class="text-stone-500 text-sm text-center leading-relaxed font-light">
+                            The Foundation retains full discretion to establish additional global partnerships
+                        </p>
+                    </div>
+
+                    <div class="p-12 border-r border-white/10 group hover:bg-white/[0.02] transition-all duration-700">
+                        <div class="text-gold/20 serif text-5xl text-center mb-12 group-hover:text-gold/40 transition-colors">Σ</div>
+                        <h4 class="text-xl font-bold mb-6 text-white text-center uppercase tracking-tighter">IP Protection</h4>
+                        <p class="text-stone-500 text-sm text-center leading-relaxed font-light">
+                            c-ECO remains the exclusive intellectual property of Jacqueline A. Ennis
+                        </p>
+                    </div>
+
+                    <div class="p-12 group hover:bg-white/[0.02] transition-all duration-700">
+                        <div class="text-gold/20 serif text-5xl text-center mb-12 group-hover:text-gold/40 transition-colors">Σ</div>
+                        <h4 class="text-xl font-bold mb-6 text-white text-center uppercase tracking-tighter">Non-circumvention</h4>
+                        <p class="text-stone-500 text-sm text-center leading-relaxed font-light">
+                            ISM may not independently engage third parties in relation to c-ECO without prior authorization
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="reveal py-24 px-6 lg:px-24 bg-[#050505]">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <span class="text-gold uppercase tracking-[0.6em] text-[10px] font-bold mb-4 block">Connect</span>
+                    <h2 class="text-4xl md:text-5xl text-white serif italic">Contact Information</h2>
+                </div>
+
+                <div class="max-w-4xl mx-auto">
+                    <!-- Primary Liaison -->
+                    <div class="glass-panel p-8 border border-white/10 mb-12">
+                        <div class="text-center mb-6">
+                            <span class="text-blue-400 uppercase tracking-[0.4em] text-[10px] font-bold">Primary c-ECO Liaison</span>
+                        </div>
+                        <div class="flex flex-col md:flex-row items-center justify-center gap-6">
+                            <div class="text-center md:text-left">
+                                <h4 class="text-white serif text-xl mb-1">Flávia Figueira</h4>
+                                <p class="text-stone-400 text-sm">Diretora da Cátedra de Direito Digital e Tecnologia</p>
                             </div>
-                            <a href="mailto:flavia@figueiraelealadv.com" class="text-gold hover:underline small-text break-all">
+                            <a href="mailto:flavia@figueiraelealadv.com" class="text-gold hover:underline text-sm">
                                 flavia@figueiraelealadv.com
                             </a>
                         </div>
                     </div>
 
-                    <div class="grid md:grid-cols-3 gap-4 mb-6">
-                        <a href="mailto:institutosilviomeira@hotmail.com" class="text-center p-5 border border-white/10 rounded-lg hover:border-gold/40 transition-colors group">
-                            <div class="text-3xl mb-3">✉️</div>
-                            <h4 class="text-white font-semibold mb-1 text-sm">Email ISM</h4>
-                            <span class="text-gold text-xs group-hover:underline break-all">institutosilviomeira@hotmail.com</span>
+                    <!-- Contact Grid -->
+                    <div class="grid md:grid-cols-3 gap-0 border border-white/10">
+                        <a href="mailto:institutosilviomeira@hotmail.com" class="p-12 border-r border-white/10 group hover:bg-white/[0.02] transition-all duration-700 text-center">
+                            <div class="text-gold/20 text-4xl mb-6 group-hover:text-gold/40 transition-colors">✉️</div>
+                            <h4 class="text-white font-semibold mb-2 text-sm uppercase tracking-widest">Email ISM</h4>
+                            <span class="text-gold text-xs">institutosilviomeira@hotmail.com</span>
                         </a>
-                        <div class="text-center p-5 border border-white/10 rounded-lg">
-                            <div class="text-3xl mb-3">📍</div>
-                            <h4 class="text-white font-semibold mb-1 text-sm">Address</h4>
+                        
+                        <div class="p-12 border-r border-white/10 group hover:bg-white/[0.02] transition-all duration-700 text-center">
+                            <div class="text-gold/20 text-4xl mb-6 group-hover:text-gold/40 transition-colors">📍</div>
+                            <h4 class="text-white font-semibold mb-2 text-sm uppercase tracking-widest">Address</h4>
                             <span class="text-stone-400 text-xs">Travessa Dom Romualdo de Seixas, 1476 – Umarizal<br>Belém, PA – Brazil, 66055-200</span>
                         </div>
-                        <a href="tel:+559132120502" class="text-center p-5 border border-white/10 rounded-lg hover:border-gold/40 transition-colors group">
-                            <div class="text-3xl mb-3">📞</div>
-                            <h4 class="text-white font-semibold mb-1 text-sm">Telephone</h4>
-                            <span class="text-gold text-xs group-hover:underline">+55 (91) 3212-0502</span>
+                        
+                        <a href="tel:+559132120502" class="p-12 group hover:bg-white/[0.02] transition-all duration-700 text-center">
+                            <div class="text-gold/20 text-4xl mb-6 group-hover:text-gold/40 transition-colors">📞</div>
+                            <h4 class="text-white font-semibold mb-2 text-sm uppercase tracking-widest">Telephone</h4>
+                            <span class="text-gold text-xs">+55 (91) 3212-0502</span>
                         </a>
                     </div>
-                    <div class="text-center">
+
+                    <div class="text-center mt-12">
                         <a href="https://institutosilviomeira.net.br" target="_blank" class="text-gold hover:underline text-sm">🌐 institutosilviomeira.net.br</a>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- Documentation -->
-                <div class="glass-panel p-6 md:p-8 border-l-4 border-l-gold/50">
-                    <h3 class="text-white serif text-xl md:text-2xl mb-4">Documentation</h3>
-                    <p class="text-stone-300 body-text mb-6">
-                        This brief summarizes the key elements of the institutional cooperation. For full terms and legal provisions, refer to the executed Memorandum of Understanding (February 27, 2026) between the Johann Christian Hasse Foundation and Instituto Silvio Meira.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a href="#" class="btn-primary border-2 border-gold/60 text-gold hover:bg-gold hover:text-black inline-flex gap-2">
-                            <span>Request Full MOU Access</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                            </svg>
-                        </a>
-                        <a href="mailto:contact@c-eco.org" class="btn-primary border-2 border-stone-600 text-stone-300 hover:border-gold/60 hover:text-gold inline-flex gap-2">
-                            <span>Contact: contact@c-eco.org</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                            </svg>
-                        </a>
-                    </div>
+        <!-- Documentation -->
+        <section class="reveal py-24 px-6 lg:px-24">
+            <div class="max-w-4xl mx-auto text-center">
+                <span class="text-gold uppercase tracking-[0.6em] text-[10px] font-bold mb-4 block">Legal</span>
+                <h2 class="text-3xl md:text-4xl text-white serif italic mb-8">Documentation</h2>
+                <p class="text-stone-400 text-lg leading-relaxed mb-12">
+                    This brief summarizes the key elements of the institutional cooperation. For full terms and legal provisions, refer to the executed Memorandum of Understanding (February 27, 2026) between the Johann Christian Hasse Foundation and Instituto Silvio Meira.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#" class="inline-flex justify-center items-center border border-gold/40 text-gold px-8 py-4 text-[10px] uppercase tracking-[0.5em] font-bold hover:bg-gold hover:text-black transition-all duration-500">
+                        Request Full MOU Access
+                    </a>
+                    <a href="mailto:contact@c-eco.org" class="inline-flex justify-center items-center border border-white/10 text-white px-8 py-4 text-[10px] uppercase tracking-[0.5em] font-bold hover:border-gold/40 hover:text-gold transition-all duration-500">
+                        Contact Foundation
+                    </a>
                 </div>
-
             </div>
         </section>
 
         <!-- References -->
-        <section class="reveal section-padding px-5 bg-stone-900/30">
-            <div class="max-w-4xl mx-auto">
-                <h3 class="label-text text-gold mb-6 text-center">References</h3>
-                <p class="text-stone-400 small-text text-center max-w-2xl mx-auto">
+        <section class="reveal py-24 px-6 lg:px-24 bg-[#050505]">
+            <div class="max-w-4xl mx-auto text-center">
+                <span class="text-gold uppercase tracking-[0.6em] text-[10px] font-bold mb-4 block">Sources</span>
+                <p class="text-stone-500 text-sm leading-relaxed">
                     This brief is based on publicly available institutional and legal records, including: Tribunal de Justiça do Pará (TJPA), Federal University of Pará (UFPA), Instituto Silvio Meira official publications and website, Brazilian Senate bibliographic archives, and COPAJUB institutional records.
                 </p>
             </div>
@@ -506,29 +523,28 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-stone-950 border-t border-white/10 text-stone-400">
-        <div class="max-w-7xl mx-auto px-5 py-12">
+    <footer class="bg-[#0c0a09] border-t border-white/10 text-[#e7e5e4] text-xs">
+        <div class="max-w-7xl mx-auto px-6 py-16">
             
-            <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-6 mb-8">
+            <!-- Logo -->
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-12">
                 <div class="flex items-center gap-3">
-                    <span class="text-gold border border-gold/40 px-3 py-2 text-lg font-bold bg-black/50 rounded">Σ</span>
-                    <div>
-                        <span class="text-xs uppercase tracking-[0.25em] font-bold text-stone-300 block">c-ECO Doctrine</span>
-                        <span class="text-xs text-stone-500">Johann Christian Hasse Foundation</span>
-                    </div>
+                    <span class="text-[#d6bc7e] border border-[#d6bc7e]/30 px-2 py-1 text-sm bg-black/40">Σ</span>
+                    <span class="text-[10px] uppercase tracking-[0.3em] font-bold text-[#a8a29e]">c-ECO Doctrine</span>
                 </div>
-                <p class="text-sm text-stone-500 max-w-md">
+                <p class="text-[#6b7280] text-xs max-w-md">
                     Institutional cooperation framework for systemic risk governance.
                 </p>
             </div>
 
-            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row md:justify-between md:items-center gap-4 text-xs text-stone-500 uppercase tracking-wider">
+            <!-- Copyright -->
+            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row md:justify-between md:items-center gap-4 text-[10px] text-[#6b7280] uppercase tracking-widest">
                 <span>© 2026 Hasse Foundation</span>
                 <div class="flex flex-wrap gap-x-6 gap-y-2">
-                    <a href="privacy.html" class="hover:text-gold transition">Privacy</a>
-                    <a href="terms.html" class="hover:text-gold transition">Terms</a>
-                    <a href="license.html" class="hover:text-gold transition">License</a>
-                    <a href="sitemap.html" class="hover:text-gold transition">Site Map</a>
+                    <a href="english.html" class="hover:text-gold transition">Home</a>
+                    <a href="foundation.html" class="hover:text-gold transition">Hasse Foundation</a>
+                    <a href="partnership-interest.html" class="hover:text-gold transition">Partnerships</a>
+                    <a href="living-labs.html" class="hover:text-gold transition">Living Labs</a>
                 </div>
                 <span>USA · Brazil</span>
             </div>
@@ -543,7 +559,7 @@
             document.getElementById('mobile-menu').classList.toggle('hidden');
         });
 
-        // Reveal animation
+        // Reveal animation on scroll
         const observerOptions = {
             threshold: 0.1,
             rootMargin: "0px 0px -50px 0px"
@@ -557,14 +573,31 @@
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // Nav spacer
+        // Nav spacer height adjustment
         function updateNavSpacer() {
             const nav = document.getElementById('siteNav');
             const spacer = document.getElementById('navSpacer');
             if (nav && spacer) spacer.style.height = nav.offsetHeight + 'px';
         }
+        
         updateNavSpacer();
         window.addEventListener('resize', updateNavSpacer);
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
     </script>
 
 </body>
