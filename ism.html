@@ -129,35 +129,210 @@
             font-family: 'Playfair Display'; 
         }
 
-               .logo-ism {
-            width: 200px;
-            height: 200px;
-            background: transparent;
-            border: 1px solid rgba(214, 188, 126, 0.15);
-            border-radius: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 3rem;
-            transition: all 0.6s ease;
-        }
+               /* SUBSTITUIÇÃO PARA A SEÇÃO .logo-ism - EFEITO VITRIFICADO ELEGANTE */
 
-        .logo-ism:hover {
-            border-color: rgba(214, 188, 126, 0.4);
-            box-shadow: 0 0 30px rgba(214, 188, 126, 0.1);
-        }
+.logo-ism {
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(
+        135deg, 
+        rgba(28, 25, 23, 0.4) 0%, 
+        rgba(214, 188, 126, 0.05) 50%,
+        rgba(28, 25, 23, 0.4) 100%
+    );
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(214, 188, 126, 0.25);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 3rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+        0 4px 30px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
 
-        .logo-ism img {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-            filter: brightness(1.1) contrast(1.1);
-            transition: all 0.6s ease;
-        }
+/* Brilho sutil interno (efeito vitrificado) */
+.logo-ism::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        125deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.05) 40%,
+        rgba(214, 188, 126, 0.1) 50%,
+        rgba(255, 255, 255, 0.05) 60%,
+        transparent 100%
+    );
+    opacity: 0.6;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+}
 
-        .logo-ism:hover img {
-            filter: brightness(1.2) contrast(1.2);
-        }
+/* Borda brilhante no hover */
+.logo-ism::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 4px;
+    padding: 1px;
+    background: linear-gradient(
+        135deg,
+        rgba(214, 188, 126, 0) 0%,
+        rgba(214, 188, 126, 0.6) 50%,
+        rgba(214, 188, 126, 0) 100%
+    );
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.logo-ism:hover {
+    border-color: rgba(214, 188, 126, 0.5);
+    box-shadow: 
+        0 8px 40px rgba(214, 188, 126, 0.15),
+        0 0 60px rgba(214, 188, 126, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.logo-ism:hover::before {
+    opacity: 1;
+}
+
+.logo-ism:hover::after {
+    opacity: 1;
+}
+
+.logo-ism img {
+    max-width: 85%;
+    max-height: 85%;
+    object-fit: contain;
+    filter: 
+        brightness(1.15) 
+        contrast(1.15) 
+        saturate(1.2)
+        drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 1;
+}
+
+.logo-ism:hover img {
+    filter: 
+        brightness(1.3) 
+        contrast(1.2) 
+        saturate(1.3)
+        drop-shadow(0 4px 8px rgba(214, 188, 126, 0.2));
+    transform: scale(1.05);
+}
+
+/* ALTERNATIVA: EFEITO METÁLICO 3D (descomente se preferir) */
+/*
+.logo-ism {
+    width: 200px;
+    height: 200px;
+    background: 
+        linear-gradient(135deg, #1a1816 0%, #0c0a09 100%);
+    border: 1px solid rgba(214, 188, 126, 0.3);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 3rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.6s ease;
+    box-shadow:
+        inset 0 1px 1px rgba(255,255,255,0.05),
+        0 10px 30px rgba(0,0,0,0.5),
+        0 0 0 1px rgba(0,0,0,0.8);
+}
+
+.logo-ism::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(214, 188, 126, 0.1) 0%,
+        transparent 50%,
+        rgba(0,0,0,0.2) 100%
+    );
+    pointer-events: none;
+}
+
+.logo-ism::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid transparent;
+    background: linear-gradient(135deg, rgba(214,188,126,0.4), rgba(214,188,126,0.1)) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+.logo-ism:hover {
+    border-color: rgba(214, 188, 126, 0.6);
+    box-shadow:
+        inset 0 1px 1px rgba(255,255,255,0.1),
+        0 15px 40px rgba(214, 188, 126, 0.2),
+        0 0 0 1px rgba(0,0,0,0.8),
+        0 0 30px rgba(214, 188, 126, 0.15);
+    transform: translateY(-3px);
+}
+
+.logo-ism img {
+    max-width: 85%;
+    max-height: 85%;
+    object-fit: contain;
+    filter: 
+        sepia(20%)
+        brightness(1.1)
+        contrast(1.1)
+        drop-shadow(0 2px 4px rgba(0,0,0,0.8));
+    transition: all 0.6s ease;
+}
+
+.logo-ism:hover img {
+    filter: 
+        sepia(10%)
+        brightness(1.25)
+        contrast(1.15)
+        drop-shadow(0 4px 8px rgba(214, 188, 126, 0.3));
+}
+*/
+
+/* ANIMAÇÃO SUTIL DE ENTRADA */
+@keyframes logoReveal {
+    0% {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.logo-ism {
+    animation: logoReveal 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
 
     </style>
 </head>
