@@ -520,6 +520,88 @@
   pointer-events: none;
   user-select: none;
 }
+/* BOTÃO DE IMPRESSÃO/PDF - ESL */
+.print-btn{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--legal-blue);
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  font-weight: 700;
+  font-size: 12px;
+  z-index: 2000;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.print-btn:hover{
+  background: #2c3e50;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+.print-btn::before{
+  content: "🖨️";
+  font-size: 14px;
+}
+
+.print-btn.saving::before{
+  content: "⏳";
+}
+
+/* Status indicator for PDF generation */
+.pdf-status{
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  background: #fff;
+  border: 2px solid var(--gold-accent);
+  padding: 12px 16px;
+  border-radius: 4px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  font-size: 12px;
+  color: var(--legal-blue);
+  font-weight: 600;
+  z-index: 1999;
+  display: none;
+  align-items: center;
+  gap: 8px;
+}
+
+.pdf-status.show{
+  display: flex;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn{
+  from { transform: translateX(100px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@media (max-width: 1024px){
+  .print-btn{ 
+    top: auto; 
+    bottom: 80px; 
+    right: 20px; 
+    padding: 14px 18px;
+  }
+  .print-btn span{
+    display: none;
+  }
+  .pdf-status{
+    top: auto;
+    bottom: 140px;
+    right: 20px;
+  }
+}
 
   </style>
 </head>
@@ -529,6 +611,15 @@
   <button class="mobile-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
     INDEX
   </button>
+  <!-- BOTÃO DE IMPRESSÃO/PDF -->
+  <button class="print-btn" onclick="printDocument()" id="printBtn">
+    <span>Save PDF / Print</span>
+  </button>
+  
+  <!-- Status indicator -->
+  <div class="pdf-status" id="pdfStatus">
+    <span>⏳</span> Preparing document for print...
+  </div>
 
   <!-- Sidebar Completa -->
   <aside class="sidebar" id="sidebar" aria-label="UNIDROIT Analysis Index">
@@ -1315,6 +1406,43 @@ A decisional governance architecture that conditions the validity, enforceabilit
   } else {
     initializeResponses();
   }
+  // FUNÇÃO DE IMPRESSÃO/PDF
+function printDocument() {
+  const btn = document.getElementById('printBtn');
+  const status = document.getElementById('pdfStatus');
+  
+  // Mostrar status
+  status.classList.add('show');
+  btn.classList.add('saving');
+  
+  // Expandir todas as seções colapsadas para impressão
+  const collapsedSections = document.querySelectorAll('.references-content.collapsed');
+  const wasCollapsed = [];
+  
+  collapsedSections.forEach((section) => {
+    wasCollapsed.push(section);
+    section.classList.remove('collapsed');
+    section.previousElementSibling.classList.remove('collapsed');
+  });
+  
+  // Pequeno delay para garantir que o DOM atualizou
+  setTimeout(() => {
+    // Acionar diálogo de impressão
+    window.print();
+    
+    // Restaurar estado após impressão
+    setTimeout(() => {
+      wasCollapsed.forEach(section => {
+        section.classList.add('collapsed');
+        section.previousElementSibling.classList.add('collapsed');
+      });
+      
+      status.classList.remove('show');
+      btn.classList.remove('saving');
+    }, 1000);
+  }, 300);
+}
+
 </script>
 
 
