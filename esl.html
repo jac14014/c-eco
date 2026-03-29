@@ -518,6 +518,40 @@
       .main-content { margin-left: 0; }
       .references-content { max-height: none !important; }
     }
+    
+    .response-content{
+  min-height: 80px;
+  outline: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.response-content:empty:before{
+  content: attr(data-placeholder);
+  color: #999;
+  font-style: italic;
+}
+
+.save-indicator {
+  font-size: 10px;
+  color: #6b7c6b;
+  margin-top: 8px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.save-indicator.visible {
+  opacity: 1;
+}
+
+.professor-response-label{
+  pointer-events: none;
+  user-select: none;
+}
+
+    
   </style>
 </head>
 
@@ -757,9 +791,12 @@
           <strong>Relevant Articles:</strong> Art. 5-A (Pre-Threshold Principle), Art. 9 (Conditioned Immediate Object), Art. 10 (Conditioned Existence), Art. 12 (Continuous Validity), Art. 215-219 (TFP), Rockström et al. (2009), Steffen et al. (2015)
         </div>
         <div class="professor-response" contenteditable="true">
-          <div class="professor-response-label">Professor Kotzé's Response</div>
-          [Click here to enter the response…]
-        </div>
+          <div class="professor-response" data-question-id="q1">
+  <div class="professor-response-label">Professor Kotzé's Response</div>
+  <div class="response-content" data-placeholder="Click here to enter your analysis..." contenteditable="true"></div>
+  <div class="save-indicator">✓ Saved to browser storage</div>
+</div>
+
       </section>
 
       <!-- QUESTION 2 -->
@@ -773,10 +810,12 @@
           <strong>Relevant Articles:</strong> Art. 44 (Safe Mode), Art. 48-52 (State Machine), Art. 83 (Systemic States), Art. 97-104 (Cooperation & Novation), Art. 219 (Prudential Risk Bands), Kim & Kotzé (2019), Biermann (2014)
         </div>
 
-        <div class="professor-response" contenteditable="true">
-          <div class="professor-response-label">Professor Kotzé's Response</div>
-[Click here to enter the response…]
-        </div>
+        <div class="professor-response" data-question-id="q2">
+  <div class="professor-response-label">Professor Kotzé's Response</div>
+  <div class="response-content" data-placeholder="Click here to enter your analysis..." contenteditable="true"></div>
+  <div class="save-indicator">✓ Saved to browser storage</div>
+</div>
+
       </section>
 
       <!-- QUESTION 3 -->
@@ -789,10 +828,12 @@
         <div class="related-articles">
           <strong>Relevant Articles:</strong> Art. 36 (Certified Sensory Data), Art. 73-81 (Data Assessment Authority), Art. 79-80 (Technical Challenge), Art. 222 (Limited Arbitral Review), Chakrabarty (2009), Latour (2017)
         </div>
-        <div class="professor-response" contenteditable="true">
-          <div class="professor-response-label">Professor Kotzé's Response</div>
-[Click here to enter the response…]
-        </div>
+        <div class="professor-response" data-question-id="q3">
+  <div class="professor-response-label">Professor Kotzé's Response</div>
+  <div class="response-content" data-placeholder="Click here to enter your analysis..." contenteditable="true"></div>
+  <div class="save-indicator">✓ Saved to browser storage</div>
+</div>
+
       </section>
 
       <!-- ========== RELEVANT MODEL LAW ARTICLES ========== -->
@@ -1226,61 +1267,95 @@
   </main>
 
   <script>
-    // Toggle sections colapsáveis
-    function toggleSection(header) {
-      const content = header.nextElementSibling;
-      header.classList.toggle('collapsed');
-      content.classList.toggle('collapsed');
-    }
+  // Toggle sections colapsáveis
+  function toggleSection(header) {
+    const content = header.nextElementSibling;
+    header.classList.toggle('collapsed');
+    content.classList.toggle('collapsed');
+  }
 
-    // Search logic
-    const searchInput = document.getElementById('sidebarSearch');
-    const navItems = document.querySelectorAll('.nav-item');
-    const sectionTitles = document.querySelectorAll('.nav-section-title, .nav-sub-title');
-    const sidebar = document.getElementById('sidebar');
+  // Search logic
+  const searchInput = document.getElementById('sidebarSearch');
+  const navItems = document.querySelectorAll('.nav-item');
+  const sectionTitles = document.querySelectorAll('.nav-section-title, .nav-sub-title');
+  const sidebar = document.getElementById('sidebar');
 
-    searchInput.addEventListener('input', function(e) {
-      const term = e.target.value.toLowerCase();
-      
-      navItems.forEach(item => {
-        const text = item.textContent.toLowerCase();
-        item.classList.toggle('hidden', !text.includes(term));
-      });
-
-      sectionTitles.forEach(title => {
-        title.classList.toggle('hidden', term.length > 0);
-      });
+  searchInput.addEventListener('input', function(e) {
+    const term = e.target.value.toLowerCase();
+    
+    navItems.forEach(item => {
+      const text = item.textContent.toLowerCase();
+      item.classList.toggle('hidden', !text.includes(term));
     });
 
-    // Close menu mobile ao clicar link
-    document.querySelectorAll('.nav-item a').forEach(link => {
-      link.addEventListener('click', () => {
-        if (window.innerWidth <= 1024) {
-          sidebar.classList.remove('open');
-        }
-      });
+    sectionTitles.forEach(title => {
+      title.classList.toggle('hidden', term.length > 0);
     });
+  });
 
-    // Save professor responses
-    document.querySelectorAll('.professor-response[contenteditable="true"]').forEach((el, index) => {
-      const key = 'kotze-response-' + index;
-      const saved = localStorage.getItem(key);
+  // Close menu mobile ao clicar link
+  document.querySelectorAll('.nav-item a').forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 1024) {
+        sidebar.classList.remove('open');
+      }
+    });
+  });
+
+  // ============================================
+  // SISTEMA DE SALVAMENTO CORRIGIDO
+  // ============================================
+  
+  const STORAGE_PREFIX = 'kotze-analysis-';
+  
+  // Inicializar respostas salvas
+  function initializeResponses() {
+    document.querySelectorAll('.professor-response').forEach(container => {
+      const questionId = container.getAttribute('data-question-id');
+      const contentDiv = container.querySelector('.response-content');
+      const indicator = container.querySelector('.save-indicator');
       
-      if (saved && !el.innerHTML.includes(saved.substring(0, 30))) {
-        const label = el.querySelector('.professor-response-label');
-        el.innerHTML = '';
-        el.appendChild(label);
-        el.appendChild(document.createTextNode(saved));
+      if (!contentDiv || !indicator) return;
+      
+      // Carregar conteúdo salvo
+      const savedContent = localStorage.getItem(STORAGE_PREFIX + questionId);
+      if (savedContent && savedContent.trim() !== '') {
+        contentDiv.innerHTML = savedContent;
       }
       
-      el.addEventListener('blur', () => {
-        const text = el.innerText.replace("Professor Kotzé's Response", '').trim();
-        if (text && text !== '[Click here to enter the response…]') {
-          localStorage.setItem(key, text);
-        }
+      // Evento de input com debounce para salvar
+      let saveTimeout;
+      contentDiv.addEventListener('input', function() {
+        indicator.classList.remove('visible');
+        
+        clearTimeout(saveTimeout);
+        saveTimeout = setTimeout(() => {
+          const content = this.innerHTML;
+          localStorage.setItem(STORAGE_PREFIX + questionId, content);
+          indicator.classList.add('visible');
+          setTimeout(() => indicator.classList.remove('visible'), 2000);
+        }, 500);
+      });
+      
+      // Salvar ao perder foco
+      contentDiv.addEventListener('blur', function() {
+        clearTimeout(saveTimeout);
+        const content = this.innerHTML;
+        localStorage.setItem(STORAGE_PREFIX + questionId, content);
+        indicator.classList.add('visible');
+        setTimeout(() => indicator.classList.remove('visible'), 2000);
       });
     });
-  </script>
+  }
+  
+  // Inicializar quando DOM estiver pronto
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeResponses);
+  } else {
+    initializeResponses();
+  }
+</script>
+
 
 </body>
 </html>
