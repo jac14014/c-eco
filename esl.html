@@ -562,21 +562,24 @@
     }
 
     @media print {
-      .sidebar, .mobile-btn, .print-btn { display: none !important; }
-      .main-content { margin-left: 0; }
-      .references-content { max-height: none !important; }
-      .professor-response { 
-        border: 1px solid #ccc; 
-        background: #fafafa;
-        page-break-inside: avoid;
-      }
-      .document-page { 
-        box-shadow: none; 
-        max-width: 100%;
-        padding: 30px;
-      }
-      body { background: white; }
-    }
+  .sidebar, .mobile-btn, .print-btn, .pdf-status { 
+    display: none !important; 
+  }
+  .main-content { margin-left: 0; }
+  .references-content { max-height: none !important; }
+  .professor-response { 
+    border: 1px solid #ccc; 
+    background: #fafafa;
+    page-break-inside: avoid;
+  }
+  .document-page { 
+    box-shadow: none; 
+    max-width: 100%;
+    padding: 30px;
+  }
+  body { background: white; }
+}
+
     
     .response-content{
       min-height: 80px;
@@ -659,6 +662,11 @@
   <button class="print-btn" onclick="printDocument()" id="printBtn">
     <span>Save PDF / Print</span>
   </button>
+  
+  <!-- Status indicator -->
+  <div class="pdf-status" id="pdfStatus">
+    <span>⏳</span> Preparing document for print...
+  </div>
 
   <aside class="sidebar" id="sidebar" aria-label="Validation Request Index">
     <div class="sidebar-top">
