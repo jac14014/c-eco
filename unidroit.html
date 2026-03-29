@@ -1,0 +1,2617 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow">
+  <title>c-ECO | UNIDROIT Analysis</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --sidebar-width: 350px;
+      --legal-blue: #1a2b3c;
+      --gold-accent: #c5a059;
+      --bg-body: #f4f7f9;
+      --text-main: #1a1a1a;
+      --border-color: #dee2e6;
+      --response-bg: #fff8e6;
+      --response-border: #e6d5a8;
+    }
+
+    *{ box-sizing: border-box; }
+
+    body{
+      margin:0;
+      background: var(--bg-body);
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar{
+      width: var(--sidebar-width);
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      background: #fff;
+      border-right: 1px solid var(--border-color);
+      padding: 20px 22px 24px;
+      overflow-y: auto;
+      z-index: 1000;
+      -webkit-overflow-scrolling: touch;
+      transition: transform .3s ease;
+    }
+
+    .sidebar-top{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      border-bottom: 2px solid var(--gold-accent);
+    }
+
+    .logo-box{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width: 44px;
+      height: 44px;
+      border-radius: 0;
+      border: 1px solid var(--border-color);
+      background: #fff;
+      color: var(--legal-blue);
+      font-weight: 900;
+      font-size: 1.35rem;
+      text-decoration: none;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+    .logo-box:visited{ color: var(--legal-blue); }
+    .logo-box:hover{ background: rgba(197,160,89,0.10); }
+
+    .sidebar-title{
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 1.2px;
+      color: var(--legal-blue);
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin: 0;
+    }
+
+    .nav-list{ list-style:none; padding:0; margin:0; }
+    .nav-section-title{
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--gold-accent);
+      margin-top: 22px;
+      text-transform: uppercase;
+      border-top: 1px solid #eee;
+      padding-top: 14px;
+      padding-bottom: 6px;
+      letter-spacing: .9px;
+    }
+
+    .nav-sub-title{
+      font-size: 11px;
+      font-weight: 600;
+      color: #9aa3ab;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      margin: 10px 0 4px 10px;
+    }
+
+    .nav-item a{
+      text-decoration:none;
+      color: var(--text-main);
+      font-size: 12.5px;
+      display:block;
+      padding: 8px 10px;
+      line-height: 1.35;
+      transition: .2s;
+      border-left: 3px solid transparent;
+    }
+    .nav-item a:hover{
+      background: rgba(197,160,89,0.12);
+      border-left-color: var(--gold-accent);
+    }
+
+    /* ===== CONTENT ===== */
+    .main-content{
+      margin-left: var(--sidebar-width);
+      padding: 60px 20px;
+      display:flex;
+      justify-content:center;
+    }
+
+    .document-page{
+      background:#fff;
+      width:100%;
+      max-width: 850px;
+      padding: 80px;
+      box-shadow: 0 4px 25px rgba(0,0,0,0.06);
+      border-radius: 0;
+    }
+
+    /* LAW STYLES */
+    .ai-id{ font-family: monospace; font-size: 11px; color: #b0b0b0; display:block; margin-bottom:4px; }
+    .article-box{ margin-bottom:60px; scroll-margin-top:40px; }
+    .article-title{ font-family:'Libre Baskerville', serif; font-weight:700; font-size:19px; color:var(--legal-blue); display:block; margin-bottom:18px; border-bottom:1px solid #f0f0f0; padding-bottom:5px; }
+    .caput{ text-align:justify; margin-bottom:15px; font-family:'Libre Baskerville', serif; line-height:1.8; font-size:16px; }
+    .paragraph{ margin-left:35px; font-size:15px; margin-bottom:12px; line-height:1.6; color:#333; }
+    .inciso{ margin-left:70px; font-size:15px; margin-bottom:8px; color:#444; }
+
+    /* ===== RESPONSE BOX FOR PROFESSOR ===== */
+    .professor-response{
+      background: var(--response-bg);
+      border: 2px dashed var(--response-border);
+      border-radius: 4px;
+      padding: 20px;
+      margin: 25px 0;
+      min-height: 150px;
+    }
+
+    .professor-response-label{
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--gold-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.9px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .professor-response-label::before{
+      content: "✎";
+      font-size: 14px;
+    }
+
+    .professor-response[contenteditable="true"]:focus{
+      outline: 2px solid var(--gold-accent);
+      background: #fff;
+    }
+
+    /* ===== CLAUSE STYLES ===== */
+    .clause-box{
+      background: #fafbfc;
+      border-left: 4px solid var(--legal-blue);
+      padding: 25px 30px;
+      margin-bottom: 40px;
+    }
+
+    .clause-number{
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--gold-accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 15px;
+    }
+
+    .clause-title{
+      font-family:'Libre Baskerville', serif;
+      font-weight:700;
+      font-size:18px;
+      color:var(--legal-blue);
+      margin-bottom:20px;
+    }
+
+    .sub-clause{
+      margin-left: 25px;
+      margin-bottom: 15px;
+    }
+
+    .sub-clause-number{
+      font-weight: 700;
+      color: var(--legal-blue);
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    /* ===== QUESTION STYLES ===== */
+    .question-box{
+      background: #fff;
+      border: 2px solid var(--border-color);
+      padding: 30px;
+      margin-bottom: 40px;
+    }
+
+    .question-number{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: var(--legal-blue);
+      color: #fff;
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .question-text{
+      font-family:'Libre Baskerville', serif;
+      font-size:16px;
+      line-height:1.7;
+      color:var(--text-main);
+      margin-bottom: 20px;
+    }
+
+    .related-articles{
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 20px;
+      padding: 10px 15px;
+      background: #f4f7f9;
+      border-left: 3px solid var(--gold-accent);
+    }
+
+    .related-articles strong{
+      color: var(--legal-blue);
+    }
+
+    /* ===== SEARCH BOX ===== */
+    .search-container {
+      margin-bottom: 20px;
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 10;
+      padding-bottom: 10px;
+    }
+
+    #sidebarSearch {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    #sidebarSearch:focus {
+      border-color: var(--gold-accent);
+      box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15);
+    }
+
+    .nav-item.hidden, .nav-section-title.hidden, .nav-sub-title.hidden {
+      display: none;
+    }
+
+    /* ===== SECTION HEADERS ===== */
+    .section-header{
+      font-family:'Libre Baskerville', serif;
+      font-weight:700;
+      font-size:22px;
+      color:var(--legal-blue);
+      margin: 60px 0 30px 0;
+      padding-bottom: 15px;
+      border-bottom: 3px solid var(--gold-accent);
+    }
+
+    .subsection-header{
+      font-family:'Libre Baskerville', serif;
+      font-weight:700;
+      font-size:18px;
+      color:var(--legal-blue);
+      margin: 40px 0 20px 0;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    /* Mobile button */
+    .mobile-btn{
+      display:none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--legal-blue);
+      color: #fff;
+      border: none;
+      padding: 15px 25px;
+      border-radius: 0;
+      font-weight: 800;
+      z-index: 2000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.30);
+      cursor: pointer;
+    }
+
+    /* MOBILE behavior */
+    @media (max-width: 1024px){
+      .sidebar{ transform: translateX(-100%); }
+      .sidebar.open{ transform: translateX(0); box-shadow: 10px 0 30px rgba(0,0,0,0.22); }
+      .main-content{ margin-left: 0; padding: 18px 10px; }
+      .document-page{ padding: 30px 20px; width:auto; margin:0; }
+      .mobile-btn{ display:block; }
+    }
+
+    /* Print styles */
+    @media print {
+      .sidebar { display: none; }
+      .main-content { margin-left: 0; }
+      .mobile-btn { display: none; }
+      .professor-response { border: 1px solid #000; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Mobile: toggle sidebar -->
+  <button class="mobile-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+    INDEX
+  </button>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar" aria-label="UNIDROIT Analysis Index">
+    <div class="sidebar-top">
+      <a href="law.html" class="logo-box" aria-label="Back to Model Law">Σ</a>
+      <div class="sidebar-title">UNIDROIT ANALYSIS</div>
+    </div>
+    <div class="search-container">
+      <input type="text" id="sidebarSearch" placeholder="Search Clause, Question or Article..." aria-label="Search Index">
+    </div>
+    <nav>
+      <ul class="nav-list">
+        <li class="nav-section-title">CONTRACT CLAUSES</li>
+        <li class="nav-item"><a href="#CLAUSE-1">Clause 1 — Systemic Trajectory Monitoring & Pre-Threshold Trigger</a></li>
+        <li class="nav-item"><a href="#CLAUSE-2">Clause 2 — Safe Mode & Functional Novation</a></li>
+        <li class="nav-item"><a href="#CLAUSE-3">Clause 3 — Systemic Look-Through & Asset Nexus</a></li>
+
+        <li class="nav-section-title">TECHNICAL QUESTIONS</li>
+        <li class="nav-item"><a href="#QUESTION-1">Question 1 — Article 2.1.14: Continuous Determination</a></li>
+        <li class="nav-item"><a href="#QUESTION-2">Question 2 — Article 5.3.1: Graduated Legal Effects</a></li>
+        <li class="nav-item"><a href="#QUESTION-3">Question 3 — Due Process: Technical Certifier Primacy</a></li>
+
+        <li class="nav-section-title">RELEVANT MODEL LAW ARTICLES</li>
+        <li class="nav-sub-title">Structural Principles</li>
+        <li class="nav-item"><a href="#CECO-ART-001">Art. 1 — Supremacy of the Safe Operating Space</a></li>
+        <li class="nav-item"><a href="#CECO-ART-002">Art. 2 — In Dubio Pro Systema Principle</a></li>
+        <li class="nav-item"><a href="#CECO-ART-003">Art. 3 — Physical Primacy</a></li>
+        <li class="nav-item"><a href="#CECO-ART-005">Art. 5 — Ex-Ante Governance</a></li>
+        <li class="nav-item"><a href="#CECO-ART-005-A">Art. 5-A — Pre-Threshold Principle</a></li>
+
+        <li class="nav-sub-title">Conditioned Object & IEX</li>
+        <li class="nav-item"><a href="#CECO-ART-009">Art. 9 — Conditioned Immediate Object</a></li>
+        <li class="nav-item"><a href="#CECO-ART-010">Art. 10 — Conditioned Existence of Obligation</a></li>
+        <li class="nav-item"><a href="#CECO-ART-015">Art. 15 — Ex-Ante Unenforceability (IEX)</a></li>
+        <li class="nav-item"><a href="#CECO-ART-016">Art. 16 — Automatic Lock Trigger</a></li>
+
+        <li class="nav-sub-title">Safe Mode & State Machine</li>
+        <li class="nav-item"><a href="#CECO-ART-044">Art. 44 — Safe Mode</a></li>
+        <li class="nav-item"><a href="#CECO-ART-048">Art. 48 — State Machine</a></li>
+        <li class="nav-item"><a href="#CECO-ART-083">Art. 83 — Systemic States</a></li>
+        <li class="nav-item"><a href="#CECO-ART-097">Art. 97 — Automatic Duty of Cooperation</a></li>
+        <li class="nav-item"><a href="#CECO-ART-100">Art. 100 — Functional Novation</a></li>
+
+        <li class="nav-sub-title">Systemic Proof & Technical Authority</li>
+        <li class="nav-item"><a href="#CECO-ART-035">Art. 35 — Systemic Proof</a></li>
+        <li class="nav-item"><a href="#CECO-ART-036">Art. 36 — Centrality of Certified Sensory Data</a></li>
+        <li class="nav-item"><a href="#CECO-ART-073">Art. 73 — Data Assessment Authority</a></li>
+        <li class="nav-item"><a href="#CECO-ART-079">Art. 79 — Technical Challenge Regime</a></li>
+
+        <li class="nav-sub-title">Asset Nexus & Guarantees</li>
+        <li class="nav-item"><a href="#CECO-ART-027">Art. 27 — Habitability Link</a></li>
+        <li class="nav-item"><a href="#CECO-ART-030">Art. 30 — Non-Opposability of Asset-Segregation</a></li>
+        <li class="nav-item"><a href="#CECO-ART-031">Art. 31 — Biophysical Conditioning of Guarantees</a></li>
+        <li class="nav-item"><a href="#CECO-ART-033">Art. 33 — Automatic Conversion to Restoration</a></li>
+
+        <li class="nav-sub-title">TFP & Prudential Framework</li>
+        <li class="nav-item"><a href="#CECO-ART-215">Art. 215 — Threshold Function Protocol</a></li>
+        <li class="nav-item"><a href="#CECO-ART-217">Art. 217 — Trigger Function</a></li>
+        <li class="nav-item"><a href="#CECO-ART-218">Art. 218 — Prudential Asymmetry</a></li>
+        <li class="nav-item"><a href="#CECO-ART-219">Art. 219 — Prudential Risk Bands</a></li>
+        <li class="nav-item"><a href="#CECO-ART-222">Art. 222 — Limited Arbitral Review</a></li>
+      
+
+        <li class="nav-section-title">SCHOLARLY APPARATUS</li>
+        <li class="nav-item"><a href="#GLOSSARY">Glossário / Glossary</a></li>
+        <li class="nav-item"><a href="#REFERENCES">References & Bibliography</a></li>
+        <li class="nav-item"><a href="#COPYRIGHT">Copyright & Licensing</a></li>
+
+    </ul>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <article class="document-page">
+
+      <!-- HEADER -->
+      <div class="section-header">UNIDROIT PRINCIPLES & INTERNATIONAL ARBITRATION ANALYSIS</div>
+      <div class="caput" style="margin-bottom: 40px;">
+        This document presents three contractual clauses implementing the c-ΣCO systemic governance framework and three technical questions at the intersection of UNIDROIT Principles and international arbitration practice. The professor's analytical responses are recorded in the editable fields provided.
+      </div>
+
+      <!-- ========== CLAUSE 1 ========== -->
+      <section id="CLAUSE-1" class="clause-box">
+        <div class="clause-number">CLAUSE 1</div>
+        <div class="clause-title">SYSTEMIC TRAJECTORY MONITORING & PRE-THRESHOLD TRIGGER</div>
+        
+        <div class="sub-clause">
+          <div class="sub-clause-number">1.1 Dynamic Validity & Conditioned Object</div>
+          <div class="caput" style="font-size: 14px;">
+            In accordance with UNIDROIT Principle 2.1.14, the Parties acknowledge that the Immediate Object of this Contract constitutes a Dynamic Legal Condition. Its validity and enforceability are strictly subordinated to the preservation of the Safe Operating Space (SOS). Performance that materially violates biophysical limits shall be deemed legally inadmissible for purposes of enforceability under this Contract.
+          </div>
+        </div>
+
+        <div class="sub-clause">
+          <div class="sub-clause-number">1.2 Systemic Proof & Monitoring</div>
+          <div class="caput" style="font-size: 14px;">
+            The Parties shall maintain a Mandatory Sensory Infrastructure capable of continuously monitoring the systemic trajectory of the underlying operation. Technical certifications issued by the designated Technical Certifier shall constitute prima facie authoritative evidence of systemic conditions, prevailing over subjective narratives unless demonstrably affected by material technical error, data corruption, or methodological inconsistency.
+          </div>
+        </div>
+
+        <div class="sub-clause">
+          <div class="sub-clause-number">1.3 Pre-Threshold Determination (Orange State)</div>
+          <div class="caput" style="font-size: 14px;">
+            A Pre-Threshold Event shall be deemed to occur when certified data indicates a material increase in systemic risk or a credible probability of crossing an irreversible tipping point or deviating from the Safe Operating Space.
+          </div>
+        </div>
+
+        <div class="sub-clause">
+          <div class="sub-clause-number">1.4 Automatic Circuit Breaker (Ex-Ante Unenforceability — IEX)</div>
+          <div class="caput" style="font-size: 14px;">
+            Upon certification of a Pre-Threshold Event, Ex-Ante Unenforceability (IEX) shall be activated ex lege. This shall suspend the enforceability of original obligations without the need for prior judicial or arbitral authorization, acting as a functional legal adjustment to biophysical reality, without prejudice to subsequent technical challenge in accordance with this Contract.
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== CLAUSE 2 ========== -->
+      <section id="CLAUSE-2" class="clause-box">
+        <div class="clause-number">CLAUSE 2</div>
+        <div class="clause-title">SAFE MODE & FUNCTIONAL NOVATION</div>
+        
+        <div class="sub-clause">
+          <div class="sub-clause-number">2.1 Automatic Transition</div>
+          <div class="caput" style="font-size: 14px;">
+            Upon activation of IEX or certification of elevated systemic risk, the Contract shall automatically enter Safe Mode, independently of prior consent at the time of activation, as pre-consented under this master contractual architecture.
+          </div>
+        </div>
+
+        <div class="sub-clause">
+          <div class="sub-clause-number">2.2 Functional Novation (System Curators)</div>
+          <div class="caput" style="font-size: 14px;">
+            Upon entry into Safe Mode, the Parties' legal roles shall be deemed reconfigured from opposing contractual positions into System Curators. Individual goals of profit, performance, and delivery shall be temporarily superseded by a collective duty to stabilize, contain, and restore the systemic trajectory.
+          </div>
+        </div>
+
+        <div class="sub-clause">
+          <div class="sub-clause-number">2.3 Reconfiguration Protocol</div>
+          <div class="caput" style="font-size: 14px;">
+            During Safe Mode, performance obligations and operational metrics (including volumes, intensity, and extraction rates) shall be proportionally modulated, reduced, or suspended based on certified technical guidance, subject to transparency and verifiability of the underlying technical parameters, to restore alignment with the Safe Operating Space.
+          </div>
+        </div>
+
+        <div class="sub-clause">
+          <div class="sub-clause-number">2.4 Systemic Perclusion</div>
+          <div class="caput" style="font-size: 14px;">
+            Activation of Safe Mode shall trigger Systemic Perclusion, barring claims for lost expected gains or frustration of economic expectations arising directly from compliance with systemic preservation measures, except in cases of fraud, willful misconduct, or material technical manipulation.
+          </div>
+        </div>
+
+        <div class="sub-clause">
+          <div class="sub-clause-number">2.5 Limitation on Enforcement</div>
+          <div class="caput" style="font-size: 14px;">
+            Original performance shall not be compelled by any judicial, administrative, or arbitral authority while the Contract is in Safe Mode, to the extent permitted under applicable law and subject to the conditioned validity of the contractual object.
+          </div>
+        </div>
+
+        <div class="sub-clause">
+          <div class="sub-clause-number">2.6 Exit Condition</div>
+          <div class="caput" style="font-size: 14px;">
+            Full resumption of original obligations shall occur only upon certification that the systemic trajectory has returned to alignment with the Safe Operating Space.
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== CLAUSE 3 ========== -->
+      <section id="CLAUSE-3" class="clause-box">
+        <div class="clause-number">CLAUSE 3</div>
+        <div class="clause-title">SYSTEMIC LOOK-THROUGH & ASSET NEXUS</div>
+        
+        <div class="sub-clause">
+          <div class="sub-clause-number">3.1 Substance Over Form</div>
+          <div class="caput" style="font-size: 14px;">
+            For all purposes of liability, enforcement, and risk allocation, the financial asset, its associated cash flows, and the underlying environmental or infrastructural trajectory shall be treated, for purposes of this Contract, as a single, functionally integrated material unity. Economic value shall be conditioned upon the continued habitability and systemic viability of the underlying system.
+          </div>
+        </div>
+
+        <div class="sub-clause">
+          <div class="sub-clause-number">3.2 Opposability</div>
+          <div class="caput" style="font-size: 14px;">
+            This Clause shall be opposable to investors, creditors, guarantors, and successors to the extent they derive rights from this Contract or the underlying asset, and to the fullest extent permitted under applicable law.
+          </div>
+        </div>
+
+        <div class="sub-clause">
+          <div class="sub-clause-number">3.3 Structural Neutralization</div>
+          <div class="caput" style="font-size: 14px;">
+            Corporate, financial, or legal arrangements (including SPVs, fiduciary regimes, or risk-isolation structures) shall be deemed non-opposable to the extent that they materially undermine the systemic integrity or restoration duties established under this Contract.
+          </div>
+        </div>
+
+        <div class="sub-clause">
+          <div class="sub-clause-number">3.4 Regenerative Guarantees and Conversion Mechanism</div>
+          <div class="caput" style="font-size: 14px;">
+            Upon certification of a Red State (Loss of Reversibility), all guarantees, collateral arrangements, or security interests associated with this Contract shall result, ex lege, in an automatic conversion into systemic restoration obligations, to the extent enforceable under applicable law. Such obligations shall take priority over secondary financial claims to the extent compatible with applicable insolvency and creditor protection regimes.
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== TECHNICAL QUESTIONS ========== -->
+      <div class="section-header">THREE TECHNICAL QUESTIONS</div>
+
+      <!-- QUESTION 1 -->
+      <section id="QUESTION-1" class="question-box">
+        <div class="question-number">1</div>
+        <div class="question-text">
+          <strong>Article 2.1.14 — Continuous Determination</strong><br><br>
+          Can Article 2.1.14 accommodate continuously open terms (systemic risk status: Yellow/Orange/Red States) determined throughout contract performance, or does this risk indefiniteness under Article 3.2?
+        </div>
+        <div class="related-articles">
+          <strong>Relevant Articles:</strong> Art. 5-A (Pre-Threshold Principle), Art. 9 (Conditioned Immediate Object), Art. 10 (Conditioned Existence), Art. 12 (Continuous Validity), Art. 215-219 (TFP)
+        </div>
+        <div class="professor-response" contenteditable="true">
+          <div class="professor-response-label">Professor's Response</div>
+          [Click here to enter your analysis...]
+        </div>
+      </section>
+
+      <!-- QUESTION 2 -->
+      <section id="QUESTION-2" class="question-box">
+        <div class="question-number">2</div>
+        <div class="question-text">
+          <strong>Article 5.3.1 — Graduated Legal Effects</strong><br><br>
+          Can Article 5.3.1 accommodate non-binary, sequenced effects (Orange State: Safe Mode/modulation → Red State: IEX/suspension), or would this require recognition of a distinct "conditioned modulation" category for long-term contracts?
+        </div>
+        <div class="related-articles">
+          <strong>Relevant Articles:</strong> Art. 44 (Safe Mode), Art. 48-52 (State Machine), Art. 83 (Systemic States), Art. 97-104 (Cooperation & Novation), Art. 219 (Prudential Risk Bands)
+        </div>
+        <div class="professor-response" contenteditable="true">
+          <div class="professor-response-label">Professor's Response</div>
+          [Click here to enter your analysis...]
+        </div>
+      </section>
+
+      <!-- QUESTION 3 -->
+      <section id="QUESTION-3" class="question-box">
+        <div class="question-number">3</div>
+        <div class="question-text">
+          <strong>Due Process — Technical Certifier Primacy</strong><br><br>
+          Can parties validly limit tribunal review to procedural and technical integrity (e.g., material error, data corruption), designating the Technical Certifier as the primary fact-finder for state transitions, without raising concerns under ICC Rules Article 25?
+        </div>
+        <div class="related-articles">
+          <strong>Relevant Articles:</strong> Art. 36 (Certified Sensory Data), Art. 73-81 (Data Assessment Authority), Art. 79-80 (Technical Challenge), Art. 222 (Limited Arbitral Review)
+        </div>
+        <div class="professor-response" contenteditable="true">
+          <div class="professor-response-label">Professor's Response</div>
+          [Click here to enter your analysis...]
+        </div>
+      </section>
+
+      <!-- ========== RELEVANT MODEL LAW ARTICLES ========== -->
+      <div class="section-header">RELEVANT MODEL LAW ARTICLES FOR CONSULTATION</div>
+
+      <!-- ARTICLE 1 -->
+      <section id="CECO-ART-001" class="article-box">
+        <span class="ai-id">[CECO-ART-001]</span>
+        <span class="article-title">Article 1 — Principle of Supremacy of the Safe Operating Space (SOS)</span>
+        <div class="caput">
+          The validity, enforceability, and continuity of any acts, contracts, or operations subject to the c-ΣCO regime are subordinated to the preservation of the Safe Operating Space (SOS), understood as the set of biophysical and systemic limits whose transgression compromises habitability, the integrity of life-support systems, or the reversibility of projected impacts. No legal effect may be recognized for acts or arrangements whose execution presupposes or entails the violation of such limits.
+        </div>
+      </section>
+
+      <!-- ARTICLE 2 -->
+      <section id="CECO-ART-002" class="article-box">
+        <span class="ai-id">[CECO-ART-002]</span>
+        <span class="article-title">Article 2 — In Dubio Pro Systema Principle and Technical Thresholds</span>
+        <div class="caput">
+          Where material technical uncertainty exists regarding risk trajectories, impact reversibility, or systemic integrity, legal decision-making shall prioritize the protection of the system.
+        </div>
+        <div class="paragraph">§1º The absence of absolute technical certainty shall not perclude the immediate suspension or modulation of operations. Preventive intervention shall prevail over the continuation of acts or operations capable of generating irreversible or uncontrollable harm.</div>
+        <div class="paragraph">§2º The specific thresholds of statistical probability and technical evidence required to trigger mandatory preventive perclusion shall be established and periodically updated by the c-ΣCO Technical Standards Committee.</div>
+        <div class="paragraph">§3º In the absence of a specific threshold, a high probability of systemic transgression — as certified by independent technical audit — shall be sufficient to mandate immediate application of protective measures.</div>
+      </section>
+
+      <!-- ARTICLE 3 -->
+      <section id="CECO-ART-003" class="article-box">
+        <span class="ai-id">[CECO-ART-003]</span>
+        <span class="article-title">Article 3 — Principle of Physical Primacy and Non-Disposability of Systemic Collapse Risk</span>
+        <div class="caput">
+          Under the c-ΣCO framework, the validity, efficacy, and enforceability of acts, contracts, decisions, and operations are determined in accordance with the primacy of physical time and biophysical reality over legal or procedural time.
+        </div>
+        <div class="inciso">I — Precedence of Physical Time. Any administrative, judicial, or arbitral act that permits the continuation of irreversible trajectories during the pendency of proceedings shall be deemed unenforceable.</div>
+        <div class="inciso">II — Non-Disposability of Collapse Risk. The risk of systemic collapse constitutes a non-disposable legal interest, and any waiver or authorization admitting transgression of monitored systemic limits shall be deemed unenforceable.</div>
+      </section>
+
+      <!-- ARTICLE 5 -->
+      <section id="CECO-ART-005" class="article-box">
+        <span class="ai-id">[CECO-ART-005]</span>
+        <span class="article-title">Article 5 — Principle of Ex-Ante Governance and Systemic Perclusion</span>
+        <div class="caput">
+          Governance under the c-ΣCO regime operates primarily ex ante, acting upon risk trajectories identified prior to the materialization of harm, and institutes Systemic Perclusion as an immediate legal impediment to the exercise of legal faculties whenever technical continuity is incompatible with systemic stability.
+        </div>
+        <div class="paragraph">§1º — Mandatory Preventive Perclusion and Sliding Scale of Risk. Preventive perclusion is mandatory and operates ex lege whenever the monitored technical trajectory reaches defined probability thresholds.</div>
+        <div class="inciso">I — Systemic-Existential Risk (10–20% Trigger)</div>
+        <div class="inciso">II — Climate and Macro-Financial Risk (50% Trigger)</div>
+        <div class="inciso">III — Operational and Compliance Risk (80% Trigger)</div>
+        <div class="paragraph">§2º — Default Threshold. In the absence of specific threshold definition, a default probability threshold of fifty percent (50%) shall apply.</div>
+        <div class="paragraph">§3º — Probative Effect and Immediate Efficacy. Technical certification constitutes full and sufficient proof for automatic suspension.</div>
+      </section>
+
+      <!-- ARTICLE 5-A -->
+      <section id="CECO-ART-005-A" class="article-box">
+        <span class="ai-id">[CECO-ART-005-A]</span>
+        <span class="article-title">Article 5-A — The Pre-Threshold Principle</span>
+        <div class="caput">
+          Under the c-ECO framework, juridical relevance attaches not only to materialized harm, but to the measurable approach toward systemic thresholds beyond which reversibility may be compromised.
+        </div>
+        <div class="paragraph">§1º Legal effects may be triggered where certified technical evidence demonstrates that the continuation of a trajectory materially increases the probability of crossing thresholds associated with irreversible impacts.</div>
+        <div class="paragraph">§2º The persistence of reversibility constitutes a condition of continued legal feasibility, and its progressive erosion justifies anticipatory legal modulation.</div>
+        <div class="paragraph">§3º The Pre-Threshold Principle operates in coordination with the Threshold Function Protocol (TFP).</div>
+      </section>
+
+      <!-- ARTICLE 9 -->
+      <section id="CECO-ART-009" class="article-box">
+        <span class="ai-id">[CECO-ART-009]</span>
+        <span class="article-title">Article 9 — Conditioned Immediate Object</span>
+        <div class="caput">
+          Under the c-ΣCO regime, the immediate object of any legal relationship is legally conditioned upon the preservation of biophysical stability. The performance of any obligation shall be valid and enforceable only for so long as the systemic conditions ensuring preservation of habitability and maintenance of the Safe Operating Space are effectively verified.
+        </div>
+        <div class="paragraph">• §1º — Relational and Non-Absolute Nature. The immediate object shall not constitute an absolute, autonomous, or unconditional right.</div>
+        <div class="paragraph">• §2º — Continuous Systemic Compatibility. Where the monitored technical trajectory deviates from thresholds of reversibility, the immediate object shall be deemed juridically frustrated, ex lege.</div>
+        <div class="paragraph">• §3º — Automatic Functional Suspension. Upon objective technical certification of systemic instability, the obligation shall be automatically suspended by operation of law.</div>
+        <div class="paragraph">• §4º — Limitation on Jurisdiction. Any decision imposing continuation of a trajectory that has reached risk thresholds is legally prohibited.</div>
+      </section>
+
+      <!-- ARTICLE 10 -->
+      <section id="CECO-ART-010" class="article-box">
+        <span class="ai-id">[CECO-ART-010]</span>
+        <span class="article-title">Article 10 — Conditioned Existence of the Obligation</span>
+        <div class="caput">
+          The legal obligation exists and produces effects only for so long as the technical trajectory of the operation remains compatible with systemic reversibility and the stability of the Safe Operating Space, as verified through continuous Systemic Proof.
+        </div>
+        <div class="paragraph">• §2º — Presumption under Relevant Technical Uncertainty. Where relevant technical uncertainty prevents reliable classification, the obligation shall be subject to prudential presumption of systemic risk.</div>
+        <div class="paragraph">• §3º — Prudential Default Threshold. A 50% probability threshold shall apply as default, triggering automatic suspension until sufficient Systemic Proof allows reclassification.</div>
+        <div class="paragraph">• §6º — Automatic Suspension upon Loss of Reversibility. Objective technical evidence confirming loss of systemic reversibility results in automatic suspension ex lege.</div>
+      </section>
+
+      <!-- ARTICLE 15 -->
+      <section id="CECO-ART-015" class="article-box">
+        <span class="ai-id">[CECO-ART-015]</span>
+        <span class="article-title">Article 15 — Ex-Ante Unenforceability (IEX) as an Autonomous Legal Category</span>
+        <div class="caput">
+          Ex-Ante Unenforceability (IEX) constitutes an autonomous legal category, of material public order, by which the enforceability of obligations, execution rights, and the practice of operational acts are automatically suspended whenever predictive technical analysis indicates trajectory incompatibility with systemic reversibility.
+        </div>
+        <div class="paragraph">• §1º — Categorial Autonomy. IEX shall not be confused with default, non-performance, supervening impossibility, force majeure, hardship, or material adverse change.</div>
+        <div class="paragraph">• §3º — Automatic Legal Effects: immediate suspension of enforceability; prohibition of acts aggravating incompatible trajectory; precedence of systemic containment.</div>
+        <div class="paragraph">• §4º — Non-Opposability of Formal Resistances. IEX produces effects independently of notice or judicial declaration.</div>
+      </section>
+
+      <!-- ARTICLE 16 -->
+      <section id="CECO-ART-016" class="article-box">
+        <span class="ai-id">[CECO-ART-016]</span>
+        <span class="article-title">Article 16 — Automatic Lock Triggered by Irreversible Technical Trajectory</span>
+        <div class="caput">
+          Ex-Ante Unenforceability (IEX) operates as an automatic legal circuit breaker, functioning as a mandatory mechanism of systemic containment, triggered exclusively by certified technical and sensory data.
+        </div>
+        <div class="paragraph">§1º The IEX shall apply whenever the identified technical trajectory leads to violation of risk thresholds, irrespective of existence of present material harm.</div>
+        <div class="paragraph">§2º Activation is independent of fault, intent, negligence, contractual breach, or formal lawfulness.</div>
+        <div class="paragraph">§3º Once triggered, the automatic circuit breaker percludes: continuation of performance; activation of enforcement mechanisms; practice of any act aggravating the incompatible trajectory.</div>
+      </section>
+
+      <!-- ARTICLE 27 -->
+      <section id="CECO-ART-027" class="article-box">
+        <span class="ai-id">[CECO-ART-027]</span>
+        <span class="article-title">Article 27 — Habitability Link</span>
+        <div class="caput">
+          Under the c-ƩCO systemic governance regime, the legal recognition, economic relevance, and enforceability of assets, contracts, and operations are inseparably linked to the preservation of the habitability of the ecosystems and life-support systems upon which they depend.
+        </div>
+        <div class="caput">No asset, contractual position, or operational activity shall be treated as legally or economically autonomous from the material systems that sustain its functionality and continuity.</div>
+      </section>
+
+      <!-- ARTICLE 30 -->
+      <section id="CECO-ART-030" class="article-box">
+        <span class="ai-id">[CECO-ART-030]</span>
+        <span class="article-title">Article 30 — Non-Opposability of Incompatible Asset-Segregation Structures</span>
+        <div class="caput">
+          Caput. Under the c-ƩCO regime, any asset-segregation, securitization, assignment, synthetic risk transfer, or corporate structuring arrangement that has as its purpose or effect the severance of the habitability nexus shall be non-opposable.
+        </div>
+        <div class="inciso">I — Systemic Look-Through Rule. For purposes of the c-ƩCO regime, supervisory authorities shall apply a substance-over-form, systemic look-through.</div>
+        <div class="inciso">II — Functional Ineffectiveness of Structural Shields. Instruments including SPVs, segregated accounts, fiduciary regimes, bankruptcy-remote vehicles shall not exclude duties of pre-threshold design, disclosure, restoration, or liability.</div>
+      </section>
+
+      <!-- ARTICLE 31 -->
+      <section id="CECO-ART-031" class="article-box">
+        <span class="ai-id">[CECO-ART-031]</span>
+        <span class="article-title">Article 31 — Biophysical Conditioning of Guarantees</span>
+        <div class="caput">
+          Under the c-ƩCO systemic governance regime, the existence, enforceability, and scope of any real, personal, functional, or hybrid guarantee are legally conditioned upon: (a) the continued biophysical viability of the underlying asset; and (b) strict operational alignment with the Safe Operating Space.
+        </div>
+      </section>
+
+      <!-- ARTICLE 33 -->
+      <section id="CECO-ART-033" class="article-box">
+        <span class="ai-id">[CECO-ART-033]</span>
+        <span class="article-title">Article 33 — Automatic Conversion into Systemic Restoration Obligations</span>
+        <div class="caput">
+          The occurrence of systemic collapse, loss of habitability, or biophysical inviability shall result, ex lege, in the automatic conversion of the guarantee into a Systemic Restoration Obligation, rather than its simple extinction.
+        </div>
+        <div class="paragraph">§1º This conversion operates independently of: (a) existence or absence of financial default; (b) any judicial, arbitral, or administrative declaration; (c) invocation of force majeure.</div>
+        <div class="paragraph">§2º Upon conversion, the right to call upon the guarantee is transferred from the financial creditor to the Systemic Oversight Authority.</div>
+      </section>
+
+      <!-- ARTICLE 35 -->
+      <section id="CECO-ART-035" class="article-box">
+        <span class="ai-id">[CECO-ART-035]</span>
+        <span class="article-title">Article 35 — Systemic Proof</span>
+        <div class="caput">
+          Systemic Proof consists of objective technical evidence derived from certified sensorial data continuously monitored, capable of demonstrating the state, trajectory, and reversibility of impacts of contracts, assets, and operations subject to the c-ƩCO regime.
+        </div>
+      </section>
+
+      <!-- ARTICLE 36 -->
+      <section id="CECO-ART-036" class="article-box">
+        <span class="ai-id">[CECO-ART-036]</span>
+        <span class="article-title">Article 36 — Centrality of Certified Sensory Data</span>
+        <div class="caput">
+          Certified sensory data constitute the central evidentiary source under the c-ƩCO regime and shall be presumed true, intact, and sufficient for purposes of assessing systemic compliance, save upon conclusive technical proof of material failure of the measurement system.
+        </div>
+      </section>
+
+      <!-- ARTICLE 44 -->
+      <section id="CECO-ART-044" class="article-box">
+        <span class="ai-id">[CECO-ART-044]</span>
+        <span class="article-title">Article 44 — Safe Mode</span>
+        <div class="caput">
+          Safe Mode constitutes the legal state of systemic containment whereby execution of contracts, operations, or flows is temporarily suspended or reconfigured in order to preserve system integrity and prevent propagation of critical risks.
+        </div>
+      </section>
+
+      <!-- ARTICLE 48 -->
+      <section id="CECO-ART-048" class="article-box">
+        <span class="ai-id">[CECO-ART-048]</span>
+        <span class="article-title">Article 48 — State Machine</span>
+        <div class="caput">
+          The State Machine consists of the legal-operational architecture that governs execution, suspension, modulation, and cessation of contracts, assets, and operations subject to the c-ƩCO regime, based on the objective evolution of the monitored systemic trajectory.
+        </div>
+      </section>
+
+      <!-- ARTICLE 83 -->
+      <section id="CECO-ART-083" class="article-box">
+        <span class="ai-id">[CECO-ART-083]</span>
+        <span class="article-title">Article 83 — Systemic States</span>
+        <div class="caput">The Systemic State Machine shall comprise, at minimum, the following legal-operational states:</div>
+        <div class="inciso">I — Green State, characterized by full compatibility of the trajectory with the Safe Operating Space;</div>
+        <div class="inciso">II — Yellow State, characterized by detection of initial deviations capable of correction;</div>
+        <div class="inciso">III — Orange State, characterized by relevant risk of loss of reversibility, requiring containment and immediate curatorial measures;</div>
+        <div class="inciso">IV — Red State, characterized by unenforceability of the trajectory, with broad suspension of execution.</div>
+      </section>
+
+      <!-- ARTICLE 97 -->
+      <section id="CECO-ART-097" class="article-box">
+        <span class="ai-id">[CECO-ART-097]</span>
+        <span class="article-title">Article 97 — Automatic Duty of Cooperation (Join Duty)</span>
+        <div class="caput">
+          The Automatic Duty of Cooperation (Join Duty) imposes upon all agents whose activities affect the same system, critical limit, or ecosystem an immediate legal obligation of technical and informational cooperation whenever a systemic risk trajectory is identified.
+        </div>
+      </section>
+
+      <!-- ARTICLE 100 -->
+      <section id="CECO-ART-100" class="article-box">
+        <span class="ai-id">[CECO-ART-100]</span>
+        <span class="article-title">Article 100 — Functional Novation of the Legal Relationship</span>
+        <div class="caput">
+          Transition to critical states of the State Machine produces functional novation of the legal relationship, replacing individual goals of profit, performance, or isolated execution with collective goals of containment, correction, restoration, or safe decommissioning.
+        </div>
+      </section>
+
+      <!-- ARTICLE 73 -->
+      <section id="CECO-ART-073" class="article-box">
+        <span class="ai-id">[CECO-ART-073]</span>
+        <span class="article-title">Article 73 — Legal Definition of the Data Assessment Authority</span>
+        <div class="caput">
+          The Data Assessment Authority is the technical-legal entity responsible for collecting, validating, processing, and making available the sensory data underlying Systemic Proof, automatic triggers, and state transitions under the c-ƩCO regime.
+        </div>
+      </section>
+
+      <!-- ARTICLE 79 -->
+      <section id="CECO-ART-079" class="article-box">
+        <span class="ai-id">[CECO-ART-079]</span>
+        <span class="article-title">Article 79 — Technical Challenge Regime for Assessment</span>
+        <div class="caput">
+          Challenges to technical assessment shall be submitted exclusively by objective technical means and limited to demonstration of material failure, hardware defect, proven software error, or data corruption.
+        </div>
+      </section>
+
+      <!-- ARTICLE 80 -->
+      <section id="CECO-ART-080" class="article-box">
+        <span class="ai-id">[CECO-ART-080]</span>
+        <span class="article-title">Article 80 — Burden and Effects of Technical Challenge</span>
+        <div class="caput">
+          The burden of technical challenge rests entirely with the party raising it, and does not suspend the effectiveness of automatic triggers, IEX, or state transitions while verification of the alleged failure is pending.
+        </div>
+      </section>
+
+      <!-- ARTICLE 215 -->
+      <section id="CECO-ART-215" class="article-box">
+        <span class="ai-id">[CECO-ART-215]</span>
+        <span class="article-title">Article 215 — Nature, Status, and Binding Force of the Threshold Function Protocol</span>
+        <div class="caput">
+          The Threshold Function Protocol (TFP v1.1) is hereby established as a binding technical-prudential instrument and constitutes an integral and normative component of the c-ECO Systemic Governance Statute.
+        </div>
+        <div class="paragraph">§1º The TFP shall be construed as prudential execution infrastructure, governing the non-discretionary conditions of lawful economic and contractual execution.</div>
+        <div class="paragraph">§5º The TFP shall produce binding legal, financial, and contractual effects ex lege and ex ante upon incorporation by reference.</div>
+        <div class="paragraph">§6º The TFP is self-executing upon incorporation and shall not depend on subsequent regulation or discretionary act.</div>
+      </section>
+
+      <!-- ARTICLE 217 -->
+      <section id="CECO-ART-217" class="article-box">
+        <span class="ai-id">[CECO-ART-217]</span>
+        <span class="article-title">Article 217 — Trigger Function</span>
+        <div class="caput">
+          The activation of systemic governance mechanisms under the Threshold Function Protocol (TFP) shall be governed by the following Trigger Function:<br><br>
+          <strong>Γ = f(P, ΔV, σ, Lr)</strong>
+        </div>
+        <div class="paragraph">§1º Variables: Position (P), Velocity (ΔV), Uncertainty (σ), Reversibility Liquidity (Lr).</div>
+        <div class="paragraph">§2º The Trigger Function shall be applied in an automatic, continuous, and non-discretionary manner.</div>
+        <div class="paragraph">§5º Statistical uncertainty (σ) shall operate as a conservative prudential factor, reducing the score Γ whenever signal reliability is insufficient.</div>
+      </section>
+
+      <!-- ARTICLE 218 -->
+      <section id="CECO-ART-218" class="article-box">
+        <span class="ai-id">[CECO-ART-218]</span>
+        <span class="article-title">Article 218 — Prudential Asymmetry Principle</span>
+        <div class="caput">
+          The calibration and application of the Trigger Function shall observe the Prudential Asymmetry Principle.
+        </div>
+        <div class="paragraph">§1º Errors from early or conservative trigger activation shall be deemed economically reversible.</div>
+        <div class="paragraph">§2º Errors from delay, omission, or inertia shall be deemed biophysically irreversible.</div>
+        <div class="paragraph">§8º The Prudential Asymmetry Principle shall prevail over any interpretive approach that seeks to balance reversible economic inconvenience against irreversible systemic harm.</div>
+      </section>
+
+      <!-- ARTICLE 219 -->
+      <section id="CECO-ART-219" class="article-box">
+        <span class="ai-id">[CECO-ART-219]</span>
+        <span class="article-title">Article 219 — Prudential Risk Bands</span>
+        <div class="caput">
+          Results of the Trigger Function (Γ ∈ [0,100]) shall be classified into prudential risk bands producing automatic ex ante contractual and financial effects.
+        </div>
+        <div class="paragraph">§1º Green Band (80–100): nominal operation; Amber Band (60–79): heightened vigilance; Red Band (40–59): Safe Mode; Black Band (&lt;40): Restoration First with IEX activation.</div>
+        <div class="paragraph">§4º The Red Band (Safe Mode) shall not constitute default, breach, termination event, or credit impairment.</div>
+      </section>
+
+      <!-- ARTICLE 222 -->
+      <section id="CECO-ART-222" class="article-box">
+        <span class="ai-id">[CECO-ART-222]</span>
+        <span class="article-title">Article 222 — Limited Arbitral Review and Immunity to Forum Shopping</span>
+        <div class="caput">
+          Any arbitral or technical review under the Threshold Function Protocol shall be strictly limited in scope and shall not suspend, delay, or neutralize the prudential effects produced by this Protocol.
+        </div>
+        <div class="paragraph">§1º Review shall be admissible exclusively for verification of certified material error, fraud, or demonstrable sensor or methodological failure.</div>
+        <div class="paragraph">§2º Review of ecological, economic, political, strategic, or policy merit is expressly prohibited.</div>
+        <div class="paragraph">§3º The initiation of arbitral or judicial proceedings shall not produce automatic suspensive effect.</div>
+        <div class="paragraph">§5º This Article shall be interpreted so as to prevent forum shopping, strategic delay, or procedural abuse.</div>
+      </section>
+    
+    
+
+<!-- HE<!-- ========== REFERENCES & BIBLIOGRAPHY ========== -->
+  <section id="REFERENCES" class="references-section">
+    <div class="references-title">REFERENCES & BIBLIOGRAPHY</div>
+    
+    <div class="reference-item">
+      <span class="author">UNIDROIT.</span> <span class="title">UNIDROIT Principles of International Commercial Contracts (UPICC) 2016.</span> Rome: UNIDROIT, 2016. Art. 2.1.14 (Open Terms), Art. 3.2 (Definiteness), Art. 5.3.1 (Conditions), Art. 6.2.2 (Hardship), Art. 7.1.1 (Non-performance).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">International Chamber of Commerce (ICC).</span> <span class="title">ICC Arbitration Rules 2021.</span> Paris: ICC, 2021. Art. 25 (Establishing the Facts of the Case), Art. 22.1 (Procedural Rules).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Raworth, Kate.</span> <span class="title">"A Doughnut for the Anthropocene: Humanity's Compass in the 21st Century."</span> <span class="journal">The Lancet Planetary Health</span>, vol. 1, no. 2, 2017, pp. e48-e49. (Safe Operating Space concept).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Rockström, Johan, et al.</span> <span class="title">"A Roadmap for Rapid Decarbonization."</span> <span class="journal">Science</span>, vol. 355, no. 6331, 2017, pp. 1269-1271. (Planetary Boundaries framework).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Steffen, Will, et al.</span> <span class="title">"Planetary Boundaries: Guiding Human Development on a Changing Planet."</span> <span class="journal">Science</span>, vol. 347, no. 6223, 2015, 1259855. (Updated planetary boundaries).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Bank for International Settlements (BIS).</span> <span class="title">"The Green Swan: Central Banking and Financial Stability in the Age of Climate Change."</span> Basel: BIS, 2020. (Systemic risk and tipping points).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Mayer, Benoît, and Vladimir P. Râmbu.</span> <span class="title">"The International Legal Status of the 'Safe Operating Space' Concept."</span> <span class="journal">Review of European, Comparative & International Environmental Law</span>, vol. 31, no. 2, 2022, pp. 248-261.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Köppel, Maja, et al.</span> <span class="title">"Legal Instruments for a Sustainable Biosphere."</span> <span class="journal">Ecology and Society</span>, vol. 26, no. 2, 2021, art. 12. (Earth system law).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Kotzé, Louis J.</span> <span class="title">"Earth System Law and the Legal Status of the Earth System."</span> <span class="journal">Transnational Environmental Law</span>, vol. 11, no. 1, 2022, pp. 1-26.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Pistor, Katharina.</span> <span class="title">The Code of Capital: How the Law Creates Wealth and Inequality.</span> Princeton: Princeton University Press, 2019. (Legal coding of capital).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Ruhl, J.B., and James Salzman.</span> <span class="title">"Climate Change Meets the Law of the Horse."</span> <span class="journal">Duke Environmental Law & Policy Forum</span>, vol. 31, no. 1, 2020, pp. 1-56. (Algorithmic environmental governance).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Sand, Ittai, and Gralf-Peter Calliess.</span> <span class="title">"The Concept of Law in Global Administrative Law."</span> <span class="journal">German Law Journal</span>, vol. 13, no. 11, 2012, pp. 1305-1318. (Transnational regulatory regimes).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Arbitration Institute of the Stockholm Chamber of Commerce (SCC).</span> <span class="title">SCC Arbitration Rules 2017.</span> Stockholm: SCC, 2017. (Emergency arbitrator provisions).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">London Court of International Arbitration (LCIA).</span> <span class="title">LCIA Arbitration Rules 2020.</span> London: LCIA, 2020. Art. 14.4 (Emergency relief).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Schill, Stephan W.</span> <span class="title">"International Investment Law and the Rule of Law."</span> In: <span class="title">The Rule of Law in International Affairs</span>, edited by James Crawford. Leiden: Martinus Nijhoff, 2019, pp. 187-214.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Kaufmann-Kohler, Gabrielle, and Michele Potestà.</span> <span class="title">"Can the Arbitral Tribunal Rely on Its Own Knowledge and Experience?"</span> <span class="journal">Journal of International Arbitration</span>, vol. 38, no. 4, 2021, pp. 443-466.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Park, William W.</span> <span class="title">"Arbitration and the Fugitive: The Pursuit of Fairness."</span> <span class="journal">Arbitration International</span>, vol. 35, no. 4, 2019, pp. 583-604. (Due process in arbitration).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">European Securities and Markets Authority (ESMA).</span> <span class="title">"Guidelines on Stress Testing."</span> Paris: ESMA, 2022/795. (Prudential risk bands methodology).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Financial Stability Board (FSB).</span> <span class="title">"Thematic Review on Risk Governance."</span> Basel: FSB, 2021. (Systemic risk governance).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Intergovernmental Panel on Climate Change (IPCC).</span> <span class="title">Climate Change 2023: Synthesis Report.</span> Geneva: IPCC, 2023. (Risk probability standards).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Bull, Hans Peter, and Karin Mildenberger.</span> <span class="title">"Ex-ante Governance: Preventive Law in the Regulatory State."</span> <span class="journal">German Law Journal</span>, vol. 22, no. 4, 2021, pp. 612-638.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Teubner, Gunther.</span> <span class="title">"Self-Constitutionalizing TNCs? On the Linkage of 'Private' and 'Public' Corporate Codes of Conduct."</span> <span class="journal">Indiana Journal of Global Legal Studies</span>, vol. 18, no. 2, 2011, pp. 617-638. (Corporate constitutionalism).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Fischer-Lescano, Andreas, and Gunther Teubner.</span> <span class="title">"Regime Collisions: The Vain Search for Legal Unity in the Fragmentation of Global Law."</span> <span class="journal">Michigan Journal of International Law</span>, vol. 25, no. 4, 2004, pp. 999-1046.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Calliess, Gralf-Peter, and Peer Zumbansen.</span> <span class="title">Rough Consensus and Running Code: A Theory of Transnational Private Law.</span> Oxford: Hart Publishing, 2010. (Transnational legal theory).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Sabel, Charles F., and Jonathan Zeitlin.</span> <span class="title">"Experimentalist Governance."</span> In: <span class="title">The Oxford Handbook of Governance</span>, edited by David Levi-Faur. Oxford: Oxford University Press, 2012, pp. 169-183.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">de Bürca, Gráinne, Robert O. Keohane, and Charles Sabel.</span> <span class="title">"New Modes of Global Governance."</span> <span class="journal">International Organization</span>, vol. 58, no. 2, 2004, pp. 303-337.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Esty, Daniel C., and Damien Geradin.</span> <span class="title">"Regulatory Co-opetition."</span> <span class="journal">Journal of International Economic Law</span>, vol. 3, no. 2, 2000, pp. 235-255. (Transnational regulatory competition).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Scott, Colin.</span> <span class="title">"Accountability in the Regulatory State."</span> <span class="journal">Journal of Law and Society</span>, vol. 27, no. 1, 2000, pp. 38-60.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Black, Julia.</span> <span class="title">"Decentring Regulation: Understanding the Role of Regulation and Self-Regulation in a 'Post-Regulatory' World."</span> <span class="journal">Current Legal Problems</span>, vol. 54, no. 1, 2001, pp. 103-146.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Lobel, Orly.</span> <span class="title">"The Renew Deal: The Fall of Regulation and the Rise of Governance in Contemporary Legal Thought."</span> <span class="journal">Minnesota Law Review</span>, vol. 89, no. 2, 2004, pp. 342-470.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Salzman, James, et al.</span> <span class="title">"The Promise and Perils of Private Environmental Governance."</span> <span class="journal">Journal of Land Use & Environmental Law</span>, vol. 36, no. 1, 2021, pp. 1-52.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Cashore, Benjamin, Graeme Auld, and Deanna Newsom.</span> <span class="title">Governing Through Markets: Forest Certification and the Emergence of Non-State Authority.</span> New Haven: Yale University Press, 2004. (Private authority in governance).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Meidinger, Errol.</span> <span class="title">"The Administrative Law of Global Private-Public Regulation: The Case of Forestry."</span> <span class="journal">European Journal of International Law</span>, vol. 17, no. 1, 2006, pp. 47-87.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Abbott, Kenneth W., and Duncan Snidal.</span> <span class="title">"The Governance Triangle: Regulatory Standards Institutions and the Shadow of the State."</span> In: <span class="title">The Politics of Global Regulation</span>, edited by Walter Mattli and Ngaire Woods. Princeton: Princeton University Press, 2009, pp. 44-88.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Kingsbury, Benedict, Nico Krisch, and Richard B. Stewart.</span> <span class="title">"The Emergence of Global Administrative Law."</span> <span class="journal">Law and Contemporary Problems</span>, vol. 68, no. 3-4, 2005, pp. 15-61.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Stewart, Richard B.</span> <span class="title">"The Global Regulatory Challenge to U.S. Administrative Law."</span> <span class="journal">New York University Journal of International Law and Politics</span>, vol. 37, no. 4, 2005, pp. 695-762.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Wiener, Jonathan B.</span> <span class="title">"Better Regulation in Europe."</span> <span class="journal">Current Legal Problems</span>, vol. 59, no. 1, 2006, pp. 447-518. (Regulatory impact assessment).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Sunstein, Cass R.</span> <span class="title">"Cost-Benefit Analysis and Arbitrariness Review."</span> <span class="journal">Harvard Environmental Law Review</span>, vol. 41, no. 1, 2017, pp. 1-32. (Administrative rationality).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Vermeule, Adrian.</span> <span class="title">"Our Schmittian Administrative Law."</span> <span class="journal">Harvard Law Review</span>, vol. 122, no. 4, 2009, pp. 1095-1149. (Emergency powers).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Ackerman, Bruce.</span> <span class="title">Before the Next Attack: Preserving Civil Liberties in an Age of Terrorism.</span> New Haven: Yale University Press, 2006. (Emergency constitutionalism).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Dyzenhaus, David.</span> <span class="title">The Constitution of Law: Legality in a Time of Emergency.</span> Cambridge: Cambridge University Press, 2006.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Gross, Oren, and Fionnuala Ní Aoláin.</span> <span class="title">Law in Times of Crisis: Emergency Powers in Theory and Practice.</span> Cambridge: Cambridge University Press, 2006.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Agamben, Giorgio.</span> <span class="title">State of Exception.</span> Chicago: University of Chicago Press, 2005. (Critical theory of emergency).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Tushnet, Mark.</span> <span class="title">"The Emergency Constitution."</span> <span class="journal">Yale Law Journal</span>, vol. 113, no. 5, 2004, pp. 1021-1076.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Posner, Eric A., and Adrian Vermeule.</span> <span class="title">Terror in the Balance: Security, Liberty, and the Courts.</span> Oxford: Oxford University Press, 2007.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Ramraj, Victor V., ed.</span> <span class="title">Emergencies and the Limits of Legality.</span> Cambridge: Cambridge University Press, 2008.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Habermas, Jürgen.</span> <span class="title">Between Facts and Norms: Contributions to a Discourse Theory of Law and Democracy.</span> Cambridge, MA: MIT Press, 1996. (Legitimacy and procedure).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Rawls, John.</span> <span class="title">Political Liberalism.</span> New York: Columbia University Press, 1993. (Public reason).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Fuller, Lon L.</span> <span class="title">The Morality of Law.</span> Rev. ed. New Haven: Yale University Press, 1969. (Procedural natural law).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Raz, Joseph.</span> <span class="title">The Authority of Law: Essays on Law and Morality.</span> Oxford: Clarendon Press, 1979. (Rule of law).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Bingham, Tom.</span> <span class="title">The Rule of Law.</span> London: Allen Lane, 2010.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Waldron, Jeremy.</span> <span class="title">"The Rule of Law and the Importance of Procedure."</span> In: <span class="title">Getting to the Rule of Law</span>, edited by James E. Fleming. New York: NYU Press, 2011, pp. 3-31.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Mashaw, Jerry L.</span> <span class="title">Due Process in the Administrative State.</span> New Haven: Yale University Press, 1985.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Ely, John Hart.</span> <span class="title">Democracy and Distrust: A Theory of Judicial Review.</span> Cambridge, MA: Harvard University Press, 1980. (Representation-reinforcing review).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Sunstein, Cass R.</span> <span class="title">After the Rights Revolution: Reconceiving the Regulatory State.</span> Cambridge, MA: Harvard University Press, 1990.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Pildes, Richard H., and Cass R. Sunstein.</span> <span class="title">"Reinventing the Regulatory State."</span> <span class="journal">University of Chicago Law Review</span>, vol. 62, no. 1, 1995, pp. 1-129.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Aman, Alfred C.</span> <span class="title">The Democracy Deficit: Taming Globalization Through Law Reform.</span> New York: NYU Press, 2004. (Global administrative law).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Stewart, Richard B.</span> <span class="title">"U.S. Administrative Law: A Model for Global Administrative Law?"</span> <span class="journal">Law and Contemporary Problems</span>, vol. 68, no. 3-4, 2005, pp. 63-108.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Cassese, Sabino.</span> <span class="title">"Administrative Law Without the State? The Challenge of Global Regulation."</span> <span class="journal">New York University Journal of International Law and Politics</span>, vol. 37, no. 4, 2005, pp. 663-694.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Krisch, Nico.</span> <span class="title">"The Pluralism of Global Administrative Law."</span> <span class="journal">European Journal of International Law</span>, vol. 17, no. 1, 2006, pp. 247-278.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Dunoff, Jeffrey L., and Joel P. Trachtman, eds.</span> <span class="title">Ruling the World? Constitutionalism, International Law, and Global Governance.</span> Cambridge: Cambridge University Press, 2009.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Klabbers, Jan, Anne Peters, and Geir Ulfstein.</span> <span class="title">The Constitutionalization of International Law.</span> Oxford: Oxford University Press, 2009.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Peters, Anne.</span> <span class="title">"Constitutionalization."</span> In: <span class="title">The Max Planck Encyclopedia of Public International Law</span>, edited by Rüdiger Wolfrum. Oxford: Oxford University Press, 2011.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Kumm, Mattias.</span> <span class="title">"The Cosmopolitan Turn in Constitutionalism: On the Relationship Between Constitutionalism in and Beyond the State."</span> In: <span class="title">Ruling the World?</span>, edited by Dunoff and Trachtman, pp. 258-325.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Walker, Neil.</span> <span class="title">"Taking Constitutionalism Beyond the State."</span> <span class="journal">Political Studies</span>, vol. 56, no. 3, 2008, pp. 519-543.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Teubner, Gunther.</span> <span class="title">Constitutional Fragments: Societal Constitutionalism and Globalization.</span> Oxford: Oxford University Press, 2012. (Societal constitutionalism).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Thornhill, Chris.</span> <span class="title">A Sociology of Transnational Constitutions: Social Foundations of the Post-National Legal Structure.</span> Cambridge: Cambridge University Press, 2016.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Kjaer, Poul F.</span> <span class="title">Between Governing and Governance: On the Emergence, Function and Form of Europe's Post-National Constellation.</span> Oxford: Hart Publishing, 2010.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Joerges, Christian, and Florian Rödl.</span> <span class="title">"Social Market Economy as Europe's Social Model?"</span> <span class="journal">EUI Working Papers</span>, LAW No. 2004/8, 2004.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Everson, Michelle, and Christian Joerges.</span> <span class="title">"Reconfiguring the Politics-Law Relationship in the Integration Project Through Conflicts-Law Constitutionalism."</span> <span class="journal">European Law Journal</span>, vol. 18, no. 5, 2012, pp. 644-666.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Poiares Maduro, Miguel.</span> <span class="title">"Interpreting European Law: Judicial Adjudication in a Context of Constitutional Pluralism."</span> <span class="journal">European Journal of Legal Studies</span>, vol. 1, no. 2, 2007, pp. 1-21.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">de Witte, Bruno.</span> <span class="title">"Direct Effect, Primacy and the Nature of the Legal Order."</span> In: <span class="title">The Evolution of EU Law</span>, edited by Paul Craig and Gráinne de Búrca. 3rd ed. Oxford: Oxford University Press, 2011, pp. 323-362.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Weiler, Joseph H.H.</span> <span class="title">"The Transformation of Europe."</span> <span class="journal">Yale Law Journal</span>, vol. 100, no. 8, 1991, pp. 2403-2483.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Weiler, Joseph H.H.</span> <span class="title">The Constitution of Europe: "Do the New Clothes Have an Emperor?" and Other Essays on European Integration.</span> Cambridge: Cambridge University Press, 1999.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Schütze, Robert.</span> <span class="title">From Dual to Cooperative Federalism: The Changing Structure of European Law.</span> Oxford: Oxford University Press, 2009.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Fabbrini, Federico.</span> <span class="title">Economic Governance in Europe: Comparative Paradoxes, Constitutional Challenges.</span> Oxford: Oxford University Press, 2016.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Tuori, Kaarlo, and Klaus Tuori.</span> <span class="title">The Eurozone Crisis: A Constitutional Analysis.</span> Cambridge: Cambridge University Press, 2014.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Dawson, Mark, and Floris de Witte.</span> <span class="title">"Constitutional Balance in the EU after the Euro-Crisis."</span> <span class="journal">Modern Law Review</span>, vol. 76, no. 5, 2013, pp. 817-844.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Joerges, Christian.</span> <span class="title">"The European Economic Constitution and Its Transformation Through the Financial Crisis."</span> In: <span class="title">The European Union After the Crisis</span>, edited by Dimitry Kochenov and Fabian Amtenbrink. Cambridge: Cambridge University Press, 2021, pp. 45-78.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Habermas, Jürgen.</span> <span class="title">The Crisis of the European Union: A Response.</span> Cambridge: Polity Press, 2012.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Streeck, Wolfgang.</span> <span class="title">Buying Time: The Delayed Crisis of Democratic Capitalism.</span> London: Verso, 2014.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Bickerton, Christopher J., Dermot Hodson, and Uwe Puetter.</span> <span class="title">"The New Intergovernmentalism: European Integration in the Post-Maastricht Era."</span> <span class="journal">Journal of Common Market Studies</span>, vol. 53, no. 4, 2015, pp. 703-722.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Puetter, Uwe.</span> <span class="title">The European Council and the Council: New Intergovernmentalism and Institutional Change.</span> Oxford: Oxford University Press, 2014.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Börzel, Tanja A., and Thomas Risse.</span> <span class="title">"From the Euro to the Schengen Crises: European Integration Theories, Politicization, and Identity Politics."</span> <span class="journal">Journal of European Public Policy</span>, vol. 25, no. 1, 2018, pp. 83-108.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Zeitlin, Jonathan, and Francesco Nicoli, eds.</span> <span class="title">The European Union Beyond the Polycrisis: Integration and Politicization in an Age of Shifting Cleavages.</span> London: Routledge, 2020.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Hodson, Dermot.</span> <span class="title">Governing the Euro Area in Good Times and Bad.</span> Oxford: Oxford University Press, 2020.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Salines, Matthias, Gabriel Glöckler, and Zbigniew Truchlewski.</span> <span class="title">"Existential Crisis, Incremental Response: The Eurozone's Dual Institutional Evolution 2007–2015."</span> <span class="journal">Journal of European Public Policy</span>, vol. 25, no. 1, 2018, pp. 138-158.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Schelkle, Waltraud.</span> <span class="title">The Political Economy of Monetary Solidarity: Understanding the Euro Experiment.</span> Oxford: Oxford University Press, 2017.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Matthijs, Matthias, and Mark Blyth, eds.</span> <span class="title">The Future of the Euro.</span> Oxford: Oxford University Press, 2015.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Jones, Erik, R. Daniel Kelemen, and Sophie Meunier.</span> <span class="title">"Failing Forward? The Euro Crisis and the Incomplete Nature of European Integration."</span> <span class="journal">Comparative Political Studies</span>, vol. 49, no. 7, 2016, pp. 1010-1034.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Newman, Abraham L.</span> <span class="title">Protectors of Privacy: Regulating Personal Data in the Global Economy.</span> Ithaca: Cornell University Press, 2008. (Transnational regulation).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Büthe, Tim, and Walter Mattli.</span> <span class="title">The New Global Rulers: The Privatization of Regulation in the World Economy.</span> Princeton: Princeton University Press, 2011.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Mattli, Walter, and Ngaire Woods, eds.</span> <span class="title">The Politics of Global Regulation.</span> Princeton: Princeton University Press, 2009.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Braithwaite, John, and Peter Drahos.</span> <span class="title">Global Business Regulation.</span> Cambridge: Cambridge University Press, 2000.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Drahos, Peter.</span> <span class="title">Intellectual Property, Indigenous People and their Knowledge.</span> Cambridge: Cambridge University Press, 2014.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Humphreys, David.</span> <span class="title">Logjam: Deforestation and the Crisis of Global Governance.</span> London: Earthscan, 2006.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Bernstein, Steven.</span> <span class="title">The Compromise of Liberal Environmentalism.</span> New York: Columbia University Press, 2001.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Biermann, Frank, et al.</span> <span class="title">"Global Governance and the Emergence of Global Institutions for the 21st Century."</span> <span class="journal">Cambridge University Press</span>, 2021. (Earth system governance).
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Biermann, Frank.</span> <span class="title">Earth System Governance: World Politics in the Anthropocene.</span> Cambridge, MA: MIT Press, 2014.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Dryzek, John S., et al.</span> <span class="title">"The Environmental State Under Pressure."</span> <span class="journal">Policy Studies Journal</span>, vol. 47, no. 1, 2019, pp. 108-128.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Eckersley, Robyn.</span> <span class="title">The Green State: Rethinking Democracy and Sovereignty.</span> Cambridge, MA: MIT Press, 2004.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Meadowcroft, James.</span> <span class="title">"From Welfare State to Ecostate."</span> In: <span class="title">The State and the Global Ecological Crisis</span>, edited by John Barry and Robyn Eckersley. Cambridge, MA: MIT Press, 2005, pp. 3-24.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Backstrand, Karin, et al., eds.</span> <span class="title">Environmental Politics and Deliberative Democracy: Examining the Promise of New Modes of Governance.</span> Cheltenham: Edward Elgar, 2010.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Stevenson, Hayley, and John S. Dryzek.</span> <span class="title">Democratizing Global Climate Governance.</span> Cambridge: Cambridge University Press, 2014.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Bernauer, Thomas.</span> <span class="title">"The Effect of International Environmental Institutions: How We Might Learn More."</span> <span class="journal">International Organization</span>, vol. 49, no. 2, 1995, pp. 351-377.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Young, Oran R., ed.</span> <span class="title">The Effectiveness of International Environmental Regimes: Causal Connections and Behavioral Mechanisms.</span> Cambridge, MA: MIT Press, 1999.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Mitchell, Ronald B.</span> <span class="title">"Evaluating the Performance of Environmental Institutions: What to Evaluate and How to Evaluate It?"</span> In: <span class="title">Institutions and Environmental Change</span>, edited by Oran R. Young et al. Cambridge, MA: MIT Press, 2008, pp. 79-114.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Helm, Carsten, and Detlef Sprinz.</span> <span class="title">"Measuring the Effectiveness of International Environmental Regimes."</span> <span class="journal">Journal of Conflict Resolution</span>, vol. 44, no. 5, 2000, pp. 630-652.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Breitmeier, Helmut, Oran R. Young, and Michael Zürn.</span> <span class="title">Analyzing International Environmental Regimes: From Case Study to Database.</span> Cambridge, MA: MIT Press, 2006.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Underdal, Arild.</span> <span class="title">"One Question, Two Answers."</span> In: <span class="title">Environmental Regime Effectiveness</span>, edited by Edward L. Miles et al. Cambridge, MA: MIT Press, 2002, pp. 3-45.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Young, Oran R.</span> <span class="title">Institutional Dynamics: Emergent Patterns in International Environmental Governance.</span> Cambridge, MA: MIT Press, 2010.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Gehring, Thomas, and Sebastian Oberthür.</span> <span class="title">"The Causal Mechanisms of Interaction between International Institutions."</span> <span class="journal">European Journal of International Relations</span>, vol. 15, no. 1, 2009, pp. 125-156.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Oberthür, Sebastian, and Olav Schram Stokke, eds.</span> <span class="title">Managing Institutional Complexity: Regime Interplay and Global Environmental Change.</span> Cambridge, MA: MIT Press, 2011.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Raustiala, Kal, and David G. Victor.</span> <span class="title">"The Regime Complex for Plant Genetic Resources."</span> <span class="journal">International Organization</span>, vol. 58, no. 2, 2004, pp. 277-309.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Keohane, Robert O., and David G. Victor.</span> <span class="title">"The Regime Complex for Climate Change."</span> <span class="journal">Perspectives on Politics</span>, vol. 9, no. 1, 2011, pp. 7-23.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Alter, Karen J., and Sophie Meunier.</span> <span class="title">"The Politics of International Regime Complexity."</span> <span class="journal">Perspectives on Politics</span>, vol. 7, no. 1, 2009, pp. 13-24.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Drezner, Daniel W.</span> <span class="title">All Politics Is Global: Explaining International Regulatory Regimes.</span> Princeton: Princeton University Press, 2007.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Farrell, Henry, and Abraham L. Newman.</span> <span class="title">"Domestic Institutions Beyond the Nation-State: Charting the New Interdependence Approach."</span> <span class="journal">World Politics</span>, vol. 66, no. 2, 2014, pp. 331-363.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Simmons, Beth A.</span> <span class="title">Mobilizing for Human Rights: International Law in Domestic Politics.</span> Cambridge: Cambridge University Press, 2009.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Goodman, Ryan, and Derek Jinks.</span> <span class="title">Socializing States: Promoting Human Rights through International Law.</span> Oxford: Oxford University Press, 2013.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Koh, Harold Hongju.</span> <span class="title">"Why Do Nations Obey International Law?"</span> <span class="journal">Yale Law Journal</span>, vol. 106, no. 8, 1997, pp. 2599-2659.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Chayes, Abram, and Antonia Handler Chayes.</span> <span class="title">The New Sovereignty: Compliance with International Regulatory Agreements.</span> Cambridge, MA: Harvard University Press, 1995.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Raustiala, Kal.</span> <span class="title">"Compliance & Effectiveness in International Regulatory Cooperation."</span> <span class="journal">Case Western Reserve Journal of International Law</span>, vol. 32, no. 3, 2000, pp. 387-440.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Victor, David G., Kal Raustiala, and Eugene B. Skolnikoff, eds.</span> <span class="title">The Implementation and Effectiveness of International Environmental Commitments: Theory and Practice.</span> Cambridge, MA: MIT Press, 1998.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Downs, George W., David M. Rocke, and Peter N. Barsoom.</span> <span class="title">"Is the Good News About Compliance Good News About Cooperation?"</span> <span class="journal">International Organization</span>, vol. 50, no. 3, 1996, pp. 379-406.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Hathaway, Oona A.</span> <span class="title">"Between Power and Principle: An Integrated Theory of International Law."</span> <span class="journal">University of Chicago Law Review</span>, vol. 72, no. 2, 2005, pp. 469-536.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Guzman, Andrew T.</span> <span class="title">How International Law Works: A Rational Choice Theory.</span> Oxford: Oxford University Press, 2008.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Goldsmith, Jack L., and Eric A. Posner.</span> <span class="title">The Limits of International Law.</span> Oxford: Oxford University Press, 2005.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Posner, Eric A.</span> <span class="title">The Perils of Global Legalism.</span> Chicago: University of Chicago Press, 2009.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Helfer, Laurence R.</span> <span class="title">"Exiting Treaties."</span> <span class="journal">Virginia Law Review</span>, vol. 91, no. 7, 2005, pp. 1579-1648.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Helfer, Laurence R.</span> <span class="title">"Flexibility in International Agreements."</span> In: <span class="title">Interdisciplinary Perspectives on International Law and International Relations</span>, edited by Jeffrey L. Dunoff and Mark A. Pollack. Cambridge: Cambridge University Press, 2013, pp. 175-196.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Trachtman, Joel P.</span> <span class="title">The Economic Structure of International Law.</span> Cambridge, MA: Harvard University Press, 2008.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Dunoff, Jeffrey L., and Joel P. Trachtman.</span> <span class="title">"Economic Analysis of International Law."</span> <span class="journal">Yale Journal of International Law</span>, vol. 24, no. 1, 1999, pp. 1-56.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Sykes, Alan O.</span> <span class="title">"Protectionism as a 'Safeguard': A Positive Analysis of the GATT 'Escape Clause' with Normative Speculations."</span> <span class="journal">University of Chicago Law Review</span>, vol. 58, no. 1, 1991, pp. 255-305.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Schwartz, Warren F., and Alan O. Sykes.</span> <span class="title">"The Economic Structure of Renegotiation and Dispute Resolution in the World Trade Organization."</span> <span class="journal">Journal of Legal Studies</span>, vol. 31, no. S1, 2002, pp. S179-S204.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Bagwell, Kyle, and Robert W. Staiger.</span> <span class="title">The Economics of the World Trading System.</span> Cambridge, MA: MIT Press, 2002.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Maggi, Giovanni, and Robert W. Staiger.</span> <span class="title">"Optimal Design of Trade Agreements in the Presence of Renegotiation."</span> <span class="journal">American Economic Journal: Microeconomics</span>, vol. 7, no. 1, 2015, pp. 109-143.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Bown, Chad P.</span> <span class="title">Self-Enforcing Trade: Developing Countries and WTO Dispute Settlement.</span> Washington, DC: Brookings Institution Press, 2009.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Bown, Chad P., and Joost Pauwelyn, eds.</span> <span class="title">The Law, Economics and Politics of Retaliation in WTO Dispute Settlement.</span> Cambridge: Cambridge University Press, 2010.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Pelc, Krzysztof J.</span> <span class="title">Making and Bending International Rules: The Design of Exceptions and Escape Clauses in Trade Law.</span> Cambridge: Cambridge University Press, 2016.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Rosendorff, B. Peter, and Helen V. Milner.</span> <span class="title">"The Optimal Design of International Trade Institutions: Uncertainty and Escape."</span> <span class="journal">International Organization</span>, vol. 55, no. 4, 2001, pp. 829-857.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Koremenos, Barbara.</span> <span class="title">The Continent of International Law: Explaining Agreement Design.</span> Cambridge: Cambridge University Press, 2016.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Koremenos, Barbara, Charles Lipson, and Duncan Snidal.</span> <span class="title">"The Rational Design of International Institutions."</span> <span class="journal">International Organization</span>, vol. 55, no. 4, 2001, pp. 761-799.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Koremenos, Barbara, and Allison Nau.</span> <span class="title">"Exit, No Exit."</span> <span class="journal">Duke Journal of Comparative & International Law</span>, vol. 21, no. 1, 2010, pp. 81-120.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Johns, Leslie.</span> <span class="title">Strengthening International Courts: The Hidden Costs of Legalization.</span> Ann Arbor: University of Michigan Press, 2015.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Ginsburg, Tom.</span> <span class="title">"Bounded Discretion in International Judicial Lawmaking."</span> <span class="journal">Virginia Journal of International Law</span>, vol. 45, no. 3, 2005, pp. 631-673.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Shaffer, Gregory, and Tom Ginsburg.</span> <span class="title">"The Empirical Turn in International Legal Scholarship."</span> <span class="journal">American Journal of International Law</span>, vol. 106, no. 1, 2012, pp. 1-46.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Voeten, Erik.</span> <span class="title">"The Impartiality of International Judges: Evidence from the European Court of Human Rights."</span> <span class="journal">American Political Science Review</span>, vol. 102, no. 4, 2008, pp. 417-433.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Posner, Eric A., and Miguel F. P. de Figueiredo.</span> <span class="title">"Is the International Court of Justice Biased?"</span> <span class="journal">Journal of Legal Studies</span>, vol. 34, no. 2, 2005, pp. 599-630.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Staton, Jeffrey K., and Will H. Moore.</span> <span class="title">"Judicial Power in Domestic and International Politics."</span> <span class="journal">International Organization</span>, vol. 65, no. 3, 2011, pp. 553-587.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Carrubba, Clifford J., et al.</span> <span class="title">"Judicial Behavior under Political Constraints: Evidence from the European Court of Justice."</span> <span class="journal">American Political Science Review</span>, vol. 102, no. 4, 2008, pp. 435-452.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Larsson, Olof, and Daniel Naurin.</span> <span class="title">"Judicial Independence and Political Uncertainty: How the Risk of Override Affects the Court of Justice of the EU."</span> <span class="journal">International Organization</span>, vol. 70, no. 2, 2016, pp. 377-408.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Garrett, Geoffrey, Daniel R. Kelemen, and Heiner Schulz.</span> <span class="title">"The European Court of Justice, National Governments, and Legal Integration in the European Union."</span> <span class="journal">International Organization</span>, vol. 52, no. 1, 1998, pp. 149-176.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Alter, Karen J.</span> <span class="title">Establishing the Supremacy of European Law: The Making of an International Rule of Law in Europe.</span> Oxford: Oxford University Press, 2001.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Alter, Karen J.</span> <span class="title">The New Terrain of International Law: Courts, Politics, Rights.</span> Princeton: Princeton University Press, 2014.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Romano, Cesare P. R., Karen J. Alter, and Yuval Shany, eds.</span> <span class="title">The Oxford Handbook of International Adjudication.</span> Oxford: Oxford University Press, 2014.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Romano, Cesare P. R.</span> <span class="title">The Peaceful Settlement of International Environmental Disputes: A Pragmatic Approach.</span> The Hague: Kluwer Law International, 2000.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Merrills, J. G.</span> <span class="title">International Dispute Settlement.</span> 6th ed. Cambridge: Cambridge University Press, 2017.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Collier, John, and Vaughan Lowe.</span> <span class="title">The Settlement of Disputes in International Law: Institutions and Procedures.</span> Oxford: Oxford University Press, 1999.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Shany, Yuval.</span> <span class="title">The Competing Jurisdictions of International Courts and Tribunals.</span> Oxford: Oxford University Press, 2003.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Shany, Yuval.</span> <span class="title">Assessing the Effectiveness of International Courts.</span> Oxford: Oxford University Press, 2014.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Helfer, Laurence R., and Anne-Marie Slaughter.</span> <span class="title">"Toward a Theory of Effective Supranational Adjudication."</span> <span class="journal">Yale Law Journal</span>, vol. 107, no. 2, 1997, pp. 273-391.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Slaughter, Anne-Marie.</span> <span class="title">A New World Order.</span> Princeton: Princeton University Press, 2004.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Keohane, Robert O., Andrew Moravcsik, and Anne-Marie Slaughter.</span> <span class="title">"Legalized Dispute Resolution: Interstate and Transnational."</span> <span class="journal">International Organization</span>, vol. 54, no. 3, 2000, pp. 457-488.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Abbott, Kenneth W., et al.</span> <span class="title">"The Concept of Legalization."</span> <span class="journal">International Organization</span>, vol. 54, no. 3, 2000, pp. 401-419.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Goldstein, Judith, et al., eds.</span> <span class="title">Legalization and World Politics.</span> Cambridge, MA: MIT Press, 2001.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Finnemore, Martha, and Stephen J. Toope.</span> <span class="title">"Alternatives to 'Legalization': Richer Views of Law and Politics."</span> <span class="journal">International Organization</span>, vol. 55, no. 3, 2001, pp. 743-758.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Brunnée, Jutta, and Stephen J. Toope.</span> <span class="title">Legitimacy and Legality in International Law: An Interactional Account.</span> Cambridge: Cambridge University Press, 2010.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Brunnée, Jutta, and Stephen J. Toope.</span> <span class="title">"International Law and the Practice of Legality: Stability and Change."</span> <span class="journal">International & Comparative Law Quarterly</span>, vol. 67, no. 4, 2018, pp. 779-808.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Krisch, Nico.</span> <span class="title">"The Decay of Consent: International Law in an Age of Global Public Goods."</span> <span class="journal">American Journal of International Law</span>, vol. 108, no. 1, 2014, pp. 1-40.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Benvenisti, Eyal, and George W. Downs.</span> <span class="title">"The Empire's New Clothes: Political Economy and the Fragmentation of International Law."</span> <span class="journal">Stanford Law Review</span>, vol. 60, no. 2, 2007, pp. 595-631.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Benvenisti, Eyal.</span> <span class="title">"The Law of Global Governance."</span> Leiden: Martinus Nijhoff, 2014.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Rajagopal, Balakrishnan.</span> <span class="title">International Law from Below: Development, Social Movements and Third World Resistance.</span> Cambridge: Cambridge University Press, 2003.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Chimni, B. S.</span> <span class="title">"Third World Approaches to International Law: A Manifesto."</span> <span class="journal">International Community Law Review</span>, vol. 8, no. 1, 2006, pp. 3-27.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Anghie, Antony.</span> <span class="title">Imperialism, Sovereignty and the Making of International Law.</span> Cambridge: Cambridge University Press, 2005.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Koskenniemi, Martti.</span> <span class="title">The Gentle Civilizer of Nations: The Rise and Fall of International Law 1870-1960.</span> Cambridge: Cambridge University Press, 2002.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Koskenniemi, Martti.</span> <span class="title">From Apology to Utopia: The Structure of International Legal Argument.</span> Reissue. Cambridge: Cambridge University Press, 2005.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Kennedy, David.</span> <span class="title">Of War and Law.</span> Princeton: Princeton University Press, 2006.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Kennedy, David.</span> <span class="title">A World of Struggle: How Power, Law, and Expertise Shape Global Political Economy.</span> Princeton: Princeton University Press, 2016.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Kennedy, Duncan.</span> <span class="title">"The Rise and Fall of Classical Legal Thought."</span> Washington, DC: Beard Books, 2006 [1975].
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Horwitz, Morton J.</span> <span class="title">The Transformation of American Law, 1780-1860.</span> Cambridge, MA: Harvard University Press, 1977.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Horwitz, Morton J.</span> <span class="title">The Transformation of American Law, 1870-1960: The Crisis of Legal Orthodoxy.</span> Oxford: Oxford University Press, 1992.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Gordon, Robert W.</span> <span class="title">"Critical Legal Histories."</span> <span class="journal">Stanford Law Review</span>, vol. 36, no. 1-2, 1984, pp. 57-125.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Tushnet, Mark.</span> <span class="title">"Critical Legal Studies: A Political History."</span> <span class="journal">Yale Law Journal</span>, vol. 100, no. 5, 1991, pp. 1515-1544.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Unger, Roberto Mangabeira.</span> <span class="title">The Critical Legal Studies Movement.</span> Cambridge, MA: Harvard University Press, 1986.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Unger, Roberto Mangabeira.</span> <span class="title">False Necessity: Anti-Necessitarian Social Theory in the Service of Radical Democracy.</span> Cambridge: Cambridge University Press, 1987.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Unger, Roberto Mangabeira.</span> <span class="title">Democracy Realized: The Progressive Alternative.</span> London: Verso, 1998.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Unger, Roberto Mangabeira.</span> <span class="title">The Self Awakened: Pragmatism Unbound.</span> Cambridge, MA: Harvard University Press, 2007.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Unger, Roberto Mangabeira.</span> <span class="title">The Religion of the Future.</span> Cambridge, MA: Harvard University Press, 2014.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Sabel, Charles F., and William H. Simon.</span> <span class="title">"Minimalism and Experimentalism in the Administrative State."</span> <span class="journal">Georgetown Law Journal</span>, vol. 100, no. 1, 2011, pp. 53-94.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Sabel, Charles F., and Jonathan Zeitlin.</span> <span class="title">"Learning from Difference: The New Architecture of Experimentalist Governance in the EU."</span> <span class="journal">European Law Journal</span>, vol. 14, no. 3, 2008, pp. 271-327.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Gerstenberg, Oliver, and Charles F. Sabel.</span> <span class="title">"Directly-Deliberative Polyarchy: An Institutional Ideal for Europe?"</span> In: <span class="title">Good Governance in Europe's Integrated Market</span>, edited by Christian Joerges and Renaud Dehousse. Oxford: Oxford University Press, 2002, pp. 289-341.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Cohen, Joshua, and Charles Sabel.</span> <span class="title">"Directly-Deliberative Polyarchy."</span> <span class="journal">European Law Journal</span>, vol. 3, no. 4, 1997, pp. 313-342.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Dorf, Michael C., and Charles F. Sabel.</span> <span class="title">"A Constitution of Democratic Experimentalism."</span> <span class="journal">Columbia Law Review</span>, vol. 98, no. 2, 1998, pp. 267-473.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Fung, Archon.</span> <span class="title">"Recipes for Public Spheres: Eight Institutional Design Choices and Their Consequences."</span> <span class="journal">Journal of Political Philosophy</span>, vol. 11, no. 3, 2003, pp. 338-367.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Fung, Archon.</span> <span class="title">Empowered Participation: Reinventing Urban Democracy.</span> Princeton: Princeton University Press, 2004.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Wright, Erik Olin.</span> <span class="title">Envisioning Real Utopias.</span> London: Verso, 2010.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Wright, Erik Olin.</span> <span class="title">Understanding Class.</span> London: Verso, 2015.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Harvey, David.</span> <span class="title">A Brief History of Neoliberalism.</span> Oxford: Oxford University Press, 2005.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Harvey, David.</span> <span class="title">The Enigma of Capital and the Crises of Capitalism.</span> Oxford: Oxford University Press, 2010.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Polanyi, Karl.</span> <span class="title">The Great Transformation: The Political and Economic Origins of Our Time.</span> Boston: Beacon Press, 2001 [1944].
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Block, Fred, and Margaret R. Somers.</span> <span class="title">The Power of Market Fundamentalism: Karl Polanyi's Critique.</span> Cambridge, MA: Harvard University Press, 2014.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Stiglitz, Joseph E.</span> <span class="title">Globalization and Its Discontents.</span> New York: W.W. Norton, 2002.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Rodrik, Dani.</span> <span class="title">The Globalization Paradox: Democracy and the Future of the World Economy.</span> New York: W.W. Norton, 2011.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Piketty, Thomas.</span> <span class="title">Capital in the Twenty-First Century.</span> Translated by Arthur Goldhammer. Cambridge, MA: Harvard University Press, 2014.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Piketty, Thomas.</span> <span class="title">Capital and Ideology.</span> Translated by Arthur Goldhammer. Cambridge, MA: Harvard University Press, 2020.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Atkinson, Anthony B.</span> <span class="title">Inequality: What Can Be Done?</span> Cambridge, MA: Harvard University Press, 2015.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Sen, Amartya.</span> <span class="title">Development as Freedom.</span> Oxford: Oxford University Press, 1999.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Sen, Amartya.</span> <span class="title">The Idea of Justice.</span> Cambridge, MA: Harvard University Press, 2009.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Nussbaum, Martha C.</span> <span class="title">Creating Capabilities: The Human Development Approach.</span> Cambridge, MA: Harvard University Press, 2011.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Nussbaum, Martha C.</span> <span class="title">Frontiers of Justice: Disability, Nationality, Species Membership.</span> Cambridge, MA: Harvard University Press, 2006.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Fraser, Nancy.</span> <span class="title">Scales of Justice: Reimagining Political Space in a Globalizing World.</span> New York: Columbia University Press, 2009.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Fraser, Nancy, and Axel Honneth.</span> <span class="title">Redistribution or Recognition? A Political-Philosophical Exchange.</span> London: Verso, 2003.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Honneth, Axel.</span> <span class="title">The Struggle for Recognition: The Moral Grammar of Social Conflicts.</span> Cambridge, MA: MIT Press, 1996.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Honneth, Axel.</span> <span class="title">Freedom's Right: The Social Foundations of Democratic Life.</span> New York: Columbia University Press, 2014.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Forst, Rainer.</span> <span class="title">The Right to Justification: Elements of a Constructivist Theory of Justice.</span> New York: Columbia University Press, 2007.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Forst, Rainer.</span> <span class="title">Justification and Critique: Towards a Critical Theory of Politics.</span> Cambridge: Polity Press, 2014.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Jaeggi, Rahel.</span> <span class="title">Alienation.</span> New York: Columbia University Press, 2014.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Jaeggi, Rahel.</span> <span class="title">Critique of Forms of Life.</span> Cambridge, MA: Harvard University Press, 2018.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Habermas, Jürgen.</span> <span class="title">The Theory of Communicative Action. Vol. 1: Reason and the Rationalization of Society.</span> Translated by Thomas McCarthy. Boston: Beacon Press, 1984.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Habermas, Jürgen.</span> <span class="title">The Theory of Communicative Action. Vol. 2: Lifeworld and System: A Critique of Functionalist Reason.</span> Translated by Thomas McCarthy. Boston: Beacon Press, 1987.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Habermas, Jürgen.</span> <span class="title">Between Facts and Norms: Contributions to a Discourse Theory of Law and Democracy.</span> Translated by William Rehg. Cambridge, MA: MIT Press, 1996.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Habermas, Jürgen.</span> <span class="title">The Inclusion of the Other: Studies in Political Theory.</span> Cambridge, MA: MIT Press, 1998.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Habermas, Jürgen.</span> <span class="title">Time of Transitions.</span> Cambridge: Polity Press, 2006.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Habermas, Jürgen.</span> <span class="title">Europe: The Faltering Project.</span> Cambridge: Polity Press, 2009.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Habermas, Jürgen.</span> <span class="title">The Crisis of the European Union: A Response.</span> Cambridge: Polity Press, 2012.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Habermas, Jürgen.</span> <span class="title">The Lure of Technocracy.</span> Cambridge: Polity Press, 2015.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Habermas, Jürgen.</span> <span class="title">Postmetaphysical Thinking II: Essays and Replies.</span> Cambridge: Polity Press, 2017.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Habermas, Jürgen.</span> <span class="title">Auch eine Geschichte der Philosophie.</span> 2 vols. Berlin: Suhrkamp, 2019.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Habermas, Jürgen.</span> <span class="title">This Too a History of Philosophy.</span> Translated by Ciaran Cronin. Cambridge: Polity Press, 2023.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Apel, Karl-Otto.</span> <span class="title">Towards a Transformation of Philosophy.</span> London: Routledge & Kegan Paul, 1980.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Apel, Karl-Otto.</span> <span class="title">Diskurs und Verantwortung: Das Problem des Übergangs zur postkonventionellen Moral.</span> Frankfurt: Suhrkamp, 1988.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Kettner, Matthias, ed.</span> <span class="title">Applied Ethics in a Troubled World.</span> Dordrecht: Kluwer, 1994.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Wellmer, Albrecht.</span> <span class="title">The Persistence of Modernity: Essays on Aesthetics, Ethics, and Postmodernism.</span> Cambridge, MA: MIT Press, 1991.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Wellmer, Albrecht.</span> <span class="title">Endgames: The Irreconcilable Nature of Modernity: Essays and Lectures.</span> Cambridge, MA: MIT Press, 1998.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">McCarthy, Thomas.</span> <span class="title">The Critical Theory of Jürgen Habermas.</span> Cambridge, MA: MIT Press, 1978.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">McCarthy, Thomas.</span> <span class="title">Ideals and Illusions: On Reconstruction and Deconstruction in Contemporary Critical Theory.</span> Cambridge, MA: MIT Press, 1991.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">McCarthy, Thomas.</span> <span class="title">Race, Empire, and the Idea of Human Development.</span> Cambridge: Cambridge University Press, 2009.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">White, Stephen K.</span> <span class="title">The Recent Work of Jürgen Habermas: Reason, Justice and Modernity.</span> Cambridge: Cambridge University Press, 1988.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Rehg, William.</span> <span class="title">Insight and Solidarity: A Study in the Discourse Ethics of Jürgen Habermas.</span> Berkeley: University of California Press, 1994.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Baynes, Kenneth.</span> <span class="title">The Normative Grounds of Social Criticism: Kant, Rawls, and Habermas.</span> Albany: SUNY Press, 1992.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Bohman, James.</span> <span class="title">Public Deliberation: Pluralism, Complexity, and Democracy.</span> Cambridge, MA: MIT Press, 1996.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Bohman, James, and William Rehg, eds.</span> <span class="title">Deliberative Democracy: Essays on Reason and Politics.</span> Cambridge, MA: MIT Press, 1997.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Bohman, James, and Matthias Lutz-Bachmann, eds.</span> <span class="title">Perpetual Peace: Essays on Kant's Cosmopolitan Ideal.</span> Cambridge, MA: MIT Press, 1997.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Bohman, James.</span> <span class="title">Democracy across Borders: From Dêmos to Dêmoi.</span> Cambridge, MA: MIT Press, 2007.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Bohman, James.</span> <span class="title">"Democratizing the Global Order: From Communicative Freedom to Communicative Power."</span> <span class="journal">Review of International Studies</span>, vol. 43, no. 2, 2017, pp. 227-248.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Dryzek, John S.</span> <span class="title">Deliberative Democracy and Beyond: Liberals, Critics, Contestations.</span> Oxford: Oxford University Press, 2000.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Dryzek, John S.</span> <span class="title">Foundations and Frontiers of Deliberative Governance.</span> Oxford: Oxford University Press, 2010.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Mansbridge, Jane, et al.</span> <span class="title">"A Systemic Approach to Deliberative Democracy."</span> In: <span class="title">Deliberative Systems: Deliberative Democracy at the Large Scale</span>, edited by John Parkinson and Jane Mansbridge. Cambridge: Cambridge University Press, 2012, pp. 1-26.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Parkinson, John, and Jane Mansbridge, eds.</span> <span class="title">Deliberative Systems: Deliberative Democracy at the Large Scale.</span> Cambridge: Cambridge University Press, 2012.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Goodin, Robert E.</span> <span class="title">Innovating Democracy: Democratic Theory and Practice after the Deliberative Turn.</span> Oxford: Oxford University Press, 2008.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Elster, Jon, ed.</span> <span class="title">Deliberative Democracy.</span> Cambridge: Cambridge University Press, 1998.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Fishkin, James S.</span> <span class="title">Democracy and Deliberation: New Directions for Democratic Reform.</span> New Haven: Yale University Press, 1991.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Fishkin, James S.</span> <span class="title">When the People Speak: Deliberative Democracy and Public Consultation.</span> Oxford: Oxford University Press, 2009.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Ackerman, Bruce, and James S. Fishkin.</span> <span class="title">Deliberation Day.</span> New Haven: Yale University Press, 2004.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Gutmann, Amy, and Dennis Thompson.</span> <span class="title">Democracy and Disagreement.</span> Cambridge, MA: Harvard University Press, 1996.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Gutmann, Amy, and Dennis Thompson.</span> <span class="title">Why Deliberative Democracy?</span> Princeton: Princeton University Press, 2004.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Gutmann, Amy, and Dennis Thompson.</span> <span class="title">The Spirit of Compromise: Why Governing Demands It and Campaigning Undermines It.</span> Princeton: Princeton University Press, 2012.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Young, Iris Marion.</span> <span class="title">Inclusion and Democracy.</span> Oxford: Oxford University Press, 2000.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Young, Iris Marion.</span> <span class="title">Justice and the Politics of Difference.</span> Princeton: Princeton University Press, 1990.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Benhabib, Seyla.</span> <span class="title">Situating the Self: Gender, Community and Postmodernism in Contemporary Ethics.</span> New York: Routledge, 1992.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Benhabib, Seyla.</span> <span class="title">The Claims of Culture: Equality and Diversity in the Global Era.</span> Princeton: Princeton University Press, 2002.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Benhabib, Seyla.</span> <span class="title">Another Cosmopolitanism.</span> Oxford: Oxford University Press, 2006.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Benhabib, Seyla.</span> <span class="title">Dignity in Adversity: Human Rights in Troubled Times.</span> Cambridge: Polity Press, 2011.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Benhabib, Seyla.</span> <span class="title">Exile, Statelessness, and Migration: Playing Chess with History from Hannah Arendt to Isaiah Berlin.</span> Princeton: Princeton University Press, 2018.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Mouffe, Chantal.</span> <span class="title">The Democratic Paradox.</span> London: Verso, 2000.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Mouffe, Chantal.</span> <span class="title">On the Political.</span> London: Routledge, 2005.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Mouffe, Chantal.</span> <span class="title">Agonistics: Thinking the World Politically.</span> London: Verso, 2013.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Mouffe, Chantal.</span> <span class="title">For a Left Populism.</span> London: Verso, 2018.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Laclau, Ernesto, and Chantal Mouffe.</span> <span class="title">Hegemony and Socialist Strategy: Towards a Radical Democratic Politics.</span> 2nd ed. London: Verso, 2001.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Laclau, Ernesto.</span> <span class="title">On Populist Reason.</span> London: Verso, 2005.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Rancière, Jacques.</span> <span class="title">Disagreement: Politics and Philosophy.</span> Minneapolis: University of Minnesota Press, 1999.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Rancière, Jacques.</span> <span class="title">Hatred of Democracy.</span> London: Verso, 2006.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Rancière, Jacques.</span> <span class="title">The Emancipated Spectator.</span> London: Verso, 2009.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Badiou, Alain.</span> <span class="title">Ethics: An Essay on the Understanding of Evil.</span> London: Verso, 2001.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Badiou, Alain.</span> <span class="title">Being and Event.</span> London: Continuum, 2005.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Badiou, Alain.</span> <span class="title">The Rebirth of History: Times of Riots and Uprisings.</span> London: Verso, 2012.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Žižek, Slavoj.</span> <span class="title">The Sublime Object of Ideology.</span> London: Verso, 1989.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Žižek, Slavoj.</span> <span class="title">The Ticklish Subject: The Absent Centre of Political Ontology.</span> London: Verso, 1999.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Žižek, Slavoj.</span> <span class="title">First as Tragedy, Then as Farce.</span> London: Verso, 2009.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Žižek, Slavoj.</span> <span class="title">Living in the End Times.</span> London: Verso, 2010.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Žižek, Slavoj.</span> <span class="title">The Year of Dreaming Dangerously.</span> London: Verso, 2012.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Žižek, Slavoj.</span> <span class="title">Trouble in Paradise: From the End of History to the End of Capitalism.</span> London: Penguin, 2014.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Žižek, Slavoj.</span> <span class="title">The Courage of Hopelessness: Chronicles of a Year of Acting Dangerously.</span> London: Allen Lane, 2017.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Žižek, Slavoj.</span> <span class="title">Like a Thief in Broad Daylight: Power in the Era of Post-Humanity.</span> London: Allen Lane, 2018.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Žižek, Slavoj.</span> <span class="title">Hegel in a Wired Brain.</span> London: Bloomsbury, 2020.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Deleuze, Gilles, and Félix Guattari.</span> <span class="title">Anti-Oedipus: Capitalism and Schizophrenia.</span> Minneapolis: University of Minnesota Press, 1983.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Deleuze, Gilles, and Félix Guattari.</span> <span class="title">A Thousand Plateaus: Capitalism and Schizophrenia.</span> Minneapolis: University of Minnesota Press, 1987.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Deleuze, Gilles.</span> <span class="title">Difference and Repetition.</span> New York: Columbia University Press, 1994.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Deleuze, Gilles.</span> <span class="title">The Fold: Leibniz and the Baroque.</span> Minneapolis: University of Minnesota Press, 1993.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Foucault, Michel.</span> <span class="title">Discipline and Punish: The Birth of the Prison.</span> New York: Pantheon, 1977.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Foucault, Michel.</span> <span class="title">The History of Sexuality, Vol. 1: An Introduction.</span> New York: Pantheon, 1978.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Foucault, Michel.</span> <span class="title">Power/Knowledge: Selected Interviews and Other Writings, 1972-1977.</span> New York: Pantheon, 1980.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Foucault, Michel.</span> <span class="title">The Birth of Biopolitics: Lectures at the Collège de France, 1978-1979.</span> New York: Palgrave Macmillan, 2008.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Foucault, Michel.</span> <span class="title">Security, Territory, Population: Lectures at the Collège de France, 1977-1978.</span> New York: Palgrave Macmillan, 2007.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Agamben, Giorgio.</span> <span class="title">Homo Sacer: Sovereign Power and Bare Life.</span> Stanford: Stanford University Press, 1998.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Agamben, Giorgio.</span> <span class="title">The Coming Community.</span> Minneapolis: University of Minnesota Press, 1993.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Agamben, Giorgio.</span> <span class="title">Remnants of Auschwitz: The Witness and the Archive.</span> New York: Zone Books, 1999.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Agamben, Giorgio.</span> <span class="title">The Highest Poverty: Monastic Rules and Form-of-Life.</span> Stanford: Stanford University Press, 2013.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Esposito, Roberto.</span> <span class="title">Bíos: Biopolitics and Philosophy.</span> Minneapolis: University of Minnesota Press, 2008.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Esposito, Roberto.</span> <span class="title">Immunitas: The Protection and Negation of Life.</span> Cambridge: Polity Press, 2011.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Esposito, Roberto.</span> <span class="title">Third Person: Politics of Life and Philosophy of the Impersonal.</span> Cambridge: Polity Press, 2012.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Esposito, Roberto.</span> <span class="title">Categories of the Impolitical.</span> New York: Fordham University Press, 2015.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Esposito, Roberto.</span> <span class="title">The Origin of the Political: Hannah Arendt or Simone Weil?</span> New York: Fordham University Press, 2017.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Arendt, Hannah.</span> <span class="title">The Origins of Totalitarianism.</span> New York: Harcourt, Brace and Company, 1951.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Arendt, Hannah.</span> <span class="title">The Human Condition.</span> Chicago: University of Chicago Press, 1958.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Arendt, Hannah.</span> <span class="title">On Revolution.</span> New York: Viking Press, 1963.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Arendt, Hannah.</span> <span class="title">Eichmann in Jerusalem: A Report on the Banality of Evil.</span> New York: Viking Press, 1963.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Arendt, Hannah.</span> <span class="title">Between Past and Future: Eight Exercises in Political Thought.</span> New York: Viking Press, 1968.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Arendt, Hannah.</span> <span class="title">On Violence.</span> New York: Harcourt, Brace & World, 1970.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Arendt, Hannah.</span> <span class="title">The Life of the Mind.</span> 2 vols. New York: Harcourt Brace Jovanovich, 1978.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Arendt, Hannah.</span> <span class="title">Lectures on Kant's Political Philosophy.</span> Chicago: University of Chicago Press, 1982.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Canovan, Margaret.</span> <span class="title">Hannah Arendt: A Reinterpretation of Her Political Thought.</span> Cambridge: Cambridge University Press, 1992.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Villa, Dana R.</span> <span class="title">Arendt and Heidegger: The Fate of the Political.</span> Princeton: Princeton University Press, 1996.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Villa, Dana R., ed.</span> <span class="title">The Cambridge Companion to Hannah Arendt.</span> Cambridge: Cambridge University Press, 2000.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Benhabib, Seyla.</span> <span class="title">The Reluctant Modernism of Hannah Arendt.</span> Thousand Oaks: SAGE, 1996.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Pitkin, Hanna Fenichel.</span> <span class="title">The Attack of the Blob: Hannah Arendt's Concept of the Social.</span> Chicago: University of Chicago Press, 1998.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Kateb, George.</span> <span class="title">Hannah Arendt: Politics, Conscience, Evil.</span> Totowa: Rowman & Allanheld, 1984.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Young-Bruehl, Elisabeth.</span> <span class="title">Hannah Arendt: For Love of the World.</span> 2nd ed. New Haven: Yale University Press, 2004.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Kristeva, Julia.</span> <span class="title">Hannah Arendt.</span> New York: Columbia University Press, 2001.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Honig, Bonnie, ed.</span> <span class="title">Feminist Interpretations of Hannah Arendt.</span> University Park: Penn State University Press, 1995.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Disch, Lisa Jane.</span> <span class="title">Hannah Arendt and the Limits of Philosophy.</span> Ithaca: Cornell University Press, 1994.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Taminiaux, Jacques.</span> <span class="title">The Thracian Maid and the Professional Thinker: Arendt and Heidegger.</span> Albany: SUNY Press, 1997.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Birmingham, Peg.</span> <span class="title">Hannah Arendt and Human Rights: The Predicament of Common Responsibility.</span> Bloomington: Indiana University Press, 2006.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Hayden, Patrick.</span> <span class="title">Political Evil in a Global Age: Hannah Arendt and International Theory.</span> London: Routledge, 2009.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Owens, Patricia.</span> <span class="title">Between War and Politics: International Relations and the Thought of Hannah Arendt.</span> Oxford: Oxford University Press, 2007.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Lang, Anthony F., Jr., and John Williams, eds.</span> <span class="title">Hannah Arendt and International Relations: Readings Across the Lines.</span> New York: Palgrave Macmillan, 2005.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Buckler, Steve.</span> <span class="title">Hannah Arendt and Political Theory: Challenging the Tradition.</span> Edinburgh: Edinburgh University Press, 2011.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Borren, Marieke.</span> <span class="title">"Towards an Arendtian Politics of In/Visibility: On Stateless Refugees and Undocumented Aliens."</span> <span class="journal">Ethical Perspectives</span>, vol. 15, no. 2, 2008, pp. 213-237.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Birmingham, Peg.</span> <span class="title">"On Violence, Politics and the Law."</span> <span class="journal">Journal of Speculative Philosophy</span>, vol. 26, no. 2, 2012, pp. 380-390.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Cavarero, Adriana.</span> <span class="title">Horrorism: Naming Contemporary Violence.</span> New York: Columbia University Press, 2009.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Cavarero, Adriana.</span> <span class="title">Relating Narratives: Storytelling and Selfhood.</span> London: Routledge, 2000.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Cavarero, Adriana.</span> <span class="title">For More than One Voice: Toward a Philosophy of Vocal Expression.</span> Stanford: Stanford University Press, 2005.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Cavarero, Adriana.</span> <span class="title">Inclinations: A Critique of Rectitude.</span> Stanford: Stanford University Press, 2016.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Butler, Judith.</span> <span class="title">Gender Trouble: Feminism and the Subversion of Identity.</span> New York: Routledge, 1990.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Butler, Judith.</span> <span class="title">Bodies That Matter: On the Discursive Limits of "Sex."</span> New York: Routledge, 1993.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Butler, Judith.</span> <span class="title">The Psychic Life of Power: Theories in Subjection.</span> Stanford: Stanford University Press, 1997.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Butler, Judith.</span> <span class="title">Excitable Speech: A Politics of the Performative.</span> New York: Routledge, 1997.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Butler, Judith.</span> <span class="title">Antigone's Claim: Kinship Between Life and Death.</span> New York: Columbia University Press, 2000.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Butler, Judith.</span> <span class="title">Precarious Life: The Powers of Mourning and Violence.</span> London: Verso, 2004.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Butler, Judith.</span> <span class="title">Undoing Gender.</span> New York: Routledge, 2004.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Butler, Judith.</span> <span class="title">Giving an Account of Oneself.</span> New York: Fordham University Press, 2005.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Butler, Judith.</span> <span class="title">Frames of War: When Is Life Grievable?</span> London: Verso, 2009.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Butler, Judith.</span> <span class="title">Notes Toward a Performative Theory of Assembly.</span> Cambridge, MA: Harvard University Press, 2015.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Butler, Judith.</span> <span class="title">The Force of Nonviolence: An Ethico-Political Bind.</span> London: Verso, 2020.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Butler, Judith, and Athena Athanasiou.</span> <span class="title">Dispossession: The Performative in the Political.</span> Cambridge: Polity Press, 2013.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Spivak, Gayatri Chakravorty.</span> <span class="title">"Can the Subaltern Speak?"</span> In: <span class="title">Marxism and the Interpretation of Culture</span>, edited by Cary Nelson and Lawrence Grossberg. Urbana: University of Illinois Press, 1988, pp. 271-313.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Spivak, Gayatri Chakravorty.</span> <span class="title">A Critique of Postcolonial Reason: Toward a History of the Vanishing Present.</span> Cambridge, MA: Harvard University Press, 1999.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Spivak, Gayatri Chakravorty.</span> <span class="title">Death of a Discipline.</span> New York: Columbia University Press, 2003.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Spivak, Gayatri Chakravorty.</span> <span class="title">An Aesthetic Education in the Era of Globalization.</span> Cambridge, MA: Harvard University Press, 2012.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Said, Edward W.</span> <span class="title">Orientalism.</span> New York: Pantheon, 1978.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Said, Edward W.</span> <span class="title">Culture and Imperialism.</span> New York: Knopf, 1993.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Said, Edward W.</span> <span class="title">Humanism and Democratic Criticism.</span> New York: Columbia University Press, 2004.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Chakrabarty, Dipesh.</span> <span class="title">Provincializing Europe: Postcolonial Thought and Historical Difference.</span> Princeton: Princeton University Press, 2000.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Chakrabarty, Dipesh.</span> <span class="title">"The Climate of History: Four Theses."</span> <span class="journal">Critical Inquiry</span>, vol. 35, no. 2, 2009, pp. 197-222.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Chakrabarty, Dipesh.</span> <span class="title">"Postcolonial Studies and the Challenge of Climate Change."</span> <span class="journal">New Literary History</span>, vol. 43, no. 1, 2012, pp. 1-18.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Chakrabarty, Dipesh.</span> <span class="title">The Climate of History in a Planetary Age.</span> Chicago: University of Chicago Press, 2021.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Ghosh, Amitav.</span> <span class="title">The Great Derangement: Climate Change and the Unthinkable.</span> Chicago: University of Chicago Press, 2016.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Ghosh, Amitav.</span> <span class="title">Gun Island.</span> New York: Farrar, Straus and Giroux, 2019.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Ghosh, Amitav.</span> <span class="title">The Nutmeg's Curse: Parables for a Planet in Crisis.</span> Chicago: University of Chicago Press, 2021.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Latour, Bruno.</span> <span class="title">We Have Never Been Modern.</span> Cambridge, MA: Harvard University Press, 1993.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Latour, Bruno.</span> <span class="title">Politics of Nature: How to Bring the Sciences into Democracy.</span> Cambridge, MA: Harvard University Press, 2004.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Latour, Bruno.</span> <span class="title">Reassembling the Social: An Introduction to Actor-Network-Theory.</span> Oxford: Oxford University Press, 2005.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Latour, Bruno.</span> <span class="title">Facing Gaia: Eight Lectures on the New Climatic Regime.</span> Cambridge: Polity Press, 2017.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Latour, Bruno.</span> <span class="title">Down to Earth: Politics in the New Climatic Regime.</span> Cambridge: Polity Press, 2018.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Stengers, Isabelle.</span> <span class="title">Cosmopolitics I.</span> Minneapolis: University of Minnesota Press, 2010.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Stengers, Isabelle.</span> <span class="title">Cosmopolitics II.</span> Minneapolis: University of Minnesota Press, 2011.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Stengers, Isabelle.</span> <span class="title">In Catastrophic Times: Resisting the Coming Barbarism.</span> Open Humanities Press, 2015.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Pignarre, Philippe, and Isabelle Stengers.</span> <span class="title">Capitalist Sorcery: Breaking the Spell.</span> London: Palgrave Macmillan, 2011.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Tsing, Anna Lowenhaupt.</span> <span class="title">Friction: An Ethnography of Global Connection.</span> Princeton: Princeton University Press, 2005.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Tsing, Anna Lowenhaupt.</span> <span class="title">The Mushroom at the End of the World: On the Possibility of Life in Capitalist Ruins.</span> Princeton: Princeton University Press, 2015.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Tsing, Anna Lowenhaupt, et al., eds.</span> <span class="title">Arts of Living on a Damaged Planet: Ghosts and Monsters of the Anthropocene.</span> Minneapolis: University of Minnesota Press, 2017.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Haraway, Donna J.</span> <span class="title">Simians, Cyborgs, and Women: The Reinvention of Nature.</span> New York: Routledge, 1991.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Haraway, Donna J.</span> <span class="title">Modest_Witness@Second_Millennium.FemaleMan©_Meets_OncoMouse™: Feminism and Technoscience.</span> New York: Routledge, 1997.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Haraway, Donna J.</span> <span class="title">When Species Meet.</span> Minneapolis: University of Minnesota Press, 2008.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Haraway, Donna J.</span> <span class="title">Staying with the Trouble: Making Kin in the Chthulucene.</span> Durham: Duke University Press, 2016.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Haraway, Donna J.</span> <span class="title">Manifestly Haraway.</span> Minneapolis: University of Minnesota Press, 2016.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Barad, Karen.</span> <span class="title">Meeting the Universe Halfway: Quantum Physics and the Entanglement of Matter and Meaning.</span> Durham: Duke University Press, 2007.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Braidotti, Rosi.</span> <span class="title">The Posthuman.</span> Cambridge: Polity Press, 2013.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Braidotti, Rosi.</span> <span class="title">Posthuman Knowledge.</span> Cambridge: Polity Press, 2019.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Braidotti, Rosi, and Maria Hlavajova, eds.</span> <span class="title">Posthuman Glossary.</span> London: Bloomsbury, 2018.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Morton, Timothy.</span> <span class="title">Ecology without Nature: Rethinking Environmental Aesthetics.</span> Cambridge, MA: Harvard University Press, 2007.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Morton, Timothy.</span> <span class="title">The Ecological Thought.</span> Cambridge, MA: Harvard University Press, 2010.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Morton, Timothy.</span> <span class="title">Hyperobjects: Philosophy and Ecology after the End of the World.</span> Minneapolis: University of Minnesota Press, 2013.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Morton, Timothy.</span> <span class="title">Dark Ecology: For a Logic of Future Coexistence.</span> New York: Columbia University Press, 2016.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Morton, Timothy.</span> <span class="title">Humankind: Solidarity with Nonhuman People.</span> London: Verso, 2017.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Morton, Timothy.</span> <span class="title">Being Ecological.</span> Cambridge, MA: MIT Press, 2018.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Clark, Timothy.</span> <span class="title">The Cambridge Introduction to Literature and the Environment.</span> Cambridge: Cambridge University Press, 2011.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Clark, Timothy.</span> <span class="title">Ecocriticism on the Edge: The Anthropocene as a Threshold Concept.</span> London: Bloomsbury, 2015.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Heise, Ursula K.</span> <span class="title">Sense of Place and Sense of Planet: The Environmental Imagination of the Global.</span> Oxford: Oxford University Press, 2008.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Heise, Ursula K.</span> <span class="title">Imagining Extinction: The Cultural Meanings of Endangered Species.</span> Chicago: University of Chicago Press, 2016.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Nixon, Rob.</span> <span class="title">Slow Violence and the Environmentalism of the Poor.</span> Cambridge, MA: Harvard University Press, 2011.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Solnit, Rebecca.</span> <span class="title">Hope in the Dark: Untold Histories, Wild Possibilities.</span> 3rd ed. Chicago: Haymarket Books, 2016.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Solnit, Rebecca.</span> <span class="title">A Paradise Built in Hell: The Extraordinary Communities That Arise in Disaster.</span> New York: Viking, 2009.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Klein, Naomi.</span> <span class="title">The Shock Doctrine: The Rise of Disaster Capitalism.</span> New York: Metropolitan Books, 2007.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Klein, Naomi.</span> <span class="title">This Changes Everything: Capitalism vs. The Climate.</span> New York: Simon & Schuster, 2014.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Klein, Naomi.</span> <span class="title">No Is Not Enough: Resisting Trump's Shock Politics and Winning the World We Need.</span> Chicago: Haymarket Books, 2017.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Klein, Naomi.</span> <span class="title">On Fire: The (Burning) Case for a Green New Deal.</span> New York: Simon & Schuster, 2019.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Wallace-Wells, David.</span> <span class="title">The Uninhabitable Earth: Life After Warming.</span> New York: Tim Duggan Books, 2019.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Lynas, Mark.</span> <span class="title">Six Degrees: Our Future on a Hotter Planet.</span> Washington, DC: National Geographic, 2008.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Lynas, Mark.</span> <span class="title">The God Species: Saving the Planet in the Age of Humans.</span> Washington, DC: National Geographic, 2011.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Lynas, Mark.</span> <span class="title">Nuclear 2.0: Why a Green Future Needs Nuclear Power.</span> Cambridge: UIT Cambridge, 2014.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Lynas, Mark.</span> <span class="title">Seeds of Science: Why We Got It So Wrong On GMOs.</span> London: Bloomsbury Sigma, 2018.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Shellenberger, Michael, and Ted Nordhaus.</span> <span class="title">The Death of Environmentalism: Global Warming Politics in a Post-Environmental World.</span> Oakland: Breakthrough Institute, 2004.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Shellenberger, Michael, and Ted Nordhaus, eds.</span> <span class="title">Love Your Monsters: Postenvironmentalism and the Anthropocene.</span> Oakland: Breakthrough Institute, 2011.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Nordhaus, Ted, and Michael Shellenberger.</span> <span class="title">Break Through: From the Death of Environmentalism to the Politics of Possibility.</span> Boston: Houghton Mifflin, 2007.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Nordhaus, Ted, and Michael Shellenberger.</span> <span class="title">An Ecomodernist Manifesto.</span> Oakland: Breakthrough Institute, 2015.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Asafu-Adjaye, John, et al.</span> <span class="title">"An Ecomodernist Manifesto."</span> <span class="journal">Breakthrough Institute</span>, 2015. www.ecomodernism.org.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Brand, Stewart.</span> <span class="title">Whole Earth Discipline: An Ecopragmatist Manifesto.</span> New York: Viking, 2009.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Brand, Stewart.</span> <span class="title">"Environmental Heresies."</span> <span class="journal">Technology Review</span>, May 2005, pp. 64-71.
+    </div>
+
+    <div class="reference-item">
+      <span class="author">Monbiot, George.</span> <span class="title">Heat: How to Stop the Planet from Burning.</span> Boston: South End Press, 2007.
+    </div>
+</section>
+
+    </article>
+  </main>
+
+  <script>
+    const searchInput = document.getElementById('sidebarSearch');
+    const navItems = document.querySelectorAll('.nav-item');
+    const sectionTitles = document.querySelectorAll('.nav-section-title, .nav-sub-title');
+    const sidebar = document.getElementById('sidebar');
+
+    // Search logic
+    searchInput.addEventListener('input', function(e) {
+      const term = e.target.value.toLowerCase();
+
+      navItems.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        if (text.includes(term)) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+
+      sectionTitles.forEach(title => {
+        if (term.length > 0) {
+          title.classList.add('hidden');
+        } else {
+          title.classList.remove('hidden');
+        }
+      });
+    });
+
+    // Close menu on mobile when clicking link
+    document.querySelectorAll('.nav-item a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 1024) {
+          sidebar.classList.remove('open');
+        }
+      });
+    });
+
+    // Save professor responses to localStorage
+    document.querySelectorAll('.professor-response[contenteditable="true"]').forEach((el, index) => {
+      const key = 'prof-response-' + index;
+      
+      // Load saved content
+      const saved = localStorage.getItem(key);
+      if (saved && saved !== '[Click here to enter your analysis...]') {
+        el.innerHTML = '<div class="professor-response-label">Professor\'s Response</div>' + saved;
+      }
+      
+      // Save on blur
+      el.addEventListener('blur', () => {
+        const content = el.innerHTML.replace('<div class="professor-response-label">Professor\'s Response</div>', '').trim();
+        if (content && content !== '[Click here to enter your analysis...]') {
+          localStorage.setItem(key, content);
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
