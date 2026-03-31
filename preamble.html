@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow">
+  <title>Page 01 | Preamble & Memorandum — c-ECO</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --sidebar-width: 320px;
+      --legal-blue: #1a2b3c;
+      --gold-accent: #c5a059;
+      --bg-body: #f4f7f9;
+      --text-main: #1a1a1a;
+      --border-color: #dee2e6;
+    }
+
+    *{ box-sizing: border-box; }
+
+    body{
+      margin:0;
+      background: var(--bg-body);
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar{
+      width: var(--sidebar-width);
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      background: #fff;
+      border-right: 1px solid var(--border-color);
+      padding: 20px 18px 24px;
+      overflow-y: auto;
+      z-index: 1000;
+      -webkit-overflow-scrolling: touch;
+      transition: transform .3s ease;
+    }
+
+    .sidebar-top{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+      border-bottom: 2px solid var(--gold-accent);
+    }
+
+    .logo-box{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border-color);
+      background: #fff;
+      color: var(--legal-blue);
+      font-weight: 900;
+      font-size: 1.2rem;
+      text-decoration: none;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    }
+    .logo-box:hover{ background: rgba(197,160,89,0.10); }
+
+    .sidebar-title{
+      font-weight: 800;
+      font-size: 11px;
+      letter-spacing: 0.8px;
+      color: var(--legal-blue);
+      text-transform: uppercase;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    .back-link{
+      display: block;
+      margin-bottom: 15px;
+      padding: 8px 12px;
+      background: var(--legal-blue);
+      color: #fff;
+      text-decoration: none;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-align: center;
+    }
+    .back-link:hover{ background: var(--gold-accent); color: var(--legal-blue); }
+
+    .nav-list{ list-style:none; padding:0; margin:0; }
+    
+    .nav-section-title{
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--gold-accent);
+      margin-top: 16px;
+      text-transform: uppercase;
+      border-top: 1px solid #eee;
+      padding-top: 12px;
+      padding-bottom: 6px;
+      letter-spacing: .8px;
+    }
+
+    .nav-item a{
+      text-decoration:none;
+      color: var(--text-main);
+      font-size: 11.5px;
+      display:block;
+      padding: 6px 8px;
+      line-height: 1.4;
+      transition: .2s;
+      border-left: 3px solid transparent;
+    }
+    .nav-item a:hover{
+      background: rgba(197,160,89,0.12);
+      border-left-color: var(--gold-accent);
+    }
+
+    /* ===== CONTENT ===== */
+    .main-content{
+      margin-left: var(--sidebar-width);
+      padding: 40px 20px;
+      display:flex;
+      justify-content:center;
+    }
+
+    .document-page{
+      background:#fff;
+      width:100%;
+      max-width: 850px;
+      padding: 60px 70px;
+      box-shadow: 0 4px 25px rgba(0,0,0,0.06);
+    }
+
+    /* Page header */
+    .page-header{
+      text-align: center;
+      margin-bottom: 50px;
+      padding-bottom: 30px;
+      border-bottom: 3px double var(--gold-accent);
+    }
+
+    .page-badge{
+      display: inline-block;
+      background: var(--legal-blue);
+      color: var(--gold-accent);
+      padding: 8px 20px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+
+    .page-header h1{
+      font-family:'Libre Baskerville', serif;
+      font-size: 24px;
+      color: var(--legal-blue);
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .page-header .subtitle{
+      font-size: 13px;
+      color: #666;
+      font-style: italic;
+    }
+
+    /* Article styling */
+    .article-box{
+      margin-bottom: 50px;
+      scroll-margin-top: 30px;
+    }
+
+    .ai-id{
+      font-family: monospace;
+      font-size: 11px;
+      color: #b0b0b0;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .article-title{
+      font-family:'Libre Baskerville', serif;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--legal-blue);
+      display: block;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #f0f0f0;
+      padding-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .caput{
+      text-align: justify;
+      margin-bottom: 15px;
+      font-family:'Libre Baskerville', serif;
+      line-height: 1.8;
+      font-size: 15px;
+      color: var(--text-main);
+    }
+
+    .paragraph{
+      margin-left: 30px;
+      font-size: 14px;
+      margin-bottom: 12px;
+      line-height: 1.7;
+      color: #333;
+    }
+
+    .paragraph strong{
+      color: var(--legal-blue);
+    }
+
+    .inciso{
+      margin-left: 60px;
+      font-size: 14px;
+      margin-bottom: 10px;
+      line-height: 1.6;
+      color: #444;
+    }
+
+    .inciso strong{
+      color: var(--legal-blue);
+    }
+
+    .roman{
+      margin-left: 90px;
+      font-size: 13px;
+      margin-bottom: 8px;
+      line-height: 1.5;
+      color: #555;
+    }
+
+    /* Section divider */
+    .section-divider{
+      text-align: center;
+      margin: 60px 0;
+      position: relative;
+    }
+
+    .section-divider::before{
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--border-color);
+    }
+
+    .section-divider span{
+      background: #fff;
+      padding: 0 25px;
+      position: relative;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gold-accent);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+
+    /* Navigation buttons */
+    .page-nav{
+      display: flex;
+      justify-content: space-between;
+      margin-top: 60px;
+      padding-top: 30px;
+      border-top: 2px solid var(--border-color);
+    }
+
+    .nav-btn{
+      padding: 12px 25px;
+      border: 2px solid var(--legal-blue);
+      color: var(--legal-blue);
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: .2s;
+    }
+
+    .nav-btn:hover{
+      background: var(--legal-blue);
+      color: #fff;
+    }
+
+    .nav-btn.next{
+      background: var(--legal-blue);
+      color: #fff;
+    }
+
+    .nav-btn.next:hover{
+      background: var(--gold-accent);
+      border-color: var(--gold-accent);
+      color: var(--legal-blue);
+    }
+
+    .nav-btn.disabled{
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    /* Mobile */
+    .mobile-btn{
+      display:none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--legal-blue);
+      color: #fff;
+      border: none;
+      padding: 15px 25px;
+      font-weight: 800;
+      z-index: 2000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.30);
+      cursor: pointer;
+    }
+
+    @media (max-width: 1024px){
+      .sidebar{ transform: translateX(-100%); }
+      .sidebar.open{ transform: translateX(0); box-shadow: 10px 0 30px rgba(0,0,0,0.22); }
+      .main-content{ margin-left: 0; padding: 18px 10px; }
+      .document-page{ padding: 30px 20px; }
+      .mobile-btn{ display:block; }
+      .page-nav{ flex-direction: column; gap: 15px; }
+      .nav-btn{ text-align: center; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <button class="mobile-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+    MENU
+  </button>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar" aria-label="Page 1 Navigation">
+    <div class="sidebar-top">
+      <a href="index.html" class="logo-box" aria-label="c-ECO Home">Σ</a>
+      <div class="sidebar-title">PAGE 01<br>PREAMBLE & MEMORANDUM</div>
+    </div>
+    
+    <a href="index.html" class="back-link">← Back to Index</a>
+    
+    <nav>
+      <ul class="nav-list">
+        <li class="nav-section-title">On This Page</li>
+        <li class="nav-item"><a href="#CECO-PRE-000">Preamble — International Statute</a></li>
+        <li class="nav-item"><a href="#CECO-MEM-000">Explanatory Memorandum</a></li>
+        
+        <li class="nav-section-title">Preamble Sections</li>
+        <li class="nav-item"><a href="#PRE-000">[CECO-PRE-000] Full Text</a></li>
+        
+        <li class="nav-section-title">Memorandum Sections</li>
+        <li class="nav-item"><a href="#MEM-000">[CECO-MEM-000] Full Text</a></li>
+        
+        <li class="nav-section-title">Navigation</li>
+        <li class="nav-item"><a href="index.html">Index (All 12 Pages)</a></li>
+        <li class="nav-item"><a href="page02.html">Next: Page 02 →</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <article class="document-page">
+
+      <div class="page-header">
+        <div class="page-badge">Page 01</div>
+        <h1>Front Matter</h1>
+        <div class="subtitle">Preamble & Explanatory Memorandum</div>
+      </div>
+
+      <!-- PREAMBLE -->
+      <section id="CECO-PRE-000" class="article-box">
+        <span class="ai-id">[CECO-PRE-000]</span>
+        <h1 class="article-title">PREAMBLE</h1>
+        <div class="caput">International Statute on Systemic Governance, Predictive Legal Coordination, and Biophysical Limits (c-ECO Regime)</div>
+        
+        <div class="caput">The c-ECO Systemic Governance Statute establishes a transnational legal framework for predictive governance in contexts of systemic, cumulative, and potentially irreversible risk, recognizing that the validity, efficacy, and continuity of legal and economic relations depend upon the material conditions that sustain life, economic activity, and the functional integrity of the Earth System.</div>
+        
+        <div class="caput">WHEREAS, classical legal models, predominantly grounded in retrospective causality and ex-post liability, have proven structurally insufficient to address systemic risks, positive feedback dynamics, and ecological tipping processes whose effects may be cumulative, transboundary, and difficult or impossible to reverse once materialized;</div>
+        
+        <div class="caput">RECOGNIZING the emergence of Trajectory Illegality (Ilicitude de Trajetória), whereby formally lawful acts may become legally incompatible with systemic stability when their technically foreseeable continuation leads toward ecosystem degradation, critical infrastructure disruption, or compromise of the global commons;</div>
+        
+        <div class="caput">AFFIRMING that the economic value, validity, and enforceability of legal bonds must remain materially connected to the preservation of the Safe Operating Space (SOS), the habitability of ecosystems, and the technical reversibility of risk trajectories;</div>
+        
+        <div class="caput">ESTABLISHING the central relevance of certified technical data, continuous monitoring, and auditable systemic evidence as essential elements for anticipatory legal coordination, while preserving the role of legal institutions, due process, and structured technical review;</div>
+        
+        <div class="caput">INSTITUTING Ex-Ante Unenforceability, systemic perclusion, the conditioned immediate object, and functional conversion as legal instruments for the preventive protection of system integrity whenever the continuation of acts, contracts, or operations becomes materially incompatible with biophysical stability, reversibility, or planetary security;</div>
+        
+        <div class="caput">DECLARING that, within the scope of this Statute, physical time and biophysical reality shall guide legal interpretation wherever delay, procedural inertia, or formally valid execution would aggravate irreversible systemic harm;</div>
+        
+        <div class="caput">THIS STATUTE SOLEMNLY AFFIRMS THAT:</div>
+        
+        <div class="inciso"><strong>I</strong> — No legal or economic arrangement may be treated as autonomous from the material conditions that render its performance possible;</div>
+        
+        <div class="inciso"><strong>II</strong> — No profit or economic advantage shall be protected where it depends upon systemic exhaustion, irreversible degradation, or the destruction of the life-support conditions on which legal and economic order itself depends;</div>
+        
+        <div class="inciso"><strong>III</strong> — The preservation of the functional integrity of the Earth System constitutes a legally relevant limit for the organization, interpretation, and execution of contracts, assets, operations, and infrastructures under this Statute.</div>
+        
+        <div class="caput">By the authority of these principles, the c-ECO Systemic Governance Regime is hereby instituted as a Model Law and transnational governance framework, designed to guide contracts, assets, operations, and infrastructures whose execution interferes with critical boundaries, with the objective of preventing systemic collapse, preserving reversibility, enabling regeneration, and aligning legal execution with the material reality that sustains it.</div>
+      </section>
+
+      <div class="section-divider"><span>Explanatory Memorandum</span></div>
+
+      <!-- EXPLANATORY MEMORANDUM -->
+      <section id="CECO-MEM-000" class="article-box">
+        <span class="ai-id">[CECO-MEM-000]</span>
+        <h1 class="article-title">EXPLANATORY MEMORANDUM</h1>
+        <div class="caput">On the Transition from Retrospective Causality to the Systemic Predictive Nexus and Trajectory Protection</div>
+        
+        <div class="caput">Contemporary legal systems have, for the most part, been structured upon models of retrospective liability in which normative intervention occurs only after the materialization of harm. While such architecture has been functional for localized and reversible risks, it is structurally insufficient to address systemic, cumulative, and potentially irreversible risks whose effects transcend contractual, sectoral, and territorial boundaries.</div>
+        
+        <div class="caput">The interdependence between economic activities, critical infrastructures, and biophysical systems requires that Law act not only upon consummated events, but also upon materially verifiable risk trajectories. In systemic contexts, waiting for harm to fully materialize may compromise the possibility of reversal and empty legal protection of practical efficacy.</div>
+        
+        <div class="caput">In this context, this Statute recognizes the emergence of trajectory illegality, or <em>ilicitude de trajetória</em>, understood as the situation in which formally lawful acts, when executed in an unconditioned or inertial manner, lead in a technically foreseeable way to degradation or collapse of systems essential to habitability, economic stability, or institutional integrity. The classical distinction between lawfulness and unlawfulness is therefore supplemented by the criterion of systemic compatibility of the execution trajectory.</div>
+        
+        <div class="caput">The c-ECO Regime advances a shift from retrospective causality toward a <strong>systemic predictive nexus</strong>, through which the validity, enforceability, and continuity of legal bonds are conditioned upon the preservation of the Safe Operating Space and the technical reversibility of risk trajectories, as verified by objective, verifiable, and auditable technical data.</div>
+        
+        <div class="caput">To operationalize this transition, the Statute establishes a set of structural legal mechanisms whose coordinated functions address systemic risk at different stages of the legal relationship. <strong>Ex-Ante Unenforceability</strong> operates as a preventive filter through which contractual or administrative claims that have become materially incompatible with systemic stability, despite formal perfection, are deprived of executive force.</div>
+        
+        <div class="caput"><strong>Systemic perclusion</strong> functions as an immediate legal block on the continuation of formally lawful acts once they reach predefined danger thresholds, with the purpose of halting inertial trajectories before they advance toward biophysical irreversibility.</div>
+        
+        <div class="caput">The <strong>conditioned immediate object</strong> links the legal existence and enforceability of performance to the continued integrity of the underlying system, such that material instability affecting the life-support conditions of execution may trigger the suspension, adaptation, or functional transformation of the contractual object.</div>
+        
+        <div class="caput"><strong>Systemic Proof</strong>, grounded in certified sensory data and continuously monitored technical evidence, establishes an evidentiary architecture capable of reducing the temporal gap between physical danger and normative response, while preserving technical auditability and structured review.</div>
+        
+        <div class="caput">These instruments are preventive and conservatory in nature. They are not designed primarily as punitive mechanisms, but as legal tools for the containment of trajectories incompatible with systemic stability, the preservation of material public order, and the continuity of the Earth System under conditions of measurable risk.</div>
+      </section>
+
+      <!-- Page Navigation -->
+      <div class="page-nav">
+        <a href="index.html" class="nav-btn">← Index</a>
+        <a href="page02.html" class="nav-btn next">Page 02: Parts I–IV →</a>
+      </div>
+
+    </article>
+  </main>
+
+  <script>
+    // Close sidebar on mobile when clicking a link
+    document.querySelectorAll('.nav-item a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 1024) {
+          document.getElementById('sidebar').classList.remove('open');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
