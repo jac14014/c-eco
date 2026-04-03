@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow">
+  <title>c-ECO | Fellowship Program — Call for Applications</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --sidebar-width: 340px;
+      --legal-blue: #1a2b3c;
+      --gold-accent: #c5a059;
+      --bg-body: #f4f7f9;
+      --text-main: #1a1a1a;
+      --border-color: #dee2e6;
+      --soft-bg: #fafbfc;
+      --soft-gold: #fff8e6;
+      --soft-gold-border: #e6d5a8;
+      --success: #1f6b4f;
+      --danger: #8b2e2e;
+    }
+
+    *{ box-sizing: border-box; }
+
+    html{
+      scroll-behavior: smooth;
+    }
+
+    body{
+      margin:0;
+      background: var(--bg-body);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--text-main);
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar{
+      width: var(--sidebar-width);
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      background: #fff;
+      border-right: 1px solid var(--border-color);
+      padding: 16px;
+      overflow-y: auto;
+      z-index: 1000;
+      -webkit-overflow-scrolling: touch;
+      transition: transform .3s ease;
+    }
+
+    .sidebar-top{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+      border-bottom: 2px solid var(--gold-accent);
+    }
+
+    .logo-box{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border-color);
+      background: #fff;
+      color: var(--legal-blue);
+      font-weight: 900;
+      font-size: 1.2rem;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      flex-shrink: 0;
+    }
+
+    .sidebar-title{
+      font-weight: 800;
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: var(--legal-blue);
+      text-transform: uppercase;
+      line-height: 1.25;
+      margin: 0;
+    }
+
+    .search-container{
+      margin-bottom: 12px;
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 10;
+      padding-bottom: 8px;
+    }
+
+    #sidebarSearch{
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      outline: none;
+      background: #fff;
+    }
+
+    #sidebarSearch:focus{
+      border-color: var(--gold-accent);
+      box-shadow: 0 0 0 3px rgba(197,160,89,0.15);
+    }
+
+    .nav-list{
+      list-style:none;
+      padding:0;
+      margin:0;
+    }
+
+    .nav-section-title{
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--gold-accent);
+      margin-top: 14px;
+      text-transform: uppercase;
+      border-top: 1px solid #eee;
+      padding-top: 10px;
+      padding-bottom: 5px;
+      letter-spacing: .8px;
+    }
+
+    .nav-item a{
+      text-decoration:none;
+      color: var(--text-main);
+      font-size: 11px;
+      display:block;
+      padding: 5px 8px;
+      line-height: 1.35;
+      transition: .2s;
+      border-left: 3px solid transparent;
+    }
+
+    .nav-item a:hover{
+      background: rgba(197,160,89,0.12);
+      border-left-color: var(--gold-accent);
+    }
+
+    /* ===== CONTENT ===== */
+    .main-content{
+      margin-left: var(--sidebar-width);
+      padding: 40px 20px;
+      display:flex;
+      justify-content:center;
+    }
+
+    .document-page{
+      background:#fff;
+      width:100%;
+      max-width: 860px;
+      padding: 50px 50px;
+      box-shadow: 0 4px 25px rgba(0,0,0,0.06);
+    }
+
+    /* ===== TYPOGRAPHY ===== */
+    .hero-title{
+      font-family:'Libre Baskerville', serif;
+      font-weight:700;
+      font-size:24px;
+      line-height:1.35;
+      color:var(--legal-blue);
+      text-align:center;
+      margin-bottom:8px;
+    }
+
+    .hero-subtitle{
+      font-family:'Libre Baskerville', serif;
+      font-size:15px;
+      color:#666;
+      text-align:center;
+      font-style: italic;
+      margin-bottom: 28px;
+    }
+
+    .section-header{
+      font-family:'Libre Baskerville', serif;
+      font-weight:700;
+      font-size:18px;
+      color:var(--legal-blue);
+      margin: 35px 0 20px 0;
+      padding-bottom: 10px;
+      border-bottom: 3px solid var(--gold-accent);
+      scroll-margin-top: 24px;
+    }
+
+    .subsection-header{
+      font-family:'Libre Baskerville', serif;
+      font-weight:700;
+      font-size:15px;
+      color:var(--legal-blue);
+      margin: 25px 0 15px 0;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .caput{
+      text-align:justify;
+      margin-bottom:10px;
+      font-family:'Libre Baskerville', serif;
+      line-height:1.75;
+      font-size:13.5px;
+    }
+
+    .paragraph{
+      margin-left:24px;
+      font-size:12.7px;
+      margin-bottom:8px;
+      line-height:1.65;
+      color:#333;
+    }
+
+    .inciso{
+      margin-left:48px;
+      font-size:12.7px;
+      margin-bottom:6px;
+      color:#444;
+      line-height: 1.6;
+    }
+
+    .notice-box{
+      background: var(--soft-gold);
+      border: 2px solid var(--soft-gold-border);
+      padding: 18px 20px;
+      margin: 20px 0 28px 0;
+    }
+
+    .notice-title{
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--gold-accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .article-box{
+      margin-bottom: 28px;
+    }
+
+    .article-id{
+      font-family: monospace;
+      font-size: 10px;
+      color: #999;
+      display:block;
+      margin-bottom:4px;
+    }
+
+    .article-title{
+      font-family:'Libre Baskerville', serif;
+      font-weight:700;
+      font-size:15px;
+      color:var(--legal-blue);
+      display:block;
+      margin-bottom:12px;
+      border-bottom:1px solid #f0f0f0;
+      padding-bottom:4px;
+      line-height: 1.4;
+    }
+
+    .sector-card{
+      background:#fafbfc;
+      border-left:4px solid var(--gold-accent);
+      padding: 18px 20px;
+      margin-bottom: 18px;
+    }
+
+    .sector-title{
+      font-family:'Libre Baskerville', serif;
+      font-weight:700;
+      color:var(--legal-blue);
+      font-size:15px;
+      margin-bottom: 8px;
+    }
+
+    .sector-track{
+      font-size:11px;
+      font-weight:800;
+      color:var(--gold-accent);
+      text-transform:uppercase;
+      letter-spacing:0.8px;
+      margin-bottom:10px;
+    }
+
+    /* ===== FORM ===== */
+    .form-wrap{
+      background: #fff;
+      border: 2px solid var(--border-color);
+      padding: 24px;
+      margin-top: 20px;
+    }
+
+    .form-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:18px;
+    }
+
+    .form-group{
+      margin-bottom: 18px;
+    }
+
+    .form-group.full{
+      grid-column: 1 / -1;
+    }
+
+    .form-label{
+      display:block;
+      font-size:11px;
+      font-weight:800;
+      color:var(--legal-blue);
+      text-transform:uppercase;
+      letter-spacing:0.7px;
+      margin-bottom:6px;
+    }
+
+    .form-hint{
+      font-size:11px;
+      color:#6c757d;
+      margin-top:6px;
+      line-height:1.5;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea,
+    .form-file{
+      width:100%;
+      border:1px solid var(--border-color);
+      background:#fff;
+      padding:12px 12px;
+      font-family:'Inter', sans-serif;
+      font-size:13px;
+      border-radius:4px;
+      outline:none;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus,
+    .form-file:focus{
+      border-color: var(--gold-accent);
+      box-shadow: 0 0 0 3px rgba(197,160,89,0.15);
+    }
+
+    .form-textarea{
+      min-height:120px;
+      resize:vertical;
+      line-height:1.6;
+    }
+
+    .checkbox-group{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      margin-bottom: 12px;
+    }
+
+    .checkbox-group input{
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+
+    .checkbox-group label{
+      font-size:12.5px;
+      line-height:1.6;
+      color:#333;
+    }
+
+    .submit-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-color);
+      flex-wrap: wrap;
+    }
+
+    .submit-note{
+      font-size:11px;
+      color:#6c757d;
+      line-height:1.5;
+      max-width: 480px;
+    }
+
+    .submit-btn{
+      border:none;
+      background: var(--legal-blue);
+      color:#fff;
+      padding: 14px 22px;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.6px;
+      text-transform:uppercase;
+      cursor:pointer;
+      border-radius:4px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+      transition: all .25s ease;
+    }
+
+    .submit-btn:hover{
+      background:#24384b;
+      transform: translateY(-1px);
+    }
+
+    .status-message{
+      margin-top: 18px;
+      padding: 12px 14px;
+      border-radius: 4px;
+      display: none;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .status-message.success{
+      display:block;
+      background: #eef8f3;
+      border: 1px solid #cde8d8;
+      color: var(--success);
+    }
+
+    .status-message.error{
+      display:block;
+      background: #fff1f1;
+      border: 1px solid #f0cccc;
+      color: var(--danger);
+    }
+
+    .note-box{
+      background: #f8fafc;
+      border-left: 4px solid var(--gold-accent);
+      padding: 14px 16px;
+      margin: 14px 0 22px 0;
+      font-size: 11.5px;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    .note-label{
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--legal-blue);
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      margin-bottom: 6px;
+    }
+
+    .copyright-footer{
+      margin-top: 42px;
+      padding-top: 24px;
+      border-top: 2px solid var(--border-color);
+      font-size: 11px;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    .copyright-notice{
+      font-weight: 700;
+      color: var(--legal-blue);
+      margin-bottom: 10px;
+    }
+
+    .hidden{ display:none !important; }
+
+    .mobile-btn{
+      display:none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--legal-blue);
+      color: #fff;
+      border: none;
+      padding: 14px 22px;
+      font-weight: 800;
+      font-size: 12px;
+      z-index: 2000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      cursor: pointer;
+      letter-spacing: 0.5px;
+    }
+
+    .print-btn{
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--legal-blue);
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      font-weight: 700;
+      font-size: 12px;
+      z-index: 2000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .print-btn:hover{
+      background: #2c3e50;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    }
+
+    .print-btn::before{
+      content: "🖨️";
+      font-size: 14px;
+    }
+
+    @media (max-width: 1024px){
+      .sidebar{ transform: translateX(-100%); }
+      .sidebar.open{ transform: translateX(0); box-shadow: 10px 0 30px rgba(0,0,0,0.22); }
+      .main-content{ margin-left: 0; padding: 16px; }
+      .document-page{ padding: 24px; width:auto; margin:0; }
+      .mobile-btn{ display:block; }
+      .print-btn{ top: auto; bottom: 80px; right: 20px; }
+      .form-grid{ grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 1200px) and (min-width: 1025px){
+      .document-page{
+        max-width: calc(100vw - var(--sidebar-width) - 40px);
+        padding: 40px 30px;
+      }
+    }
+
+    @media print{
+      .sidebar, .mobile-btn, .print-btn{ display:none; }
+      .main-content{ margin-left:0; }
+      .document-page{ box-shadow:none; max-width:none; }
+      .form-wrap{
+        border: 1px solid #ddd;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <button class="mobile-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+    INDEX
+  </button>
+
+  <button class="print-btn" onclick="window.print()">
+    <span>Save PDF / Print</span>
+  </button>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar" aria-label="Fellowship Program Navigation">
+    <div class="sidebar-top">
+      <a href="#" class="logo-box" aria-label="c-ECO">Σ</a>
+      <div class="sidebar-title">c-ECO Fellowship Program</div>
+    </div>
+
+    <div class="search-container">
+      <input type="text" id="sidebarSearch" placeholder="Search section..." aria-label="Search index">
+    </div>
+
+    <nav>
+      <ul class="nav-list">
+        <li class="nav-section-title">CALL FOR APPLICATIONS</li>
+        <li class="nav-item"><a href="#INTRO">Introductory Notice</a></li>
+        <li class="nav-item"><a href="#ARTICLE-1">Article 1 — Object</a></li>
+        <li class="nav-item"><a href="#ARTICLE-2">Article 2 — Public Profile</a></li>
+        <li class="nav-item"><a href="#ARTICLE-3">Article 3 — Structure</a></li>
+        <li class="nav-item"><a href="#ARTICLE-4">Article 4 — Sectoral Tracks</a></li>
+        <li class="nav-item"><a href="#ARTICLE-5">Article 5 — Certification</a></li>
+        <li class="nav-item"><a href="#ARTICLE-6">Article 6 — Dates</a></li>
+        <li class="nav-item"><a href="#ARTICLE-7">Article 7 — Selection</a></li>
+        <li class="nav-item"><a href="#ARTICLE-8">Article 8 — Intellectual Property</a></li>
+        <li class="nav-item"><a href="#ARTICLE-9">Article 9 — Final Provisions</a></li>
+
+        <li class="nav-section-title">APPLICATION FORM</li>
+        <li class="nav-item"><a href="#APPLICATION">Application Portal</a></li>
+
+        <li class="nav-section-title">SCHOLARLY APPARATUS</li>
+        <li class="nav-item"><a href="#COPYRIGHT">Copyright & Notice</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <article class="document-page">
+
+      <!-- HEADER -->
+      <div class="hero-title">c-ECO Fellowship Program — Call for Applications</div>
+      <div class="hero-subtitle">Belém Living Lab Sectoral Tracks | United States — Brazil | Fully Online</div>
+
+      <section id="INTRO">
+        <div class="notice-box">
+          <div class="notice-title">Official Notice</div>
+          <div class="caput" style="margin-bottom:0;">
+            The Johann Christian Hasse Foundation, in collaboration with Instituto Silvio Meira, hereby opens the call for applications for the c-ECO Fellowship Program, a selective applied fellowship designed for direct engagement with real cases under the c-ECO decisional governance architecture.
+          </div>
+        </div>
+      </section>
+
+      <div class="section-header">CALL FOR APPLICATIONS</div>
+
+      <section id="ARTICLE-1" class="article-box">
+        <span class="article-id">[FELLOWSHIP-ART-001]</span>
+        <span class="article-title">Article 1 — Object of the Call</span>
+        <div class="caput">
+          This call for applications is intended to select candidates for the c-ECO Fellowship Program, structured as a controlled applied entry point into the c-ECO framework through real cases, sectoral analysis, supervised interpretation, and guided contractual thinking.
+        </div>
+        <div class="paragraph">
+          §1. The Program does not constitute a general academic course, open lecture cycle, or unrestricted training environment.
+        </div>
+        <div class="paragraph">
+          §2. The Program is structured as an applied fellowship model with limited admission and individual evaluation of candidates and submitted materials.
+        </div>
+      </section>
+
+      <section id="ARTICLE-2" class="article-box">
+        <span class="article-id">[FELLOWSHIP-ART-002]</span>
+        <span class="article-title">Article 2 — Candidate Profile</span>
+        <div class="caput">
+          Applications are open to professionals, researchers, jurists, economists, engineers, policy specialists, sustainability practitioners, infrastructure analysts, and other qualified candidates capable of operating within high-complexity systemic environments.
+        </div>
+        <div class="paragraph">
+          §1. Preference shall be given to candidates with prior experience related to contracts, infrastructure, regulation, finance, environmental systems, mineral extraction, water systems, energy systems, or adjacent institutional fields.
+        </div>
+        <div class="paragraph">
+          §2. Candidates shall demonstrate ability to engage with applied—not merely abstract—problem environments.
+        </div>
+      </section>
+
+      <section id="ARTICLE-3" class="article-box">
+        <span class="article-id">[FELLOWSHIP-ART-003]</span>
+        <span class="article-title">Article 3 — Program Structure</span>
+        <div class="caput">
+          The c-ECO Fellowship Program shall be delivered fully online and shall include sectoral allocation, guided case engagement, independent analytical work, and one-to-one advisory sessions.
+        </div>
+        <div class="paragraph">
+          §1. The estimated workload is forty (40) hours.
+        </div>
+        <div class="paragraph">
+          §2. Each selected Fellow shall participate in one individual advisory session of up to fifty (50) minutes, subject to prior scheduling and availability.
+        </div>
+        <div class="paragraph">
+          §3. The fellowship shall begin in July, following final selection.
+        </div>
+      </section>
+
+      <section id="ARTICLE-4" class="article-box">
+        <span class="article-id">[FELLOWSHIP-ART-004]</span>
+        <span class="article-title">Article 4 — Sectoral Tracks</span>
+
+        <div class="sector-card">
+          <div class="sector-track">Belém Living Lab Track</div>
+          <div class="sector-title">Water Systems & Hydraulic Infrastructure</div>
+          <div class="caput" style="font-size:12.8px; margin-bottom:0;">
+            Focused on freshwater scarcity, hydrological thresholds, groundwater stress, hydraulic infrastructure, and pre-threshold governance of aquifer and water-system instability.
+          </div>
+        </div>
+
+        <div class="sector-card">
+          <div class="sector-track">Belém Living Lab Track</div>
+          <div class="sector-title">Energy Systems</div>
+          <div class="caput" style="font-size:12.8px; margin-bottom:0;">
+            Focused on energy-water interdependence, infrastructure resilience, restoration liquidity, and systemic instability across hydropower, thermal, and renewable systems.
+          </div>
+        </div>
+
+        <div class="sector-card">
+          <div class="sector-track">Belém Living Lab Track</div>
+          <div class="sector-title">Agriculture & Agroindustrial Systems</div>
+          <div class="caput" style="font-size:12.8px; margin-bottom:0;">
+            Focused on soil degradation, nutrient cycles, food security, agroindustrial dependency chains, and systemic loss of reversibility in productive landscapes.
+          </div>
+        </div>
+
+        <div class="sector-card">
+          <div class="sector-track">Belém Living Lab Track</div>
+          <div class="sector-title">Mining & Critical Minerals Extraction</div>
+          <div class="caput" style="font-size:12.8px; margin-bottom:0;">
+            Focused on extraction systems, tailings risk, geotechnical instability, aquifer contamination, restoration guarantees, and pre-threshold legal conditioning in mining environments.
+          </div>
+        </div>
+
+        <div class="sector-card">
+          <div class="sector-track">Belém Living Lab Track</div>
+          <div class="sector-title">Financial Systems & Credit Institutions</div>
+          <div class="caput" style="font-size:12.8px; margin-bottom:0;">
+            Focused on the transmission of environmental systemic risk into portfolios, guarantees, credit structures, and reversibility-linked financial conditioning.
+          </div>
+        </div>
+
+        <div class="sector-card">
+          <div class="sector-track">Belém Living Lab Track</div>
+          <div class="sector-title">Artificial Intelligence & Data Infrastructure</div>
+          <div class="caput" style="font-size:12.8px; margin-bottom:0;">
+            Focused on energy-water burdens, data center externalities, algorithmic infrastructure, and emerging systemic pressures associated with computational expansion.
+          </div>
+        </div>
+
+        <div class="sector-card">
+          <div class="sector-track">Belém Living Lab Track</div>
+          <div class="sector-title">Coastal Infrastructure & Wetlands</div>
+          <div class="caput" style="font-size:12.8px; margin-bottom:0;">
+            Focused on salinization, sea level rise, wetland degradation, coastal infrastructure reconfiguration, and remote-sensing-based pre-threshold monitoring.
+          </div>
+        </div>
+
+        <div class="paragraph">
+          §1. Each candidate shall apply to one primary sectoral track.
+        </div>
+        <div class="paragraph">
+          §2. Submission of a real or proposed concrete case is strongly recommended and may be decisive for selection.
+        </div>
+      </section>
+
+      <section id="ARTICLE-5" class="article-box">
+        <span class="article-id">[FELLOWSHIP-ART-005]</span>
+        <span class="article-title">Article 5 — Designation and Certification</span>
+        <div class="caput">
+          Selected participants who successfully complete the Program shall receive the official designation:
+        </div>
+        <div class="notice-box" style="margin-top: 14px;">
+          <div class="caput" style="text-align:center; margin:0; font-size:16px;">
+            <strong>c-ECO Fellow — [Sectoral Track]</strong>
+          </div>
+        </div>
+        <div class="paragraph">
+          §1. Certification shall reflect successful completion of the c-ECO Applied Fellowship Program.
+        </div>
+        <div class="paragraph">
+          §2. The Program is fully online. Accordingly, certificates shall indicate <strong>United States — Brazil</strong> and shall not reference a local in-person venue.
+        </div>
+      </section>
+
+      <section id="ARTICLE-6" class="article-box">
+        <span class="article-id">[FELLOWSHIP-ART-006]</span>
+        <span class="article-title">Article 6 — Calendar and Dates</span>
+        <div class="caput">
+          The following dates apply to the present call:
+        </div>
+        <div class="inciso">I — Application period: from 1 May through 31 May;</div>
+        <div class="inciso">II — Final selection date: 30 June;</div>
+        <div class="inciso">III — Program commencement: July.</div>
+
+        <div class="note-box">
+          <div class="note-label">Administrative Note</div>
+          The organization reserves the right to communicate results individually and to publish institutional notice of the selected Fellows after conclusion of the evaluation process.
+        </div>
+      </section>
+
+      <section id="ARTICLE-7" class="article-box">
+        <span class="article-id">[FELLOWSHIP-ART-007]</span>
+        <span class="article-title">Article 7 — Selection Process</span>
+        <div class="caput">
+          Applications shall be evaluated on the basis of professional trajectory, coherence of sectoral interest, analytical capacity, relevance of the submitted case or proposed case environment, and overall alignment with the c-ECO applied architecture.
+        </div>
+        <div class="paragraph">
+          §1. The Program is selective and limited.
+        </div>
+        <div class="paragraph">
+          §2. Submission of materials does not create any right to admission.
+        </div>
+        <div class="paragraph">
+          §3. The organization may decline to fill all intended positions if applications do not meet the required level.
+        </div>
+      </section>
+
+      <section id="ARTICLE-8" class="article-box">
+        <span class="article-id">[FELLOWSHIP-ART-008]</span>
+        <span class="article-title">Article 8 — Intellectual Property and Submitted Materials</span>
+        <div class="caput">
+          The c-ECO framework, its concepts, architectures, sectoral structures, and associated methodological elements remain under the control of the Johann Christian Hasse Foundation.
+        </div>
+        <div class="paragraph">
+          §1. Candidate-submitted materials shall be used exclusively for evaluation, selection, and program administration purposes.
+        </div>
+        <div class="paragraph">
+          §2. Submission of a concrete case, CV, or supporting file does not transfer ownership of candidate materials to the organization.
+        </div>
+        <div class="paragraph">
+          §3. Any future licensing, validation, or submission pathway associated with the c-ECO system shall be governed by separate terms.
+        </div>
+      </section>
+
+      <section id="ARTICLE-9" class="article-box">
+        <span class="article-id">[FELLOWSHIP-ART-009]</span>
+        <span class="article-title">Article 9 — Final Provisions</span>
+        <div class="caput">
+          Submission of an application implies acceptance of the terms of this call for applications.
+        </div>
+        <div class="paragraph">
+          §1. The organization may request supplementary documents or clarifications where necessary.
+        </div>
+        <div class="paragraph">
+          §2. Any omission or interpretive issue shall be resolved by the organizing institutions.
+        </div>
+      </section>
+
+      <div class="section-header">APPLICATION FORM</div>
+
+      <section id="APPLICATION">
+        <div class="form-wrap">
+          <form id="fellowshipForm" novalidate>
+            <div class="form-grid">
+
+              <div class="form-group">
+                <label class="form-label" for="fullName">Full Name</label>
+                <input class="form-input" type="text" id="fullName" name="fullName" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="email">Email Address</label>
+                <input class="form-input" type="email" id="email" name="email" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="country">Country</label>
+                <input class="form-input" type="text" id="country" name="country" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="city">City</label>
+                <input class="form-input" type="text" id="city" name="city" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="linkedin">LinkedIn / Professional Profile</label>
+                <input class="form-input" type="url" id="linkedin" name="linkedin" placeholder="https://">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="profession">Current Role / Profession</label>
+                <input class="form-input" type="text" id="profession" name="profession" required>
+              </div>
+
+              <div class="form-group full">
+                <label class="form-label" for="sectorTrack">Primary Sectoral Track</label>
+                <select class="form-select" id="sectorTrack" name="sectorTrack" required>
+                  <option value="">Select a track</option>
+                  <option>Water Systems & Hydraulic Infrastructure</option>
+                  <option>Energy Systems</option>
+                  <option>Agriculture & Agroindustrial Systems</option>
+                  <option>Mining & Critical Minerals Extraction</option>
+                  <option>Financial Systems & Credit Institutions</option>
+                  <option>Artificial Intelligence & Data Infrastructure</option>
+                  <option>Coastal Infrastructure & Wetlands</option>
+                </select>
+              </div>
+
+              <div class="form-group full">
+                <label class="form-label" for="statement">Statement of Interest</label>
+                <textarea class="form-textarea" id="statement" name="statement" placeholder="Briefly explain your interest in the fellowship, your sectoral focus, and why your trajectory aligns with the c-ECO applied structure." required></textarea>
+              </div>
+
+              <div class="form-group full">
+                <label class="form-label" for="caseDescription">Concrete Case Summary</label>
+                <textarea class="form-textarea" id="caseDescription" name="caseDescription" placeholder="Provide a concise summary of the concrete case, case environment, or real-world situation you intend to bring into the fellowship selection process." required></textarea>
+              </div>
+
+              <div class="form-group full">
+                <label class="form-label" for="cvFile">Attach CV / Résumé</label>
+                <input class="form-file" type="file" id="cvFile" name="cvFile" accept=".pdf,.doc,.docx" required>
+                <div class="form-hint">Accepted formats: PDF, DOC, DOCX.</div>
+              </div>
+
+              <div class="form-group full">
+                <label class="form-label" for="caseFile">Attach Concrete Case File</label>
+                <input class="form-file" type="file" id="caseFile" name="caseFile" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip" required>
+                <div class="form-hint">Attach the case itself, a case memorandum, supporting materials, or a structured case file.</div>
+              </div>
+
+              <div class="form-group full">
+                <label class="form-label" for="supportFile">Optional Supporting Document</label>
+                <input class="form-file" type="file" id="supportFile" name="supportFile" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip">
+                <div class="form-hint">Optional: additional paper, portfolio, prior publication, technical note, or project summary.</div>
+              </div>
+
+              <div class="form-group full">
+                <label class="form-label" for="availability">Availability Note</label>
+                <textarea class="form-textarea" id="availability" name="availability" placeholder="Optional: indicate time zone, preferred availability for online advisory, and any administrative observations."></textarea>
+              </div>
+
+              <div class="form-group full">
+                <div class="checkbox-group">
+                  <input type="checkbox" id="checkAccuracy" required>
+                  <label for="checkAccuracy">I confirm that the information provided in this application is accurate and submitted in good faith.</label>
+                </div>
+
+                <div class="checkbox-group">
+                  <input type="checkbox" id="checkTerms" required>
+                  <label for="checkTerms">I acknowledge that submission of this form does not guarantee admission and that the Program is selective, controlled, and subject to institutional evaluation.</label>
+                </div>
+
+                <div class="checkbox-group">
+                  <input type="checkbox" id="checkIP" required>
+                  <label for="checkIP">I understand the intellectual property and administrative notice terms stated in this call for applications.</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="submit-row">
+              <div class="submit-note">
+                Applications are accepted throughout the entire month of May. Final selection date: 30 June. Program commencement: July. This HTML form is a front-end application interface and must be connected to a backend endpoint, form processor, or document workflow service for live submission.
+              </div>
+              <button type="submit" class="submit-btn">Submit Application</button>
+            </div>
+
+            <div class="status-message" id="formStatus"></div>
+          </form>
+        </div>
+      </section>
+
+      <section id="COPYRIGHT" class="copyright-footer">
+        <div class="copyright-notice">© 2026 c-ECO Systemic Governance Initiative. Supported by the Johann Christian Hasse Foundation and Instituto Silvio Meira. All rights reserved.</div>
+
+        <div style="margin-bottom: 10px;">
+          <strong>Document:</strong> c-ECO Fellowship Program — Call for Applications and Application Form<br>
+          <strong>Version:</strong> 1.0 | <strong>Format:</strong> Online Application Notice
+        </div>
+
+        <div style="font-size: 10px; color: #888;">
+          <strong>Notice:</strong> This page is a structured institutional application interface. File upload and form delivery require integration with a backend processor, cloud storage workflow, or document intake endpoint.
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+  <script>
+    // Sidebar search
+    const searchInput = document.getElementById('sidebarSearch');
+    const navItems = document.querySelectorAll('.nav-item');
+    const sectionTitles = document.querySelectorAll('.nav-section-title');
+    const sidebar = document.getElementById('sidebar');
+
+    searchInput.addEventListener('input', function(e){
+      const term = e.target.value.toLowerCase();
+
+      navItems.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.classList.toggle('hidden', !text.includes(term));
+      });
+
+      sectionTitles.forEach(title => {
+        title.classList.toggle('hidden', term.length > 0);
+      });
+    });
+
+    document.querySelectorAll('.nav-item a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 1024) {
+          sidebar.classList.remove('open');
+        }
+      });
+    });
+
+    // Demo front-end form handling
+    const fellowshipForm = document.getElementById('fellowshipForm');
+    const formStatus = document.getElementById('formStatus');
+
+    fellowshipForm.addEventListener('submit', function(e){
+      e.preventDefault();
+
+      if (!fellowshipForm.checkValidity()) {
+        formStatus.className = 'status-message error';
+        formStatus.textContent = 'Please complete all required fields before submitting the application.';
+        return;
+      }
+
+      formStatus.className = 'status-message success';
+      formStatus.innerHTML = 'Application draft validated successfully. To make this form live, connect the form action to your backend, Zoho Forms, Zoho WorkDrive intake flow, or another submission processor.';
+    });
+  </script>
+
+</body>
+</html>
