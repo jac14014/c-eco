@@ -861,8 +861,13 @@
 
       <section id="APPLICATION">
         <div class="form-wrap">
-          <form id="fellowshipForm" novalidate>
-            <div class="form-grid">
+          <form
+  id="fellowshipForm"
+  action="YOUR_FORM_ENDPOINT"
+  method="POST"
+  enctype="multipart/form-data"
+  novalidate
+>
 
               <div class="form-group">
                 <label class="form-label" for="fullName">Full Name</label>
@@ -1028,23 +1033,24 @@
         }
       });
     });
+const fellowshipForm = document.getElementById('fellowshipForm');
+const formStatus = document.getElementById('formStatus');
 
-    // Demo front-end form handling
-    const fellowshipForm = document.getElementById('fellowshipForm');
-    const formStatus = document.getElementById('formStatus');
+fellowshipForm.addEventListener('submit', function(e){
+  if (!fellowshipForm.checkValidity()) {
+    e.preventDefault();
+    formStatus.className = 'status-message error';
+    formStatus.textContent = 'Please complete all required fields before submitting the application.';
+    formStatus.style.display = 'block';
+    fellowshipForm.reportValidity();
+    return;
+  }
 
-    fellowshipForm.addEventListener('submit', function(e){
-      e.preventDefault();
-
-      if (!fellowshipForm.checkValidity()) {
-        formStatus.className = 'status-message error';
-        formStatus.textContent = 'Please complete all required fields before submitting the application.';
-        return;
-      }
-
-      formStatus.className = 'status-message success';
-      formStatus.innerHTML = 'Application draft validated successfully. To make this form live, connect the form action to your backend, Zoho Forms, Zoho WorkDrive intake flow, or another submission processor.';
-    });
+  formStatus.className = 'status-message success';
+  formStatus.textContent = 'Submitting application...';
+  formStatus.style.display = 'block';
+});
+    
   </script>
 
 </body>
