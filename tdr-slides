@@ -1,0 +1,1707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TDR // Systemic Risk Architecture</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            sigma: { DEFAULT: '#d4af37', dim: '#a68b4c', dark: '#8b7355' },
+            slate: { 950: '#020617', 900: '#0f172a', 800: '#1e293b' }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background: #020617;
+      color: #94a3b8;
+    }
+    
+    .card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .card:hover {
+      border-color: rgba(212, 175, 55, 0.3);
+    }
+    
+    .card.expanded {
+      border-color: rgba(212, 175, 55, 0.5);
+      background: rgba(15, 23, 42, 0.8);
+    }
+    
+    .card-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+      opacity: 0;
+    }
+    
+    .card.expanded .card-content {
+      max-height: 2000px;
+      opacity: 1;
+    }
+    
+    .card-icon {
+      transition: transform 0.3s ease;
+    }
+    
+    .card.expanded .card-icon {
+      transform: rotate(45deg);
+    }
+    
+    .grid-pattern {
+      background-image: 
+        linear-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    
+    .accent-line {
+      background: linear-gradient(90deg, #d4af37 0%, transparent 100%);
+    }
+    
+    .tag {
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+    }
+    
+    .metric-card {
+      background: rgba(30, 41, 59, 0.4);
+      border-left: 2px solid #d4af37;
+    }
+    
+    .comparison-table td {
+      border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+    }
+    
+    .comparison-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .phase-marker {
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+    }
+    
+    .variable-box {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+    }
+    
+    .level-indicator {
+      height: 4px;
+      background: rgba(148, 163, 184, 0.2);
+    }
+    
+    .level-fill {
+      height: 100%;
+      background: #d4af37;
+    }
+    
+    .highlight-box {
+      background: rgba(212, 175, 55, 0.05);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen font-sans antialiased">
+  <div class="fixed inset-0 grid-pattern pointer-events-none"></div>
+  
+  <!-- HEADER -->
+  <header class="relative border-b border-slate-800 bg-slate-950/90 backdrop-blur-sm sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-5">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <div class="w-10 h-10 border border-sigma/30 flex items-center justify-center bg-sigma/5">
+            <span class="font-mono text-sigma font-bold text-xl">Σ</span>
+          </div>
+          <div>
+            <h1 class="font-mono text-sm tracking-[0.2em] text-slate-200 uppercase font-semibold">
+              Threshold Dynamics Research
+            </h1>
+            <p class="text-xs text-slate-500 font-mono tracking-wider mt-0.5">
+              Systemic Risk Architecture for Pre-Threshold Governance
+            </p>
+          </div>
+        </div>
+        
+        <div class="hidden md:flex items-center gap-2 text-xs font-mono text-slate-500">
+          <span class="w-2 h-2 rounded-full bg-sigma animate-pulse"></span>
+          <span class="text-sigma">INTERACTIVE DECK</span>
+          <span class="text-slate-600">|</span>
+          <span>10 CARDS</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="relative max-w-6xl mx-auto px-6 py-12">
+    <div class="max-w-3xl">
+      <div class="flex items-center gap-2 mb-4">
+        <div class="w-8 h-px bg-sigma"></div>
+        <span class="text-xs font-mono text-sigma uppercase tracking-[0.2em]">Executive Overview</span>
+      </div>
+      
+      <h2 class="text-3xl md:text-4xl font-light text-slate-100 leading-tight mb-6">
+        The <span class="text-sigma font-normal">insufficiency</span> of existing anticipatory legalities
+      </h2>
+      
+      <p class="text-lg text-slate-400 leading-relaxed mb-6">
+        Contemporary law already deploys precaution, prudential regulation, due diligence and systemic-risk supervision 
+        across multiple domains. The unresolved problem is that these anticipatory regimes remain 
+        <strong class="text-slate-200">fragmented, sector-bound, probabilistic and predominantly managerial</strong>.
+      </p>
+      
+      <p class="text-lg text-slate-400 leading-relaxed mb-8">
+        They do not yet provide a general juridical architecture through which 
+        <strong class="text-sigma">ongoing systemic incompatibility</strong> — especially under conditions of 
+        <strong class="text-sigma">declining reversibility</strong> — alters the validity, enforceability, and 
+        continuity of legal and operational acts in real time.
+      </p>
+      
+      <div class="flex flex-wrap gap-3 text-xs font-mono">
+        <span class="tag px-3 py-1.5 text-sigma">TRAJECTORY ILLEGALITY</span>
+        <span class="tag px-3 py-1.5 text-sigma">SYSTEMIC PROOF</span>
+        <span class="tag px-3 py-1.5 text-sigma">EX-ANTE UNENFORCEABILITY</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARDS GRID -->
+  <main class="relative max-w-6xl mx-auto px-6 pb-20">
+    <div class="grid gap-4">
+
+      <!-- CARD 1: THE PROBLEM (ATUALIZADO) -->
+      <article class="card border border-slate-800 bg-slate-900/50 rounded-lg cursor-pointer" onclick="toggleCard(this)">
+        <div class="p-6 flex items-start justify-between gap-4">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-lg bg-sigma/10 border border-sigma/20 flex items-center justify-center flex-shrink-0">
+              <span class="font-mono text-sigma text-lg font-bold">01</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-medium text-slate-200 mb-1">The Problem</h3>
+              <p class="text-sm text-slate-500">Not absence of ex-ante, but structural insufficiency</p>
+            </div>
+          </div>
+          <div class="card-icon w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center">
+            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="card-content px-6 pb-6">
+          <div class="pt-4 border-t border-slate-800">
+            
+            <div class="highlight-box p-4 rounded-lg mb-6">
+              <p class="text-sm text-slate-300 leading-relaxed">
+                <strong class="text-sigma">Thesis:</strong> Contemporary law already contains ex-ante instruments. 
+                The problem is that existing anticipatory regimes remain insufficient at the exact point where 
+                systemic conditions require <strong>continuous compatibility with reversibility limits</strong> 
+                to condition juridical validity itself.
+              </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+              <div class="space-y-3">
+                <h4 class="text-sm font-mono text-slate-400 uppercase tracking-wider">What exists</h4>
+                <ul class="space-y-2 text-sm text-slate-500">
+                  <li class="flex items-start gap-2">
+                    <span class="text-emerald-500/60 mt-1">✓</span>
+                    <span>Macroprudential regulation (finance)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-emerald-500/60 mt-1">✓</span>
+                    <span>Corporate due diligence (CSDDD)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-emerald-500/60 mt-1">✓</span>
+                    <span>Disaster risk governance</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-emerald-500/60 mt-1">✓</span>
+                    <span>AI Act systemic risk regimes</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div class="space-y-3">
+                <h4 class="text-sm font-mono text-sigma uppercase tracking-wider">What is missing</h4>
+                <ul class="space-y-2 text-sm text-slate-400">
+                  <li class="flex items-start gap-2">
+                    <span class="text-sigma mt-1">◆</span>
+                    <span>Trajectory-based (not event-based) governance</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-sigma mt-1">◆</span>
+                    <span>Loss of reversibility as present legal condition</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-sigma mt-1">◆</span>
+                    <span>Automatic legal effects from continuous monitoring</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-sigma mt-1">◆</span>
+                    <span>Transversal architecture (not sectoral)</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="metric-card p-4 rounded-r-lg">
+              <p class="text-sm text-slate-300">
+                <strong class="text-sigma">Result:</strong> Six of nine planetary boundaries transgressed; 
+                NBFI vulnerabilities persist post-2008; AI systemic risks emerge. Existing ex-ante reduces 
+                vulnerabilities but does not resolve systemic dynamics in complex, mutable ecosystems.
+              </p>
+              <p class="text-xs text-slate-500 mt-2 font-mono">
+                — BIS, FSB, OECD, UNDRR, IPCC 2021-2023
+              </p>
+            </div>
+            
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 2: FIVE DISPLACEMENTS (NOVO) -->
+      <article class="card border border-slate-800 bg-slate-900/50 rounded-lg cursor-pointer" onclick="toggleCard(this)">
+        <div class="p-6 flex items-start justify-between gap-4">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-lg bg-sigma/10 border border-sigma/20 flex items-center justify-center flex-shrink-0">
+              <span class="font-mono text-sigma text-lg font-bold">02</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-medium text-slate-200 mb-1">Five Critical Displacements</h3>
+              <p class="text-sm text-slate-500">How c-ECO differs from existing anticipatory regimes</p>
+            </div>
+          </div>
+          <div class="card-icon w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center">
+            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="card-content px-6 pb-6">
+          <div class="pt-4 border-t border-slate-800 space-y-4">
+            
+            <div class="variable-box p-4 rounded-lg border-sigma/30">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="w-8 h-8 rounded bg-sigma/20 text-sigma flex items-center justify-center font-mono text-sm font-bold">1</span>
+                <h4 class="text-slate-200 font-medium">From risk of harm to <span class="text-sigma">loss of reversibility</span></h4>
+              </div>
+              <p class="text-sm text-slate-400 pl-11">
+                Current regimes treat risk as probability of adverse impact; c-ECO treats erosion of reversibility 
+                as <strong>legally relevant fact in itself</strong>.
+              </p>
+            </div>
+            
+            <div class="variable-box p-4 rounded-lg border-sigma/30">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="w-8 h-8 rounded bg-sigma/20 text-sigma flex items-center justify-center font-mono text-sm font-bold">2</span>
+                <h4 class="text-slate-200 font-medium">From events/impacts to <span class="text-sigma">trajectories</span></h4>
+              </div>
+              <p class="text-sm text-slate-400 pl-11">
+                Question shifts from "what damage may occur?" to 
+                <strong>"what trajectory is being legally permitted to consolidate?"</strong>
+              </p>
+            </div>
+            
+            <div class="variable-box p-4 rounded-lg border-sigma/30">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="w-8 h-8 rounded bg-sigma/20 text-sigma flex items-center justify-center font-mono text-sm font-bold">3</span>
+                <h4 class="text-slate-200 font-medium">From managerial/discretionary to <span class="text-sigma">constitutive</span></h4>
+              </div>
+              <p class="text-sm text-slate-400 pl-11">
+                Systemic compatibility becomes <strong>condition of validity, enforceability and continuity</strong> — 
+                not merely duty to monitor, report, or mitigate.
+              </p>
+            </div>
+            
+            <div class="variable-box p-4 rounded-lg border-sigma/30">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="w-8 h-8 rounded bg-sigma/20 text-sigma flex items-center justify-center font-mono text-sm font-bold">4</span>
+                <h4 class="text-slate-200 font-medium">From administrative cycles to <span class="text-sigma">immediate legal effects</span></h4>
+              </div>
+              <p class="text-sm text-slate-400 pl-11">
+                Systemic Proof transforms continuous technical evidence into 
+                <strong>juridical effects without declaratory delays</strong>.
+              </p>
+            </div>
+            
+            <div class="variable-box p-4 rounded-lg border-sigma/30 bg-sigma/5">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="w-8 h-8 rounded bg-sigma/30 text-sigma flex items-center justify-center font-mono text-sm font-bold">5</span>
+                <h4 class="text-slate-200 font-medium">From sectoral to <span class="text-sigma">transversal architecture</span></h4>
+              </div>
+              <p class="text-sm text-slate-400 pl-11">
+                Common juridical grammar for critical systems under material limits — finance, supply chain, 
+                disaster risk, AI, ecosystems — rather than fragmented regimes.
+              </p>
+            </div>
+            
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 3: THE C-ECO RESPONSE -->
+      <article class="card border border-slate-800 bg-slate-900/50 rounded-lg cursor-pointer" onclick="toggleCard(this)">
+        <div class="p-6 flex items-start justify-between gap-4">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center flex-shrink-0">
+              <span class="font-mono text-slate-400 text-lg font-bold">03</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-medium text-slate-200 mb-1">The c-ECO Response</h3>
+              <p class="text-sm text-slate-500">Three interconnected innovations</p>
+            </div>
+          </div>
+          <div class="card-icon w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center">
+            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="card-content px-6 pb-6">
+          <div class="pt-4 border-t border-slate-800 space-y-4">
+            
+            <div class="variable-box p-4 rounded-lg">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="w-8 h-8 rounded bg-sigma/20 text-sigma flex items-center justify-center font-mono text-sm font-bold">1</span>
+                <h4 class="text-slate-200 font-medium">Trajectory Illegality</h4>
+              </div>
+              <p class="text-sm text-slate-400 pl-11">
+                Legality conditioned by systemic compatibility over time. 
+                Formal compliance ≠ systemic validity.
+              </p>
+            </div>
+            
+            <div class="variable-box p-4 rounded-lg">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="w-8 h-8 rounded bg-sigma/20 text-sigma flex items-center justify-center font-mono text-sm font-bold">2</span>
+                <h4 class="text-slate-200 font-medium">Systemic Proof</h4>
+              </div>
+              <p class="text-sm text-slate-400 pl-11">
+                Certified sensor-based data, continuous monitoring. 
+                Immediate juridical effects, no declaratory delays.
+              </p>
+            </div>
+            
+            <div class="variable-box p-4 rounded-lg border-sigma/30">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="w-8 h-8 rounded bg-sigma/30 text-sigma flex items-center justify-center font-mono text-sm font-bold">3</span>
+                <h4 class="text-slate-200 font-medium">Ex-Ante Unenforceability (IEX)</h4>
+              </div>
+              <p class="text-sm text-slate-400 pl-11">
+                Automatic suspension of execution when trajectories become incompatible with stability. 
+                <strong class="text-sigma">Ex lege, ex ante</strong> — not sanction, functional adjustment to biophysical reality.
+              </p>
+            </div>
+            
+            <div class="mt-4 p-4 border-l-2 border-sigma bg-sigma/5">
+              <p class="text-sm text-slate-300 italic">
+                "The preservation of systemic integrity becomes constitutive of juridical validity itself."
+              </p>
+            </div>
+            
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 4: THE ANALYTICAL ENGINE -->
+      <article class="card border border-slate-800 bg-slate-900/50 rounded-lg cursor-pointer" onclick="toggleCard(this)">
+        <div class="p-6 flex items-start justify-between gap-4">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center flex-shrink-0">
+              <span class="font-mono text-slate-400 text-lg font-bold">04</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-medium text-slate-200 mb-1">The Analytical Engine</h3>
+              <p class="text-sm text-slate-500">TDR: Threshold Dynamics Research</p>
+            </div>
+          </div>
+          <div class="card-icon w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center">
+            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="card-content px-6 pb-6">
+          <div class="pt-4 border-t border-slate-800">
+            
+            <div class="mb-6 p-4 bg-slate-950 border border-slate-800 rounded-lg font-mono text-sm">
+              <div class="text-slate-500 mb-2">// Dynamical systems core</div>
+              <div class="text-slate-300">
+                dx/dt = <span class="text-sigma">f</span>(x, θ, u, t) + <span class="text-slate-500">ε</span>
+              </div>
+              <div class="text-xs text-slate-600 mt-2">
+                x: state | θ: parameters | u: forcing | t: time | ε: noise
+              </div>
+            </div>
+            
+            <h4 class="text-sm font-mono text-sigma uppercase tracking-wider mb-3">Critical Slowing Down (CSD)</h4>
+            
+            <div class="space-y-3 mb-6">
+              <div class="flex items-center gap-4">
+                <div class="w-24 text-xs font-mono text-slate-500">λ → 0</div>
+                <div class="flex-1 level-indicator rounded-full overflow-hidden">
+                  <div class="level-fill w-0"></div>
+                </div>
+                <div class="text-xs text-slate-400">Recovery rate degrades</div>
+              </div>
+              <div class="flex items-center gap-4">
+                <div class="w-24 text-xs font-mono text-slate-500">AC↑</div>
+                <div class="flex-1 level-indicator rounded-full overflow-hidden">
+                  <div class="level-fill w-3/4"></div>
+                </div>
+                <div class="text-xs text-slate-400">Autocorrelation increases</div>
+              </div>
+              <div class="flex items-center gap-4">
+                <div class="w-24 text-xs font-mono text-slate-500">Var↑</div>
+                <div class="flex-1 level-indicator rounded-full overflow-hidden">
+                  <div class="level-fill w-2/3"></div>
+                </div>
+                <div class="text-xs text-slate-400">Variance escalates</div>
+              </div>
+            </div>
+            
+            <div class="metric-card p-4 rounded-r-lg">
+              <p class="text-sm text-slate-300">
+                <strong class="text-sigma">The bridge:</strong> CSD translates state-space mathematics into 
+                <strong>early warning signals</strong> that can trigger automatic legal and financial effects.
+              </p>
+            </div>
+            
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 5: THE FOUR VARIABLES -->
+      <article class="card border border-slate-800 bg-slate-900/50 rounded-lg cursor-pointer" onclick="toggleCard(this)">
+        <div class="p-6 flex items-start justify-between gap-4">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-lg bg-sigma/10 border border-sigma/20 flex items-center justify-center flex-shrink-0">
+              <span class="font-mono text-sigma text-lg font-bold">05</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-medium text-slate-200 mb-1">The Four Variables</h3>
+              <p class="text-sm text-slate-500">TFP: Threshold Function Protocol</p>
+            </div>
+          </div>
+          <div class="card-icon w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center">
+            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="card-content px-6 pb-6">
+          <div class="pt-4 border-t border-slate-800">
+            
+            <div class="grid md:grid-cols-2 gap-4">
+              
+              <div class="variable-box p-4 rounded-lg">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-mono text-2xl text-sigma font-bold">P</span>
+                  <span class="text-xs font-mono text-slate-500 uppercase">Position</span>
+                </div>
+                <p class="text-sm text-slate-400 mb-2">Proximity to Safe Operating Space boundary</p>
+                <p class="text-xs text-slate-500">Governance function: Proximity as <strong class="text-slate-300">legal constraint</strong>, not just indicator</p>
+              </div>
+              
+              <div class="variable-box p-4 rounded-lg">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-mono text-2xl text-sigma font-bold">ΔV</span>
+                  <span class="text-xs font-mono text-slate-500 uppercase">Velocity</span>
+                </div>
+                <p class="text-sm text-slate-400 mb-2">Rate and direction of approach</p>
+                <p class="text-xs text-slate-500"><strong class="text-slate-300">Trajectory awareness:</strong> systems far from boundary may still be dangerous if accelerating</p>
+              </div>
+              
+              <div class="variable-box p-4 rounded-lg">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-mono text-2xl text-sigma font-bold">σ</span>
+                  <span class="text-xs font-mono text-slate-500 uppercase">Uncertainty</span>
+                </div>
+                <p class="text-sm text-slate-400 mb-2">Confidence intervals, measurement error</p>
+                <p class="text-xs text-slate-500"><strong class="text-slate-300">Asymmetric treatment:</strong> uncertainty <em>contracts</em> operational margins, never expands them</p>
+              </div>
+              
+              <div class="variable-box p-4 rounded-lg border-sigma/30 bg-sigma/5">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-mono text-2xl text-sigma font-bold">Lr</span>
+                  <span class="text-xs font-mono text-slate-500 uppercase">Reversibility Liquidity</span>
+                </div>
+                <p class="text-sm text-slate-400 mb-2">Mobilizable resources / projected reversal cost</p>
+                <p class="text-xs text-slate-500"><strong class="text-sigma">Decisive for IEX:</strong> when Lr depletes, execution becomes incompatible with stability</p>
+              </div>
+              
+            </div>
+            
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 6: PRUDENTIAL ARCHITECTURE -->
+      <article class="card border border-slate-800 bg-slate-900/50 rounded-lg cursor-pointer" onclick="toggleCard(this)">
+        <div class="p-6 flex items-start justify-between gap-4">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center flex-shrink-0">
+              <span class="font-mono text-slate-400 text-lg font-bold">06</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-medium text-slate-200 mb-1">Prudential Architecture</h3>
+              <p class="text-sm text-slate-500">Four levels of systemic response</p>
+            </div>
+          </div>
+          <div class="card-icon w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center">
+            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="card-content px-6 pb-6">
+          <div class="pt-4 border-t border-slate-800">
+            
+            <div class="space-y-3">
+              
+              <div class="flex items-center gap-4 p-3 bg-slate-950 border border-slate-800 rounded-lg">
+                <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+                <div class="flex-1">
+                  <div class="flex items-center justify-between">
+                    <span class="text-slate-200 font-medium">Green</span>
+                    <span class="text-xs font-mono text-slate-500">Nominal operation</span>
+                  </div>
+                </div>
+                <span class="text-xs text-slate-500">Standard monitoring</span>
+              </div>
+              
+              <div class="flex items-center gap-4 p-3 bg-slate-950 border border-slate-800 rounded-lg">
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="flex-1">
+                  <div class="flex items-center justify-between">
+                    <span class="text-slate-200 font-medium">Amber</span>
+                    <span class="text-xs font-mono text-slate-500">Heightened vigilance</span>
+                  </div>
+                </div>
+                <span class="text-xs text-slate-500">Reinforced reporting, enhanced guarantees</span>
+              </div>
+              
+              <div class="flex items-center gap-4 p-3 bg-sigma/10 border border-sigma/30 rounded-lg">
+                <div class="w-3 h-3 rounded-full bg-sigma animate-pulse"></div>
+                <div class="flex-1">
+                  <div class="flex items-center justify-between">
+                    <span class="text-sigma font-medium">Red — Safe Mode</span>
+                    <span class="text-xs font-mono text-sigma">Systemic curatorship</span>
+                  </div>
+                </div>
+                <span class="text-xs text-slate-400"><strong>Execution reconfiguration</strong> — not default, not termination</span>
+              </div>
+              
+              <div class="flex items-center gap-4 p-3 bg-red-950/30 border border-red-900/50 rounded-lg">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="flex-1">
+                  <div class="flex items-center justify-between">
+                    <span class="text-red-400 font-medium">Black — Restoration First</span>
+                    <span class="text-xs font-mono text-red-400">External intervention</span>
+                  </div>
+                </div>
+                <span class="text-xs text-slate-500">Automatic asset conversion to certified restoration providers</span>
+              </div>
+              
+            </div>
+            
+            <div class="mt-4 p-4 border-l-2 border-sigma bg-sigma/5">
+              <p class="text-sm text-slate-300">
+                <strong class="text-sigma">Key distinction:</strong> Safe Mode = <strong>non-default protective state</strong>. 
+                The contract continues; execution is reconfigured to preserve reversibility and asset value.
+              </p>
+            </div>
+            
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 7: WHY THE WORLD BANK -->
+      <article class="card border border-slate-800 bg-slate-900/50 rounded-lg cursor-pointer" onclick="toggleCard(this)">
+        <div class="p-6 flex items-start justify-between gap-4">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-lg bg-sigma/10 border border-sigma/20 flex items-center justify-center flex-shrink-0">
+              <span class="font-mono text-sigma text-lg font-bold">07</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-medium text-slate-200 mb-1">Why the World Bank</h3>
+              <p class="text-sm text-slate-500">Alignment with institutional priorities</p>
+            </div>
+          </div>
+          <div class="card-icon w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center">
+            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="card-content px-6 pb-6">
+          <div class="pt-4 border-t border-slate-800">
+            
+            <div class="space-y-4">
+              
+              <div class="comparison-table">
+                <div class="flex items-start gap-4 py-3 border-b border-slate-800">
+                  <div class="w-1/3">
+                    <span class="text-sm font-mono text-sigma">GFDRR</span>
+                    <p class="text-xs text-slate-500">Disaster Risk Analytics</p>
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-sm text-slate-400">
+                      Methodological layer for <strong class="text-slate-200">trajectory-based</strong> (not event-based) risk governance
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start gap-4 py-3 border-b border-slate-800">
+                  <div class="w-1/3">
+                    <span class="text-sm font-mono text-sigma">Risk Finance Umbrella</span>
+                    <p class="text-xs text-slate-500">CREWS</p>
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-sm text-slate-400">
+                      <strong class="text-slate-200">Parametric triggers</strong> on certified biophysical indicators; pre-arranged finance activation
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start gap-4 py-3 border-b border-slate-800">
+                  <div class="w-1/3">
+                    <span class="text-sm font-mono text-sigma">Climate Change Group</span>
+                    <p class="text-xs text-slate-500">Project Finance</p>
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-sm text-slate-400">
+                      <strong class="text-slate-200">Non-default protective states</strong> for project finance sustainability
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start gap-4 py-3">
+                  <div class="w-1/3">
+                    <span class="text-sm font-mono text-sigma">Development Economics</span>
+                    <p class="text-xs text-slate-500">DEC</p>
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-sm text-slate-400">
+                      Research infrastructure for <strong class="text-slate-200">non-linear dynamics</strong> in economic systems
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            
+            <div class="mt-6 metric-card p-4 rounded-r-lg">
+              <p class="text-sm text-slate-300">
+                <strong class="text-sigma">Value proposition:</strong> Closes the gap between scientific detection and 
+                <strong>decision-grade, enforceable, financially operable</strong> structure.
+              </p>
+            </div>
+            
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 8: FUNCTIONAL ANALOGIES -->
+      <article class="card border border-slate-800 bg-slate-900/50 rounded-lg cursor-pointer" onclick="toggleCard(this)">
+        <div class="p-6 flex items-start justify-between gap-4">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center flex-shrink-0">
+              <span class="font-mono text-slate-400 text-lg font-bold">08</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-medium text-slate-200 mb-1">Functional Analogies</h3>
+              <p class="text-sm text-slate-500">What this is — and is not</p>
+            </div>
+          </div>
+          <div class="card-icon w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center">
+            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="card-content px-6 pb-6">
+          <div class="pt-4 border-t border-slate-800">
+            
+            <div class="grid md:grid-cols-2 gap-6">
+              
+              <div>
+                <h4 class="text-sm font-mono text-sigma uppercase tracking-wider mb-3">This is</h4>
+                <ul class="space-y-2">
+                  <li class="flex items-start gap-2 text-sm text-slate-300">
+                    <span class="text-sigma mt-1">◆</span>
+                    <span>Prudential infrastructure</span>
+                  </li>
+                  <li class="flex items-start gap-2 text-sm text-slate-300">
+                    <span class="text-sigma mt-1">◆</span>
+                    <span>Capital preservation architecture</span>
+                  </li>
+                  <li class="flex items-start gap-2 text-sm text-slate-300">
+                    <span class="text-sigma mt-1">◆</span>
+                    <span><strong class="text-sigma">Basel III buffers applied to biophysical systems</strong></span>
+                  </li>
+                  <li class="flex items-start gap-2 text-sm text-slate-300">
+                    <span class="text-sigma mt-1">◆</span>
+                    <span>Automatic execution-conditioning mechanism</span>
+                  </li>
+                  <li class="flex items-start gap-2 text-sm text-slate-300">
+                    <span class="text-sigma mt-1">◆</span>
+                    <span>Market-ready contractual infrastructure</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-mono text-slate-500 uppercase tracking-wider mb-3">This is not</h4>
+                <ul class="space-y-2">
+                  <li class="flex items-start gap-2 text-sm text-slate-500">
+                    <span class="text-slate-700 mt-1">◆</span>
+                    <span>Environmental enforcement</span>
+                  </li>
+                  <li class="flex items-start gap-2 text-sm text-slate-500">
+                    <span class="text-slate-700 mt-1">◆</span>
+                    <span>ESG compliance framework</span>
+                  </li>
+                  <li class="flex items-start gap-2 text-sm text-slate-500">
+                    <span class="text-slate-700 mt-1">◆</span>
+                    <span>Traditional insurance / liability</span>
+                  </li>
+                  <li class="flex items-start gap-2 text-sm text-slate-500">
+                    <span class="text-slate-700 mt-1">◆</span>
+                    <span>Discretionary regulatory intervention</span>
+                  </li>
+                  <li class="flex items-start gap-2 text-sm text-slate-500">
+                    <span class="text-slate-700 mt-1">◆</span>
+                    <span>Public policy proposal</span>
+                  </li>
+                </ul>
+              </div>
+              
+            </div>
+            
+            <div class="mt-6 p-4 border border-sigma/20 bg-sigma/5 rounded-lg">
+              <p class="text-sm text-slate-300">
+                <strong class="text-sigma">Analogy:</strong> Functionally analogous to 
+                <strong>orderly liquidation authority in financial h-10 border border-sigma/30 flex items-center justify-center bg-sigma/5">
+            <span class="font-mono text-sigma font-bold text-xl">Σ</span>
+          </div>
+          <div>
+            <h1 class="font-mono text-sm tracking-[0.2em] text-slate-200 uppercase font-semibold">
+              Threshold Dynamics Research
+            </h1>
+            <p class="text-xs text-slate-500 font-mono tracking-wider mt-0.5">
+              Systemic Risk Architecture for Pre-Threshold Governance
+            </p>
+          </div>
+        </div>
+        
+        <div class="hidden md:flex items-center gap-2 text-xs font-mono text-slate-500">
+          <span class="w-2 h-2 rounded-full bg-sigma animate-pulse"></span>
+          <span class="text-sigma">INTERACTIVE DECK</span>
+          <span class="text-slate-600">|</span>
+          <span>10 CARDS</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="relative max-w-6xl mx-auto px-6 py-12">
+    <div class="max-w-3xl">
+      <div class="flex items-center gap-2 mb-4">
+        <div class="w-8 h-px bg-sigma"></div>
+        <span class="text-xs font-mono text-sigma uppercase tracking-[0.2em]">Executive Overview</span>
+      </div>
+      
+      <h2 class="text-3xl md:text-4xl font-light text-slate-100 leading-tight mb-6">
+        The <span class="text-sigma font-normal">insufficiency</span> of existing anticipatory legalities
+      </h2>
+      
+      <p class="text-lg text-slate-400 leading-relaxed mb-6">
+        Contemporary law already deploys precaution, prudential regulation, due diligence and systemic-risk supervision 
+        across multiple domains. The unresolved problem is that these anticipatory regimes remain 
+        <strong class="text-slate-200">fragmented, sector-bound, probabilistic and predominantly managerial</strong>.
+      </p>
+      
+      <p class="text-lg text-slate-400 leading-relaxed mb-8">
+        They do not yet provide a general juridical architecture through which 
+        <strong class="text-sigma">ongoing systemic incompatibility</strong> — especially under conditions of 
+        <strong class="text-sigma">declining reversibility</strong> — alters the validity, enforceability, and 
+        continuity of legal and operational acts in real time.
+      </p>
+      
+      <div class="flex flex-wrap gap-3 text-xs font-mono">
+        <span class="tag px-3 py-1.5 text-sigma">TRAJECTORY ILLEGALITY</span>
+        <span class="tag px-3 py-1.5 text-sigma">SYSTEMIC PROOF</span>
+        <span class="tag px-3 py-1.5 text-sigma">EX-ANTE UNENFORCEABILITY</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARDS GRID -->
+  <main class="relative max-w-6xl mx-auto px-6 pb-20">
+    <div class="grid gap-4">
+
+      <!-- CARD 1: THE PROBLEM (ATUALIZADO) -->
+      <article class="card border border-slate-800 bg-slate-900/50 rounded-lg cursor-pointer" onclick="toggleCard(this)">
+        <div class="p-6 flex items-start justify-between gap-4">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-lg bg-sigma/10 border border-sigma/20 flex items-center justify-center flex-shrink-0">
+              <span class="font-mono text-sigma text-lg font-bold">01</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-medium text-slate-200 mb-1">The Problem</h3>
+              <p class="text-sm text-slate-500">Not absence of ex-ante, but structural insufficiency</p>
+            </div>
+          </div>
+          <div class="card-icon w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center">
+            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="card-content px-6 pb-6">
+          <div class="pt-4 border-t border-slate-800">
+            
+            <div class="highlight-box p-4 rounded-lg mb-6">
+              <p class="text-sm text-slate-300 leading-relaxed">
+                <strong class="text-sigma">Thesis:</strong> Contemporary law already contains ex-ante instruments. 
+                The problem is that existing anticipatory regimes remain insufficient at the exact point where 
+                systemic conditions require <strong>continuous compatibility with reversibility limits</strong> 
+                to condition juridical validity itself.
+              </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+              <div class="space-y-3">
+                <h4 class="text-sm font-mono text-slate-400 uppercase tracking-wider">What exists</h4>
+                <ul class="space-y-2 text-sm text-slate-500">
+                  <li class="flex items-start gap-2">
+                    <span class="text-emerald-500/60 mt-1">✓</span>
+                    <span>Macroprudential regulation (finance)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-emerald-500/60 mt-1">✓</span>
+                    <span>Corporate due diligence (CSDDD)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-emerald-500/60 mt-1">✓</span>
+                    <span>Disaster risk governance</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-emerald-500/60 mt-1">✓</span>
+                    <span>AI Act systemic risk regimes</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div class="space-y-3">
+                <h4 class="text-sm font-mono text-sigma uppercase tracking-wider">What is missing</h4>
+                <ul class="space-y-2 text-sm text-slate-400">
+                  <li class="flex items-start gap-2">
+                    <span class="text-sigma mt-1">◆</span>
+                    <span>Trajectory-based (not event-based) governance</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-sigma mt-1">◆</span>
+                    <span>Loss of reversibility as present legal condition</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-sigma mt-1">◆</span>
+                    <span>Automatic legal effects from continuous monitoring</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-sigma mt-1">◆</span>
+                    <span>Transversal architecture (not sectoral)</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="metric-card p-4 rounded-r-lg">
+              <p class="text-sm text-slate-300">
+                <strong class="text-sigma">Result:</strong> Six of nine planetary boundaries transgressed; 
+                NBFI vulnerabilities persist post-2008; AI systemic risks emerge. Existing ex-ante reduces 
+                vulnerabilities but does not resolve systemic dynamics in complex, mutable ecosystems.
+              </p>
+              <p class="text-xs text-slate-500 mt-2 font-mono">
+                — BIS, FSB, OECD, UNDRR, IPCC 2021-2023
+              </p>
+            </div>
+            
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 2: FIVE DISPLACEMENTS (NOVO) -->
+      <article class="card border border-slate-800 bg-slate-900/50 rounded-lg cursor-pointer" onclick="toggleCard(this)">
+        <div class="p-6 flex items-start justify-between gap-4">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-lg bg-sigma/10 border border-sigma/20 flex items-center justify-center flex-shrink-0">
+              <span class="font-mono text-sigma text-lg font-bold">02</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-medium text-slate-200 mb-1">Five Critical Displacements</h3>
+              <p class="text-sm text-slate-500">How c-ECO differs from existing anticipatory regimes</p>
+            </div>
+          </div>
+          <div class="card-icon w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center">
+            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="card-content px-6 pb-6">
+          <div class="pt-4 border-t border-slate-800 space-y-4">
+            
+            <div class="variable-box p-4 rounded-lg border-sigma/30">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="w-8 h-8 rounded bg-sigma/20 text-sigma flex items-center justify-center font-mono text-sm font-bold">1</span>
+                <h4 class="text-slate-200 font-medium">From risk of harm to <span class="text-sigma">loss of reversibility</span></h4>
+              </div>
+              <p class="text-sm text-slate-400 pl-11">
+                Current regimes treat risk as probability of adverse impact; c-ECO treats erosion of reversibility 
+                as <strong>legally relevant fact in itself</strong>.
+              </p>
+            </div>
+            
+            <div class="variable-box p-4 rounded-lg border-sigma/30">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="w-8 h-8 rounded bg-sigma/20 text-sigma flex items-center justify-center font-mono text-sm font-bold">2</span>
+                <h4 class="text-slate-200 font-medium">From events/impacts to <span class="text-sigma">trajectories</span></h4>
+              </div>
+              <p class="text-sm text-slate-400 pl-11">
+                Question shifts from "what damage may occur?" to 
+                <strong>"what trajectory is being legally permitted to consolidate?"</strong>
+              </p>
+            </div>
+            
+            <div class="variable-box p-4 rounded-lg border-sigma/30">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="w-8 h-8 rounded bg-sigma/20 text-sigma flex items-center justify-center font-mono text-sm font-bold">3</span>
+                <h4 class="text-slate-200 font-medium">From managerial/discretionary to <span class="text-sigma">constitutive</span></h4>
+              </div>
+              <p class="text-sm text-slate-400 pl-11">
+                Systemic compatibility becomes <strong>condition of validity, enforceability and continuity</strong> — 
+                not merely duty to monitor, report, or mitigate.
+              </p>
+            </div>
+            
+            <div class="variable-box p-4 rounded-lg border-sigma/30">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="w-8 h-8 rounded bg-sigma/20 text-sigma flex items-center justify-center font-mono text-sm font-bold">4</span>
+                <h4 class="text-slate-200 font-medium">From administrative cycles to <span class="text-sigma">immediate legal effects</span></h4>
+              </div>
+              <p class="text-sm text-slate-400 pl-11">
+                Systemic Proof transforms continuous technical evidence into 
+                <strong>juridical effects without declaratory delays</strong>.
+              </p>
+            </div>
+            
+            <div class="variable-box p-4 rounded-lg border-sigma/30 bg-sigma/5">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="w-8 h-8 rounded bg-sigma/30 text-sigma flex items-center justify-center font-mono text-sm font-bold">5</span>
+                <h4 class="text-slate-200 font-medium">From sectoral to <span class="text-sigma">transversal architecture</span></h4>
+              </div>
+              <p class="text-sm text-slate-400 pl-11">
+                Common juridical grammar for critical systems under material limits — finance, supply chain, 
+                disaster risk, AI, ecosystems — rather than fragmented regimes.
+              </p>
+            </div>
+            
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 3: THE C-ECO RESPONSE -->
+      <article class="card border border-slate-800 bg-slate-900/50 rounded-lg cursor-pointer" onclick="toggleCard(this)">
+        <div class="p-6 flex items-start justify-between gap-4">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center flex-shrink-0">
+              <span class="font-mono text-slate-400 text-lg font-bold">03</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-medium text-slate-200 mb-1">The c-ECO Response</h3>
+              <p class="text-sm text-slate-500">Three interconnected innovations</p>
+            </div>
+          </div>
+          <div class="card-icon w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center">
+            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="card-content px-6 pb-6">
+          <div class="pt-4 border-t border-slate-800 space-y-4">
+            
+            <div class="variable-box p-4 rounded-lg">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="w-8 h-8 rounded bg-sigma/20 text-sigma flex items-center justify-center font-mono text-sm font-bold">1</span>
+                <h4 class="text-slate-200 font-medium">Trajectory Illegality</h4>
+              </div>
+              <p class="text-sm text-slate-400 pl-11">
+                Legality conditioned by systemic compatibility over time. 
+                Formal compliance ≠ systemic validity.
+              </p>
+            </div>
+            
+            <div class="variable-box p-4 rounded-lg">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="w-8 h-8 rounded bg-sigma/20 text-sigma flex items-center justify-center font-mono text-sm font-bold">2</span>
+                <h4 class="text-slate-200 font-medium">Systemic Proof</h4>
+              </div>
+              <p class="text-sm text-slate-400 pl-11">
+                Certified sensor-based data, continuous monitoring. 
+                Immediate juridical effects, no declaratory delays.
+              </p>
+            </div>
+            
+            <div class="variable-box p-4 rounded-lg border-sigma/30">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="w-8 h-8 rounded bg-sigma/30 text-sigma flex items-center justify-center font-mono text-sm font-bold">3</span>
+                <h4 class="text-slate-200 font-medium">Ex-Ante Unenforceability (IEX)</h4>
+              </div>
+              <p class="text-sm text-slate-400 pl-11">
+                Automatic suspension of execution when trajectories become incompatible with stability. 
+                <strong class="text-sigma">Ex lege, ex ante</strong> — not sanction, functional adjustment to biophysical reality.
+              </p>
+            </div>
+            
+            <div class="mt-4 p-4 border-l-2 border-sigma bg-sigma/5">
+              <p class="text-sm text-slate-300 italic">
+                "The preservation of systemic integrity becomes constitutive of juridical validity itself."
+              </p>
+            </div>
+            
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 4: THE ANALYTICAL ENGINE -->
+      <article class="card border border-slate-800 bg-slate-900/50 rounded-lg cursor-pointer" onclick="toggleCard(this)">
+        <div class="p-6 flex items-start justify-between gap-4">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center flex-shrink-0">
+              <span class="font-mono text-slate-400 text-lg font-bold">04</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-medium text-slate-200 mb-1">The Analytical Engine</h3>
+              <p class="text-sm text-slate-500">TDR: Threshold Dynamics Research</p>
+            </div>
+          </div>
+          <div class="card-icon w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center">
+            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="card-content px-6 pb-6">
+          <div class="pt-4 border-t border-slate-800">
+            
+            <div class="mb-6 p-4 bg-slate-950 border border-slate-800 rounded-lg font-mono text-sm">
+              <div class="text-slate-500 mb-2">// Dynamical systems core</div>
+              <div class="text-slate-300">
+                dx/dt = <span class="text-sigma">f</span>(x, θ, u, t) + <span class="text-slate-500">ε</span>
+              </div>
+              <div class="text-xs text-slate-600 mt-2">
+                x: state | θ: parameters | u: forcing | t: time | ε: noise
+              </div>
+            </div>
+            
+            <h4 class="text-sm font-mono text-sigma uppercase tracking-wider mb-3">Critical Slowing Down (CSD)</h4>
+            
+            <div class="space-y-3 mb-6">
+              <div class="flex items-center gap-4">
+                <div class="w-24 text-xs font-mono text-slate-500">λ → 0</div>
+                <div class="flex-1 level-indicator rounded-full overflow-hidden">
+                  <div class="level-fill w-0"></div>
+                </div>
+                <div class="text-xs text-slate-400">Recovery rate degrades</div>
+              </div>
+              <div class="flex items-center gap-4">
+                <div class="w-24 text-xs font-mono text-slate-500">AC↑</div>
+                <div class="flex-1 level-indicator rounded-full overflow-hidden">
+                  <div class="level-fill w-3/4"></div>
+                </div>
+                <div class="text-xs text-slate-400">Autocorrelation increases</div>
+              </div>
+              <div class="flex items-center gap-4">
+                <div class="w-24 text-xs font-mono text-slate-500">Var↑</div>
+                <div class="flex-1 level-indicator rounded-full overflow-hidden">
+                  <div class="level-fill w-2/3"></div>
+                </div>
+                <div class="text-xs text-slate-400">Variance escalates</div>
+              </div>
+            </div>
+            
+            <div class="metric-card p-4 rounded-r-lg">
+              <p class="text-sm text-slate-300">
+                <strong class="text-sigma">The bridge:</strong> CSD translates state-space mathematics into 
+                <strong>early warning signals</strong> that can trigger automatic legal and financial effects.
+              </p>
+            </div>
+            
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 5: THE FOUR VARIABLES -->
+      <article class="card border border-slate-800 bg-slate-900/50 rounded-lg cursor-pointer" onclick="toggleCard(this)">
+        <div class="p-6 flex items-start justify-between gap-4">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-lg bg-sigma/10 border border-sigma/20 flex items-center justify-center flex-shrink-0">
+              <span class="font-mono text-sigma text-lg font-bold">05</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-medium text-slate-200 mb-1">The Four Variables</h3>
+              <p class="text-sm text-slate-500">TFP: Threshold Function Protocol</p>
+            </div>
+          </div>
+          <div class="card-icon w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center">
+            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="card-content px-6 pb-6">
+          <div class="pt-4 border-t border-slate-800">
+            
+            <div class="grid md:grid-cols-2 gap-4">
+              
+              <div class="variable-box p-4 rounded-lg">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-mono text-2xl text-sigma font-bold">P</span>
+                  <span class="text-xs font-mono text-slate-500 uppercase">Position</span>
+                </div>
+                <p class="text-sm text-slate-400 mb-2">Proximity to Safe Operating Space boundary</p>
+                <p class="text-xs text-slate-500">Governance function: Proximity as <strong class="text-slate-300">legal constraint</strong>, not just indicator</p>
+              </div>
+              
+              <div class="variable-box p-4 rounded-lg">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-mono text-2xl text-sigma font-bold">ΔV</span>
+                  <span class="text-xs font-mono text-slate-500 uppercase">Velocity</span>
+                </div>
+                <p class="text-sm text-slate-400 mb-2">Rate and direction of approach</p>
+                <p class="text-xs text-slate-500"><strong class="text-slate-300">Trajectory awareness:</strong> systems far from boundary may still be dangerous if accelerating</p>
+              </div>
+              
+              <div class="variable-box p-4 rounded-lg">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-mono text-2xl text-sigma font-bold">σ</span>
+                  <span class="text-xs font-mono text-slate-500 uppercase">Uncertainty</span>
+                </div>
+                <p class="text-sm text-slate-400 mb-2">Confidence intervals, measurement error</p>
+                <p class="text-xs text-slate-500"><strong class="text-slate-300">Asymmetric treatment:</strong> uncertainty <em>contracts</em> operational margins, never expands them</p>
+              </div>
+              
+              <div class="variable-box p-4 rounded-lg border-sigma/30 bg-sigma/5">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-mono text-2xl text-sigma font-bold">Lr</span>
+                  <span class="text-xs font-mono text-slate-500 uppercase">Reversibility Liquidity</span>
+                </div>
+                <p class="text-sm text-slate-400 mb-2">Mobilizable resources / projected reversal cost</p>
+                <p class="text-xs text-slate-500"><strong class="text-sigma">Decisive for IEX:</strong> when Lr depletes, execution becomes incompatible with stability</p>
+              </div>
+              
+            </div>
+            
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 6: PRUDENTIAL ARCHITECTURE -->
+      <article class="card border border-slate-800 bg-slate-900/50 rounded-lg cursor-pointer" onclick="toggleCard(this)">
+        <div class="p-6 flex items-start justify-between gap-4">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center flex-shrink-0">
+              <span class="font-mono text-slate-400 text-lg font-bold">06</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-medium text-slate-200 mb-1">Prudential Architecture</h3>
+              <p class="text-sm text-slate-500">Four levels of systemic response</p>
+            </div>
+          </div>
+          <div class="card-icon w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center">
+            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="card-content px-6 pb-6">
+          <div class="pt-4 border-t border-slate-800">
+            
+            <div class="space-y-3">
+              
+              <div class="flex items-center gap-4 p-3 bg-slate-950 border border-slate-800 rounded-lg">
+                <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+                <div class="flex-1">
+                  <div class="flex items-center justify-between">
+                    <span class="text-slate-200 font-medium">Green</span>
+                    <span class="text-xs font-mono text-slate-500">Nominal operation</span>
+                  </div>
+                </div>
+                <span class="text-xs text-slate-500">Standard monitoring</span>
+              </div>
+              
+              <div class="flex items-center gap-4 p-3 bg-slate-950 border border-slate-800 rounded-lg">
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="flex-1">
+                  <div class="flex items-center justify-between">
+                    <span class="text-slate-200 font-medium">Amber</span>
+                    <span class="text-xs font-mono text-slate-500">Heightened vigilance</span>
+                  </div>
+                </div>
+                <span class="text-xs text-slate-500">Reinforced reporting, enhanced guarantees</span>
+              </div>
+              
+              <div class="flex items-center gap-4 p-3 bg-sigma/10 border border-sigma/30 rounded-lg">
+                <div class="w-3 h-3 rounded-full bg-sigma animate-pulse"></div>
+                <div class="flex-1">
+                  <div class="flex items-center justify-between">
+                    <span class="text-sigma font-medium">Red — Safe Mode</span>
+                    <span class="text-xs font-mono text-sigma">Systemic curatorship</span>
+                  </div>
+                </div>
+                <span class="text-xs text-slate-400"><strong>Execution reconfiguration</strong> — not default, not termination</span>
+              </div>
+              
+              <div class="flex items-center gap-4 p-3 bg-red-950/30 border border-red-900/50 rounded-lg">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="flex-1">
+                  <div class="flex items-center justify-between">
+                    <span class="text-red-400 font-medium">Black — Restoration First</span>
+                    <span class="text-xs font-mono text-red-400">External intervention</span>
+                  </div>
+                </div>
+                <span class="text-xs text-slate-500">Automatic asset conversion to certified restoration providers</span>
+              </div>
+              
+            </div>
+            
+            <div class="mt-4 p-4 border-l-2 border-sigma bg-sigma/5">
+              <p class="text-sm text-slate-300">
+                <strong class="text-sigma">Key distinction:</strong> Safe Mode = <strong>non-default protective state</strong>. 
+                The contract continues; execution is reconfigured to preserve reversibility and asset value.
+              </p>
+            </div>
+            
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 7: WHY THE WORLD BANK -->
+      <article class="card border border-slate-800 bg-slate-900/50 rounded-lg cursor-pointer" onclick="toggleCard(this)">
+        <div class="p-6 flex items-start justify-between gap-4">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-lg bg-sigma/10 border border-sigma/20 flex items-center justify-center flex-shrink-0">
+              <span class="font-mono text-sigma text-lg font-bold">07</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-medium text-slate-200 mb-1">Why the World Bank</h3>
+              <p class="text-sm text-slate-500">Alignment with institutional priorities</p>
+            </div>
+          </div>
+          <div class="card-icon w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center">
+            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="card-content px-6 pb-6">
+          <div class="pt-4 border-t border-slate-800">
+            
+            <div class="space-y-4">
+              
+              <div class="comparison-table">
+                <div class="flex items-start gap-4 py-3 border-b border-slate-800">
+                  <div class="w-1/3">
+                    <span class="text-sm font-mono text-sigma">GFDRR</span>
+                    <p class="text-xs text-slate-500">Disaster Risk Analytics</p>
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-sm text-slate-400">
+                      Methodological layer for <strong class="text-slate-200">trajectory-based</strong> (not event-based) risk governance
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start gap-4 py-3 border-b border-slate-800">
+                  <div class="w-1/3">
+                    <span class="text-sm font-mono text-sigma">Risk Finance Umbrella</span>
+                    <p class="text-xs text-slate-500">CREWS</p>
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-sm text-slate-400">
+                      <strong class="text-slate-200">Parametric triggers</strong> on certified biophysical indicators; pre-arranged finance activation
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start gap-4 py-3 border-b border-slate-800">
+                  <div class="w-1/3">
+                    <span class="text-sm font-mono text-sigma">Climate Change Group</span>
+                    <p class="text-xs text-slate-500">Project Finance</p>
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-sm text-slate-400">
+                      <strong class="text-slate-200">Non-default protective states</strong> for project finance sustainability
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start gap-4 py-3">
+                  <div class="w-1/3">
+                    <span class="text-sm font-mono text-sigma">Development Economics</span>
+                    <p class="text-xs text-slate-500">DEC</p>
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-sm text-slate-400">
+                      Research infrastructure for <strong class="text-slate-200">non-linear dynamics</strong> in economic systems
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            
+            <div class="mt-6 metric-card p-4 rounded-r-lg">
+              <p class="text-sm text-slate-300">
+                <strong class="text-sigma">Value proposition:</strong> Closes the gap between scientific detection and 
+                <strong>decision-grade, enforceable, financially operable</strong> structure.
+              </p>
+            </div>
+            
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 8: FUNCTIONAL ANALOGIES -->
+      <article class="card border border-slate-800 bg-slate-900/50 rounded-lg cursor-pointer" onclick="toggleCard(this)">
+        <div class="p-6 flex items-start justify-between gap-4">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center flex-shrink-0">
+              <span class="font-mono text-slate-400 text-lg font-bold">08</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-medium text-slate-200 mb-1">Functional Analogies</h3>
+              <p class="text-sm text-slate-500">What this is — and is not</p>
+            </div>
+          </div>
+          <div class="card-icon w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center">
+            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="card-content px-6 pb-6">
+          <div class="pt-4 border-t border-slate-800">
+            
+            <div class="grid md:grid-cols-2 gap-6">
+              
+              <div>
+                <h4 class="text-sm font-mono text-sigma uppercase tracking-wider mb-3">This is</h4>
+                <ul class="space-y-2">
+                  <li class="flex items-start gap-2 text-sm text-slate-300">
+                    <span class="text-sigma mt-1">◆</span>
+                    <span>Prudential infrastructure</span>
+                  </li>
+                  <li class="flex items-start gap-2 text-sm text-slate-300">
+                    <span class="text-sigma mt-1">◆</span>
+                    <span>Capital preservation architecture</span>
+                  </li>
+                  <li class="flex items-start gap-2 text-sm text-slate-300">
+                    <span class="text-sigma mt-1">◆</span>
+                    <span><strong class="text-sigma">Basel III buffers applied to biophysical systems</strong></span>
+                  </li>
+                  <li class="flex items-start gap-2 text-sm text-slate-300">
+                    <span class="text-sigma mt-1">◆</span>
+                    <span>Automatic execution-conditioning mechanism</span>
+                  </li>
+                  <li class="flex items-start gap-2 text-sm text-slate-300">
+                    <span class="text-sigma mt-1">◆</span>
+                    <span>Market-ready contractual infrastructure</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-mono text-slate-500 uppercase tracking-wider mb-3">This is not</h4>
+                <ul class="space-y-2">
+                  <li class="flex items-start gap-2 text-sm text-slate-500">
+                    <span class="text-slate-700 mt-1">◆</span>
+                    <span>Environmental enforcement</span>
+                  </li>
+                  <li class="flex items-start gap-2 text-sm text-slate-500">
+                    <span class="text-slate-700 mt-1">◆</span>
+                    <span>ESG compliance framework</span>
+                  </li>
+                  <li class="flex items-start gap-2 text-sm text-slate-500">
+                    <span class="text-slate-700 mt-1">◆</span>
+                    <span>Traditional insurance / liability</span>
+                  </li>
+                  <li class="flex items-start gap-2 text-sm text-slate-500">
+                    <span class="text-slate-700 mt-1">◆</span>
+                    <span>Discretionary regulatory intervention</span>
+                  </li>
+                  <li class="flex items-start gap-2 text-sm text-slate-500">
+                    <span class="text-slate-700 mt-1">◆</span>
+                    <span>Public policy proposal</span>
+                  </li>
+                </ul>
+              </div>
+              
+            </div>
+            
+            <div class="mt-6 p-4 border border-sigma/20 bg-sigma/5 rounded-lg">
+              <p class="text-sm text-slate-300">
+                <strong class="text-sigma">Analogy:</strong> Functionally analogous to 
+                <strong>orderly liquidation authority in financial systemic risk regulation</strong> — 
+                but applied to biophysical systems.
+              </p>
+            </div>
+            
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 9: GOVERNANCE ARCHITECTURE -->
+      <article class="card border border-slate-800 bg-slate-900/50 rounded-lg cursor-pointer" onclick="toggleCard(this)">
+        <div class="p-6 flex items-start justify-between gap-4">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-lg bg-sigma/10 border border-sigma/20 flex items-center justify-center flex-shrink-0">
+              <span class="font-mono text-sigma text-lg font-bold">09</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-medium text-slate-200 mb-1">Governance Architecture</h3>
+              <p class="text-sm text-slate-500">Layered accountability: separation of powers</p>
+            </div>
+          </div>
+          <div class="card-icon w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center">
+            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="card-content px-6 pb-6">
+          <div class="pt-4 border-t border-slate-800">
+            
+            <div class="space-y-4">
+              
+              <div class="flex items-start gap-4 p-4 bg-slate-950 border border-slate-800 rounded-lg">
+                <div class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center flex-shrink-0">
+                  <span class="font-mono text-slate-400 text-sm">01</span>
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-slate-200 font-medium mb-1">Data & Verification Body (DVB)</h4>
+                  <p class="text-sm text-slate-400 mb-2">Certified sensors, continuous monitoring, integrity assurance</p>
+                  <p class="text-xs text-slate-500 font-mono">LIMIT: No normative or decisional authority</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start gap-4 p-4 bg-slate-950 border border-slate-800 rounded-lg">
+                <div class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center flex-shrink-0">
+                  <span class="font-mono text-slate-400 text-sm">02</span>
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-slate-200 font-medium mb-1">Calibration Council</h4>
+                  <p class="text-sm text-slate-400 mb-2">Sectoral parameters, methodological updates, threshold calibration</p>
+                  <p class="text-xs text-slate-500 font-mono">LIMIT: No intervention in individual assets or projects</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start gap-4 p-4 bg-slate-950 border border-slate-800 rounded-lg">
+                <div class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center flex-shrink-0">
+                  <span class="font-mono text-slate-400 text-sm">03</span>
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-slate-200 font-medium mb-1">Due Process Layer</h4>
+                  <p class="text-sm text-slate-400 mb-2">Technical contestation: material error, fraud, sensor failure</p>
+                  <p class="text-xs text-slate-500 font-mono">LIMIT: No review of ecological, economic, or policy merit</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start gap-4 p-4 bg-slate-950 border border-slate-800 rounded-lg">
+                <div class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center flex-shrink-0">
+                  <span class="font-mono text-slate-400 text-sm">04</span>
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-slate-200 font-medium mb-1">Legal Interface</h4>
+                  <p class="text-sm text-slate-400 mb-2">Contracts, bonds, insurance, automatic triggers</p>
+                  <p class="text-xs text-slate-500 font-mono">LIMIT: Courts verify integrity, not manage risk</p>
+                </div>
+              </div>
+              
+            </div>
+            
+            <div class="mt-4 p-4 border-l-2 border-sigma bg-sigma/5">
+              <p class="text-sm text-slate-300">
+                <strong class="text-sigma">Result:</strong> Non-interpretive, automatic, auditable — 
+                preserving execution speed while ensuring accountability.
+              </p>
+            </div>
+            
+          </div>
+        </div>
+      </article>
+
+            <!-- CARD 10: THE ASK -->
+      <article class="card border border-slate-800 bg-slate-900/50 rounded-lg cursor-pointer" onclick="toggleCard(this)">
+        <div class="p-6 flex items-start justify-between gap-4">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center flex-shrink-0">
+              <span class="font-mono text-slate-400 text-lg font-bold">10</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-medium text-slate-200 mb-1">The Ask</h3>
+              <p class="text-sm text-slate-500">What we are seeking</p>
+            </div>
+          </div>
+          <div class="card-icon w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center">
+            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="card-content px-6 pb-6">
+          <div class="pt-4 border-t border-slate-800">
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+              
+              <div class="p-4 border border-slate-700 bg-slate-950 rounded-lg">
+                <h4 class="text-sm font-mono text-slate-500 uppercase tracking-wider mb-3">Not seeking</h4>
+                <ul class="space-y-2 text-sm text-slate-500">
+                  <li class="flex items-center gap-2">
+                    <span class="text-slate-700">✕</span>
+                    <span>Direct project funding</span>
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <span class="text-slate-700">✕</span>
+                    <span>Immediate implementation</span>
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <span class="text-slate-700">✕</span>
+                    <span>Regulatory endorsement</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div class="p-4 border border-sigma/30 bg-sigma/5 rounded-lg">
+                <h4 class="text-sm font-mono text-sigma uppercase tracking-wider mb-3">Seeking</h4>
+                <ul class="space-y-2 text-sm text-slate-300">
+                  <li class="flex items-center gap-2">
+                    <span class="text-sigma">◆</span>
+                    <span>Institutional anchoring for analytical infrastructure</span>
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <span class="text-sigma">◆</span>
+                    <span>Technical counterparts (parametric risk, resilience metrics)</span>
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <span class="text-sigma">◆</span>
+                    <span>Realistic entry pathways (ASA, trust funds, partnerships)</span>
+                  </li>
+                </ul>
+              </div>
+              
+            </div>
+            
+            <div class="p-4 border border-sigma/20 bg-sigma/5 rounded-lg">
+              <p class="text-sm text-slate-300">
+                <strong class="text-sigma">What we offer:</strong> Research infrastructure, methodological development, 
+                proof-of-concept deployment — with institutional backing from 
+                <strong>Hasse Foundation</strong> and operational partnership via 
+                <strong>MOU for c-ECO development in Brazil</strong>.
+              </p>
+            </div>
+            
+            <div class="mt-6 flex flex-wrap gap-3">
+              <span class="tag px-3 py-1.5 text-xs font-mono text-sigma">Book I — Foundations</span>
+              <span class="tag px-3 py-1.5 text-xs font-mono text-sigma">c-ΣCO Statute</span>
+              <span class="tag px-3 py-1.5 text-xs font-mono text-sigma">TFP Manual</span>
+              <span class="tag px-3 py-1.5 text-xs font-mono text-sigma">TDR Mathematics</span>
+            </div>
+            
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="mt-16 pt-8 border-t border-slate-800">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 border border-sigma/30 flex items-center justify-center bg-sigma/5">
+            <span class="font-mono text-sigma font-bold">Σ</span>
+          </div>
+          <div class="text-xs text-slate-500 font-mono">
+            THRESHOLD DYNAMICS RESEARCH<br>
+            <span class="text-sigma">c-ECO Systemic Governance</span>
+          </div>
+        </div>
+        
+        <div class="flex items-center gap-6 text-xs font-mono text-slate-600">
+          <span>Supported by <span class="text-slate-400">Hasse Foundation</span></span>
+          <span>•</span>
+          <span>MOU Brazil: <span class="text-slate-400">ISM</span></span>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    function toggleCard(card) {
+      // Close all other cards
+      document.querySelectorAll('.card.expanded').forEach(c => {
+        if (c !== card) c.classList.remove('expanded');
+      });
+      
+      // Toggle current card
+      card.classList.toggle('expanded');
+    }
+  </script>
+
+</body>
+</html>
