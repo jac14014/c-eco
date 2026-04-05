@@ -380,7 +380,7 @@ html, body{
     }
 
     
-              /* UTILITARIOS */
+                  /* UTILITARIOS */
     .hidden { display: none !important; }
 
     .mobile-btn{
@@ -394,7 +394,7 @@ html, body{
       padding: 14px 22px;
       font-weight: 800;
       font-size: 12px;
-      z-index: 2000;
+      z-index: 1999;
       box-shadow: 0 4px 15px rgba(0,0,0,0.3);
       cursor: pointer;
       letter-spacing: 0.5px;
@@ -501,9 +501,27 @@ html, body{
         max-width:260px;
       }
 
-      /* MOBILE: mostra ambos os botões */
-      .mobile-btn{ display:block; } /* Index embaixo */
-      /* print-btn mantém display:flex - topo direito */
+      /* MOBILE: Index normal embaixo */
+      .mobile-btn{ 
+        display:block; 
+        /* mantém todos os estilos originais */
+      }
+
+      /* MOBILE: Print como ícone apenas, em cima do Index */
+      .print-btn{
+        display:flex;
+        top: auto;
+        bottom: 20px;
+        right: 20px;
+        padding: 8px 12px;
+        z-index: 2001;
+        border-radius: 4px;
+      }
+      
+      /* Esconde o texto no mobile */
+      .print-btn span {
+        display: none;
+      }
     }
 
     @media (max-width: 1200px) and (min-width: 1025px) {
@@ -523,6 +541,8 @@ html, body{
         overflow:visible;
       }
     }
+
+    
   </style>
 </head>
 
