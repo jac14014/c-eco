@@ -380,11 +380,11 @@ html, body{
     }
 
     
-          /* UTILITARIOS */
+              /* UTILITARIOS */
     .hidden { display: none !important; }
 
     .mobile-btn{
-      display:none;
+      display:none; /* Desktop: escondido */
       position: fixed;
       bottom: 20px;
       right: 20px;
@@ -415,7 +415,7 @@ html, body{
       cursor: pointer;
       letter-spacing: 0.5px;
       border-radius: 4px;
-      display: flex;
+      display: flex; /* Desktop: visível */
       align-items: center;
       gap: 8px;
       transition: all 0.3s ease;
@@ -501,9 +501,9 @@ html, body{
         max-width:260px;
       }
 
-      /* MOBILE: mostra Index, esconde Print */
-      .mobile-btn{ display:block; }
-      .print-btn{ display:none !important; }
+      /* MOBILE: mostra ambos os botões */
+      .mobile-btn{ display:block; } /* Index embaixo */
+      /* print-btn mantém display:flex - topo direito */
     }
 
     @media (max-width: 1200px) and (min-width: 1025px) {
@@ -514,8 +514,7 @@ html, body{
     }
 
     @media print {
-      .sidebar, .mobile-btn { display: none !important; }
-      .print-btn { display: none !important; }
+      .sidebar, .mobile-btn, .print-btn { display: none !important; }
       .main-content { margin-left: 0; padding: 0; }
       .document-page { box-shadow: none; max-width: 100%; }
       .fillable, .fillable-wide { border-bottom: 1px solid #999; }
