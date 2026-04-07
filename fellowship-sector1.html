@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow">
+  <title>c-ECO Fellowship | Sector 1 — Mining & Mineral Extraction</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --sidebar-width: 340px;
+      --earth-green: #1e3a2f;
+      --gold-accent: #d4a373;
+      --bg-body: #f5f7f4;
+      --text-main: #1a1a1a;
+      --border-color: #d4d8d4;
+      --soft-bg: #fafcfa;
+      --soft-blue: #f0f7ff;
+      --soft-amber: #fffaf0;
+      --soft-red: #fff5f5;
+      --submission-accent: #2c5282;
+      --muted-text: #596559;
+      --alert-red: #9b2c2c;
+      --warning-amber: #b7791f;
+      --safe-green: #22543d;
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+
+    body{
+      margin:0;
+      background:var(--bg-body);
+      color:var(--text-main);
+      font-family:'Inter', sans-serif;
+      line-height:1.65;
+    }
+
+    .sidebar{
+      width:var(--sidebar-width);
+      position:fixed;
+      top:0;
+      left:0;
+      height:100vh;
+      background:#fff;
+      border-right:1px solid var(--border-color);
+      padding:16px;
+      overflow-y:auto;
+      z-index:1000;
+      -webkit-overflow-scrolling:touch;
+      transition:transform .3s ease;
+    }
+
+    .sidebar-top{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding-bottom:10px;
+      margin-bottom:12px;
+      border-bottom:2px solid var(--gold-accent);
+    }
+
+    .logo-box{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:40px;
+      height:40px;
+      border:1px solid var(--border-color);
+      background:#fff;
+      color:var(--earth-green);
+      font-weight:900;
+      font-size:1.2rem;
+      text-decoration:none;
+      box-shadow:0 4px 12px rgba(0,0,0,.1);
+      flex-shrink:0;
+    }
+
+    .sidebar-title{
+      font-weight:800;
+      font-size:11px;
+      letter-spacing:1px;
+      color:var(--earth-green);
+      text-transform:uppercase;
+      line-height:1.2;
+      margin:0;
+    }
+
+    .search-container{
+      margin-bottom:12px;
+      position:sticky;
+      top:0;
+      background:#fff;
+      z-index:10;
+      padding-bottom:8px;
+    }
+
+    #sidebarSearch{
+      width:100%;
+      padding:10px 12px;
+      border:1px solid var(--border-color);
+      border-radius:4px;
+      font-family:'Inter', sans-serif;
+      font-size:13px;
+      outline:none;
+    }
+
+    #sidebarSearch:focus{
+      border-color:var(--gold-accent);
+      box-shadow:0 0 0 3px rgba(212,163,115,.15);
+    }
+
+    .nav-list{ list-style:none; padding:0; margin:0; }
+
+    .nav-section-title{
+      font-size:10px;
+      font-weight:800;
+      color:var(--submission-accent);
+      margin-top:14px;
+      text-transform:uppercase;
+      border-top:1px solid #eee;
+      padding-top:10px;
+      padding-bottom:5px;
+      letter-spacing:.8px;
+    }
+
+    .nav-item a{
+      text-decoration:none;
+      color:var(--text-main);
+      font-size:11px;
+      display:block;
+      padding:5px 8px;
+      line-height:1.35;
+      transition:.2s;
+      border-left:3px solid transparent;
+    }
+
+    .nav-item a:hover{
+      background:rgba(44,82,130,.08);
+      border-left-color:var(--submission-accent);
+    }
+
+    .main-content{
+      margin-left:var(--sidebar-width);
+      padding:40px 20px;
+      display:flex;
+      justify-content:center;
+    }
+
+    .document-page{
+      background:#fff;
+      width:100%;
+      max-width:860px;
+      padding:50px;
+      box-shadow:0 4px 25px rgba(0,0,0,.06);
+    }
+
+    .hero-header{
+      background:linear-gradient(135deg, #1e3a2f 0%, #2c5282 100%);
+      color:#fff;
+      padding:28px 30px;
+      margin:-50px -50px 30px -50px;
+      border-bottom:3px solid var(--gold-accent);
+    }
+
+    .hero-eyebrow{
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      opacity:.92;
+      margin-bottom:10px;
+    }
+
+    .hero-title{
+      font-family:'Libre Baskerville', serif;
+      font-size:28px;
+      line-height:1.25;
+      margin:0 0 12px 0;
+    }
+
+    .hero-subtitle{
+      font-size:13px;
+      opacity:.93;
+      line-height:1.6;
+      max-width:760px;
+    }
+
+    .section-header{
+      font-family:'Libre Baskerville', serif;
+      font-weight:700;
+      font-size:18px;
+      color:var(--earth-green);
+      margin:35px 0 20px 0;
+      padding-bottom:10px;
+      border-bottom:3px solid var(--submission-accent);
+      scroll-margin-top:24px;
+    }
+
+    .subsection-header{
+      font-family:'Libre Baskerville', serif;
+      font-weight:700;
+      font-size:15px;
+      color:var(--earth-green);
+      margin:25px 0 14px 0;
+      padding-bottom:8px;
+      border-bottom:1px solid var(--border-color);
+      scroll-margin-top:24px;
+    }
+
+    .caput{
+      text-align:justify;
+      margin-bottom:12px;
+      font-family:'Libre Baskerville', serif;
+      line-height:1.72;
+      font-size:13.5px;
+    }
+
+    .paragraph{
+      margin-left:24px;
+      font-size:12.5px;
+      margin-bottom:8px;
+      line-height:1.65;
+      color:#333;
+    }
+
+    .inciso{
+      margin-left:48px;
+      font-size:12.5px;
+      margin-bottom:7px;
+      color:#444;
+    }
+
+    .note-box,
+    .framework-box,
+    .callout-box,
+    .track-box,
+    .policy-box,
+    .contract-box,
+    .exercise-box,
+    .warning-box,
+    .alert-box,
+    .didactic-box{
+      margin:18px 0 24px 0;
+      padding:18px 20px;
+      border-left:4px solid var(--submission-accent);
+    }
+
+    .note-box,
+    .framework-box,
+    .callout-box,
+    .track-box,
+    .exercise-box{
+      background:var(--soft-bg);
+    }
+
+    .policy-box,
+    .contract-box,
+    .didactic-box{
+      background:var(--soft-blue);
+    }
+
+    .warning-box{
+      background:var(--soft-amber);
+      border-left-color:var(--warning-amber);
+    }
+
+    .alert-box{
+      background:var(--soft-red);
+      border-left-color:var(--alert-red);
+    }
+
+    .box-title{
+      font-size:11px;
+      font-weight:800;
+      color:var(--earth-green);
+      text-transform:uppercase;
+      letter-spacing:.7px;
+      margin-bottom:8px;
+    }
+
+    .warning-box .box-title{ color:var(--warning-amber); }
+    .alert-box .box-title{ color:var(--alert-red); }
+
+    .grid-2,
+    .grid-3,
+    .grid-4{
+      display:grid;
+      gap:14px;
+      margin:18px 0 24px 0;
+    }
+
+    .grid-2{ grid-template-columns:1fr 1fr; }
+    .grid-3{ grid-template-columns:repeat(3, 1fr); }
+    .grid-4{ grid-template-columns:repeat(4, 1fr); }
+
+    .grid-card{
+      border:1px solid var(--border-color);
+      background:#fff;
+      padding:16px 18px;
+    }
+
+    .grid-card-title{
+      font-family:'Libre Baskerville', serif;
+      font-size:14px;
+      color:var(--earth-green);
+      margin-bottom:8px;
+      font-weight:700;
+    }
+
+    .grid-card p{
+      margin:0;
+      font-size:12.5px;
+      color:#333;
+      line-height:1.65;
+    }
+
+    .protocol-table{
+      width:100%;
+      border-collapse:collapse;
+      margin:18px 0;
+      font-size:12px;
+    }
+
+    .protocol-table th{
+      background:var(--earth-green);
+      color:#fff;
+      padding:10px 12px;
+      text-align:left;
+      font-weight:700;
+      text-transform:uppercase;
+      font-size:10px;
+      letter-spacing:.5px;
+    }
+
+    .protocol-table td{
+      padding:10px 12px;
+      border-bottom:1px solid var(--border-color);
+      vertical-align:top;
+    }
+
+    .protocol-table tr:nth-child(even){
+      background:var(--soft-bg);
+    }
+
+    .band-indicator{
+      display:inline-block;
+      padding:2px 8px;
+      border-radius:3px;
+      font-size:10px;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.5px;
+    }
+
+    .band-green{ background:#c6f6d5; color:#22543d; }
+    .band-amber{ background:#fefcbf; color:#744210; }
+    .band-red{ background:#fed7d7; color:#742a2a; }
+    .band-black{ background:#1a202c; color:#fff; }
+
+    .exercise-prompt{
+      border:1px dashed var(--border-color);
+      padding:14px 16px;
+      background:#fff;
+      margin:12px 0;
+    }
+
+    .exercise-question{
+      font-size:12.8px;
+      font-weight:700;
+      color:var(--earth-green);
+      margin-bottom:8px;
+    }
+
+    .worksheet-line{
+      border-bottom:1px solid #cfcfcf;
+      height:24px;
+      margin-bottom:8px;
+    }
+
+    .references-section{
+      margin-top:35px;
+      border-top:3px solid var(--submission-accent);
+      padding-top:20px;
+    }
+
+    .references-title{
+      font-family:'Libre Baskerville', serif;
+      font-weight:700;
+      font-size:16px;
+      color:var(--earth-green);
+      margin-bottom:16px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding-bottom:8px;
+      border-bottom:2px solid var(--earth-green);
+      user-select:none;
+    }
+
+    .references-title::after{
+      content:"▼";
+      font-size:11px;
+      transition:transform .3s;
+    }
+
+    .references-title.collapsed::after{
+      transform:rotate(-90deg);
+    }
+
+    .references-content{
+      max-height:8000px;
+      overflow:hidden;
+      transition:max-height .4s ease;
+    }
+
+    .references-content.collapsed{
+      max-height:0;
+    }
+
+    .reference-item{
+      margin-bottom:8px;
+      font-size:11.5px;
+      line-height:1.5;
+      color:#333;
+    }
+
+    .reference-item .author{
+      color:var(--earth-green);
+      font-weight:600;
+    }
+
+    .reference-item .title{
+      font-style:italic;
+    }
+
+    .copyright-footer{
+      margin-top:40px;
+      padding-top:25px;
+      border-top:2px solid var(--border-color);
+      font-size:11px;
+      line-height:1.6;
+      color:#555;
+    }
+
+    .copyright-notice{
+      font-weight:700;
+      color:var(--earth-green);
+      margin-bottom:10px;
+    }
+
+    .hidden{ display:none !important; }
+
+    .mobile-btn{
+      display:none;
+      position:fixed;
+      bottom:20px;
+      right:20px;
+      background:var(--earth-green);
+      color:#fff;
+      border:none;
+      padding:14px 22px;
+      font-weight:800;
+      font-size:12px;
+      z-index:2000;
+      box-shadow:0 4px 15px rgba(0,0,0,.3);
+      cursor:pointer;
+      letter-spacing:.5px;
+    }
+
+    .print-btn{
+      position:fixed;
+      top:20px;
+      right:20px;
+      background:var(--earth-green);
+      color:#fff;
+      border:none;
+      padding:12px 20px;
+      font-weight:700;
+      font-size:12px;
+      z-index:2000;
+      box-shadow:0 4px 15px rgba(0,0,0,.2);
+      cursor:pointer;
+      letter-spacing:.5px;
+      border-radius:4px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      transition:all .3s ease;
+    }
+
+    .print-btn:hover{
+      background:#2c5282;
+      transform:translateY(-2px);
+      box-shadow:0 6px 20px rgba(0,0,0,.25);
+    }
+
+    .print-btn::before{
+      content:"🖨️";
+      font-size:14px;
+    }
+
+    .print-btn.saving::before{
+      content:"⏳";
+    }
+
+    .pdf-status{
+      position:fixed;
+      top:70px;
+      right:20px;
+      background:#fff;
+      border:2px solid var(--gold-accent);
+      padding:12px 16px;
+      border-radius:4px;
+      box-shadow:0 4px 15px rgba(0,0,0,.15);
+      font-size:12px;
+      color:var(--earth-green);
+      font-weight:600;
+      z-index:1999;
+      display:none;
+      align-items:center;
+      gap:8px;
+    }
+
+    .pdf-status.show{
+      display:flex;
+      animation:slideIn .3s ease;
+    }
+
+    @keyframes slideIn{
+      from { transform:translateX(100px); opacity:0; }
+      to { transform:translateX(0); opacity:1; }
+    }
+
+    @media (max-width:1024px){
+      .sidebar{ transform:translateX(-100%); }
+      .sidebar.open{ transform:translateX(0); box-shadow:10px 0 30px rgba(0,0,0,.22); }
+      .main-content{ margin-left:0; padding:16px; }
+      .document-page{ padding:24px; width:auto; margin:0; }
+      .hero-header{ margin:-24px -24px 20px -24px; padding:24px; }
+      .grid-2, .grid-3, .grid-4{ grid-template-columns:1fr; }
+      .mobile-btn{ display:block; }
+      .print-btn{ top:auto; bottom:80px; right:20px; padding:14px 18px; }
+      .print-btn span{ display:none; }
+      .pdf-status{ top:auto; bottom:140px; right:20px; }
+    }
+
+    @media (max-width:1200px) and (min-width:1025px){
+      .document-page{
+        max-width:calc(100vw - var(--sidebar-width) - 40px);
+        padding:40px 30px;
+      }
+    }
+
+    @media print{
+      .sidebar, .mobile-btn, .print-btn, .pdf-status{ display:none !important; }
+      .main-content{ margin-left:0; }
+      .references-content{ max-height:none !important; }
+      .document-page{
+        box-shadow:none;
+        max-width:100%;
+        padding:30px;
+      }
+      .hero-header{
+        margin:0 0 24px 0;
+        -webkit-print-color-adjust:exact;
+        print-color-adjust:exact;
+      }
+      body{ background:#fff; }
+    }
+  </style>
+</head>
+
+<body>
+  <button class="mobile-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+    INDEX
+  </button>
+
+  <button class="print-btn" onclick="printDocument()" id="printBtn">
+    <span>Save PDF / Print</span>
+  </button>
+
+  <div class="pdf-status" id="pdfStatus">
+    <span>⏳</span> Preparing document for print...
+  </div>
+
+  <aside class="sidebar" id="sidebar" aria-label="Sector 1 Index">
+    <div class="sidebar-top">
+      <a href="fellowship-portal.html" class="logo-box" aria-label="Back to portal">Σ</a>
+      <div class="sidebar-title">Sector 1 Workbook</div>
+    </div>
+
+    <div class="search-container">
+      <input type="text" id="sidebarSearch" placeholder="Search section or concept..." aria-label="Search Index">
+    </div>
+
+    <nav>
+      <ul class="nav-list">
+        <li class="nav-section-title">Core Workbook</li>
+        <li class="nav-item"><a href="#SECTOR-DEFINITION">Section 1 — Sector Definition</a></li>
+        <li class="nav-item"><a href="#FAILURE-PATTERN">Section 2 — Systemic Failure Pattern</a></li>
+        <li class="nav-item"><a href="#PRE-THRESHOLD">Section 3 — Pre-Threshold Dynamics</a></li>
+        <li class="nav-item"><a href="#DECISION-FAILURES">Section 4 — Decision Failure Types</a></li>
+        <li class="nav-item"><a href="#CECO-APPLICATION">Section 5 — c-ECO Application</a></li>
+        <li class="nav-item"><a href="#CONTRACTUAL-TRANSLATION">Section 6 — Contractual Translation</a></li>
+        <li class="nav-item"><a href="#CASE-WORK">Section 7 — Case Work</a></li>
+
+        <li class="nav-section-title">Operational Appendices</li>
+        <li class="nav-item"><a href="#APPENDIX-A">Appendix A — Condensed Fellowship Policy</a></li>
+        <li class="nav-item"><a href="#APPENDIX-B">Appendix B — Mining Contractual Stack</a></li>
+
+        <li class="nav-section-title">Reference</li>
+        <li class="nav-item"><a href="#REFERENCES">References</a></li>
+        <li class="nav-item"><a href="#COPYRIGHT">Copyright</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <article class="document-page">
+      <header class="hero-header">
+        <div class="hero-eyebrow">c-ECO Fellowship Program | Sectoral Workbook</div>
+        <h1 class="hero-title">Sector 1 — Mining & Mineral Extraction</h1>
+        <div class="hero-subtitle">
+          Official didactic workbook for applied Fellowship use. This sector page translates the c-ECO threshold-governance architecture into the specific logic of extractive systems, geotechnical instability, hydrological disruption, tailings exposure, and restoration-conditioned contractual design.
+        </div>
+      </header>
+
+      <section id="SECTOR-DEFINITION">
+        <div class="section-header">SECTION 1 — SECTOR DEFINITION</div>
+
+        <div class="caput">
+          Mining and mineral extraction systems operate under conditions of high material asymmetry. They generate concentrated economic value through processes that often distribute biophysical risk across water systems, geotechnical structures, territorial ecosystems, downstream communities, and long-tail liability chains. Unlike sectors where correction may remain administratively reversible, mining often alters geological, hydrological, and toxicological conditions in ways that become difficult, costly, or impossible to restore at human timescales.
+        </div>
+
+        <div class="caput">
+          For this reason, mining is not to be understood merely as an industrial activity. Within the c-ECO framework, it is a threshold-sensitive extractive regime whose legality, continuity, and enforceability must be conditioned by dynamic systemic compatibility. Stability in mining cannot be inferred from ongoing production alone. A mine may remain commercially functional while its underlying trajectory moves toward geotechnical failure, aquifer disruption, contamination migration, or irreversible loss of restoration liquidity.
+        </div>
+
+        <div class="didactic-box">
+          <div class="box-title">Didactic Translation</div>
+          In ordinary industrial reasoning, the question is often: “Is the mine operating?” In c-ECO reasoning, the prior question is: “Is the mining trajectory still compatible with continued reversibility?”
+        </div>
+
+        <div class="grid-2">
+          <div class="grid-card">
+            <div class="grid-card-title">Material Units of Concern</div>
+            <p>Tailings structures, pit slopes, waste rock piles, groundwater tables, aquifer connectivity, contamination pathways, blasting regimes, haul routes, processing residues, and restoration reserves.</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title">Legal Units of Concern</div>
+            <p>Extraction rights, concession continuity, guarantee structures, restoration obligations, liability shields, monitoring covenants, community-impact provisions, and emergency modulation clauses.</p>
+          </div>
+        </div>
+
+        <div class="warning-box">
+          <div class="box-title">Sector Premise</div>
+          In mining, visible collapse is a late event. Threshold governance therefore begins before collapse, not after it.
+        </div>
+      </section>
+
+      <section id="FAILURE-PATTERN">
+        <div class="section-header">SECTION 2 — SYSTEMIC FAILURE PATTERN</div>
+
+        <div class="caput">
+          Mining systems usually do not fail at the moment of apparent rupture alone. They fail through accumulation. Their characteristic pattern is one of apparent operational continuity masking progressive degradation in underlying stability conditions. The decisive juridical problem is therefore not how to react to collapse, but how to detect the point at which formal continuity no longer justifies legal continuation.
+        </div>
+
+        <div class="subsection-header">2.1 — The Typical Mining Failure Sequence</div>
+
+        <table class="protocol-table">
+          <thead>
+            <tr>
+              <th>Phase</th>
+              <th>Operational Appearance</th>
+              <th>Underlying Reality</th>
+              <th>c-ECO Reading</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Apparent Stability</td>
+              <td>Production continues normally</td>
+              <td>Risk variables are beginning to drift</td>
+              <td>Watch for signal integrity and baseline deviation</td>
+            </tr>
+            <tr>
+              <td>Silent Accumulation</td>
+              <td>No collapse yet visible</td>
+              <td>Stress builds in slopes, tailings, or water systems</td>
+              <td>Pre-threshold relevance emerges</td>
+            </tr>
+            <tr>
+              <td>Compression of Reversibility</td>
+              <td>Response window narrows</td>
+              <td>Lr falls; intervention becomes costlier and slower</td>
+              <td>Safe Mode may become necessary</td>
+            </tr>
+            <tr>
+              <td>Critical Transition</td>
+              <td>Instability becomes acute</td>
+              <td>System nears or crosses threshold</td>
+              <td>Automatic Red / Black governance logic</td>
+            </tr>
+            <tr>
+              <td>Post-Threshold Condition</td>
+              <td>Failure or irreversible contamination</td>
+              <td>Restoration pathways are limited</td>
+              <td>IEX / Restoration First logic dominates</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="alert-box">
+          <div class="box-title">Critical Distinction</div>
+          Mining failure is not identical to mining accident. An accident is an event. A failure pattern is a trajectory.
+        </div>
+
+        <div class="subsection-header">2.2 — Why Conventional Governance Arrives Too Late</div>
+        <div class="inciso">I — It waits for visible damage or breach</div>
+        <div class="inciso">II — It treats monitoring as informative rather than conditioning</div>
+        <div class="inciso">III — It assumes legal continuity unless formal illegality is proven</div>
+        <div class="inciso">IV — It treats corporate and contractual fragmentation as barriers to integrated responsibility</div>
+
+        <div class="paragraph">
+          Under c-ECO, the question changes from “Was there a collapse?” to “At what point did continuation become incompatible with systemic reversibility?”
+        </div>
+      </section>
+
+      <section id="PRE-THRESHOLD">
+        <div class="section-header">SECTION 3 — PRE-THRESHOLD DYNAMICS</div>
+
+        <div class="caput">
+          Pre-threshold dynamics are the measurable changes that indicate that a mining system is moving toward instability before catastrophic failure becomes visible. In c-ECO, these dynamics are not merely technical warnings; they are legally relevant indicators because they condition the continued validity of extractive trajectories.
+        </div>
+
+        <div class="subsection-header">3.1 — Core Mining Indicators</div>
+
+        <div class="grid-4">
+          <div class="grid-card">
+            <div class="grid-card-title">Geotechnical Stress</div>
+            <p>Slope deformation, pore pressure, settlement rate, crack propagation, tailings wall displacement.</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title">Hydrological Disturbance</div>
+            <p>Groundwater drawdown, aquifer connectivity change, seepage anomalies, turbidity shifts, contamination plume migration.</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title">Toxicological Pressure</div>
+            <p>Heavy metals release, acid drainage conditions, residue concentration, water chemistry drift, persistent contamination risk.</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title">Restoration Compression</div>
+            <p>Decline in available restoration pathways, increasing remediation time, rising dependency on irreversible containment.</p>
+          </div>
+        </div>
+
+        <div class="subsection-header">3.2 — TFP Translation for Mining</div>
+
+        <table class="protocol-table">
+          <thead>
+            <tr>
+              <th>TFP Variable</th>
+              <th>Mining Translation</th>
+              <th>Example Question</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>P — Position</td>
+              <td>Current distance to geotechnical, hydrological, or contamination thresholds</td>
+              <td>How close is the tailings system to critical instability?</td>
+            </tr>
+            <tr>
+              <td>ΔV — Velocity</td>
+              <td>Rate of deterioration in monitoring variables</td>
+              <td>How quickly is groundwater drawdown worsening?</td>
+            </tr>
+            <tr>
+              <td>σ — Uncertainty</td>
+              <td>Confidence limits of signal interpretation and monitoring coverage</td>
+              <td>How reliable is current sensor or survey coverage?</td>
+            </tr>
+            <tr>
+              <td>Lr — Reversibility Liquidity</td>
+              <td>Availability of viable corrective pathways before irreversible damage</td>
+              <td>Can the system still be stabilized without major irreversible loss?</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="framework-box">
+          <div class="box-title">Didactic Rule</div>
+          A mine is not “safe” merely because it has not failed. It remains legally continuable only while P, ΔV, σ, and Lr still support reversible operation.
+        </div>
+
+        <div class="subsection-header">3.3 — Band Logic in Mining</div>
+
+        <div class="grid-2">
+          <div class="grid-card">
+            <div class="grid-card-title"><span class="band-indicator band-green">Green</span> / <span class="band-indicator band-amber">Amber</span></div>
+            <p>Monitoring and intensified vigilance. Production may continue, but only under conditions that preserve signal integrity and response capacity.</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title"><span class="band-indicator band-red">Red</span> / <span class="band-indicator band-black">Black</span></div>
+            <p>Safe Mode or IEX logic. Containment, suspension, or restoration-first governance becomes dominant over throughput or extraction targets.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="DECISION-FAILURES">
+        <div class="section-header">SECTION 4 — DECISION FAILURE TYPES</div>
+
+        <div class="caput">
+          Mining decision failure is not limited to negligence or bad faith. It often emerges from structurally normalized reasoning patterns that treat productive continuity as evidence of safety, discount uncertainty, or postpone intervention until the cost of correction becomes extreme.
+        </div>
+
+        <div class="subsection-header">4.1 — Typical Failure Types</div>
+
+        <div class="grid-2">
+          <div class="grid-card">
+            <div class="grid-card-title">1. Stability Illusion</div>
+            <p>Assuming that uninterrupted output indicates systemic health, even when stress variables are drifting.</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title">2. Cost Delay Logic</div>
+            <p>Postponing containment because intervention is expensive, even though delay destroys reversibility.</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title">3. Fragmented Responsibility</div>
+            <p>Treating operators, guarantors, contractors, and vehicles as separate despite functional unity of risk.</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title">4. Signal Discounting</div>
+            <p>Downgrading weak or uncertain signals rather than interpreting uncertainty conservatively.</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title">5. Restoration Deferral</div>
+            <p>Maintaining extraction logic while assuming remediation can always be done later.</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title">6. Legal Formalism Bias</div>
+            <p>Assuming that formal permit continuity is enough even when material compatibility is collapsing.</p>
+          </div>
+        </div>
+
+        <div class="warning-box">
+          <div class="box-title">Didactic Warning</div>
+          In mining, the most dangerous decision is often not an obviously illegal act. It is the legally tolerated continuation of a trajectory whose reversibility window is closing.
+        </div>
+
+        <div class="subsection-header">4.2 — Diagnostic Questions for Fellows</div>
+        <div class="inciso">I — What is being treated as stable merely because it is still functioning?</div>
+        <div class="inciso">II — Which signals are being ignored because they are incomplete or uncertain?</div>
+        <div class="inciso">III — Which actors benefit from delay while restoration liquidity is falling?</div>
+        <div class="inciso">IV — Which contractual or corporate structures obscure integrated material risk?</div>
+      </section>
+
+      <section id="CECO-APPLICATION">
+        <div class="section-header">SECTION 5 — c-ECO APPLICATION</div>
+
+        <div class="caput">
+          The c-ECO application layer translates mining pre-threshold dynamics into a governance architecture capable of conditioning continuation, triggering Safe Mode, and converting incompatible trajectories into restoration-priority logic. This is where threshold signals become analytically and juridically operative.
+        </div>
+
+        <div class="subsection-header">5.1 — Core Application Steps</div>
+        <div class="inciso">I — Define system boundary (mine, dam, aquifer, processing chain, downstream receptor zone)</div>
+        <div class="inciso">II — Establish signal architecture for P, ΔV, σ, and Lr</div>
+        <div class="inciso">III — Compute band classification under certified monitoring conditions</div>
+        <div class="inciso">IV — Trigger corresponding analytical posture and contractual consequences</div>
+        <div class="inciso">V — Reassess continuously rather than episodically</div>
+
+        <div class="subsection-header">5.2 — Trigger / Action Separation in Mining</div>
+
+        <table class="protocol-table">
+          <thead>
+            <tr>
+              <th>Layer</th>
+              <th>Function</th>
+              <th>Mining Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Detection Layer</td>
+              <td>Certified monitoring and TFP computation</td>
+              <td>Tailings pressure and deformation data classify system as Red</td>
+            </tr>
+            <tr>
+              <td>Analytical Layer</td>
+              <td>Fellow issues immediate systemic notice</td>
+              <td>Notice states Red Band and loss-of-reversibility risk</td>
+            </tr>
+            <tr>
+              <td>Coordination Layer</td>
+              <td>Institutional or governance actors coordinate response</td>
+              <td>Emergency modulation protocol is activated</td>
+            </tr>
+            <tr>
+              <td>Execution Layer</td>
+              <td>Operational actors implement containment / suspension</td>
+              <td>Pumping, deposition, blasting, or extraction is reduced or halted</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="alert-box">
+          <div class="box-title">Safe Mode Rule</div>
+          Safe Mode is automatically triggered upon certified Red or Black classification. In mining, this may require immediate modulation of extraction rate, suspension of tailings loading patterns, intensified hydrological control, or restoration-first reallocation of resources.
+        </div>
+
+        <div class="subsection-header">5.3 — Living Lab Use in Mining</div>
+        <div class="caput">
+          Mining cases within the Fellowship should be structured as applied analytical environments rather than merely descriptive case studies. The Fellow must work toward a usable governance output: threshold map, Safe Mode logic, or contractual modulation architecture capable of guiding institutional actors.
+        </div>
+
+        <div class="didactic-box">
+          <div class="box-title">What a Good Output Looks Like</div>
+          A good mining Fellowship output does not simply describe risk. It identifies where the mine changes legal-operational state.
+        </div>
+      </section>
+
+      <section id="CONTRACTUAL-TRANSLATION">
+        <div class="section-header">SECTION 6 — CONTRACTUAL TRANSLATION</div>
+
+        <div class="caput">
+          In mining, contractual translation is indispensable because monitoring alone does not change behavior unless linked to enforceability, modulation rights, and restoration obligations. The purpose of c-ECO contractual translation is to ensure that systemic conditions can alter legal relations before collapse.
+        </div>
+
+        <div class="subsection-header">6.1 — Core Mining Clausal Functions</div>
+
+        <div class="grid-3">
+          <div class="grid-card">
+            <div class="grid-card-title">Conditional Continuity</div>
+            <p>Extraction rights remain valid only while the mining trajectory remains compatible with monitored systemic reversibility.</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title">Automatic Modulation</div>
+            <p>Volumes, blasting intensity, deposition rates, or water use may be automatically reduced upon TFP escalation.</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title">Restoration Priority</div>
+            <p>Guarantees and financial protections convert toward restoration-first obligations when Black-band conditions arise.</p>
+          </div>
+        </div>
+
+        <div class="subsection-header">6.2 — Sample Mining IEX Clause</div>
+
+        <div class="contract-box">
+          <div class="box-title">Illustrative Clause — Mining Safe Mode and IEX</div>
+          <div class="caput">
+            The Parties acknowledge that the continuation of extraction, tailings deposition, waste storage, blasting intensity, and associated operational acts is legally conditioned upon continuous systemic compatibility with monitored geotechnical, hydrological, and contamination-related thresholds.
+          </div>
+          <div class="paragraph">
+            §1 — Upon certified Red Band classification under the Threshold Function Protocol, the operation shall automatically enter Safe Mode, and extraction-related obligations may be proportionally modulated, suspended, or reconfigured to preserve reversibility.
+          </div>
+          <div class="paragraph">
+            §2 — Upon certified Black Band classification, Ex-Ante Unenforceability (IEX) shall apply to all obligations whose performance materially aggravates the incompatible trajectory.
+          </div>
+          <div class="paragraph">
+            §3 — The occurrence of Safe Mode or IEX shall not constitute default by the Party complying with systemic preservation measures.
+          </div>
+          <div class="paragraph">
+            §4 — Any guarantee, collateral, or security interest associated with the operation shall, to the extent enforceable under applicable law, be reoriented toward restoration and stabilization obligations.
+          </div>
+        </div>
+
+        <div class="subsection-header">6.3 — Mining-Specific Contractual Devices</div>
+        <div class="inciso">I — Tailings loading modulation clauses</div>
+        <div class="inciso">II — Groundwater drawdown ceiling clauses</div>
+        <div class="inciso">III — Trigger-based blasting or excavation reduction clauses</div>
+        <div class="inciso">IV — Restoration reserve release and conversion mechanisms</div>
+        <div class="inciso">V — Systemic look-through clauses for SPVs and liability shields</div>
+
+        <div class="warning-box">
+          <div class="box-title">Contractual Lesson</div>
+          A mining contract is c-ECO-compatible only if it can change legal effect before the mine visibly fails.
+        </div>
+      </section>
+
+      <section id="CASE-WORK">
+        <div class="section-header">SECTION 7 — CASE WORK</div>
+
+        <div class="caput">
+          This workbook is designed for applied use. The Fellow should leave this page with a first-pass mining case structure capable of entering a Case-Specific Analytical Mandate (CSAM). The exercise below is not a general essay prompt. It is a structured analytical drill.
+        </div>
+
+        <div class="exercise-box">
+          <div class="box-title">Exercise 1 — Define the Mining System</div>
+          <div class="exercise-prompt">
+            <div class="exercise-question">1. What is the mine or mining environment under analysis?</div>
+            <div class="worksheet-line"></div>
+            <div class="worksheet-line"></div>
+          </div>
+          <div class="exercise-prompt">
+            <div class="exercise-question">2. What are the key material subsystems?</div>
+            <div class="worksheet-line"></div>
+            <div class="worksheet-line"></div>
+            <div class="worksheet-line"></div>
+          </div>
+        </div>
+
+        <div class="exercise-box">
+          <div class="box-title">Exercise 2 — Identify Threshold Signals</div>
+          <div class="exercise-prompt">
+            <div class="exercise-question">1. Which indicators best represent P, ΔV, σ, and Lr in this case?</div>
+            <div class="worksheet-line"></div>
+            <div class="worksheet-line"></div>
+            <div class="worksheet-line"></div>
+          </div>
+          <div class="exercise-prompt">
+            <div class="exercise-question">2. Which signals are available now, and which must be created?</div>
+            <div class="worksheet-line"></div>
+            <div class="worksheet-line"></div>
+          </div>
+        </div>
+
+        <div class="exercise-box">
+          <div class="box-title">Exercise 3 — Detect Decision Failure</div>
+          <div class="exercise-prompt">
+            <div class="exercise-question">What appears “operationally normal” but may already be systemically incompatible?</div>
+            <div class="worksheet-line"></div>
+            <div class="worksheet-line"></div>
+            <div class="worksheet-line"></div>
+          </div>
+        </div>
+
+        <div class="exercise-box">
+          <div class="box-title">Exercise 4 — Draft a First CSAM Outline</div>
+          <div class="inciso">I — Case title</div>
+          <div class="inciso">II — Primary sector classification: Mining & Mineral Extraction</div>
+          <div class="inciso">III — System boundary</div>
+          <div class="inciso">IV — Key signals and data sources</div>
+          <div class="inciso">V — Preliminary band classification hypothesis</div>
+          <div class="inciso">VI — Required contractual translation</div>
+        </div>
+
+        <div class="didactic-box">
+          <div class="box-title">Completion Standard</div>
+          By the end of Section 7, the Fellow should be able to articulate: (a) where the mining system becomes pre-threshold relevant, (b) which TFP variables matter most, and (c) how contract structure must change before collapse.
+        </div>
+      </section>
+
+      <section id="APPENDIX-A">
+        <div class="section-header">APPENDIX A — CONDENSED FELLOWSHIP POLICY (MINING USE)</div>
+
+        <div class="policy-box">
+          <div class="box-title">Status of the Fellow</div>
+          The Fellow acts as a non-decisional analytical agent. In mining cases, this means the Fellow may classify, interpret, and notify systemic conditions, but does not assume operational command over the mine, its contractors, or field systems.
+        </div>
+
+        <div class="policy-box">
+          <div class="box-title">Safe Mode Conduct Rule</div>
+          Upon Red or Black Band classification, the Fellow must issue immediate systemic notice, suspend optimization-oriented reasoning, and transition to containment and reversibility logic.
+        </div>
+
+        <div class="policy-box">
+          <div class="box-title">Integrity Rule</div>
+          Fellows must not suppress geotechnical, hydrological, or contamination signals in order to preserve economic continuity.
+        </div>
+
+        <div class="policy-box">
+          <div class="box-title">Confidentiality Rule</div>
+          Mining confidentiality may be requested, but systemic relevance, public interest, and scientific integrity remain governing filters for institutional review.
+        </div>
+      </section>
+
+      <section id="APPENDIX-B">
+        <div class="section-header">APPENDIX B — MINING CONTRACTUAL STACK</div>
+
+        <div class="contract-box">
+          <div class="box-title">FPA — Mining Adaptation</div>
+          Clarifies that the Fellow has no employment, operational, or fiduciary status in relation to the mining operator or related entities.
+        </div>
+
+        <div class="contract-box">
+          <div class="box-title">CDGA — Mining Adaptation</div>
+          Governs treatment of sensitive monitoring data, environmental findings, incident logs, and community-related information.
+        </div>
+
+        <div class="contract-box">
+          <div class="box-title">MAI — Mining Adaptation</div>
+          Requires all mining analysis to explicitly reference P, ΔV, σ, and Lr, and forbids outputs supporting continuation of extraction trajectories classified as systemically incompatible.
+        </div>
+
+        <div class="contract-box">
+          <div class="box-title">LLEP — Mining Adaptation</div>
+          Governs site-based or field-linked interaction with affected communities, technical teams, and institutional stakeholders in mining environments.
+        </div>
+
+        <div class="contract-box">
+          <div class="box-title">CSAM — Mining Template</div>
+          Must define concession boundary, waste and tailings interfaces, groundwater system, downstream receptor zone, signal architecture, applicable thresholds, and targeted contractual outputs.
+        </div>
+      </section>
+
+      <section class="references-section" id="REFERENCES">
+        <div class="references-title" onclick="toggleSection(this)">REFERENCES</div>
+        <div class="references-content collapsed">
+          <div class="reference-item">
+            <span class="author">Rockström, Johan, et al.</span> <span class="title">A Safe Operating Space for Humanity.</span> Nature, 2009.
+          </div>
+          <div class="reference-item">
+            <span class="author">Steffen, Will, et al.</span> <span class="title">Planetary Boundaries: Guiding Human Development on a Changing Planet.</span> Science, 2015.
+          </div>
+          <div class="reference-item">
+            <span class="author">Kotzé, Louis J. & Kim, Rakhyun E.</span> <span class="title">Earth System Law.</span> Earth System Governance, 2019.
+          </div>
+          <div class="reference-item">
+            <span class="author">French, Duncan & Kotzé, Louis J. (eds.)</span> <span class="title">Research Handbook on Law, Governance and Planetary Boundaries.</span> Edward Elgar, 2021.
+          </div>
+          <div class="reference-item">
+            <span class="author">c-ECO Fellowship Program — Call for Applications.</span> <span class="title">Johann Christian Hasse Foundation + Instituto Silvio Meira.</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="COPYRIGHT">
+        <div class="copyright-footer">
+          <div class="copyright-notice">© 2026 c-ECO Systemic Governance Initiative. Supported by the Johann Christian Hasse Foundation and Instituto Silvio Meira. All rights reserved.</div>
+          <div style="margin-bottom:10px;">
+            <strong>Document:</strong> Sector 1 Workbook — Mining & Mineral Extraction<br>
+            <strong>Version:</strong> 1.0 | <strong>Format:</strong> Fellowship Didactic Sector Page
+          </div>
+          <div style="margin-bottom:10px;">
+            This workbook is designed for applied Fellowship use and controlled institutional circulation within the c-ECO system.
+          </div>
+          <div style="font-size:10px; color:#888;">
+            Disclaimer: This material provides methodological and didactic guidance for systemic analysis. It does not independently constitute legal advice or operational command.
+          </div>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <script>
+    function toggleSection(header) {
+      const content = header.nextElementSibling;
+      header.classList.toggle('collapsed');
+      content.classList.toggle('collapsed');
+    }
+
+    const searchInput = document.getElementById('sidebarSearch');
+    const navItems = document.querySelectorAll('.nav-item');
+    const sectionTitles = document.querySelectorAll('.nav-section-title');
+    const sidebar = document.getElementById('sidebar');
+
+    searchInput.addEventListener('input', function(e) {
+      const term = e.target.value.toLowerCase();
+
+      navItems.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.classList.toggle('hidden', !text.includes(term));
+      });
+
+      sectionTitles.forEach(title => {
+        title.classList.toggle('hidden', term.length > 0);
+      });
+    });
+
+    document.querySelectorAll('.nav-item a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 1024) {
+          sidebar.classList.remove('open');
+        }
+      });
+    });
+
+    function printDocument() {
+      const btn = document.getElementById('printBtn');
+      const status = document.getElementById('pdfStatus');
+
+      status.classList.add('show');
+      btn.classList.add('saving');
+
+      const collapsedSections = document.querySelectorAll('.references-content.collapsed');
+      const wasCollapsed = [];
+
+      collapsedSections.forEach((section) => {
+        wasCollapsed.push(section);
+        section.classList.remove('collapsed');
+        section.previousElementSibling.classList.remove('collapsed');
+      });
+
+      setTimeout(() => {
+        window.print();
+
+        setTimeout(() => {
+          wasCollapsed.forEach(section => {
+            section.classList.add('collapsed');
+            section.previousElementSibling.classList.add('collapsed');
+          });
+
+          status.classList.remove('show');
+          btn.classList.remove('saving');
+        }, 1000);
+      }, 300);
+    }
+  </script>
+</body>
+</html>
