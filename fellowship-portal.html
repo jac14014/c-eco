@@ -20,6 +20,8 @@
       --soft-blue: #f0f7ff;
       --submission-accent: #2c5282;
       --muted-text: #596559;
+      --alert-red: #9b2c2c;
+      --warning-amber: #b7791f;
     }
 
     *{ box-sizing:border-box; }
@@ -214,6 +216,15 @@
       scroll-margin-top:24px;
     }
 
+    .subsubsection-header{
+      font-weight:700;
+      font-size:13px;
+      color:var(--earth-green);
+      margin:20px 0 10px 0;
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+    }
+
     .caput{
       text-align:justify;
       margin-bottom:12px;
@@ -246,7 +257,9 @@
     .contract-box,
     .policy-box,
     .institution-box,
-    .callout-box{
+    .callout-box,
+    .alert-box,
+    .warning-box{
       margin:18px 0 24px 0;
       padding:18px 20px;
       border-left:4px solid var(--submission-accent);
@@ -265,6 +278,16 @@
     .track-box,
     .criteria-box{ background:#f8faf8; }
 
+    .alert-box{ 
+      background:#fff5f5; 
+      border-left-color:var(--alert-red);
+    }
+
+    .warning-box{ 
+      background:#fffaf0; 
+      border-left-color:var(--warning-amber);
+    }
+
     .box-title{
       font-size:11px;
       font-weight:800;
@@ -274,23 +297,28 @@
       margin-bottom:8px;
     }
 
+    .alert-box .box-title{ color:var(--alert-red); }
+    .warning-box .box-title{ color:var(--warning-amber); }
+
     .layer-grid,
     .sector-grid,
     .criteria-grid,
     .contract-grid,
     .policy-grid,
-    .institution-grid{
+    .institution-grid,
+    .trigger-grid{
       display:grid;
       gap:14px;
       margin:18px 0 24px 0;
     }
 
     .layer-grid{ grid-template-columns:1fr; }
-    .sector-grid{ grid-template-columns:1fr 1fr; }
+    .sector-grid,
     .criteria-grid,
     .contract-grid,
     .policy-grid,
-    .institution-grid{ grid-template-columns:1fr 1fr; }
+    .institution-grid,
+    .trigger-grid{ grid-template-columns:1fr 1fr; }
 
     .grid-card{
       border:1px solid var(--border-color);
@@ -454,6 +482,49 @@
       transform:translateY(-1px);
       box-shadow:0 5px 14px rgba(0,0,0,.1);
     }
+
+    .protocol-table{
+      width:100%;
+      border-collapse:collapse;
+      margin:18px 0;
+      font-size:12px;
+    }
+
+    .protocol-table th{
+      background:var(--earth-green);
+      color:#fff;
+      padding:10px 12px;
+      text-align:left;
+      font-weight:700;
+      text-transform:uppercase;
+      font-size:10px;
+      letter-spacing:0.5px;
+    }
+
+    .protocol-table td{
+      padding:10px 12px;
+      border-bottom:1px solid var(--border-color);
+      vertical-align:top;
+    }
+
+    .protocol-table tr:nth-child(even){
+      background:var(--soft-bg);
+    }
+
+    .band-indicator{
+      display:inline-block;
+      padding:2px 8px;
+      border-radius:3px;
+      font-size:10px;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+    }
+
+    .band-green{ background:#c6f6d5; color:#22543d; }
+    .band-amber{ background:#fefcbf; color:#744210; }
+    .band-red{ background:#fed7d7; color:#742a2a; }
+    .band-black{ background:#1a202c; color:#fff; }
 
     .references-section{
       margin-top:35px;
@@ -624,7 +695,8 @@
       .criteria-grid,
       .contract-grid,
       .policy-grid,
-      .institution-grid{ grid-template-columns:1fr; }
+      .institution-grid,
+      .trigger-grid{ grid-template-columns:1fr; }
     }
 
     @media (max-width:1200px) and (min-width:1025px){
@@ -678,7 +750,7 @@
 
     <nav>
       <ul class="nav-list">
-        <li class="nav-section-title">Program Architecture</li>
+        <li class="nav-section-title">System Entry</li>
         <li class="nav-item"><a href="#PROGRAM-OVERVIEW">Program Overview</a></li>
         <li class="nav-item"><a href="#METHODOLOGICAL-CORE">Methodological Core</a></li>
         <li class="nav-item"><a href="#LIVING-LAB">Living Lab Framework</a></li>
@@ -688,23 +760,24 @@
         <li class="nav-section-title">Sectoral Tracks</li>
         <li class="nav-item"><a href="#SECTOR-ACCESS">Sector Access</a></li>
         <li class="nav-item"><a href="sector-1.html">Sector 1 — Mining & Mineral Extraction</a></li>
-        <li class="nav-item"><a href="sector-2.html">Sector 2 — Agribusiness & Intensive Land Use</a></li>
+        <li class="nav-item"><a href="sector-2.html">Sector 2 — Agribusiness & Land Use</a></li>
         <li class="nav-item"><a href="sector-3.html">Sector 3 — Energy Systems</a></li>
         <li class="nav-item"><a href="sector-4.html">Sector 4 — Water & Sanitation</a></li>
-        <li class="nav-item"><a href="sector-5.html">Sector 5 — Infrastructure & Heavy Construction</a></li>
+        <li class="nav-item"><a href="sector-5.html">Sector 5 — Infrastructure</a></li>
         <li class="nav-item"><a href="sector-6.html">Sector 6 — Financial Systems</a></li>
-        <li class="nav-item"><a href="sector-7.html">Sector 7 — Real Estate & Urbanization</a></li>
-        <li class="nav-item"><a href="sector-8.html">Sector 8 — Chemical & Materials Industries</a></li>
-        <li class="nav-item"><a href="sector-9.html">Sector 9 — Logistics & Transportation</a></li>
-        <li class="nav-item"><a href="sector-10.html">Sector 10 — Digital Technology & Data Infrastructure</a></li>
-        <li class="nav-item"><a href="sector-11.html">Sector 11 — Space & Orbital Infrastructure</a></li>
-        <li class="nav-item"><a href="sector-12.html">Sector 12 — Forests, Carbon & Natural Assets</a></li>
-        <li class="nav-item"><a href="sector-13.html">Sector 13 — Hybrid Enabling Systems</a></li>
+        <li class="nav-item"><a href="sector-7.html">Sector 7 — Real Estate</a></li>
+        <li class="nav-item"><a href="sector-8.html">Sector 8 — Chemical Industries</a></li>
+        <li class="nav-item"><a href="sector-9.html">Sector 9 — Logistics</a></li>
+        <li class="nav-item"><a href="sector-10.html">Sector 10 — Digital Infrastructure</a></li>
+        <li class="nav-item"><a href="sector-11.html">Sector 11 — Space & Orbital</a></li>
+        <li class="nav-item"><a href="sector-12.html">Sector 12 — Forests & Carbon</a></li>
+        <li class="nav-item"><a href="sector-13.html">Sector 13 — Hybrid Systems</a></li>
 
         <li class="nav-section-title">Governance & Participation</li>
         <li class="nav-item"><a href="#POLICY-FRAMEWORK">Fellowship Policy Framework</a></li>
         <li class="nav-item"><a href="#CONTRACTUAL-FRAMEWORK">Contractual Adhesion Framework</a></li>
         <li class="nav-item"><a href="#INSTITUTIONAL-FRAMEWORK">Institutional Framework</a></li>
+        <li class="nav-item"><a href="#TRIGGER-ACTION">Trigger/Action Separation</a></li>
         <li class="nav-item"><a href="#CALL-FOR-APPLICATIONS">Call for Applications</a></li>
         <li class="nav-item"><a href="#ACCESS-NEXT-STEPS">Access & Next Steps</a></li>
 
@@ -721,10 +794,11 @@
         <div class="hero-eyebrow">c-ECO Systemic Governance Initiative</div>
         <h1 class="hero-title">c-ECO Fellowship Program — Applied Entry Portal</h1>
         <div class="hero-subtitle">
-          This portal constitutes the official entry interface for the c-ECO Fellowship Program, a selective applied environment designed for participation in sector-based systemic governance under threshold-conditioned legal and operational logic.
+          This portal constitutes the official entry interface for the c-ECO Fellowship Program, a selective applied environment designed for participation in sector-based systemic governance under threshold-conditioned legal and operational logic. You are not applying to a program. You are entering a conditioned system.
         </div>
       </header>
 
+      <!-- SECTION 1: PROGRAM OVERVIEW -->
       <section id="PROGRAM-OVERVIEW">
         <div class="section-header">SECTION 1 — PROGRAM OVERVIEW</div>
 
@@ -736,15 +810,782 @@
           The Fellowship is organized as an institutional entry layer into systemic governance by thresholds. Fellows do not merely study concepts. They enter a conditioned analytical environment in which conduct, outputs, and methodological validity are subordinated to the Safe Operating Space (SOS), the Threshold Function Protocol (TFP), and the logic of pre-threshold intervention.
         </div>
 
-        <div class="note-box">
-          <div class="box-title">Program Character</div>
+        <div class="alert-box">
+          <div class="box-title">System Character — Critical Distinction</div>
           <div class="caput" style="margin-bottom:0;">
-            The Fellowship is selective, applied, case-based, and sector-allocated. Admission depends not only on candidate trajectory, but on the existence of a sufficiently defined case environment capable of supporting threshold-oriented systemic analysis.
+            This is not an educational program with optional participation. It is a systemic governance environment where behavior, analysis, and contractual obligations are conditioned by certified systemic states. Entry constitutes adherence to a regime of pre-threshold conduct, not enrollment in a curriculum.
+          </div>
+        </div>
+
+        <div class="subsection-header">1.1 — What This System Is</div>
+        <div class="caput">
+          The Fellowship operates as a four-layer applied architecture in which participants progress from conceptual understanding to supervised case execution, with each layer conditioned by the integrity of threshold-based governance mechanisms.
+        </div>
+
+        <div class="inciso">I — A Policy-Conditioned Environment: Conduct is governed by the Fellowship Policy Framework, which subordinates individual action to systemic compatibility requirements</div>
+        <div class="inciso">II — A Contractually-Bound System: Participation requires execution of the Contractual Adhesion Stack, including binding commitment to methodological adherence</div>
+        <div class="inciso">III — A Threshold-Triggered Regime: Safe Mode activation is automatic upon certified TFP conditions, not subject to discretionary override</div>
+        <div class="inciso">IV — A Sector-Based Application: All engagement occurs through specific sectoral tracks, each integrating real-world systemic risk environments</div>
+
+        <div class="subsection-header">1.2 — What This System Is Not</div>
+        <div class="caput">
+          To prevent misalignment of expectations and ensure appropriate participant self-selection, the following clarifications are binding:
+        </div>
+
+        <div class="inciso">I — Not a Traditional Fellowship: There is no independent research agenda, no discretionary output selection, and no individual publication priority independent of systemic validity</div>
+        <div class="inciso">II — Not an Academic Course: There are no grades, no general curriculum, and no theoretical examination independent of applied case work</div>
+        <div class="inciso">III — Not a Consulting Engagement: Fellows do not serve client interests, do not optimize for operational efficiency, and do not assume fiduciary responsibility toward specific stakeholders</div>
+        <div class="inciso">IV — Not a Neutral Analytical Platform: Analysis is explicitly normative toward systemic preservation; trajectories incompatible with SOS stability are classified as invalid regardless of economic or political preference</div>
+      </section>
+
+      <!-- SECTION 2: METHODOLOGICAL CORE -->
+      <section id="METHODOLOGICAL-CORE">
+        <div class="section-header">SECTION 2 — METHODOLOGICAL CORE</div>
+
+        <div class="caput">
+          The c-ECO Fellowship operates through the Threshold Function Protocol (TFP), a trajectory-based analytical framework that monitors systemic position, velocity, uncertainty, and reversibility liquidity to determine governance interventions before irreversible thresholds are crossed.
+        </div>
+
+        <div class="subsection-header">2.1 — TFP Variables</div>
+        <div class="caput">
+          All sectoral applications and case analyses must explicitly reference and compute the following four variables:
+        </div>
+
+        <div class="criteria-grid">
+          <div class="grid-card">
+            <div class="grid-card-title">P — Position</div>
+            <p>Current systemic state relative to known thresholds. Measured as distance to tipping points, carrying capacity limits, or structural failure boundaries.</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title">ΔV — Velocity</div>
+            <p>Rate of change in systemic state. Critical for determining time-to-threshold and intervention urgency. High velocity reduces response window.</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title">σ — Uncertainty</div>
+            <p>Confidence interval around position and velocity measurements. High uncertainty expands precautionary margins and may trigger earlier intervention.</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title">Lr — Reversibility Liquidity</div>
+            <p>Availability of viable pathways to return system to previous state. Low Lr indicates irreversibility proximity and mandates heightened precaution.</p>
+          </div>
+        </div>
+
+        <div class="subsection-header">2.2 — Classification Bands</div>
+        <div class="caput">
+          TFP computation results in classification into one of four bands, each triggering specific governance postures and analytical constraints:
+        </div>
+
+        <table class="protocol-table">
+          <thead>
+            <tr>
+              <th>Band</th>
+              <th>Condition</th>
+              <th>Fellow Posture</th>
+              <th>System State</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="band-indicator band-green">Green</span></td>
+              <td>P comfortable, ΔV stable, σ manageable, Lr adequate</td>
+              <td>Standard monitoring; optimization permissible</td>
+              <td>Safe Operating Space maintained</td>
+            </tr>
+            <tr>
+              <td><span class="band-indicator band-amber">Amber</span></td>
+              <td>P approaching threshold OR ΔV increasing OR σ elevated</td>
+              <td>Enhanced monitoring; precautionary analysis required</td>
+              <td>Pre-threshold zone; vigilance mandated</td>
+            </tr>
+            <tr>
+              <td><span class="band-indicator band-red">Red</span></td>
+              <td>P near threshold OR high ΔV OR low Lr</td>
+              <td>Safe Mode activation; containment priority</td>
+              <td>Critical proximity; automatic triggers engaged</td>
+            </tr>
+            <tr>
+              <td><span class="band-indicator band-black">Black</span></td>
+              <td>Threshold crossed OR irreversibility initiated</td>
+              <td>Damage limitation; post-threshold protocols</td>
+              <td>Emergency state; recovery focus</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="alert-box">
+          <div class="box-title">Safe Mode Activation — Non-Discretionary</div>
+          <div class="caput" style="margin-bottom:0;">
+            Upon Red or Black Band classification, Safe Mode is automatically triggered. This is not a recommendation subject to institutional preference. It is a systemic state that conditionally governs all subsequent analytical and operational activity. Fellows must immediately transition to containment-priority posture and suspend optimization-oriented analysis.
+          </div>
+        </div>
+
+        <div class="subsection-header">2.3 — Signal Viability Requirement</div>
+        <div class="caput">
+          No case may be admitted to the Fellowship program unless it demonstrates adequate signal viability — the existence of measurable indicators capable of supporting TFP computation with sufficient reliability for governance application.
+        </div>
+
+        <div class="paragraph">
+          §1 — Cases lacking signal viability must be either rejected or restructured to establish viable monitoring pathways before admission.
+        </div>
+
+        <div class="paragraph">
+          §2 — Signal viability is assessed during the selection process as a mandatory threshold condition, weighted at 25% of total evaluation criteria.
+        </div>
+      </section>
+
+      <!-- SECTION 3: LIVING LAB FRAMEWORK -->
+      <section id="LIVING-LAB">
+        <div class="section-header">SECTION 3 — LIVING LAB FRAMEWORK</div>
+
+        <div class="caput">
+          The Fellowship integrates real-world application through Living Lab environments — structured, iterative, participatory research settings where systemic analysis is tested against actual stakeholder dynamics and operational constraints. The Belém Living Lab, coordinated through Instituto Silvio Meira, serves as the primary Brazilian operational node.
+        </div>
+
+        <div class="subsection-header">3.1 — Living Lab Protocol with TFP Integration</div>
+        <div class="caput">
+          All Living Lab phases must integrate Threshold Function Protocol monitoring. No scenario is considered valid without TFP classification.
+        </div>
+
+        <table class="protocol-table">
+          <thead>
+            <tr>
+              <th>Phase</th>
+              <th>Duration</th>
+              <th>Activity</th>
+              <th>TFP Output</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Diagnostic</strong></td>
+              <td>2 weeks</td>
+              <td>Stakeholder mapping; system boundary definition</td>
+              <td>Initial P baseline; σ assessment</td>
+            </tr>
+            <tr>
+              <td><strong>Co-Design</strong></td>
+              <td>4 weeks</td>
+              <td>Participatory workshops (World Café methodology)</td>
+              <td>Trajectory scenarios; ΔV projections</td>
+            </tr>
+            <tr>
+              <td><strong>Prototype</strong></td>
+              <td>6 weeks</td>
+              <td>Safe Mode simulation in controlled environment</td>
+              <td>Stress test results; Lr evaluation</td>
+            </tr>
+            <tr>
+              <td><strong>Validation</strong></td>
+              <td>2 weeks</td>
+              <td>Feedback loops with affected communities</td>
+              <td>Validated response protocol; band classification</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="subsection-header">3.2 — Field Conduct Requirements</div>
+        <div class="caput">
+          Fellows engaging in Living Lab environments operate under supervised conditions and must adhere to community and ecological constraints that may exceed standard research ethics requirements.
+        </div>
+
+        <div class="inciso">I — All field interactions require prior coordination with Instituto Silvio Meira local liaison</div>
+        <div class="inciso">II — Community consent is mandatory and documented through protocols adapted from FPIC (Free, Prior, and Informed Consent)</div>
+        <div class="inciso">III — Ecological impact minimization takes precedence over research efficiency</div>
+        <div class="inciso">IV — TFP monitoring continues throughout all phases; band reclassification triggers immediate protocol adjustment</div>
+      </section>
+
+      <!-- SECTION 4: SELECTION CRITERIA -->
+      <section id="SELECTION-CRITERIA">
+        <div class="section-header">SECTION 4 — SELECTION CRITERIA</div>
+
+        <div class="caput">
+          Admission to the c-ECO Fellowship is selective and case-based. Evaluation prioritizes the systemic characteristics of the proposed case environment over individual candidate credentials, ensuring that program capacity is allocated to contexts where threshold governance can be meaningfully applied.
+        </div>
+
+        <div class="subsection-header">4.1 — Weighted Evaluation Criteria</div>
+
+        <div class="criteria-grid">
+          <div class="grid-card">
+            <div class="grid-card-title">1. Case Specificity (30%)</div>
+            <p>Concrete operational environment with identifiable stakeholders, clear system boundaries, and defined decision points amenable to TFP analysis.</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title">2. Reversibility Exposure (25%)</div>
+            <p>Demonstrated presence of irreversible risk dynamics where pre-threshold intervention would prevent permanent systemic degradation.</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title">3. Signal Viability (25%)</div>
+            <p><strong>Mandatory threshold condition.</strong> Availability of measurable indicators capable of TFP integration with adequate reliability for governance application.</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title">4. Governance Readiness (15%)</div>
+            <p>Institutional capacity for Safe Mode implementation; existence of stakeholders capable of acting on TFP-triggered recommendations.</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title">5. Cross-Sector Potential (5%)</div>
+            <p>Applicability to hybrid systems (Sector 13); potential for cascading risk analysis across multiple domains.</p>
+          </div>
+        </div>
+
+        <div class="subsection-header">4.2 — Selection Committee</div>
+        <div class="caput">
+          The Selection Committee comprises three representatives: one from the Johann Christian Hasse Foundation, one from Instituto Silvio Meira, and one rotating Fellow alumnus. Decisions are made by consensus, with tie-breaking authority vested in the JCHF representative on matters of methodological integrity.
+        </div>
+
+        <div class="paragraph">
+          §1 — Selection decisions are final and not subject to appeal, except on procedural grounds.
+        </div>
+      </section>
+
+      <!-- SECTION 5: SYSTEM ARCHITECTURE -->
+      <section id="SYSTEM-ARCHITECTURE">
+        <div class="section-header">SECTION 5 — SYSTEM ARCHITECTURE</div>
+
+        <div class="caput">
+          The Fellowship operates as a four-layer progressive system. Advancement between layers is gated by demonstrated competency and case progression, not by temporal completion.
+        </div>
+
+        <div class="layer-grid">
+          <div class="layer-card">
+            <div class="layer-number">Layer 4 — Advisory</div>
+            <div class="layer-title">Individual Case Supervision</div>
+            <p>Direct mentorship by c-ECO architects and institutional partners. Fellows execute supervised analytical work with real-time methodological validation. This constitutes Fellowship completion.</p>
+            <div class="layer-gate">
+              <strong>Gate from Layer 3:</strong> Contractual instrument execution + successful Safe Mode simulation
+            </div>
+          </div>
+
+          <div class="layer-card">
+            <div class="layer-number">Layer 3 — Contractual</div>
+            <div class="layer-title">Translation to Enforceable Structures</div>
+            <p>Conversion of systemic analysis into binding contractual instruments. Integration of IEX (Irreversibility Exchange) clauses and TFP-triggered operational provisions.</p>
+            <div class="layer-gate">
+              <strong>Gate from Layer 2:</strong> Approved case structure + stakeholder validation
+            </div>
+          </div>
+
+          <div class="layer-card">
+            <div class="layer-number">Layer 2 — Applied</div>
+            <div class="layer-title">Sector-Specific Systemic Analysis</div>
+            <p>Living Lab engagement with TFP integration. Pre-threshold dynamics identification and Safe Mode protocol testing in real-world or simulated environments.</p>
+            <div class="layer-gate">
+              <strong>Gate from Layer 1:</strong> Sectoral competency test + case proposal approval
+            </div>
+          </div>
+
+          <div class="layer-card">
+            <div class="layer-number">Layer 1 — Entry</div>
+            <div class="layer-title">Conceptual Foundation</div>
+            <p>c-ECO methodology introduction, TFP fundamentals, and systemic risk foundations. Completion of conceptual module and case proposal submission.</p>
+            <div class="layer-gate">
+              <strong>Admission:</strong> Selective application process based on case viability
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- restante do portal segue no arquivo -->
+      <!-- SECTION 6: SECTOR ACCESS -->
+      <section id="SECTOR-ACCESS">
+        <div class="section-header">SECTION 6 — SECTORAL TRACKS</div>
+
+        <div class="caput">
+          Fellows are allocated to sectoral tracks corresponding to their case environment. Each sector provides specialized analytical frameworks while maintaining consistency with core c-ECO methodology. Cross-sector cases default to Sector 13 (Hybrid Enabling Systems).
+        </div>
+
+        <div class="sector-grid">
+          <a href="sector-1.html" class="sector-link">
+            <div class="sector-card">
+              <div class="sector-number">Sector 1</div>
+              <div class="sector-title">Mining & Mineral Extraction</div>
+              <div class="sector-text">Tailings instability, geotechnical transformation, hydrological disruption, and long-tail environmental liability under irreversible risk dynamics.</div>
+            </div>
+          </a>
+          <a href="sector-2.html" class="sector-link">
+            <div class="sector-card">
+              <div class="sector-number">Sector 2</div>
+              <div class="sector-title">Agribusiness & Intensive Land Use</div>
+              <div class="sector-text">Soil degradation, water depletion, monoculture dependency, and regenerative threshold monitoring in agricultural systems.</div>
+            </div>
+          </a>
+          <a href="sector-3.html" class="sector-link">
+            <div class="sector-card">
+              <div class="sector-number">Sector 3</div>
+              <div class="sector-title">Energy Systems</div>
+              <div class="sector-text">Grid instability, reserve margin decline, load stress, and systemic propagation of infrastructure failure across networks.</div>
+            </div>
+          </a>
+          <a href="sector-4.html" class="sector-link">
+            <div class="sector-card">
+              <div class="sector-number">Sector 4</div>
+              <div class="sector-title">Water & Sanitation</div>
+              <div class="sector-text">Aquifer stress, contamination plumes, scarcity thresholds, and infrastructure aging in critical hydrological systems.</div>
+            </div>
+          </a>
+          <a href="sector-5.html" class="sector-link">
+            <div class="sector-card">
+              <div class="sector-number">Sector 5</div>
+              <div class="sector-title">Infrastructure & Heavy Construction</div>
+              <div class="sector-text">Structural fatigue, delayed failure patterns, and systemic collapse dynamics in built environments.</div>
+            </div>
+          </a>
+          <a href="sector-6.html" class="sector-link">
+            <div class="sector-card">
+              <div class="sector-number">Sector 6</div>
+              <div class="sector-title">Financial Systems</div>
+              <div class="sector-text">Hidden exposure, systemic risk transmission, credit illusion, and pre-threshold instability in monetary networks.</div>
+            </div>
+          </a>
+          <a href="sector-7.html" class="sector-link">
+            <div class="sector-card">
+              <div class="sector-number">Sector 7</div>
+              <div class="sector-title">Real Estate & Urbanization</div>
+              <div class="sector-text">Urban saturation, infrastructure dependency, climate exposure, and spatial systemic risk accumulation.</div>
+            </div>
+          </a>
+          <a href="sector-8.html" class="sector-link">
+            <div class="sector-card">
+              <div class="sector-number">Sector 8</div>
+              <div class="sector-title">Chemical & Materials Industries</div>
+              <div class="sector-text">Toxicity accumulation, irreversible contamination, and persistent environmental liability in industrial chemical systems.</div>
+            </div>
+          </a>
+          <a href="sector-9.html" class="sector-link">
+            <div class="sector-card">
+              <div class="sector-number">Sector 9</div>
+              <div class="sector-title">Logistics & Transportation</div>
+              <div class="sector-text">Network fragility, supply chain cascade failures, and critical node vulnerability in global movement systems.</div>
+            </div>
+          </a>
+          <a href="sector-10.html" class="sector-link">
+            <div class="sector-card">
+              <div class="sector-number">Sector 10</div>
+              <div class="sector-title">Digital Technology & Data Infrastructure</div>
+              <div class="sector-text">Energy burden, data center externalities, algorithmic systemic risk, and digital infrastructure resilience.</div>
+            </div>
+          </a>
+          <a href="sector-11.html" class="sector-link">
+            <div class="sector-card">
+              <div class="sector-number">Sector 11</div>
+              <div class="sector-title">Space & Orbital Infrastructure</div>
+              <div class="sector-text">Orbital congestion, debris irreversibility, Kessler syndrome thresholds, and space governance pre-emption.</div>
+            </div>
+          </a>
+          <a href="sector-12.html" class="sector-link">
+            <div class="sector-card">
+              <div class="sector-number">Sector 12</div>
+              <div class="sector-title">Forests, Carbon & Natural Assets</div>
+              <div class="sector-text">Tipping points, biodiversity collapse, carbon sink saturation, and ecosystem service degradation.</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="callout-box">
+          <div class="box-title">Sector 13 — Hybrid Enabling Systems</div>
+          <div class="caput" style="margin-bottom:0;">
+            Cross-sector cases involving cascading risks across multiple domains default to Sector 13. This track requires advanced TFP integration and serves as arbitration venue for inter-sector classification disputes.
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 7: POLICY FRAMEWORK -->
+      <section id="POLICY-FRAMEWORK">
+        <div class="section-header">SECTION 7 — FELLOWSHIP POLICY FRAMEWORK</div>
+
+        <div class="caput">
+          The c-ECO Fellowship Program operates as a structured systemic governance environment in which participants act as analytical agents within a pre-threshold decision architecture. Fellow conduct, outputs, and participation are conditioned not only by institutional rules, but by alignment with the Safe Operating Space (SOS) and the integrity of systemic risk analysis.
+        </div>
+
+        <div class="alert-box">
+          <div class="box-title">Governance Principle</div>
+          <div class="caput" style="margin-bottom:0;">
+            This is not "program governance" in the traditional sense. It is governance under systemic constraint architecture — where decisions are conditioned, humans operate within limits, and triggers are technical, not discretionary.
+          </div>
+        </div>
+
+        <div class="subsection-header">7.1 — Status of Fellows</div>
+        <div class="caput">
+          Fellows act as non-decisional analytical agents within the c-ECO system. Their role is to identify systemic risk trajectories, apply TFP logic, and produce structured decision-support outputs.
+        </div>
+
+        <div class="inciso">I — Fellows do not exercise regulatory authority</div>
+        <div class="inciso">II — Fellows do not issue binding determinations</div>
+        <div class="inciso">III — Fellows do not assume operational control over real-world systems</div>
+
+        <div class="paragraph">
+          §1 — All outputs are classified as: "Systemic Analysis under c-ECO Methodology — Non-binding, Pre-Threshold Advisory Output"
+        </div>
+
+        <div class="paragraph">
+          §2 — Participation does not constitute employment, partnership, or equity interest in any affiliated entity.
+        </div>
+
+        <div class="subsection-header">7.2 — Safe Mode Conduct Protocol</div>
+        <div class="caput">
+          When a case enters Red or Black Band classification under the TFP, Fellows must immediately transition to Safe Mode analytical posture.
+        </div>
+
+        <div class="inciso">I — Prioritize containment, stabilization, and reversibility</div>
+        <div class="inciso">II — Suspend optimization or profit-oriented analytical assumptions</div>
+        <div class="inciso">III — Reframe all outputs toward systemic preservation</div>
+
+        <div class="paragraph">
+          §1 — Fellows are prohibited from producing analysis that supports continuation of trajectories classified as incompatible with systemic stability.
+        </div>
+
+        <div class="alert-box">
+          <div class="box-title">Critical Distinction</div>
+          <div class="caput" style="margin-bottom:0;">
+            Safe Mode activation is not subject to discretionary recommendation. It is automatically triggered upon certified TFP threshold conditions. The Advisory Layer may only validate technical integrity, coordinate response execution, and oversee compliance — never override certified systemic conditions.
+          </div>
+        </div>
+
+        <div class="subsection-header">7.3 — Rights & Benefits</div>
+        <div class="inciso">I — Access to c-ECO methodology, Model Law, and TFP infrastructure</div>
+        <div class="inciso">II — Participation in Living Lab environments, including Belém Living Lab</div>
+        <div class="inciso">III — Mentorship and technical supervision by c-ECO architects</div>
+        <div class="inciso">IV — Inclusion in the c-ECO Case Repository (subject to confidentiality constraints)</div>
+        <div class="inciso">V — Eligibility for authorship attribution in derivative publications</div>
+        <div class="inciso">VI — Access to institutional network including Instituto Silvio Meira and JCHF</div>
+
+        <div class="subsection-header">7.4 — Duties & Obligations</div>
+        <div class="inciso">I — Apply c-ECO analytical framework faithfully, including TFP logic and pre-threshold assessment</div>
+        <div class="inciso">II — Maintain integrity of data inputs and avoid manipulation or selective omission</div>
+        <div class="inciso">III — Respect confidentiality of case-sensitive information</div>
+        <div class="inciso">IV — Avoid representation of outputs as binding legal, regulatory, or operational decisions</div>
+        <div class="inciso">V — Maintain alignment with Safe Operating Space principles in all analytical outputs</div>
+
+        <div class="paragraph">
+          §1 — Any material deviation from methodological integrity may result in suspension or removal from the program.
+        </div>
+
+        <div class="subsection-header">7.5 — Confidentiality Review Protocol</div>
+        <div class="caput">
+          Fellows may request confidentiality restrictions. Final determination rests with the Institutional Oversight Layer, subject to systemic relevance and public interest considerations.
+        </div>
+
+        <div class="inciso">I — Fellow submits restriction request with justification</div>
+        <div class="inciso">II — Institutional Oversight Layer evaluates against: (a) systemic relevance (impact on SOS), (b) public interest (affected populations), (c) scientific integrity (reproducibility)</div>
+        <div class="inciso">III — Determination issued within 10 business days</div>
+        <div class="inciso">IV — Appeals to Joint Committee (JCHF-ISM)</div>
+
+        <div class="subsection-header">7.6 — Intellectual Property & Use Rights</div>
+        <div class="caput">
+          The c-ECO methodology, Model Law, and associated frameworks remain the intellectual property of the Johann Christian Hasse Foundation and its institutional partners.
+        </div>
+
+        <div class="inciso">I — Fellows retain moral authorship over individual analytical outputs</div>
+        <div class="inciso">II — Fellows grant non-exclusive, perpetual license for institutional use</div>
+        <div class="inciso">III — Derivative methodologies remain under c-ECO institutional ownership</div>
+
+        <div class="subsection-header">7.7 — Data Governance</div>
+        <div class="caput">
+          All activities involving personal or sensitive data must comply with applicable data protection regimes:
+        </div>
+
+        <div class="inciso">I — Lei Geral de Proteção de Dados (Brazil)</div>
+        <div class="inciso">II — General Data Protection Regulation (European Union)</div>
+
+        <div class="paragraph">
+          §1 — Data used in Living Lab environments must be anonymized whenever possible.
+        </div>
+
+        <div class="subsection-header">7.8 — Suspension and Removal</div>
+        <div class="caput">
+          The Fellowship may be suspended or terminated for:
+        </div>
+
+        <div class="inciso">I — Breach of methodological integrity</div>
+        <div class="inciso">II — Misrepresentation of c-ECO outputs</div>
+        <div class="inciso">III — Violation of confidentiality or data governance rules</div>
+        <div class="inciso">IV — Conduct incompatible with systemic governance principles</div>
+      </section>
+
+      <!-- SECTION 8: CONTRACTUAL FRAMEWORK -->
+      <section id="CONTRACTUAL-FRAMEWORK">
+        <div class="section-header">SECTION 8 — CONTRACTUAL ADHESION FRAMEWORK</div>
+
+        <div class="caput">
+          Participation in the c-ECO Fellowship Program is conditioned upon formal adherence to a structured contractual framework. This framework operationalizes the c-ECO governance architecture at the individual level, ensuring that all analytical, institutional, and operational interactions are aligned with the Safe Operating Space (SOS), the Threshold Function Protocol (TFP), and pre-threshold governance principles.
+        </div>
+
+        <div class="caput">
+          The contractual system is modular and cumulative. Fellows are required to execute and comply with all applicable instruments as a condition of participation.
+        </div>
+
+        <div class="subsection-header">8.1 — Core Contract Stack</div>
+
+        <div class="contract-grid">
+          <div class="grid-card">
+            <div class="grid-card-title">FPA — Fellowship Participation Agreement</div>
+            <p>Defines non-employment status, establishes role as analytical agent, incorporates c-ECO Model Law by reference, and conditions participation upon systemic governance principles.</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title">CDGA — Confidentiality & Data Governance Agreement</div>
+            <p>Governs treatment of sensitive data, mandates cross-jurisdictional compliance (LGPD/GDPR), and establishes anonymization obligations.</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title">MAI — Methodological Adherence Instrument</div>
+            <p><strong>Critical binding commitment.</strong> Establishes fidelity to TFP variables (P, ΔV, σ, Lr), pre-threshold triggers, and systemic compatibility priority.</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title">LLEP — Living Lab Engagement Protocol</div>
+            <p>Governs field participation, stakeholder interaction, and community/ecological constraints in real-world environments.</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title">CSAM — Case-Specific Analytical Mandate</div>
+            <p>Defines scope, constraints, and deliverables for individual cases. Cross-sector cases default to Sector 13.</p>
+          </div>
+        </div>
+
+        <div class="subsection-header">8.2 — Methodological Adherence Instrument (MAI)</div>
+        <div class="caput">
+          The MAI is the cornerstone of the contractual stack. By executing the MAI, Fellows formally recognize that:
+        </div>
+
+        <div class="inciso">I — All analysis must be grounded in TFP variables (P, ΔV, σ, Lr)</div>
+        <div class="inciso">II — Pre-threshold dynamics constitute valid triggers for analytical conclusions</div>
+        <div class="inciso">III — Systemic compatibility prevails over economic or operational preference</div>
+        <div class="inciso">IV — Outputs must not support continuation of trajectories classified as incompatible</div>
+
+        <div class="paragraph">
+          §1 — Any analytical output that contradicts certified systemic conditions is deemed methodologically invalid.
+        </div>
+
+        <div class="paragraph">
+          §2 — <strong>Methodological Evolution Clause:</strong> The MAI binds to the c-ECO framework as certified current at execution date. Major version updates require re-execution or addendum. Fellows are notified of material changes affecting TFP variables or Safe Mode protocols.
+        </div>
+
+        <div class="subsection-header">8.3 — Legal Nature of the Contractual Framework</div>
+        <div class="caput">
+          The contractual instruments shall be interpreted as a systemic governance framework and not as traditional service, employment, or partnership agreements.
+        </div>
+
+        <div class="inciso">I — Contracts operate under conditional validity linked to systemic compatibility</div>
+        <div class="inciso">II — Obligations are dynamically modulated under TFP conditions</div>
+        <div class="inciso">III — Enforcement is subject to pre-threshold triggers and IEX principles</div>
+      </section>
+
+      <!-- SECTION 9: INSTITUTIONAL FRAMEWORK -->
+      <section id="INSTITUTIONAL-FRAMEWORK">
+        <div class="section-header">SECTION 9 — INSTITUTIONAL FRAMEWORK</div>
+
+        <div class="caput">
+          The c-ECO Fellowship operates through a tripartite institutional structure spanning European, Brazilian, and US jurisdictions, each with defined roles, responsibilities, and liability firewalls.
+        </div>
+
+        <div class="institution-grid">
+          <div class="grid-card">
+            <div class="grid-card-title">Johann Christian Hasse Foundation (JCHF)</div>
+            <p><strong>Role:</strong> Primary fiduciary + European legal anchor<br>
+            <strong>Contribution:</strong> Case supervision infrastructure + IEX methodological oversight<br>
+            <strong>Liability:</strong> Limited to advisory layer; no operational liability for Fellows</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title">Instituto Silvio Meira (ISM)</div>
+            <p><strong>Role:</strong> Brazilian operational node + Living Lab physical infrastructure<br>
+            <strong>Contribution:</strong> Belém Living Lab facilities + local stakeholder networks<br>
+            <strong>Liability:</strong> Host institution for Brazil-based cases; premises liability assumed</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title">ISM LLC (US Entity)</div>
+            <p><strong>Role:</strong> Contractual vehicle for US jurisdiction cases<br>
+            <strong>Contribution:</strong> Delaware LLC structure for enforceable c-ECO instruments<br>
+            <strong>Liability:</strong> Member-managed; Fellows hold no equity interest</p>
+          </div>
+        </div>
+
+        <div class="subsection-header">9.1 — Governance Interface</div>
+        <div class="inciso">I — <strong>Joint Committee:</strong> Biannual review of Safe Mode activations and systemic threshold certifications</div>
+        <div class="inciso">II — <strong>Dispute Resolution:</strong> Binding arbitration under the New York Convention framework, São Paulo seat, English law governing substance</div>
+        <div class="inciso">III — <strong>IP Framework:</strong> c-ECO methodology © JCHF/ISM; case derivatives © Fellows (licensed back)</div>
+
+        <div class="subsection-header">9.2 — Responsibility Firewall</div>
+        <div class="caput">
+          Fellows act as analytical agents. They do not:
+        </div>
+
+        <div class="inciso">I — Issue binding decisions</div>
+        <div class="inciso">II — Assume operational control</div>
+        <div class="inciso">III — Substitute institutional authority</div>
+
+        <div class="paragraph">
+          §1 — All outputs are classified as: "Decision-support systemic analysis under c-ECO methodology"
+        </div>
+      </section>
+
+      <!-- SECTION 10: TRIGGER/ACTION SEPARATION -->
+      <section id="TRIGGER-ACTION">
+        <div class="section-header">SECTION 10 — TRIGGER / ACTION SEPARATION PROTOCOL</div>
+
+        <div class="caput">
+          To maintain the integrity of threshold-based governance and prevent the reintroduction of discretionary override, all sector applications must explicitly distinguish four distinct layers of activity. This separation resolves the tension between automatic TFP triggers and distributed institutional responsibility.
+        </div>
+
+        <div class="alert-box">
+          <div class="box-title">Core Principle</div>
+          <div class="caput" style="margin-bottom:0;">
+            Fellows detect and declare. Institutions coordinate. Operators execute. No layer may unilaterally override certified TFP conditions, but each layer has distinct, non-transferable responsibilities.
+          </div>
+        </div>
+
+        <div class="trigger-grid">
+          <div class="grid-card">
+            <div class="grid-card-title">I — Detection Layer (TFP)</div>
+            <p><strong>Function:</strong> Continuous monitoring and classification<br>
+            <strong>Output:</strong> Band classification (Green/Amber/Red/Black)<br>
+            <strong>Basis:</strong> Certified systemic data only<br>
+            <strong>Automation:</strong> Algorithmic where possible, expert validation required</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title">II — Analytical Layer (Fellow)</div>
+            <p><strong>Function:</strong> Mandatory issuance of Systemic Notice<br>
+            <strong>Constraint:</strong> No discretionary delay allowed upon Red/Black<br>
+            <strong>Output:</strong> Structured declaration of systemic state<br>
+            <strong>Liability:</strong> Methodological integrity only</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title">III — Coordination Layer (Institutional)</div>
+            <p><strong>Function:</strong> Safe Mode activation coordination<br>
+            <strong>Activity:</strong> Interface with stakeholders, resource mobilization<br>
+            <strong>Constraint:</strong> Must respect TFP classification; cannot downgrade<br>
+            <strong>Output:</strong> Coordinated response protocol</p>
+          </div>
+          <div class="grid-card">
+            <div class="grid-card-title">IV — Execution Layer (Operational)</div>
+            <p><strong>Function:</strong> Implementation of containment/modulation<br>
+            <strong>Actors:</strong> System owners, regulators, field operators<br>
+            <strong>Constraint:</strong> Subject to IEX clauses and contractual triggers<br>
+            <strong>Liability:</strong> Operational outcomes</p>
+          </div>
+        </div>
+
+        <div class="subsection-header">10.1 — Safe Mode Activation Chain</div>
+        <div class="caput">
+          Upon TFP certification of Red or Black Band conditions, the following chain is activated:
+        </div>
+
+        <div class="inciso">I — TFP system issues automatic classification</div>
+        <div class="inciso">II — Fellow MUST issue immediate analytical notice (no discretion to delay)</div>
+        <div class="inciso">III — Institutional Oversight Layer assumes activation coordination</div>
+        <div class="inciso">IV — Fellow transitions to monitoring/support role</div>
+        <div class="inciso">V — Operational actors execute under IEX-conditioned contracts</div>
+
+        <div class="paragraph">
+          §1 — Failure to issue notice when TFP conditions are met constitutes breach of methodological integrity under Section 7.8.
+        </div>
+
+        <div class="paragraph">
+          §2 — The Institutional Oversight Layer may not override or downgrade TFP classification, but may escalate to Joint Committee for exceptional review.
+        </div>
+      </section>
+
+      <!-- SECTION 11: CALL FOR APPLICATIONS -->
+      <section id="CALL-FOR-APPLICATIONS">
+        <div class="section-header">SECTION 11 — CALL FOR APPLICATIONS</div>
+
+        <div class="caput">
+          The Fellowship is structured in alignment with the current institutional call issued by the Johann Christian Hasse Foundation in collaboration with Instituto Silvio Meira. The Program is limited, selective, and structured for applied engagement with real cases, as defined in the official call for applications.
+        </div>
+
+        <div class="call-banner">
+          <div class="call-banner-title">Current Intake: 2025-2026 Cohort</div>
+          <div class="call-banner-meta">
+            Application deadline: Rolling basis with quarterly review<br>
+            Primary Living Lab: Belém, Pará, Brazil<br>
+            Language: English (Portuguese optional for Brazil-based cases)
+          </div>
+          <div class="cta-row">
+            <a href="#" class="cta-button">Submit Application</a>
+            <a href="#" class="cta-button secondary">Download Call Document</a>
+            <a href="#" class="cta-button secondary">View Poster</a>
+          </div>
+        </div>
+
+        <div class="subsection-header">11.1 — Application Requirements</div>
+        <div class="inciso">I — Concrete case proposal with defined system boundaries</div>
+        <div class="inciso">II — Demonstration of signal viability (measurable indicators)</div>
+        <div class="inciso">III — Preliminary TFP assessment (P, ΔV, σ, Lr estimates)</div>
+        <div class="inciso">IV — Stakeholder identification and engagement plan</div>
+        <div class="inciso">V — CV and professional trajectory (secondary to case merit)</div>
+
+        <div class="subsection-header">11.2 — Review Timeline</div>
+        <div class="inciso">I — Initial eligibility: 2 weeks</div>
+        <div class="inciso">II — Case viability assessment: 4 weeks</div>
+        <div class="inciso">III — Selection Committee deliberation: 2 weeks</div>
+        <div class="inciso">IV — Contract execution and onboarding: 2 weeks</div>
+      </section>
+
+      <!-- SECTION 12: ACCESS & NEXT STEPS -->
+      <section id="ACCESS-NEXT-STEPS">
+        <div class="section-header">SECTION 12 — ACCESS & NEXT STEPS</div>
+
+        <div class="caput">
+          Prospective participants and institutional partners may access the Fellowship through distinct pathways, each with appropriate governance safeguards and contractual requirements.
+        </div>
+
+        <div class="cta-box">
+          <div class="box-title">Individual Fellowship Application</div>
+          <p style="margin-top:0;">For researchers, practitioners, and professionals with concrete case environments suitable for threshold-based systemic analysis.</p>
+          <div class="cta-row">
+            <a href="#" class="cta-button">Begin Application</a>
+          </div>
+        </div>
+
+        <div class="cta-box">
+          <div class="box-title">Institutional Pilot Partnership</div>
+          <p style="margin-top:0;">For organizations seeking to integrate c-ECO methodology into existing governance structures through supervised case collaboration.</p>
+          <div class="cta-row">
+            <a href="#" class="cta-button secondary">Request Institutional Briefing</a>
+          </div>
+        </div>
+
+        <div class="cta-box">
+          <div class="box-title">TDR Integration Request</div>
+          <p style="margin-top:0;">For ongoing projects requiring Trajectory Dynamic Reserve (TDR) analysis and IEX contractual integration.</p>
+          <div class="cta-row">
+            <a href="#" class="cta-button secondary">Contact Technical Team</a>
+          </div>
+        </div>
+
+        <div class="warning-box">
+          <div class="box-title">Pre-Application Confirmation</div>
+          <div class="caput" style="margin-bottom:0;">
+            By initiating any application pathway, you confirm understanding that: (1) this is not a traditional educational program, (2) participation requires binding contractual adherence to the c-ECO methodological framework, (3) Safe Mode activation is automatic and non-discretionary, and (4) analytical outputs are conditioned by certified systemic states rather than individual preference.
+          </div>
+        </div>
+      </section>
+
+      <!-- REFERENCES -->
+      <section class="references-section" id="REFERENCES">
+        <div class="references-title" onclick="toggleSection(this)">REFERENCES</div>
+        <div class="references-content collapsed">
+          <div class="reference-item">
+            <span class="author">Dell'Era, C. & Landoni, P.</span> (2014). <span class="title">Living Lab: A Methodology between User-Centred Design and Participatory Design</span>. Creativity and Innovation Management.
+          </div>
+          <div class="reference-item">
+            <span class="author">European Network of Living Labs (ENoLL)</span>. <span class="title">Living Lab Methodology and Best Practices</span>. Retrieved from enoll.org.
+          </div>
+          <div class="reference-item">
+            <span class="author">Johann Christian Hasse Foundation</span>. <span class="title">c-ECO Model Law: Systemic Governance by Thresholds</span>. Working Draft.
+          </div>
+          <div class="reference-item">
+            <span class="author">Instituto Silvio Meira</span>. <span class="title">Belém Living Lab: Operational Framework</span>. Technical Documentation.
+          </div>
+        </div>
+      </section>
+
+      <!-- COPYRIGHT -->
+      <section id="COPYRIGHT">
+        <div class="copyright-footer">
+          <div class="copyright-notice">© 2025 Johann Christian Hasse Foundation & Instituto Silvio Meira</div>
+          <p>
+            The c-ECO Fellowship Program, Threshold Function Protocol (TFP), and associated methodological frameworks are proprietary systems developed for applied systemic governance. All rights reserved.
+          </p>
+          <p>
+            Unauthorized reproduction, adaptation, or commercial application of the c-ECO governance architecture without express institutional license is prohibited. Fellows retain moral authorship over individual case outputs per Section 7.6.
+          </p>
+        </div>
+      </section>
     </article>
   </main>
 
