@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow">
+  <title>c-ECO Fellowship Program | Applied Entry Portal</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --sidebar-width: 340px;
+      --earth-green: #1e3a2f;
+      --gold-accent: #d4a373;
+      --bg-body: #f5f7f4;
+      --text-main: #1a1a1a;
+      --border-color: #d4d8d4;
+      --soft-bg: #fafcfa;
+      --soft-blue: #f0f7ff;
+      --submission-accent: #2c5282;
+      --muted-text: #596559;
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+
+    body{
+      margin:0;
+      background:var(--bg-body);
+      color:var(--text-main);
+      font-family:'Inter', sans-serif;
+      line-height:1.65;
+    }
+
+    .sidebar{
+      width:var(--sidebar-width);
+      position:fixed;
+      top:0;
+      left:0;
+      height:100vh;
+      background:#fff;
+      border-right:1px solid var(--border-color);
+      padding:16px;
+      overflow-y:auto;
+      z-index:1000;
+      -webkit-overflow-scrolling:touch;
+      transition:transform .3s ease;
+    }
+
+    .sidebar-top{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding-bottom:10px;
+      margin-bottom:12px;
+      border-bottom:2px solid var(--gold-accent);
+    }
+
+    .logo-box{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:40px;
+      height:40px;
+      border:1px solid var(--border-color);
+      background:#fff;
+      color:var(--earth-green);
+      font-weight:900;
+      font-size:1.2rem;
+      text-decoration:none;
+      box-shadow:0 4px 12px rgba(0,0,0,0.1);
+      flex-shrink:0;
+    }
+
+    .sidebar-title{
+      font-weight:800;
+      font-size:11px;
+      letter-spacing:1px;
+      color:var(--earth-green);
+      text-transform:uppercase;
+      line-height:1.2;
+      margin:0;
+    }
+
+    .search-container{
+      margin-bottom:12px;
+      position:sticky;
+      top:0;
+      background:#fff;
+      z-index:10;
+      padding-bottom:8px;
+    }
+
+    #sidebarSearch{
+      width:100%;
+      padding:10px 12px;
+      border:1px solid var(--border-color);
+      border-radius:4px;
+      font-family:'Inter', sans-serif;
+      font-size:13px;
+      outline:none;
+    }
+
+    #sidebarSearch:focus{
+      border-color:var(--gold-accent);
+      box-shadow:0 0 0 3px rgba(212,163,115,.15);
+    }
+
+    .nav-list{ list-style:none; padding:0; margin:0; }
+
+    .nav-section-title{
+      font-size:10px;
+      font-weight:800;
+      color:var(--submission-accent);
+      margin-top:14px;
+      text-transform:uppercase;
+      border-top:1px solid #eee;
+      padding-top:10px;
+      padding-bottom:5px;
+      letter-spacing:.8px;
+    }
+
+    .nav-sub-title{
+      font-size:9px;
+      font-weight:700;
+      color:#6b7c6b;
+      letter-spacing:.5px;
+      text-transform:uppercase;
+      margin:8px 0 3px 8px;
+    }
+
+    .nav-item a{
+      text-decoration:none;
+      color:var(--text-main);
+      font-size:11px;
+      display:block;
+      padding:5px 8px;
+      line-height:1.35;
+      transition:.2s;
+      border-left:3px solid transparent;
+    }
+
+    .nav-item a:hover{
+      background:rgba(44,82,130,.08);
+      border-left-color:var(--submission-accent);
+    }
+
+    .main-content{
+      margin-left:var(--sidebar-width);
+      padding:40px 20px;
+      display:flex;
+      justify-content:center;
+    }
+
+    .document-page{
+      background:#fff;
+      width:100%;
+      max-width:840px;
+      padding:50px;
+      box-shadow:0 4px 25px rgba(0,0,0,.06);
+    }
+
+    .hero-header{
+      background:linear-gradient(135deg, #1e3a2f 0%, #2c5282 100%);
+      color:#fff;
+      padding:28px 30px;
+      margin:-50px -50px 30px -50px;
+      border-bottom:3px solid var(--gold-accent);
+    }
+
+    .hero-eyebrow{
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      opacity:.92;
+      margin-bottom:10px;
+    }
+
+    .hero-title{
+      font-family:'Libre Baskerville', serif;
+      font-size:28px;
+      line-height:1.25;
+      margin:0 0 12px 0;
+    }
+
+    .hero-subtitle{
+      font-size:13px;
+      opacity:.93;
+      line-height:1.6;
+      max-width:760px;
+    }
+
+    .section-header{
+      font-family:'Libre Baskerville', serif;
+      font-weight:700;
+      font-size:18px;
+      color:var(--earth-green);
+      margin:35px 0 20px 0;
+      padding-bottom:10px;
+      border-bottom:3px solid var(--submission-accent);
+      scroll-margin-top:24px;
+    }
+
+    .subsection-header{
+      font-family:'Libre Baskerville', serif;
+      font-weight:700;
+      font-size:15px;
+      color:var(--earth-green);
+      margin:25px 0 14px 0;
+      padding-bottom:8px;
+      border-bottom:1px solid var(--border-color);
+      scroll-margin-top:24px;
+    }
+
+    .caput{
+      text-align:justify;
+      margin-bottom:12px;
+      font-family:'Libre Baskerville', serif;
+      line-height:1.72;
+      font-size:13.5px;
+    }
+
+    .paragraph{
+      margin-left:24px;
+      font-size:12.5px;
+      margin-bottom:8px;
+      line-height:1.65;
+      color:#333;
+    }
+
+    .inciso{
+      margin-left:48px;
+      font-size:12.5px;
+      margin-bottom:7px;
+      color:#444;
+    }
+
+    .note-box,
+    .principle-box,
+    .framework-box,
+    .cta-box,
+    .track-box,
+    .criteria-box,
+    .contract-box,
+    .policy-box,
+    .institution-box,
+    .callout-box{
+      margin:18px 0 24px 0;
+      padding:18px 20px;
+      border-left:4px solid var(--submission-accent);
+    }
+
+    .note-box,
+    .framework-box,
+    .callout-box,
+    .institution-box{ background:var(--soft-bg); }
+
+    .principle-box,
+    .policy-box,
+    .contract-box{ background:var(--soft-blue); }
+
+    .cta-box,
+    .track-box,
+    .criteria-box{ background:#f8faf8; }
+
+    .box-title{
+      font-size:11px;
+      font-weight:800;
+      color:var(--earth-green);
+      text-transform:uppercase;
+      letter-spacing:.7px;
+      margin-bottom:8px;
+    }
+
+    .layer-grid,
+    .sector-grid,
+    .criteria-grid,
+    .contract-grid,
+    .policy-grid,
+    .institution-grid{
+      display:grid;
+      gap:14px;
+      margin:18px 0 24px 0;
+    }
+
+    .layer-grid{ grid-template-columns:1fr; }
+    .sector-grid{ grid-template-columns:1fr 1fr; }
+    .criteria-grid,
+    .contract-grid,
+    .policy-grid,
+    .institution-grid{ grid-template-columns:1fr 1fr; }
+
+    .grid-card{
+      border:1px solid var(--border-color);
+      background:#fff;
+      padding:16px 18px;
+    }
+
+    .grid-card-title{
+      font-family:'Libre Baskerville', serif;
+      font-size:14px;
+      color:var(--earth-green);
+      margin-bottom:8px;
+      font-weight:700;
+    }
+
+    .grid-card p{
+      margin:0;
+      font-size:12.5px;
+      color:#333;
+      line-height:1.65;
+    }
+
+    .layer-card{
+      border:1px solid var(--border-color);
+      background:#fff;
+      padding:18px 20px;
+      position:relative;
+    }
+
+    .layer-number{
+      font-size:10px;
+      font-weight:800;
+      color:var(--submission-accent);
+      letter-spacing:.8px;
+      text-transform:uppercase;
+      margin-bottom:8px;
+    }
+
+    .layer-title{
+      font-family:'Libre Baskerville', serif;
+      font-size:16px;
+      color:var(--earth-green);
+      margin-bottom:8px;
+      font-weight:700;
+    }
+
+    .layer-gate{
+      margin-top:10px;
+      font-size:11.5px;
+      color:var(--muted-text);
+      border-top:1px dashed var(--border-color);
+      padding-top:10px;
+    }
+
+    .sector-link{
+      text-decoration:none;
+      color:inherit;
+      display:block;
+      height:100%;
+    }
+
+    .sector-card{
+      border:1px solid var(--border-color);
+      background:#fff;
+      padding:16px 18px;
+      transition:.2s ease;
+      min-height:120px;
+    }
+
+    .sector-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 6px 18px rgba(0,0,0,.08);
+      border-color:var(--gold-accent);
+    }
+
+    .sector-number{
+      font-size:10px;
+      font-weight:800;
+      color:var(--submission-accent);
+      text-transform:uppercase;
+      letter-spacing:.8px;
+      margin-bottom:8px;
+    }
+
+    .sector-title{
+      font-family:'Libre Baskerville', serif;
+      font-size:14px;
+      color:var(--earth-green);
+      margin-bottom:8px;
+      font-weight:700;
+      line-height:1.4;
+    }
+
+    .sector-text{
+      font-size:12px;
+      color:#333;
+      line-height:1.6;
+    }
+
+    .call-list,
+    .clean-list{
+      margin:10px 0 0 0;
+      padding-left:18px;
+      font-size:12.5px;
+      color:#333;
+    }
+
+    .clean-list li,
+    .call-list li{ margin-bottom:6px; }
+
+    .call-banner{
+      border:1px solid var(--border-color);
+      background:#fff;
+      padding:18px 20px;
+      margin:18px 0 24px 0;
+    }
+
+    .call-banner-title{
+      font-family:'Libre Baskerville', serif;
+      font-size:16px;
+      color:var(--earth-green);
+      margin-bottom:8px;
+      font-weight:700;
+    }
+
+    .call-banner-meta{
+      font-size:12px;
+      color:var(--muted-text);
+      margin-bottom:10px;
+      line-height:1.6;
+    }
+
+    .cta-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:16px;
+    }
+
+    .cta-button{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      text-decoration:none;
+      padding:12px 16px;
+      border:1px solid var(--earth-green);
+      color:#fff;
+      background:var(--earth-green);
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.3px;
+      transition:.2s;
+    }
+
+    .cta-button.secondary{
+      background:#fff;
+      color:var(--earth-green);
+    }
+
+    .cta-button:hover{
+      transform:translateY(-1px);
+      box-shadow:0 5px 14px rgba(0,0,0,.1);
+    }
+
+    .references-section{
+      margin-top:35px;
+      border-top:3px solid var(--submission-accent);
+      padding-top:20px;
+    }
+
+    .references-title{
+      font-family:'Libre Baskerville', serif;
+      font-weight:700;
+      font-size:16px;
+      color:var(--earth-green);
+      margin-bottom:16px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding-bottom:8px;
+      border-bottom:2px solid var(--earth-green);
+      user-select:none;
+    }
+
+    .references-title::after{
+      content:"▼";
+      font-size:11px;
+      transition:transform .3s;
+    }
+
+    .references-title.collapsed::after{
+      transform:rotate(-90deg);
+    }
+
+    .references-content{
+      max-height:8000px;
+      overflow:hidden;
+      transition:max-height .4s ease;
+    }
+
+    .references-content.collapsed{
+      max-height:0;
+    }
+
+    .reference-item{
+      margin-bottom:8px;
+      font-size:11.5px;
+      line-height:1.5;
+      color:#333;
+    }
+
+    .reference-item .author{
+      color:var(--earth-green);
+      font-weight:600;
+    }
+
+    .reference-item .title{
+      font-style:italic;
+    }
+
+    .copyright-footer{
+      margin-top:40px;
+      padding-top:25px;
+      border-top:2px solid var(--border-color);
+      font-size:11px;
+      line-height:1.6;
+      color:#555;
+    }
+
+    .copyright-notice{
+      font-weight:700;
+      color:var(--earth-green);
+      margin-bottom:10px;
+    }
+
+    .hidden{ display:none !important; }
+
+    .mobile-btn{
+      display:none;
+      position:fixed;
+      bottom:20px;
+      right:20px;
+      background:var(--earth-green);
+      color:#fff;
+      border:none;
+      padding:14px 22px;
+      font-weight:800;
+      font-size:12px;
+      z-index:2000;
+      box-shadow:0 4px 15px rgba(0,0,0,.3);
+      cursor:pointer;
+      letter-spacing:.5px;
+    }
+
+    .print-btn{
+      position:fixed;
+      top:20px;
+      right:20px;
+      background:var(--earth-green);
+      color:#fff;
+      border:none;
+      padding:12px 20px;
+      font-weight:700;
+      font-size:12px;
+      z-index:2000;
+      box-shadow:0 4px 15px rgba(0,0,0,.2);
+      cursor:pointer;
+      letter-spacing:.5px;
+      border-radius:4px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      transition:all .3s ease;
+    }
+
+    .print-btn:hover{
+      background:#2c5282;
+      transform:translateY(-2px);
+      box-shadow:0 6px 20px rgba(0,0,0,.25);
+    }
+
+    .print-btn::before{
+      content:"🖨️";
+      font-size:14px;
+    }
+
+    .print-btn.saving::before{
+      content:"⏳";
+    }
+
+    .pdf-status{
+      position:fixed;
+      top:70px;
+      right:20px;
+      background:#fff;
+      border:2px solid var(--gold-accent);
+      padding:12px 16px;
+      border-radius:4px;
+      box-shadow:0 4px 15px rgba(0,0,0,.15);
+      font-size:12px;
+      color:var(--earth-green);
+      font-weight:600;
+      z-index:1999;
+      display:none;
+      align-items:center;
+      gap:8px;
+    }
+
+    .pdf-status.show{
+      display:flex;
+      animation:slideIn .3s ease;
+    }
+
+    @keyframes slideIn{
+      from { transform:translateX(100px); opacity:0; }
+      to { transform:translateX(0); opacity:1; }
+    }
+
+    @media (max-width:1024px){
+      .sidebar{ transform:translateX(-100%); }
+      .sidebar.open{ transform:translateX(0); box-shadow:10px 0 30px rgba(0,0,0,.22); }
+      .main-content{ margin-left:0; padding:16px; }
+      .document-page{ padding:24px; width:auto; margin:0; }
+      .hero-header{ margin:-24px -24px 20px -24px; padding:24px; }
+      .mobile-btn{ display:block; }
+      .print-btn{ top:auto; bottom:80px; right:20px; padding:14px 18px; }
+      .print-btn span{ display:none; }
+      .pdf-status{ top:auto; bottom:140px; right:20px; }
+      .sector-grid,
+      .criteria-grid,
+      .contract-grid,
+      .policy-grid,
+      .institution-grid{ grid-template-columns:1fr; }
+    }
+
+    @media (max-width:1200px) and (min-width:1025px){
+      .document-page{
+        max-width:calc(100vw - var(--sidebar-width) - 40px);
+        padding:40px 30px;
+      }
+    }
+
+    @media print{
+      .sidebar, .mobile-btn, .print-btn, .pdf-status{ display:none !important; }
+      .main-content{ margin-left:0; }
+      .references-content{ max-height:none !important; }
+      .document-page{
+        box-shadow:none;
+        max-width:100%;
+        padding:30px;
+      }
+      .hero-header{
+        margin:0 0 24px 0;
+        -webkit-print-color-adjust:exact;
+        print-color-adjust:exact;
+      }
+      body{ background:#fff; }
+    }
+  </style>
+</head>
+
+<body>
+  <button class="mobile-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+    INDEX
+  </button>
+
+  <button class="print-btn" onclick="printDocument()" id="printBtn">
+    <span>Save PDF / Print</span>
+  </button>
+
+  <div class="pdf-status" id="pdfStatus">
+    <span>⏳</span> Preparing document for print...
+  </div>
+
+  <aside class="sidebar" id="sidebar" aria-label="Fellowship Portal Index">
+    <div class="sidebar-top">
+      <a href="index.html" class="logo-box" aria-label="Back to c-ECO">Σ</a>
+      <div class="sidebar-title">c-ECO Fellowship Portal</div>
+    </div>
+
+    <div class="search-container">
+      <input type="text" id="sidebarSearch" placeholder="Search section or sector..." aria-label="Search Index">
+    </div>
+
+    <nav>
+      <ul class="nav-list">
+        <li class="nav-section-title">Program Architecture</li>
+        <li class="nav-item"><a href="#PROGRAM-OVERVIEW">Program Overview</a></li>
+        <li class="nav-item"><a href="#METHODOLOGICAL-CORE">Methodological Core</a></li>
+        <li class="nav-item"><a href="#LIVING-LAB">Living Lab Framework</a></li>
+        <li class="nav-item"><a href="#SELECTION-CRITERIA">Selection Criteria</a></li>
+        <li class="nav-item"><a href="#SYSTEM-ARCHITECTURE">System Architecture</a></li>
+
+        <li class="nav-section-title">Sectoral Tracks</li>
+        <li class="nav-item"><a href="#SECTOR-ACCESS">Sector Access</a></li>
+        <li class="nav-item"><a href="sector-1.html">Sector 1 — Mining & Mineral Extraction</a></li>
+        <li class="nav-item"><a href="sector-2.html">Sector 2 — Agribusiness & Intensive Land Use</a></li>
+        <li class="nav-item"><a href="sector-3.html">Sector 3 — Energy Systems</a></li>
+        <li class="nav-item"><a href="sector-4.html">Sector 4 — Water & Sanitation</a></li>
+        <li class="nav-item"><a href="sector-5.html">Sector 5 — Infrastructure & Heavy Construction</a></li>
+        <li class="nav-item"><a href="sector-6.html">Sector 6 — Financial Systems</a></li>
+        <li class="nav-item"><a href="sector-7.html">Sector 7 — Real Estate & Urbanization</a></li>
+        <li class="nav-item"><a href="sector-8.html">Sector 8 — Chemical & Materials Industries</a></li>
+        <li class="nav-item"><a href="sector-9.html">Sector 9 — Logistics & Transportation</a></li>
+        <li class="nav-item"><a href="sector-10.html">Sector 10 — Digital Technology & Data Infrastructure</a></li>
+        <li class="nav-item"><a href="sector-11.html">Sector 11 — Space & Orbital Infrastructure</a></li>
+        <li class="nav-item"><a href="sector-12.html">Sector 12 — Forests, Carbon & Natural Assets</a></li>
+        <li class="nav-item"><a href="sector-13.html">Sector 13 — Hybrid Enabling Systems</a></li>
+
+        <li class="nav-section-title">Governance & Participation</li>
+        <li class="nav-item"><a href="#POLICY-FRAMEWORK">Fellowship Policy Framework</a></li>
+        <li class="nav-item"><a href="#CONTRACTUAL-FRAMEWORK">Contractual Adhesion Framework</a></li>
+        <li class="nav-item"><a href="#INSTITUTIONAL-FRAMEWORK">Institutional Framework</a></li>
+        <li class="nav-item"><a href="#CALL-FOR-APPLICATIONS">Call for Applications</a></li>
+        <li class="nav-item"><a href="#ACCESS-NEXT-STEPS">Access & Next Steps</a></li>
+
+        <li class="nav-section-title">Reference</li>
+        <li class="nav-item"><a href="#REFERENCES">References</a></li>
+        <li class="nav-item"><a href="#COPYRIGHT">Copyright</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <article class="document-page">
+      <header class="hero-header">
+        <div class="hero-eyebrow">c-ECO Systemic Governance Initiative</div>
+        <h1 class="hero-title">c-ECO Fellowship Program — Applied Entry Portal</h1>
+        <div class="hero-subtitle">
+          This portal constitutes the official entry interface for the c-ECO Fellowship Program, a selective applied environment designed for participation in sector-based systemic governance under threshold-conditioned legal and operational logic.
+        </div>
+      </header>
+
+      <section id="PROGRAM-OVERVIEW">
+        <div class="section-header">SECTION 1 — PROGRAM OVERVIEW</div>
+
+        <div class="caput">
+          The c-ECO Fellowship Program is not structured as a general academic course, open lecture cycle, or unrestricted training environment. It operates as a controlled applied system through which selected participants engage with real or proposed case environments under the c-ECO decisional governance architecture.
+        </div>
+
+        <div class="caput">
+          The Fellowship is organized as an institutional entry layer into systemic governance by thresholds. Fellows do not merely study concepts. They enter a conditioned analytical environment in which conduct, outputs, and methodological validity are subordinated to the Safe Operating Space (SOS), the Threshold Function Protocol (TFP), and the logic of pre-threshold intervention.
+        </div>
+
+        <div class="note-box">
+          <div class="box-title">Program Character</div>
+          <div class="caput" style="margin-bottom:0;">
+            The Fellowship is selective, applied, case-based, and sector-allocated. Admission depends not only on candidate trajectory, but on the existence of a sufficiently defined case environment capable of supporting threshold-oriented systemic analysis.
+          </div>
+        </div>
+      </section>
+
+      <!-- restante do portal segue no arquivo -->
+    </article>
+  </main>
+
+  <script>
+    function toggleSection(header) {
+      const content = header.nextElementSibling;
+      header.classList.toggle('collapsed');
+      content.classList.toggle('collapsed');
+    }
+
+    const searchInput = document.getElementById('sidebarSearch');
+    const navItems = document.querySelectorAll('.nav-item');
+    const sectionTitles = document.querySelectorAll('.nav-section-title, .nav-sub-title');
+    const sidebar = document.getElementById('sidebar');
+
+    searchInput.addEventListener('input', function(e) {
+      const term = e.target.value.toLowerCase();
+
+      navItems.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.classList.toggle('hidden', !text.includes(term));
+      });
+
+      sectionTitles.forEach(title => {
+        title.classList.toggle('hidden', term.length > 0);
+      });
+    });
+
+    document.querySelectorAll('.nav-item a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 1024) {
+          sidebar.classList.remove('open');
+        }
+      });
+    });
+
+    function printDocument() {
+      const btn = document.getElementById('printBtn');
+      const status = document.getElementById('pdfStatus');
+
+      status.classList.add('show');
+      btn.classList.add('saving');
+
+      const collapsedSections = document.querySelectorAll('.references-content.collapsed');
+      const wasCollapsed = [];
+
+      collapsedSections.forEach((section) => {
+        wasCollapsed.push(section);
+        section.classList.remove('collapsed');
+        section.previousElementSibling.classList.remove('collapsed');
+      });
+
+      setTimeout(() => {
+        window.print();
+
+        setTimeout(() => {
+          wasCollapsed.forEach(section => {
+            section.classList.add('collapsed');
+            section.previousElementSibling.classList.add('collapsed');
+          });
+
+          status.classList.remove('show');
+          btn.classList.remove('saving');
+        }, 1000);
+      }, 300);
+    }
+  </script>
+</body>
+</html>
