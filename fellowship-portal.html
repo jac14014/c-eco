@@ -935,7 +935,7 @@
   </aside>
 
   <main class="main-content">
-    <article class="document-page">
+      <article class="document-page" id="mainDocument">
       <header class="hero-header">
         <div class="hero-eyebrow">c-ECO Systemic Governance Initiative</div>
         <h1 class="hero-title">c-ECO Fellowship Program — Applied Entry Portal</h1>
@@ -2174,68 +2174,68 @@
   </main>
 
   <script>
-    function toggleSection(header) {
-      const content = header.nextElementSibling;
-      header.classList.toggle('collapsed');
-      content.classList.toggle('collapsed');
-    }
+  const searchInput = document.getElementById('sidebarSearch');
 
-    const searchInput = document.getElementById('sidebarSearch');
-    const navItems = document.querySelectorAll('.nav-item');
-    const sectionTitles = document.querySelectorAll('.nav-section-title, .nav-sub-title');
-    const sidebar = document.getElementById('sidebar');
+  const navItems = document.querySelectorAll('.nav-item');
+  const sectionTitles = document.querySelectorAll('.nav-section-title');
+  const sidebar = document.getElementById('sidebar');
 
-    searchInput.addEventListener('input', function(e) {
-      const term = e.target.value.toLowerCase();
+  const sections = document.querySelectorAll('section');
 
-      navItems.forEach(item => {
-        const text = item.textContent.toLowerCase();
-        item.classList.toggle('hidden', !text.includes(term));
-      });
+  searchInput.addEventListener('input', function(e){
+    const term = e.target.value.toLowerCase();
 
-      sectionTitles.forEach(title => {
-        title.classList.toggle('hidden', term.length > 0);
-      });
+    /* ===== SIDEBAR FILTER ===== */
+    navItems.forEach(item => {
+      const text = item.textContent.toLowerCase();
+      item.classList.toggle('hidden', !text.includes(term));
     });
 
-    document.querySelectorAll('.nav-item a').forEach(link => {
-      link.addEventListener('click', () => {
-        if (window.innerWidth <= 1024) {
-          sidebar.classList.remove('open');
-        }
-      });
+    sectionTitles.forEach(title => {
+      title.classList.toggle('hidden', term.length > 0);
     });
 
-    function printDocument() {
-      const btn = document.getElementById('printBtn');
-      const status = document.getElementById('pdfStatus');
+    /* ===== DOCUMENT FILTER ===== */
+    sections.forEach(section => {
+      const text = section.innerText.toLowerCase();
 
-      status.classList.add('show');
-      btn.classList.add('saving');
+      if (term === "") {
+        section.classList.remove('hidden');
+      } else {
+        section.classList.toggle('hidden', !text.includes(term));
+      }
+    });
+  });
 
-      const collapsedSections = document.querySelectorAll('.references-content.collapsed');
-      const wasCollapsed = [];
+  /* ===== MOBILE SIDEBAR CLOSE ===== */
+  document.querySelectorAll('.nav-item a').forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 1024) {
+        sidebar.classList.remove('open');
+      }
+    });
+  });
 
-      collapsedSections.forEach((section) => {
-        wasCollapsed.push(section);
-        section.classList.remove('collapsed');
-        section.previousElementSibling.classList.remove('collapsed');
-      });
+  /* ===== FORM ===== */
+  const fellowshipForm = document.getElementById('fellowshipForm');
+  const formStatus = document.getElementById('formStatus');
 
-      setTimeout(() => {
-        window.print();
+  if (fellowshipForm){
+    fellowshipForm.addEventListener('submit', function(e){
+      if (!fellowshipForm.checkValidity()) {
+        e.preventDefault();
+        formStatus.className = 'status-message error';
+        formStatus.textContent = 'Please complete all required fields before submitting the application.';
+        formStatus.style.display = 'block';
+        fellowshipForm.reportValidity();
+        return;
+      }
 
-        setTimeout(() => {
-          wasCollapsed.forEach(section => {
-            section.classList.add('collapsed');
-            section.previousElementSibling.classList.add('collapsed');
-          });
-
-          status.classList.remove('show');
-          btn.classList.remove('saving');
-        }, 1000);
-      }, 300);
-    }
-  </script>
+      formStatus.className = 'status-message success';
+      formStatus.textContent = 'Submitting application...';
+      formStatus.style.display = 'block';
+    });
+  }
+</script>
 </body>
 </html>
