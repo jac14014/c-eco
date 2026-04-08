@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Module 6: Capstone — Integration and Certification</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+        
+        :root {
+            --harvard-crimson: #A51C30;
+            --harvard-dark: #1E1E1E;
+            --harvard-gray: #6C757D;
+            --harvard-light: #F8F9FA;
+            --mastery-gold: #C4A35A;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: var(--harvard-dark);
+            background: #fff;
+        }
+        
+        .module-header {
+            background: linear-gradient(135deg, var(--harvard-crimson) 0%, #7A1525 50%, var(--mastery-gold) 100%);
+            color: white;
+            padding: 60px 80px;
+        }
+        
+        .module-number {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.9;
+            margin-bottom: 16px;
+        }
+        
+        h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 44px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        
+        .module-meta {
+            display: flex;
+            gap: 40px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .content-body {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+        
+        .learning-objectives {
+            background: var(--harvard-light);
+            border-left: 4px solid var(--mastery-gold);
+            padding: 30px 35px;
+            margin: 40px 0;
+        }
+        
+        .learning-objectives h3 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 22px;
+            color: #92400E;
+            margin-bottom: 20px;
+        }
+        
+        .learning-objectives ul {
+            list-style: none;
+        }
+        
+        .learning-objectives li {
+            padding: 8px 0;
+            padding-left: 28px;
+            position: relative;
+        }
+        
+        .learning-objectives li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--mastery-gold);
+            font-weight: 600;
+        }
+        
+        h2 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 32px;
+            font-weight: 600;
+            margin: 50px 0 25px;
+            color: var(--harvard-dark);
+        }
+        
+        h3 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 24px;
+            font-weight: 600;
+            margin: 35px 0 18px;
+        }
+        
+        .exam-structure {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 3px solid var(--mastery-gold);
+            padding: 35px;
+            margin: 35px 0;
+        }
+        
+        .exam-header {
+            background: var(--mastery-gold);
+            color: white;
+            padding: 15px 25px;
+            margin: -35px -35px 25px -35px;
+            font-weight: 700;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .exam-section {
+            background: #fff;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 4px solid var(--harvard-crimson);
+        }
+        
+        .section-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--harvard-crimson);
+            margin-bottom: 15px;
+        }
+        
+        .competency-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .competency-card {
+            background: var(--harvard-light);
+            padding: 25px;
+            border-radius: 4px;
+        }
+        
+        .competency-domain {
+            font-family: 'Crimson Pro', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--harvard-crimson);
+            margin-bottom: 15px;
+        }
+        
+        .certification-badge {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, var(--harvard-crimson) 0%, #7A1525 100%);
+            color: white;
+            margin: 40px 0;
+        }
+        
+        .badge-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        
+        .badge-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .prep-guide {
+            background: var(--harvard-dark);
+            color: white;
+            padding: 35px;
+            margin: 40px 0;
+        }
+        
+        .prep-guide h3 {
+            color: white;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .prep-time {
+            display: inline-block;
+            background: var(--mastery-gold);
+            padding: 8px 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .footer-note {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 2px solid var(--harvard-light);
+            font-size: 13px;
+            color: var(--harvard-gray);
+        }
+        .module-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 2px solid var(--harvard-light);
+}
+
+.nav-btn {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 18px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+/* BACK */
+.nav-back {
+    color: var(--harvard-gray);
+    border: 1px solid #dee2e6;
+    background: transparent;
+}
+
+.nav-back:hover {
+    color: var(--harvard-dark);
+    border-color: var(--harvard-gray);
+}
+
+/* NEXT */
+.nav-next {
+    background: var(--harvard-crimson);
+    color: white;
+}
+
+.nav-next:hover {
+    background: #7A1525;
+}
+    </style>
+</head>
+<body>
+
+<header class="module-header">
+    <div class="module-number">Module 06 of 06</div>
+    <h1>Capstone: Integration and Professional Certification</h1>
+    <div class="module-meta">
+        <span>🎓 Comprehensive Examination</span>
+        <span>⏱ 4 Hours (Written + Oral)</span>
+        <span>🏆 Certification Eligible</span>
+    </div>
+</header>
+
+<main class="content-body">
+
+<div class="learning-objectives">
+    <h3>Learning Objectives</h3>
+    <ul>
+        <li>Integrate all c-ECO concepts into coherent professional practice</li>
+        <li>Demonstrate mastery of TFP mathematics, legal architecture, and ESG application</li>
+        <li>Defend professional judgments under Socratic examination</li>
+        <li>Qualify for c-ECO Practitioner Certification</li>
+        <li>Articulate personal professional identity as systemic governance specialist</li>
+    </ul>
+</div>
+
+<h2>Comprehensive Examination Structure</h2>
+
+<div class="exam-structure">
+    <div class="exam-header">c-ECO Practitioner Certification Examination</div>
+    
+    <div class="exam-section">
+        <div class="section-title">Part I: Written Examination (2.5 hours)</div>
+        <p><strong>Format:</strong> Closed-book, individual assessment</p>
+        <p><strong>Components:</strong></p>
+        <ul style="margin-left: 25px; line-height: 2;">
+            <li><strong>Section A — Conceptual (30%):</strong> 10 short-answer questions testing foundational understanding of pre-threshold governance, trajectory illegality, and the material primacy principle</li>
+            <li><strong>Section B — Quantitative (35%):</strong> 5 problems requiring calculation of TFP variables, score construction, and prudential classification from provided data</li>
+            <li><strong>Section C — Applied (35%):</strong> 2 case analyses requiring integrated application of c-ECO framework to complex ESG scenarios</li>
+        </ul>
+    </div>
+    
+    <div class="exam-section">
+        <div class="section-title">Part II: Oral Examination (1 hour)</div>
+        <p><strong>Format:</strong> Socratic dialogue with two examiners</p>
+        <p><strong>Components:</strong></p>
+        <ul style="margin-left: 25px; line-height: 2;">
+            <li><strong>Case Defense (30 min):</strong> Present and defend your Module 5 Field Project under questioning</li>
+            <li><strong>Professional Scenario (20 min):</strong> Respond to real-time scenario presented by examiners</li>
+            <li><strong>Reflection (10 min):</strong> Articulate your professional development and future application of c-ECO</li>
+        </ul>
+    </div>
+</div>
+
+<h2>Competency Domains Assessed</h2>
+
+<div class="competency-grid">
+    <div class="competency-card">
+        <div class="competency-domain">1. Theoretical Foundation</div>
+        <ul style="margin-left: 20px; line-height: 1.8;">
+            <li>Pre-threshold vs. ex-post governance</li>
+            <li>Trajectory illegality concept</li>
+            <li>Material primacy of Earth system</li>
+            <li>Asymmetric uncertainty treatment</li>
+        </ul>
+    </div>
+    <div class="competency-card">
+        <div class="competency-domain">2. Technical Proficiency</div>
+        <ul style="margin-left: 20px; line-height: 1.8;">
+            <li>TFP variable calculation (P, ΔV, σ, Lr)</li>
+            <li>Score construction (SPS, TRS, RLS)</li>
+            <li>Prudential band classification</li>
+            <li>State Machine operation</li>
+        </ul>
+    </div>
+    <div class="competency-card">
+        <div class="competency-domain">3. Legal Architecture</div>
+        <ul style="margin-left: 20px; line-height: 1.8;">
+            <li>Ex-ante unenforceability (IEX)</li>
+            <li>Safe Mode and Restoration First</li>
+            <li>Automatic effects and non-suspension</li>
+            <li>Arbitration and dispute resolution</li>
+        </ul>
+    </div>
+    <div class="competency-card">
+        <div class="competency-domain">4. ESG Integration</div>
+        <ul style="margin-left: 20px; line-height: 1.8;">
+            <li>Double materiality as systemic analysis</li>
+            <li>Scenario validity and temporal windows</li>
+            <li>Disclosure architecture design</li>
+            <li>Stakeholder communication</li>
+        </ul>
+    </div>
+    <div class="competency-card">
+        <div class="competency-domain">5. Professional Judgment</div>
+        <ul style="margin-left: 20px; line-height: 1.8;">
+            <li>Decision under uncertainty</li>
+            <li>Intervention timing</li>
+            <li>Client communication</li>
+            <li>Ethical considerations</li>
+        </ul>
+    </div>
+    <div class="competency-card">
+        <div class="competency-domain">6. Communication</div>
+        <ul style="margin-left: 20px; line-height: 1.8;">
+            <li>Technical clarity</li>
+            <li>Non-technical translation</li>
+            <li>Written precision</li>
+            <li>Oral defense</li>
+        </ul>
+    </div>
+</div>
+
+<div class="certification-badge">
+    <div class="badge-icon">🏆</div>
+    <div class="badge-title">c-ECO Practitioner Certification</div>
+    <p style="font-size: 16px; max-width: 600px; margin: 0 auto;">
+        Upon successful completion of the Comprehensive Examination, you will be awarded the <strong>c-ECO Practitioner Certificate</strong>, recognizing your qualification to apply systemic governance principles in professional ESG practice.
+    </p>
+    <p style="margin-top: 20px; font-size: 14px; opacity: 0.9;">
+        Certified practitioners are listed in the c-ECO Registry and may use the designation "c-ECO Practioner" in professional contexts.
+    </p>
+</div>
+
+<h2>Sample Examination Questions</h2>
+
+<h3>Section A — Conceptual (Example)</h3>
+<p><strong>Question:</strong> "The c-ΣCO Statute establishes that 'no right subsists outside the biophysical conditions that render it possible.' Explain how this principle resolves the apparent conflict between contractual certainty and systemic unpredictability. Address specifically: (a) why this is not a public policy exception to contract law, and (b) how it differs from force majeure doctrines."</p>
+
+<h3>Section B — Quantitative (Example)</h3>
+<p><strong>Question:</strong> "A mining operation reports the following: Current water table depth = 45m; SOS boundary = 30m; Reference state (2000) = 80m; Annual decline rate = 2.5m/year (accelerating at 0.3m/year²); Measurement uncertainty = ±10%; Immediately mobilizable restoration capital = $12M; Projected technical cost of aquifer restoration = $25M. Calculate: (a) P with asymmetric uncertainty, (b) ΔV over 5-year horizon, (c) Lr, (d) resulting prudential band."</p>
+
+<h3>Section C — Applied (Example)</h3>
+<p><strong>Question:</strong> "You are the newly appointed Chief Sustainability Officer of a major European bank. The Board has adopted c-ECO principles for climate risk management. Your Head of Retail Banking argues that mortgage lending should be exempt from TFP analysis because 'housing is a social good and we can't stop lending.' Your Head of Investment Banking wants to apply TFP only to coal and oil, not to 'transition-enabling' gas infrastructure. Draft a 2-page memorandum to the CEO articulating: (a) why both positions are inconsistent with c-ECO architecture, and (b) a proposed governance framework that addresses legitimate concerns while preserving systemic integrity."</p>
+
+<div class="prep-guide">
+    <div class="prep-time">⏱ Preparation Time: Self-Directed (Recommended: 20+ hours)</div>
+    <h3>Certification Preparation Guide</h3>
+    <p><strong>Phase 1 — Review (Week 1):</strong></p>
+    <ul style="margin-left: 25px; line-height: 2;">
+        <li>Re-read all primary sources: c-ΣCO Statute, TFP Manual, TDR Mathematics</li>
+        <li>Review your Module 1–5 submissions, noting instructor feedback</li>
+        <li>Create personal "cheat sheet" of key formulas and legal provisions</li>
+    </ul>
+    <p><strong>Phase 2 — Practice (Week 2):</strong></p>
+    <ul style="margin-left: 25px; line-height: 2;">
+        <li>Complete practice quantitative problems under timed conditions</li>
+        <li>Conduct mock oral examination with peer or mentor</li>
+        <li>Refine Module 5 project defense: anticipate 10 hardest questions</li>
+    </ul>
+    <p><strong>Phase 3 — Integration (Week 3):</strong></p>
+    <ul style="margin-left: 25px; line-height: 2;">
+        <li>Synthesize personal "theory of practice": how you will apply c-ECO professionally</li>
+        <li>Prepare 2-minute, 5-minute, and 10-minute versions of your professional identity narrative</li>
+        <li>Rest and arrive prepared for examination</li>
+    </ul>
+</div>
+
+<h2>Post-Certification Pathways</h2>
+
+<p>Successful candidates may pursue:</p>
+<ul style="margin-left: 25px; line-height: 2;">
+    <li><strong>c-ECO Advanced Certification:</strong> Specialized tracks in Financial Services, Energy Systems, or Nature-Based Solutions</li>
+    <li><strong>Calibration Council Engagement:</strong> Contribute to methodological development and sectoral parameter setting</li>
+    <li><strong>Teaching and Mentorship:</strong> Serve as instructor or peer mentor in future c-ECO cohorts</li>
+    <li><strong>Professional Practice:</strong> Integrate c-ECO into your organization's ESG architecture</li>
+</ul>
+<div class="module-navigation">
+    
+    <a href="fellowship-module5-fin .html" class="nav-btn nav-back">
+        ← Return to Module 5
+    </a>
+
+    <a href="fellowship-portal.html" class="nav-btn nav-next">
+        Fellowship Portal →
+    </a>
+
+</div>
+<div class="footer-note">
+    <p><strong>Academic Standards:</strong> The c-ECO Practitioner Certification examination maintains the academic rigor of Harvard-level professional education. Pass rates typically range from 75–85%. Candidates who do not pass may retake the examination after 90 days with additional preparation.</p>
+    <p style="margin-top: 15px;"><strong>Congratulations</strong> on completing the c-ECO ESG Professional Track. You are now equipped to practice systemic governance in a world of accelerating complexity.</p>
+</div>
+
+</main>
+
+</body>
+</html>
