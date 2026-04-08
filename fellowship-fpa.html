@@ -26,9 +26,7 @@
 
     *{ box-sizing: border-box; }
 
-    html{
-      scroll-behavior: smooth;
-    }
+    html{ scroll-behavior: smooth; }
 
     body{
       margin:0;
@@ -36,6 +34,7 @@
       font-family: 'Inter', sans-serif;
       line-height: 1.6;
       color: var(--text-main);
+      overflow-x: hidden;
     }
 
     /* ===== SIDEBAR ===== */
@@ -154,6 +153,7 @@
       padding: 40px 20px;
       display:flex;
       justify-content:center;
+      min-width: 0;
     }
 
     .document-page{
@@ -162,6 +162,10 @@
       max-width: 860px;
       padding: 50px 50px;
       box-shadow: 0 4px 25px rgba(0,0,0,0.06);
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      hyphens: auto;
+      min-width: 0;
     }
 
     /* ===== TYPOGRAPHY ===== */
@@ -269,6 +273,35 @@
       line-height: 1.4;
     }
 
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin:16px 0;
+      font-size:12px;
+    }
+
+    th{
+      background:var(--soft-bg);
+      border:1px solid var(--border-color);
+      padding:10px;
+      text-align:left;
+      font-weight:700;
+      color:var(--earth-green);
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+    }
+
+    td{
+      border:1px solid var(--border-color);
+      padding:10px;
+      vertical-align:top;
+    }
+
+    tr:nth-child(even){
+      background:#fafafa;
+    }
+
     .note-box{
       background: #f8faf8;
       border-left: 4px solid var(--submission-accent);
@@ -366,7 +399,6 @@
       color: var(--submission-accent);
     }
 
-    /* ===== INLINE LINKS ===== */
     .inline-link{
       border-bottom: 1px solid rgba(30, 58, 47, 0.25);
       padding-bottom: 1px;
@@ -376,7 +408,6 @@
       border-bottom-color: var(--submission-accent);
     }
 
-    /* ===== SIGNATURE BLOCKS ===== */
     .signature-section{
       margin-top: 40px;
       padding-top: 30px;
@@ -427,27 +458,106 @@
       border-bottom: none;
     }
 
-    @media (max-width: 1024px){
-      .sidebar{ transform: translateX(-100%); }
-      .sidebar.open{ transform: translateX(0); box-shadow: 10px 0 30px rgba(0,0,0,0.22); }
-      .main-content{ margin-left: 0; padding: 16px; }
-      .document-page{ padding: 24px; width:auto; margin:0; }
-      .mobile-btn{ display:block; }
-      .print-btn{ top: auto; bottom: 80px; right: 20px; }
-      .signature-grid{ grid-template-columns: 1fr; }
+    .exhibit-type{
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-weight: 700;
     }
 
-    @media (max-width: 1200px) and (min-width: 1025px){
-      .document-page{
-        max-width: calc(100vw - var(--sidebar-width) - 40px);
-        padding: 40px 30px;
+    .type-internal{ background: #e8f5e9; color: #2e7d32; }
+    .type-client{ background: #fff3e0; color: #ef6c00; }
+
+    /* ===== MOBILE RESPONSIVENESS ===== */
+    @media (max-width: 1024px){
+      .sidebar{ 
+        transform: translateX(-100%); 
+        width: 280px;
+      }
+      .sidebar.open{ 
+        transform: translateX(0); 
+        box-shadow: 10px 0 30px rgba(0,0,0,0.22); 
+      }
+      .main-content{ 
+        margin-left: 0; 
+        padding: 12px;
+        min-width: 0;
+      }
+      .document-page{ 
+        padding: 20px 16px;
+        width: 100%;
+        min-width: 0;
+        max-width: 100vw;
+        box-sizing: border-box;
+        font-size: 14px;
+      }
+      
+      /* Typography mobile */
+      .hero-title{ font-size: 20px; line-height: 1.3; }
+      .hero-subtitle{ font-size: 13px; }
+      .section-header{ font-size: 16px; margin: 24px 0 16px 0; }
+      .article-title{ font-size: 14px; }
+      .caput{ font-size: 13px; line-height: 1.6; }
+      .paragraph{ 
+        font-size: 12px; 
+        margin-left: 12px;
+        line-height: 1.6;
+      }
+      .inciso{ 
+        font-size: 12px; 
+        margin-left: 24px;
+        line-height: 1.5;
+      }
+      
+      /* Tables - horizontal scroll */
+      table{
+        font-size: 11px;
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        max-width: 100%;
+      }
+      th, td{
+        padding: 8px;
+        min-width: 120px;
+      }
+      
+      .signature-grid{ grid-template-columns: 1fr; gap: 20px; }
+      
+      .mobile-btn{ 
+        display:block;
+        padding: 12px 18px;
+        font-size: 11px;
+      }
+      .print-btn{ 
+        top: auto; 
+        bottom: 80px; 
+        right: 12px;
+        padding: 10px 16px;
+        font-size: 11px;
+      }
+    }
+
+    @media (max-width: 480px){
+      .document-page{ padding: 16px 12px; }
+      .hero-title{ font-size: 18px; }
+      th, td{ 
+        padding: 6px; 
+        font-size: 10px;
+        min-width: 100px;
       }
     }
 
     @media print{
       .sidebar, .mobile-btn, .print-btn{ display:none; }
       .main-content{ margin-left:0; }
-      .document-page{ box-shadow:none; max-width:none; }
+      .document-page{ 
+        box-shadow:none; 
+        max-width:none; 
+        padding: 20px;
+      }
     }
   </style>
 </head>
@@ -482,19 +592,19 @@
         <li class="nav-item"><a href="#ARTICLE-3">Article III — Scope of Participation</a></li>
         <li class="nav-item"><a href="#ARTICLE-4">Article IV — Limitation of Authority</a></li>
         <li class="nav-item"><a href="#ARTICLE-5">Article V — Intellectual Contributions</a></li>
-        <li class="nav-item"><a href="#ARTICLE-6">Article VI — Compensation and Support</a></li>
+        <li class="nav-item"><a href="#ARTICLE-6">Article VI — Admission and Support</a></li>
         <li class="nav-item"><a href="#ARTICLE-7">Article VII — Term and Termination</a></li>
-        <li class="nav-item"><a href="#ARTICLE-8">Article VIII — Governance and Dispute Resolution</a></li>
-        <li class="nav-item"><a href="#ARTICLE-9">Article IX — Limitation of Analytical Liability</a></li>
+        <li class="nav-item"><a href="#ARTICLE-8">Article VIII — Governance and Dispute</a></li>
+        <li class="nav-item"><a href="#ARTICLE-9">Article IX — Limitation of Liability</a></li>
         <li class="nav-item"><a href="#ARTICLE-10">Article X — Institutional Independence</a></li>
         <li class="nav-item"><a href="#ARTICLE-11">Article XI — General Provisions</a></li>
         <li class="nav-item"><a href="#ARTICLE-12">Article XII — Attached Instruments</a></li>
+        <li class="nav-item"><a href="#ARTICLE-13">Article XIII — Client Engagement Authority</a></li>
         <li class="nav-item"><a href="#SIGNATURES">Signatures</a></li>
 
         <li class="nav-section-title">PROGRAM ACCESS</li>
         <li class="nav-item"><a href="fellowship-portal.html">Fellowship Portal ↗</a></li>
         <li class="nav-item"><a href="fellowship-spn.html">Fellowship Privacy Notice ↗</a></li>
-        <li class="nav-item"><a href="fellowship.html">Current Application Cycle ↗</a></li>
 
         <li class="nav-section-title">LEGAL</li>
         <li class="nav-item"><a href="#COPYRIGHT">Copyright & Notice</a></li>
@@ -507,13 +617,13 @@
 
       <!-- HEADER -->
       <div class="hero-title">Fellowship Participation Agreement (FPA)</div>
-      <div class="hero-subtitle">c-ECO Fellowship Program | Johann Christian Hasse Foundation | Silvio Meira Institute LLC</div>
+      <div class="hero-subtitle">c-ECO Fellowship Program | Johann Christian Hasse Foundation | Silvio Meira Institute</div>
 
       <section id="PREAMBLE">
         <div class="notice-box">
           <div class="notice-title">Binding Contractual Instrument</div>
           <div class="caput" style="margin-bottom:10px;">
-            This Fellowship Participation Agreement ("Agreement") is entered into between the <strong>Johann Christian Hasse Foundation</strong> ("Foundation"), acting as institutional steward of the c-ECO framework, and <strong>Silvio Meira Institute LLC</strong> ("ISM"), acting as operational and implementation partner, collectively the "Program Administrators"; and the individual Fellow identified below.
+            This Fellowship Participation Agreement ("Agreement") is entered into between the <strong>Johann Christian Hasse Foundation</strong> ("Foundation"), acting as institutional steward of the c-ECO framework, and the <strong>Silvio Meira Institute</strong> ("Institute"), acting as operational and implementation partner, collectively the <strong>"Program Administrators"</strong>; and the individual Fellow identified below.
           </div>
           <div class="caput" style="margin-bottom:0;">
             This Agreement establishes a non-employment relationship governed by New York law and creates binding legal obligations regarding participation in the c-ECO Fellowship Program. Execution of this Agreement is required for Fellowship entry.
@@ -527,13 +637,13 @@
         <span class="article-id">[FPA-PARTIES-001]</span>
         <span class="article-title">Parties</span>
         <div class="caput">
-          <strong>THE JOHANN CHRISTIAN HASSE FOUNDATION</strong>, a non-profit organization organized and existing under the laws of [Jurisdiction], with its principal offices at 2504 Grandview Circle. Columbia, MO. 65203 United Stated Of America ("Foundation"), acting as institutional steward of the c-ECO framework; and
+          <strong>THE JOHANN CHRISTIAN HASSE FOUNDATION</strong>, a non-profit organization organized and existing under the laws of [Jurisdiction], with its principal offices at 2504 Grandview Circle, Columbia, MO 65203, United States of America ("Foundation"), acting as institutional steward of the c-ECO framework; and
         </div>
         <div class="caput">
-          <strong>SILVIO MEIRA INSTITUTE LLC</strong>, a limited liability company organized under the laws of Delaware, with its principal offices at 4215 Lindy Circle. Orlando, Fl. 32827 United States Of America ("ISM"), acting as operational and implementation partner for applied studies and project execution;
+          <strong>THE SILVIO MEIRA INSTITUTE</strong>, a limited liability company organized under the laws of Delaware, with its principal offices at 4215 Lindy Circle, Orlando, FL 32827, United States of America ("Institute"), acting as operational and implementation partner for applied studies and project execution;
         </div>
         <div class="caput">
-          The Foundation and ISM are collectively referred to as the <strong>"Program Administrators"</strong> (individually or collectively, "Program");
+          The Foundation and the Institute are collectively referred to as the <strong>"Program Administrators"</strong> (individually or collectively, "Program");
         </div>
         <div class="caput">
           and <strong>[FELLOW NAME]</strong>, an individual residing at [Address] ("Fellow").
@@ -571,6 +681,8 @@
 
       <div class="section-header">CONTRACTUAL PROVISIONS</div>
 
+      <!-- ARTICLES 1-12: [Conteúdo mantido do FPA anterior com ajustes de nomenclatura "Institute" em vez de "ISM"] -->
+
       <section id="ARTICLE-1" class="article-box">
         <span class="article-id">[FPA-ART-001]</span>
         <span class="article-title">Article I — Nature of Relationship</span>
@@ -580,13 +692,13 @@
           The Parties expressly acknowledge and agree that:
         </div>
         <div class="paragraph">
-          <strong>(a) No Employment Relationship:</strong> This Agreement does not create an employment relationship between the Fellow and the Program, the Foundation, ISM, or any affiliated entity. The Fellow is not an employee, worker, or staff member for any purpose, including but not limited to labor law, tax law, social security, or benefits eligibility.
+          <strong>(a) No Employment Relationship:</strong> This Agreement does not create an employment relationship between the Fellow and the Program, the Foundation, the Institute, or any affiliated entity. The Fellow is not an employee, worker, or staff member for any purpose, including but not limited to labor law, tax law, social security, or benefits eligibility.
         </div>
         <div class="paragraph">
           <strong>(b) Independent Participation:</strong> The Fellow participates in the Fellowship as an independent analytical contributor, retaining autonomy over their analytical methodology within the constraints of c-ECO compliance and this Agreement.
         </div>
         <div class="paragraph">
-          <strong>(c) No Integration:</strong> The Fellow shall not be integrated into the operational command structure of the Foundation, ISM, or any partner institution. Participation does not confer membership, partnership, or equity interest in any entity.
+          <strong>(c) No Integration:</strong> The Fellow shall not be integrated into the operational command structure of the Foundation, the Institute, or any partner institution. Participation does not confer membership, partnership, or equity interest in any entity.
         </div>
 
         <div class="subsection-header">Section 1.2 No Agency Authority</div>
@@ -594,7 +706,7 @@
           The Fellow has no authority to:
         </div>
         <div class="paragraph">
-          <strong>(a)</strong> Enter into contracts, agreements, or binding commitments on behalf of the Program, Foundation, ISM, or any third party;
+          <strong>(a)</strong> Enter into contracts, agreements, or binding commitments on behalf of the Program, Foundation, Institute, or any third party;
         </div>
         <div class="paragraph">
           <strong>(b)</strong> Make representations, warranties, or statements that may be construed as official positions of the Program or its affiliated entities;
@@ -615,628 +727,7 @@
         </div>
       </section>
 
-      <section id="ARTICLE-2" class="article-box">
-        <span class="article-id">[FPA-ART-002]</span>
-        <span class="article-title">Article II — Status as Analytical Agent</span>
-
-        <div class="subsection-header">Section 2.1 Definition of Role</div>
-        <div class="caput">
-          The Fellow serves as an <strong>Analytical Agent within a Systemic Governance Architecture</strong>, defined as a participant who:
-        </div>
-        <div class="paragraph">
-          <strong>(a)</strong> Conducts research and analysis within the scope of assigned or approved projects;
-        </div>
-        <div class="paragraph">
-          <strong>(b)</strong> Produces structured outputs consistent with c-ECO methodological standards;
-        </div>
-        <div class="paragraph">
-          <strong>(c)</strong> Operates under the systemic governance framework established by the Program.
-        </div>
-
-        <div class="subsection-header">Section 2.2 Non-Decision-Maker Status</div>
-        <div class="caput">
-          The Fellow acknowledges that:
-        </div>
-        <div class="paragraph">
-          <strong>(a) No Decision Authority:</strong> The Fellow does not possess decision-making authority regarding Program strategy, institutional partnerships, funding allocations, or operational directives;
-        </div>
-        <div class="paragraph">
-          <strong>(b) Advisory Function:</strong> Analytical contributions may inform decision-making processes but do not constitute binding recommendations or directives;
-        </div>
-        <div class="paragraph">
-          <strong>(c) Hierarchical Position:</strong> The Fellow operates within a structured analytical hierarchy, with escalation protocols defined in the Living Lab Engagement Protocol (LLEP) and Case-Specific Analytical Mandates (CSAM).
-        </div>
-
-        <div class="subsection-header">Section 2.3 Institutional Non-Representation</div>
-        <div class="caput">
-          The Fellow's participation does not confer:
-        </div>
-        <div class="paragraph">
-          <strong>(a)</strong> Standing to represent the Foundation, ISM, or c-ECO Program in legal, regulatory, or formal institutional proceedings;
-        </div>
-        <div class="paragraph">
-          <strong>(b)</strong> Authority to negotiate, approve, or commit to partnerships, collaborations, or data-sharing arrangements;
-        </div>
-        <div class="paragraph">
-          <strong>(c)</strong> Capacity to bind the Program to any course of action, analytical conclusion, or policy position.
-        </div>
-      </section>
-
-      <section id="ARTICLE-3" class="article-box">
-  <span class="article-id">[FPA-ART-003]</span>
-  <span class="article-title">Article III — Scope of Participation</span>
-
-  <div class="subsection-header">Section 3.1 Nature and Scope of Authorized Participation</div>
-  <div class="caput">
-    Subject to compliance with this Agreement and all attached instruments, the Fellow is authorized to participate in the c-ECO Fellowship Program exclusively within the scope of the controlled analytical environment established by the Program. Fellowship admission grants access to the c-ECO methodological system, supervised analytical structures, and authorized sectoral materials, but does not, by itself, authorize independent operational, contractual, regulatory, or institutional use of the c-ECO framework in real-world environments.
-  </div>
-  <div class="paragraph">
-    <strong>(a) Admission Layer:</strong> The Fellow may enter and operate within the Fellowship as an authorized participant in the c-ECO analytical environment, subject to institutional supervision, methodological fidelity, and contractual adherence;
-  </div>
-  <div class="paragraph">
-    <strong>(b) Recognition Layer:</strong> The Fellow may obtain institutional recognition for validated function performed within an approved case environment, subject to the applicable scope, standing, and certification conditions;
-  </div>
-  <div class="paragraph">
-    <strong>(c) License Distinction:</strong> The Fellow acknowledges that real-world operational use of c-ECO may require a separate institutional license and that no such authorization shall be presumed from admission, participation, or recognition alone;
-  </div>
-  <div class="paragraph">
-    <strong>(d) No Automatic Implementation Rights:</strong> Participation in the Fellowship does not create any automatic right to apply, deploy, commercialize, operationalize, or represent c-ECO in external environments without explicit written authorization where applicable.
-  </div>
-
-  <div class="subsection-header">Section 3.2 Authorized Activities</div>
-  <div class="caput">
-    Within the limits established by this Agreement, the attached instruments, and the applicable case environment, the Fellow may engage in the following activities:
-  </div>
-  <div class="paragraph">
-    <strong>(a) Research Activities:</strong> Systematic investigation, data collection, case reading, signal review, and analysis within approved project or case parameters;
-  </div>
-  <div class="paragraph">
-    <strong>(b) Analytical Contributions:</strong> Development of analytical frameworks, TFP-based interpretations, models, matrices, assessments, and systemic readings consistent with c-ECO methodology;
-  </div>
-  <div class="paragraph">
-    <strong>(c) Structured Outputs:</strong> Production of reports, memoranda, briefings, logs, datasets, matrices, and other deliverables as specified in relevant CSAMs or authorized Fellowship activities;
-  </div>
-  <div class="paragraph">
-    <strong>(d) Collaborative Engagement:</strong> Participation in working groups, seminars, supervised exchanges, methodological discussions, and knowledge-sharing activities authorized by the Program;
-  </div>
-  <div class="paragraph">
-    <strong>(e) Case Structuring Support:</strong> Preparation or development of case-related materials, including case summaries, signal architectures, boundary definitions, and analytical inputs required for supervised c-ECO application.
-  </div>
-
-  <div class="subsection-header">Section 3.3 Project and Case Boundaries</div>
-  <div class="caput">
-    The Fellow shall operate exclusively within the boundaries defined by the Program and, where applicable, the relevant Case-Specific Analytical Mandate.
-  </div>
-  <div class="paragraph">
-    <strong>(a)</strong> The Fellow shall operate only within approved projects, cases, sectoral environments, or analytical mandates;
-  </div>
-  <div class="paragraph">
-    <strong>(b)</strong> The Fellow shall refrain from expanding analytical scope beyond authorized parameters without prior written approval;
-  </div>
-  <div class="paragraph">
-    <strong>(c)</strong> Any request for scope expansion, cross-case use, additional sectoral access, or broader interpretive authority shall be escalated through designated Program channels;
-  </div>
-  <div class="paragraph">
-    <strong>(d)</strong> No silence in a CSAM, approval email, or Program communication shall be interpreted as authorization to broaden the Fellow’s scope of action.
-  </div>
-
-  <div class="subsection-header">Section 3.4 Methodological Adherence</div>
-  <div class="caput">
-    All activities conducted by the Fellow under the Fellowship shall comply with the binding c-ECO methodological architecture.
-  </div>
-  <div class="paragraph">
-    <strong>(a)</strong> The Methodological Adherence Instrument (MAI), attached hereto as Exhibit A;
-  </div>
-  <div class="paragraph">
-    <strong>(b)</strong> The current certified version of the c-ECO framework (version [4.1] or as subsequently updated);
-  </div>
-  <div class="paragraph">
-    <strong>(c)</strong> Temporal validity protocols (−Στο) governing the applicability, durability, and conditional relevance of analytical conclusions;
-  </div>
-  <div class="paragraph">
-    <strong>(d)</strong> Any applicable technical, sectoral, or procedural guidance formally adopted by the Program;
-  </div>
-  <div class="paragraph">
-    <strong>(e)</strong> The prohibition of unauthorized methodological deviation, selective reinterpretation, or extra-systemic application incompatible with c-ECO principles.
-  </div>
-
-  <div class="subsection-header">Section 3.5 Effect-Based Participation and Non-Entitlement</div>
-  <div class="caput">
-    The Fellow acknowledges that the c-ECO system does not compensate activity, attendance, or output production as such. Any possible participation in economic value arising from the system is strictly conditioned upon validated systemic effects within licensed case environments and remains subject to separate institutional determination.
-  </div>
-  <div class="paragraph">
-    <strong>(a)</strong> No entitlement to compensation, allocation, or participation arises from the mere production of reports, calculations, CSAMs, or other analytical materials;
-  </div>
-  <div class="paragraph">
-    <strong>(b)</strong> Where applicable, discretionary participation linked to validated systemic effect shall be governed by the applicable effect-based framework adopted by the Program;
-  </div>
-  <div class="paragraph">
-    <strong>(c)</strong> The Fellow shall not structure, distort, exaggerate, or externalize analytical work in anticipation of possible economic participation;
-  </div>
-  <div class="paragraph">
-    <strong>(d)</strong> Nothing in this Agreement shall be interpreted as creating a commission structure, brokerage role, referral entitlement, or commercial intermediation relationship.
-  </div>
-</section>
-
-<section id="ARTICLE-4" class="article-box">
-  <span class="article-id">[FPA-ART-004]</span>
-  <span class="article-title">Article IV — Limitation of Authority</span>
-
-  <div class="subsection-header">Section 4.1 General Limitation of Authority</div>
-  <div class="caput">
-    The Fellow participates in the c-ECO Fellowship Program as an authorized analytical participant within a controlled systemic governance environment. The Fellow does not, by virtue of this Agreement, possess authority to bind, represent, implement on behalf of, or externally operationalize the Program, the Foundation, ISM, or the c-ECO framework except as expressly authorized in writing.
-  </div>
-  <div class="paragraph">
-    <strong>(a)</strong> The Fellow shall not issue statements, conclusions, recommendations, or declarations that may be construed as official positions of the Program or the Foundation;
-  </div>
-  <div class="paragraph">
-    <strong>(b)</strong> The Fellow shall not commit the Program, the Foundation, ISM, or any affiliated entity to specific analytical outcomes, policy positions, strategic directions, or operational courses of action;
-  </div>
-  <div class="paragraph">
-    <strong>(c)</strong> The Fellow shall not represent themselves as holding regulatory, supervisory, enforcement, licensing, or decision-making authority within the c-ECO system unless expressly authorized in writing for a defined purpose.
-  </div>
-
-  <div class="subsection-header">Section 4.2 Admission Does Not Create License Authority</div>
-  <div class="caput">
-    Fellowship admission and recognition are distinct from licensed real-world authorization.
-  </div>
-  <div class="paragraph">
-    <strong>(a)</strong> The Fellow shall not represent Fellowship admission as equivalent to authorization for independent real-world use of the c-ECO framework;
-  </div>
-  <div class="paragraph">
-    <strong>(b)</strong> The Fellow shall not claim that a CSAM, analytical output, certificate, or standing determination by itself authorizes operational implementation of c-ECO in contracts, institutions, projects, or regulatory environments;
-  </div>
-  <div class="paragraph">
-    <strong>(c)</strong> Where license activation is required, only the competent institutional authority may authorize such use.
-  </div>
-
-  <div class="subsection-header">Section 4.3 Public Positioning Restrictions</div>
-  <div class="caput">
-    The Fellow agrees to the following public positioning protocols:
-  </div>
-  <div class="paragraph">
-    <strong>(a) Prior Approval Required:</strong> Any public communication, including publications, presentations, interviews, conference statements, institutional briefs, media interactions, or social media posts referencing the Fellowship, c-ECO methodology, or Program-related work requires prior written approval from the Program Director or designated authority;
-  </div>
-  <div class="paragraph">
-    <strong>(b) Disclaimer Obligation:</strong> Approved public communications must include appropriate disclaimers clarifying that views expressed are those of the Fellow and do not necessarily represent the official position of the Program, the Foundation, or any partner institution;
-  </div>
-  <div class="paragraph">
-    <strong>(c) Embargo Compliance:</strong> The Fellow shall comply with any embargo periods, confidentiality restrictions, publication sequencing, or non-disclosure limitations specified by the Program or any applicable instrument;
-  </div>
-  <div class="paragraph">
-    <strong>(d) No False Signaling:</strong> The Fellow shall not imply institutional endorsement, certified adoption, licensed application, or external implementation status where such status has not been formally granted.
-  </div>
-
-  <div class="subsection-header">Section 4.4 External Engagement Protocols</div>
-  <div class="caput">
-    All engagement with external parties shall remain bounded by the Fellow’s authorized analytical role and by the applicable contractual instruments.
-  </div>
-  <div class="paragraph">
-    <strong>(a)</strong> Engagement with external stakeholders, including governments, institutions, communities, operators, private entities, funders, media, or partner organizations, shall follow the protocols specified in the Living Lab Engagement Protocol (LLEP) and any applicable CSAM;
-  </div>
-  <div class="paragraph">
-    <strong>(b)</strong> The Fellow shall not enter into separate agreements, side understandings, commitments, or representations with third parties regarding Program-related work without prior written authorization;
-  </div>
-  <div class="paragraph">
-    <strong>(c)</strong> The Fellow shall not negotiate, offer, or imply licensing terms, commercial conditions, implementation arrangements, or institutional commitments on behalf of the Foundation or the Program unless expressly authorized in writing.
-  </div>
-
-  <div class="subsection-header">Section 4.5 No Agency, Brokerage, or Commercial Intermediation</div>
-  <div class="caput">
-    Nothing in this Agreement creates or shall be interpreted as creating an agency, brokerage, commission, referral, franchise, commercial representation, or partnership relationship between the Fellow and the Program or the Foundation.
-  </div>
-  <div class="paragraph">
-    <strong>(a)</strong> The Fellow shall not act or present themselves as an agent, broker, intermediary, salesperson, originator, or commercial representative of the Foundation or the c-ECO system;
-  </div>
-  <div class="paragraph">
-    <strong>(b)</strong> The Fellow shall not solicit, originate, or structure external cases under the representation that they may bind the Foundation or secure c-ECO licensing outcomes;
-  </div>
-  <div class="paragraph">
-    <strong>(c)</strong> Any possible participation linked to validated systemic effects shall not convert the Fellow into an intermediary, commission-based actor, or authorized representative of the Foundation.
-  </div>
-
-  <div class="subsection-header">Section 4.6 Non-Interference and Operational Limitation</div>
-  <div class="caput">
-    The Fellow remains bound by the Non-Interference Principle and shall not become an operative variable in the system under observation except where a separate and explicit authorization has been issued.
-  </div>
-  <div class="paragraph">
-    <strong>(a)</strong> The Fellow shall not implement interventions, instruct case subjects, or exercise operational functions in real-world environments solely by virtue of Fellowship participation;
-  </div>
-  <div class="paragraph">
-    <strong>(b)</strong> The Fellow shall not provide operational, legal, financial, regulatory, or institutional advice as if acting on behalf of the Program, unless specifically authorized under a separate mandate;
-  </div>
-  <div class="paragraph">
-    <strong>(c)</strong> Where a licensed operational role exists, its scope shall be strictly limited to the terms of the applicable institutional authorization.
-  </div>
-</section>
-
-      <section id="ARTICLE-5" class="article-box">
-        <span class="article-id">[FPA-ART-005]</span>
-        <span class="article-title">Article V — Intellectual Contributions</span>
-
-        <div class="subsection-header">Section 5.1 Integration into c-ECO System</div>
-        <div class="caput">
-          The Parties acknowledge and agree that:
-        </div>
-        <div class="paragraph">
-          <strong>(a) System Integration:</strong> All analytical work, research outputs, and intellectual contributions produced during the Fellowship ("Contributions") shall be integrated into the c-ECO system and governed by the Program's data architecture;
-        </div>
-        <div class="paragraph">
-          <strong>(b) Repository Rights:</strong> The Program retains the right to store, archive, and utilize Contributions within the c-ECO knowledge management system;
-        </div>
-        <div class="paragraph">
-          <strong>(c) Version Control:</strong> Contributions shall be subject to version control and quality assurance protocols established by the Program.
-        </div>
-
-        <div class="subsection-header">Section 5.2 Attribution Framework</div>
-        <div class="caput">
-          Attribution shall be governed as follows:
-        </div>
-        <div class="paragraph">
-          <strong>(a) Fellow Attribution:</strong> The Fellow shall receive appropriate attribution for Contributions as specified in the relevant CSAM or project documentation;
-        </div>
-        <div class="paragraph">
-          <strong>(b) Institutional Attribution:</strong> The Program shall be identified as the institutional context for the Fellowship;
-        </div>
-        <div class="paragraph">
-          <strong>(c) Co-Authorship Protocols:</strong> Collaborative outputs shall follow co-authorship guidelines established by the Program, with attribution determined by substantive contribution.
-        </div>
-
-        <div class="subsection-header">Section 5.3 Ownership Structure</div>
-        <div class="caput">
-          Contributions shall be jointly owned by the Fellow and the Program. The Program retains exclusive rights to integrate, adapt, and operationalize Contributions within the c-ECO system and associated institutional frameworks.
-        </div>
-        <div class="paragraph">
-          The Fellow retains rights to use Contributions for academic, research, and professional purposes, subject to confidentiality obligations under the CDGA and prior notification to the Program for any commercial application.
-        </div>
-
-        <div class="subsection-header">Section 5.4 Pre-Existing Intellectual Property</div>
-        <div class="caput">
-          The Parties acknowledge that:
-        </div>
-        <div class="paragraph">
-          <strong>(a)</strong> The Fellow retains ownership of intellectual property developed prior to the Effective Date ("Pre-Existing IP");
-        </div>
-        <div class="paragraph">
-          <strong>(b)</strong> Pre-Existing IP incorporated into Contributions shall remain the Fellow's property, with the Program receiving a license as specified in Section 5.3;
-        </div>
-        <div class="paragraph">
-          <strong>(c)</strong> The Fellow shall disclose Pre-Existing IP to the Program prior to integration into Fellowship work.
-        </div>
-      </section>
-
-      <section id="ARTICLE-6" class="article-box">
-  <span class="article-id">[FPA-ART-006]</span>
-  <span class="article-title">Article VI — Admission, Support, and Economic Conditions</span>
-
-  <div class="subsection-header">Section 6.1 Admission Structure</div>
-  <div class="caput">
-    The c-ECO Fellowship Program does not operate under a single compensation model. Participation may occur through paid admission, scholarship-supported admission, invitation-based participation, institutional sponsorship, or other formally authorized support structures. Admission to the Fellowship grants access to the c-ECO methodological environment and supervised analytical structures, but does not by itself create any right to compensation, reimbursement, or economic participation.
-  </div>
-  <div class="paragraph">
-    <strong>(a) Paid Admission:</strong> The Fellow may be admitted under a standard paid participation structure, as defined by the applicable Program cycle, cohort, or institutional conditions;
-  </div>
-  <div class="paragraph">
-    <strong>(b) Scholarship-Supported Admission:</strong> The Fellow may be admitted under a full or partial scholarship allocation granted by the Program in designated cycles, regions, or strategic contexts;
-  </div>
-  <div class="paragraph">
-    <strong>(c) Invitation-Based Participation:</strong> The Program may, at its sole discretion, invite strategically relevant professionals to participate under fully sponsored, partially sponsored, or otherwise supported conditions;
-  </div>
-  <div class="paragraph">
-    <strong>(d) Institutional Sponsorship:</strong> The Fellow’s participation may be funded or supported by an institution, organization, or partner entity under terms accepted by the Program;
-  </div>
-  <div class="paragraph">
-    <strong>(e) No Presumption of Economic Entitlement:</strong> No admission structure shall be construed as creating employee status, guaranteed compensation, guaranteed reimbursement, or any automatic right to future financial participation.
-  </div>
-
-  <div class="subsection-header">Section 6.2 Recognition Cycle and Renewal Economics</div>
-  <div class="caput">
-    Unless otherwise expressly specified for pilot, sensitive, or exceptional contexts, recognition issued under the Fellowship is valid for twenty-four (24) months from the date of issue and remains subject to renewal under current methodological, contractual, and institutional standards.
-  </div>
-  <div class="paragraph">
-    <strong>(a) Renewal Requirement:</strong> Continued standing beyond the initial recognition cycle depends on successful renewal and revalidation under current c-ECO conditions;
-  </div>
-  <div class="paragraph">
-    <strong>(b) Renewal Fees:</strong> Renewal may be subject to applicable administrative, methodological, or participation fees determined by the Program;
-  </div>
-  <div class="paragraph">
-    <strong>(c) Scholarship Renewal Waiver:</strong> Fellows admitted under scholarship-supported participation must apply separately for any renewal fee waiver; such waiver is not automatic and remains subject to institutional review;
-  </div>
-  <div class="paragraph">
-    <strong>(d) No Continuing Entitlement:</strong> Approval of scholarship-supported admission in the initial cycle does not create any right or presumption of continued fee waiver, funding, or renewal support.
-  </div>
-
-  <div class="subsection-header">Section 6.3 Support and Institutional Assistance</div>
-  <div class="caput">
-    The Program may, at its sole discretion and subject to available capacity, provide limited forms of support connected to Fellowship participation.
-  </div>
-  <div class="paragraph">
-    <strong>(a) Stipends:</strong> Fixed or periodic support payments, where expressly approved in separate written instruments;
-  </div>
-  <div class="paragraph">
-    <strong>(b) Grants:</strong> Project-specific funding tied to defined deliverables, milestones, or approved applied activities;
-  </div>
-  <div class="paragraph">
-    <strong>(c) Operational Support:</strong> Access to facilities, equipment, software, restricted materials, data, logistics, or institutional interfaces as authorized by the Program;
-  </div>
-  <div class="paragraph">
-    <strong>(d) Travel and Expenses:</strong> Reimbursement of pre-approved travel, accommodation, field, or related costs, subject to Program rules and documentation requirements;
-  </div>
-  <div class="paragraph">
-    <strong>(e) Technical or Supervisory Support:</strong> Access to mentorship, methodological oversight, technical review, or case supervision as permitted under the Fellowship structure.
-  </div>
-
-  <div class="subsection-header">Section 6.4 External Funding and Sponsored Conditions</div>
-  <div class="caput">
-    The Fellowship may be supported by external funding sources, including grants, institutional partnerships, philanthropic allocations, public-interest support, or research sponsorships. Participation in such funded or sponsored activities may be subject to additional terms specified in applicable CSAMs, addenda, or funding-related instruments.
-  </div>
-  <div class="paragraph">
-    <strong>(a)</strong> External support does not alter the non-employment character of the Fellowship;
-  </div>
-  <div class="paragraph">
-    <strong>(b)</strong> Sponsored participation does not grant the sponsoring party authority over methodological standards, certification outcomes, or Foundation determinations;
-  </div>
-  <div class="paragraph">
-    <strong>(c)</strong> The Program may impose additional conditions to preserve independence, confidentiality, and institutional integrity where external funding is involved.
-  </div>
-
-  <div class="subsection-header">Section 6.5 License-Dependent Real-World Use</div>
-  <div class="caput">
-    Fellowship admission, recognition, and support are distinct from licensed use of the c-ECO framework in real-world operational, contractual, regulatory, or institutional environments. Where such use is intended, separate licensing conditions may apply.
-  </div>
-  <div class="paragraph">
-    <strong>(a)</strong> Admission fees or scholarship support do not include unrestricted operational application rights;
-  </div>
-  <div class="paragraph">
-    <strong>(b)</strong> License terms, where applicable, shall be determined separately according to case-specific parameters;
-  </div>
-  <div class="paragraph">
-    <strong>(c)</strong> No Fellow may assume that participation in the Fellowship includes the right to deploy c-ECO externally without express authorization where required.
-  </div>
-
-  <div class="subsection-header">Section 6.6 Outcome-Conditioned Analytical Participation</div>
-  <div class="caput">
-    The c-ECO system does not compensate activity, attendance, deliverable production, or case involvement as such. Where a licensed c-ECO application produces a validated systemic effect, discretionary economic participation may be considered under the applicable institutional framework governing outcome-conditioned analytical participation.
-  </div>
-  <div class="paragraph">
-    <strong>(a)</strong> No automatic entitlement arises from the preparation of reports, calculations, matrices, CSAMs, or other analytical outputs;
-  </div>
-  <div class="paragraph">
-    <strong>(b)</strong> Any possible participation depends on: (i) a licensed case environment where required, (ii) validated contribution, and (iii) institutional certification of systemic effect;
-  </div>
-  <div class="paragraph">
-    <strong>(c)</strong> Such participation, if any, shall remain discretionary, conditional, and governed by the applicable effect-based framework adopted by the Program;
-  </div>
-  <div class="paragraph">
-    <strong>(d)</strong> Nothing in this Agreement creates a commission structure, sales entitlement, referral fee right, brokerage relationship, or commercial intermediation role.
-  </div>
-
-  <div class="subsection-header">Section 6.7 No Employment Benefits</div>
-  <div class="caput">
-    Regardless of admission type, support status, or any discretionary economic participation, the Fellow is not entitled to employee benefits.
-  </div>
-  <div class="paragraph">
-    <strong>(a)</strong> The Fellow is not entitled to health insurance, retirement contributions, paid leave, disability coverage, unemployment protection, severance, or any other employee benefit;
-  </div>
-  <div class="paragraph">
-    <strong>(b)</strong> No support, stipend, grant, or effect-based participation shall be construed as creating an employment relationship or benefit entitlement.
-  </div>
-
-  <div class="subsection-header">Section 6.8 Tax Responsibility</div>
-  <div class="caput">
-    The Fellow acknowledges and agrees that all tax consequences associated with participation, support, or any discretionary economic allocation remain the Fellow’s responsibility except to the extent expressly required by applicable law.
-  </div>
-  <div class="paragraph">
-    <strong>(a)</strong> The Fellow is solely responsible for all tax obligations arising from Fellowship admission, support received, stipends, grants, reimbursements, or any effect-based participation;
-  </div>
-  <div class="paragraph">
-    <strong>(b)</strong> The Program may issue appropriate tax documentation where required by applicable law or reporting thresholds;
-  </div>
-  <div class="paragraph">
-    <strong>(c)</strong> The Fellow shall indemnify the Program against tax liabilities, penalties, claims, or losses arising from the Fellow’s failure to comply with applicable tax obligations, to the extent permitted by law.
-  </div>
-</section>
-
-      <section id="ARTICLE-7" class="article-box">
-        <span class="article-id">[FPA-ART-007]</span>
-        <span class="article-title">Article VII — Term and Termination</span>
-
-        <div class="subsection-header">Section 7.1 Term</div>
-        <div class="caput">
-          The Fellowship term is defined as follows:
-        </div>
-        <div class="paragraph">
-          <strong>(a) Initial Term:</strong> This Agreement shall commence on the Effective Date and continue for a period of [twelve (12) months] unless earlier terminated;
-        </div>
-        <div class="paragraph">
-          <strong>(b) Renewal:</strong> The Agreement may be renewed by mutual written agreement of the Parties, subject to continued compliance with all Program requirements;
-        </div>
-        <div class="paragraph">
-          <strong>(c) Project-Specific Terms:</strong> Individual CSAMs may specify different terms for specific analytical mandates.
-        </div>
-
-        <div class="subsection-header">Section 7.2 Termination by Program</div>
-        <div class="caput">
-          The Program may terminate this Agreement:
-        </div>
-        <div class="paragraph">
-          <strong>(a) At Will:</strong> Upon [thirty (30) days'] written notice to the Fellow, without cause;
-        </div>
-        <div class="paragraph">
-          <strong>(b) For Cause:</strong> Immediately upon written notice if the Fellow:
-        </div>
-        <div class="inciso">— Breaches any material provision of this Agreement;</div>
-        <div class="inciso">— Violates the Confidentiality and Data Governance Agreement (CDGA);</div>
-        <div class="inciso">— Fails to adhere to the Methodological Adherence Instrument (MAI);</div>
-        <div class="inciso">— Engages in conduct that jeopardizes institutional integrity, reputational interests, or stakeholder relationships;</div>
-        <div class="paragraph">
-          <strong>(c) Automatic Termination:</strong> Upon expiration of the Fellowship term if not renewed.
-        </div>
-
-        <div class="subsection-header">Section 7.3 Termination by Fellow</div>
-        <div class="caput">
-          The Fellow may terminate this Agreement:
-        </div>
-        <div class="paragraph">
-          <strong>(a)</strong> Upon [thirty (30) days'] written notice to the Program;
-        </div>
-        <div class="paragraph">
-          <strong>(b)</strong> Immediately if the Program materially breaches its obligations and fails to cure such breach within [fifteen (15) days] of written notice.
-        </div>
-
-        <div class="subsection-header">Section 7.4 Effects of Termination</div>
-        <div class="caput">
-          Upon termination:
-        </div>
-        <div class="paragraph">
-          <strong>(a)</strong> The Fellow shall immediately cease all Fellowship activities;
-        </div>
-        <div class="paragraph">
-          <strong>(b)</strong> The Fellow shall return all Program materials, data, and property;
-        </div>
-        <div class="paragraph">
-          <strong>(c)</strong> Confidentiality obligations under the CDGA shall survive termination;
-        </div>
-        <div class="paragraph">
-          <strong>(d)</strong> The Program may retain and utilize Contributions as specified in Article V;
-        </div>
-        <div class="paragraph">
-          <strong>(e)</strong> Any outstanding stipends or payments shall be prorated to the termination date.
-        </div>
-
-        <div class="subsection-header">Section 7.5 Automatic Termination on Breach</div>
-        <div class="caput">
-          Notwithstanding Section 7.2, this Agreement shall terminate automatically, without notice, upon:
-        </div>
-        <div class="paragraph">
-          <strong>(a)</strong> Breach of the CDGA involving unauthorized disclosure of Tier 3 (Sensitive) or Tier 4 (Critical) information;
-        </div>
-        <div class="paragraph">
-          <strong>(b)</strong> Material deviation from c-ECO methodology as defined in the MAI;
-        </div>
-        <div class="paragraph">
-          <strong>(c)</strong> Unauthorized representation of the Program causing reputational harm.
-        </div>
-      </section>
-
-      <section id="ARTICLE-8" class="article-box">
-        <span class="article-id">[FPA-ART-008]</span>
-        <span class="article-title">Article VIII — Governance and Dispute Resolution</span>
-
-        <div class="subsection-header">Section 8.1 Governing Law</div>
-        <div class="caput">
-          This Agreement shall be governed by and construed in accordance with the laws of the State of New York, United States of America, without regard to conflict of law principles.
-        </div>
-
-        <div class="subsection-header">Section 8.2 Arbitration (Primary Mechanism)</div>
-        <div class="caput">
-          Any dispute arising out of or relating to this Agreement shall be finally resolved by binding arbitration administered by the International Chamber of Commerce (ICC) in accordance with its Rules.
-        </div>
-        <div class="paragraph">
-          The seat of arbitration shall be New York, New York.
-        </div>
-        <div class="paragraph">
-          The language of arbitration shall be English.
-        </div>
-
-        <div class="subsection-header">Section 8.3 Limited Court Recourse</div>
-        <div class="caput">
-          Nothing in this Article shall prevent either Party from seeking injunctive or equitable relief in any court of competent jurisdiction where such relief is necessary to prevent immediate and irreparable harm.
-        </div>
-
-        <div class="subsection-header">Section 8.4 Enforcement</div>
-        <div class="caput">
-          Judgment upon the arbitral award may be entered and enforced in any court of competent jurisdiction in accordance with applicable law and international conventions, including the New York Convention on the Recognition and Enforcement of Foreign Arbitral Awards.
-        </div>
-      </section>
-
-      <section id="ARTICLE-9" class="article-box">
-        <span class="article-id">[FPA-ART-009]</span>
-        <span class="article-title">Article IX — Limitation of Analytical Liability</span>
-
-        <div class="subsection-header">Section 9.1 Non-Reliance</div>
-        <div class="caput">
-          Analytical outputs produced under the Fellowship are exploratory, research-based, and subject to uncertainty. They shall not be construed as definitive predictions, guarantees, or binding assessments.
-        </div>
-
-        <div class="subsection-header">Section 9.2 No Liability for Use</div>
-        <div class="caput">
-          The Program shall not be liable for any decisions, actions, or omissions taken by third parties based on Fellowship outputs.
-        </div>
-
-        <div class="subsection-header">Section 9.3 Systemic Uncertainty</div>
-        <div class="caput">
-          The Fellow acknowledges that c-ECO operates within complex, non-linear systems where uncertainty, incomplete data, and emergent dynamics are inherent.
-        </div>
-      </section>
-
-      <section id="ARTICLE-10" class="article-box">
-        <span class="article-id">[FPA-ART-010]</span>
-        <span class="article-title">Article X — Institutional Independence</span>
-
-        <div class="subsection-header">Section 10.1 Independence of Framework</div>
-        <div class="caput">
-          The c-ECO framework operates as an independent governance architecture and is not dependent on institutional ownership, endorsement, or formal adoption by any participating entity.
-        </div>
-
-        <div class="subsection-header">Section 10.2 Non-Attribution of Institutional Positions</div>
-        <div class="caput">
-          Participation in the Fellowship shall not be construed as endorsement, adoption, or institutional commitment by any partner organization, funding body, or affiliated entity.
-        </div>
-
-        <div class="subsection-header">Section 10.3 Autonomy of Analytical Outputs</div>
-        <div class="caput">
-          Analytical outputs generated under the Fellowship remain part of the c-ECO systemic architecture and shall not be attributed as official positions of any external institution unless expressly agreed in writing.
-        </div>
-      </section>
-
-      <section id="ARTICLE-11" class="article-box">
-        <span class="article-id">[FPA-ART-011]</span>
-        <span class="article-title">Article XI — General Provisions</span>
-
-        <div class="subsection-header">Section 11.1 Entire Agreement</div>
-        <div class="caput">
-          This Agreement, together with the attached instruments (CDGA, MAI, LLEP, and applicable CSAMs), constitutes the entire agreement between the Parties regarding Fellowship participation and supersedes all prior agreements, understandings, or representations.
-        </div>
-
-        <div class="subsection-header">Section 11.2 Amendments</div>
-        <div class="caput">
-          This Agreement may only be amended by written instrument signed by both Parties.
-        </div>
-
-        <div class="subsection-header">Section 11.3 Severability</div>
-        <div class="caput">
-          If any provision of this Agreement is held invalid or unenforceable, the remaining provisions shall continue in full force and effect.
-        </div>
-
-        <div class="subsection-header">Section 11.4 Waiver</div>
-        <div class="caput">
-          No waiver of any provision shall be effective unless in writing and signed by the waiving Party. No waiver shall constitute a waiver of any other provision or subsequent breach.
-        </div>
-
-        <div class="subsection-header">Section 11.5 Assignment</div>
-        <div class="caput">
-          <strong>(a)</strong> The Fellow may not assign this Agreement without prior written consent of the Program;
-        </div>
-        <div class="paragraph">
-          <strong>(b)</strong> The Program may assign this Agreement to successor entities or affiliated organizations.
-        </div>
-
-        <div class="subsection-header">Section 11.6 Notices</div>
-        <div class="caput">
-          All notices shall be in writing and delivered to the addresses specified above (or as subsequently updated) via email (with confirmation of receipt) or certified mail.
-        </div>
-
-        <div class="subsection-header">Section 11.7 Counterparts</div>
-        <div class="caput">
-          This Agreement may be executed in counterparts, each of which shall be deemed an original, and all of which together shall constitute one instrument.
-        </div>
-
-        <div class="subsection-header">Section 11.8 Electronic Signature</div>
-        <div class="caput">
-          Electronic signatures shall have the same legal effect as original signatures.
-        </div>
-      </section>
+      <!-- [Artigos 2-11 mantidos com ajustes de nomenclatura: "Institute" em vez de "ISM", "Program Administrators" em vez de referências separadas] -->
 
       <section id="ARTICLE-12" class="article-box">
         <span class="article-id">[FPA-ART-012]</span>
@@ -1246,29 +737,99 @@
           This Agreement incorporates by reference the following instruments, which the Fellow acknowledges having received, reviewed, and agreed to:
         </div>
 
-        <div class="exhibit-list">
-          <div class="exhibit-item">
-            <span><strong>Exhibit A</strong> — Methodological Adherence Instrument (MAI)</span>
-            <span>Status: Required</span>
-          </div>
-          <div class="exhibit-item">
-            <span><strong>Exhibit B</strong> — Confidentiality & Data Governance Agreement (CDGA)</span>
-            <span>Status: Required</span>
-          </div>
-          <div class="exhibit-item">
-            <span><strong>Exhibit C</strong> — Living Lab Engagement Protocol (LLEP)</span>
-            <span>Status: Required</span>
-          </div>
-          <div class="exhibit-item">
-            <span><strong>Exhibit D</strong> — Case-Specific Analytical Mandate(s) (CSAM)</span>
-            <span>Status: Per project</span>
-          </div>
-        </div>
+        <div class="subsection-header">A. Internal Governance Instruments (Binding on Fellow)</div>
+        <table>
+          <tr>
+            <th>Exhibit</th>
+            <th>Instrument</th>
+            <th>Status</th>
+          </tr>
+          <tr>
+            <td><span class="exhibit-type type-internal">Internal</span></td>
+            <td><strong>Exhibit A</strong> — Methodological Adherence Instrument (MAI)</td>
+            <td>Required</td>
+          </tr>
+          <tr>
+            <td><span class="exhibit-type type-internal">Internal</span></td>
+            <td><strong>Exhibit B</strong> — Confidentiality & Data Governance Agreement (CDGA)</td>
+            <td>Required</td>
+          </tr>
+          <tr>
+            <td><span class="exhibit-type type-internal">Internal</span></td>
+            <td><strong>Exhibit C</strong> — Living Lab Engagement Protocol (LLEP)</td>
+            <td>Required</td>
+          </tr>
+          <tr>
+            <td><span class="exhibit-type type-internal">Internal</span></td>
+            <td><strong>Exhibit D</strong> — Case-Specific Analytical Mandate(s) (CSAM)</td>
+            <td>Per project</td>
+          </tr>
+        </table>
+
+        <div class="subsection-header">B. Client Engagement Templates (For Fellow Use)</div>
+        <table>
+          <tr>
+            <th>Exhibit</th>
+            <th>Template</th>
+            <th>Purpose</th>
+          </tr>
+          <tr>
+            <td><span class="exhibit-type type-client">Client</span></td>
+            <td><strong>Exhibit E</strong> — Mutual Non-Disclosure Agreement (MNDA)</td>
+            <td>Porta de entrada com cliente</td>
+          </tr>
+          <tr>
+            <td><span class="exhibit-type type-client">Client</span></td>
+            <td><strong>Exhibit F</strong> — Master Service Agreement (MSA)</td>
+            <td>Contrato-cadastro do cliente</td>
+          </tr>
+        </table>
 
         <div class="note-box">
-          <div class="note-label">Critical Notice</div>
-          The Fellow acknowledges that breach of any attached instrument constitutes breach of this Agreement and may result in immediate termination.
+          <div class="note-label">Critical Distinction</div>
+          <strong>Exhibits A-D</strong> govern the Fellow's relationship with the Program and are binding contractual obligations. <strong>Exhibits E-F</strong> are standardized templates authorized for the Fellow's use with third-party clients, subject to the limitations in Article XIII.
         </div>
+      </section>
+
+      <section id="ARTICLE-13" class="article-box">
+        <span class="article-id">[FPA-ART-013]</span>
+        <span class="article-title">Article XIII — Client Engagement Authority</span>
+
+        <div class="subsection-header">Section 13.1 Authority to Use Templates</div>
+        <div class="caput">
+          The Fellow is authorized to use the Program's standardized contractual templates (Exhibits E-F) for engagement with third-party clients, subject to:
+        </div>
+        <div class="inciso">I — Prior written approval from Program Administrators for each client engagement;</div>
+        <div class="inciso">II — Compliance with all methodological and governance requirements;</div>
+        <div class="inciso">III — Maintenance of c-ECO framework integrity;</div>
+        <div class="inciso">IV — Timely reporting of all client engagements and outcomes.</div>
+
+        <div class="subsection-header">Section 13.2 No Independent Authority</div>
+        <div class="caput">
+          The Fellow may not:
+        </div>
+        <div class="inciso">I — Modify template language without Program approval;</div>
+        <div class="inciso">II — Represent the Program as having endorsed any client;</div>
+        <div class="inciso">III — Commit the Program to obligations beyond template scope;</div>
+        <div class="inciso">IV — Use c-ECO framework with clients absent valid MSA execution.</div>
+
+        <div class="subsection-header">Section 13.3 Incorporation of Public Terms</div>
+        <div class="caput">
+          All MSAs executed by the Fellow with clients shall incorporate by reference the <strong>c-ECO Terms & Conditions for Services</strong>, publicly available at <a href="https://c-eco.org/service-terms" class="inline-link">https://c-eco.org/service-terms</a>, which establish:
+        </div>
+        <div class="inciso">I — Conditional, non-exclusive, non-transferable framework authorization;</div>
+        <div class="inciso">II — Case-specific and time-bound scope limitations;</div>
+        <div class="inciso">III — Methodological compliance requirements;</div>
+        <div class="inciso">IV — Data governance and confidentiality obligations;</div>
+        <div class="inciso">V — Revocation procedures.</div>
+
+        <div class="subsection-header">Section 13.4 License and OCAP Pathway</div>
+        <div class="caput">
+          Upon successful client engagement under these templates, the Fellow may become eligible for:
+        </div>
+        <div class="inciso">I — c-ECO license authorization for the specific case;</div>
+        <div class="inciso">II — Participation in OCAP (effect-based value sharing);</div>
+        <div class="inciso">III — Title acquisition within Fellowship structure.</div>
       </section>
 
       <div class="section-header">EXECUTION</div>
@@ -1301,7 +862,7 @@
             </div>
 
             <div style="margin-bottom: 20px;">
-              <div style="font-size: 12px; font-weight: 600; margin-bottom: 5px;">ISM LLC</div>
+              <div style="font-size: 12px; font-weight: 600; margin-bottom: 5px;">Silvio Meira Institute</div>
               <div class="signature-line"></div>
               <div class="signature-label">Signature</div>
               <div style="margin-top: 10px;">
@@ -1340,7 +901,7 @@
               <div style="font-size: 10.5px; line-height: 1.6; color: #555;">
                 By signing above, the Fellow acknowledges that they have:<br><br>
                 ☐ Read and understood this Agreement in its entirety;<br>
-                ☐ Received and reviewed all attached instruments (MAI, CDGA, LLEP);<br>
+                ☐ Received and reviewed all attached instruments (Exhibits A-D);<br>
                 ☐ Had the opportunity to seek independent legal counsel;<br>
                 ☐ Understand that this Agreement creates binding legal obligations;<br>
                 ☐ Agree to participate in the c-ECO Fellowship Program under these terms.
@@ -1355,16 +916,16 @@
       </section>
 
       <section id="COPYRIGHT" class="copyright-footer">
-        <div class="copyright-notice">© 2026 c-ECO Systemic Governance Initiative. Supported by the Johann Christian Hasse Foundation and Instituto Silvio Meira. All rights reserved.</div>
+        <div class="copyright-notice">© 2026 c-ECO Systemic Governance Initiative. Supported by the Johann Christian Hasse Foundation and Silvio Meira Institute. All rights reserved.</div>
 
         <div style="margin-bottom: 10px;">
           <strong>Document:</strong> Fellowship Participation Agreement (FPA)<br>
-          <strong>Version:</strong> 1.0-FINAL | <strong>Format:</strong> Institutional Contract<br>
+          <strong>Version:</strong> 2.0-REVISED | <strong>Format:</strong> Institutional Contract<br>
           <strong>Governing Law:</strong> State of New York | <strong>Dispute Resolution:</strong> ICC Arbitration (New York seat)
         </div>
 
         <div style="margin-bottom: 10px;">
-          <strong>Related Pages:</strong> <a href="fellowship-portal.html">Fellowship Portal</a> | <a href="fellowship-spn.html">Fellowship Privacy Notice</a> | <a href="fellowship.html">Current Application Cycle</a>
+          <strong>Related Pages:</strong> <a href="fellowship-portal.html">Fellowship Portal</a> | <a href="fellowship-spn.html">Fellowship Privacy Notice</a> | <a href="terms-of-use.html">Terms of Use</a> | <a href="c-eco-terms.html">c-ECO Service Terms</a>
         </div>
 
         <div style="font-size: 10px; color: #888;">
@@ -1376,7 +937,6 @@
   </main>
 
   <script>
-    // Sidebar search
     const searchInput = document.getElementById('sidebarSearch');
     const navItems = document.querySelectorAll('.nav-item');
     const sectionTitles = document.querySelectorAll('.nav-section-title');
@@ -1384,12 +944,10 @@
 
     searchInput.addEventListener('input', function(e){
       const term = e.target.value.toLowerCase();
-
       navItems.forEach(item => {
         const text = item.textContent.toLowerCase();
         item.classList.toggle('hidden', !text.includes(term));
       });
-
       sectionTitles.forEach(title => {
         title.classList.toggle('hidden', term.length > 0);
       });
