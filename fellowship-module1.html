@@ -349,28 +349,47 @@
 
 .gate-box {
     text-align: center;
-    max-width: 320px;
+    max-width: 360px;
+    width: 100%;
+    padding: 30px;
 }
 
 .gate-box h2 {
     font-family: 'Crimson Pro', serif;
     margin-bottom: 10px;
+    color: var(--harvard-dark);
+}
+
+.gate-box p {
+    color: var(--harvard-gray);
+    margin-bottom: 12px;
 }
 
 .gate-box input {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     margin-top: 10px;
     border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
 }
 
 .gate-box button {
-    margin-top: 12px;
-    padding: 10px 20px;
+    margin-top: 14px;
+    padding: 12px 20px;
     background: var(--harvard-crimson);
     color: white;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.gate-box button:hover {
+    background: #7A1525;
 }
     </style>
 </head>
@@ -379,8 +398,11 @@
     <div class="gate-box">
         <h2>Restricted Access</h2>
         <p>Enter password to access Module 1</p>
-        <input type="password" id="password-input" placeholder="Password">
-        <button onclick="checkPassword()">Enter</button>
+        <input type="password" id="password-input" placeholder="Password" onkeydown="if(event.key==='Enter') checkPassword()">
+        <button type="button" onclick="checkPassword()">Enter</button>
+        <p id="gate-error" style="display:none; color:#A51C30; margin-top:12px; font-size:14px;">
+            Incorrect password.
+        </p>
     </div>
 </div>
 <header class="module-header">
@@ -575,22 +597,27 @@
 
 </main>
 <script>
-(function () {
+function checkPassword() {
     const correctPassword = "Fpmodule1";
+    const input = document.getElementById("password-input").value;
+    const gate = document.getElementById("password-gate");
+    const error = document.getElementById("gate-error");
 
-    if (sessionStorage.getItem("access_module1") === "granted") {
-        return;
-    }
-
-    let userInput = prompt("Enter access password:");
-
-    if (userInput === correctPassword) {
-        sessionStorage.setItem("access_module1", "granted");
+    if (input === correctPassword) {
+        gate.style.display = "none";
+        error.style.display = "none";
+        sessionStorage.setItem("module1_access", "granted");
     } else {
-        document.body.innerHTML = "";
-        alert("Access denied.");
+        error.style.display = "block";
     }
-})();
+}
+
+window.addEventListener("load", function () {
+    if (sessionStorage.getItem("module1_access") === "granted") {
+        const gate = document.getElementById("password-gate");
+        if (gate) gate.style.display = "none";
+    }
+});
 </script>
 </body>
 </html>
