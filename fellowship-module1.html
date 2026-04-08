@@ -336,10 +336,53 @@
     background: var(--harvard-light);
     color: var(--harvard-crimson);
 }
+
+#password-gate {
+    position: fixed;
+    inset: 0;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.gate-box {
+    text-align: center;
+    max-width: 320px;
+}
+
+.gate-box h2 {
+    font-family: 'Crimson Pro', serif;
+    margin-bottom: 10px;
+}
+
+.gate-box input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+}
+
+.gate-box button {
+    margin-top: 12px;
+    padding: 10px 20px;
+    background: var(--harvard-crimson);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
     </style>
 </head>
 <body>
-
+<div id="password-gate">
+    <div class="gate-box">
+        <h2>Restricted Access</h2>
+        <p>Enter password to access Module 1</p>
+        <input type="password" id="password-input" placeholder="Password">
+        <button onclick="checkPassword()">Enter</button>
+    </div>
+</div>
 <header class="module-header">
     <div class="module-number">Module 01 of 06</div>
     <h1>Foundation: The Systemic Governance Paradigm</h1>
@@ -531,6 +574,23 @@
 </div>
 
 </main>
+<script>
+(function () {
+    const correctPassword = "Fpmodule1";
 
+    if (sessionStorage.getItem("access_module1") === "granted") {
+        return;
+    }
+
+    let userInput = prompt("Enter access password:");
+
+    if (userInput === correctPassword) {
+        sessionStorage.setItem("access_module1", "granted");
+    } else {
+        document.body.innerHTML = "";
+        alert("Access denied.");
+    }
+})();
+</script>
 </body>
 </html>
