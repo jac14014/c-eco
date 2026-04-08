@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Module 1: Foundation — Systemic Governance Paradigm</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+        
+        :root {
+            --harvard-crimson: #A51C30;
+            --harvard-dark: #1E1E1E;
+            --harvard-gray: #6C757D;
+            --harvard-light: #F8F9FA;
+            --accent-gold: #C4A35A;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: var(--harvard-dark);
+            background: #fff;
+        }
+        
+        .module-header {
+            background: var(--harvard-crimson);
+            color: white;
+            padding: 60px 80px;
+        }
+        
+        .module-number {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.9;
+            margin-bottom: 16px;
+        }
+        
+        h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        
+        .module-meta {
+            display: flex;
+            gap: 40px;
+            font-size: 14px;
+            opacity: 0.9;
+            flex-wrap: wrap;
+        }
+        
+        .content-body {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+        
+        .learning-objectives {
+            background: var(--harvard-light);
+            border-left: 4px solid var(--harvard-crimson);
+            padding: 30px 35px;
+            margin: 40px 0;
+        }
+        
+        .learning-objectives h3 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 22px;
+            color: var(--harvard-crimson);
+            margin-bottom: 20px;
+        }
+        
+        .learning-objectives ul {
+            list-style: none;
+        }
+        
+        .learning-objectives li {
+            padding: 8px 0;
+            padding-left: 28px;
+            position: relative;
+        }
+        
+        .learning-objectives li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--harvard-crimson);
+            font-weight: 600;
+        }
+        
+        h2 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 32px;
+            font-weight: 600;
+            margin: 50px 0 25px;
+            color: var(--harvard-dark);
+        }
+        
+        h3 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 24px;
+            font-weight: 600;
+            margin: 35px 0 18px;
+        }
+        
+        .case-box {
+            background: #fff;
+            border: 2px solid var(--accent-gold);
+            padding: 35px;
+            margin: 35px 0;
+            position: relative;
+        }
+        
+        .case-label {
+            position: absolute;
+            top: -12px;
+            left: 25px;
+            background: var(--accent-gold);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 6px 16px;
+        }
+        
+        .case-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--harvard-dark);
+            margin-bottom: 15px;
+        }
+        
+        .discussion-questions {
+            background: var(--harvard-light);
+            padding: 30px 35px;
+            margin: 30px 0;
+            border-radius: 4px;
+        }
+        
+        .discussion-questions h4 {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--harvard-crimson);
+            margin-bottom: 20px;
+        }
+        
+        .question {
+            padding: 15px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .question:last-child {
+            border-bottom: none;
+        }
+        
+        .question-number {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            background: var(--harvard-crimson);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-right: 15px;
+            vertical-align: top;
+        }
+        
+        .prep-guide {
+            background: var(--harvard-dark);
+            color: white;
+            padding: 35px;
+            margin: 40px 0;
+        }
+        
+        .prep-guide h3 {
+            color: white;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .prep-time {
+            display: inline-block;
+            background: var(--harvard-crimson);
+            padding: 8px 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .footer-note {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 2px solid var(--harvard-light);
+            font-size: 13px;
+            color: var(--harvard-gray);
+        }
+        
+        .concept-callout {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 25px 30px;
+            margin: 25px 0;
+            border-radius: 4px;
+        }
+        
+        .concept-callout strong {
+            color: var(--harvard-crimson);
+        }
+
+        .boundary-box {
+            background: #fff8f3;
+            border-left: 4px solid var(--accent-gold);
+            padding: 28px 32px;
+            margin: 30px 0;
+        }
+
+        .boundary-box h3 {
+            margin-top: 0;
+            color: var(--harvard-dark);
+        }
+
+        .institution-box {
+            background: var(--harvard-light);
+            border: 1px solid #dee2e6;
+            padding: 28px 32px;
+            margin: 30px 0;
+        }
+
+        .institution-box h3 {
+            margin-top: 0;
+            color: var(--harvard-crimson);
+        }
+
+        .sector-note {
+            background: #f8f9fa;
+            border-left: 4px solid var(--harvard-dark);
+            padding: 24px 28px;
+            margin: 30px 0;
+        }
+
+        .sector-note h3 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+
+<header class="module-header">
+    <div class="module-number">Module 01 of 06</div>
+    <h1>Foundation: The Systemic Governance Paradigm</h1>
+    <div class="module-meta">
+        <span>📚 4 Hours Preparation</span>
+        <span>💬 90-Minute Socratic Discussion</span>
+        <span>🎯 Case Method</span>
+        <span>🌐 Cross-Sector Entry Module</span>
+    </div>
+</header>
+
+<main class="content-body">
+
+<div class="institution-box">
+    <h3>Institutional Position of This Module</h3>
+    <p>This module serves as the common doctrinal and analytical entry point for all c-ECO sectoral tracks. It is not a sector-specific technical module. Its function is to establish the paradigm shift that governs subsequent work across the thirteen sectors, including mining, energy, water, infrastructure, finance, digital systems, forests, and hybrid enabling systems.</p>
+    <p style="margin-top:14px;">This module operates as a controlled formation layer within the c-ECO system. It introduces the governing logic of pre-threshold systemic governance, but does not itself authorize independent application outside the Fellowship architecture or current methodological conditions.</p>
+</div>
+
+<div class="learning-objectives">
+    <h3>Learning Objectives</h3>
+    <ul>
+        <li>Understand why traditional ESG compliance frameworks fail to prevent systemic collapse</li>
+        <li>Articulate the difference between ex-post liability and ex-ante governance</li>
+        <li>Explain the material primacy of Earth system boundaries over legal constructs</li>
+        <li>Apply the "Trajectory Illegality" concept to real-world corporate scenarios</li>
+        <li>Evaluate the limitations of current sustainability disclosure regimes (GRI, SASB, TCFD)</li>
+    </ul>
+</div>
+
+<h2>Core Concept: From Compliance to Pre-Threshold Governance</h2>
+
+<p>Traditional environmental law operates on a retrospective causality model: harm occurs, then liability is assigned, then remediation is ordered. This architecture, while functional for localized and reversible damages, is structurally inadequate for systemic, cumulative, and irreversible risks.</p>
+
+<div class="concept-callout">
+    <strong>The c-ECO Paradigm Shift:</strong> Legal validity and contractual enforceability are conditioned not on realized damage, but on <em>certified trajectories toward unacceptable systemic states</em>. This is pre-threshold governance—intervention before irreversibility becomes probable or certain.
+</div>
+
+<p>The c-ECO Statute establishes that no right subsists outside the biophysical conditions that render it possible. This is not an ethical proposition but a legal-technical one: contracts whose execution presupposes systemic collapse are <em>ipso jure</em> unenforceable, regardless of party consent or regulatory authorization.</p>
+
+<div class="boundary-box">
+    <h3>Methodological Boundary</h3>
+    <p>This module introduces a common conceptual foundation for all sectors. Interpretative work carried out within the Fellowship must remain consistent with the c-ECO framework, the Threshold Function Protocol (TFP), and the current certified methodological architecture. The Socratic method used here is intended to sharpen analytical judgment within the system, not to authorize deviation from it.</p>
+</div>
+
+<h2>Why This Module Is Common to All Sectors</h2>
+
+<p>The c-ECO system does not begin with sectoral specialization. It begins with a change in legal and governance ontology. Every sector later addressed in the Fellowship—whether mining, agribusiness, energy, water, finance, digital infrastructure, or forests—depends on the same foundational shift: the move from harm-based legality to trajectory-based legality under conditions of contracting reversibility.</p>
+
+<div class="sector-note">
+    <h3>Cross-Sector Applicability</h3>
+    <p>This module is intentionally common to all sectoral pathways because the following questions are universal within the c-ECO architecture:</p>
+    <p style="margin-top:12px;">What happens when legal permission continues after material compatibility has already collapsed? What is the relationship between scientific thresholds and legal validity? At what point does continued operation become structurally incompatible with systemic stability? These are not mining-only, energy-only, or finance-only questions. They are system questions.</p>
+</div>
+
+<h2>Case Study: The Norilsk Diesel Spill and the Failure of Ex-Post Logic</h2>
+
+<div class="case-box">
+    <div class="case-label">Case Study</div>
+    <div class="case-title">Nornickel's Arctic Catastrophe: When 21,000 Tons of Diesel Met Permafrost Collapse</div>
+    
+    <p><strong>The Facts:</strong> On May 29, 2020, a fuel tank at Norilsk-Taimyr Energy's Thermal Power Plant No. 3 collapsed, releasing approximately 21,000 tons of diesel fuel into the Daldykan and Ambarnaya rivers in the Russian Arctic. The spill occurred when permafrost beneath the tank's foundation thawed—an event predicted by climate models but not incorporated into the facility's engineering standards or regulatory compliance framework.</p>
+    
+    <p><strong>The Compliance Paradox:</strong> Nornickel held all required environmental permits. Its sustainability reports disclosed climate risks using TCFD-aligned scenario analysis. Its ESG ratings from major agencies remained investment-grade. Yet the trajectory—permafrost warming at 0.5°C/decade, foundation design assuming static geotechnical conditions—was objectively incompatible with systemic stability.</p>
+    
+    <p><strong>The c-ECO Analysis:</strong> Under a pre-threshold governance regime, the trajectory (ΔV) of permafrost degradation, combined with the position (P) of critical infrastructure within the thawing zone, would have triggered mandatory intervention long before material spill. The "Safe Operating Space" for Arctic industrial infrastructure had already been transgressed; the diesel spill was merely the visible manifestation of a systemic failure that occurred years earlier in the design phase.</p>
+</div>
+
+<div class="concept-callout">
+    <strong>Why this case is used in a common module:</strong> Although Norilsk is an extractive-energy case, its analytical structure is transferable across all sectors. It illustrates static authorization colliding with dynamic biophysical change, disclosure without governance conversion, and legal continuity persisting after systemic compatibility has already deteriorated.
+</div>
+
+<div class="discussion-questions">
+    <h4>Socratic Discussion Questions</h4>
+    <div class="question">
+        <span class="question-number">1</span>
+        <strong>Trajectory vs. Event:</strong> How does the c-ECO concept of "Trajectory Illegality" differ from traditional environmental liability? Why might a court find Nornickel's operations lawful at every discrete moment yet systemically unlawful in their cumulative effect?
+    </div>
+    <div class="question">
+        <span class="question-number">2</span>
+        <strong>The Disclosure Gap:</strong> Nornickel's TCFD disclosures identified permafrost thaw as a "physical risk." Why did this disclosure fail to prevent the catastrophe? What would a c-ECO-compatible disclosure regime require that TCFD omits?
+    </div>
+    <div class="question">
+        <span class="question-number">3</span>
+        <strong>Agency and Foresight:</strong> At what point should Nornickel's management have recognized that their trajectory was incompatible with systemic reversibility? What institutional barriers prevented this recognition?
+    </div>
+    <div class="question">
+        <span class="question-number">4</span>
+        <strong>Regulatory Capture:</strong> Russian regulators approved Nornickel's permits based on static climate assumptions. How does the c-ECO principle of "Physical Primacy" resolve conflicts between administrative authorization and biophysical reality?
+    </div>
+</div>
+
+<h2>Required Readings</h2>
+
+<h3>Primary Sources (Mandatory)</h3>
+<ul>
+    <li><strong>c-ECO Systemic Governance Statute</strong>, Articles 1–7 (Preamble through Pre-Threshold Governance)</li>
+    <li><strong>Rockström et al. (2009)</strong>, "A Safe Operating Space for Humanity," <em>Nature</em> 461:472-475</li>
+    <li><strong>Kotzé & Kim (2019)</strong>, "Earth System Law," <em>Transnational Environmental Law</em> 8(3):585-613</li>
+</ul>
+
+<h3>Case Materials (Mandatory)</h3>
+<ul>
+    <li>Nornickel Sustainability Report 2019 (TCFD Section)</li>
+    <li>Russian Federal Service for Supervision of Natural Resources (Rosprirodnadzor) Investigation Report, June 2020</li>
+    <li>Greenpeace Russia, "The Norilsk Disaster: A Predictable Catastrophe" (Technical Analysis)</li>
+</ul>
+
+<h3>Secondary Sources (Recommended)</h3>
+<ul>
+    <li>Taleb et al. (2014), "The Precautionary Principle" (fragility and non-linear risk)</li>
+    <li>IPCC SR1.5 (2018), Chapter 3: "Impacts of 1.5°C Global Warming on Natural and Human Systems"</li>
+    <li>Financial Stability Board (2017), TCFD Final Recommendations (for critical comparison)</li>
+</ul>
+
+<div class="prep-guide">
+    <div class="prep-time">⏱ Preparation Time: 4 Hours</div>
+    <h3>Preparation Guide</h3>
+    <p><strong>Step 1 (90 min):</strong> Read the c-ECO Statute preamble and Articles 1–7. Annotate: What is the core argument against retrospective liability? How does "trajectory illegality" differ from "harm-based illegality"?</p>
+    <p><strong>Step 2 (60 min):</strong> Review the Nornickel case materials. Prepare a one-page "Trajectory Analysis" identifying: (a) the relevant Safe Operating Space boundary, (b) the velocity of approach (ΔV), (c) the point at which pre-threshold intervention should have occurred.</p>
+    <p><strong>Step 3 (60 min):</strong> Read Rockström et al. (2009). Be prepared to explain: Why are planetary boundaries "non-negotiable"? How does this scientific concept translate into legal architecture?</p>
+    <p><strong>Step 4 (30 min):</strong> Draft your position on Discussion Question 2. Come prepared to defend whether TCFD-style disclosure is salvageable or structurally inadequate.</p>
+</div>
+
+<h2>Assessment Components</h2>
+
+<table style="width:100%; border-collapse: collapse; margin: 30px 0;">
+    <tr style="background: var(--harvard-light);">
+        <th style="padding: 15px; text-align: left; border-bottom: 2px solid var(--harvard-crimson);">Component</th>
+        <th style="padding: 15px; text-align: left; border-bottom: 2px solid var(--harvard-crimson);">Weight</th>
+        <th style="padding: 15px; text-align: left; border-bottom: 2px solid var(--harvard-crimson);">Description</th>
+    </tr>
+    <tr>
+        <td style="padding: 15px; border-bottom: 1px solid #dee2e6;">Case Preparation</td>
+        <td style="padding: 15px; border-bottom: 1px solid #dee2e6;">20%</td>
+        <td style="padding: 15px; border-bottom: 1px solid #dee2e6;">Quality of pre-class written submission (Trajectory Analysis)</td>
+    </tr>
+    <tr>
+        <td style="padding: 15px; border-bottom: 1px solid #dee2e6;">Socratic Participation</td>
+        <td style="padding: 15px; border-bottom: 1px solid #dee2e6;">40%</td>
+        <td style="padding: 15px; border-bottom: 1px solid #dee2e6;">Contribution to case discussion: analytical depth, responsiveness to peers, integration of readings</td>
+    </tr>
+    <tr>
+        <td style="padding: 15px; border-bottom: 1px solid #dee2e6;">Concept Application</td>
+        <td style="padding: 15px; border-bottom: 1px solid #dee2e6;">25%</td>
+        <td style="padding: 15px; border-bottom: 1px solid #dee2e6;">Ability to apply c-ECO concepts to novel scenarios during discussion</td>
+    </tr>
+    <tr>
+        <td style="padding: 15px; border-bottom: 1px solid #dee2e6;">Reflection Memo</td>
+        <td style="padding: 15px; border-bottom: 1px solid #dee2e6;">15%</td>
+        <td style="padding: 15px; border-bottom: 1px solid #dee2e6;">Post-class 500-word reflection on how c-ECO changes your professional approach to ESG</td>
+    </tr>
+</table>
+
+<div class="footer-note">
+    <p><strong>Note on Pedagogy:</strong> This module employs the Harvard Case Method. You will not be given a simplified formula for interpretation. Instead, through structured debate, guided reading, and disciplined analytical framing, you will clarify the logic of pre-threshold governance and its implications across all c-ECO sectors. The instructor's role is to facilitate, challenge, and synthesize within the boundaries of the c-ECO framework.</p>
+    <p style="margin-top: 15px;"><strong>Sectoral Status:</strong> This is a common cross-sector foundation module and applies to all c-ECO sectoral tracks.</p>
+    <p style="margin-top: 15px;"><strong>Next Module:</strong> TFP Variables — The Mathematics of Systemic Risk (P, ΔV, σ, Lr)</p>
+</div>
+
+</main>
+
+</body>
+</html>
