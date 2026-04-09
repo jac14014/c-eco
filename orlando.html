@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seeing the Invisible | Systemic Risk, Expanded Due Diligence, and Pre-Threshold Contractual Governance</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #f7f4ee;
+      --paper: #fcfbf8;
+      --ink: #1f1c18;
+      --muted: #6d665d;
+      --line: #d9d1c5;
+      --gold: #b08a44;
+      --gold-soft: #e9dcc3;
+      --accent: #2f3a44;
+      --max: 1180px;
+      --text: 19px;
+    }
+
+    *{ box-sizing:border-box; margin:0; padding:0; }
+    html{ scroll-behavior:smooth; }
+    body{
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      line-height: 1.62;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(8px);
+      background: rgba(247,244,238,.84);
+      border-bottom: 1px solid rgba(31,28,24,.08);
+    }
+
+    .topbar-inner{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 16px 24px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+    }
+
+    .brand{
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .nav{
+      display:flex;
+      gap:22px;
+      flex-wrap:wrap;
+    }
+
+    .nav a{
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .shell{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    .hero{
+      padding: 72px 0 46px;
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 42px;
+      align-items:end;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow{
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 18px;
+      font-weight: 600;
+    }
+
+    h1{
+      font-size: clamp(46px, 6vw, 82px);
+      line-height: .94;
+      font-weight: 600;
+      letter-spacing: -.02em;
+      margin-bottom: 18px;
+      max-width: 9.5ch;
+    }
+
+    .subtitle{
+      max-width: 680px;
+      font-size: 24px;
+      color: var(--accent);
+      line-height: 1.35;
+    }
+
+    .hero-note{
+      border-left: 2px solid var(--gold-soft);
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 17px;
+      max-width: 420px;
+      margin-left: auto;
+    }
+
+    .meta{
+      margin-top: 22px;
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .layout{
+      display:grid;
+      grid-template-columns: 240px minmax(0, 1fr);
+      gap: 48px;
+      margin-top: 34px;
+    }
+
+    .aside{
+      padding-top: 10px;
+    }
+
+    .aside-box{
+      position: sticky;
+      top: 78px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      padding: 18px 18px 16px;
+    }
+
+    .aside-label{
+      font-family: "Inter", sans-serif;
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .aside-list{
+      list-style:none;
+      display:grid;
+      gap:10px;
+    }
+
+    .aside-list a{
+      display:block;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.3;
+    }
+
+    .content{
+      min-width:0;
+    }
+
+    section{
+      padding: 26px 0 22px;
+      border-bottom: 1px solid rgba(31,28,24,.08);
+    }
+
+    .section-kicker{
+      font-family: "Inter", sans-serif;
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    h2{
+      font-size: 34px;
+      line-height: 1.08;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .prose p{
+      font-size: var(--text);
+      margin-bottom: 18px;
+    }
+
+    .prose p.lead{
+      font-size: 26px;
+      line-height: 1.34;
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+
+    .prose .emphasis{
+      font-size: 24px;
+      color: var(--accent);
+      margin: 26px 0;
+    }
+
+    .rule-quote{
+      margin: 28px 0;
+      padding: 18px 0 18px 22px;
+      border-left: 2px solid var(--gold);
+      font-size: 24px;
+      line-height: 1.35;
+      color: var(--accent);
+    }
+
+    .case-box{
+      margin: 30px 0;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      padding: 22px 24px;
+    }
+
+    .case-grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 16px;
+    }
+
+    .case-item{
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    .case-item .k{
+      font-family: "Inter", sans-serif;
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .case-item .v{
+      font-size: 28px;
+      line-height: 1;
+      color: var(--ink);
+    }
+
+    .three{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .card{
+      background: var(--paper);
+      border: 1px solid var(--line);
+      padding: 20px;
+    }
+
+    .card .n{
+      font-family: "Inter", sans-serif;
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .card h3{
+      font-size: 24px;
+      line-height: 1.08;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .card p{
+      font-size: 18px;
+      color: var(--accent);
+      line-height: 1.42;
+    }
+
+    .closing{
+      padding: 64px 0 30px;
+      text-align: center;
+      border-bottom: 0;
+    }
+
+    .closing p{
+      font-size: 30px;
+      line-height: 1.34;
+      max-width: 840px;
+      margin: 0 auto 18px;
+    }
+
+    .closing .final{
+      margin-top: 26px;
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1.16;
+      color: var(--ink);
+    }
+
+    .closing .final strong{
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .footer{
+      padding: 28px 0 0;
+      border-top: 1px solid var(--line);
+      margin-top: 18px;
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+      color: var(--muted);
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 980px){
+      .hero{ grid-template-columns: 1fr; }
+      .hero-note{ margin-left: 0; }
+      .layout{ grid-template-columns: 1fr; gap: 24px; }
+      .aside-box{ position: static; }
+      .three, .case-grid{ grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px){
+      .shell{ padding: 0 18px 56px; }
+      .topbar-inner{ padding: 14px 18px; }
+      .nav{ display:none; }
+      .subtitle{ font-size: 21px; }
+      .prose p{ font-size: 18px; }
+      .prose p.lead{ font-size: 23px; }
+      .closing p{ font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">c-ECO / Lecture Brief</div>
+      <nav class="nav">
+        <a href="#introduction">Atlas Case</a>
+        <a href="#systemic-risk">Systemic Risk</a>
+        <a href="#due-diligence">Expanded Due Diligence</a>
+        <a href="#governance">Pre-Threshold Governance</a>
+        <a href="#closing">Closing</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Lecture</div>
+        <h1>Seeing the Invisible</h1>
+        <p class="subtitle">
+          Systemic Risk, Expanded Due Diligence, and Pre-Threshold Contractual Governance.
+        </p>
+        <div class="meta">Prepared text / English version</div>
+      </div>
+
+      <div class="hero-note">
+        This page is designed as an institutional reading format: restrained, legible, and concept-forward. The text carries the authority; the interface does not compete with it.
+      </div>
+    </section>
+
+    <div class="layout">
+      <aside class="aside">
+        <div class="aside-box">
+          <div class="aside-label">Structure</div>
+          <ul class="aside-list">
+            <li><a href="#introduction">The Atlas case as point of entry</a></li>
+            <li><a href="#systemic-risk">Why invisible risk is systemic</a></li>
+            <li><a href="#due-diligence">Why classical diligence is insufficient</a></li>
+            <li><a href="#governance">Why governance must move before the threshold</a></li>
+            <li><a href="#closing">Why the issue is legal</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <div class="content">
+        <section id="introduction">
+          <div class="section-kicker">Introduction</div>
+          <h2>The Atlas Case</h2>
+
+          <div class="prose">
+            <p class="lead">
+              At 3:47 a.m. on March 14, 2028, a monitoring system installed in the Rio Doce basin issued an alert.
+            </p>
+
+            <p>
+              It was not a flood alert, not a dam breach alert, and not any other event that conventional systems are built to recognize. It was an alert of another order: a trajectory alert. The system had identified that a process of ecosystem collapse was already underway, even though no visible physical sign had yet appeared.
+            </p>
+
+            <p>
+              Had such a system existed in 2015, the Mariana disaster might not have been merely answered after the fact, as it inevitably was, but interrupted before becoming irreversible.
+            </p>
+
+            <p>
+              The Atlas case is hypothetical. Its elements are not. The technological architecture, the contractual logic, and the institutional implications already exist.
+            </p>
+
+            <p>
+              Atlas Consortium appeared exemplary: permits approved, environmental studies validated, financing secured, billions in international capital mobilized. Nothing seemed irregular. Nothing seemed illegal. Everything was formally compliant.
+            </p>
+
+            <p class="emphasis">
+              And yet the problem was already there — not in an event, but in the trajectory.
+            </p>
+          </div>
+
+          <div class="case-box">
+            <div class="section-kicker">Illustrative Trigger</div>
+            <div class="case-grid">
+              <div class="case-item">
+                <div class="k">Risk score</div>
+                <div class="v">42</div>
+              </div>
+              <div class="case-item">
+                <div class="k">Projected collapse probability</div>
+                <div class="v">67%</div>
+              </div>
+              <div class="case-item">
+                <div class="k">Estimated horizon</div>
+                <div class="v">18 mo.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="prose">
+            <p>
+              Nothing had happened yet. The water was still potable. Communities had not yet been affected. There was no crisis, no litigation, no headline.
+            </p>
+
+            <p class="rule-quote">
+              And yet, the contract stopped.
+            </p>
+
+            <p>
+              It stopped because it contained a clause connecting the dynamics of the biophysical system to contractual enforceability itself. Once the system’s trajectory became incompatible with stability, the obligation ceased to be enforceable — not as sanction, not as breach, but as a legal response to reality.
+            </p>
+          </div>
+        </section>
+
+        <section id="systemic-risk">
+          <div class="section-kicker">First Pillar</div>
+          <h2>Systemic Risk</h2>
+
+          <div class="prose">
+            <p>
+              The Atlas case matters because it reveals that the most consequential risk today is often not visible risk, nor already materialized damage, but systemic risk: the risk that emerges from interdependence, from non-linearity, and from the possibility of irreversibility.
+            </p>
+
+            <p>
+              Law has historically been structured around acts. It examines isolated conduct, discrete decisions, identifiable events. But complex systems do not fail that way. They fail through accumulation, through compounding interactions, through sequences of individually lawful decisions that together produce a destabilizing direction.
+            </p>
+
+            <p class="rule-quote">
+              Systemic risks do not present themselves as events. They manifest as trajectories.
+            </p>
+          </div>
+        </section>
+
+        <section id="due-diligence">
+          <div class="section-kicker">Second Pillar</div>
+          <h2>Expanded Due Diligence</h2>
+
+          <div class="prose">
+            <p>
+              If the relevant risk is trajectory, then traditional due diligence is no longer enough. Classical diligence verifies compliance: whether permits were obtained, whether formal requirements were met, whether regulations were followed.
+            </p>
+
+            <p>
+              But it leaves unanswered the more consequential question: what happens if all of those lawful decisions continue over time? Expanded due diligence begins precisely there. It does not ask only whether a project is lawful today. It asks whether its continuation remains compatible with systemic stability over time.
+            </p>
+
+            <p>
+              The shift is fundamental. The analysis moves from conformity to compatibility.
+            </p>
+          </div>
+        </section>
+
+        <section id="governance">
+          <div class="section-kicker">Third Pillar</div>
+          <h2>Pre-Threshold Governance</h2>
+
+          <div class="three">
+            <article class="card">
+              <div class="n">01</div>
+              <h3>Before damage</h3>
+              <p>Intervention is displaced from aftermath to trajectory, from reaction to anticipatory legal structuring.</p>
+            </article>
+
+            <article class="card">
+              <div class="n">02</div>
+              <h3>Before irreversibility</h3>
+              <p>The relevant window is the period in which recalibration remains materially possible.</p>
+            </article>
+
+            <article class="card">
+              <div class="n">03</div>
+              <h3>Before collapse becomes fate</h3>
+              <p>The legal problem is no longer damage alone, but the exhaustion of reversibility itself.</p>
+            </article>
+          </div>
+
+          <div class="prose" style="margin-top: 22px;">
+            <p>
+              Pre-threshold governance does not mean generic prevention. It does not call for intervention against every possible risk. It operates when there is sufficient evidence that the continuation of a trajectory will compromise the system’s remaining capacity for reversal.
+            </p>
+
+            <p>
+              This is where law is asked to do something unusual: to decide not only on what has already happened, but on what is already underway.
+            </p>
+          </div>
+        </section>
+
+        <section id="closing" class="closing">
+          <p>
+            The problem was never the absence of information. Data exists. Models exist. The capacity to identify critical trajectories already exists.
+          </p>
+          <p>
+            What has historically been missing, at least in operational legal form, is the ability to transform that information into legal consequence before damage occurs.
+          </p>
+          <p>
+            The central issue, then, is no longer whether we can see. It is what we do with what has been seen, and when that knowledge begins to alter obligations, suspend contracts, or redistribute responsibilities.
+          </p>
+          <p class="final">
+            Seeing the invisible is not only a matter of technology or mathematics.<br>
+            <strong>It is a legal decision.</strong>
+          </p>
+        </section>
+
+        <footer class="footer">
+          <div>c-ECO / Institutional Draft</div>
+          <div>Prepared for lecture presentation</div>
+        </footer>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
