@@ -1,33 +1,41 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Seeing the Invisible | Systemic Risk, Expanded Due Diligence, and Pre-Threshold Contractual Governance</title>
+  <title>Ver o Invisível | Riscos Sistêmicos, Diligência Ampliada e Governança Contratual Pré-Limiar</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg: #f7f4ee;
-      --paper: #fcfbf8;
-      --ink: #1f1c18;
-      --muted: #6d665d;
-      --line: #d9d1c5;
-      --gold: #b08a44;
-      --gold-soft: #e9dcc3;
-      --accent: #2f3a44;
-      --max: 1180px;
-      --text: 19px;
+      --bg: #f6f1e8;
+      --paper: #fbf8f2;
+      --paper-2: #f2ebe0;
+      --ink: #1d1a17;
+      --muted: #6b645b;
+      --accent: #2a3642;
+      --gold: #a8823f;
+      --gold-soft: rgba(168,130,63,.14);
+      --line: #d8cfc2;
+      --line-soft: rgba(29,26,23,.08);
+      --shadow-soft: 0 12px 36px rgba(40,30,18,.05);
+      --shadow-card: 0 8px 24px rgba(45,35,20,.04);
+      --max: 1240px;
+      --text: 21px;
+      --text-sm: 18px;
     }
 
     *{ box-sizing:border-box; margin:0; padding:0; }
     html{ scroll-behavior:smooth; }
+
     body{
-      background: var(--bg);
+      background:
+        radial-gradient(circle at top center, rgba(255,255,255,.28), transparent 30%),
+        var(--bg);
       color: var(--ink);
       font-family: "Cormorant Garamond", Georgia, serif;
-      line-height: 1.62;
+      line-height: 1.68;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
@@ -37,16 +45,16 @@
     .topbar{
       position: sticky;
       top: 0;
-      z-index: 20;
-      backdrop-filter: blur(8px);
-      background: rgba(247,244,238,.84);
-      border-bottom: 1px solid rgba(31,28,24,.08);
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(246,241,232,.86);
+      border-bottom: 1px solid var(--line-soft);
     }
 
     .topbar-inner{
       max-width: var(--max);
       margin: 0 auto;
-      padding: 16px 24px;
+      padding: 16px 28px;
       display:flex;
       align-items:center;
       justify-content:space-between;
@@ -55,91 +63,106 @@
 
     .brand{
       font-family: "Inter", sans-serif;
-      font-size: 12px;
-      letter-spacing: .16em;
+      font-size: 11px;
+      letter-spacing: .18em;
       text-transform: uppercase;
       color: var(--gold);
-      font-weight: 600;
+      font-weight: 700;
+      white-space: nowrap;
     }
 
     .nav{
       display:flex;
-      gap:22px;
+      gap:20px;
       flex-wrap:wrap;
     }
 
     .nav a{
       font-family: "Inter", sans-serif;
-      font-size: 12px;
+      font-size: 11px;
       letter-spacing: .08em;
       text-transform: uppercase;
       color: var(--muted);
+      transition: color .2s ease;
     }
+
+    .nav a:hover{ color: var(--ink); }
 
     .shell{
       max-width: var(--max);
       margin: 0 auto;
-      padding: 0 24px 80px;
+      padding: 0 28px 100px;
     }
 
     .hero{
-      padding: 72px 0 46px;
+      padding: 82px 0 56px;
       display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 42px;
+      grid-template-columns: minmax(0,1.08fr) minmax(320px,.92fr);
+      gap: 54px;
       align-items:end;
       border-bottom: 1px solid var(--line);
     }
 
     .eyebrow{
       font-family: "Inter", sans-serif;
-      font-size: 12px;
-      letter-spacing: .18em;
+      font-size: 11px;
+      letter-spacing: .2em;
       text-transform: uppercase;
       color: var(--gold);
       margin-bottom: 18px;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     h1{
-      font-size: clamp(46px, 6vw, 82px);
-      line-height: .94;
+      font-size: clamp(56px, 6.1vw, 96px);
+      line-height: .92;
       font-weight: 600;
-      letter-spacing: -.02em;
-      margin-bottom: 18px;
-      max-width: 9.5ch;
+      letter-spacing: -.03em;
+      margin-bottom: 20px;
+      max-width: 8.2ch;
     }
 
     .subtitle{
-      max-width: 680px;
-      font-size: 24px;
+      max-width: 760px;
+      font-size: 28px;
       color: var(--accent);
-      line-height: 1.35;
-    }
-
-    .hero-note{
-      border-left: 2px solid var(--gold-soft);
-      padding-left: 18px;
-      color: var(--muted);
-      font-size: 17px;
-      max-width: 420px;
-      margin-left: auto;
+      line-height: 1.28;
     }
 
     .meta{
-      margin-top: 22px;
+      margin-top: 24px;
       font-family: "Inter", sans-serif;
-      font-size: 12px;
+      font-size: 11px;
       letter-spacing: .08em;
       text-transform: uppercase;
       color: var(--muted);
     }
 
+    .hero-note{
+      position: relative;
+      padding: 12px 0 4px 24px;
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 440px;
+      margin-left: auto;
+      line-height: 1.56;
+    }
+
+    .hero-note::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:0;
+      bottom:0;
+      width:2px;
+      background: linear-gradient(to bottom, var(--gold), transparent 80%);
+    }
+
     .layout{
       display:grid;
-      grid-template-columns: 240px minmax(0, 1fr);
-      gap: 48px;
-      margin-top: 34px;
+      grid-template-columns: 255px minmax(0, 1fr);
+      gap: 54px;
+      margin-top: 40px;
     }
 
     .aside{
@@ -148,20 +171,21 @@
 
     .aside-box{
       position: sticky;
-      top: 78px;
-      background: var(--paper);
+      top: 82px;
+      background: rgba(251,248,242,.76);
       border: 1px solid var(--line);
+      box-shadow: var(--shadow-soft);
       padding: 18px 18px 16px;
     }
 
     .aside-label{
       font-family: "Inter", sans-serif;
-      font-size: 11px;
-      letter-spacing: .14em;
+      font-size: 10px;
+      letter-spacing: .16em;
       text-transform: uppercase;
       color: var(--gold);
       margin-bottom: 12px;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .aside-list{
@@ -174,232 +198,276 @@
       display:block;
       color: var(--muted);
       font-size: 16px;
-      line-height: 1.3;
+      line-height: 1.28;
+      transition: color .2s ease;
     }
+
+    .aside-list a:hover{ color: var(--ink); }
 
     .content{
-      min-width:0;
+      min-width: 0;
     }
 
-    section{
-      padding: 26px 0 22px;
-      border-bottom: 1px solid rgba(31,28,24,.08);
+    .story-container{
+      max-width: 860px;
+    }
+
+    .story-text{
+      font-size: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .story-text.lead{
+      font-size: 31px;
+      line-height: 1.26;
+      color: var(--accent);
+      margin-bottom: 28px;
+    }
+
+    .story-text.emphasis{
+      font-size: 28px;
+      line-height: 1.3;
+      text-align: center;
+      color: var(--accent);
+      margin: 34px 0;
+    }
+
+    .story-text.final{
+      text-align:center;
+      font-size: clamp(31px, 4vw, 48px);
+      line-height: 1.14;
+      margin: 58px 0 12px;
+    }
+
+    .story-text.final span{
+      color: var(--gold);
+    }
+
+    .section-divider{
+      margin: 46px 0 38px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--line), transparent);
+      position: relative;
+    }
+
+    .section-divider::after{
+      content:"§";
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform: translate(-50%, -50%);
+      background: var(--bg);
+      padding: 0 14px;
+      color: var(--gold);
+      font-size: 17px;
+      line-height: 1;
+    }
+
+    .legal-block{
+      margin: 30px 0;
+      padding: 18px 20px 18px 24px;
+      border-left: 3px solid var(--gold);
+      background: linear-gradient(to right, var(--gold-soft), rgba(255,255,255,0));
+      box-shadow: inset 0 0 0 1px rgba(168,130,63,.08);
+    }
+
+    .legal-label{
+      font-family: "Inter", sans-serif;
+      font-size: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .legal-block p{
+      font-size: 19px;
+      line-height: 1.52;
+      color: var(--accent);
+    }
+
+    .section-head{
+      margin: 70px 0 22px;
     }
 
     .section-kicker{
       font-family: "Inter", sans-serif;
-      font-size: 11px;
-      letter-spacing: .14em;
+      font-size: 10px;
+      letter-spacing: .16em;
       text-transform: uppercase;
       color: var(--gold);
       margin-bottom: 10px;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     h2{
-      font-size: 34px;
-      line-height: 1.08;
+      font-size: clamp(34px, 4vw, 46px);
+      line-height: 1.06;
       font-weight: 600;
-      margin-bottom: 16px;
+      letter-spacing: -.02em;
+      margin-bottom: 14px;
     }
 
-    .prose p{
-      font-size: var(--text);
-      margin-bottom: 18px;
-    }
-
-    .prose p.lead{
-      font-size: 26px;
-      line-height: 1.34;
+    .section-intro{
+      font-size: 22px;
       color: var(--accent);
-      margin-bottom: 24px;
+      max-width: 850px;
+      line-height: 1.38;
     }
 
-    .prose .emphasis{
-      font-size: 24px;
-      color: var(--accent);
-      margin: 26px 0;
-    }
-
-    .rule-quote{
-      margin: 28px 0;
-      padding: 18px 0 18px 22px;
-      border-left: 2px solid var(--gold);
-      font-size: 24px;
-      line-height: 1.35;
-      color: var(--accent);
-    }
-
-    .case-box{
-      margin: 30px 0;
+    .table-card{
+      margin: 28px 0 0;
       background: var(--paper);
       border: 1px solid var(--line);
-      padding: 22px 24px;
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
     }
 
-    .case-grid{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-top: 16px;
+    .table-card + .table-card{
+      margin-top: 26px;
     }
 
-    .case-item{
-      padding-top: 14px;
-      border-top: 1px solid var(--line);
+    .table-title{
+      padding: 20px 22px 16px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(to right, rgba(168,130,63,.06), transparent);
     }
 
-    .case-item .k{
-      font-family: "Inter", sans-serif;
-      font-size: 11px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 8px;
-    }
-
-    .case-item .v{
+    .table-title h3{
       font-size: 28px;
-      line-height: 1;
-      color: var(--ink);
-    }
-
-    .three{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-top: 22px;
-    }
-
-    .card{
-      background: var(--paper);
-      border: 1px solid var(--line);
-      padding: 20px;
-    }
-
-    .card .n{
-      font-family: "Inter", sans-serif;
-      font-size: 11px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 12px;
+      line-height: 1.14;
+      margin-bottom: 6px;
       font-weight: 600;
     }
 
-    .card h3{
-      font-size: 24px;
-      line-height: 1.08;
-      margin-bottom: 10px;
-      font-weight: 600;
-    }
-
-    .card p{
+    .table-title p{
+      color: var(--muted);
       font-size: 18px;
-      color: var(--accent);
       line-height: 1.42;
     }
 
-    .closing{
-      padding: 64px 0 30px;
-      text-align: center;
-      border-bottom: 0;
+    .table-wrap{
+      overflow-x: auto;
     }
 
-    .closing p{
-      font-size: 30px;
-      line-height: 1.34;
-      max-width: 840px;
-      margin: 0 auto 18px;
+    table{
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 880px;
     }
 
-    .closing .final{
-      margin-top: 26px;
-      font-size: clamp(30px, 4vw, 48px);
-      line-height: 1.16;
+    thead th{
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: var(--paper-2);
       color: var(--ink);
+      font-family: "Inter", sans-serif;
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      text-align: left;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
     }
 
-    .closing .final strong{
-      color: var(--gold);
-      font-weight: 600;
+    tbody td{
+      padding: 17px 18px;
+      vertical-align: top;
+      border-bottom: 1px solid rgba(29,26,23,.06);
+      font-size: 18px;
+      line-height: 1.42;
+    }
+
+    tbody tr:nth-child(even){
+      background: rgba(255,255,255,.34);
+    }
+
+    tbody tr:hover{
+      background: rgba(168,130,63,.055);
     }
 
     .footer{
-      padding: 28px 0 0;
+      padding: 34px 0 0;
       border-top: 1px solid var(--line);
-      margin-top: 18px;
+      margin-top: 40px;
       display:flex;
       justify-content:space-between;
       gap:18px;
       flex-wrap:wrap;
       color: var(--muted);
       font-family: "Inter", sans-serif;
-      font-size: 12px;
-      letter-spacing: .05em;
+      font-size: 11px;
+      letter-spacing: .06em;
       text-transform: uppercase;
     }
 
-    @media (max-width: 980px){
-      .hero{ grid-template-columns: 1fr; }
-      .hero-note{ margin-left: 0; }
-      .layout{ grid-template-columns: 1fr; gap: 24px; }
-      .aside-box{ position: static; }
-      .three, .case-grid{ grid-template-columns: 1fr; }
+    @media (max-width: 1024px){
+      .hero{
+        grid-template-columns: 1fr;
+        gap: 34px;
+      }
+      .hero-note{
+        margin-left: 0;
+        max-width: 700px;
+      }
+      .layout{
+        grid-template-columns: 1fr;
+        gap: 26px;
+      }
+      .aside-box{
+        position: static;
+      }
     }
 
-    @media (max-width: 640px){
-      .shell{ padding: 0 18px 56px; }
-      .topbar-inner{ padding: 14px 18px; }
-      .nav{ display:none; }
-      .subtitle{ font-size: 21px; }
-      .prose p{ font-size: 18px; }
-      .prose p.lead{ font-size: 23px; }
-      .closing p{ font-size: 24px; }
+    @media (max-width: 700px){
+      .shell{
+        padding: 0 18px 72px;
+      }
+      .topbar-inner{
+        padding: 14px 18px;
+      }
+      .nav{
+        display:none;
+      }
+      h1{
+        max-width: none;
+      }
+      .subtitle{
+        font-size: 22px;
+      }
+      .story-text{
+        font-size: 19px;
+      }
+      .story-text.lead{
+        font-size: 27px;
+      }
+      .story-text.emphasis{
+        font-size: 24px;
+      }
+      .legal-block p,
+      tbody td,
+      .table-title p{
+        font-size: 17px;
+      }
+      .table-title h3{
+        font-size: 24px;
+      }
     }
-    
-    .legal-block {
-  margin: 3rem 0;
-  padding: 1.5rem 1.5rem 1.5rem 2rem;
-  border-left: 3px solid var(--accent-gold);
-  background: rgba(255,255,255,0.02);
-}
-
-.legal-label {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--accent-gold);
-  margin-bottom: 0.8rem;
-}
-
-.story-text.emphasis {
-  font-size: 1.4rem;
-  text-align: center;
-  color: var(--accent-light);
-}
-
-.story-text.final {
-  text-align: center;
-  font-size: 2rem;
-  margin-top: 4rem;
-}
-
-.story-text.final span {
-  color: var(--accent-gold);
-}
   </style>
 </head>
-<<body>
+<body>
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand">c-ECO / Texto da Palestra</div>
       <nav class="nav">
         <a href="#introducao">Caso Atlas</a>
-        <a href="#risco-sistemico">Risco Sistêmico</a>
-        <a href="#diligencia-ampliada">Diligência Ampliada</a>
-        <a href="#governanca-pre-limiar">Governança Pré-Limiar</a>
+        <a href="#estrutura-operacional">Arquitetura</a>
+        <a href="#instrumentos-existentes">Instrumentos Existentes</a>
+        <a href="#institutos-ceco">Institutos c-ECO</a>
         <a href="#fechamento">Fechamento</a>
       </nav>
     </div>
@@ -417,7 +485,7 @@
       </div>
 
       <div class="hero-note">
-        Esta página foi concebida como um formato institucional de leitura: sóbrio, legível e orientado pelos conceitos. O texto sustenta a autoridade; a interface não compete com ele.
+        Esta página foi concebida como formato institucional de leitura: sóbrio, legível e orientado pelos conceitos. O texto sustenta a autoridade; a interface não compete com ele.
       </div>
     </section>
 
@@ -427,348 +495,370 @@
           <div class="aside-label">Estrutura</div>
           <ul class="aside-list">
             <li><a href="#introducao">O Caso Atlas como ponto de entrada</a></li>
-            <li><a href="#risco-sistemico">Por que o risco invisível é sistêmico</a></li>
-            <li><a href="#diligencia-ampliada">Por que a diligência clássica é insuficiente</a></li>
-            <li><a href="#governanca-pre-limiar">Por que a governança deve atuar antes do limiar</a></li>
+            <li><a href="#estrutura-operacional">Arquitetura jurídica e lógica operacional</a></li>
+            <li><a href="#instrumentos-existentes">Instrumentos jurídicos existentes e suas limitações</a></li>
+            <li><a href="#institutos-ceco">Institutos e princípios do framework c-ECO</a></li>
             <li><a href="#fechamento">Por que a questão é jurídica</a></li>
           </ul>
         </div>
       </aside>
 
-      <section class="story-container">
-
-  <p class="story-text lead">
-    Em 14 de março de 2028, às 3h47 da manhã, um sistema de monitoramento instalado na Bacia do Rio Doce emitiu um alerta.
-  </p>
-
-  <p class="story-text">
-    Não era um alerta de enchente. Não era um alerta de rompimento. Tratava-se de um alerta de trajetória — a identificação de um processo de colapso ecossistêmico ainda invisível.
-  </p>
-
-  <p class="story-text">
-    O Atlas Consortium apresentava-se como um projeto exemplar. Licenças aprovadas, contratos robustos, total conformidade formal. E, ainda assim, havia um problema.
-  </p>
-
-  <p class="story-text">
-    Não um problema visível. O problema estava na trajetória.
-  </p>
-
-  <p class="story-text">
-    Sistemas complexos não colapsam por eventos isolados, mas por acúmulo. Decisões legítimas, quando encadeadas ao longo do tempo, produzem direção — e eventualmente irreversibilidade.
-  </p>
-
-  <div class="section-divider"></div>
-
-  <p class="story-text">
-    Foi nesse contexto que sensores passaram a monitorar continuamente a bacia. Eles não captavam apenas o estado presente, mas aquilo em que o sistema estava se tornando.
-  </p>
-
-  <p class="story-text emphasis">
-    Naquele momento, nada havia acontecido ainda.
-  </p>
-
-  <p class="story-text">
-    E, ainda assim, o contrato parou.
-  </p>
-
-  <div class="legal-block">
-    <div class="legal-label">Cláusula de Exigibilidade Condicionada</div>
-    <p>
-      “A exigibilidade das obrigações permanece condicionada à manutenção de compatibilidade material com os limites sistêmicos aplicáveis, conforme evidenciado por monitoramento contínuo.”
-    </p>
-  </div>
-
-  <p class="story-text">
-    A exigibilidade não era absoluta. Ela dependia da realidade.
-  </p>
-
-  <p class="story-text">
-    Mais do que isso: o próprio objeto do contrato não era tratado como estático.
-  </p>
-
-  <div class="legal-block">
-    <div class="legal-label">Objeto Imediato Condicionado</div>
-    <p>
-      “O objeto contratual mantém sua validade apenas enquanto permanecer materialmente compatível com as condições sistêmicas que lhe dão suporte.”
-    </p>
-  </div>
-
-  <p class="story-text">
-    O contrato não era apenas válido. Ele precisava continuar sendo possível no mundo real.
-  </p>
-
-  <p class="story-text">
-    Quando a trajetória se tornou incompatível, as obrigações deixaram de ser exigíveis — automaticamente.
-  </p>
-
-  <div class="legal-block">
-    <div class="legal-label">Inexigibilidade Ex-Ante (IEX)</div>
-    <p>
-      “Identificada trajetória incompatível, as obrigações afetadas tornam-se inexigíveis independentemente de inadimplemento, notificação ou decisão judicial.”
-    </p>
-  </div>
-
-  <p class="story-text">
-    Não havia quebra. Não havia culpa. Havia apenas incompatibilidade.
-  </p>
-
-  <p class="story-text">
-    A evidência que sustentava essa transição não era retrospectiva. Era contínua.
-  </p>
-
-  <div class="legal-block">
-    <div class="legal-label">Prova Sistêmica</div>
-    <p>
-      “Constituem prova juridicamente relevante os dados contínuos e auditáveis que evidenciam a dinâmica e a trajetória do sistema.”
-    </p>
-  </div>
-
-  <p class="story-text">
-    A decisão não era arbitrária. Era estruturada por um protocolo.
-  </p>
-
-  <div class="legal-block">
-    <div class="legal-label">Threshold Function Protocol</div>
-    <p>
-      “A ativação de efeitos jurídicos decorre da avaliação de posição, velocidade, incerteza e liquidez de reversibilidade.”
-    </p>
-  </div>
-
-  <p class="story-text">
-    E então ocorreu a mudança mais profunda.
-  </p>
-
-  <p class="story-text">
-    As partes deixaram de operar apenas como credores e devedores.
-  </p>
-
-  <div class="legal-block">
-    <div class="legal-label">Joint Duty</div>
-    <p>
-      “Na ativação de condição sistêmica crítica, as partes assumem dever de cooperação orientado à preservação da reversibilidade, suspendendo condutas adversariais incompatíveis.”
-    </p>
-  </div>
-
-  <p class="story-text">
-    A lógica adversarial foi temporariamente substituída por uma lógica curatorial.
-  </p>
-
-  <div class="section-divider"></div>
-
-  <p class="story-text">
-    O conflito chegou à arbitragem. A pergunta era simples apenas na aparência: poderia um contrato suspender seus próprios efeitos antes do dano?
-  </p>
-
-  <p class="story-text">
-    A resposta foi afirmativa.
-  </p>
-
-  <p class="story-text">
-    O tribunal reconheceu que a exigibilidade pode ser condicionada à preservação de limites sistêmicos, e que a evidência contínua pode prevalecer sobre reconstruções retrospectivas.
-  </p>
-
-  <div class="section-divider"></div>
-
-  <p class="story-text">
-    O projeto não foi abandonado. Foi reconfigurado. A trajetória foi corrigida antes de se tornar destino.
-  </p>
-
-  <p class="story-text">
-    O problema nunca foi a ausência de informação.
-  </p>
-
-  <p class="story-text emphasis">
-    Ver, hoje, já é possível.
-  </p>
-
-  <p class="story-text">
-    O que permanece em aberto é outra questão: o que fazemos com aquilo que foi visto?
-  </p>
-
-  <p class="story-text">
-    Em que momento a informação passa a alterar obrigações?
-  </p>
-
-  <p class="story-text">
-    É nesse ponto que a questão deixa de ser técnica e se torna jurídica.
-  </p>
-
-  <p class="story-text final">
-    Ver o invisível não é só uma questão de tecnologia ou de matemática.<br>
-    <span>É uma decisão jurídica.</span>
-  </p>
-
-</section>
-<section id="estrutura" class="story-container" style="margin-top:6rem;">
-
-  <h2 style="font-family:Inter,sans-serif; font-size:0.9rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--accent-gold); margin-bottom:2rem;">
-    Arquitetura Jurídica e Estrutura Operacional
-  </h2>
-
-  <p class="story-text">
-    O framework c-ECO não se estrutura em oposição ao direito existente, mas a partir de um ponto de insuficiência específico: o intervalo entre a conformidade formal e a desestabilização sistêmica irreversível.
-  </p>
-
-  <p class="story-text">
-    As tabelas abaixo distinguem, primeiro, os limites dos instrumentos jurídicos tradicionais diante de riscos sistêmicos e irreversíveis e, segundo, os institutos e princípios por meio dos quais o c-ECO estrutura a governança contratual pré-limiar.
-  </p>
-
-  <!-- TABELA 1 -->
-  <div class="data-block" style="margin-top:3rem;">
-    <h3 style="margin-bottom:2rem;">Instrumentos Jurídicos Existentes e Limitações Sistêmicas</h3>
-
-    <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
-      <thead>
-        <tr style="border-bottom:1px solid var(--border-subtle);">
-          <th align="left">Instrumento</th>
-          <th align="left">Função</th>
-          <th align="left">Limitação Sistêmica</th>
-          <th align="left">Complemento c-ECO</th>
-        </tr>
-      </thead>
-      <tbody>
-
-        <tr>
-          <td>Licenciamento Ambiental</td>
-          <td>Autoriza atividade com base em análise prévia</td>
-          <td>Opera como validação estática; não acompanha trajetória</td>
-          <td>Adiciona monitoramento contínuo e compatibilidade dinâmica</td>
-        </tr>
-
-        <tr>
-          <td>EIA/RIMA</td>
-          <td>Antecipação de impactos</td>
-          <td>Limitado a escopo de projeto; não capta cumulatividade sistêmica</td>
-          <td>Integra análise de trajetória e limites críticos</td>
-        </tr>
-
-        <tr>
-          <td>Princípio da Precaução</td>
-          <td>Permite agir sob incerteza</td>
-          <td>Baixa operacionalização contratual</td>
-          <td>Converte em gatilhos jurídicos mensuráveis</td>
-        </tr>
-
-        <tr>
-          <td>Responsabilidade Civil</td>
-          <td>Reparação após dano</td>
-          <td>Intrinsecamente ex-post</td>
-          <td>Atuação antes do dano (pré-limiar)</td>
-        </tr>
-
-        <tr>
-          <td>Force Majeure</td>
-          <td>Exonera por evento extraordinário</td>
-          <td>Dependente de evento consumado</td>
-          <td>Opera antes da ocorrência, na trajetória</td>
-        </tr>
-
-        <tr>
-          <td>Hardship / Imprévision</td>
-          <td>Reequilíbrio econômico</td>
-          <td>Foco bilateral, não sistêmico</td>
-          <td>Reorienta para compatibilidade com limites biofísicos</td>
-        </tr>
-
-        <tr>
-          <td>MAC Clauses</td>
-          <td>Proteção contra deterioração relevante</td>
-          <td>Indeterminadas e econômicas</td>
-          <td>Define gatilhos objetivos baseados em sistema</td>
-        </tr>
-
-      </tbody>
-    </table>
-  </div>
-
-  <!-- TABELA 2 -->
-  <div class="data-block" style="margin-top:4rem;">
-    <h3 style="margin-bottom:2rem;">Institutos e Princípios do Framework c-ECO</h3>
-
-    <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
-      <thead>
-        <tr style="border-bottom:1px solid var(--border-subtle);">
-          <th align="left">Instituto</th>
-          <th align="left">Definição</th>
-          <th align="left">Função Jurídica</th>
-        </tr>
-      </thead>
-      <tbody>
-
-        <tr>
-          <td>Princípio Pré-Limiar</td>
-          <td>Relevância jurídica antes da irreversibilidade</td>
-          <td>Permite atuação antes do dano</td>
-        </tr>
-
-        <tr>
-          <td>Ilicitude por Trajetória</td>
-          <td>Deriva da continuidade de uma dinâmica incompatível</td>
-          <td>Desloca foco do evento para o processo</td>
-        </tr>
-
-        <tr>
-          <td>Perclusão Sistêmica</td>
-          <td>Esgotamento do espaço decisório antes do colapso</td>
-          <td>Restringe continuidade jurídica</td>
-        </tr>
-
-        <tr>
-          <td>Inexigibilidade Ex-Ante</td>
-          <td>Suspensão sem inadimplemento</td>
-          <td>Cria categoria jurídica autônoma</td>
-        </tr>
-
-        <tr>
-          <td>Objeto Condicionado</td>
-          <td>Validade vinculada à compatibilidade sistêmica</td>
-          <td>Conecta contrato à realidade</td>
-        </tr>
-
-        <tr>
-          <td>Validade Dinâmica</td>
-          <td>Validade condicionada no tempo</td>
-          <td>Rompe com validade estática</td>
-        </tr>
-
-        <tr>
-          <td>Joint Duty</td>
-          <td>Dever de cooperação sistêmica</td>
-          <td>Substitui lógica adversarial</td>
-        </tr>
-
-        <tr>
-          <td>Prova Sistêmica</td>
-          <td>Evidência contínua baseada em monitoramento</td>
-          <td>Fundamenta decisões pré-limiar</td>
-        </tr>
-
-        <tr>
-          <td>TFP (Threshold Function Protocol)</td>
-          <td>Protocolo de decisão baseado em variáveis</td>
-          <td>Traduz dados em gatilhos jurídicos</td>
-        </tr>
-
-        <tr>
-          <td>Preservação da Reversibilidade</td>
-          <td>Manutenção da capacidade de recuperação</td>
-          <td>Objetivo central do sistema</td>
-        </tr>
-
-      </tbody>
-    </table>
-  </div>
-
-  <!-- FECHAMENTO TÉCNICO -->
-  <p class="story-text" style="margin-top:3rem;">
-    A mudança introduzida pelo c-ECO não consiste na substituição da legalidade pela previsão, mas na vinculação da exigibilidade à compatibilidade sistêmica ao longo do tempo. Sua função é permitir que o direito opere no intervalo em que a reversibilidade ainda existe.
-  </p>
-
-</section>
+      <div class="content">
+        <section id="introducao" class="story-container">
+          <p class="story-text lead">
+            Em 14 de março de 2028, às 3h47 da manhã, um sistema de monitoramento instalado na Bacia do Rio Doce emitiu um alerta.
+          </p>
+
+          <p class="story-text">
+            Não era um alerta de enchente. Não era um alerta de rompimento. Tratava-se de um alerta de trajetória — a identificação de um processo de colapso ecossistêmico ainda invisível.
+          </p>
+
+          <p class="story-text">
+            O Atlas Consortium apresentava-se como um projeto exemplar. Licenças aprovadas, contratos robustos, total conformidade formal. E, ainda assim, havia um problema.
+          </p>
+
+          <p class="story-text">
+            Não um problema visível. O problema estava na trajetória.
+          </p>
+
+          <p class="story-text">
+            Sistemas complexos não colapsam por eventos isolados, mas por acúmulo. Decisões legítimas, quando encadeadas ao longo do tempo, produzem direção — e eventualmente irreversibilidade.
+          </p>
+
+          <div class="section-divider"></div>
+
+          <p class="story-text">
+            Foi nesse contexto que sensores passaram a monitorar continuamente a bacia. Eles não captavam apenas o estado presente, mas aquilo em que o sistema estava se tornando.
+          </p>
+
+          <p class="story-text emphasis">
+            Naquele momento, nada havia acontecido ainda.
+          </p>
+
+          <p class="story-text">
+            E, ainda assim, o contrato parou.
+          </p>
+
+          <div class="legal-block">
+            <div class="legal-label">Cláusula de Exigibilidade Condicionada</div>
+            <p>
+              “A exigibilidade das obrigações permanece condicionada à manutenção de compatibilidade material com os limites sistêmicos aplicáveis, conforme evidenciado por monitoramento contínuo.”
+            </p>
+          </div>
+
+          <p class="story-text">
+            A exigibilidade não era absoluta. Ela dependia da realidade.
+          </p>
+
+          <p class="story-text">
+            Mais do que isso: o próprio objeto do contrato não era tratado como estático.
+          </p>
+
+          <div class="legal-block">
+            <div class="legal-label">Objeto Imediato Condicionado</div>
+            <p>
+              “O objeto contratual mantém sua validade apenas enquanto permanecer materialmente compatível com as condições sistêmicas que lhe dão suporte.”
+            </p>
+          </div>
+
+          <p class="story-text">
+            O contrato não era apenas válido. Ele precisava continuar sendo possível no mundo real.
+          </p>
+
+          <p class="story-text">
+            Quando a trajetória se tornou incompatível, as obrigações deixaram de ser exigíveis — automaticamente.
+          </p>
+
+          <div class="legal-block">
+            <div class="legal-label">Inexigibilidade Ex-Ante (IEX)</div>
+            <p>
+              “Identificada trajetória incompatível, as obrigações afetadas tornam-se inexigíveis independentemente de inadimplemento, notificação ou decisão judicial.”
+            </p>
+          </div>
+
+          <p class="story-text">
+            Não havia quebra. Não havia culpa. Havia apenas incompatibilidade.
+          </p>
+
+          <p class="story-text">
+            A evidência que sustentava essa transição não era retrospectiva. Era contínua.
+          </p>
+
+          <div class="legal-block">
+            <div class="legal-label">Prova Sistêmica</div>
+            <p>
+              “Constituem prova juridicamente relevante os dados contínuos e auditáveis que evidenciam a dinâmica e a trajetória do sistema.”
+            </p>
+          </div>
+
+          <p class="story-text">
+            A decisão não era arbitrária. Era estruturada por um protocolo.
+          </p>
+
+          <div class="legal-block">
+            <div class="legal-label">Threshold Function Protocol</div>
+            <p>
+              “A ativação de efeitos jurídicos decorre da avaliação de posição, velocidade, incerteza e liquidez de reversibilidade.”
+            </p>
+          </div>
+
+          <p class="story-text">
+            E então ocorreu a mudança mais profunda.
+          </p>
+
+          <p class="story-text">
+            As partes deixaram de operar apenas como credores e devedores.
+          </p>
+
+          <div class="legal-block">
+            <div class="legal-label">Joint Duty</div>
+            <p>
+              “Na ativação de condição sistêmica crítica, as partes assumem dever de cooperação orientado à preservação da reversibilidade, suspendendo condutas adversariais incompatíveis.”
+            </p>
+          </div>
+
+          <p class="story-text">
+            A lógica adversarial foi temporariamente substituída por uma lógica curatorial.
+          </p>
+
+          <div class="section-divider"></div>
+
+          <p class="story-text">
+            O conflito chegou à arbitragem. A pergunta era simples apenas na aparência: poderia um contrato suspender seus próprios efeitos antes do dano?
+          </p>
+
+          <p class="story-text">
+            A resposta foi afirmativa.
+          </p>
+
+          <p class="story-text">
+            O tribunal reconheceu que a exigibilidade pode ser condicionada à preservação de limites sistêmicos, e que a evidência contínua pode prevalecer sobre reconstruções retrospectivas.
+          </p>
+
+          <div class="section-divider"></div>
+
+          <p class="story-text">
+            O projeto não foi abandonado. Foi reconfigurado. A trajetória foi corrigida antes de se tornar destino.
+          </p>
+
+          <p class="story-text">
+            O problema nunca foi a ausência de informação.
+          </p>
+
+          <p class="story-text emphasis">
+            Ver, hoje, já é possível.
+          </p>
+
+          <p class="story-text">
+            O que permanece em aberto é outra questão: o que fazemos com aquilo que foi visto?
+          </p>
+
+          <p class="story-text">
+            Em que momento a informação passa a alterar obrigações?
+          </p>
+
+          <p class="story-text">
+            É nesse ponto que a questão deixa de ser técnica e se torna jurídica.
+          </p>
+
+          <p class="story-text final" id="fechamento">
+            Ver o invisível não é só uma questão de tecnologia ou de matemática.<br>
+            <span>É uma decisão jurídica.</span>
+          </p>
+        </section>
+
+        <section id="estrutura-operacional" class="story-container">
+          <div class="section-head">
+            <div class="section-kicker">Arquitetura Jurídica</div>
+            <h2>Estrutura Operacional do Framework c-ECO</h2>
+            <p class="section-intro">
+              O framework c-ECO não se estrutura em oposição ao direito existente, mas a partir de um ponto de insuficiência específico: o intervalo entre a conformidade formal e a desestabilização sistêmica irreversível.
+            </p>
+          </div>
+
+          <p class="story-text">
+            As tabelas abaixo distinguem, primeiro, os limites dos instrumentos jurídicos tradicionais diante de riscos sistêmicos e irreversíveis e, segundo, os institutos e princípios por meio dos quais o c-ECO estrutura a governança contratual pré-limiar.
+          </p>
+        </section>
+
+        <section id="instrumentos-existentes" class="story-container">
+          <div class="table-card">
+            <div class="table-title">
+              <h3>Instrumentos Jurídicos Existentes e Limitações Sistêmicas</h3>
+              <p>
+                Instrumentos reais do direito vigente, sua função tradicional, a limitação estrutural diante de risco sistêmico e irreversível, e o modo como o c-ECO os complementa.
+              </p>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Instrumento</th>
+                    <th>Função</th>
+                    <th>Limitação Sistêmica</th>
+                    <th>Complemento c-ECO</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Licenciamento Ambiental</td>
+                    <td>Autoriza atividade com base em análise prévia</td>
+                    <td>Opera como validação estática; não acompanha trajetória</td>
+                    <td>Adiciona monitoramento contínuo e compatibilidade dinâmica</td>
+                  </tr>
+                  <tr>
+                    <td>EIA/RIMA</td>
+                    <td>Antecipação de impactos</td>
+                    <td>Limitado ao escopo do projeto; não capta cumulatividade sistêmica</td>
+                    <td>Integra análise de trajetória e limites críticos</td>
+                  </tr>
+                  <tr>
+                    <td>Princípio da Precaução</td>
+                    <td>Permite agir sob incerteza</td>
+                    <td>Baixa operacionalização contratual</td>
+                    <td>Converte a precaução em gatilhos jurídicos mensuráveis</td>
+                  </tr>
+                  <tr>
+                    <td>Responsabilidade Civil</td>
+                    <td>Reparação após o dano</td>
+                    <td>Intrinsecamente ex-post</td>
+                    <td>Permite atuação antes do dano, em fase pré-limiar</td>
+                  </tr>
+                  <tr>
+                    <td>Force Majeure</td>
+                    <td>Exonera por evento extraordinário</td>
+                    <td>Depende de evento consumado</td>
+                    <td>Opera antes da ocorrência, na trajetória</td>
+                  </tr>
+                  <tr>
+                    <td>Hardship / Imprévision</td>
+                    <td>Reequilíbrio econômico</td>
+                    <td>Foco bilateral, não sistêmico</td>
+                    <td>Reorienta a análise para compatibilidade com limites biofísicos</td>
+                  </tr>
+                  <tr>
+                    <td>MAC Clauses</td>
+                    <td>Proteção contra deterioração relevante</td>
+                    <td>Indeterminadas e centradas em deterioração econômica</td>
+                    <td>Define gatilhos objetivos baseados em evidência sistêmica</td>
+                  </tr>
+                  <tr>
+                    <td>Impossibilidade / Frustração do Fim</td>
+                    <td>Libera as partes quando a base contratual colapsa</td>
+                    <td>Intervém tardiamente, quando a ruptura já se consolidou</td>
+                    <td>Atua enquanto a reversibilidade ainda existe</td>
+                  </tr>
+                  <tr>
+                    <td>Governança Corporativa / Deveres Fiduciários</td>
+                    <td>Orienta cuidado e lealdade na gestão</td>
+                    <td>Sofre com fragmentação societária e horizonte curto</td>
+                    <td>Introduz deveres orientados ao sistema compartilhado</td>
+                  </tr>
+                  <tr>
+                    <td>Medidas de Urgência / Injunctions</td>
+                    <td>Interrompem condutas em situações críticas</td>
+                    <td>Dependem de foro, prova, tempo decisório e ativação externa</td>
+                    <td>Internaliza a resposta na própria arquitetura contratual</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="institutos-ceco" class="story-container">
+          <div class="table-card">
+            <div class="table-title">
+              <h3>Institutos e Princípios do Framework c-ECO</h3>
+              <p>
+                Núcleo conceitual e operacional do framework, com definição e função jurídica.
+              </p>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Instituto</th>
+                    <th>Definição</th>
+                    <th>Função Jurídica</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Princípio Pré-Limiar</td>
+                    <td>Relevância jurídica antes da irreversibilidade</td>
+                    <td>Permite atuação antes do dano</td>
+                  </tr>
+                  <tr>
+                    <td>Ilicitude por Trajetória</td>
+                    <td>Deriva da continuidade de uma dinâmica incompatível</td>
+                    <td>Desloca o foco do evento para o processo</td>
+                  </tr>
+                  <tr>
+                    <td>Perclusão Sistêmica</td>
+                    <td>Esgotamento do espaço decisório antes do colapso</td>
+                    <td>Restringe continuidade jurídica</td>
+                  </tr>
+                  <tr>
+                    <td>Inexigibilidade Ex-Ante</td>
+                    <td>Suspensão sem inadimplemento</td>
+                    <td>Cria categoria jurídica autônoma</td>
+                  </tr>
+                  <tr>
+                    <td>Objeto Imediato Condicionado</td>
+                    <td>Validade vinculada à compatibilidade sistêmica</td>
+                    <td>Conecta contrato à realidade material</td>
+                  </tr>
+                  <tr>
+                    <td>Validade Dinâmica</td>
+                    <td>Validade condicionada ao tempo e ao estado do sistema</td>
+                    <td>Rompe com a noção estática de validade</td>
+                  </tr>
+                  <tr>
+                    <td>Joint Duty</td>
+                    <td>Dever de cooperação sistêmica</td>
+                    <td>Substitui a lógica adversarial por estabilização coordenada</td>
+                  </tr>
+                  <tr>
+                    <td>Prova Sistêmica</td>
+                    <td>Evidência contínua baseada em monitoramento</td>
+                    <td>Fundamenta decisões pré-limiar</td>
+                  </tr>
+                  <tr>
+                    <td>TFP (Threshold Function Protocol)</td>
+                    <td>Protocolo decisório baseado em variáveis</td>
+                    <td>Traduz dados em gatilhos jurídicos</td>
+                  </tr>
+                  <tr>
+                    <td>Liquidez de Reversibilidade</td>
+                    <td>Capacidade prática remanescente de reversão</td>
+                    <td>Orienta urgência, gatilho e escolha de resposta</td>
+                  </tr>
+                  <tr>
+                    <td>Preservação da Reversibilidade</td>
+                    <td>Manutenção da capacidade de recuperação</td>
+                    <td>Objetivo central do sistema</td>
+                  </tr>
+                  <tr>
+                    <td>Governança Contratual Pré-Limiar</td>
+                    <td>Internalização contratual de gatilhos sistêmicos</td>
+                    <td>Permite resposta enquanto o futuro ainda permanece aberto</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <p class="story-text" style="margin-top:28px;">
+            A mudança introduzida pelo c-ECO não consiste na substituição da legalidade pela previsão, mas na vinculação da exigibilidade à compatibilidade sistêmica ao longo do tempo. Sua função é permitir que o direito opere no intervalo em que a reversibilidade ainda existe.
+          </p>
+        </section>
 
         <footer class="footer">
-          <div>c-ECO / Institutional Draft</div>
-          <div>Prepared for lecture presentation</div>
+          <div>c-ECO / Draft Institucional</div>
+          <div>Preparado para apresentação em congresso</div>
         </footer>
       </div>
     </div>
