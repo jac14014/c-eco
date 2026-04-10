@@ -511,6 +511,202 @@
   color: var(--gold);
   font-weight: 600;
 }
+.screening-card{
+  margin: 22px 0 0;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.screening-toggle{
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 22px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.screening-toggle:hover{
+  background: rgba(168,130,63,.04);
+}
+
+.screening-kicker{
+  font-family: "Inter", sans-serif;
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.screening-toggle h3{
+  font-size: 28px;
+  line-height: 1.12;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.screening-toggle p{
+  font-size: 18px;
+  color: var(--muted);
+  line-height: 1.42;
+  max-width: 760px;
+}
+
+.screening-toggle-icon{
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(168,130,63,.28);
+  color: var(--gold);
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-family: "Inter", sans-serif;
+  font-size: 24px;
+  line-height: 1;
+  margin-top: 2px;
+  transition: transform .2s ease, background .2s ease;
+}
+
+.screening-card.open .screening-toggle-icon{
+  transform: rotate(45deg);
+  background: rgba(168,130,63,.08);
+}
+
+.screening-panel{
+  border-top: 1px solid var(--line);
+  padding: 28px 24px 30px;
+  background:
+    linear-gradient(to bottom, rgba(168,130,63,.03), transparent 18%),
+    var(--paper);
+}
+
+.flowchart{
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.flow-arrow{
+  text-align: center;
+  color: var(--gold);
+  font-size: 24px;
+  line-height: 1;
+  margin: 8px 0;
+}
+
+.flow-step{
+  background: #fffdf9;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
+  padding: 18px 18px 16px;
+  position: relative;
+}
+
+.flow-step + .flow-step{
+  margin-top: 10px;
+}
+
+.flow-step.start,
+.flow-step.end{
+  background: linear-gradient(to right, rgba(168,130,63,.08), rgba(168,130,63,.03));
+}
+
+.flow-step.decision{
+  border-left: 3px solid var(--gold);
+}
+
+.step-label{
+  font-family: "Inter", sans-serif;
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.step-number{
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.step-title{
+  font-size: 26px;
+  line-height: 1.14;
+  margin-bottom: 8px;
+  color: var(--ink);
+}
+
+.step-desc{
+  font-size: 18px;
+  line-height: 1.42;
+  color: var(--muted);
+}
+
+.step-branches{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.branch{
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  font-size: 16px;
+  line-height: 1.35;
+  background: var(--paper);
+}
+
+.branch.yes{
+  border-left: 3px solid var(--gold);
+}
+
+.branch.no{
+  color: var(--muted);
+  background: rgba(0,0,0,.015);
+}
+
+@media (max-width: 700px){
+  .screening-toggle{
+    padding: 18px 18px;
+  }
+
+  .screening-toggle h3{
+    font-size: 24px;
+  }
+
+  .screening-toggle p,
+  .step-desc{
+    font-size: 17px;
+  }
+
+  .step-title{
+    font-size: 22px;
+  }
+
+  .screening-panel{
+    padding: 22px 16px 24px;
+  }
+
+  .step-branches{
+    grid-template-columns: 1fr;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -528,19 +724,13 @@
   </header>
 
   <main class="shell">
-    <section class="hero">
+    <section class="hero" text-center>
       <div>
         <div class="eyebrow">Palestra</div>
         <h1>Ver o Invisível</h1>
         <p class="subtitle">
           Riscos Sistêmicos, Diligência Ampliada e Governança Contratual Pré-Limiar.
         </p>
-        <div class="meta">Texto preparado / versão em português</div>
-      </div>
-
-      <div class="hero-note">
-        Esta página foi concebida como formato institucional de leitura: sóbrio, legível e orientado pelos conceitos. O texto sustenta a autoridade; a interface não compete com ele.
-      </div>
     </section>
 
     <div class="layout">
