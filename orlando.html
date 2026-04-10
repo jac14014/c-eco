@@ -920,7 +920,14 @@
     <div class="section-kicker">Campo de Aplicação</div>
     <h2>Quando o Framework c-ECO se Aplica?</h2>
     <
-    
+    <div class="legal-block">
+  <div class="legal-label">Lógica de Aplicação</div>
+  <p>
+    A aplicação do c-ECO não é automática. 
+    Ela decorre de uma sequência de verificação estrutural.
+    A ausência de qualquer um dos elementos centrais impede sua incidência.
+  </p>
+</div>
     <section id="screening-ceco" class="story-container" style="margin-top: 42px;">
   <div class="screening-card" id="screeningCard">
     <button class="screening-toggle" id="screeningToggle" aria-expanded="false" aria-controls="screeningPanel">
@@ -1170,14 +1177,6 @@
   </div>
 </div>
 
-<div class="legal-block">
-  <div class="legal-label">Lógica de Aplicação</div>
-  <p>
-    A aplicação do c-ECO não é automática. 
-    Ela decorre de uma sequência de verificação estrutural.
-    A ausência de qualquer um dos elementos centrais impede sua incidência.
-  </p>
-</div>
 
 <div class="table-card">
   <div class="table-title">
@@ -1536,5 +1535,20 @@
       </div>
     </div>
   </main>
+  <script>
+  (function () {
+    const card = document.getElementById('screeningCard');
+    const toggle = document.getElementById('screeningToggle');
+    const panel = document.getElementById('screeningPanel');
+
+    if (!card || !toggle || !panel) return;
+
+    toggle.addEventListener('click', function () {
+      const isOpen = card.classList.toggle('open');
+      panel.hidden = !isOpen;
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+  })();
+</script>
 </body>
 </html>
