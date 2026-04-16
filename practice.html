@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow">
-  <title>c-ECO | Applications & Contract Models</title>
+  <title>c-ECO | Practice Applications — Contractual Architecture, TFP Logic & Model Clauses</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
 
@@ -17,241 +17,1389 @@
       --text-main: #1a1a1a;
       --border-color: #d4d8d4;
       --soft-bg: #fafcfa;
+      --soft-blue: #f0f7ff;
       --submission-accent: #2c5282;
+      --muted-text: #596559;
+      --callout-bg: #f8faf8;
+      --callout-border: #d8e4d8;
+      --harvard-crimson: #a51c30;
     }
 
-    *{ box-sizing:border-box; }
+    *{ box-sizing: border-box; }
+
+    html{
+      scroll-behavior: smooth;
+    }
 
     body{
       margin:0;
-      background:var(--bg-body);
-      font-family:'Inter',sans-serif;
-      color:var(--text-main);
-      line-height:1.6;
+      background: var(--bg-body);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.65;
+      color: var(--text-main);
+      overflow-x: hidden;
+      word-wrap: break-word;
     }
 
     .sidebar{
-      width:var(--sidebar-width);
-      position:fixed;
-      top:0;
-      left:0;
-      height:100vh;
-      background:#fff;
-      border-right:1px solid var(--border-color);
-      padding:18px;
-      overflow-y:auto;
+      width: var(--sidebar-width);
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      background: #fff;
+      border-right: 1px solid var(--border-color);
+      padding: 16px;
+      overflow-y: auto;
+      z-index: 1000;
+      -webkit-overflow-scrolling: touch;
+      transition: transform .3s ease;
+    }
+
+    .sidebar-top{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+      border-bottom: 2px solid var(--gold-accent);
+    }
+
+    .logo-box{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border-color);
+      background: #fff;
+      color: var(--earth-green);
+      font-weight: 900;
+      font-size: 1.2rem;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      flex-shrink: 0;
     }
 
     .sidebar-title{
-      font-weight:800;
-      font-size:12px;
-      text-transform:uppercase;
-      color:var(--earth-green);
-      margin-bottom:12px;
+      font-weight: 800;
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: var(--earth-green);
+      text-transform: uppercase;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    .search-container{
+      margin-bottom: 12px;
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 10;
+      padding-bottom: 8px;
+    }
+
+    #sidebarSearch{
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      outline: none;
+    }
+
+    #sidebarSearch:focus{
+      border-color: var(--gold-accent);
+      box-shadow: 0 0 0 3px rgba(212, 163, 115, 0.15);
+    }
+
+    .nav-list{
+      list-style:none;
+      padding:0;
+      margin:0;
+    }
+
+    .nav-section-title{
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--submission-accent);
+      margin-top: 14px;
+      text-transform: uppercase;
+      border-top: 1px solid #eee;
+      padding-top: 10px;
+      padding-bottom: 5px;
+      letter-spacing: .8px;
     }
 
     .nav-item a{
-      display:block;
-      padding:6px 8px;
-      font-size:12px;
       text-decoration:none;
-      color:var(--text-main);
+      color: var(--text-main);
+      font-size: 11px;
+      display:block;
+      padding: 5px 8px;
+      line-height: 1.4;
+      transition: .2s;
+      border-left: 3px solid transparent;
     }
 
     .nav-item a:hover{
-      background:rgba(44,82,130,0.08);
+      background: rgba(44, 82, 130, 0.08);
+      border-left-color: var(--submission-accent);
     }
 
-    .main{
-      margin-left:var(--sidebar-width);
-      padding:40px 20px;
+    .main-content{
+      margin-left: var(--sidebar-width);
+      padding: 36px 18px;
       display:flex;
       justify-content:center;
     }
 
-    .page{
-      max-width:780px;
+    .document-page{
       background:#fff;
-      padding:50px;
-      box-shadow:0 4px 25px rgba(0,0,0,0.06);
+      width:100%;
+      max-width: 760px;
+      padding: 42px 42px;
+      box-shadow: 0 4px 25px rgba(0,0,0,0.05);
+      overflow-x: hidden;
     }
 
-    .header{
-      background:linear-gradient(135deg,#1e3a2f,#2c5282);
-      color:#fff;
-      padding:30px;
-      margin:-50px -50px 30px -50px;
-      border-bottom:3px solid var(--gold-accent);
+    .practice-header{
+      background: linear-gradient(135deg, #1e3a2f 0%, #2c5282 100%);
+      color: #fff;
+      padding: 26px;
+      margin: -42px -42px 28px -42px;
+      border-bottom: 3px solid var(--gold-accent);
     }
 
-    .title{
-      font-family:'Libre Baskerville',serif;
-      font-size:22px;
-      font-weight:700;
+    .practice-title{
+      font-family:'Libre Baskerville', serif;
+      font-size: 23px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.35;
+      max-width: 680px;
     }
 
-    .subtitle{
-      font-size:13px;
-      opacity:.9;
-      margin-top:8px;
+    .practice-subtitle{
+      font-size: 13px;
+      opacity: 0.94;
+      line-height: 1.65;
+      max-width: 680px;
     }
 
-    .section{
-      margin-top:35px;
+    .harvard-badge{
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--harvard-crimson);
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 4px 10px;
+      border-radius: 3px;
+      margin-bottom: 8px;
     }
 
-    .section-title{
-      font-family:'Libre Baskerville',serif;
+    .section-header{
+      font-family:'Libre Baskerville', serif;
       font-weight:700;
       font-size:18px;
       color:var(--earth-green);
-      border-bottom:2px solid var(--submission-accent);
-      padding-bottom:6px;
-      margin-bottom:20px;
+      margin: 34px 0 18px 0;
+      padding-bottom: 10px;
+      border-bottom: 3px solid var(--submission-accent);
+      scroll-margin-top: 24px;
     }
 
-    .card{
-      background:var(--soft-bg);
-      border-left:4px solid var(--submission-accent);
-      padding:18px 22px;
-      margin-bottom:18px;
-    }
-
-    .card-title{
+    .subsection-header{
+      font-family:'Libre Baskerville', serif;
       font-weight:700;
-      margin-bottom:6px;
+      font-size:15px;
       color:var(--earth-green);
+      margin: 24px 0 14px 0;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-color);
+      scroll-margin-top: 24px;
     }
 
-    .bullet{
+    .note-box{
+      background: var(--callout-bg);
+      border-left: 4px solid var(--submission-accent);
+      padding: 14px 16px;
+      margin: 14px 0 22px 0;
+      font-size: 11.5px;
+      line-height: 1.7;
+      color: #333;
+    }
+
+    .note-label{
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--earth-green);
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      margin-bottom: 6px;
+    }
+
+    .problem-box{
+      background: linear-gradient(135deg, #faf8f5 0%, #f5f0e8 100%);
+      border-left: 4px solid var(--gold-accent);
+      padding: 20px 22px;
+      margin: 20px 0 26px 0;
+      font-size: 12px;
+      line-height: 1.75;
+      color: #2a2a2a;
+    }
+
+    .problem-title{
+      font-family:'Libre Baskerville', serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--earth-green);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .problem-title::before{
+      content: "⚠";
+      color: var(--gold-accent);
+      font-size: 16px;
+    }
+
+    .metrics-grid{
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .metric-item{
+      text-align: center;
+      padding: 15px 10px;
+      background: var(--soft-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+    }
+
+    .metric-number{
+      font-family: 'Libre Baskerville', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--gold-accent);
+    }
+
+    .metric-label{
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #666;
+      margin-top: 4px;
+      line-height: 1.35;
+    }
+
+    .article-box{
+      margin-bottom: 28px;
+      scroll-margin-top: 24px;
+    }
+
+    .ai-id{
+      font-family: monospace;
+      font-size: 10px;
+      color: #999;
+      display:block;
+      margin-bottom:3px;
+    }
+
+    .article-title{
+      font-family:'Libre Baskerville', serif;
+      font-weight:700;
+      font-size:15px;
+      color:var(--earth-green);
+      display:block;
+      margin-bottom:12px;
+      border-bottom:1px solid #f0f0f0;
+      padding-bottom:4px;
+      line-height: 1.45;
+    }
+
+    .caput{
+      text-align:justify;
+      margin-bottom:10px;
+      font-family:'Libre Baskerville', serif;
+      line-height:1.75;
+      font-size:13.2px;
+      color:#222;
+    }
+
+    .paragraph{
+      margin-left:20px;
+      font-size:12.4px;
+      margin-bottom:8px;
+      line-height:1.65;
+      color:#333;
+    }
+
+    .concept-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+      margin: 18px 0 24px 0;
+    }
+
+    .concept-item{
+      border:1px solid var(--border-color);
+      background:#fff;
+      padding:14px;
+      border-radius:4px;
+      min-width: 0;
+    }
+
+    .concept-term{
+      font-family:'Libre Baskerville', serif;
       font-size:13px;
+      font-weight:700;
+      color:var(--earth-green);
       margin-bottom:6px;
+      line-height: 1.4;
     }
 
-    .cta{
-      margin-top:40px;
-      text-align:center;
+    .concept-def{
+      font-size:11.5px;
+      line-height:1.65;
+      color:#444;
+      margin:0;
     }
 
-    .btn{
-      display:inline-block;
-      padding:14px 26px;
+    .formula-box{
+      background: #f8f9fa;
+      border: 1px solid var(--border-color);
+      padding: 16px 20px;
+      margin: 16px 0;
+      text-align: center;
+      font-family: 'Libre Baskerville', serif;
+      font-size: 15px;
+      color: var(--earth-green);
+      letter-spacing: 0.5px;
+      overflow-x: auto;
+    }
+
+    .variable-grid{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:12px;
+      margin: 16px 0;
+    }
+
+    .variable-card{
+      background: var(--soft-bg);
+      border: 1px solid var(--border-color);
+      padding: 12px 14px;
+      border-radius: 4px;
+      min-width: 0;
+    }
+
+    .variable-name{
+      font-weight: 700;
+      font-size: 12px;
+      color: var(--submission-accent);
+      margin-bottom: 4px;
+      line-height: 1.4;
+    }
+
+    .variable-desc{
+      font-size: 11px;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    .table-wrap{
+      width:100%;
+      overflow-x:auto;
+      margin: 14px 0 20px 0;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    table{
+      width:100%;
+      min-width: 640px;
+      border-collapse:collapse;
+      font-size:12px;
+    }
+
+    th, td{
+      border:1px solid var(--border-color);
+      padding:10px 12px;
+      text-align:left;
+      vertical-align:top;
+      line-height: 1.55;
+    }
+
+    th{
+      background:#f8faf8;
+      color:var(--earth-green);
+      font-weight:700;
+      font-size:10.5px;
+      text-transform:uppercase;
+      letter-spacing:0.4px;
+    }
+
+    .band-table td:nth-child(2){
+      font-weight: 600;
+      color: var(--earth-green);
+    }
+
+    .pathway-grid{
+      display:grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap:12px;
+      margin: 18px 0 24px 0;
+    }
+
+    .pathway-step{
+      border:1px solid var(--border-color);
+      background:#fff;
+      padding:14px 12px 12px 12px;
+      border-radius:4px;
+      min-height:150px;
+      min-width: 0;
+    }
+
+    .pathway-step-number{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:26px;
+      height:26px;
+      border-radius:50%;
       background:var(--earth-green);
       color:#fff;
-      text-decoration:none;
-      font-weight:700;
+      font-weight:800;
+      font-size:11px;
+      margin-bottom:8px;
+    }
+
+    .pathway-step-title{
+      font-family:'Libre Baskerville', serif;
       font-size:12px;
+      color:var(--earth-green);
+      margin-bottom:6px;
+      line-height:1.35;
+    }
+
+    .pathway-step p{
+      margin:0;
+      font-size:10.6px;
+      line-height:1.58;
+      color:#444;
+    }
+
+    .clause-box{
+      background: #fafcfa;
+      border-left: 4px solid var(--submission-accent);
+      padding: 18px 20px;
+      margin-bottom: 22px;
+      scroll-margin-top: 24px;
+    }
+
+    .clause-number{
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--submission-accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .clause-title{
+      font-family:'Libre Baskerville', serif;
+      font-weight:700;
+      font-size:15px;
+      color:var(--earth-green);
+      margin-bottom:12px;
+      line-height: 1.4;
+    }
+
+    .clause-model{
+      background:#fff;
+      border:1px solid var(--border-color);
+      padding:14px 16px;
+      margin:12px 0;
+      font-size:11.8px;
+      line-height:1.72;
+      color:#222;
+      font-style: italic;
+      white-space: pre-line;
+    }
+
+    .clause-function{
+      margin-top:10px;
+      font-size:11px;
+      color:#555;
+      border-top:1px dashed var(--border-color);
+      padding-top:8px;
+      line-height: 1.6;
+    }
+
+    .faq-box{
+      border:1px solid var(--border-color);
+      background:#fff;
+      padding:16px 18px;
+      margin-bottom:12px;
+    }
+
+    .faq-q{
+      font-weight:700;
+      color:var(--earth-green);
+      margin-bottom:6px;
+      font-size:13px;
+      line-height: 1.45;
+    }
+
+    .faq-a{
+      font-size:12px;
+      line-height:1.68;
+      color:#333;
+    }
+
+    .cta-box{
+      background: linear-gradient(135deg, #f0f4f0 0%, #eef3f7 100%);
+      border: 1px solid var(--border-color);
+      padding: 22px;
+      margin-top: 28px;
+    }
+
+    .cta-title{
+      font-family:'Libre Baskerville', serif;
+      font-size:18px;
+      color:var(--earth-green);
+      margin-bottom:10px;
+      line-height: 1.4;
+    }
+
+    .cta-text{
+      font-size:12px;
+      line-height:1.72;
+      color:#333;
+      margin-bottom:16px;
+      max-width:640px;
+    }
+
+    .button-group{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:12px;
+    }
+
+    .btn-primary{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      background: var(--earth-green);
+      color:#fff;
+      border:none;
+      padding: 14px 22px;
+      font-family:'Inter', sans-serif;
+      font-size:12px;
+      font-weight:700;
       text-transform:uppercase;
-      letter-spacing:.5px;
-      margin:6px;
+      letter-spacing:0.5px;
+      cursor:pointer;
+      border-radius:4px;
+      transition:all 0.3s;
+      text-decoration:none;
+      box-shadow: 0 4px 12px rgba(30, 58, 47, 0.2);
+    }
+
+    .btn-primary:hover{
+      background:#2c5282;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(30, 58, 47, 0.28);
     }
 
     .btn-secondary{
-      background:transparent;
-      border:2px solid var(--border-color);
-      color:var(--earth-green);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      background: transparent;
+      color: var(--earth-green);
+      border: 2px solid var(--border-color);
+      padding: 12px 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.3s;
+      text-decoration: none;
     }
 
+    .btn-secondary:hover{
+      border-color: var(--gold-accent);
+      color: var(--gold-accent);
+    }
+
+    .mobile-btn{
+      display:none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--earth-green);
+      color: #fff;
+      border: none;
+      padding: 14px 22px;
+      font-weight: 800;
+      font-size: 12px;
+      z-index: 2000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      border-radius: 4px;
+    }
+
+    .print-btn{
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--earth-green);
+      color: #fff;
+      border: none;
+      padding: 12px 18px;
+      font-weight: 700;
+      font-size: 12px;
+      z-index: 2000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .print-btn:hover{
+      background: #2c5282;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    }
+
+    .print-btn::before{
+      content: "🖨️";
+      font-size: 14px;
+    }
+
+    .hidden{
+      display:none !important;
+    }
+
+    @media (max-width: 1100px){
+      .sidebar{
+        transform: translateX(-100%);
+      }
+      .sidebar.open{
+        transform: translateX(0);
+        box-shadow: 10px 0 30px rgba(0,0,0,0.22);
+      }
+      .main-content{
+        margin-left: 0;
+        padding: 16px;
+      }
+      .document-page{
+        padding: 24px;
+        width:auto;
+        margin:0;
+        max-width: 100%;
+      }
+      .practice-header{
+        margin: -24px -24px 20px -24px;
+      }
+      .metrics-grid,
+      .concept-grid,
+      .variable-grid,
+      .pathway-grid{
+        grid-template-columns: 1fr;
+      }
+      .mobile-btn{
+        display:block;
+      }
+      .print-btn{
+        top:auto;
+        bottom:80px;
+        right:20px;
+        padding:14px 16px;
+      }
+      .print-btn span{
+        display:none;
+      }
+    }
+
+    @media print {
+      .sidebar, .mobile-btn, .print-btn {
+        display:none !important;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .document-page {
+        box-shadow:none;
+        max-width:100%;
+        padding:30px;
+      }
+      body {
+        background:white;
+      }
+      .cta-box, .faq-box, .pathway-step, .clause-box, .problem-box, .concept-item, .variable-card {
+        page-break-inside: avoid;
+      }
+    }
   </style>
 </head>
 
 <body>
 
-<aside class="sidebar">
-  <div class="sidebar-title">c-ECO PRACTICE</div>
+  <button class="mobile-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+    INDEX
+  </button>
 
-  <div class="nav-item"><a href="#applications">Applications</a></div>
-  <div class="nav-item"><a href="#models">Contract Models</a></div>
-  <div class="nav-item"><a href="#implementation">Implementation Path</a></div>
-  <div class="nav-item"><a href="#next">Next Step</a></div>
-</aside>
+  <button class="print-btn" onclick="window.print()" id="printBtn">
+    <span>Save PDF / Print</span>
+  </button>
 
-<main class="main">
-  <div class="page">
-
-    <div class="header">
-      <div class="title">Applications & Contract Models</div>
-      <div class="subtitle">
-        Practical pathways for integrating c-ECO into contracts, infrastructure, and governance systems.
-      </div>
+  <aside class="sidebar" id="sidebar" aria-label="Practice Page Index">
+    <div class="sidebar-top">
+      <a href="english.html" class="logo-box" aria-label="Back to c-ECO">Σ</a>
+      <div class="sidebar-title">PRACTICE APPLICATIONS<br>c-ECO FRAMEWORK</div>
     </div>
 
-    <div id="applications" class="section">
-      <div class="section-title">Where c-ECO Applies</div>
-
-      <div class="card">
-        <div class="card-title">Infrastructure & Concessions</div>
-        <div class="bullet">• Long-term contracts exposed to systemic environmental risk</div>
-        <div class="bullet">• Need for adaptive execution without default</div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Energy Systems</div>
-        <div class="bullet">• Grid stress, climate exposure, supply instability</div>
-        <div class="bullet">• Integration of threshold-based triggers</div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Project Finance</div>
-        <div class="bullet">• Preservation of asset value under systemic stress</div>
-        <div class="bullet">• Pre-default contractual adaptation mechanisms</div>
-      </div>
-
+    <div class="search-container">
+      <input type="text" id="sidebarSearch" placeholder="Search sections..." aria-label="Search Index">
     </div>
 
-    <div id="models" class="section">
-      <div class="section-title">Core Contract Models</div>
+    <nav>
+      <ul class="nav-list">
+        <li class="nav-section-title">OVERVIEW</li>
+        <li class="nav-item"><a href="#HEADER">Practice Applications</a></li>
+        <li class="nav-item"><a href="#PROBLEM">The Structural Legal Problem</a></li>
 
-      <div class="card">
-        <div class="card-title">Safe Mode Clause</div>
-        <div class="bullet">• Temporary reconfiguration of execution</div>
-        <div class="bullet">• No default, no termination</div>
-      </div>
+        <li class="nav-section-title">FOUNDATIONS</li>
+        <li class="nav-item"><a href="#PARADIGM">The c-ECO Paradigm</a></li>
+        <li class="nav-item"><a href="#CATEGORIES">Core Legal Categories</a></li>
 
-      <div class="card">
-        <div class="card-title">Restoration First</div>
-        <div class="bullet">• Redirection of guarantees and resources</div>
-        <div class="bullet">• Priority to system stabilization</div>
-      </div>
+        <li class="nav-section-title">TFP</li>
+        <li class="nav-item"><a href="#TFP">Threshold Function Protocol</a></li>
+        <li class="nav-item"><a href="#VARIABLES">Variables P, ΔV, σ, Lr</a></li>
+        <li class="nav-item"><a href="#BANDS">Prudential Bands</a></li>
 
-      <div class="card">
-        <div class="card-title">Threshold Triggers (TFP)</div>
-        <div class="bullet">• Continuous monitoring (P, ΔV, σ, Lr)</div>
-        <div class="bullet">• Automatic contractual effects</div>
-      </div>
+        <li class="nav-section-title">MODEL CLAUSES</li>
+        <li class="nav-item"><a href="#CLAUSES">Model Clauses</a></li>
+        <li class="nav-item"><a href="#SHARED-DUTY">Shared Duty Clause</a></li>
+        <li class="nav-item"><a href="#IMPLEMENTATION">Implementation Path</a></li>
 
-    </div>
+        <li class="nav-section-title">GOVERNANCE</li>
+        <li class="nav-item"><a href="#ARCHITECTURE">Distributed Intelligence</a></li>
+        <li class="nav-item"><a href="#CALIBRATION">Calibration Council</a></li>
+        <li class="nav-item"><a href="#ARBITRATION">Specialized Arbitration</a></li>
 
-    <div id="implementation" class="section">
-      <div class="section-title">Implementation Path</div>
+        <li class="nav-section-title">APPLICATION</li>
+        <li class="nav-item"><a href="#SECTORS">Application Sectors</a></li>
+        <li class="nav-item"><a href="#FAQ">FAQ</a></li>
 
-      <div class="card">
-        <div class="bullet">1. Diagnostic (risk & trajectory mapping)</div>
-        <div class="bullet">2. Contract integration (clauses & triggers)</div>
-        <div class="bullet">3. Monitoring setup (data + thresholds)</div>
-        <div class="bullet">4. Governance alignment (board & execution)</div>
-      </div>
+        <li class="nav-section-title">NEXT STEP</li>
+        <li class="nav-item"><a href="#ENGAGEMENT">Engagement Pathways</a></li>
 
-    </div>
+        <li class="nav-section-title" style="border-top: 2px solid var(--gold-accent); margin-top: 20px; padding-top: 15px;">PRIMARY SOURCES</li>
+        <li class="nav-item"><a href="law.html" style="font-weight: 700;">c-ECO Model Law</a></li>
+        <li class="nav-item"><a href="manual.html" style="font-weight: 700;">TFP Operational Manual</a></li>
+        <li class="nav-item"><a href="pilot.html" style="font-weight: 700;">Request Pilot</a></li>
+      </ul>
+    </nav>
+  </aside>
 
-    <div id="next" class="section">
-      <div class="section-title">Next Step</div>
+  <main class="main-content">
+    <article class="document-page">
 
-      <div class="card">
-        <div class="bullet">
-          Access full clause models, pilot pathways, and project briefs.
+      <!-- HEADER -->
+      <div class="practice-header" id="HEADER">
+        <div class="harvard-badge">Post-Briefing Practice Page</div>
+        <div class="practice-title">Practice Applications — Contractual Architecture, TFP Logic & Model Clauses</div>
+        <div class="practice-subtitle">
+          This page explains how the c-ECO framework can be operationalized in contracts, governance protocols, and risk-trigger design. It is intended as the practical extension of a briefing, lecture, or institutional conversation — not as a generic intake form and not as a simplified ESG compliance page.
         </div>
       </div>
 
-      <div class="cta">
-        <a href="pilot.html" class="btn">Request a Pilot</a>
-        <a href="manual.html" class="btn btn-secondary">View TFP Manual</a>
+      <div class="metrics-grid">
+        <div class="metric-item">
+          <div class="metric-number">5</div>
+          <div class="metric-label">Core Legal Categories</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-number">4</div>
+          <div class="metric-label">TFP Variables</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-number">5</div>
+          <div class="metric-label">Illustrative Model Clauses</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-number">30</div>
+          <div class="metric-label">Day Pilot Pathway</div>
+        </div>
       </div>
 
-    </div>
+      <!-- PROBLEM -->
+      <div class="section-header" id="PROBLEM">The Structural Legal Problem</div>
 
-  </div>
-</main>
+      <div class="problem-box">
+        <div class="problem-title">The Temporal Asymmetry of Law</div>
+        Contemporary law already incorporates anticipatory instruments: precaution, due diligence, risk-based regulation, systemic supervision, and scenario analysis. Yet a structural asymmetry remains:
+        <ul style="margin: 12px 0; padding-left: 20px;">
+          <li>the time of legal response is not the time of systemic deterioration;</li>
+          <li>judicial response is episodic, while systemic degradation is continuous;</li>
+          <li>legal relevance often arrives at harm or imminence, while reversibility may be lost earlier.</li>
+        </ul>
+        The c-ECO framework addresses this asymmetry by creating an architecture in which monitored trajectory and reversibility become capable of producing legally pre-structured effects before irreversible deterioration consolidates.
+      </div>
+
+      <div class="note-box">
+        <div class="note-label">Purpose of This Page</div>
+        This page is meant to answer a practical question: if the framework is conceptually persuasive, how can it actually be written, governed, and implemented? The sections below therefore move from legal theory to contract architecture, governance design, and implementation pathways.
+      </div>
+
+      <!-- PARADIGM -->
+      <div class="section-header" id="PARADIGM">The c-ECO Paradigm</div>
+
+      <section class="article-box">
+        <span class="ai-id">[PRACTICE-ART-001]</span>
+        <span class="article-title">Article 1 — Three Structural Shifts</span>
+
+        <div class="caput">
+          The c-ECO framework introduces three structural shifts in contractual governance under systemic risk. Each shift responds to a distinct insufficiency in conventional legal architecture when dealing with cumulative, non-linear, and potentially irreversible forms of degradation.
+        </div>
+
+        <div class="concept-grid">
+          <div class="concept-item">
+            <div class="concept-term">From Event to Trajectory</div>
+            <p class="concept-def">Legal attention moves beyond isolated breach or damage and begins to recognize trajectory — the monitored direction of systemic evolution — as a legally relevant object.</p>
+          </div>
+
+          <div class="concept-item">
+            <div class="concept-term">From Binary to Graduated Execution</div>
+            <p class="concept-def">Instead of only ordinary performance or default, the framework introduces staged execution states: Watch, Amber, Safe Mode, and Restoration First.</p>
+          </div>
+
+          <div class="concept-item">
+            <div class="concept-term">From Declaratory Proof to Continuous Systemic Proof</div>
+            <p class="concept-def">Legal effects can be linked to certified technical data, auditable models, and monitored conditions rather than waiting for retrospective damage declaration.</p>
+          </div>
+
+          <div class="concept-item">
+            <div class="concept-term">From Static Validity to Dynamic Compatibility</div>
+            <p class="concept-def">The continued enforceability of performance becomes linked to compatibility with reversibility and the material conditions that sustain contractual viability.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CATEGORIES -->
+      <div class="section-header" id="CATEGORIES">Core Legal Categories</div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Function</th>
+              <th>Statutory Reference</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Ex-Ante Unenforceability (IEX)</strong></td>
+              <td>Automatic suspension of enforceability when certified trajectory deviation crosses the applicable threshold.</td>
+              <td>Arts. 15–18</td>
+            </tr>
+            <tr>
+              <td><strong>Systemic Perclusion</strong></td>
+              <td>Immediate impediment to formally lawful acts that have become incompatible with systemic stability.</td>
+              <td>Arts. 19–22</td>
+            </tr>
+            <tr>
+              <td><strong>Conditioned Immediate Object</strong></td>
+              <td>Existence and legal effects of performance remain tied to continuous systemic compatibility.</td>
+              <td>Arts. 9–11</td>
+            </tr>
+            <tr>
+              <td><strong>Safe Mode</strong></td>
+              <td>Protective execution state that preserves reversibility without constituting default.</td>
+              <td>Art. 219 §4; TFP logic</td>
+            </tr>
+            <tr>
+              <td><strong>Restoration First</strong></td>
+              <td>Priority of containment and restoration over ordinary economic enforcement.</td>
+              <td>Art. 220; Level 4 logic</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- TFP -->
+      <div class="section-header" id="TFP">Threshold Function Protocol (TFP)</div>
+
+      <section class="article-box">
+        <span class="ai-id">[PRACTICE-ART-002]</span>
+        <span class="article-title">Article 2 — The Trigger Function: Γ = f(P, ΔV, σ, Lr)</span>
+
+        <div class="caput">
+          The TFP translates systemic deterioration into prudentially relevant legal-operational variables. Rather than relying on static compliance categories, it evaluates the evolving state of the system through a monitored function that combines position, velocity, uncertainty, and reversibility liquidity.
+        </div>
+
+        <div class="formula-box">
+          Γ = f(P, ΔV, σ, Lr)
+        </div>
+      </section>
+
+      <!-- VARIABLES -->
+      <div class="subsection-header" id="VARIABLES">The Four Core Variables</div>
+
+      <div class="variable-grid">
+        <div class="variable-card">
+          <div class="variable-name">Position (P)</div>
+          <div class="variable-desc">
+            Measures where the monitored operation, asset, or system sits in relation to an applicable Safe Operating Space boundary.
+          </div>
+        </div>
+
+        <div class="variable-card">
+          <div class="variable-name">Velocity (ΔV)</div>
+          <div class="variable-desc">
+            Captures the direction and rate of movement toward or away from the relevant threshold, allowing anticipation before proximity alone becomes critical.
+          </div>
+        </div>
+
+        <div class="variable-card">
+          <div class="variable-name">Uncertainty (σ)</div>
+          <div class="variable-desc">
+            Treated conservatively and asymmetrically. Uncertainty does not expand operational space; it contracts it.
+          </div>
+        </div>
+
+        <div class="variable-card">
+          <div class="variable-name">Reversibility Liquidity (Lr)</div>
+          <div class="variable-desc">
+            Measures whether sufficient immediately mobilizable resources exist to reverse or contain harmful trajectories within the relevant temporal window.
+          </div>
+        </div>
+      </div>
+
+      <!-- BANDS -->
+      <div class="section-header" id="BANDS">Prudential Bands</div>
+
+      <div class="table-wrap">
+        <table class="band-table">
+          <thead>
+            <tr>
+              <th>Band</th>
+              <th>Indicative Range</th>
+              <th>Legal-Operational State</th>
+              <th>Illustrative Effects</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Green</strong></td>
+              <td>80–100</td>
+              <td>Ordinary execution</td>
+              <td>Routine monitoring and normal contractual operation.</td>
+            </tr>
+            <tr>
+              <td><strong>Amber</strong></td>
+              <td>60–79</td>
+              <td>Intensified vigilance</td>
+              <td>Heightened monitoring, preventive redirection of selected flows, reinforced safeguards.</td>
+            </tr>
+            <tr>
+              <td><strong>Red (Safe Mode)</strong></td>
+              <td>40–59</td>
+              <td>Protective execution state</td>
+              <td>Temporary suspension of non-essential enforceability, coordinated stabilization measures, blocking of destructive acceleration dynamics.</td>
+            </tr>
+            <tr>
+              <td><strong>Black (Restoration First)</strong></td>
+              <td>&lt;40</td>
+              <td>Containment-restoration priority</td>
+              <td>Automatic redirection of designated resources, containment priority, external intervention limited to technically necessary stabilization.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note-box">
+        <div class="note-label">Critical Distinction</div>
+        <strong>Safe Mode is not default.</strong> It is a protective execution state designed to preserve the asset, the agreement, and the remaining capacity for reversibility while preventing destructive continuation.
+      </div>
+
+      <!-- CLAUSES -->
+      <div class="section-header" id="CLAUSES">Illustrative Model Clauses</div>
+
+      <section class="clause-box">
+        <div class="clause-number">MODEL CLAUSE 1</div>
+        <div class="clause-title">Monitoring & Trigger Activation Clause</div>
+
+        <div class="clause-model">“The Parties agree that the performance of this Agreement shall remain subject to the continuous monitoring of the technical parameters identified in Schedule [X] (the ‘Systemic Indicators’). Upon the occurrence of a material deviation within the thresholds specified in such Schedule, the corresponding contractual mechanisms shall be activated automatically, without the need for prior notice, formal default, or judicial declaration.”</div>
+
+        <div class="clause-function">
+          <strong>Function:</strong> links certified technical signals to pre-structured contractual effects so that the contract does not remain inert while monitored conditions deteriorate.
+        </div>
+      </section>
+
+      <section class="clause-box">
+        <div class="clause-number">MODEL CLAUSE 2</div>
+        <div class="clause-title">Safe Mode Clause</div>
+
+        <div class="clause-model">“If the Systemic Indicators reach levels consistent with material deterioration of reversibility, this Agreement shall enter Safe Mode automatically. During Safe Mode: (i) non-essential obligations shall have their enforceability temporarily suspended; (ii) designated financial flows may be redirected in accordance with this Agreement; and (iii) immediate stabilization measures shall be implemented. Entry into Safe Mode shall not constitute default, termination event, acceleration event, or credit impairment.”</div>
+
+        <div class="clause-function">
+          <strong>Function:</strong> creates an intermediate execution state between ordinary performance and collapse, preserving the agreement while preventing it from aggravating systemic deterioration.
+        </div>
+      </section>
+
+      <section class="clause-box" id="SHARED-DUTY">
+        <div class="clause-number">MODEL CLAUSE 3</div>
+        <div class="clause-title">Shared Duty Clause</div>
+
+        <div class="clause-model">“Where the monitored Systemic Indicators show material deterioration in trajectory stability or reversibility, the Parties shall be bound by a shared duty to cooperate in good faith for the purpose of preserving systemic reversibility and preventing further degradation of the conditions required for contractual performance.
+
+Such shared duty shall include, where applicable:
+
+(i) the timely exchange of relevant technical and operational information;
+(ii) participation in coordinated stabilization measures;
+(iii) abstention from acts that materially aggravate the incompatible trajectory; and
+(iv) engagement with reconfiguration measures provided for under this Agreement.
+
+The shared duty established herein shall not be construed as a waiver of rights, but as a temporary and mandatory coordination obligation arising from the systemic conditions affecting the continued viability of performance.”</div>
+
+        <div class="clause-function">
+          <strong>Function:</strong> creates a temporary coordination duty between parties once systemic deterioration becomes legally relevant, so that the contract does not remain governed solely by adversarial enforcement logic while reversibility is being lost.
+        </div>
+      </section>
+
+      <section class="clause-box">
+        <div class="clause-number">MODEL CLAUSE 4</div>
+        <div class="clause-title">Restoration First Clause</div>
+
+        <div class="clause-model">“Where monitored conditions indicate material compromise of systemic reversibility, specified funds, guarantees, reserves, or dedicated financial resources may be redirected automatically toward containment and restoration measures. Such redirection shall be limited to what is technically necessary for certified stabilization, and shall remain subject to proportionality and traceable documentation.”</div>
+
+        <div class="clause-function">
+          <strong>Function:</strong> reorients resources from ordinary enforcement logic toward preservation of the system that makes contractual performance possible.
+        </div>
+      </section>
+
+      <section class="clause-box">
+        <div class="clause-number">MODEL CLAUSE 5</div>
+        <div class="clause-title">Limited Review Clause</div>
+
+        <div class="clause-model">“The activation of the mechanisms set forth in this Agreement may be reviewed exclusively on the grounds of: (i) verifiable material error; (ii) fraud or data manipulation; or (iii) significant procedural failure. The commencement of arbitral or judicial proceedings shall not, by itself, produce automatic suspensive effect over measures already implemented pursuant to this Agreement.”</div>
+
+        <div class="clause-function">
+          <strong>Function:</strong> preserves review and due process without allowing the review itself to consume the remaining window of reversibility.
+        </div>
+      </section>
+
+      <!-- IMPLEMENTATION -->
+      <div class="section-header" id="IMPLEMENTATION">Implementation Path</div>
+
+      <div class="pathway-grid">
+        <div class="pathway-step">
+          <div class="pathway-step-number">1</div>
+          <div class="pathway-step-title">Identify the Exposure</div>
+          <p>Define the contract, asset, operation, or network segment at issue and locate the relevant lock-in, escalation, or irreversibility risk.</p>
+        </div>
+
+        <div class="pathway-step">
+          <div class="pathway-step-number">2</div>
+          <div class="pathway-step-title">Map the Indicators</div>
+          <p>Determine which monitored conditions matter, which data exists, and how the signal will be translated into threshold-sensitive logic.</p>
+        </div>
+
+        <div class="pathway-step">
+          <div class="pathway-step-number">3</div>
+          <div class="pathway-step-title">Write the Clause Layer</div>
+          <p>Incorporate trigger activation, Safe Mode, Shared Duty, Restoration First, and review limits into the relevant contract architecture.</p>
+        </div>
+
+        <div class="pathway-step">
+          <div class="pathway-step-number">4</div>
+          <div class="pathway-step-title">Pilot the Workflow</div>
+          <p>Test the architecture in a narrow setting: one contract, one asset, one board escalation path, or one systemic risk scan.</p>
+        </div>
+
+        <div class="pathway-step">
+          <div class="pathway-step-number">5</div>
+          <div class="pathway-step-title">Scale Institutionally</div>
+          <p>Expand to broader governance settings with calibration, monitoring continuity, and internal decision protocols.</p>
+        </div>
+      </div>
+
+      <!-- ARCHITECTURE -->
+      <div class="section-header" id="ARCHITECTURE">Distributed Intelligence Architecture</div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Domain</th>
+              <th>Function</th>
+              <th>Authority</th>
+              <th>Limitation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Planetary Intelligence</strong></td>
+              <td>Biophysical dynamics, limits, feedbacks, threshold behavior</td>
+              <td>Materially constrains possible performance</td>
+              <td>Does not issue commands, permissions, or normative judgments</td>
+            </tr>
+            <tr>
+              <td><strong>Algorithmic Intelligence</strong></td>
+              <td>Measurement, aggregation, trajectory processing, TFP scoring</td>
+              <td>Processes certified data</td>
+              <td>Has no autonomous normative authority</td>
+            </tr>
+            <tr>
+              <td><strong>Human Legal Intelligence</strong></td>
+              <td>Normativity, contractual incorporation, judgment, responsibility allocation</td>
+              <td>Only source of binding legal effect</td>
+              <td>All TFP-based effects require prior human incorporation through contract, adherence, or legal instrument</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note-box">
+        <div class="note-label">Non-Substitution Principle</div>
+        No domain of intelligence substitutes for another. The architecture depends on the separation between signal, calculation, and normatively binding incorporation.
+      </div>
+
+      <!-- CALIBRATION -->
+      <div class="section-header" id="CALIBRATION">Calibration Council</div>
+
+      <section class="article-box">
+        <span class="ai-id">[PRACTICE-ART-003]</span>
+        <span class="article-title">Article 3 — Technical-Normative Guardian of Parameters</span>
+
+        <div class="caput">
+          The Calibration Council serves as the technical-normative guardian of the parameters used by the TFP. Its role is limited to ensuring that the translation of Earth-system signals into prudential variables remains scientifically robust, methodologically transparent, reproducible, auditable, and aligned with precaution under asymmetric risk.
+        </div>
+
+        <div class="paragraph">
+          <strong>Explicit limits:</strong> the Council does not authorize projects, approve operations, grant permissions, or directly enforce contract performance.
+        </div>
+      </section>
+
+      <!-- ARBITRATION -->
+      <div class="section-header" id="ARBITRATION">Specialized Arbitration & Review Limits</div>
+
+      <div class="concept-grid">
+        <div class="concept-item">
+          <div class="concept-term">Restricted Review Scope</div>
+          <p class="concept-def">Review is limited to fraud, verifiable material error, and significant procedural failure. It does not reopen biophysical thresholds, scientific calibration, or policy preference.</p>
+        </div>
+
+        <div class="concept-item">
+          <div class="concept-term">No Automatic Suspensive Effect</div>
+          <p class="concept-def">The commencement of arbitral or judicial proceedings does not, by itself, suspend the effects already triggered under the agreement.</p>
+        </div>
+
+        <div class="concept-item">
+          <div class="concept-term">Specialized Technical Interface</div>
+          <p class="concept-def">Dispute resolution is designed to engage technical evidence without converting technical disagreement into unrestricted merits review.</p>
+        </div>
+
+        <div class="concept-item">
+          <div class="concept-term">Procedural Protection Without Destructive Delay</div>
+          <p class="concept-def">The architecture preserves due process while recognizing that delay itself may consume the remaining window of reversibility.</p>
+        </div>
+      </div>
+
+      <!-- SECTORS -->
+      <div class="section-header" id="SECTORS">Application Sectors</div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Sector</th>
+              <th>Typical Application</th>
+              <th>Key c-ECO Mechanism</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Infrastructure & Concessions</strong></td>
+              <td>Long-duration assets exposed to cumulative systemic deterioration and lock-in.</td>
+              <td>Safe Mode logic; trajectory-sensitive execution states</td>
+            </tr>
+            <tr>
+              <td><strong>Energy & Natural Resources</strong></td>
+              <td>Operations whose continued performance depends on biophysical stability.</td>
+              <td>Reversibility liquidity monitoring; Restoration First logic</td>
+            </tr>
+            <tr>
+              <td><strong>Project Finance</strong></td>
+              <td>Structures with reserves, covenants, and step-in logic but without reversibility-sensitive triggers.</td>
+              <td>Contract addenda; resource redirection mechanics</td>
+            </tr>
+            <tr>
+              <td><strong>Insurance & Guarantees</strong></td>
+              <td>Compensation logic reoriented toward pre-collapse containment and restoration.</td>
+              <td>Parametric triggers; pay-to-restore design</td>
+            </tr>
+            <tr>
+              <td><strong>Supply Chains</strong></td>
+              <td>Networked settings where local deterioration propagates across counterparties before visible breach.</td>
+              <td>Shared Duty; multi-party stabilization protocols</td>
+            </tr>
+            <tr>
+              <td><strong>Board Governance</strong></td>
+              <td>Fiduciary settings needing a bridge between technical signals and institutional decision architecture.</td>
+              <td>Signal-to-decision workflow; distributed accountability</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- FAQ -->
+      <div class="section-header" id="FAQ">Frequently Asked Questions</div>
+
+      <div class="faq-box">
+        <div class="faq-q">Is this an environmental compliance product?</div>
+        <div class="faq-a">No. The framework is not a generic compliance layer, ESG report substitute, or licensing regime. It is an execution architecture for contracts and governance arrangements operating under conditions of systemic and potentially irreversible risk.</div>
+      </div>
+
+      <div class="faq-box">
+        <div class="faq-q">Does this replace due diligence or conventional legal drafting?</div>
+        <div class="faq-a">No. It complements them. The point is not to duplicate existing obligations, but to connect risk recognition to execution logic so that performance can respond to monitored deterioration before reversibility is lost.</div>
+      </div>
+
+      <div class="faq-box">
+        <div class="faq-q">Do organizations need a large technical stack to begin?</div>
+        <div class="faq-a">Not necessarily. Many pilots can begin with a narrow scope: one contract, one operation, one reserve mechanism, or one board escalation pathway. The architecture scales over time.</div>
+      </div>
+
+      <div class="faq-box">
+        <div class="faq-q">Are the model clauses intended to be used as-is?</div>
+        <div class="faq-a">No. They are illustrative models. Real implementation depends on jurisdiction, enforceability constraints, governing law, contract type, and data availability.</div>
+      </div>
+
+      <div class="faq-box">
+        <div class="faq-q">How does Shared Duty differ from ordinary good faith?</div>
+        <div class="faq-a">Good faith is often general and interpretive. Shared Duty is a more structured, temporary, and trigger-linked coordination obligation that arises once systemic deterioration becomes legally relevant and the continued viability of performance is at stake.</div>
+      </div>
+
+      <!-- ENGAGEMENT -->
+      <div class="section-header" id="ENGAGEMENT">Engagement Pathways</div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Format</th>
+              <th>Purpose</th>
+              <th>Typical Output</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Rapid Risk Scan</strong></td>
+              <td>Quick mapping of trajectory-sensitive exposure</td>
+              <td>Short diagnostic + preliminary TFP banding</td>
+            </tr>
+            <tr>
+              <td><strong>Contract Addendum Package</strong></td>
+              <td>Operational clause integration</td>
+              <td>Clause set + implementation notes + negotiation logic</td>
+            </tr>
+            <tr>
+              <td><strong>Board Briefing</strong></td>
+              <td>Governance alignment</td>
+              <td>Board-ready memo + escalation pathway outline</td>
+            </tr>
+            <tr>
+              <td><strong>Pilot Roadmap</strong></td>
+              <td>Implementation planning</td>
+              <td>30-day sequence, data needs, and governance guardrails</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="cta-box">
+        <div class="cta-title">Request a Project Brief or Pilot Pathway</div>
+        <div class="cta-text">
+          If this framework is relevant to your organization, the next step is not full implementation. It is a tightly scoped pathway: a rapid diagnostic, a clause package, or a board-level briefing that translates the architecture into a concrete setting.
+        </div>
+
+        <div class="button-group">
+          <a href="pilot.html" class="btn-primary">Request Pilot / Project Brief</a>
+          <a href="law.html" class="btn-secondary">Open Model Law</a>
+          <a href="manual.html" class="btn-secondary">Open TFP Manual</a>
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <div style="margin-top: 56px; padding-top: 24px; border-top: 2px solid var(--border-color); font-size: 11px; line-height: 1.65; color: #555;">
+        <div style="font-weight: 700; color: var(--earth-green); margin-bottom: 10px;">
+          © 2026 c-ECO Systemic Governance Initiative. Supported by the Johann Christian Hasse Foundation. All rights reserved.
+        </div>
+        <div style="margin-bottom: 10px;">
+          Licensed under <strong>CC BY-NC-ND 4.0</strong>. Non-commercial use only. No derivatives without authorization.
+        </div>
+        <div style="font-size: 10px; color: #888;">
+          <strong>Disclaimer:</strong> This practice page constitutes educational and professional analysis material. Real-world application requires jurisdiction-specific legal review, technical calibration, and contract-level adaptation. Not legal advice.
+        </div>
+      </div>
+
+    </article>
+  </main>
+
+  <script>
+    const searchInput = document.getElementById('sidebarSearch');
+    const navItems = document.querySelectorAll('.nav-item');
+    const sectionTitles = document.querySelectorAll('.nav-section-title');
+    const sidebar = document.getElementById('sidebar');
+
+    searchInput.addEventListener('input', function(e) {
+      const term = e.target.value.toLowerCase();
+
+      navItems.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.classList.toggle('hidden', !text.includes(term));
+      });
+
+      sectionTitles.forEach(title => {
+        title.classList.toggle('hidden', term.length > 0);
+      });
+    });
+
+    document.querySelectorAll('.nav-item a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 1100) {
+          sidebar.classList.remove('open');
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>
