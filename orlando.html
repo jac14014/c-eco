@@ -723,6 +723,293 @@
         page-break-inside: avoid;
       }
     }
+    /* ============================================
+   SEÇÃO DE SLIDES - CAPÍTULOS c-ECO
+   ============================================ */
+
+.chapters-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 24px 0 32px 0;
+}
+
+.chapter-card {
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.chapter-card:hover {
+  border-color: var(--gold-accent);
+  box-shadow: 0 8px 24px rgba(30, 58, 47, 0.08);
+  transform: translateY(-2px);
+}
+
+.chapter-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--earth-green);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.chapter-card:hover::before {
+  opacity: 1;
+}
+
+.chapter-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.chapter-number {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--gold-accent);
+  line-height: 1;
+}
+
+.chapter-format {
+  font-size: 10px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: 'Inter', sans-serif;
+}
+
+.chapter-title {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--earth-green);
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+}
+
+.chapter-desc {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #555;
+  margin: 0 0 16px 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.chapter-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.view-btn {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent-blue);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: 'Inter', sans-serif;
+  transition: color 0.2s;
+}
+
+.chapter-card:hover .view-btn {
+  color: var(--gold-accent);
+}
+
+/* ============================================
+   MODAL DE VISUALIZAÇÃO DE SLIDES
+   ============================================ */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 3000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(26, 26, 26, 0.92);
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  background: #fff;
+  margin: 3% auto;
+  width: 92%;
+  max-width: 1100px;
+  height: 85vh;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px;
+  background: linear-gradient(135deg, #1e3a2f 0%, #2c5282 100%);
+  color: #fff;
+  border-bottom: 3px solid var(--gold-accent);
+}
+
+.modal-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.modal-chapter-num {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--gold-accent);
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--gold-accent);
+  color: #1a1a1a;
+  text-decoration: none;
+  padding: 10px 18px;
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s;
+}
+
+.btn-download:hover {
+  background: #c49360;
+  transform: translateY(-1px);
+}
+
+.btn-close {
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.btn-close:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+.modal-body {
+  flex: 1;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.modal-body iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ============================================
+   RESPONSIVIDADE - SLIDES
+   ============================================ */
+
+@media (max-width: 768px) {
+  .chapters-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .chapter-card {
+    padding: 16px;
+  }
+  
+  .chapter-number {
+    font-size: 28px;
+  }
+  
+  .modal-content {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+  
+  .modal-header {
+    padding: 14px 16px;
+  }
+  
+  .modal-header h3 {
+    font-size: 15px;
+  }
+  
+  .btn-download span {
+    display: none;
+  }
+  
+  .btn-download {
+    padding: 8px 12px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chapter-title {
+    font-size: 14px;
+  }
+  
+  .chapter-desc {
+    font-size: 11px;
+  }
+}
+
   </style>
 </head>
 
@@ -800,6 +1087,9 @@
       <li class="nav-item"><a href="#O-QUE-NAO-E">O Que o c-ECO Não É</a></li>
       <li class="nav-item"><a href="#O-QUE-E">O Que o c-ECO É</a></li>
       <li class="nav-item"><a href="#DESLOCAMENTO-FUNDAMENTAL">O Deslocamento Fundamental</a></li>
+
+      <li class="nav-section-title">Materiais Complementares</li>
+<li class="nav-item"><a href="#SLIDES">Slides da Apresentação</a></li>
 
       <li class="nav-section-title">Referências</li>
       <li class="nav-item"><a href="#REFERENCIAS">Referências Bibliográficas</a></li>
@@ -1601,6 +1891,166 @@
         <p>A continuidade da mensuração sistêmica torna-se fundamento operacional da modulação da exigibilidade, com protocolos, métricas, thresholds e instâncias de governança que a tornam juridicamente efetiva</p>
       </div>
     </div>
+<!-- SEÇÃO DE SLIDES -->
+<div class="section-header" id="SLIDES">Slides da Apresentação</div>
+
+<div class="note-box">
+  <div class="note-label">Apresentação por Capítulos</div>
+  10 blocos temáticos correspondentes à estrutura desta fundamentação teórica. Cada capítulo pode ser visualizado online ou baixado em PDF. Os slides seguem a arquitetura c-ECO: da epistemologia do colapso à governança pré-limiar, totalizando 39 slides.
+</div>
+
+<div class="chapters-grid">
+  <!-- Capítulo 1 -->
+  <div class="chapter-card" onclick="openChapter(1)">
+    <div class="chapter-meta">
+      <span class="chapter-number">01</span>
+      <span class="chapter-format">PDF • 2 slides</span>
+    </div>
+    <h3 class="chapter-title">A Epistemologia do Colapso</h3>
+    <p class="chapter-desc">Por que o direito enxerga fragmentos e não sistemas</p>
+    <div class="chapter-actions">
+      <span class="view-btn">Visualizar ↗</span>
+    </div>
+  </div>
+
+  <!-- Capítulo 2 -->
+  <div class="chapter-card" onclick="openChapter(2)">
+    <div class="chapter-meta">
+      <span class="chapter-number">02</span>
+      <span class="chapter-format">PDF • 3 slides</span>
+    </div>
+    <h3 class="chapter-title">O Direito Como Já Vê</h3>
+    <p class="chapter-desc">Antecedentes e limites da estrutura vigente</p>
+    <div class="chapter-actions">
+      <span class="view-btn">Visualizar ↗</span>
+    </div>
+  </div>
+
+  <!-- Capítulo 3 -->
+  <div class="chapter-card" onclick="openChapter(3)">
+    <div class="chapter-meta">
+      <span class="chapter-number">03</span>
+      <span class="chapter-format">PDF • 4 slides</span>
+    </div>
+    <h3 class="chapter-title">Diligência Ampliada</h3>
+    <p class="chapter-desc">Da investigação pontual à infraestrutura de governança</p>
+    <div class="chapter-actions">
+      <span class="view-btn">Visualizar ↗</span>
+    </div>
+  </div>
+
+  <!-- Capítulo 4 -->
+  <div class="chapter-card" onclick="openChapter(4)">
+    <div class="chapter-meta">
+      <span class="chapter-number">04</span>
+      <span class="chapter-format">PDF • 4 slides</span>
+    </div>
+    <h3 class="chapter-title">Governança Pré-Limiar</h3>
+    <p class="chapter-desc">Atuar na janela de reversibilidade</p>
+    <div class="chapter-actions">
+      <span class="view-btn">Visualizar ↗</span>
+    </div>
+  </div>
+
+  <!-- Capítulo 5 -->
+  <div class="chapter-card" onclick="openChapter(5)">
+    <div class="chapter-meta">
+      <span class="chapter-number">05</span>
+      <span class="chapter-format">PDF • 4 slides</span>
+    </div>
+    <h3 class="chapter-title">IEX — Inexigibilidade Ex Ante</h3>
+    <p class="chapter-desc">Radicalização de uma tendência latente</p>
+    <div class="chapter-actions">
+      <span class="view-btn">Visualizar ↗</span>
+    </div>
+  </div>
+
+  <!-- Capítulo 6 -->
+  <div class="chapter-card" onclick="openChapter(6)">
+    <div class="chapter-meta">
+      <span class="chapter-number">06</span>
+      <span class="chapter-format">PDF • 4 slides</span>
+    </div>
+    <h3 class="chapter-title">Shared Systemic Duty</h3>
+    <p class="chapter-desc">Da cooperação interpretativa ao dever operacionalizado</p>
+    <div class="chapter-actions">
+      <span class="view-btn">Visualizar ↗</span>
+    </div>
+  </div>
+
+  <!-- Capítulo 7 -->
+  <div class="chapter-card" onclick="openChapter(7)">
+    <div class="chapter-meta">
+      <span class="chapter-number">07</span>
+      <span class="chapter-format">PDF • 3 slides</span>
+    </div>
+    <h3 class="chapter-title">Objeto Imediato Condicionado</h3>
+    <p class="chapter-desc">A exigibilidade como função do estado do sistema</p>
+    <div class="chapter-actions">
+      <span class="view-btn">Visualizar ↗</span>
+    </div>
+  </div>
+
+  <!-- Capítulo 8 -->
+  <div class="chapter-card" onclick="openChapter(8)">
+    <div class="chapter-meta">
+      <span class="chapter-number">08</span>
+      <span class="chapter-format">PDF • 4 slides</span>
+    </div>
+    <h3 class="chapter-title">Garantias Sistêmicas</h3>
+    <p class="chapter-desc">Reordenamento funcional de instrumentos existentes</p>
+    <div class="chapter-actions">
+      <span class="view-btn">Visualizar ↗</span>
+    </div>
+  </div>
+
+  <!-- Capítulo 9 -->
+  <div class="chapter-card" onclick="openChapter(9)">
+    <div class="chapter-meta">
+      <span class="chapter-number">09</span>
+      <span class="chapter-format">PDF • 9 slides</span>
+    </div>
+    <h3 class="chapter-title">Legitimidade Algorítmica</h3>
+    <p class="chapter-desc">Ver sem arbitrariedade</p>
+    <div class="chapter-actions">
+      <span class="view-btn">Visualizar ↗</span>
+    </div>
+  </div>
+
+  <!-- Capítulo 10 -->
+  <div class="chapter-card" onclick="openChapter(10)">
+    <div class="chapter-meta">
+      <span class="chapter-number">10</span>
+      <span class="chapter-format">PDF • 2 slides</span>
+    </div>
+    <h3 class="chapter-title">Da Fragmentação à Sistematização</h3>
+    <p class="chapter-desc">Conclusão: a natureza da contribuição do c-ECO</p>
+    <div class="chapter-actions">
+      <span class="view-btn">Visualizar ↗</span>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Visualização -->
+<div id="slideModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-title-group">
+        <span class="modal-chapter-num" id="modalChapterNum">01</span>
+        <h3 id="modalTitle">Título do Capítulo</h3>
+      </div>
+      <div class="modal-actions">
+        <a id="downloadLink" href="#" download class="btn-download">
+          <span>⬇</span> Baixar PDF
+        </a>
+        <button class="btn-close" onclick="closeModal()" aria-label="Fechar">✕</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <iframe id="slideViewer" src="" frameborder="0" title="Visualizador de slides"></iframe>
+    </div>
+  </div>
+</div>
 
     <!-- REFERENCES SECTION -->
     <div class="section-header" id="REFERENCIAS">Referências Bibliográficas</div>
@@ -1746,7 +2196,105 @@ n      });
 n    }, { rootMargin: '-10% 0px -75% 0px' });
 n
 n    sectionHeaders.forEach(h => observer.observe(h));
-n  </script>
+n  // ============================================
+// SISTEMA DE SLIDES - CAPÍTULOS c-ECO
+// ============================================
+
+const chapters = {
+  1: { 
+    title: "A Epistemologia do Colapso", 
+    file: "slides/cap01-epistemologia-colapso.pdf", 
+    slides: 2 
+  },
+  2: { 
+    title: "O Direito Como Já Vê", 
+    file: "slides/cap02-direito-como-ja-ve.pdf", 
+    slides: 3 
+  },
+  3: { 
+    title: "Diligência Ampliada", 
+    file: "slides/cap03-diligencia-ampliada.pdf", 
+    slides: 4 
+  },
+  4: { 
+    title: "Governança Pré-Limiar", 
+    file: "slides/cap04-governanca-prelimiar.pdf", 
+    slides: 4 
+  },
+  5: { 
+    title: "IEX — Inexigibilidade Ex Ante", 
+    file: "slides/cap05-iex-inexigibilidade.pdf", 
+    slides: 4 
+  },
+  6: { 
+    title: "Shared Systemic Duty", 
+    file: "slides/cap06-shared-duty.pdf", 
+    slides: 4 
+  },
+  7: { 
+    title: "Objeto Imediato Condicionado", 
+    file: "slides/cap07-objeto-imediato.pdf", 
+    slides: 3 
+  },
+  8: { 
+    title: "Garantias Sistêmicas", 
+    file: "slides/cap08-garantias-sistemicas.pdf", 
+    slides: 4 
+  },
+  9: { 
+    title: "Legitimidade Algorítmica", 
+    file: "slides/cap09-legitimidade-algoritmica.pdf", 
+    slides: 9 
+  },
+  10: { 
+    title: "Da Fragmentação à Sistematização", 
+    file: "slides/cap10-conclusao.pdf", 
+    slides: 2 
+  }
+};
+
+function openChapter(num) {
+  const chapter = chapters[num];
+  const modal = document.getElementById('slideModal');
+  const title = document.getElementById('modalTitle');
+  const numEl = document.getElementById('modalChapterNum');
+  const viewer = document.getElementById('slideViewer');
+  const download = document.getElementById('downloadLink');
+  
+  title.textContent = chapter.title;
+  numEl.textContent = String(num).padStart(2, '0');
+  viewer.src = chapter.file;
+  download.href = chapter.file;
+  
+  modal.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  const modal = document.getElementById('slideModal');
+  const viewer = document.getElementById('slideViewer');
+  
+  modal.style.display = 'none';
+  viewer.src = '';
+  document.body.style.overflow = 'auto';
+}
+
+// Fecha modal com tecla ESC
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeModal();
+  }
+});
+
+// Fecha modal clicando fora
+window.addEventListener('click', function(event) {
+  const modal = document.getElementById('slideModal');
+  if (event.target === modal) {
+    closeModal();
+  }
+});
+  
+  </script>
 n
 n</body>
 n</html>
