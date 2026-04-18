@@ -1,0 +1,1754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow">
+  <title>Seeing the Invisible — c-ECO Theoretical Foundation</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --sidebar-width: 320px;
+      --earth-green: #1e3a2f;
+      --gold-accent: #d4a373;
+      --bg-body: #f5f7f4;
+      --text-main: #1a1a1a;
+      --border-color: #d4d8d4;
+      --soft-bg: #fafcfa;
+      --soft-blue: #f0f7ff;
+      --accent-blue: #2c5282;
+      --muted-text: #596559;
+      --callout-bg: #f8faf8;
+      --callout-border: #d8e4d8;
+      --harvard-crimson: #a51c30;
+      --accent-red: #c53030;
+      --accent-amber: #d69e2e;
+    }
+
+    *{ box-sizing: border-box; }
+
+    html{
+      scroll-behavior: smooth;
+    }
+
+    body{
+      margin:0;
+      background: var(--bg-body);
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.65;
+      color: var(--text-main);
+      overflow-x: hidden;
+      word-wrap: break-word;
+    }
+
+    .sidebar{
+      width: var(--sidebar-width);
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      background: #fff;
+      border-right: 1px solid var(--border-color);
+      padding: 16px;
+      overflow-y: auto;
+      z-index: 1000;
+      -webkit-overflow-scrolling: touch;
+      transition: transform .3s ease;
+    }
+
+    .sidebar-top{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+      border-bottom: 2px solid var(--gold-accent);
+    }
+
+    .logo-box{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border-color);
+      background: #fff;
+      color: var(--earth-green);
+      font-weight: 900;
+      font-size: 1.2rem;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      flex-shrink: 0;
+    }
+
+    .sidebar-title{
+      font-weight: 800;
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: var(--earth-green);
+      text-transform: uppercase;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    .search-container{
+      margin-bottom: 12px;
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 10;
+      padding-bottom: 8px;
+    }
+
+    #sidebarSearch{
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      outline: none;
+    }
+
+    #sidebarSearch:focus{
+      border-color: var(--gold-accent);
+      box-shadow: 0 0 0 3px rgba(212, 163, 115, 0.15);
+    }
+
+    .nav-list{
+      list-style:none;
+      padding:0;
+      margin:0;
+    }
+
+    .nav-section-title{
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--accent-blue);
+      margin-top: 14px;
+      text-transform: uppercase;
+      border-top: 1px solid #eee;
+      padding-top: 10px;
+      padding-bottom: 5px;
+      letter-spacing: .8px;
+    }
+
+    .nav-item a{
+      text-decoration:none;
+      color: var(--text-main);
+      font-size: 11px;
+      display:block;
+      padding: 5px 8px;
+      line-height: 1.4;
+      transition: .2s;
+      border-left: 3px solid transparent;
+    }
+
+    .nav-item a:hover,
+    .nav-item a.active{
+      background: rgba(44, 82, 130, 0.08);
+      border-left-color: var(--accent-blue);
+    }
+
+    .nav-item a.active{
+      font-weight: 600;
+    }
+
+    .main-content{
+      margin-left: var(--sidebar-width);
+      padding: 36px 18px;
+      display:flex;
+      justify-content:center;
+    }
+
+    .document-page{
+      background:#fff;
+      width:100%;
+      max-width: 760px;
+      padding: 42px 42px;
+      box-shadow: 0 4px 25px rgba(0,0,0,0.05);
+      overflow-x: hidden;
+    }
+
+    .page-header{
+      background: linear-gradient(135deg, #1e3a2f 0%, #2c5282 100%);
+      color: #fff;
+      padding: 26px;
+      margin: -42px -42px 28px -42px;
+      border-bottom: 3px solid var(--gold-accent);
+    }
+
+    .page-title{
+      font-family:'Libre Baskerville', Georgia, serif;
+      font-size: 23px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.35;
+      max-width: 680px;
+    }
+
+    .page-subtitle{
+      font-size: 13px;
+      opacity: 0.94;
+      line-height: 1.65;
+      max-width: 680px;
+    }
+
+    .badge{
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--harvard-crimson);
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 4px 10px;
+      border-radius: 3px;
+      margin-bottom: 8px;
+    }
+
+    .metrics-grid{
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .metric-item{
+      text-align: center;
+      padding: 15px 10px;
+      background: var(--soft-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+    }
+
+    .metric-number{
+      font-family: 'Libre Baskerville', Georgia, serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--gold-accent);
+    }
+
+    .metric-label{
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #666;
+      margin-top: 4px;
+      line-height: 1.35;
+    }
+
+    .section-header{
+      font-family:'Libre Baskerville', Georgia, serif;
+      font-weight:700;
+      font-size:18px;
+      color:var(--earth-green);
+      margin: 34px 0 18px 0;
+      padding-bottom: 10px;
+      border-bottom: 3px solid var(--accent-blue);
+      scroll-margin-top: 24px;
+    }
+
+    .subsection-header{
+      font-family:'Libre Baskerville', Georgia, serif;
+      font-weight:700;
+      font-size:15px;
+      color:var(--earth-green);
+      margin: 24px 0 14px 0;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-color);
+      scroll-margin-top: 24px;
+    }
+
+    .note-box{
+      background: var(--callout-bg);
+      border-left: 4px solid var(--accent-blue);
+      padding: 14px 16px;
+      margin: 14px 0 22px 0;
+      font-size: 11.5px;
+      line-height: 1.7;
+      color: #333;
+    }
+
+    .note-label{
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--earth-green);
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      margin-bottom: 6px;
+    }
+
+    .problem-box{
+      background: linear-gradient(135deg, #faf8f5 0%, #f5f0e8 100%);
+      border-left: 4px solid var(--gold-accent);
+      padding: 20px 22px;
+      margin: 20px 0 26px 0;
+      font-size: 12px;
+      line-height: 1.75;
+      color: #2a2a2a;
+    }
+
+    .problem-title{
+      font-family:'Libre Baskerville', Georgia, serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--earth-green);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .problem-title::before{
+      content: "\26A0";
+      color: var(--gold-accent);
+      font-size: 16px;
+    }
+
+    .caput{
+      text-align:justify;
+      margin-bottom:10px;
+      font-family:'Libre Baskerville', Georgia, serif;
+      line-height:1.75;
+      font-size:13.2px;
+      color:#222;
+    }
+
+    .paragraph{
+      margin-left:20px;
+      font-size:12.4px;
+      margin-bottom:8px;
+      line-height:1.65;
+      color:#333;
+    }
+
+    .concept-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+      margin: 18px 0 24px 0;
+    }
+
+    .concept-item{
+      border:1px solid var(--border-color);
+      background:#fff;
+      padding:14px;
+      border-radius:4px;
+      min-width: 0;
+    }
+
+    .concept-term{
+      font-family:'Libre Baskerville', Georgia, serif;
+      font-size:13px;
+      font-weight:700;
+      color:var(--earth-green);
+      margin-bottom:6px;
+      line-height: 1.4;
+    }
+
+    .concept-def{
+      font-size:11.5px;
+      line-height:1.65;
+      color:#444;
+      margin:0;
+    }
+
+    .variable-grid{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:12px;
+      margin: 16px 0;
+    }
+
+    .variable-card{
+      background: var(--soft-bg);
+      border: 1px solid var(--border-color);
+      padding: 12px 14px;
+      border-radius: 4px;
+      min-width: 0;
+    }
+
+    .variable-name{
+      font-weight: 700;
+      font-size: 12px;
+      color: var(--accent-blue);
+      margin-bottom: 4px;
+      line-height: 1.4;
+    }
+
+    .variable-desc{
+      font-size: 11px;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    .formula-box{
+      background: #f8f9fa;
+      border: 1px solid var(--border-color);
+      padding: 16px 20px;
+      margin: 16px 0;
+      text-align: center;
+      font-family: 'Libre Baskerville', Georgia, serif;
+      font-size: 15px;
+      color: var(--earth-green);
+      letter-spacing: 0.5px;
+      overflow-x: auto;
+    }
+
+    .pathway-grid{
+      display:grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap:12px;
+      margin: 18px 0 24px 0;
+    }
+
+    .pathway-grid.cols-3{
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .pathway-grid.cols-4{
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .pathway-step{
+      border:1px solid var(--border-color);
+      background:#fff;
+      padding:14px 12px 12px 12px;
+      border-radius:4px;
+      min-height:150px;
+      min-width: 0;
+    }
+
+    .pathway-step-number{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:26px;
+      height:26px;
+      border-radius:50%;
+      background:var(--earth-green);
+      color:#fff;
+      font-weight:800;
+      font-size:11px;
+      margin-bottom:8px;
+    }
+
+    .pathway-step-title{
+      font-family:'Libre Baskerville', Georgia, serif;
+      font-size:12px;
+      color:var(--earth-green);
+      margin-bottom:6px;
+      line-height:1.35;
+    }
+
+    .pathway-step p{
+      margin:0;
+      font-size:10.6px;
+      line-height:1.58;
+      color:#444;
+    }
+
+    .table-wrap{
+      width:100%;
+      overflow-x:auto;
+      margin: 14px 0 20px 0;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    table{
+      width:100%;
+      min-width: 680px;
+      border-collapse:collapse;
+      font-size:12px;
+    }
+
+    th, td{
+      border:1px solid var(--border-color);
+      padding:10px 12px;
+      text-align:left;
+      vertical-align:top;
+      line-height: 1.55;
+    }
+
+    th{
+      background:#f8faf8;
+      color:var(--earth-green);
+      font-weight:700;
+      font-size:10.5px;
+      text-transform:uppercase;
+      letter-spacing:0.4px;
+    }
+
+    .cta-box{
+      background: linear-gradient(135deg, #f0f4f0 0%, #eef3f7 100%);
+      border: 1px solid var(--border-color);
+      padding: 22px;
+      margin-top: 28px;
+    }
+
+    .cta-title{
+      font-family:'Libre Baskerville', Georgia, serif;
+      font-size:18px;
+      color:var(--earth-green);
+      margin-bottom:10px;
+      line-height: 1.4;
+    }
+
+    .cta-text{
+      font-size:12px;
+      line-height:1.72;
+      color:#333;
+      margin-bottom:16px;
+      max-width:640px;
+    }
+
+    .button-group{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:12px;
+    }
+
+    .btn-primary{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      background: var(--earth-green);
+      color:#fff;
+      border:none;
+      padding: 14px 22px;
+      font-family:'Inter', sans-serif;
+      font-size:12px;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+      cursor:pointer;
+      border-radius:4px;
+      transition:all 0.3s;
+      text-decoration:none;
+      box-shadow: 0 4px 12px rgba(30, 58, 47, 0.2);
+    }
+
+    .btn-primary:hover{
+      background:#2c5282;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(30, 58, 47, 0.28);
+    }
+
+    .btn-secondary{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      background: transparent;
+      color: var(--earth-green);
+      border: 2px solid var(--border-color);
+      padding: 12px 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-secondary:hover{
+      border-color: var(--gold-accent);
+      color: var(--gold-accent);
+    }
+
+    .mobile-btn{
+      display:none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--earth-green);
+      color: #fff;
+      border: none;
+      padding: 14px 22px;
+      font-weight: 800;
+      font-size: 12px;
+      z-index: 2000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      border-radius: 4px;
+    }
+
+    .print-btn{
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--earth-green);
+      color: #fff;
+      border: none;
+      padding: 12px 18px;
+      font-weight: 700;
+      font-size: 12px;
+      z-index: 2000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .print-btn:hover{
+      background: #2c5282;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    }
+
+    .print-btn::before{
+      content: "\1F5A8\FE0F";
+      font-size: 14px;
+    }
+
+    .hidden{ display:none !important; }
+
+    .ref-list{
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .ref-list li{
+      font-size: 11.5px;
+      line-height: 1.7;
+      color: #333;
+      margin-bottom: 10px;
+      padding-left: 24px;
+      text-indent: -24px;
+    }
+
+    .ref-author{
+      font-weight: 700;
+      color: var(--earth-green);
+    }
+
+    .article-box{
+      margin-bottom: 28px;
+      scroll-margin-top: 24px;
+    }
+
+    .ai-id{
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 10px;
+      color: #999;
+      display:block;
+      margin-bottom:3px;
+    }
+
+    .article-title{
+      font-family:'Libre Baskerville', Georgia, serif;
+      font-weight:700;
+      font-size:15px;
+      color:var(--earth-green);
+      display:block;
+      margin-bottom:12px;
+      border-bottom:1px solid #f0f0f0;
+      padding-bottom:4px;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 1100px){
+      .sidebar{
+        transform: translateX(-100%);
+      }
+      .sidebar.open{
+        transform: translateX(0);
+        box-shadow: 10px 0 30px rgba(0,0,0,0.22);
+      }
+      .main-content{
+        margin-left: 0;
+        padding: 16px;
+      }
+      .document-page{
+        padding: 24px;
+        width:auto;
+        margin:0;
+        max-width: 100%;
+      }
+      .page-header{
+        margin: -24px -24px 20px -24px;
+      }
+      .metrics-grid,
+      .concept-grid,
+      .variable-grid,
+      .pathway-grid{
+        grid-template-columns: 1fr;
+      }
+      .mobile-btn{
+        display:block;
+      }
+      .print-btn{
+        top:auto;
+        bottom:80px;
+        right:20px;
+        padding:14px 16px;
+      }
+      .print-btn span{
+        display:none;
+      }
+    }
+
+    @media print {
+      .sidebar, .mobile-btn, .print-btn {
+        display:none !important;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .document-page {
+        box-shadow:none;
+        max-width:100%;
+        padding:30px;
+      }
+      body {
+        background:white;
+      }
+      .cta-box, .concept-item, .variable-card, .pathway-step, .problem-box, .note-box {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <button class="mobile-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+    INDEX
+  </button>
+
+  <button class="print-btn" onclick="window.print()" id="printBtn">
+    <span>Save PDF / Print</span>
+  </button>
+
+  <aside class="sidebar" id="sidebar" aria-label="c-ECO Theoretical Foundation Index">
+    <div class="sidebar-top">
+      <a href="index.html" class="logo-box" aria-label="Back to c-ECO">&Sigma;</a>
+      <div class="sidebar-title">THEORETICAL FOUNDATION<br>c-ECO FRAMEWORK</div>
+    </div>
+
+    <div class="search-container">
+      <input type="text" id="sidebarSearch" placeholder="Search sections..." aria-label="Search index">
+    </div>
+
+    <nav>
+      <ul class="nav-list">
+        <li class="nav-section-title">Overview</li>
+        <li class="nav-item"><a href="#HEADER">Overview</a></li>
+        <li class="nav-item"><a href="#PROBLEMA">The Structural Problem</a></li>
+
+        <li class="nav-section-title">Epistemology of Collapse</li>
+        <li class="nav-item"><a href="#NATUREZA-PROCESSUAL">Processual Nature</a></li>
+        <li class="nav-item"><a href="#MECANISMOS-COLAPSO">Collapse Mechanisms</a></li>
+        <li class="nav-item"><a href="#ILUSAO-OPACIDADE">The Opacity Illusion</a></li>
+
+        <li class="nav-section-title">Law Already Sees</li>
+        <li class="nav-item"><a href="#REVOLUCAO-RELACIONAL">Relational Revolution</a></li>
+        <li class="nav-item"><a href="#GOVERNANCA-MONITORAMENTO">Governance by Monitoring</a></li>
+
+        <li class="nav-section-title">Expanded Due Diligence</li>
+        <li class="nav-item"><a href="#DUE-DILIGENCE">Traditional Due Diligence</a></li>
+        <li class="nav-item"><a href="#DESLOCAMENTO-CEC">c-ECO Displacement</a></li>
+        <li class="nav-item"><a href="#FUNDAMENTOS-TEORICOS">Overcoming Limits</a></li>
+
+        <li class="nav-section-title">Pre-Threshold Governance</li>
+        <li class="nav-item"><a href="#TEMPORALIDADE-JURIDICA">Legal Temporality</a></li>
+        <li class="nav-item"><a href="#JANELA-REVERSIBILIDADE">Reversibility Window</a></li>
+        <li class="nav-item"><a href="#IMPLICACOES-TEORICAS">Theoretical Implications</a></li>
+
+        <li class="nav-section-title">IEX — Inexigibility</li>
+        <li class="nav-item"><a href="#ANTECEDENTES-DOGMATICOS">Dogmatic Antecedents</a></li>
+        <li class="nav-item"><a href="#REORGANIZACAO-IEX">c-ECO Reorganization</a></li>
+        <li class="nav-item"><a href="#INOVACAO-ARQUITETONICA">Architectural Innovation</a></li>
+
+        <li class="nav-section-title">Shared Systemic Duty</li>
+        <li class="nav-item"><a href="#ANTECEDENTES-DUTY">Antecedents</a></li>
+        <li class="nav-item"><a href="#GANHO-ANALITICO">Analytical Gain</a></li>
+        <li class="nav-item"><a href="#FORMULACAO-DEFENSAVEL">Defensible Formulation</a></li>
+
+        <li class="nav-section-title">Immediate Object</li>
+        <li class="nav-item"><a href="#PRECISAO-CONCEITUAL">Conceptual Precision</a></li>
+        <li class="nav-item"><a href="#DIALOGO-DOUTRINAS">Dialogue with Doctrines</a></li>
+        <li class="nav-item"><a href="#NUCLEO-FORTE">Strong Core</a></li>
+
+        <li class="nav-section-title">Systemic Guarantees</li>
+        <li class="nav-item"><a href="#INVENTARIO-JURIDICO">Legal Inventory</a></li>
+        <li class="nav-item"><a href="#REORDENACAO">Reordering</a></li>
+        <li class="nav-item"><a href="#TRANSFORMACAO-QUALITATIVA">Qualitative Transformation</a></li>
+
+        <li class="nav-section-title">Algorithmic Legitimacy</li>
+        <li class="nav-item"><a href="#DILEMA-GOVERNANCA">Governance Dilemma</a></li>
+        <li class="nav-item"><a href="#CONDICOES-DEFENSABILIDADE">Defensibility Conditions</a></li>
+        <li class="nav-item"><a href="#MEDIACAO-INSTITUCIONAL">Institutional Mediation</a></li>
+
+        <li class="nav-section-title">Conclusion</li>
+        <li class="nav-item"><a href="#O-QUE-NAO-E">What c-ECO Is Not</a></li>
+        <li class="nav-item"><a href="#O-QUE-E">What c-ECO Is</a></li>
+        <li class="nav-item"><a href="#DESLOCAMENTO-FUNDAMENTAL">The Fundamental Displacement</a></li>
+
+        <li class="nav-section-title">References</li>
+        <li class="nav-item"><a href="#REFERENCIAS">Bibliographic References</a></li>
+
+        <li class="nav-section-title" style="border-top: 2px solid var(--gold-accent); margin-top: 20px; padding-top: 15px;">Primary Sources</li>
+        <li class="nav-item"><a href="practice.html" style="font-weight: 700;">Practical Applications</a></li>
+        <li class="nav-item"><a href="law.html" style="font-weight: 700;">Model Law</a></li>
+        <li class="nav-item"><a href="manual.html" style="font-weight: 700;">TFP Manual</a></li>
+        <li class="nav-item"><a href="orlando.html" style="font-weight: 700;">Portuguese Version</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <article class="document-page">
+
+      <!-- HEADER -->
+      <div class="page-header" id="HEADER">
+        <div class="badge">Theoretical Foundation / Academic Article</div>
+        <div class="page-title">Seeing the Invisible: Systemic Risks, Expanded Due Diligence, and Pre-Threshold Contractual Governance</div>
+        <div class="page-subtitle">
+          An epistemological analysis of the transition from traditional contractual law—based on discrete events and ex post reaction—to a governance architecture based on continuously measured systemic states, preventive monitoring, and action within the reversibility window.
+        </div>
+      </div>
+
+      <!-- METRICS -->
+      <div class="metrics-grid">
+        <div class="metric-item">
+          <div class="metric-number">10</div>
+          <div class="metric-label">Theoretical Chapters</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-number">4</div>
+          <div class="metric-label">Collapse Mechanisms</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-number">5</div>
+          <div class="metric-label">Legal Categories</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-number">3</div>
+          <div class="metric-label">Structural Displacements</div>
+        </div>
+      </div>
+
+      <!-- PROBLEMA -->
+      <div class="section-header" id="PROBLEMA">The Structural Problem of Law Facing Systemic Risk</div>
+
+      <div class="problem-box">
+        <div class="problem-title">The Temporal Asymmetry of Legal Response</div>
+        Contemporary law already incorporates anticipatory instruments: precaution, due diligence, risk-based regulation, systemic supervision. However, a structural asymmetry persists:
+        <ul style="margin: 12px 0; padding-left: 20px;">
+          <li>The time of legal response is not the time of systemic deterioration;</li>
+          <li>Judicial response is episodic, while degradation is continuous;</li>
+          <li>Legal relevance arrives at damage or imminence, while reversibility may be lost before.</li>
+        </ul>
+        The c-ECO framework addresses this asymmetry by creating an architecture in which monitored trajectory and reversibility become capable of producing pre-structured legal effects before irreversible deterioration consolidates.
+      </div>
+
+      <div class="note-box">
+        <div class="note-label">Purpose of This Article</div>
+        This article establishes the theoretical foundations of the c-ECO framework—from the epistemology of collapse to pre-threshold governance, from expanded due diligence to algorithmic legitimacy. It aims to demonstrate that law already sees fragments, but not systems; already monitors, but does not transform measurement into a structuring criterion of exigibility.
+      </div>
+
+      <!-- SECAO 1 -->
+      <div class="section-header" id="EPISTEMOLOGIA">1. The Epistemology of Collapse: Why Law Sees Fragments and Not Systems</div>
+
+      <div class="subsection-header" id="NATUREZA-PROCESSUAL">1.1 The processual nature of systemic disasters</div>
+
+      <div class="caput">
+        Proper understanding of the c-ECO proposal requires a break with an epistemologically limited view of the nature of systemic disasters. Contrary to the popular image of sudden and unpredictable collapses, the literature on complex systems demonstrates that the vast majority of disasters are preceded by gradual processes of deterioration, accumulation of vulnerabilities, and perfectly detectable technical stress signals. This finding shifts the focus from the question "why can't we predict?" to "why, having elements of predictability, can't we act preventively?"
+      </div>
+
+      <div class="concept-grid">
+        <div class="concept-item">
+          <div class="concept-term">Gradual Deterioration</div>
+          <p class="concept-def">Progressive deviations that accumulate below the perception threshold of traditional governance structures, configured to respond to discrete events rather than continuous degradation processes.</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Accumulation of Vulnerabilities</div>
+          <p class="concept-def">Technically complex and coupled systems tend to normalize progressive deviations (Dekker's "drift into failure") until a trivial event triggers irreversible cascade.</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Technical Stress Signals</div>
+          <p class="concept-def">Stress indicators that, if properly monitored and integrated into decision-making protocols, would have allowed interventions in windows of opportunity that closed until irreversibility.</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Reversibility Window</div>
+          <p class="concept-def">The zone of ambiguity between "everything works adequately" and "irreversible collapse"—where recovery capacity is in measurable contraction, though not yet exhausted.</p>
+        </div>
+      </div>
+
+      <div class="note-box">
+        <div class="note-label">Paradigmatic Cases</div>
+        From Bhopal (1984) to Fukushima (2011), from the 2008 financial crisis to contemporary environmental collapse: the history of systemic disasters is, to a large extent, the history of visible technical signals that remained legally unseen.
+      </div>
+
+      <div class="subsection-header" id="MECANISMOS-COLAPSO">1.2 Collapse mechanisms: coupling, tolerance, tail, and normalization</div>
+
+      <div class="caput">
+        The interdisciplinary literature identifies four fundamental mechanisms that operate synergistically in generating disasters: systemic coupling, low error tolerance, systematic underestimation of tail events, and progressive normalization of deviations. Each mechanism deserves analysis for its implications for the legal architecture proposed by c-ECO.
+      </div>
+
+      <div class="variable-grid">
+        <div class="variable-card">
+          <div class="variable-name">Systemic Coupling</div>
+          <div class="variable-desc">Degree of interdependence between system components. Failure in one element propagates rapidly (Charles Perrow, <em>Normal Accidents</em>, 1984). Systems with high complexity and tight coupling are inherently prone to "normal accidents."</div>
+        </div>
+        <div class="variable-card">
+          <div class="variable-name">Low Error Tolerance</div>
+          <div class="variable-desc">Safety margins progressively reduced in pursuit of efficiency. High Reliability Organizations (HROs) maintain "chronic unease" about failures—in opposition to the complacency of deviation normalization (Weick &amp; Sutcliffe).</div>
+        </div>
+        <div class="variable-card">
+          <div class="variable-name">Tail Underestimation</div>
+          <div class="variable-desc">Systematic tendency of risk models to underestimate rare high-magnitude events (Taleb). Structurally incentivized by regimes that reward short-term performance and penalize prudence.</div>
+        </div>
+        <div class="variable-card">
+          <div class="variable-name">Normalization of Deviations</div>
+          <div class="variable-desc">Deviations gradually accepted as normal when they do not result in immediate consequences. Each deviation redefines the reference of "normality" (Diane Vaughan, <em>The Challenger Launch Decision</em>).</div>
+        </div>
+      </div>
+
+      <div class="subsection-header" id="ILUSAO-OPACIDADE">1.3 The illusion of opacity: the visible that remains legally unseen</div>
+
+      <div class="caput">
+        Faced with these well-documented mechanisms, a paradox of first-order epistemological importance emerges: systemic disasters are, to a large extent, visible before they occur, but remain legally invisible. This invisibility is not an ontological property of risks, but a consequence of the categorical architecture of law—configured to operate based on discrete, qualifiable, and attributable events.
+      </div>
+
+      <div class="problem-box">
+        <div class="problem-title">The Visible That Remains Unseen</div>
+        The "illusion of opacity" consists in the belief that, because law cannot operate with certain phenomena, these phenomena are intrinsically opaque. This illusion exempts from responsibility actors who could have acted preventively and legitimizes legal regimes that respond only <em>post factum</em>. c-ECO proposes importing into contractual law the capacity to "see the invisible"—making legally operable information that already exists, but which traditional architecture cannot process.
+      </div>
+
+      <!-- SECAO 2 -->
+      <div class="section-header" id="DIREITO-JA-VE">2. Law Already Sees: Antecedents and Limits of the Current Structure</div>
+
+      <div class="subsection-header" id="REVOLUCAO-RELACIONAL">2.1 The relational revolution and its reaches</div>
+
+      <div class="caput">
+        The c-ECO proposal does not emerge in a theoretical vacuum. It inserts itself into an intellectual trajectory dating back to the "relational revolution" in contract theory, associated primarily with Ian Macneil's work from the 1960s onward.
+      </div>
+
+      <div class="concept-grid">
+        <div class="concept-item">
+          <div class="concept-term">Discrete vs. Relational Contracts</div>
+          <p class="concept-def">Macneil (<em>The New Social Contract</em>, 1980): from discrete act to continuous social relation. Relational contracts involve exchange over time, incomplete specifications, interdependence, and context-dependence.</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Good Faith and Adaptation</div>
+          <p class="concept-def">Good faith imposes duties of information, cooperation, and adaptation. In systems with revision for supervening excessive onerousness, it operates as a foundation for rebalancing. c-ECO anticipates this logic with continuous modulation.</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Processual Key</div>
+          <p class="concept-def">First-order epistemological conquest: the contractual bond can be thought in processual key, not merely static.</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Practical Stagnation</div>
+          <p class="concept-def">The processual key remained predominantly interpretative. No contractual infrastructure operates continuously based on processuality. c-ECO fills this gap.</p>
+        </div>
+      </div>
+
+      <div class="subsection-header" id="GOVERNANCA-MONITORAMENTO">2.2 Contractual governance based on monitoring: paradigmatic examples</div>
+
+      <div class="caput">
+        Law has already developed continuous monitoring mechanisms in multiple domains. The question is not absence, but sectoral fragmentation and lack of integrated architecture.
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Mechanism</th>
+              <th>Function</th>
+              <th>Limit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Financial Covenants (Smith &amp; Warner, 1979)</strong></td>
+              <td>Continuous vigilance via observable accounting metrics; proxies for debtor behavior; anticipatory reaction before default</td>
+              <td>Confined to corporate credit; standardized metrics not transferable to other systemic risks</td>
+            </tr>
+            <tr>
+              <td><strong>UCC 2-609 — Adequate Assurance</strong></td>
+              <td>Operation before breach; prospective risk assessment; suspension of performance as protection</td>
+              <td>"Reasonable insecurity" is subjective; binary response (guarantees or repudiation) without gradation; focus on other party, not on system</td>
+            </tr>
+            <tr>
+              <td><strong>Precautionary Principle</strong></td>
+              <td>Normative foundation for action before certainty of damage</td>
+              <td>Diffuse operationalization in contract law; remains as general guiding principle</td>
+            </tr>
+            <tr>
+              <td><strong>Prudential Supervision</strong></td>
+              <td>Periodic reporting requirements, stress tests, graduated intervention</td>
+              <td>Sectoral (financial); monitoring as management instrument, not as foundation of exigibility</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note-box">
+        <div class="note-label">Precise Diagnosis</div>
+        The problem is not blindness of law to continuous risk, but <strong>structural myopia</strong>: capacity to focus details in specific domains, inability to integrate dispersed mechanisms into coherent architecture. c-ECO does not invent monitoring; it proposes its elevation to <strong>structuring criterion of exigibility</strong>.
+      </div>
+
+      <!-- SECAO 3 -->
+      <div class="section-header" id="DILIGENCIA-AMPLIADA">3. Expanded Due Diligence: From Point Investigation to Governance Infrastructure</div>
+
+      <div class="subsection-header" id="DUE-DILIGENCE">3.1 The traditional paradigm of due diligence</div>
+
+      <div class="caput">
+        Traditional due diligence operates predominantly in informational and <em>ex ante</em> key. Its objective is to raise, before celebration, information about the counterparty's situation. Its paradigm is retrospective and static: it seeks to know what has already occurred and what exists at the moment.
+      </div>
+
+      <div class="concept-grid">
+        <div class="concept-item">
+          <div class="concept-term">Ex Ante Informational Key</div>
+          <p class="concept-def">Past facts, known risks, declared contingencies. Methods: document analysis, interviews, public records, financial statements.</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Risk Allocation</div>
+          <p class="concept-def">Allows price adjustment, protection clauses (representations, warranties, indemnities), precedent conditions. Logic of <em>ex ante</em> optimization.</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Investigative and Point Character</div>
+          <p class="concept-def">Occurs between intention to contract and celebration. Output: report of "what was found." New informational asymmetry emerges continuously during execution.</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Epistemological Limits</div>
+          <p class="concept-def">Focus on verifiable past facts leaves out emerging dynamics. Does not internalize temporality of systemic risk. Risk is treated as property of state at given moment, not as process.</p>
+        </div>
+      </div>
+
+      <div class="subsection-header" id="DESLOCAMENTO-CEC">3.2 The displacement proposed by c-ECO</div>
+
+      <div class="caput">
+        Expanded due diligence displaces the fundamental axis: from raising past facts to continuous monitoring of systemic conditions. This displacement is qualitative: it changes the type of knowledge from retrospective to prospective, from static to dynamic, from point to continuous.
+      </div>
+
+      <div class="pathway-grid">
+        <div class="pathway-step">
+          <div class="pathway-step-number">1</div>
+          <div class="pathway-step-title">Fact Raising</div>
+          <p>Point investigation of the past; photograph of a moving system</p>
+        </div>
+        <div class="pathway-step">
+          <div class="pathway-step-number">2</div>
+          <div class="pathway-step-title">Continuous Monitoring</div>
+          <p>Accompaniment of systemic conditions; prior identification of relevant variables; tracking protocols</p>
+        </div>
+        <div class="pathway-step">
+          <div class="pathway-step-number">3</div>
+          <div class="pathway-step-title">Performance Continuity</div>
+          <p>Object of active vigilance; captures second and third-order dependencies; example: systemic water stress in irrigation contract</p>
+        </div>
+        <div class="pathway-step">
+          <div class="pathway-step-number">4</div>
+          <div class="pathway-step-title">Governance Infrastructure</div>
+          <p>Conversion into institutional structure; creation of clear responsibilities; ceases to be preparatory activity to become obligatory component</p>
+        </div>
+        <div class="pathway-step">
+          <div class="pathway-step-number">5</div>
+          <div class="pathway-step-title">Metrics and Protocols</div>
+          <p>Previously integrated into the obligatory relation in three dimensions: contractual, technical, institutional</p>
+        </div>
+      </div>
+
+      <div class="subsection-header" id="FUNDAMENTOS-TEORICOS">3.3 Theoretical foundations and overcoming limits</div>
+
+      <div class="caput">
+        Incomplete contract theory (Hart, Grossman, Moore, 1980s) offers partial support. If contracts are necessarily incomplete, adaptation mechanisms are rational. But the proposed mechanisms are typically reactive: renegotiation when unforeseen contingency materializes.
+      </div>
+
+      <div class="concept-grid">
+        <div class="concept-item">
+          <div class="concept-term">Incomplete Contracts</div>
+          <p class="concept-def">Do not anticipate all contingencies due to transaction costs and cognitive limits. Adaptation mechanisms: renegotiation, residual control rights. "Partial" support because it treats incompleteness as problem, not opportunity.</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Beyond Renegotiation</div>
+          <p class="concept-def">Opportunistic renegotiation and late intervention produce suboptimal results. More vulnerable party, already affected by deterioration, is compelled to accept unfavorable terms. Judicial intervention is invariably late.</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Pre-Integrated Metrics</div>
+          <p class="concept-def">Metrics and protocols integrated into the obligatory relation in three dimensions: (i) contractual, (ii) technical, (iii) institutional. Distinguishes expanded due diligence from mere revision clause.</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Institutionalized Anticipation</div>
+          <p class="concept-def">Not anticipation of specific contingencies (impossible), but of the need for adaptation as such, with protocols that structure it continuously.</p>
+        </div>
+      </div>
+
+      <!-- SECAO 4 -->
+      <div class="section-header" id="GOVERNANCA-PRELIMIAR">4. Pre-Threshold Governance: Acting Within the Reversibility Window</div>
+
+      <div class="subsection-header" id="TEMPORALIDADE-JURIDICA">4.1 The problem of legal temporality in responding to systemic risks</div>
+
+      <div class="caput">
+        Traditional contract law is structurally configured to wait: for the <em>breach</em>, for supervening impossibility, for collapse. This waiting is constitutive of the logic of exigibility. The costs of this waiting are very high.
+      </div>
+
+      <div class="problem-box">
+        <div class="problem-title">Waiting for Breach — Opportunity Costs and Irreversibility</div>
+        <ul style="margin: 12px 0; padding-left: 20px;">
+          <li><strong>Opportunity cost:</strong> effective low-cost interventions in the reversibility window become prohibitively expensive or impossible after consolidation of rupture;</li>
+          <li><strong>Irreversibility cost:</strong> some systemic deteriorations are not recoverable, so that <em>ex post</em> response is necessarily incomplete;</li>
+          <li><strong>Attribution cost:</strong> the later the response, the more difficult to attribute responsibilities, generating prolonged litigation and inefficiency.</li>
+        </ul>
+      </div>
+
+      <div class="subsection-header" id="JANELA-REVERSIBILIDADE">4.2 The concept of reversibility window</div>
+
+      <div class="caput">
+        The central concept is the "reversibility window": the zone in which the system can still be preserved, but its recovery capacity is already in measurable contraction. It is not yet impossibility (the system works), but it is no longer full viability (the system is deteriorating).
+      </div>
+
+      <div class="concept-grid">
+        <div class="concept-item">
+          <div class="concept-term">Preservation Zone</div>
+          <p class="concept-def">System can still be preserved, but recovery capacity in measurable contraction. Requires: indicator identification, baselines, contraction thresholds, response protocols.</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">States vs. Events</div>
+          <p class="concept-def">Fundamental difference: pre-threshold governance operates around systemic states (objective, measurable, continuous), not events or bilateral suspicions. Does not depend on subjective perception, but on previously agreed indicators.</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Pre-Rupture Operation</div>
+          <p class="concept-def">Modulation of obligation intensity; activation of systemic guarantees; mitigation duties; temporary suspension of obligations that would aggravate deterioration; reactivation upon recovery.</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Liquid Reversibility (Lr)</div>
+          <p class="concept-def">Measures whether immediately mobilizable resources exist to reverse or contain damaging trajectories in the relevant time window. Critical component of TFP.</p>
+        </div>
+      </div>
+
+      <div class="subsection-header" id="IMPLICACOES-TEORICAS">4.3 Implications for contract law theory</div>
+
+      <div class="caput">
+        Pre-threshold governance implies a displacement of focus from reparation to preservation as the primary function of contract law in contexts of systemic risk. The traditional paradigm seeks <em>restitutio in integrum</em> <em>ex post</em>; pre-threshold governance seeks maintenance of possibility conditions <em>ex ante</em> and continuously.
+      </div>
+
+      <div class="note-box">
+        <div class="note-label">Teleological Displacement</div>
+        It changes the purpose attributed to contract law: from instrument of risk allocation and damage reparation to instrument of governance of interdependent relations under conditions of systemic uncertainty. The "pre-threshold band" must be recognized as legitimate and necessary.
+      </div>
+
+
+      <!-- SECAO 5 -->
+      <div class="section-header" id="IEX">5. IEX — Ex Ante Inexigibility: Radicalization of a Latent Tendency</div>
+
+      <div class="subsection-header" id="ANTECEDENTES-DOGMATICOS">5.1 Dogmatic antecedents: the dispersed recognition of inexigibility by material states</div>
+
+      <div class="caput">
+        IEX should not be presented as a category emerging from nowhere. Law already knows, in multiple traditions, hypotheses in which exigibility is affected by material states. The history is non-linear: periods of expansion and restriction, but general tendency of increasing recognition.
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Tradition</th>
+              <th>Legal Figure</th>
+              <th>Characteristic</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Common Law (USA)</strong></td>
+              <td>Impracticability (UCC 2-615); Frustration (Restatement 265)</td>
+              <td>Performance unexecutable due to event whose non-occurrence was basic presupposition</td>
+            </tr>
+            <tr>
+              <td><strong>French Law</strong></td>
+              <td><em>Théorie de l'imprévision</em></td>
+              <td>Changes of circumstances affect exigibility; revision for supervening excessive onerousness</td>
+            </tr>
+            <tr>
+              <td><strong>German Law</strong></td>
+              <td><em>Wegfall der Geschäftsgrundlage</em> (313 BGB)</td>
+              <td>Revision when fundamental presuppositions change; adaptation or extinction</td>
+            </tr>
+            <tr>
+              <td><strong>Italian Law</strong></td>
+              <td><em>Eccessiva onerosità sopravvenuta</em> (art. 1467 c.c.)</td>
+              <td>Adaptation in cases of supervening excessive onerousness</td>
+            </tr>
+            <tr>
+              <td><strong>Brazilian Law</strong></td>
+              <td>Art. 478, I, CC</td>
+              <td>Revision for supervening excessive onerousness; resolution or modification</td>
+            </tr>
+            <tr>
+              <td><strong>Transnational Law</strong></td>
+              <td>UNIDROIT (arts. 6.2.1-6.2.3); PECL (art. 6:111)</td>
+              <td>Systematization at transnational level; <em>hardship</em> and obligatory renegotiation</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="subsection-header" id="REORGANIZACAO-IEX">5.2 The reorganization proposed by c-ECO</div>
+
+      <div class="caput">
+        The point is not to deny antecedents, but to propose reorganization: exigibility ceases to depend only on qualifiable legal event and can be modulated by continuously monitored systemic state.
+      </div>
+
+      <div class="variable-grid">
+        <div class="variable-card">
+          <div class="variable-name">Qualifiable Legal Event</div>
+          <div class="variable-desc">Supervening excessive onerousness, force majeure, unforeseeable change of circumstances. Episodic <em>ex post</em> response. Event that legally qualifies to trigger effects.</div>
+        </div>
+        <div class="variable-card">
+          <div class="variable-name">Monitored Systemic State</div>
+          <div class="variable-desc">Continuous measurement of system. Graduated modulation of exigibility. Can be linear or non-linear, univariate or multivariate.</div>
+        </div>
+        <div class="variable-card">
+          <div class="variable-name">Non-Substitution</div>
+          <div class="variable-desc">IEX radicalizes and systematizes already present tendency. Preserves function of traditional mechanisms for unforeseen situations or where continuous response proved insufficient.</div>
+        </div>
+        <div class="variable-card">
+          <div class="variable-name">Three Dimensions</div>
+          <div class="variable-desc">Temporal (<em>ex post</em> -&gt; continuous); Ontological (event -&gt; state); Architectural (exception -&gt; structuring rule). Maintenance of existing dogmatics is conceptually necessary.</div>
+        </div>
+      </div>
+
+      <div class="subsection-header" id="INOVACAO-ARQUITETONICA">5.3 The architectural innovation: from episodic response to preventive architecture</div>
+
+      <div class="caput">
+        The innovation would be to transform dispersed recognition into preventive and continuous architecture. It is systematization, not invention. c-ECO identifies a principle that already operates latently and makes it explicit, operational, and structuring.
+      </div>
+
+      <div class="note-box">
+        <div class="note-label">Systematization, Not Invention</div>
+        Systematization implies: (i) conceptual unification around the notion of systemic state; (ii) technical operationalization through metrics and thresholds; (iii) contractual structuring as modulating layer of exigibility. The systemic state as operational legal variable.
+      </div>
+
+      <!-- SECAO 6 -->
+      <div class="section-header" id="SHARED-DUTY">6. Shared Systemic Duty: From Interpretative Cooperation to Operationalized Duty</div>
+
+      <div class="subsection-header" id="ANTECEDENTES-DUTY">6.1 Antecedents in contemporary law</div>
+
+      <div class="caput">
+        The Shared Systemic Duty should also not be described as if there were no antecedents. There are relevant precedents in multiple legal categories. The common point: predominantly interpretative character.
+      </div>
+
+      <div class="concept-grid">
+        <div class="concept-item">
+          <div class="concept-term">Objective Good Faith</div>
+          <p class="concept-def">In robust dimension, imposes duties of loyalty, information, and cooperation that transcend the literal clauses. Judge can invoke it to impose duties case by case.</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Collateral Duties (<em>Nebenpflichten</em>)</div>
+          <p class="concept-def">Conduct obligations that are not the main obligation, but protect interests of the other party. Emerge from the contractual bond.</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Relational Theory</div>
+          <p class="concept-def">Grounds cooperative duties that emerge from the very nature of the contractual relation. In contexts of interdependence, acquire special relevance (<em>Netzverträge</em>, supply chains).</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Interpretative Character</div>
+          <p class="concept-def">Operate as principles of interpretation and foundations of judicial decisions, but not as operationalizable obligations with determinable content beforehand. Parties do not know precisely what duties will be in future situations.</p>
+        </div>
+      </div>
+
+      <div class="subsection-header" id="GANHO-ANALITICO">6.2 The analytical gain of c-ECO</div>
+
+      <div class="caput">
+        The analytical gain is in converting cooperation from predominantly interpretative category to more operational category, based on protocols and metrics.
+      </div>
+
+      <div class="pathway-grid cols-4">
+        <div class="pathway-step">
+          <div class="pathway-step-number">1</div>
+          <div class="pathway-step-title">Interpretative Cooperation</div>
+          <p>Judge invokes good faith to impose duty of information or cooperation case by case. Indetermination of content. Dependence on judicial activation.</p>
+        </div>
+        <div class="pathway-step">
+          <div class="pathway-step-number">2</div>
+          <div class="pathway-step-title">Operational Category</div>
+          <p>Conversion to operational category based on protocols and metrics. Reduction of indetermination zone.</p>
+        </div>
+        <div class="pathway-step">
+          <div class="pathway-step-number">3</div>
+          <div class="pathway-step-title">Technical Foundation</div>
+          <p>Protocols: who monitors, with what frequency, with what methodology. Metrics: which states trigger the duty, with what intensity, for how long.</p>
+        </div>
+        <div class="pathway-step">
+          <div class="pathway-step-number">4</div>
+          <div class="pathway-step-title">Systemic Activation</div>
+          <p>Duty emerges from objective metrics of system state. Transforms diffuse obligation of result into specific obligation of means.</p>
+        </div>
+      </div>
+
+      <div class="subsection-header" id="FORMULACAO-DEFENSAVEL">6.3 The defensible formulation: not creation, but operationalization</div>
+
+      <div class="caput">
+        The strongest formulation is not to say that c-ECO creates the duty of cooperation, but that it seeks to technicize it and activate it in response to identifiable systemic states.
+      </div>
+
+      <div class="problem-box">
+        <div class="problem-title">Qualitative Differential: Systemic Activation</div>
+        The duty of cooperation already exists in various forms in various legal systems. Its limits are well known: indetermination, judicial dependence, vulnerability to opportunism, verification costs. The differential of c-ECO is <strong>systemic activation</strong>: the duty emerges from objective metrics, not from generic assessment of "good faith." Transforms diffuse obligation of result into specific obligation of means (execute preservation protocols under defined conditions).
+      </div>
+
+      <!-- SECAO 7 -->
+      <div class="section-header" id="OBJETO-IMEDIATO">7. Conditioned Immediate Object: Exigibility as Function of System State</div>
+
+      <div class="subsection-header" id="PRECISAO-CONCEITUAL">7.1 The conceptual precision of the proposal</div>
+
+      <div class="caput">
+        The argument is not that the contract ceases to exist, nor that it automatically loses validity. The proposal is more refined: the obligation remains, but its exigibility becomes functionally conditioned to the preservation of material conditions that make performance possible.
+      </div>
+
+      <div class="concept-grid">
+        <div class="concept-item">
+          <div class="concept-term">Existence vs. Exigibility</div>
+          <p class="concept-def">The contract continues to produce effects: bond, expectations, trust. The intensity of exigibility—the legal pressure for performance—is modulated by system state.</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Functional Conditionality</div>
+          <p class="concept-def">Not traditional suspensive/resolutive condition (future and uncertain event). It is continuous conditionality: independent variable (state) and dependent variable (exigibility) in previously defined functional relation.</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Graduated Modulation</div>
+          <p class="concept-def">In deterioration states: extended deadlines, diminished volumes, flexibilized specifications. In recovery states: reestablished or increased (compensation).</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Multivariate and Configurable</div>
+          <p class="concept-def">Can be linear or non-linear, univariate or multivariate. Definition is matter of autonomy of will, within limits of reasonableness and public order.</p>
+        </div>
+      </div>
+
+      <div class="subsection-header" id="DIALOGO-DOUTRINAS">7.2 Dialogue with and overcoming traditional doctrines</div>
+
+      <div class="caput">
+        This formulation dialogues with doctrines on impossibility, change of circumstances, and basis of transaction. c-ECO goes beyond by proposing continuous modulation, not merely <em>ex post</em> recognition.
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Doctrine</th>
+              <th>Operation</th>
+              <th>Limit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Supervening impossibility (art. 478 CC)</strong></td>
+              <td>Extinguishes obligation when performance becomes objectively impossible</td>
+              <td>Only operates when impossibility is already consolidated; late response</td>
+            </tr>
+            <tr>
+              <td><strong>Theory of basis of transaction (<em>Geschäftsgrundlage</em>, 313 BGB)</strong></td>
+              <td>Allows revision when fundamental presuppositions change</td>
+              <td><em>Ex post</em> reaction to already materialized change</td>
+            </tr>
+            <tr>
+              <td><strong><em>Rebus sic stantibus</em></strong></td>
+              <td>Adaptation for supervening excessive onerousness</td>
+              <td>Requires qualifying event; episodic response; onerousness must be "excessive"</td>
+            </tr>
+            <tr>
+              <td><strong><em>Hardship</em> (UNIDROIT 6.2.1-6.2.3)</strong></td>
+              <td>Obligatory renegotiation in case of <em>hardship</em></td>
+              <td>Contingency materialization has already occurred; renegotiation under pressure</td>
+            </tr>
+            <tr>
+              <td><strong>c-ECO / IEX</strong></td>
+              <td>Continuous modulation of exigibility by systemic state</td>
+              <td>Requires pre-established contractual architecture; depends on measurability</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="subsection-header" id="NUCLEO-FORTE">7.3 The strong core of the thesis: material conditions of possibility</div>
+
+      <div class="caput">
+        The preservation of material conditions of possibility of performance is prerequisite of its own exigibility. One cannot demand performance in a way that aggravates the deterioration of conditions that make it possible. Full exigibility presupposes sustainability of the system.
+      </div>
+
+      <div class="formula-box">
+        Exigibility = <em>f</em>(Systemic State, Metrics, Thresholds, Protocols)
+      </div>
+
+      <div class="note-box">
+        <div class="note-label">Legal Functionalization</div>
+        Measurement ceases to be merely technical or scientific activity and becomes component of the very legal structure of obligation. System state indicators are variables that enter into the definition of obligation content at each moment.
+      </div>
+
+
+      <!-- SECAO 8 -->
+      <div class="section-header" id="GARANTIAS">8. Systemic Guarantees: Functional Reordering of Existing Instruments</div>
+
+      <div class="subsection-header" id="INVENTARIO-JURIDICO">8.1 The prior legal inventory</div>
+
+      <div class="caput">
+        It is important to avoid <em>overclaim</em>. Law already knows instruments that fulfill analogously oriented functions toward preservation of conditions—though in the current paradigm their function is predominantly reactive.
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Instrument</th>
+              <th>Current Function</th>
+              <th>Activation Trigger</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Performance Bonds</strong></td>
+              <td>Guarantee execution of work or service</td>
+              <td>Verifiable breach</td>
+            </tr>
+            <tr>
+              <td><strong>Environmental Bonds (Reclamation Bonds)</strong></td>
+              <td>Guarantee environmental recovery</td>
+              <td>Configured environmental damage or due recovery obligation</td>
+            </tr>
+            <tr>
+              <td><strong>Decommissioning Funds</strong></td>
+              <td>Finance facility decommissioning</td>
+              <td>Due decommissioning obligation</td>
+            </tr>
+            <tr>
+              <td><strong>Escrow Accounts</strong></td>
+              <td>Custody of resources for conditional release</td>
+              <td>Pre-defined contractual event</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="subsection-header" id="REORDENACAO">8.2 The reordering proposed by c-ECO</div>
+
+      <div class="caput">
+        The defensible point is to reorder the function of these instruments, displacing the activation trigger from configured breach/damage to measured deterioration of systemic conditions.
+      </div>
+
+      <div class="concept-grid">
+        <div class="concept-item">
+          <div class="concept-term">Displaced Trigger</div>
+          <p class="concept-def">From configured breach/damage to measured deterioration of systemic conditions. Not mere nomenclature change, but qualitative transformation.</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Transformed Function</div>
+          <p class="concept-def">From insurance against breach risk (protects creditor) to investment in preservation of relation possibility conditions (protects both parties and the system).</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Non-Invention</div>
+          <p class="concept-def">Functional redirection of already existing instruments, with reconfiguration of triggers, beneficiaries, and purpose.</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Preservation of Relation</div>
+          <p class="concept-def">Maintenance of conditions that allow sustainable evolution of relation, including its transformation or orderly termination when conditions so require.</p>
+        </div>
+      </div>
+
+      <div class="subsection-header" id="TRANSFORMACAO-QUALITATIVA">8.3 The qualitative transformation: from bilateral reaction to preservation of conditions</div>
+
+      <div class="caput">
+        This reordering is not trivial. It transforms the guarantee from bilateral reaction mechanism to preservation mechanism of possibility conditions of the relation itself.
+      </div>
+
+      <div class="problem-box">
+        <div class="problem-title">Implications for Obligation Theory</div>
+        <ul style="margin: 12px 0; padding-left: 20px;">
+          <li><strong>Focus displacement:</strong> from forced execution (how to make the debtor perform) to governance of conditions (how to preserve the system in which performance is possible);</li>
+          <li><strong>Redistribution of responsibilities:</strong> not only the debtor is responsible for performance, but both parties (and potentially third parties) have systemic preservation responsibilities;</li>
+          <li><strong>Different temporality:</strong> the guarantee is not mobilized only at the moment of failure, but continuously, as part of a governance regime.</li>
+        </ul>
+      </div>
+
+      <!-- SECAO 9 -->
+      <div class="section-header" id="LEGITIMIDADE">9. Algorithmic Legitimacy: Seeing Without Arbitrariness</div>
+
+      <div class="subsection-header" id="DILEMA-GOVERNANCA">9.1 The dilemma of data-based governance</div>
+
+      <div class="caput">
+        The closer legal governance approaches data, metrics, and automation, the stronger the requirement of institutional legitimacy becomes. c-ECO recognizes the risks and seeks to confront them in a structured manner.
+      </div>
+
+      <div class="concept-grid">
+        <div class="concept-item">
+          <div class="concept-term">Legal-Metric Approximation</div>
+          <p class="concept-def">Growing tendency of linkage between legal governance, technical metrics, and automation. Proportional requirement of legitimacy.</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Contemporary Critique</div>
+          <p class="concept-def">Pasquale (<em>The Black Box Society</em>, 2015): scoring systems operate with inaccessible algorithms. O'Neil (<em>Weapons of Math Destruction</em>, 2016): neutral models reproduce inequalities.</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Hidden Arbitrariness</div>
+          <p class="concept-def">Metrics and algorithms, by apparent objectivity, escape critical scrutiny. Objectivity is illusory: depends on design choices invisibilized by complexity.</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">c-ECO Risk</div>
+          <p class="concept-def">Cannot be defended as simple automation. Defensibility depends on four structural conditions that incorporate accountability into its own architecture.</p>
+        </div>
+      </div>
+
+      <div class="subsection-header" id="CONDICOES-DEFENSABILIDADE">9.2 The four conditions of c-ECO defensibility</div>
+
+      <div class="caput">
+        Defensibility depends on four conditions that ensure that metrics-based governance does not become tyranny of numbers.
+      </div>
+
+      <div class="variable-grid">
+        <div class="variable-card">
+          <div class="variable-name">Auditability</div>
+          <div class="variable-desc">Measurement systems susceptible to independent review. How metrics were chosen, calculated, verified, how they evolve over time. Prevents "objectivity" from being shield against questioning.</div>
+        </div>
+        <div class="variable-card">
+          <div class="variable-name">Governance</div>
+          <div class="variable-desc">Supervision instance with capacity to interpret metrics, resolve conflicts, decide on unforeseen cases. Essential component of legitimacy.</div>
+        </div>
+        <div class="variable-card">
+          <div class="variable-name">Reversibility</div>
+          <div class="variable-desc">Decisions based on metrics must be susceptible to review and reversal. Insurance against inevitable errors in any measurement system.</div>
+        </div>
+        <div class="variable-card">
+          <div class="variable-name">Transparency</div>
+          <div class="variable-desc">Parties and affected third parties must have access to information about system operation. Sufficient for understanding and contestation. Does not imply total publicity (commercially sensitive information).</div>
+        </div>
+      </div>
+
+      <div class="subsection-header" id="MEDIACAO-INSTITUCIONAL">9.3 The redistribution of institutional mediation</div>
+
+      <div class="caput">
+        Institutional mediation does not disappear in c-ECO; it is redistributed. Instead of concentration in judge or arbitrator <em>ex post</em>, there is dispersion in multiple instances: measurement systems, technical verification bodies, contractual governance instances.
+      </div>
+
+      <div class="note-box">
+        <div class="note-label">Immanent Accountability</div>
+        Accountability is not external addition to c-ECO, but immanent to its operationalization. The proposal is only defensible if it incorporates, in its own architecture, the mechanisms that guarantee its legitimacy. It is not a choice between efficiency and legitimacy, but recognition that efficiency depends on legitimacy.
+      </div>
+
+      <!-- SECAO 10 -->
+      <div class="section-header" id="CONCLUSAO">10. Conclusion: From Fragmentation to Systematization — The Nature of c-ECO's Contribution</div>
+
+      <div class="subsection-header" id="O-QUE-NAO-E">10.1 What c-ECO is not</div>
+
+      <div class="caput">
+        The contribution does not lie in affirming that contemporary law ignores risk, monitoring, or continuous dynamics. That would be incorrect and strategically counterproductive.
+      </div>
+
+      <div class="concept-grid">
+        <div class="concept-item">
+          <div class="concept-term">Not Blindness</div>
+          <p class="concept-def">Law already operates with monitoring in multiple domains with increasing sophistication. Ignoring this reality would weaken the proposal.</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Not Invention <em>ex nihilo</em></div>
+          <p class="concept-def">All elements have antecedents in positive law and contract theory. The novelty lies in how they are articulated, not in isolated elements.</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Not Substitution</div>
+          <p class="concept-def">Does not substitute existing dogmatics, but radicalizes and systematizes it. Preserves function of traditional mechanisms.</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-term">Not Utopia</div>
+          <p class="concept-def">Continuous monitoring is consolidated economic reality for decades (financial covenants). c-ECO generalizes the logic beyond the financial domain.</p>
+        </div>
+      </div>
+
+      <div class="subsection-header" id="O-QUE-E">10.2 What c-ECO is: the potential contribution</div>
+
+      <div class="caput">
+        The potential contribution lies in reorganizing existing elements as structural criterion of contractual exigibility. It is integration of dispersed mechanisms into new architecture.
+      </div>
+
+      <div class="note-box">
+        <div class="note-label">Synthesis, Not Invention</div>
+        c-ECO is <strong>synthesis</strong>: it synthesizes learnings from multiple domains (financial law, environmental law, regulatory law, contract theory, systems science) into a coherent and transversal architecture. It does not add new blocks, but reconfigures the structure that sustains them.
+      </div>
+
+      <div class="subsection-header" id="DESLOCAMENTO-FUNDAMENTAL">10.3 The fundamental displacement</div>
+
+      <div class="caput">
+        The intended displacement can be synthesized in three convergent movements.
+      </div>
+
+      <div class="pathway-grid cols-3">
+        <div class="pathway-step">
+          <div class="pathway-step-number">1</div>
+          <div class="pathway-step-title">From Fragmentation to Systematization</div>
+          <p>Sectoral and non-communicating mechanisms (each domain partially reinvents solutions) -&gt; Integrated architecture with cross-learning, metrics standardization, and protocol scalability</p>
+        </div>
+        <div class="pathway-step">
+          <div class="pathway-step-number">2</div>
+          <div class="pathway-step-title">From Event to State</div>
+          <p>Application triggered by qualifiable legal events (<em>breach</em>, impossibility, excessive onerousness) -&gt; Applicability conditioned by continuously measured systemic state</p>
+        </div>
+        <div class="pathway-step">
+          <div class="pathway-step-number">3</div>
+          <div class="pathway-step-title">Continuity as Foundation</div>
+          <p>Continuity of systemic measurement becomes operational foundation of exigibility modulation, with protocols, metrics, thresholds, and governance instances that make it legally effective</p>
+        </div>
+      </div>
+
+      <!-- REFERENCES SECTION -->
+<div class="section-header" id="REFERENCIAS">Bibliographic References</div>
+
+<div class="note-box">
+  <div class="note-label">Referencing Standard</div>
+  All bibliographic references follow the standards of the Brazilian Association of Technical Standards (ABNT/NBR 6023) and have been verified against authoritative sources. The citations used throughout this article refer to the works listed below, which constitute the essential bibliographic basis of the c-ECO framework.
+</div>
+
+<div class="subsection-header">Books and Monographs</div>
+
+<ul class="ref-list">
+  <li><span class="ref-author">DEKKER, Sidney W. A.</span> <em>Drift into Failure: From Hunting Broken Components to Understanding Complex Systems</em>. Farnham: Ashgate Publishing, 2011.</li>
+  <li><span class="ref-author">KOTZE, Louis J.; KIM, Rakhyun E.</span> <em>Earth System Law: The Institutionalization of the Earth System as a Legal Object</em>. Cambridge: Cambridge University Press, 2021.</li>
+  <li><span class="ref-author">LUHMANN, Niklas.</span> <em>Social Systems</em>. Stanford: Stanford University Press, 1995.</li>
+  <li><span class="ref-author">MACNEIL, Ian R.</span> <em>The New Social Contract: An Inquiry into Modern Contractual Relations</em>. New Haven: Yale University Press, 1980.</li>
+  <li><span class="ref-author">O'NEIL, Cathy.</span> <em>Weapons of Math Destruction: How Big Data Increases Inequality and Threatens Democracy</em>. New York: Crown, 2016.</li>
+  <li><span class="ref-author">PASQUALE, Frank.</span> <em>The Black Box Society: The Secret Algorithms That Control Money and Information</em>. Cambridge: Harvard University Press, 2015.</li>
+  <li><span class="ref-author">PERROW, Charles.</span> <em>Normal Accidents: Living with High-Risk Technologies</em>. New York: Basic Books, 1984. (Revised ed., 1999).</li>
+  <li><span class="ref-author">TALEB, Nassim Nicholas.</span> <em>The Black Swan: The Impact of the Highly Improbable</em>. New York: Random House, 2007.</li>
+  <li><span class="ref-author">TEUBNER, Gunther.</span> <em>Law as an Autopoietic System</em>. Oxford: Blackwell, 1993.</li>
+  <li><span class="ref-author">VAUGHAN, Diane.</span> <em>The Challenger Launch Decision: Risky Technology, Culture, and Deviance at NASA</em>. Chicago: University of Chicago Press, 1996.</li>
+  <li><span class="ref-author">WEICK, Karl E.; SUTCLIFFE, Kathleen M.</span> <em>Managing the Unexpected: Resilient Performance in an Age of Uncertainty</em>. 2nd ed. San Francisco: Jossey-Bass, 2007.</li>
+</ul>
+
+<div class="subsection-header">Articles and Essays</div>
+
+<ul class="ref-list">
+  <li><span class="ref-author">ARMSTRONG McKAY, David I. et al.</span> Exceeding 1.5°C global warming could trigger multiple climate tipping points. <em>Science</em>, v. 377, n. 6611, p. eabn7950, 2022.</li>
+  <li><span class="ref-author">GROSSMAN, Sanford J.; HART, Oliver D.</span> The Costs and Benefits of Ownership: A Theory of Vertical and Lateral Integration. <em>Journal of Political Economy</em>, v. 94, n. 4, p. 691-719, 1986.</li>
+  <li><span class="ref-author">HART, Oliver; MOORE, John.</span> Property Rights and the Nature of the Firm. <em>Journal of Political Economy</em>, v. 98, n. 6, p. 1119-1158, 1990.</li>
+  <li><span class="ref-author">KIM, Rakhyun E.; KOTZE, Louis J.</span> Planetary boundaries and Earth system law: a new basis for global environmental governance. <em>Earth System Governance</em>, v. 7, 2021.</li>
+  <li><span class="ref-author">LENTON, Timothy M. et al.</span> Tipping elements in the Earth's climate system. <em>Proceedings of the National Academy of Sciences</em>, v. 105, n. 6, p. 1786-1793, 2008.</li>
+  <li><span class="ref-author">SMITH, Clifford W.; WARNER, Jerold B.</span> On Financial Contracting: An Analysis of Bond Covenants. <em>Journal of Financial Economics</em>, v. 7, n. 2, p. 117-161, 1979.</li>
+  <li><span class="ref-author">STEFFEN, Will et al.</span> Planetary boundaries: Guiding human development on a changing planet. <em>Science</em>, v. 347, n. 6223, 2015.</li>
+</ul>
+
+<div class="subsection-header">Legal and Regulatory Instruments</div>
+
+<ul class="ref-list">
+  <li><span class="ref-author">BRAZIL.</span> <em>Civil Code</em>. Law No. 10,406, of January 10, 2002. Art. 478 (supervening excessive onerousness).</li>
+  <li><span class="ref-author">GERMANY.</span> <em>Bürgerliches Gesetzbuch</em> (BGB). Section 313 (<em>Wegfall der Geschäftsgrundlage</em>).</li>
+  <li><span class="ref-author">ITALY.</span> <em>Codice Civile</em>. Art. 1467 (<em>eccessiva onerosità sopravvenuta</em>).</li>
+  <li><span class="ref-author">UNIDROIT.</span> <em>Principles of International Commercial Contracts</em> (PICC). Arts. 6.2.1-6.2.3 (hardship). Rome, 2016.</li>
+  <li><span class="ref-author">UNITED NATIONS.</span> <em>Rio Declaration on Environment and Development</em>. Principle 15 (precautionary principle). Rio de Janeiro, 1992.</li>
+  <li><span class="ref-author">UNITED STATES.</span> <em>Uniform Commercial Code</em> (UCC). § 2-609, <em>Right to Adequate Assurance of Performance</em>; § 2-615, <em>Excuse by Failure of Presupposed Conditions</em>.</li>
+</ul>
+
+<div class="subsection-header">International Principles and Soft Law</div>
+
+<ul class="ref-list">
+  <li><span class="ref-author">COMMISSION ON EUROPEAN CONTRACT LAW.</span> <em>Principles of European Contract Law</em> (PECL). Part I &amp; II. Art. 6:111 (change of circumstances). The Hague: Kluwer Law International, 2000.</li>
+</ul>
+
+<div class="subsection-header">Risk Governance and Financial System</div>
+
+<ul class="ref-list">
+  <li><span class="ref-author">BASEL COMMITTEE ON BANKING SUPERVISION (BCBS).</span> <em>Climate-related financial risks: measurement methodologies</em>. Basel: BIS, 2021.</li>
+  <li><span class="ref-author">NETWORK FOR GREENING THE FINANCIAL SYSTEM (NGFS).</span> <em>Guide to climate scenario analysis for central banks and supervisors</em>. Paris: NGFS, 2020.</li>
+  <li><span class="ref-author">TALEB, Nassim Nicholas et al.</span> The precautionary principle (with application to the genetic modification of organisms). <em>Extreme Risk Initiative</em>, 2014.</li>
+</ul>
+
+      <!-- CTA -->
+      <div class="cta-box">
+        <div class="cta-title">From Theory to Practice: Next Steps</div>
+        <div class="cta-text">
+          This article establishes the theoretical foundations of c-ECO. The translation into contractual architecture, model clauses, governance protocols, and implementation pathways is available on the practical applications page.
+        </div>
+        <div class="button-group">
+          <a href="practice.html" class="btn-primary">Practical Applications</a>
+          <a href="law.html" class="btn-secondary">Model Law</a>
+          <a href="manual.html" class="btn-secondary">TFP Manual</a>
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <div style="margin-top: 56px; padding-top: 24px; border-top: 2px solid var(--border-color); font-size: 11px; line-height: 1.65; color: #555;">
+        <div style="font-weight: 700; color: var(--earth-green); margin-bottom: 10px;">
+          &copy; 2026 c-ECO Systemic Governance Initiative. Supported by the Johann Christian Hasse Foundation. All rights reserved.
+        </div>
+        <div style="margin-bottom: 10px;">
+          Licensed under <strong>CC BY-NC-ND 4.0</strong>. Non-commercial use only. No derivatives without authorization.
+        </div>
+        <div style="font-size: 10px; color: #888;">
+          <strong>Disclaimer:</strong> This theoretical foundation constitutes educational and professional analysis material. Real-world application requires jurisdiction-specific legal review, technical calibration, and contract-level adaptation. Not legal advice.
+        </div>
+      </div>
+
+    </article>
+  </main>
+
+  <script>
+    // Search filtering
+    const searchInput = document.getElementById('sidebarSearch');
+    const navItems = document.querySelectorAll('.nav-item');
+    const sectionTitles = document.querySelectorAll('.nav-section-title');
+    const sidebar = document.getElementById('sidebar');
+
+    searchInput.addEventListener('input', function(e) {
+      const term = e.target.value.toLowerCase();
+      navItems.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.classList.toggle('hidden', !text.includes(term));
+      });
+      sectionTitles.forEach(title => {
+        title.classList.toggle('hidden', term.length > 0);
+      });
+    });
+
+    // Close sidebar on mobile nav click
+    document.querySelectorAll('.nav-item a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href.startsWith('#')) {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+        if (window.innerWidth <= 1100) {
+          sidebar.classList.remove('open');
+        }
+      });
+    });
+
+    // Active section highlighting via Intersection Observer
+    const sectionHeaders = document.querySelectorAll('.section-header, .subsection-header');
+    const navLinks = document.querySelectorAll('.nav-item a[href^="#"]');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + id) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    }, { rootMargin: '-10% 0px -75% 0px' });
+
+    sectionHeaders.forEach(h => observer.observe(h));
+  </script>
+
+</body>
+</html>
