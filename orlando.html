@@ -826,6 +826,10 @@
   color: var(--gold-accent);
 }
 
+/* s============================================
+   SEÇÃO DE SLIDES - CAPÍTULOS c-ECO
+   ============================================ */
+
 /* ============================================
    SEÇÃO DE SLIDES - CAPÍTULOS c-ECO
    ============================================ */
@@ -930,7 +934,7 @@
 }
 
 /* ============================================
-   MODAL DE VISUALIZAÇÃO DE SLIDES
+   MODAL DESKTOP (iframe para PDF)
    ============================================ */
 
 .modal {
@@ -1052,7 +1056,6 @@
   flex: 1;
   overflow: hidden;
   background: #f5f5f5;
-  position: relative;
 }
 
 .modal-body iframe {
@@ -1062,35 +1065,92 @@
 }
 
 /* ============================================
-   FALLBACK PDF (quando iframe não carrega)
+   MODAL MOBILE (interface otimizada)
    ============================================ */
 
-.pdf-fallback {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #f8f9fa;
+.mobile-content {
+  max-width: 400px;
+  height: auto;
+  margin: 20% auto;
+}
+
+.mobile-body {
+  padding: 32px 24px;
+  background: #fff;
+}
+
+.mobile-hint {
+  font-size: 14px;
+  color: #555;
+  text-align: center;
+  margin-bottom: 24px;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+}
+
+.mobile-options {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mobile-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
+  gap: 10px;
+  padding: 16px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
 }
 
-.fallback-content p {
-  font-size: 14px;
+.mobile-btn span {
+  font-size: 18px;
+}
+
+.mobile-btn-primary {
+  background: var(--earth-green);
+  color: #fff;
+}
+
+.mobile-btn-primary:hover {
+  background: #2c5282;
+  transform: translateY(-2px);
+}
+
+.mobile-btn-secondary {
+  background: #f5f5f5;
+  color: var(--earth-green);
+  border: 2px solid var(--border-color);
+}
+
+.mobile-btn-secondary:hover {
+  border-color: var(--gold-accent);
+  color: var(--gold-accent);
+}
+
+.mobile-info {
+  margin-top: 20px;
+  padding: 16px;
+  background: var(--soft-bg);
+  border-radius: 4px;
+  border-left: 3px solid var(--gold-accent);
+}
+
+.mobile-info p {
+  font-size: 12px;
   color: #666;
-  margin-bottom: 20px;
+  line-height: 1.6;
+  margin: 0;
   font-family: 'Inter', sans-serif;
 }
 
-.hidden {
-  display: none !important;
-}
-
 /* ============================================
-   RESPONSIVIDADE - SLIDES
+   RESPONSIVIDADE
    ============================================ */
 
 @media (max-width: 768px) {
@@ -1107,28 +1167,13 @@
     font-size: 28px;
   }
   
-  .modal-content {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    border-radius: 0;
+  .desktop-modal .modal-content {
+    display: none; /* Esconde modal desktop em mobile */
   }
   
-  .modal-header {
-    padding: 14px 16px;
-  }
-  
-  .modal-header h3 {
-    font-size: 15px;
-  }
-  
-  .btn-download span {
-    display: none;
-  }
-  
-  .btn-download {
-    padding: 8px 12px;
-    font-size: 11px;
+  .mobile-content {
+    width: 90%;
+    margin: 15% auto;
   }
 }
 
@@ -1140,7 +1185,16 @@
   .chapter-desc {
     font-size: 11px;
   }
+  
+  .mobile-content {
+    margin: 10% auto;
+  }
+  
+  .mobile-body {
+    padding: 24px 16px;
+  }
 }
+
 
 
   </style>
@@ -2024,7 +2078,7 @@
         <p>A continuidade da mensuração sistêmica torna-se fundamento operacional da modulação da exigibilidade, com protocolos, métricas, thresholds e instâncias de governança que a tornam juridicamente efetiva</p>
       </div>
     </div>
-<!-- SEÇÃO DE SLIDES -->
+<!-- SEÇÃO DE SLIDES --<!-- SEÇÃO DE SLIDES -->
 <div class="section-header" id="SLIDES">Slides da Apresentação</div>
 
 <div class="note-box">
@@ -2037,7 +2091,7 @@
   <div class="chapter-card" onclick="openChapter(1)">
     <div class="chapter-meta">
       <span class="chapter-number">01</span>
-      <span class="chapter-format">PDF • 9 slides</span>
+      <span class="chapter-format">PDF • 2 slides</span>
     </div>
     <h3 class="chapter-title">A Epistemologia do Colapso</h3>
     <p class="chapter-desc">Por que o direito enxerga fragmentos e não sistemas</p>
@@ -2050,7 +2104,7 @@
   <div class="chapter-card" onclick="openChapter(2)">
     <div class="chapter-meta">
       <span class="chapter-number">02</span>
-      <span class="chapter-format">PDF • 9 slides</span>
+      <span class="chapter-format">PDF • 3 slides</span>
     </div>
     <h3 class="chapter-title">O Direito Como Já Vê</h3>
     <p class="chapter-desc">Antecedentes e limites da estrutura vigente</p>
@@ -2063,7 +2117,7 @@
   <div class="chapter-card" onclick="openChapter(3)">
     <div class="chapter-meta">
       <span class="chapter-number">03</span>
-      <span class="chapter-format">PDF • 9 slides</span>
+      <span class="chapter-format">PDF • 4 slides</span>
     </div>
     <h3 class="chapter-title">Diligência Ampliada</h3>
     <p class="chapter-desc">Da investigação pontual à infraestrutura de governança</p>
@@ -2076,7 +2130,7 @@
   <div class="chapter-card" onclick="openChapter(4)">
     <div class="chapter-meta">
       <span class="chapter-number">04</span>
-      <span class="chapter-format">PDF • 9 slides</span>
+      <span class="chapter-format">PDF • 4 slides</span>
     </div>
     <h3 class="chapter-title">Governança Pré-Limiar</h3>
     <p class="chapter-desc">Atuar na janela de reversibilidade</p>
@@ -2089,7 +2143,7 @@
   <div class="chapter-card" onclick="openChapter(5)">
     <div class="chapter-meta">
       <span class="chapter-number">05</span>
-      <span class="chapter-format">PDF • 9 slides</span>
+      <span class="chapter-format">PDF • 4 slides</span>
     </div>
     <h3 class="chapter-title">IEX — Inexigibilidade Ex Ante</h3>
     <p class="chapter-desc">Radicalização de uma tendência latente</p>
@@ -2102,7 +2156,7 @@
   <div class="chapter-card" onclick="openChapter(6)">
     <div class="chapter-meta">
       <span class="chapter-number">06</span>
-      <span class="chapter-format">PDF • 9 slides</span>
+      <span class="chapter-format">PDF • 4 slides</span>
     </div>
     <h3 class="chapter-title">Shared Systemic Duty</h3>
     <p class="chapter-desc">Da cooperação interpretativa ao dever operacionalizado</p>
@@ -2115,7 +2169,7 @@
   <div class="chapter-card" onclick="openChapter(7)">
     <div class="chapter-meta">
       <span class="chapter-number">07</span>
-      <span class="chapter-format">PDF • 9 slides</span>
+      <span class="chapter-format">PDF • 3 slides</span>
     </div>
     <h3 class="chapter-title">Objeto Imediato Condicionado</h3>
     <p class="chapter-desc">A exigibilidade como função do estado do sistema</p>
@@ -2128,7 +2182,7 @@
   <div class="chapter-card" onclick="openChapter(8)">
     <div class="chapter-meta">
       <span class="chapter-number">08</span>
-      <span class="chapter-format">PDF • 9 slides</span>
+      <span class="chapter-format">PDF • 4 slides</span>
     </div>
     <h3 class="chapter-title">Garantias Sistêmicas</h3>
     <p class="chapter-desc">Reordenamento funcional de instrumentos existentes</p>
@@ -2154,7 +2208,7 @@
   <div class="chapter-card" onclick="openChapter(10)">
     <div class="chapter-meta">
       <span class="chapter-number">10</span>
-      <span class="chapter-format">PDF • 6 slides</span>
+      <span class="chapter-format">PDF • 2 slides</span>
     </div>
     <h3 class="chapter-title">Da Fragmentação à Sistematização</h3>
     <p class="chapter-desc">Conclusão: a natureza da contribuição do c-ECO</p>
@@ -2164,8 +2218,8 @@
   </div>
 </div>
 
-<!-- Modal de Visualização -->
-<div id="slideModal" class="modal">
+<!-- Modal de Visualização - Desktop -->
+<div id="slideModal" class="modal desktop-modal">
   <div class="modal-content">
     <div class="modal-header">
       <div class="modal-title-group">
@@ -2184,6 +2238,37 @@
     </div>
   </div>
 </div>
+
+<!-- Modal Mobile - Interface otimizada -->
+<div id="mobileModal" class="modal mobile-modal">
+  <div class="modal-content mobile-content">
+    <div class="modal-header">
+      <div class="modal-title-group">
+        <span class="modal-chapter-num" id="mobileChapterNum">01</span>
+        <h3 id="mobileTitle">Título do Capítulo</h3>
+      </div>
+      <button class="btn-close" onclick="closeMobileModal()" aria-label="Fechar">✕</button>
+    </div>
+    <div class="mobile-body">
+      <div class="mobile-options">
+        <p class="mobile-hint">Escolha como deseja acessar os slides:</p>
+        
+        <a id="mobileViewLink" href="#" target="_blank" class="mobile-btn mobile-btn-primary">
+          <span>🌐</span> Abrir no Navegador
+        </a>
+        
+        <a id="mobileDownloadLink" href="#" download class="mobile-btn mobile-btn-secondary">
+          <span>⬇</span> Baixar PDF
+        </a>
+        
+        <div class="mobile-info">
+          <p>💡 <strong>Dica:</strong> Em alguns dispositivos, o PDF pode abrir diretamente no app de leitura ou solicitar download.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
     <!-- REFERENCES SECTION -->
     <div class="section-header" id="REFERENCIAS">Referências Bibliográficas</div>
@@ -2329,9 +2414,12 @@ n      });
 n    }, { rootMargin: '-10% 0px -75% 0px' });
 n
 n    sectionHeaders.forEach(h => observer.observe(h));
-// ============================================
+
+
+
+    
 // SISTEMA DE SLIDES - CAPÍTULOS c-ECO
-// Caminhos: arquivos na mesma pasta que orlando.html
+// Detecção mobile + fallback otimizado
 // ============================================
 
 const chapters = {
@@ -2387,81 +2475,95 @@ const chapters = {
   }
 };
 
+// Detecção de dispositivo mobile
+function isMobile() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+         || window.innerWidth <= 768;
+}
+
 function openChapter(num) {
   const chapter = chapters[num];
+  
+  if (isMobile()) {
+    openMobileModal(num, chapter);
+  } else {
+    openDesktopModal(num, chapter);
+  }
+}
+
+// Modal Desktop (com iframe)
+function openDesktopModal(num, chapter) {
   const modal = document.getElementById('slideModal');
   const title = document.getElementById('modalTitle');
   const numEl = document.getElementById('modalChapterNum');
   const viewer = document.getElementById('slideViewer');
   const download = document.getElementById('downloadLink');
-  const fallback = document.getElementById('pdfFallback');
-  const fallbackLink = document.getElementById('fallbackLink');
   
-  // Atualiza conteúdo
   title.textContent = chapter.title;
   numEl.textContent = String(num).padStart(2, '0');
-  download.href = chapter.file;
-  fallbackLink.href = chapter.file;
-  
-  // Reset visual
-  viewer.classList.remove('hidden');
-  fallback.classList.add('hidden');
-  
-  // Tenta carregar PDF no iframe
   viewer.src = chapter.file;
+  download.href = chapter.file;
   
-  // Mostra modal
   modal.style.display = 'block';
   document.body.style.overflow = 'hidden';
-  
-  // Verifica se iframe carregou (fallback após 3 segundos)
-  setTimeout(() => {
-    try {
-      // Se iframe está vazio ou inacessível, mostra fallback
-      if (!viewer.contentDocument || viewer.contentDocument.body.innerHTML === '') {
-        showFallback();
-      }
-    } catch(e) {
-      // Erro de CORS ou segurança - mostra fallback
-      showFallback();
-    }
-  }, 3000);
 }
 
-function showFallback() {
-  const viewer = document.getElementById('slideViewer');
-  const fallback = document.getElementById('pdfFallback');
+// Modal Mobile (com opções de abertura)
+function openMobileModal(num, chapter) {
+  const modal = document.getElementById('mobileModal');
+  const title = document.getElementById('mobileTitle');
+  const numEl = document.getElementById('mobileChapterNum');
+  const viewLink = document.getElementById('mobileViewLink');
+  const downloadLink = document.getElementById('mobileDownloadLink');
   
-  viewer.classList.add('hidden');
-  fallback.classList.remove('hidden');
+  title.textContent = chapter.title;
+  numEl.textContent = String(num).padStart(2, '0');
+  
+  // Link direto para o PDF (vai abrir no app nativo ou browser)
+  viewLink.href = chapter.file;
+  downloadLink.href = chapter.file;
+  
+  modal.style.display = 'block';
+  document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
   const modal = document.getElementById('slideModal');
   const viewer = document.getElementById('slideViewer');
-  const fallback = document.getElementById('pdfFallback');
   
   modal.style.display = 'none';
   viewer.src = '';
-  viewer.classList.remove('hidden');
-  fallback.classList.add('hidden');
   document.body.style.overflow = 'auto';
 }
 
-// Fecha modal com tecla ESC
+function closeMobileModal() {
+  const modal = document.getElementById('mobileModal');
+  
+  modal.style.display = 'none';
+  document.body.style.overflow = 'auto';
+}
+
+// Fecha modais com ESC
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
     closeModal();
+    closeMobileModal();
   }
 });
 
-// Fecha modal clicando fora
+// Fecha clicando fora
 window.addEventListener('click', function(event) {
-  const modal = document.getElementById('slideModal');
-  if (event.target === modal) {
+  const desktopModal = document.getElementById('slideModal');
+  const mobileModal = document.getElementById('mobileModal');
+  
+  if (event.target === desktopModal) {
     closeModal();
   }
+  if (event.target === mobileModal) {
+    closeMobileModal();
+  }
 });
+
 
   
   </script>
