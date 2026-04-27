@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+Eh isso? <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -171,7 +171,7 @@
             font-weight: 500;
             letter-spacing: 0.1em;
         }
-
+        
         .comp-item {
             background: rgba(28, 25, 23, 0.6);
             border: 1px solid rgba(214, 188, 126, 0.1);
@@ -258,135 +258,188 @@
             fill: currentColor;
         }
         
+        /* Menu sanduíche mobile */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+            padding: 4px;
+        }
+        
+        .menu-toggle span {
+            width: 20px;
+            height: 1.5px;
+            background: var(--gold);
+            transition: all 0.3s;
+        }
+        
+        .mobile-nav {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(12, 10, 9, 0.98);
+            border-bottom: 1px solid rgba(214, 188, 126, 0.15);
+            padding: 16px 24px;
+        }
+        
+        .mobile-nav.active {
+            display: block;
+        }
+        
+        .mobile-nav a {
+            display: block;
+            padding: 10px 0;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #a8a29e;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .mobile-nav a:last-child {
+            border-bottom: none;
+        }
+        
+        .mobile-nav a:hover {
+            color: var(--gold);
+        }
+        
+        @media (max-width: 1024px) {
+            .menu-toggle {
+                display: flex;
+            }
+            .desktop-nav {
+                display: none !important;
+            }
+        }
+        
+        /* ========== PRINT / PDF VERSION ========== */
         @media print {
             @page {
                 size: letter;
-                margin: 0.75in 0.9in;
+                margin: 0.55in 0.65in;
+            }
+            
+            * {
+                box-shadow: none !important;
+                text-shadow: none !important;
+                animation: none !important;
+                transition: none !important;
             }
             
             body {
                 background: #ffffff !important;
-                color: #1a1a1a !important;
-                font-family: 'Inter', sans-serif !important;
-                line-height: 1.5 !important;
-                font-size: 10.5pt !important;
+                color: #111111 !important;
+                font-family: Georgia, "Times New Roman", serif !important;
+                font-size: 9.5pt !important;
+                line-height: 1.35 !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
             
-            #siteNav, 
-#navSpacer,
-.divider-gold,
-.contact-item svg,
-.lang-flag {
-    display: none !important;
-}
-
-.reveal {
-    display: block !important;
-    opacity: 1 !important;
-    transform: none !important;
-}
-            
-            section {
-                padding: 0 !important;
-                margin: 0 !important;
-                background: #ffffff !important;
-                min-height: auto !important;
+            #siteNav,
+            #navSpacer,
+            .divider-gold,
+            .contact-item svg,
+            .lang-flag,
+            .print-hidden,
+            .bio-image-container {
+                display: none !important;
             }
             
+            .reveal {
+                display: block !important;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+            
+            header,
+            section,
             main {
-                padding-bottom: 0 !important;
+                background: #ffffff !important;
+                color: #111111 !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                min-height: auto !important;
             }
             
             header {
-                min-height: auto !important;
-                padding: 0 0 20px 0 !important;
-                margin-bottom: 20px !important;
-                border-bottom: 2px solid #1a1a2e !important;
+                border-bottom: 1.5px solid #222 !important;
+                padding-bottom: 12px !important;
+                margin-bottom: 14px !important;
+                text-align: left !important;
                 page-break-after: avoid;
             }
             
-            header .bio-image-container {
-                width: 1.6in !important;
-                height: auto !important;
-                border-radius: 0 !important;
-                border: 1px solid #ccc !important;
-                margin: 0 0 15px 0 !important;
-                float: right !important;
-                margin-left: 20px !important;
-                aspect-ratio: 3/4 !important;
-                filter: none !important;
-                -webkit-filter: none !important;
+            header .max-w-5xl {
                 max-width: none !important;
+                width: 100% !important;
             }
             
-            header .bio-image-container img {
-                border-radius: 0 !important;
-                opacity: 1 !important;
-            }
-            
-            header h1 {
-                font-family: 'Cormorant Garamond', serif !important;
+            h1 {
                 font-size: 24pt !important;
-                font-weight: 700 !important;
-                color: #1a1a2e !important;
-                margin-bottom: 6px !important;
+                line-height: 1.05 !important;
+                color: #111111 !important;
+                margin: 0 0 4px 0 !important;
                 text-align: left !important;
             }
             
-            header .tagline {
-                font-family: 'Inter', sans-serif !important;
-                font-size: 9pt !important;
-                color: #555 !important;
-                text-transform: none !important;
-                letter-spacing: 0.5px !important;
+            header p,
+            header .tagline,
+            header .text-stone-500 {
                 text-align: left !important;
-                margin-bottom: 10px !important;
+                color: #333333 !important;
+                margin-bottom: 6px !important;
+            }
+            
+            .contact-line {
+                justify-content: flex-start !important;
+                font-size: 8.8pt !important;
+                color: #333 !important;
+                margin-bottom: 6px !important;
+            }
+            
+            .contact-line a {
+                color: #333 !important;
+                text-decoration: none !important;
+            }
+            
+            header .prose-custom {
+                max-width: none !important;
+                margin: 0 !important;
             }
             
             header .prose-custom p {
                 font-size: 9.5pt !important;
-                color: #333 !important;
+                line-height: 1.35 !important;
                 text-align: left !important;
-                line-height: 1.5 !important;
-                margin-bottom: 10px !important;
+                color: #222222 !important;
+                margin: 8px 0 0 0 !important;
             }
             
-            header .flex.justify-center {
-                justify-content: flex-start !important;
-                gap: 20px !important;
-                margin-top: 10px !important;
+            section {
+                margin-bottom: 12px !important;
+                page-break-inside: auto;
             }
             
-            header .contact-item {
-                font-size: 9pt !important;
-                color: #555 !important;
-            }
-            
-            .text-center {
+            section .text-center {
                 text-align: left !important;
-            }
-            
-            section .text-center.mb-20,
-            section .text-center.mb-10 {
-                margin-bottom: 15px !important;
+                margin-bottom: 8px !important;
             }
             
             section h2 {
-                font-family: 'Cormorant Garamond', serif !important;
-                font-size: 14pt !important;
-                font-weight: 600 !important;
-                color: #1a1a2e !important;
+                font-family: Georgia, "Times New Roman", serif !important;
+                font-size: 12.5pt !important;
+                font-weight: 700 !important;
+                color: #111111 !important;
                 text-transform: uppercase !important;
-                letter-spacing: 1.5px !important;
-                border-bottom: 1px solid #d6bc7e !important;
-                padding-bottom: 6px !important;
-                margin-bottom: 15px !important;
-                font-style: normal !important;
-            }
-            
-            section h2.italic {
+                letter-spacing: 1px !important;
+                border-bottom: 1px solid #c9a84c !important;
+                padding-bottom: 3px !important;
+                margin: 14px 0 8px 0 !important;
                 font-style: normal !important;
             }
             
@@ -394,34 +447,37 @@
                 display: none !important;
             }
             
+            #education .grid {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 16px !important;
+            }
+            
             .edu-card {
                 background: none !important;
                 border: none !important;
                 padding: 0 !important;
-                margin-bottom: 8px !important;
+                margin: 0 !important;
             }
             
             .edu-degree {
-                font-family: 'Inter', sans-serif !important;
-                font-size: 10.5pt !important;
-                font-weight: 600 !important;
-                color: #1a1a1a !important;
+                font-size: 9.8pt !important;
+                font-weight: 700 !important;
+                color: #111111 !important;
+                margin-bottom: 1px !important;
             }
             
-            .edu-school {
-                font-size: 9.5pt !important;
-                color: #444 !important;
-            }
-            
+            .edu-school,
             .edu-year {
-                font-size: 9pt !important;
-                color: #666 !important;
+                font-size: 8.8pt !important;
+                color: #333333 !important;
+                margin: 0 !important;
             }
             
             .exp-item {
                 border-left: none !important;
                 padding-left: 0 !important;
-                margin-bottom: 16px !important;
+                margin-bottom: 10px !important;
                 page-break-inside: avoid;
             }
             
@@ -429,67 +485,92 @@
                 display: none !important;
             }
             
+            .exp-header {
+                display: flex !important;
+                justify-content: space-between !important;
+                align-items: baseline !important;
+                gap: 12px !important;
+                margin-bottom: 2px !important;
+            }
+            
             .exp-title {
-                font-family: 'Inter', sans-serif !important;
-                font-size: 10.5pt !important;
-                font-weight: 600 !important;
-                color: #1a1a1a !important;
+                font-family: Georgia, "Times New Roman", serif !important;
+                font-size: 10pt !important;
+                font-weight: 700 !important;
+                color: #111111 !important;
             }
             
             .exp-org {
-                font-size: 9pt !important;
-                color: #555 !important;
+                font-size: 8.7pt !important;
+                color: #333333 !important;
                 text-transform: none !important;
                 letter-spacing: 0 !important;
+                margin: 0 !important;
             }
             
             .exp-date {
-                font-size: 9pt !important;
-                color: #777 !important;
+                font-size: 8.5pt !important;
+                color: #444444 !important;
+                white-space: nowrap !important;
+                letter-spacing: 0 !important;
                 font-style: italic !important;
             }
             
+            .exp-desc {
+                margin: 3px 0 0 0 !important;
+                padding-left: 14px !important;
+                list-style: disc !important;
+            }
+            
             .exp-desc li {
-                font-size: 9.5pt !important;
-                color: #333 !important;
-                line-height: 1.45 !important;
-                margin-bottom: 4px !important;
-                padding-left: 12px !important;
+                font-size: 8.9pt !important;
+                color: #222222 !important;
+                line-height: 1.3 !important;
+                margin-bottom: 2px !important;
+                padding-left: 0 !important;
+                list-style: disc !important;
             }
             
             .exp-desc li::before {
-                color: #1a1a2e !important;
+                display: none !important;
             }
             
             .add-exp-item {
                 background: none !important;
                 border: none !important;
                 padding: 0 !important;
-                margin-bottom: 10px !important;
+                margin-bottom: 6px !important;
+                page-break-inside: avoid;
             }
             
             .add-exp-item .text-gold {
-                color: #1a1a2e !important;
-                font-weight: 600 !important;
-                font-size: 9.5pt !important;
+                color: #111111 !important;
+                font-weight: 700 !important;
+                font-size: 9pt !important;
+                letter-spacing: 0 !important;
+                text-transform: none !important;
+                margin-bottom: 1px !important;
             }
             
-            .add-exp-item .text-white {
-                color: #1a1a1a !important;
+            .add-exp-item .text-white,
+            .add-exp-item .text-stone-400,
+            .add-exp-item .text-stone-500 {
+                color: #222222 !important;
+                font-size: 8.7pt !important;
+                line-height: 1.25 !important;
             }
             
-            .add-exp-item .text-stone-500,
-            .add-exp-item .text-stone-400 {
-                color: #555 !important;
+            #competencies .grid {
+                display: block !important;
             }
             
             .comp-item {
+                display: inline !important;
                 background: none !important;
                 border: none !important;
-                padding: 2px 0 !important;
-                font-size: 9.5pt !important;
-                color: #333 !important;
-                display: inline !important;
+                padding: 0 !important;
+                font-size: 8.8pt !important;
+                color: #222222 !important;
             }
             
             .comp-item::before {
@@ -497,53 +578,27 @@
             }
             
             .comp-item::after {
-                content: ' · ' !important;
-                color: #999 !important;
+                content: " · ";
+                color: #777777;
             }
             
             .comp-item:last-child::after {
-                content: '' !important;
+                content: "";
             }
             
-            .lang-item {
-                gap: 8px !important;
+            #languages .flex {
+                justify-content: flex-start !important;
+                gap: 24px !important;
             }
             
-            .lang-item .text-white {
-                color: #1a1a1a !important;
-                font-weight: 600 !important;
-            }
-            
+            .lang-item .text-white,
             .lang-item .text-stone-500 {
-                color: #555 !important;
+                color: #222222 !important;
+                font-size: 8.8pt !important;
             }
             
             #contact {
-                border-top: 1px solid #ddd !important;
-                margin-top: 20px !important;
-                padding-top: 15px !important;
-            }
-            
-            #contact .text-stone-500,
-            #contact .text-stone-600 {
-                color: #555 !important;
-            }
-            
-            .grid.md\:grid-cols-2,
-            .grid.md\:grid-cols-3 {
-                display: block !important;
-            }
-            
-            .grid.md\:grid-cols-2 > div,
-            .grid.md\:grid-cols-3 > div {
-                margin-bottom: 8px !important;
-            }
-            
-            #education,
-            #experience,
-            #competencies,
-            #languages {
-                page-break-inside: avoid;
+                display: none !important;
             }
             
             .bg-\[\#050505\],
@@ -559,93 +614,103 @@
             .text-stone-300,
             .text-stone-400,
             .text-stone-500,
-            .text-stone-600 {
-                color: #1a1a1a !important;
-            }
-            
+            .text-stone-600,
             .text-gold,
-            .gold,
-            .gold-soft {
-                color: #1a1a2e !important;
+            .gold {
+                color: #111111 !important;
             }
-        }
-        
-        @media (max-width: 768px) {
-            .reveal { opacity: 1; transform: none; }
         }
     </style>
 </head>
 
 <body class="selection:bg-gold/30">
 
-   <nav id="siteNav" class="fixed top-0 w-full z-50 border-b border-white/5 bg-stone-950/90 backdrop-blur-md">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        <a href="#" class="inline-flex items-center gap-3 group">
-            <span class="text-gold border gold-line px-2 py-1 text-sm bg-black/40">Σ</span>
-            <span class="text-[10px] uppercase tracking-[0.3em] font-bold">c-ECO Profile</span>
-        </a>
-
-        <button onclick="document.getElementById('mobileMenu').classList.toggle('hidden')" 
-                class="text-gold border border-gold/40 px-3 py-2 text-xl leading-none hover:bg-gold hover:text-black transition">
-            ☰
-        </button>
-    </div>
-
-    <div id="mobileMenu" class="hidden border-t border-white/5 bg-stone-950/95 px-6 py-6">
-        <div class="flex flex-col gap-5 text-[11px] uppercase tracking-widest text-stone-400">
-            <a href="#education" onclick="document.getElementById('mobileMenu').classList.add('hidden')">Education</a>
-            <a href="#experience" onclick="document.getElementById('mobileMenu').classList.add('hidden')">Experience</a>
-            <a href="#competencies" onclick="document.getElementById('mobileMenu').classList.add('hidden')">Competencies</a>
-            <a href="#languages" onclick="document.getElementById('mobileMenu').classList.add('hidden')">Languages</a>
-            <a href="#contact" onclick="document.getElementById('mobileMenu').classList.add('hidden')">Contact</a>
-
-            <button onclick="window.print()" class="mt-2 text-gold border border-gold/40 px-4 py-2 text-left uppercase tracking-widest hover:bg-gold hover:text-black transition">
-                Download PDF
-            </button>
+    <!-- Navigation com Menu Sanduíche + Botão PDF -->
+    <nav id="siteNav" class="fixed top-0 w-full z-50 border-b border-white/5 bg-stone-950/90 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center relative">
+            <a href="#" class="inline-flex items-center gap-3 group">
+                <span class="text-gold border gold-line px-2 py-1 text-sm bg-black/40 transition-all group-hover:shadow-[0_0_16px_rgba(214,188,126,0.22)]">Σ</span>
+                <span class="text-[10px] uppercase tracking-[0.3em] font-bold">c-ECO Profile</span>
+            </a>
+            
+            <!-- Desktop -->
+            <div class="desktop-nav hidden lg:flex gap-8 text-[10px] uppercase tracking-widest text-stone-500 items-center">
+                <a href="#education" class="hover:text-gold transition">Education</a>
+                <a href="#experience" class="hover:text-gold transition">Experience</a>
+                <a href="#competencies" class="hover:text-gold transition">Competencies</a>
+                <a href="#contact" class="text-gold border border-gold/40 px-3 py-1 hover:bg-gold hover:text-black transition">Contact</a>
+                <button onclick="window.print()" class="text-gold border border-gold/40 px-3 py-1 hover:bg-gold hover:text-black transition">Download PDF</button>
+            </div>
+            
+            <!-- Mobile Toggle -->
+            <div class="menu-toggle" onclick="document.getElementById('mobileMenu').classList.toggle('active')">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+                        <!-- Mobile Menu -->
+            <div id="mobileMenu" class="mobile-nav">
+                <a href="#education" onclick="document.getElementById('mobileMenu').classList.remove('active')">Education</a>
+                <a href="#experience" onclick="document.getElementById('mobileMenu').classList.remove('active')">Experience</a>
+                <a href="#competencies" onclick="document.getElementById('mobileMenu').classList.remove('active')">Competencies</a>
+                <a href="#languages" onclick="document.getElementById('mobileMenu').classList.remove('active')">Languages</a>
+                <a href="#contact" onclick="document.getElementById('mobileMenu').classList.remove('active')">Contact</a>
+                <a href="#" onclick="window.print(); document.getElementById('mobileMenu').classList.remove('active')">Download PDF</a>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
     <div id="navSpacer" style="height: 64px;"></div>
 
+    <!-- Header Otimizado -->
     <header class="min-h-screen flex items-center justify-center text-center px-6 relative">
         <div class="max-w-5xl reveal">
-            <div class="mb-12">
+
+            <!-- Image: WEB ONLY (print-hidden) -->
+            <div class="mb-10 print-hidden">
                 <div class="bio-image-container grayscale contrast-125 hover:grayscale-0 transition-all duration-700 group relative">
                     <div class="absolute inset-0 border-[1px] border-white/10 group-hover:border-gold/30 transition-colors z-10"></div>
                     <img src="jacqueline-ennis.PNG" alt="Jacqueline A. Ennis" class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
                 </div>
             </div>
-            
-            <h1 class="text-5xl md:text-7xl mb-6 leading-tight serif">Jacqueline A. Ennis</h1>
-            <p class="text-stone-500 uppercase tracking-[0.4em] text-[10px] mb-8">Legal Researcher | Cross-Border & Systemic Risk, Contracts & Governance</p>
-            
-            <div class="max-w-3xl mx-auto prose-custom text-lg">
 
-<p style="font-size: 16px; line-height: 1.8;">
-    Legal researcher with an LL.M. in Business Law (WashU, 2024) and over 15 years of experience in legal research, contract governance, and cross-border regulatory frameworks. Founder of the c-ECO framework, focused on integrating systemic risk into contractual and governance structures. Focused on analyzing how legal risk evolves across transactions and complex systems, particularly in cross-border environments, with an emphasis on pre-dispute risk identification and strategic structuring. Fluent in English and Portuguese (native), with deep expertise in Brazil–US regulatory interfaces.
-</p>
-                
-            </div>
-            
-            <div class="flex justify-center gap-8 mt-10 flex-wrap">
-                <div class="contact-item">
-                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                    contact@c-eco.org
-                </div>
-                <div class="contact-item">
-                    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                    Columbia, Missouri, United States
-                </div>
-                <a href="https://www.linkedin.com/in/jacqueline-a-ennis-ba23b7151?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank" class="contact-item">
-                    <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-2.16A5.99 5.99 0 0 0 18 10h-1.5v2.25a3.75 3.75 0 0 1-3.75 3.75H9.5v1.5h5.25a5.25 5.25 0 0 0 5.25-5.25V18.5h-1.5zM6 10h1.5v2.25A3.75 3.75 0 0 0 11.25 16h3.25v1.5h-3.25A5.25 5.25 0 0 1 6 12.25V10z"/></svg>
+            <!-- Name -->
+            <h1 class="text-5xl md:text-7xl mb-4 leading-tight serif">
+                Jacqueline A. Ennis
+            </h1>
+
+            <!-- Title -->
+            <p class="text-stone-500 uppercase tracking-[0.35em] text-[10px] mb-6">
+                Legal Researcher | Cross-Border Risk, Contracts & Governance
+            </p>
+
+            <!-- Contact Line -->
+            <div class="flex justify-center gap-3 flex-wrap text-[13px] text-stone-400 mb-6 contact-line">
+                <span>contact@c-eco.org</span>
+                <span class="text-stone-600">•</span>
+                <span>Columbia, Missouri, United States</span>
+                <span class="text-stone-600">•</span>
+                <a href="https://www.linkedin.com/in/jacqueline-a-ennis-ba23b7151" target="_blank" class="underline hover:text-gold transition">
                     LinkedIn
                 </a>
             </div>
+
+            <!-- Summary -->
+            <div class="max-w-3xl mx-auto prose-custom text-lg">
+                <p style="font-size: 16px; line-height: 1.75;">
+                    Legal researcher with an LL.M. in Business Law (WashU, 2024) and over 15 years of experience in legal research, contract governance, and cross-border regulatory frameworks. Founder of the c-ECO framework, focused on integrating systemic risk into contractual and governance structures.
+                </p>
+                <p style="font-size: 16px; line-height: 1.75;">
+                    Focused on analyzing how legal risk evolves across transactions and complex systems, particularly in cross-border environments, with an emphasis on pre-dispute risk identification and strategic structuring.
+                </p>
+            </div>
+
         </div>
     </header>
 
     <main class="w-full pb-24">
         
+        <!-- Education -->
         <section id="education" class="reveal py-32 px-6 lg:px-24 bg-[#050505]">
             <div class="max-w-7xl mx-auto">
                 <div class="text-center mb-20">
@@ -667,6 +732,7 @@
             </div>
         </section>
 
+        <!-- Experience -->
         <section id="experience" class="reveal py-32 px-6 lg:px-24">
             <div class="max-w-5xl mx-auto">
                 <div class="text-center mb-20">
@@ -676,6 +742,7 @@
 
                 <div class="space-y-12">
                     
+                    <!-- Founder & President — wording estratégico -->
                     <div class="exp-item">
                         <div class="exp-header">
                             <div>
@@ -685,18 +752,17 @@
                             <span class="exp-date">Feb 2026 – Present</span>
                         </div>
                         <ul class="exp-desc">
-                            <ul class="exp-desc">
-    <li>Lead the Foundation’s institutional strategy and development of the c-ECO governance framework, focused on systemic risk, contractual structures, and decision-making under uncertainty.</li>
-    <li>Direct applied legal research examining how contractual and regulatory structures shape risk trajectories in cross-border contexts.</li>
-    <li>Design interdisciplinary initiatives integrating law, governance, and system-level analysis through institutional collaborations.</li>
-</ul>
+                            <li>Lead the Foundation's institutional strategy and development of the c-ECO governance framework, focused on systemic risk, contractual structures, and decision-making under uncertainty.</li>
+                            <li>Direct applied legal research examining how contractual and regulatory structures shape risk trajectories in cross-border contexts.</li>
+                            <li>Design interdisciplinary initiatives integrating law, governance, and system-level analysis through institutional collaborations.</li>
+                        </ul>
                     </div>
 
                     <div class="exp-item">
                         <div class="exp-header">
                             <div>
                                 <div class="exp-title">Legal SME (AI Systems)</div>
-                                <div class="exp-org">Handshake AI — Remote</div>
+                                <div class="exp-org">Handshake — Remote</div>
                             </div>
                             <span class="exp-date">Sep 2025 – Present</span>
                         </div>
@@ -707,6 +773,7 @@
                         </ul>
                     </div>
 
+                    <!-- Visiting Scholar — wording estratégico -->
                     <div class="exp-item">
                         <div class="exp-header">
                             <div>
@@ -716,13 +783,13 @@
                             <span class="exp-date">Jan 2025 – Present</span>
                         </div>
                         <ul class="exp-desc">
-                            <ul class="exp-desc">
-    <li>Conduct legal and strategic research at the intersection of contract governance, systemic risk, and Brazil–US regulatory cooperation.</li>
-    <li>Analyze how cross-border legal and regulatory structures contribute to dispute formation and evolving risk exposure.</li>
-    <li>Develop applied frameworks with relevance for international transactions, infrastructure governance, and ESG-related legal duties.</li>
-</ul>
+                            <li>Conduct legal and strategic research at the intersection of contract governance, systemic risk, and Brazil–US regulatory cooperation.</li>
+                            <li>Analyze how cross-border legal and regulatory structures contribute to dispute formation and evolving risk exposure.</li>
+                            <li>Develop applied frameworks with relevance for international transactions, infrastructure governance, and ESG-related legal duties.</li>
+                        </ul>
                     </div>
 
+                    <!-- Founder & Lead Researcher | c-ECO Doctrine — wording estratégico -->
                     <div class="exp-item">
                         <div class="exp-header">
                             <div>
@@ -732,11 +799,10 @@
                             <span class="exp-date">2023 – Present</span>
                         </div>
                         <ul class="exp-desc">
-                            <ul class="exp-desc">
-    <li>Lead a research initiative on contract law, systemic risk, and governance, institutionalized under the Johann Christian Hasse Foundation.</li>
-    <li>Develop a legal framework translating systemic risk into actionable tools applicable to contracts, due diligence, and regulatory design.</li>
-    <li>Examine how legal, contractual, and regulatory structures can lead to dispute formation, with a focus on identifying and mitigating risk before escalation.</li>
-</ul>
+                            <li>Lead a research initiative on contract law, systemic risk, and governance, institutionalized under the Johann Christian Hasse Foundation in 2026.</li>
+                            <li>Develop a legal framework translating systemic risk into actionable tools applicable to contracts, due diligence, and regulatory design.</li>
+                            <li>Examine how legal, contractual, and regulatory structures can lead to dispute formation, with a focus on identifying and mitigating risk before escalation.</li>
+                        </ul>
                     </div>
 
                     <div class="exp-item">
@@ -745,13 +811,12 @@
                                 <div class="exp-title">Document Review Analyst</div>
                                 <div class="exp-org">ASIFlex | ASI COBRA — Remote</div>
                             </div>
-                            <span class="exp-date"> Feb 2023 – Feb 2026</span>
+                            <span class="exp-date">2023 – Feb 2026</span>
                         </div>
                         <ul class="exp-desc">
-                            <ul class="exp-desc">
-    <li>Conducted legal document analysis with emphasis on accuracy, risk identification, and compliance validation.</li>
-    <li>Reviewed documentation for regulatory alignment and potential legal exposure across multiple jurisdictions.</li>
-<li>Supported quality assurance processes and maintained strict confidentiality standards in sensitive legal environments.</li>
+                            <li>Conducted high-volume legal document analysis with emphasis on accuracy, risk identification, and compliance validation.</li>
+                            <li>Reviewed documentation for consistency, regulatory alignment, and potential legal exposure across multiple jurisdictions.</li>
+                            <li>Supported quality assurance processes and maintained strict confidentiality standards in sensitive legal environments.</li>
                         </ul>
                     </div>
 
@@ -761,15 +826,14 @@
                                 <div class="exp-title">Contract Administrator</div>
                                 <div class="exp-org">Bluebird Fiber — Columbia, Missouri, United States</div>
                             </div>
-                            <span class="exp-date">Jan 2021 – Oct 2023</span>
+                            <span class="exp-date">2021 – 2023</span>
                         </div>
                         <ul class="exp-desc">
-                            <ul class="exp-desc">
-    <li>Supported the creation of the company’s first legal operations function and served as primary coordinator for the full contract lifecycle, from intake to execution and post-signature tracking.</li>
-    <li>Reviewed NDAs, right-of-entry agreements, vendor contracts, and service agreements; identified key terms, summarized revisions, and flagged potential risks for legal review.</li>
-    <li>Helped implement a contract automation platform (CLM) and managed cross-functional workflows involving operations, procurement, finance, and executive leadership.</li>
-    <li>Ensured alignment with internal policies, facilitated cross-functional communication, and maintained transparent contract reporting for finance reconciliation and project planning.</li>
-</ul>
+                            <li>Supported the creation of the company's first legal operations function and served as primary coordinator for the full contract lifecycle, from intake to execution and post-signature tracking.</li>
+                            <li>Reviewed NDAs, right-of-entry agreements, vendor contracts, and service agreements; identified key terms, summarized revisions, and flagged potential risks for legal review.</li>
+                            <li>Helped implement a contract automation platform (CLM) and managed cross-functional workflows involving operations, procurement, finance, and executive leadership.</li>
+                            <li>Ensured alignment with internal policies, facilitated cross-functional communication, and maintained transparent contract reporting for finance reconciliation and project planning.</li>
+                        </ul>
                     </div>
 
                     <div class="exp-item">
@@ -781,10 +845,10 @@
                             <span class="exp-date">Jul 2010 – Jul 2020</span>
                         </div>
                         <ul class="exp-desc">
-                            <ul class="exp-desc">
-    <li>Managed complex immigration matters involving legal research, procedural analysis, and coordination with federal agencies.</li>
-    <li>Prepared and submitted legal documentation ensuring compliance with federal requirements and deadlines.</li>
-</ul>
+                            <li>Managed complex, long-term immigration matters involving extensive legal research, procedural analysis, and coordination with federal agencies.</li>
+                            <li>Prepared, organized, and submitted comprehensive legal documentation ensuring accuracy, completeness, and compliance with federal requirements and deadlines.</li>
+                            <li>Developed strong legal writing, document management, and regulatory navigation skills, while reinforcing the ability to handle sensitive information and manage high-stakes cases with precision and professionalism.</li>
+                        </ul>
                     </div>
 
                 </div>
@@ -809,7 +873,7 @@
                 </div>
             </div>
         </section>
-
+        <!-- Competencies -->
         <section id="competencies" class="reveal py-32 px-6 lg:px-24 bg-[#050505]">
             <div class="max-w-5xl mx-auto">
                 <div class="text-center mb-20">
@@ -817,20 +881,21 @@
                     <h2 class="text-5xl md:text-6xl text-white serif italic">Core Competencies</h2>
                 </div>
                 <div class="grid md:grid-cols-3 gap-3">
-    <div class="comp-item">Legal Research & Analysis</div>
-    <div class="comp-item">Cross-Border Legal Frameworks</div>
-    <div class="comp-item">Contract Governance & Lifecycle</div>
-    <div class="comp-item">Pre-Dispute Risk Analysis</div>
-    <div class="comp-item">Due Diligence Support</div>
-    <div class="comp-item">Regulatory Analysis (Brazil–US)</div>
-    <div class="comp-item">Legal Writing</div>
-    <div class="comp-item">Systemic Risk Analysis</div>
-    <div class="comp-item">AI-Enabled Legal Systems</div>
-    <div class="comp-item">Governance & Compliance</div>
-</div>
+                    <div class="comp-item">Legal Research & Analysis</div>
+                    <div class="comp-item">Cross-Border Legal Frameworks</div>
+                    <div class="comp-item">Contract Governance & Lifecycle</div>
+                    <div class="comp-item">Pre-Dispute Risk Analysis</div>
+                    <div class="comp-item">Due Diligence Support</div>
+                    <div class="comp-item">Regulatory Analysis (Brazil–US)</div>
+                    <div class="comp-item">Legal Writing</div>
+                    <div class="comp-item">Systemic Risk Analysis</div>
+                    <div class="comp-item">AI-Enabled Legal Systems</div>
+                    <div class="comp-item">Governance & Compliance</div>
+                </div>
             </div>
         </section>
 
+        <!-- Languages -->
         <section id="languages" class="reveal py-32 px-6 lg:px-24">
             <div class="max-w-5xl mx-auto">
                 <div class="text-center mb-20">
@@ -856,6 +921,7 @@
             </div>
         </section>
 
+        <!-- Contact / Footer -->
         <section id="contact" class="reveal py-32 px-6 lg:px-24 bg-[#050505]">
             <div class="max-w-4xl mx-auto text-center">
                 <div class="divider-gold"></div>
@@ -869,7 +935,7 @@
                         <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                         Columbia, Missouri, United States
                     </div>
-                    <a href="https://www.linkedin.com/in/jacqueline-a-ennis-ba23b7151?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank" class="contact-item">
+                    <a href="https://www.linkedin.com/in/jacqueline-a-ennis-ba23b7151" target="_blank" class="contact-item">
                         <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-2.16A5.99 5.99 0 0 0 18 10h-1.5v2.25a3.75 3.75 0 0 1-3.75 3.75H9.5v1.5h5.25a5.25 5.25 0 0 0 5.25-5.25V18.5h-1.5zM6 10h1.5v2.25A3.75 3.75 0 0 0 11.25 16h3.25v1.5h-3.25A5.25 5.25 0 0 1 6 12.25V10z"/></svg>
                         LinkedIn
                     </a>
@@ -907,5 +973,3 @@
     </script>
 </body>
 </html>
-
-
