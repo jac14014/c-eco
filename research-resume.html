@@ -275,13 +275,18 @@
             }
             
             #siteNav, 
-            #navSpacer,
-            .reveal,
-            .divider-gold,
-            .contact-item svg,
-            .lang-flag {
-                display: none !important;
-            }
+#navSpacer,
+.divider-gold,
+.contact-item svg,
+.lang-flag {
+    display: none !important;
+}
+
+.reveal {
+    display: block !important;
+    opacity: 1 !important;
+    transform: none !important;
+}
             
             section {
                 padding: 0 !important;
@@ -573,38 +578,31 @@
 
 <body class="selection:bg-gold/30">
 
-    <nav id="siteNav" class="fixed top-0 w-full z-50 border-b border-white/5 bg-stone-950/90 backdrop-blur-md">
+   <nav id="siteNav" class="fixed top-0 w-full z-50 border-b border-white/5 bg-stone-950/90 backdrop-blur-md">
     <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        
-        <!-- Logo -->
         <a href="#" class="inline-flex items-center gap-3 group">
-            <span class="text-gold border gold-line px-2 py-1 text-sm bg-black/40 transition-all group-hover:shadow-[0_0_16px_rgba(214,188,126,0.22)]">Σ</span>
+            <span class="text-gold border gold-line px-2 py-1 text-sm bg-black/40">Σ</span>
             <span class="text-[10px] uppercase tracking-[0.3em] font-bold">c-ECO Profile</span>
         </a>
 
-        <!-- Desktop Menu -->
-        <div class="hidden lg:flex gap-8 text-[10px] uppercase tracking-widest text-stone-500 items-center">
-            <a href="#education" class="hover:text-gold transition">Education</a>
-            <a href="#experience" class="hover:text-gold transition">Experience</a>
-            <a href="#competencies" class="hover:text-gold transition">Competencies</a>
-            <a href="#contact" class="text-gold border border-gold/40 px-3 py-1 hover:bg-gold hover:text-black transition">Contact</a>
+        <button onclick="document.getElementById('mobileMenu').classList.toggle('hidden')" 
+                class="text-gold border border-gold/40 px-3 py-2 text-xl leading-none hover:bg-gold hover:text-black transition">
+            ☰
+        </button>
+    </div>
 
-            <button onclick="window.print()" class="text-gold border border-gold/40 px-3 py-1 hover:bg-gold hover:text-black transition">
+    <div id="mobileMenu" class="hidden border-t border-white/5 bg-stone-950/95 px-6 py-6">
+        <div class="flex flex-col gap-5 text-[11px] uppercase tracking-widest text-stone-400">
+            <a href="#education" onclick="document.getElementById('mobileMenu').classList.add('hidden')">Education</a>
+            <a href="#experience" onclick="document.getElementById('mobileMenu').classList.add('hidden')">Experience</a>
+            <a href="#competencies" onclick="document.getElementById('mobileMenu').classList.add('hidden')">Competencies</a>
+            <a href="#languages" onclick="document.getElementById('mobileMenu').classList.add('hidden')">Languages</a>
+            <a href="#contact" onclick="document.getElementById('mobileMenu').classList.add('hidden')">Contact</a>
+
+            <button onclick="window.print()" class="mt-2 text-gold border border-gold/40 px-4 py-2 text-left uppercase tracking-widest hover:bg-gold hover:text-black transition">
                 Download PDF
             </button>
         </div>
-
-        <!-- Mobile Menu -->
-        <div class="flex lg:hidden items-center gap-3">
-            <a href="#education" class="text-[10px] uppercase tracking-widest text-stone-400">Edu</a>
-            <a href="#experience" class="text-[10px] uppercase tracking-widest text-stone-400">Exp</a>
-            <a href="#competencies" class="text-[10px] uppercase tracking-widest text-stone-400">Skills</a>
-
-            <button onclick="window.print()" class="text-gold border border-gold/40 px-2 py-1 text-[10px] uppercase tracking-widest hover:bg-gold hover:text-black transition">
-                PDF
-            </button>
-        </div>
-
     </div>
 </nav>
     <div id="navSpacer" style="height: 64px;"></div>
