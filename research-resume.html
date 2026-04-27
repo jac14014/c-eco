@@ -19,9 +19,10 @@
         }
     </script>
     
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     
     <style>
+        /* ========== SCREEN / WEB VERSION (c-ECO Dark) ========== */
         :root { --stone-950: #0c0a09; --gold: #d6bc7e; }
         body { 
             background-color: var(--stone-950); 
@@ -262,6 +263,328 @@
             fill: currentColor;
         }
         
+        /* ========== PRINT / PDF VERSION ========== */
+        @media print {
+            @page {
+                size: letter;
+                margin: 0.75in 0.9in;
+            }
+            
+            body {
+                background: #ffffff !important;
+                color: #1a1a1a !important;
+                font-family: 'Inter', sans-serif !important;
+                line-height: 1.5 !important;
+                font-size: 10.5pt !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            /* Hide web-only elements */
+            #siteNav, 
+            #navSpacer,
+            .reveal,
+            .divider-gold,
+            .contact-item svg,
+            .lang-flag {
+                display: none !important;
+            }
+            
+            /* Reset all sections */
+            section {
+                padding: 0 !important;
+                margin: 0 !important;
+                background: #ffffff !important;
+                min-height: auto !important;
+            }
+            
+            main {
+                padding-bottom: 0 !important;
+            }
+            
+            /* Header / Hero for print */
+            header {
+                min-height: auto !important;
+                padding: 0 0 20px 0 !important;
+                margin-bottom: 20px !important;
+                border-bottom: 2px solid #1a1a2e !important;
+                page-break-after: avoid;
+            }
+            
+            header .bio-image-container {
+                width: 1.8in !important;
+                height: 1.8in !important;
+                border-radius: 0 !important;
+                border: 1px solid #ccc !important;
+                margin: 0 0 15px 0 !important;
+                float: right !important;
+                margin-left: 20px !important;
+                aspect-ratio: auto !important;
+                filter: none !important;
+                -webkit-filter: none !important;
+            }
+            
+            header .bio-image-container img {
+                border-radius: 0 !important;
+                opacity: 1 !important;
+            }
+            
+            header h1 {
+                font-family: 'Cormorant Garamond', serif !important;
+                font-size: 24pt !important;
+                font-weight: 700 !important;
+                color: #1a1a2e !important;
+                margin-bottom: 6px !important;
+                text-align: left !important;
+            }
+            
+            header .tagline {
+                font-family: 'Inter', sans-serif !important;
+                font-size: 9pt !important;
+                color: #555 !important;
+                text-transform: none !important;
+                letter-spacing: 0.5px !important;
+                text-align: left !important;
+                margin-bottom: 10px !important;
+            }
+            
+            header .prose-custom p {
+                font-size: 9.5pt !important;
+                color: #333 !important;
+                text-align: left !important;
+                line-height: 1.5 !important;
+                margin-bottom: 10px !important;
+            }
+            
+            header .flex.justify-center {
+                justify-content: flex-start !important;
+                gap: 20px !important;
+                margin-top: 10px !important;
+            }
+            
+            header .contact-item {
+                font-size: 9pt !important;
+                color: #555 !important;
+            }
+            
+            /* Section titles for print */
+            .text-center {
+                text-align: left !important;
+            }
+            
+            section .text-center.mb-20,
+            section .text-center.mb-10 {
+                margin-bottom: 15px !important;
+            }
+            
+            section h2 {
+                font-family: 'Cormorant Garamond', serif !important;
+                font-size: 14pt !important;
+                font-weight: 600 !important;
+                color: #1a1a2e !important;
+                text-transform: uppercase !important;
+                letter-spacing: 1.5px !important;
+                border-bottom: 1px solid #d6bc7e !important;
+                padding-bottom: 6px !important;
+                margin-bottom: 15px !important;
+                font-style: normal !important;
+            }
+            
+            section h2.italic {
+                font-style: normal !important;
+            }
+            
+            /* Hide decorative labels */
+            .text-gold.uppercase.tracking-\[0\.6em\] {
+                display: none !important;
+            }
+            
+            /* Education cards → simple list */
+            .edu-card {
+                background: none !important;
+                border: none !important;
+                padding: 0 !important;
+                margin-bottom: 8px !important;
+            }
+            
+            .edu-degree {
+                font-family: 'Inter', sans-serif !important;
+                font-size: 10.5pt !important;
+                font-weight: 600 !important;
+                color: #1a1a1a !important;
+            }
+            
+            .edu-school {
+                font-size: 9.5pt !important;
+                color: #444 !important;
+            }
+            
+            .edu-year {
+                font-size: 9pt !important;
+                color: #666 !important;
+            }
+            
+            /* Experience items */
+            .exp-item {
+                border-left: none !important;
+                padding-left: 0 !important;
+                margin-bottom: 16px !important;
+                page-break-inside: avoid;
+            }
+            
+            .exp-item::before {
+                display: none !important;
+            }
+            
+            .exp-title {
+                font-family: 'Inter', sans-serif !important;
+                font-size: 10.5pt !important;
+                font-weight: 600 !important;
+                color: #1a1a1a !important;
+            }
+            
+            .exp-org {
+                font-size: 9pt !important;
+                color: #555 !important;
+                text-transform: none !important;
+                letter-spacing: 0 !important;
+            }
+            
+            .exp-date {
+                font-size: 9pt !important;
+                color: #777 !important;
+                font-style: italic !important;
+            }
+            
+            .exp-desc li {
+                font-size: 9.5pt !important;
+                color: #333 !important;
+                line-height: 1.45 !important;
+                margin-bottom: 4px !important;
+                padding-left: 12px !important;
+            }
+            
+            .exp-desc li::before {
+                color: #1a1a2e !important;
+            }
+            
+            /* Additional experience */
+            .add-exp-item {
+                background: none !important;
+                border: none !important;
+                padding: 0 !important;
+                margin-bottom: 10px !important;
+            }
+            
+            .add-exp-item .text-gold {
+                color: #1a1a2e !important;
+                font-weight: 600 !important;
+                font-size: 9.5pt !important;
+            }
+            
+            .add-exp-item .text-white {
+                color: #1a1a1a !important;
+            }
+            
+            .add-exp-item .text-stone-500,
+            .add-exp-item .text-stone-400 {
+                color: #555 !important;
+            }
+            
+            /* Competencies → inline */
+            .comp-item {
+                background: none !important;
+                border: none !important;
+                padding: 2px 0 !important;
+                font-size: 9.5pt !important;
+                color: #333 !important;
+                display: inline !important;
+            }
+            
+            .comp-item::before {
+                display: none !important;
+            }
+            
+            .comp-item::after {
+                content: ' · ' !important;
+                color: #999 !important;
+            }
+            
+            .comp-item:last-child::after {
+                content: '' !important;
+            }
+            
+            /* Languages */
+            .lang-item {
+                gap: 8px !important;
+            }
+            
+            .lang-item .text-white {
+                color: #1a1a1a !important;
+                font-weight: 600 !important;
+            }
+            
+            .lang-item .text-stone-500 {
+                color: #555 !important;
+            }
+            
+            /* Footer / Contact */
+            #contact {
+                border-top: 1px solid #ddd !important;
+                margin-top: 20px !important;
+                padding-top: 15px !important;
+            }
+            
+            #contact .text-stone-500,
+            #contact .text-stone-600 {
+                color: #555 !important;
+            }
+            
+            /* Grid adjustments */
+            .grid.md\:grid-cols-2,
+            .grid.md\:grid-cols-3 {
+                display: block !important;
+            }
+            
+            .grid.md\:grid-cols-2 > div,
+            .grid.md\:grid-cols-3 > div {
+                margin-bottom: 8px !important;
+            }
+            
+            /* Page breaks */
+            #education,
+            #experience,
+            #competencies,
+            #languages {
+                page-break-inside: avoid;
+            }
+            
+            /* Ensure white background everywhere */
+            .bg-\[\#050505\],
+            .bg-stone-950\/90,
+            .bg-black\/40,
+            .bg-black\/30,
+            .bg-black\/20 {
+                background: #ffffff !important;
+            }
+            
+            /* Text color resets */
+            .text-white,
+            .text-stone-200,
+            .text-stone-300,
+            .text-stone-400,
+            .text-stone-500,
+            .text-stone-600 {
+                color: #1a1a1a !important;
+            }
+            
+            .text-gold,
+            .gold,
+            .gold-soft {
+                color: #1a1a2e !important;
+            }
+        }
+        
         @media (max-width: 768px) {
             .reveal { opacity: 1; transform: none; }
         }
@@ -270,7 +593,7 @@
 
 <body class="selection:bg-gold/30">
 
-    <!-- Navigation -->
+    <!-- Navigation (hidden on print) -->
     <nav id="siteNav" class="fixed top-0 w-full z-50 border-b border-white/5 bg-stone-950/90 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="inline-flex items-center gap-3 group">
@@ -531,7 +854,7 @@
                             <div class="text-white font-medium text-sm">English</div>
                             <div class="text-stone-500 text-xs">Fluent — Professional & Academic</div>
                         </div>
-                    </div>
+                    </div>                    
                     <div class="lang-item">
                         <div class="lang-flag pt">PT</div>
                         <div>
