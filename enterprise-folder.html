@@ -1,0 +1,1431 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>c-ECO Enterprise — Brochure</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cinzel+Decorative:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================================
+           c-ECO ENTERPRISE — BROCHURE (8 folhas / 16 páginas)
+           Design baseado no c-ECO Fellowship Program
+           ============================================================ */
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --forest-dark: #0D1F0D;
+            --forest-mid: #1A3320;
+            --forest-light: #2D4A35;
+            --gold: #C9A84C;
+            --gold-light: #E8D5A3;
+            --gold-dark: #8B6914;
+            --gold-metallic: linear-gradient(135deg, #C9A84C 0%, #E8D5A3 30%, #C9A84C 50%, #8B6914 70%, #C9A84C 100%);
+            --cream: #F5F0E6;
+            --cream-dark: #E8E0D0;
+            --text-light: rgba(245, 240, 230, 0.85);
+            --text-muted: rgba(245, 240, 230, 0.55);
+            --border-gold: rgba(201, 168, 76, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #333;
+            color: var(--cream);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ============================================================
+           PAGE CONTAINER — Each page is A4 portrait
+           ============================================================ */
+        .page {
+            width: 210mm;
+            height: 297mm;
+            position: relative;
+            overflow: hidden;
+            page-break-after: always;
+            background: var(--forest-dark);
+        }
+
+        .page:last-child {
+            page-break-after: auto;
+        }
+
+        /* Background texture overlay */
+        .page::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse at 30% 20%, rgba(45, 74, 53, 0.4) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 80%, rgba(26, 51, 32, 0.6) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Decorative corner ornaments */
+        .corner-ornament {
+            position: absolute;
+            width: 40mm;
+            height: 40mm;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .corner-ornament.tl {
+            top: 0;
+            left: 0;
+            border-top: 1px solid var(--border-gold);
+            border-left: 1px solid var(--border-gold);
+        }
+
+        .corner-ornament.tr {
+            top: 0;
+            right: 0;
+            border-top: 1px solid var(--border-gold);
+            border-right: 1px solid var(--border-gold);
+        }
+
+        .corner-ornament.bl {
+            bottom: 0;
+            left: 0;
+            border-bottom: 1px solid var(--border-gold);
+            border-left: 1px solid var(--border-gold);
+        }
+
+        .corner-ornament.br {
+            bottom: 0;
+            right: 0;
+            border-bottom: 1px solid var(--border-gold);
+            border-right: 1px solid var(--border-gold);
+        }
+
+        /* Inner frame */
+        .inner-frame {
+            position: absolute;
+            inset: 8mm;
+            border: 0.5px solid var(--border-gold);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Content area */
+        .content {
+            position: relative;
+            z-index: 3;
+            padding: 18mm 20mm;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ============================================================
+           TYPOGRAPHY SYSTEM
+           ============================================================ */
+        .brand {
+            font-family: 'Cinzel', serif;
+            font-size: 10pt;
+            font-weight: 600;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .brand-sub {
+            font-family: 'Cinzel', serif;
+            font-size: 8pt;
+            font-weight: 400;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-top: 2mm;
+        }
+
+        .headline-xl {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 28pt;
+            font-weight: 400;
+            line-height: 1.2;
+            color: var(--gold-light);
+            text-shadow: 0 2px 20px rgba(201, 168, 76, 0.2);
+        }
+
+        .headline-lg {
+            font-family: 'Cinzel', serif;
+            font-size: 18pt;
+            font-weight: 500;
+            line-height: 1.25;
+            color: var(--gold-light);
+        }
+
+        .headline-md {
+            font-family: 'Cinzel', serif;
+            font-size: 14pt;
+            font-weight: 500;
+            line-height: 1.3;
+            color: var(--gold);
+        }
+
+        .headline-sm {
+            font-family: 'Cinzel', serif;
+            font-size: 11pt;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .body-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 9pt;
+            font-weight: 300;
+            line-height: 1.7;
+            color: var(--text-light);
+        }
+
+        .body-text em {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--gold-light);
+        }
+
+        .label {
+            font-family: 'Inter', sans-serif;
+            font-size: 7pt;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .quote-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 13pt;
+            font-style: italic;
+            line-height: 1.5;
+            color: var(--cream);
+        }
+
+        /* ============================================================
+           DECORATIVE ELEMENTS
+           ============================================================ */
+        .gold-line {
+            width: 30mm;
+            height: 1px;
+            background: var(--gold-metallic);
+            margin: 6mm 0;
+        }
+
+        .gold-line.center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .gold-line.full {
+            width: 100%;
+        }
+
+        .diamond {
+            width: 4mm;
+            height: 4mm;
+            background: var(--gold-metallic);
+            transform: rotate(45deg);
+            margin: 4mm auto;
+        }
+
+        .seal-placeholder {
+            width: 50mm;
+            height: 50mm;
+            border: 1px solid var(--border-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            background: radial-gradient(circle, rgba(201, 168, 76, 0.1) 0%, transparent 70%);
+        }
+
+        .seal-placeholder span {
+            font-family: 'Cinzel', serif;
+            font-size: 8pt;
+            color: var(--gold);
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        /* ============================================================
+           CARDS & BOXES
+           ============================================================ */
+        .problem-card {
+            padding: 5mm 6mm;
+            border-left: 2px solid var(--gold);
+            background: rgba(201, 168, 76, 0.05);
+            margin-bottom: 4mm;
+        }
+
+        .problem-card h4 {
+            font-family: 'Cinzel', serif;
+            font-size: 8pt;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            margin-bottom: 2mm;
+        }
+
+        .problem-card p {
+            font-size: 8pt;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        .offer-card {
+            padding: 5mm 6mm;
+            border: 0.5px solid var(--border-gold);
+            margin-bottom: 3mm;
+            position: relative;
+        }
+
+        .offer-card.featured {
+            border: 1px solid var(--gold);
+            background: rgba(201, 168, 76, 0.08);
+        }
+
+        .offer-card .badge {
+            position: absolute;
+            top: -2.5mm;
+            right: 4mm;
+            background: var(--gold-metallic);
+            color: var(--forest-dark);
+            font-size: 5.5pt;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 1mm 3mm;
+        }
+
+        .offer-card h4 {
+            font-family: 'Cinzel', serif;
+            font-size: 9pt;
+            font-weight: 600;
+            color: var(--gold-light);
+            margin-bottom: 1mm;
+        }
+
+        .offer-card .duration {
+            font-size: 6.5pt;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            margin-bottom: 2mm;
+        }
+
+        .offer-card p {
+            font-size: 7.5pt;
+            color: var(--text-light);
+            line-height: 1.4;
+            margin-bottom: 2mm;
+        }
+
+        .offer-card .price {
+            font-family: 'Cinzel', serif;
+            font-size: 9pt;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .pillar {
+            display: flex;
+            align-items: flex-start;
+            gap: 4mm;
+            padding: 4mm 0;
+            border-bottom: 0.5px solid var(--border-gold);
+        }
+
+        .pillar:last-child {
+            border-bottom: none;
+        }
+
+        .pillar-num {
+            font-family: 'Cinzel', serif;
+            font-size: 16pt;
+            font-weight: 300;
+            color: var(--gold);
+            line-height: 1;
+            min-width: 10mm;
+        }
+
+        .pillar-content h5 {
+            font-family: 'Cinzel', serif;
+            font-size: 8pt;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            margin-bottom: 1mm;
+        }
+
+        .pillar-content p {
+            font-size: 7.5pt;
+            color: var(--text-light);
+            line-height: 1.4;
+        }
+
+        .sector-item {
+            font-size: 7.5pt;
+            color: var(--text-light);
+            padding: 2mm 0;
+            border-bottom: 0.5px solid rgba(201, 168, 76, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 3mm;
+        }
+
+        .sector-item::before {
+            content: '◆';
+            color: var(--gold);
+            font-size: 5pt;
+        }
+
+        /* ============================================================
+           CTA BOX
+           ============================================================ */
+        .cta-box {
+            padding: 6mm;
+            border: 1px solid var(--gold);
+            text-align: center;
+            background: rgba(201, 168, 76, 0.08);
+        }
+
+        .cta-box p {
+            font-size: 7.5pt;
+            color: var(--text-light);
+            margin-bottom: 3mm;
+        }
+
+        .cta-box .cta-url {
+            font-family: 'Cinzel', serif;
+            font-size: 10pt;
+            font-weight: 600;
+            color: var(--gold-light);
+            letter-spacing: 1px;
+        }
+
+        .cta-box .cta-contact {
+            font-size: 7pt;
+            color: var(--text-muted);
+            margin-top: 2mm;
+        }
+
+        /* ============================================================
+           DARK BOX (for root cause, quotes)
+           ============================================================ */
+        .dark-box {
+            padding: 6mm;
+            background: rgba(0, 0, 0, 0.3);
+            border: 0.5px solid var(--border-gold);
+        }
+
+        .dark-box blockquote {
+            font-family: 'Playfair Display', serif;
+            font-size: 11pt;
+            font-style: italic;
+            line-height: 1.4;
+            color: var(--cream);
+            margin-bottom: 3mm;
+        }
+
+        .dark-box p {
+            font-size: 7.5pt;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .dark-box strong {
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        /* ============================================================
+           PAGE-SPECIFIC LAYOUTS
+           ============================================================ */
+
+        /* PAGE 1: COVER */
+        .page-cover .content {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .page-cover .brand {
+            font-size: 12pt;
+            letter-spacing: 8px;
+            margin-bottom: 3mm;
+        }
+
+        .page-cover .brand-sub {
+            font-size: 9pt;
+            letter-spacing: 5px;
+            margin-bottom: 10mm;
+        }
+
+        .page-cover .headline-xl {
+            font-size: 24pt;
+            margin-bottom: 6mm;
+        }
+
+        .page-cover .tagline {
+            font-family: 'Playfair Display', serif;
+            font-size: 12pt;
+            font-style: italic;
+            color: var(--text-light);
+            max-width: 120mm;
+            line-height: 1.5;
+        }
+
+        .page-cover .seal-placeholder {
+            margin: 8mm auto;
+        }
+
+        .page-cover .footer-info {
+            position: absolute;
+            bottom: 18mm;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+
+        .page-cover .footer-info p {
+            font-size: 7pt;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        /* PAGE 2: THE MOMENT */
+        .page-moment .scenario {
+            font-family: 'Playfair Display', serif;
+            font-size: 11pt;
+            font-style: italic;
+            color: var(--gold-light);
+            line-height: 1.6;
+            padding: 5mm;
+            border-left: 2px solid var(--gold);
+            margin: 5mm 0;
+            background: rgba(201, 168, 76, 0.05);
+        }
+
+        /* PAGE 3: THE ENEMY + CAUSE */
+        .page-enemy .enemy-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 14pt;
+            font-style: italic;
+            color: var(--gold-light);
+            text-align: center;
+            padding: 8mm 5mm;
+            border: 1px solid var(--border-gold);
+            margin: 6mm 0;
+        }
+
+        /* PAGE 4: THE SOLUTION */
+        .page-solution .concept-box {
+            padding: 6mm;
+            border: 1px solid var(--gold);
+            margin: 5mm 0;
+            text-align: center;
+        }
+
+        .page-solution .concept-box h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 10pt;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 3mm;
+        }
+
+        .page-solution .concept-box p {
+            font-size: 8pt;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* PAGE 5: THREE PILLARS */
+        .page-pillars .content {
+            justify-content: space-between;
+        }
+
+        /* PAGE 6: ENGAGEMENT OPTIONS */
+        .page-offer .content {
+            justify-content: space-between;
+        }
+
+        /* PAGE 7: SECTORS + CREDENTIALS */
+        .page-sectors .sectors-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 8mm;
+            margin: 4mm 0;
+        }
+
+        .page-sectors .origin {
+            margin-top: auto;
+            padding-top: 5mm;
+            border-top: 0.5px solid var(--border-gold);
+        }
+
+        .page-sectors .origin p {
+            font-size: 6.5pt;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .page-sectors .origin strong {
+            color: var(--gold);
+        }
+
+        /* PAGE 8: CTA + BACK COVER */
+        .page-cta .content {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .page-cta .headline-lg {
+            font-size: 20pt;
+            margin-bottom: 6mm;
+        }
+
+        .page-cta .cta-final {
+            padding: 8mm 12mm;
+            border: 1.5px solid var(--gold);
+            margin: 8mm 0;
+            background: rgba(201, 168, 76, 0.1);
+        }
+
+        .page-cta .cta-final .cta-url {
+            font-family: 'Cinzel', serif;
+            font-size: 14pt;
+            font-weight: 600;
+            color: var(--gold-light);
+            letter-spacing: 1px;
+        }
+
+        .page-cta .cta-final .cta-sub {
+            font-size: 8pt;
+            color: var(--text-muted);
+            margin-top: 3mm;
+            letter-spacing: 1px;
+        }
+
+        /* PAGE 16: BACK COVER */
+        .page-back .content {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .page-back .quote-final {
+            font-family: 'Playfair Display', serif;
+            font-size: 14pt;
+            font-style: italic;
+            line-height: 1.6;
+            color: var(--cream);
+            max-width: 130mm;
+        }
+
+        .page-back .quote-final .accent {
+            color: var(--gold);
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        .page-back .brand-back {
+            position: absolute;
+            bottom: 18mm;
+            font-family: 'Cinzel', serif;
+            font-size: 8pt;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* ============================================================
+           PRINT STYLES
+           ============================================================ */
+        @media print {
+            body {
+                background: white;
+            }
+            .page {
+                page-break-after: always;
+                box-shadow: none;
+            }
+            .page:last-child {
+                page-break-after: auto;
+            }
+        }
+
+        /* Preview styling for screen */
+        @media screen {
+            body {
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            .page {
+                box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ============================================================
+     FOLHA 1 — PÁGINAS 1-2
+     Página 1 (frente exterior): CAPA
+     Página 2 (verso interior): THE MOMENT
+     ============================================================ -->
+
+<!-- PAGE 1: COVER -->
+<div class="page page-cover">
+    <div class="corner-ornament tl"></div>
+    <div class="corner-ornament tr"></div>
+    <div class="corner-ornament bl"></div>
+    <div class="corner-ornament br"></div>
+    <div class="inner-frame"></div>
+    
+    <div class="content">
+        <div class="brand">c-ECO</div>
+        <div class="brand-sub">Enterprise</div>
+        <div class="gold-line center"></div>
+        <div class="diamond"></div>
+        
+        <div class="headline-xl">
+            The moment before<br>
+            failure is visible.
+        </div>
+        
+        <div class="gold-line center"></div>
+        
+        <p class="tagline">
+            The problem is: no one can act on it.<br>
+            c-ECO makes that moment<br>
+            contractually actionable.
+        </p>
+        
+        <div class="seal-placeholder">
+            <span>c-ECO<br>ENTERPRISE<br>SEAL</span>
+        </div>
+        
+        <div class="footer-info">
+            <p>Systemic Governance Initiative</p>
+            <p style="margin-top:2mm;">Supported by the Johann Christian Hasse Foundation</p>
+        </div>
+    </div>
+</div>
+
+<!-- PAGE 2: THE MOMENT -->
+<div class="page page-moment">
+    <div class="corner-ornament tl"></div>
+    <div class="corner-ornament tr"></div>
+    <div class="corner-ornament bl"></div>
+    <div class="corner-ornament br"></div>
+    <div class="inner-frame"></div>
+    
+    <div class="content">
+        <div class="label">The Moment</div>
+        <div class="gold-line"></div>
+        
+        <div class="headline-lg">
+            It always starts<br>
+            the same way.
+        </div>
+        
+        <div class="scenario">
+            "Something feels off."
+        </div>
+        
+        <div class="body-text" style="margin-top:4mm;">
+            <p>A board meeting. A risk review. A quarterly briefing.</p>
+            <p style="margin-top:3mm;">Someone says it. Others nod. Everyone agrees.</p>
+            <p style="margin-top:3mm;"><em>But nobody can act.</em></p>
+        </div>
+        
+        <div class="dark-box" style="margin-top:6mm;">
+            <p>Because contracts don't respond to <em>"feels off."</em></p>
+            <p>Boards can't escalate <em>"feels off."</em></p>
+            <p>Risk models don't quantify <em>"feels off."</em></p>
+        </div>
+        
+        <div class="body-text" style="margin-top:5mm;">
+            <p>So you wait. <em>Because you have to.</em></p>
+            <p style="margin-top:2mm;">You wait for the data. You wait for the breach. You wait for the litigation.</p>
+            <p style="margin-top:2mm;">And by then, the only question left is:</p>
+            <p style="margin-top:2mm; font-family:'Playfair Display',serif; font-style:italic; color:var(--gold-light); font-size:10pt;">
+                "Why didn't anyone act sooner?"
+            </p>
+        </div>
+        
+        <div class="footer-info" style="margin-top:auto; text-align:center;">
+            <p style="font-size:6.5pt; color:var(--text-muted);">c-ECO Enterprise — Systemic Governance Initiative</p>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================
+     FOLHA 2 — PÁGINAS 3-4
+     Página 3 (frente): THE ENEMY + THE CAUSE
+     Página 4 (verso): THE SOLUTION
+     ============================================================ -->
+
+<!-- PAGE 3: THE ENEMY -->
+<div class="page page-enemy">
+    <div class="corner-ornament tl"></div>
+    <div class="corner-ornament tr"></div>
+    <div class="corner-ornament bl"></div>
+    <div class="corner-ornament br"></div>
+    <div class="inner-frame"></div>
+    
+    <div class="content">
+        <div class="label">The Problem</div>
+        <div class="gold-line"></div>
+        
+        <div class="enemy-quote">
+            "Legal systems only act<br>
+            when risk becomes evidence."
+        </div>
+        
+        <div class="body-text" style="text-align:center; margin-bottom:6mm;">
+            <p>That's not a people problem.</p>
+            <p>That's not a data problem.</p>
+            <p style="margin-top:2mm; font-family:'Cinzel',serif; color:var(--gold); font-size:10pt;">That's a structural problem.</p>
+        </div>
+        
+        <div class="headline-sm" style="margin-bottom:4mm;">Three Symptoms</div>
+        
+        <div class="problem-card">
+            <h4>Hidden Risk</h4>
+            <p>Your team senses something is off. But contracts only respond to proven breaches — not to the moment before.</p>
+        </div>
+        
+        <div class="problem-card">
+            <h4>Silent Failure</h4>
+            <p>By the time risk becomes data, it's too late to renegotiate, too late to pivot, too late to protect.</p>
+        </div>
+        
+        <div class="problem-card">
+            <h4>Board Exposure</h4>
+            <p>Directors face duty-of-care questions about risks they sensed but couldn't legally act upon.</p>
+        </div>
+    </div>
+</div>
+
+<!-- PAGE 4: THE SOLUTION -->
+<div class="page page-solution">
+    <div class="corner-ornament tl"></div>
+    <div class="corner-ornament tr"></div>
+    <div class="corner-ornament bl"></div>
+    <div class="corner-ornament br"></div>
+    <div class="inner-frame"></div>
+    
+    <div class="content">
+        <div class="label">The Solution</div>
+        <div class="gold-line"></div>
+        
+        <div class="headline-lg">
+            c-ECO closes the<br>
+            Recognition–Action Gap.
+        </div>
+        
+        <div class="concept-box">
+            <h3>Recognition–Action Gap</h3>
+            <p>The moment where organizations see risk but cannot act. c-ECO is the only protocol that makes that moment contractually actionable — before the data, before the breach, before the litigation.</p>
+        </div>
+        
+        <div class="body-text" style="margin:5mm 0;">
+            <p>We don't replace your risk models or your legal counsel.</p>
+            <p style="margin-top:2mm;">We give them a language for the gap between sensing and acting.</p>
+        </div>
+        
+        <div class="headline-sm" style="margin:6mm 0 4mm;">How It Works</div>
+        
+        <div class="pillar">
+            <div class="pillar-num">01</div>
+            <div class="pillar-content">
+                <h5>Detect</h5>
+                <p>Early signals mapped to contractual thresholds</p>
+            </div>
+        </div>
+        <div class="pillar">
+            <div class="pillar-num">02</div>
+            <div class="pillar-content">
+                <h5>Trigger</h5>
+                <p>Safe Mode activation before breach</p>
+            </div>
+        </div>
+        <div class="pillar">
+            <div class="pillar-num">03</div>
+            <div class="pillar-content">
+                <h5>Act</h5>
+                <p>Functional Novation and IEX protocols</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================
+     FOLHA 3 — PÁGINAS 5-6
+     Página 5 (frente): THREE PILLARS (detalhado)
+     Página 6 (verso): ENGAGEMENT OPTIONS
+     ============================================================ -->
+
+<!-- PAGE 5: THREE PILLARS DETAIL -->
+<div class="page page-pillars">
+    <div class="corner-ornament tl"></div>
+    <div class="corner-ornament tr"></div>
+    <div class="corner-ornament bl"></div>
+    <div class="corner-ornament br"></div>
+    <div class="inner-frame"></div>
+    
+    <div class="content">
+        <div class="label">The Protocol</div>
+        <div class="gold-line"></div>
+        
+        <div class="headline-lg" style="font-size:16pt;">
+            Three mechanisms.<br>
+            One gap closed.
+        </div>
+        
+        <div style="margin-top:6mm;">
+            <div style="padding:5mm; border:0.5px solid var(--border-gold); margin-bottom:4mm;">
+                <h4 style="font-family:'Cinzel',serif; font-size:9pt; color:var(--gold); margin-bottom:2mm;">TFP — Threshold Function Protocol</h4>
+                <p style="font-size:7.5pt; color:var(--text-light); line-height:1.5;">Band-based risk mapping (Green / Amber / Red) that translates systemic exposure into contractually enforceable thresholds. Not probability — trajectory.</p>
+            </div>
+            
+            <div style="padding:5mm; border:0.5px solid var(--border-gold); margin-bottom:4mm;">
+                <h4 style="font-family:'Cinzel',serif; font-size:9pt; color:var(--gold); margin-bottom:2mm;">Safe Mode</h4>
+                <p style="font-size:7.5pt; color:var(--text-light); line-height:1.5;">Pre-negotiated contractual triggers that activate protective protocols before breach occurs. Automatic escalation without litigation.</p>
+            </div>
+            
+            <div style="padding:5mm; border:0.5px solid var(--border-gold);">
+                <h4 style="font-family:'Cinzel',serif; font-size:9pt; color:var(--gold); margin-bottom:2mm;">Functional Novation + IEX</h4>
+                <p style="font-size:7.5pt; color:var(--text-light); line-height:1.5;">Governed renegotiation frameworks that allow contracts to evolve with reality. Not termination — transformation.</p>
+            </div>
+        </div>
+        
+        <div class="dark-box" style="margin-top:auto;">
+            <p style="font-size:7.5pt; color:var(--text-light); text-align:center;">
+                <em>"c-ECO doesn't predict the future. It makes the moment before failure contractually actionable."</em>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- PAGE 6: ENGAGEMENT OPTIONS -->
+<div class="page page-offer">
+    <div class="corner-ornament tl"></div>
+    <div class="corner-ornament tr"></div>
+    <div class="corner-ornament bl"></div>
+    <div class="corner-ornament br"></div>
+    <div class="inner-frame"></div>
+    
+    <div class="content">
+        <div class="label">Engagement Options</div>
+        <div class="gold-line"></div>
+        
+        <div style="text-align:center; margin-bottom:5mm;">
+            <div class="headline-md">Founding Pilot Terms</div>
+            <p style="font-size:7.5pt; color:var(--text-muted); margin-top:2mm; font-style:italic;">Q3 2026 — Limited to 5 organizations per sector</p>
+        </div>
+        
+        <div class="offer-card">
+            <h4>Option A: Rapid Risk Scan</h4>
+            <div class="duration">~2 WEEKS</div>
+            <p>Identify where your operation may fail before your contracts allow you to act.</p>
+            <div class="price">Base: $9,500</div>
+        </div>
+        
+        <div class="offer-card featured">
+            <div class="badge">Recommended</div>
+            <h4>Option B: Contract Addendum</h4>
+            <div class="duration">~3–4 WEEKS</div>
+            <p>Make existing contracts responsive to early-warning conditions. Includes negotiation playbook.</p>
+            <div class="price">Base: $14,500</div>
+        </div>
+        
+        <div class="offer-card">
+            <h4>Option C: Board Briefing</h4>
+            <div class="duration">~1 MONTH</div>
+            <p>Translate systemic risk into board-ready governance, escalation, and duty-of-care protocols.</p>
+            <div class="price">Base: $18,500</div>
+        </div>
+        
+        <div class="cta-box" style="margin-top:auto;">
+            <p style="font-family:'Cinzel',serif; font-size:8pt; color:var(--gold);"><strong>Selection by application, not first-come.</strong></p>
+            <div class="cta-url" style="font-size:11pt; margin:3mm 0;">c-eco.org/enterprise</div>
+            <div class="cta-contact">contact@c-eco.org &nbsp;|&nbsp; +1 (765) 341-1481</div>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================
+     FOLHA 4 — PÁGINAS 7-8
+     Página 7 (frente): SECTORS + CREDENTIALS
+     Página 8 (verso): FINAL CTA
+     ============================================================ -->
+
+<!-- PAGE 7: SECTORS -->
+<div class="page page-sectors">
+    <div class="corner-ornament tl"></div>
+    <div class="corner-ornament tr"></div>
+    <div class="corner-ornament bl"></div>
+    <div class="corner-ornament br"></div>
+    <div class="inner-frame"></div>
+    
+    <div class="content">
+        <div class="label">Sectors</div>
+        <div class="gold-line"></div>
+        
+        <div class="headline-sm" style="margin-bottom:4mm;">14 Sectoral Classifications</div>
+        
+        <div class="sectors-grid">
+            <div class="sector-item">Mining & Critical Minerals</div>
+            <div class="sector-item">Financial Systems</div>
+            <div class="sector-item">Agribusiness & Land Use</div>
+            <div class="sector-item">Real Estate & Urbanization</div>
+            <div class="sector-item">Energy Systems</div>
+            <div class="sector-item">Chemical & Materials</div>
+            <div class="sector-item">Water & Sanitation</div>
+            <div class="sector-item">Logistics & Transportation</div>
+            <div class="sector-item">Infrastructure & Construction</div>
+            <div class="sector-item">Digital Technology</div>
+            <div class="sector-item">Bioeconomy</div>
+            <div class="sector-item">Space & Orbital</div>
+            <div class="sector-item">Forests, Carbon & Natural Assets</div>
+            <div class="sector-item">Hybrid Enabling Systems</div>
+        </div>
+        
+        <div class="gold-line full" style="margin:5mm 0;"></div>
+        
+        <div class="headline-sm" style="margin-bottom:3mm;">Origin & Support</div>
+        
+        <div class="body-text" style="margin-bottom:5mm;">
+            <p>Developed by the <strong style="color:var(--gold);">c-ECO Systemic Governance Initiative</strong></p>
+            <p style="margin-top:1mm;">Supported by the <strong style="color:var(--gold);">Johann Christian Hasse Foundation</strong></p>
+            <p style="margin-top:2mm; font-size:7.5pt; color:var(--text-muted);">Research collaboration with academic institutions in the United States and Brazil.</p>
+        </div>
+        
+        <div class="origin">
+            <p><strong>c-ECO Systemic Governance Initiative</strong></p>
+            <p>United States — Brazil</p>
+            <p style="margin-top:2mm;"><em>Licensed under CC BY-NC-ND 4.0. Non-commercial use only.</em></p>
+            <p style="margin-top:1mm;">Pilot framework for academic and professional analysis. Not legal advice. Implementation requires professional counsel.</p>
+        </div>
+    </div>
+</div>
+
+<!-- PAGE 8: FINAL CTA -->
+<div class="page page-cta">
+    <div class="corner-ornament tl"></div>
+    <div class="corner-ornament tr"></div>
+    <div class="corner-ornament bl"></div>
+    <div class="corner-ornament br"></div>
+    <div class="inner-frame"></div>
+    
+    <div class="content">
+        <div class="brand">c-ECO</div>
+        <div class="brand-sub">Enterprise</div>
+        <div class="gold-line center"></div>
+        <div class="diamond"></div>
+        
+        <div class="headline-lg">
+            Don't wait for the breach<br>
+            to prove the risk.
+        </div>
+        
+        <div class="gold-line center"></div>
+        
+        <p class="body-text" style="max-width:120mm; text-align:center; margin-bottom:6mm;">
+            The question isn't whether your next failure will start with <em>"something feels off."</em><br><br>
+            The question is: <strong style="color:var(--gold);">will you be able to act when it does?</strong>
+        </p>
+        
+        <div class="cta-final">
+            <div class="cta-url">Apply for Founding Pilot Terms</div>
+            <div class="cta-sub">5 spots per sector — Selection by application</div>
+        </div>
+        
+        <div style="margin-top:6mm; text-align:center;">
+            <p style="font-family:'Cinzel',serif; font-size:10pt; color:var(--gold-light); letter-spacing:1px;">c-eco.org/enterprise</p>
+            <p style="font-size:7.5pt; color:var(--text-muted); margin-top:3mm;">contact@c-eco.org &nbsp;|&nbsp; +1 (765) 341-1481</p>
+        </div>
+        
+        <div class="seal-placeholder" style="margin-top:8mm;">
+            <span>c-ECO<br>ENTERPRISE<br>SEAL</span>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================
+     FOLHA 5 — PÁGINAS 9-10
+     Página 9 (frente): CASE STUDY / PROOF OF CONCEPT
+     Página 10 (verso): THE RECOGNITION–ACTION GAP (deep dive)
+     ============================================================ -->
+
+<!-- PAGE 9: CASE STUDY -->
+<div class="page">
+    <div class="corner-ornament tl"></div>
+    <div class="corner-ornament tr"></div>
+    <div class="corner-ornament bl"></div>
+    <div class="corner-ornament br"></div>
+    <div class="inner-frame"></div>
+    
+    <div class="content">
+        <div class="label">Proof of Concept</div>
+        <div class="gold-line"></div>
+        
+        <div class="headline-lg" style="font-size:16pt;">
+            What the Recognition–<br>
+            Action Gap looks like.
+        </div>
+        
+        <div class="dark-box" style="margin:5mm 0;">
+            <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:10pt; color:var(--cream); margin-bottom:3mm;">
+                "We knew the supply chain was fragile. We discussed it in three board meetings. But the contract had no language for 'fragile.' Only for 'breached.'"
+            </p>
+            <p style="font-size:7pt; color:var(--text-muted);">— Chief Risk Officer, Infrastructure Fund</p>
+        </div>
+        
+        <div class="body-text">
+            <p style="margin-bottom:3mm;"><strong style="color:var(--gold);">The Pattern:</strong></p>
+            <p>1. Early signals detected by operations team</p>
+            <p>2. Escalated to risk committee — no contractual trigger</p>
+            <p>3. Board informed — no duty-of-care protocol for pre-evidence risk</p>
+            <p>4. Event occurs — litigation, renegotiation under duress, value destruction</p>
+        </div>
+        
+        <div style="padding:5mm; border:1px solid var(--gold); margin-top:5mm; text-align:center;">
+            <p style="font-family:'Cinzel',serif; font-size:9pt; color:var(--gold); margin-bottom:2mm;">With c-ECO:</p>
+            <p style="font-size:7.5pt; color:var(--text-light); line-height:1.5;">
+                Signal → TFP mapping → Safe Mode trigger → Functional Novation →<br>
+                <strong style="color:var(--gold-light);">Governed adaptation before failure</strong>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- PAGE 10: GAP DEEP DIVE -->
+<div class="page">
+    <div class="corner-ornament tl"></div>
+    <div class="corner-ornament tr"></div>
+    <div class="corner-ornament bl"></div>
+    <div class="corner-ornament br"></div>
+    <div class="inner-frame"></div>
+    
+    <div class="content">
+        <div class="label">The Gap</div>
+        <div class="gold-line"></div>
+        
+        <div class="headline-lg" style="font-size:16pt;">
+            Why organizations fail<br>
+            at the invisible moment.
+        </div>
+        
+        <div style="margin-top:5mm;">
+            <div style="display:flex; gap:4mm; margin-bottom:4mm;">
+                <div style="flex:1; padding:4mm; border:0.5px solid var(--border-gold);">
+                    <h4 style="font-family:'Cinzel',serif; font-size:8pt; color:var(--gold); margin-bottom:2mm;">INTUITION</h4>
+                    <p style="font-size:7pt; color:var(--text-light); line-height:1.4;">People sense risk before data confirms it. This is well-documented in HRO and weak signals literature.</p>
+                </div>
+                <div style="flex:1; padding:4mm; border:0.5px solid var(--border-gold);">
+                    <h4 style="font-family:'Cinzel',serif; font-size:8pt; color:var(--gold); margin-bottom:2mm;">EVIDENCE</h4>
+                    <p style="font-size:7pt; color:var(--text-light); line-height:1.4;">Legal systems require proof. Contracts need thresholds. Boards need defensible narratives.</p>
+                </div>
+            </div>
+            
+            <div style="text-align:center; padding:3mm;">
+                <p style="font-family:'Cinzel',serif; font-size:10pt; color:var(--gold);">↓</p>
+                <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:11pt; color:var(--gold-light); margin:2mm 0;">The Recognition–Action Gap</p>
+                <p style="font-size:7pt; color:var(--text-muted);">Where sensing meets paralysis</p>
+                <p style="font-family:'Cinzel',serif; font-size:10pt; color:var(--gold);">↓</p>
+            </div>
+            
+            <div style="padding:4mm; border:1px solid var(--gold); background:rgba(201,168,76,0.08); text-align:center;">
+                <h4 style="font-family:'Cinzel',serif; font-size:9pt; color:var(--gold-light); margin-bottom:2mm;">c-ECO PROTOCOL</h4>
+                <p style="font-size:7.5pt; color:var(--text-light); line-height:1.5;">
+                    Translates intuition into contractually enforceable triggers.<br>
+                    Closes the gap. Makes the moment actionable.
+                </p>
+            </div>
+        </div>
+        
+        <div class="dark-box" style="margin-top:auto;">
+            <p style="font-size:7pt; color:var(--text-muted); text-align:center;">
+                Research base: TU Eindhoven (early warning signals), Cambridge (affect heuristic), HRO literature (weak signals), Radboud University (dynamic risk decisions).
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================
+     FOLHA 6 — PÁGINAS 11-12
+     Página 11 (frente): FOR WHOM
+     Página 12 (verso): PROCESS / JOURNEY
+     ============================================================ -->
+
+<!-- PAGE 11: FOR WHOM -->
+<div class="page">
+    <div class="corner-ornament tl"></div>
+    <div class="corner-ornament tr"></div>
+    <div class="corner-ornament bl"></div>
+    <div class="corner-ornament br"></div>
+    <div class="inner-frame"></div>
+    
+    <div class="content">
+        <div class="label">For Whom</div>
+        <div class="gold-line"></div>
+        
+        <div class="headline-lg" style="font-size:16pt; margin-bottom:5mm;">
+            Built for decision-makers<br>
+            who can't wait for the data.
+        </div>
+        
+        <div class="problem-card">
+            <h4>General Counsel / CLO</h4>
+            <p>Your contracts were written for a world that doesn't exist anymore. You need a language to negotiate what nobody can name yet.</p>
+        </div>
+        
+        <div class="problem-card">
+            <h4>Chief Risk Officer</h4>
+            <p>Your models are excellent. But what happens when everyone senses the risk before the data confirms it?</p>
+        </div>
+        
+        <div class="problem-card">
+            <h4>Board Member / Independent Director</h4>
+            <p>Duty of care cannot be reactive. You need a board-ready framework that makes the invisible moment defensible.</p>
+        </div>
+        
+        <div class="problem-card">
+            <h4>ESG / Sustainability Director</h4>
+            <p>Your sustainability targets have no contractual mechanism to adapt. c-ECO anchors transition in obligations that evolve with reality.</p>
+        </div>
+    </div>
+</div>
+
+<!-- PAGE 12: PROCESS -->
+<div class="page">
+    <div class="corner-ornament tl"></div>
+    <div class="corner-ornament tr"></div>
+    <div class="corner-ornament bl"></div>
+    <div class="corner-ornament br"></div>
+    <div class="inner-frame"></div>
+    
+    <div class="content">
+        <div class="label">The Journey</div>
+        <div class="gold-line"></div>
+        
+        <div class="headline-sm" style="margin-bottom:5mm;">From Application to Action</div>
+        
+        <div class="pillar">
+            <div class="pillar-num">01</div>
+            <div class="pillar-content">
+                <h5>Apply</h5>
+                <p>Submit project brief at c-eco.org/enterprise. Selection by application, not first-come.</p>
+            </div>
+        </div>
+        <div class="pillar">
+            <div class="pillar-num">02</div>
+            <div class="pillar-content">
+                <h5>Qualify</h5>
+                <p>30-minute alignment call. We assess sector fit, risk profile, and organizational readiness.</p>
+            </div>
+        </div>
+        <div class="pillar">
+            <div class="pillar-num">03</div>
+            <div class="pillar-content">
+                <h5>Scope</h5>
+                <p>Customized proposal with complexity multiplier, timeline, and deliverables calibrated to your context.</p>
+            </div>
+        </div>
+        <div class="pillar">
+            <div class="pillar-num">04</div>
+            <div class="pillar-content">
+                <h5>Deliver</h5>
+                <p>Structured engagement with milestones, safeguards, and board-ready outputs.</p>
+            </div>
+        </div>
+        
+        <div class="cta-box" style="margin-top:auto;">
+            <p style="font-size:7.5pt; color:var(--text-light);">
+                <strong style="color:var(--gold);">Founding Pilot Terms available.</strong><br>
+                Q3 2026 start. 5 organizations per sector.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================
+     FOLHA 7 — PÁGINAS 13-14
+     Página 13 (frente): RESEARCH & ACADEMIC BASE
+     Página 14 (verso): PARTNERSHIPS
+     ============================================================ -->
+
+<!-- PAGE 13: RESEARCH BASE -->
+<div class="page">
+    <div class="corner-ornament tl"></div>
+    <div class="corner-ornament tr"></div>
+    <div class="corner-ornament bl"></div>
+    <div class="corner-ornament br"></div>
+    <div class="inner-frame"></div>
+    
+    <div class="content">
+        <div class="label">Research Foundation</div>
+        <div class="gold-line"></div>
+        
+        <div class="headline-lg" style="font-size:15pt; margin-bottom:5mm;">
+            Not opinion.<br>
+            Peer-reviewed architecture.
+        </div>
+        
+        <div style="margin-bottom:3mm;">
+            <div style="padding:4mm; border-bottom:0.5px solid var(--border-gold);">
+                <p style="font-size:7.5pt; color:var(--gold); font-weight:500; margin-bottom:1mm;">TU Eindhoven (2015)</p>
+                <p style="font-size:7pt; color:var(--text-light); line-height:1.4;">Framework for early-warning signal detection within organizations — propagation, individual detection, and influencing factors.</p>
+            </div>
+            <div style="padding:4mm; border-bottom:0.5px solid var(--border-gold);">
+                <p style="font-size:7.5pt; color:var(--gold); font-weight:500; margin-bottom:1mm;">Cambridge / Journal of Judgment and Decision Making</p>
+                <p style="font-size:7pt; color:var(--text-light); line-height:1.4;">Intuition and affect as valid heuristics in risk perception — the scientific basis for pre-data action.</p>
+            </div>
+            <div style="padding:4mm; border-bottom:0.5px solid var(--border-gold);">
+                <p style="font-size:7.5pt; color:var(--gold); font-weight:500; margin-bottom:1mm;">High-Reliability Organization (HRO) Literature</p>
+                <p style="font-size:7pt; color:var(--text-light); line-height:1.4;">Operationalization of "preoccupation with failure" and "deference to expertise" in weak signal capture.</p>
+            </div>
+            <div style="padding:4mm;">
+                <p style="font-size:7.5pt; color:var(--gold); font-weight:500; margin-bottom:1mm;">Radboud University</p>
+                <p style="font-size:7pt; color:var(--text-light); line-height:1.4;">Dynamic risk decisions in immersive environments predict real-world risk propensity better than static models.</p>
+            </div>
+        </div>
+        
+        <div class="dark-box" style="margin-top:auto;">
+            <p style="font-size:7.5pt; color:var(--text-light); text-align:center;">
+                <em>c-ECO framework synthesizes decades of research into an actionable legal protocol.</em>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- PAGE 14: PARTNERSHIPS -->
+<div class="page">
+    <div class="corner-ornament tl"></div>
+    <div class="corner-ornament tr"></div>
+    <div class="corner-ornament bl"></div>
+    <div class="corner-ornament br"></div>
+    <div class="inner-frame"></div>
+    
+    <div class="content">
+        <div class="label">Partnerships</div>
+        <div class="gold-line"></div>
+        
+        <div class="headline-lg" style="font-size:15pt; margin-bottom:5mm;">
+            Built with institutions<br>
+            that shape the future.
+        </div>
+        
+        <div style="margin-bottom:4mm;">
+            <div style="padding:4mm; border:0.5px solid var(--border-gold); margin-bottom:3mm;">
+                <h4 style="font-family:'Cinzel',serif; font-size:9pt; color:var(--gold); margin-bottom:2mm;">Johann Christian Hasse Foundation</h4>
+                <p style="font-size:7pt; color:var(--text-light); line-height:1.4;">Research foundation supporting the development and deployment of the c-ECO systemic governance framework.</p>
+            </div>
+            <div style="padding:4mm; border:0.5px solid var(--border-gold); margin-bottom:3mm;">
+                <h4 style="font-family:'Cinzel',serif; font-size:9pt; color:var(--gold); margin-bottom:2mm;">Instituto Silvio Meira</h4>
+                <p style="font-size:7pt; color:var(--text-light); line-height:1.4;">Brazil-based research institute coordinating the Amazon Living Lab and sectoral living lab protocols.</p>
+            </div>
+            <div style="padding:4mm; border:0.5px solid var(--border-gold);">
+                <h4 style="font-family:'Cinzel',serif; font-size:9pt; color:var(--gold); margin-bottom:2mm;">Academic Collaborators</h4>
+                <p style="font-size:7pt; color:var(--text-light); line-height:1.4;">Research partnerships with institutions in the United States, United Kingdom, and Brazil for peer validation and co-authorship.</p>
+            </div>
+        </div>
+        
+        <div style="margin-top:auto; text-align:center;">
+            <p style="font-size:7pt; color:var(--text-muted); line-height:1.6;">
+                <strong style="color:var(--gold);">Interested in partnership?</strong><br>
+                contact@c-eco.org
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================
+     FOLHA 8 — PÁGINAS 15-16
+     Página 15 (frente): NOTES / CONTACT
+     Página 16 (verso): BACK COVER
+     ============================================================ -->
+
+<!-- PAGE 15: NOTES -->
+<div class="page">
+    <div class="corner-ornament tl"></div>
+    <div class="corner-ornament tr"></div>
+    <div class="corner-ornament bl"></div>
+    <div class="corner-ornament br"></div>
+    <div class="inner-frame"></div>
+    
+    <div class="content">
+        <div class="label">Notes</div>
+        <div class="gold-line"></div>
+        
+        <div style="flex:1; border:0.5px solid var(--border-gold); padding:5mm; margin:4mm 0;">
+            <p style="font-size:7pt; color:var(--text-muted); font-style:italic;">Space for annotations, questions, or next steps...</p>
+            <div style="margin-top:8mm; border-bottom:0.5px solid rgba(201,168,76,0.15); padding-bottom:4mm;"></div>
+            <div style="margin-top:4mm; border-bottom:0.5px solid rgba(201,168,76,0.15); padding-bottom:4mm;"></div>
+            <div style="margin-top:4mm; border-bottom:0.5px solid rgba(201,168,76,0.15); padding-bottom:4mm;"></div>
+            <div style="margin-top:4mm; border-bottom:0.5px solid rgba(201,168,76,0.15); padding-bottom:4mm;"></div>
+            <div style="margin-top:4mm; border-bottom:0.5px solid rgba(201,168,76,0.15); padding-bottom:4mm;"></div>
+            <div style="margin-top:4mm; border-bottom:0.5px solid rgba(201,168,76,0.15); padding-bottom:4mm;"></div>
+        </div>
+        
+        <div class="cta-box" style="margin-top:auto;">
+            <p style="font-family:'Cinzel',serif; font-size:9pt; color:var(--gold-light); margin-bottom:2mm;">c-eco.org/enterprise</p>
+            <p style="font-size:7pt; color:var(--text-muted);">contact@c-eco.org &nbsp;|&nbsp; +1 (765) 341-1481</p>
+        </div>
+    </div>
+</div>
+
+<!-- PAGE 16: BACK COVER -->
+<div class="page page-back">
+    <div class="corner-ornament tl"></div>
+    <div class="corner-ornament tr"></div>
+    <div class="corner-ornament bl"></div>
+    <div class="corner-ornament br"></div>
+    <div class="inner-frame"></div>
+    
+    <div class="content">
+        <div class="seal-placeholder" style="margin-bottom:10mm;">
+            <span>c-ECO<br>ENTERPRISE<br>SEAL</span>
+        </div>
+        
+        <div class="quote-final">
+            "The question isn't whether your next failure will start with <span class="accent">'something feels off.'</span><br><br>
+            The question is: <span class="accent">will you be able to act when it does?</span>"
+        </div>
+        
+        <div class="gold-line center" style="margin:8mm auto;"></div>
+        
+        <div class="brand-back">c-ECO Enterprise</div>
+    </div>
+</div>
+
+</body>
+</html>
