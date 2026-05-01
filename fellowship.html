@@ -941,30 +941,31 @@ a:hover{
         
         <div class="note-box">
   <div class="note-label">Before You Apply</div>
-  This page is the live application interface for the current cycle. For the broader institutional structure of the Program, consult the <a href="fellowship-portal.html">Fellowship Portal</a>. For privacy, submission handling, and data-governance terms, consult the <a href="fellowship-spn.html">Fellowship Privacy Notice</a>.
+  This page is the live application interface for the current cycle. For the broader institutional structure of the Program, consult the <a href="fellowship-portal.html">Fellowship Portal</a>. For privacy, submission handling, and data-governance terms, consult the <a href="fellowship-spn.html">Fellowship Privacy Notice</a>.<br><br>
+  <strong>Application Method:</strong> Complete the form below and click "Generate Application Email." Your default email client will open with a pre-filled message. Please attach your CV, case file, and any supporting documents directly to that email before sending.
 </div>
         
         <div class="form-wrap">
-          <form id="fellowshipForm" action="YOUR_FORM_ENDPOINT" method="POST" enctype="multipart/form-data" novalidate>
+          <div id="fellowshipForm">
             <div class="form-grid">
 
               <div class="form-group">
-                <label class="form-label" for="fullName">Full Name</label>
+                <label class="form-label" for="fullName">Full Name *</label>
                 <input class="form-input" type="text" id="fullName" name="fullName" required>
               </div>
 
               <div class="form-group">
-                <label class="form-label" for="email">Email Address</label>
+                <label class="form-label" for="email">Email Address *</label>
                 <input class="form-input" type="email" id="email" name="email" required>
               </div>
 
               <div class="form-group">
-                <label class="form-label" for="country">Country</label>
+                <label class="form-label" for="country">Country *</label>
                 <input class="form-input" type="text" id="country" name="country" required>
               </div>
 
               <div class="form-group">
-                <label class="form-label" for="city">City</label>
+                <label class="form-label" for="city">City *</label>
                 <input class="form-input" type="text" id="city" name="city" required>
               </div>
 
@@ -974,12 +975,12 @@ a:hover{
               </div>
 
               <div class="form-group">
-                <label class="form-label" for="profession">Current Role / Profession</label>
+                <label class="form-label" for="profession">Current Role / Profession *</label>
                 <input class="form-input" type="text" id="profession" name="profession" required>
               </div>
 
               <div class="form-group full">
-                <label class="form-label" for="sectorTrack">Primary Sectoral Track</label>
+                <label class="form-label" for="sectorTrack">Primary Sectoral Track *</label>
                 <select class="form-select" id="sectorTrack" name="sectorTrack" required>
                   <option value="">Select a track</option>
                   <option>Water Systems & Hydraulic Infrastructure</option>
@@ -993,31 +994,13 @@ a:hover{
               </div>
 
               <div class="form-group full">
-                <label class="form-label" for="statement">Statement of Interest</label>
+                <label class="form-label" for="statement">Statement of Interest *</label>
                 <textarea class="form-textarea" id="statement" name="statement" placeholder="Briefly explain your interest in the fellowship, your sectoral focus, and why your trajectory aligns with the c-ECO applied structure." required></textarea>
               </div>
 
               <div class="form-group full">
-                <label class="form-label" for="caseDescription">Concrete Case Summary</label>
+                <label class="form-label" for="caseDescription">Concrete Case Summary *</label>
                 <textarea class="form-textarea" id="caseDescription" name="caseDescription" placeholder="Provide a concise summary of the concrete case, case environment, or real-world situation you intend to bring into the fellowship selection process." required></textarea>
-              </div>
-
-              <div class="form-group full">
-                <label class="form-label" for="cvFile">Attach CV / Résumé</label>
-                <input class="form-file" type="file" id="cvFile" name="cvFile" accept=".pdf,.doc,.docx" required>
-                <div class="form-hint">Accepted formats: PDF, DOC, DOCX.</div>
-              </div>
-
-              <div class="form-group full">
-                <label class="form-label" for="caseFile">Attach Concrete Case File</label>
-                <input class="form-file" type="file" id="caseFile" name="caseFile" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip" required>
-                <div class="form-hint">Attach the case itself, a case memorandum, supporting materials, or a structured case file.</div>
-              </div>
-
-              <div class="form-group full">
-                <label class="form-label" for="supportFile">Optional Supporting Document</label>
-                <input class="form-file" type="file" id="supportFile" name="supportFile" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip">
-                <div class="form-hint">Optional: additional paper, portfolio, prior publication, technical note, or project summary.</div>
               </div>
 
               <div class="form-group full">
@@ -1046,7 +1029,7 @@ a:hover{
             <div class="submit-row">
   
   <div class="submit-note">
-    Applications are accepted throughout the month of May. Final selection date: 30 June. Program commencement: July. Recognition, where applicable, remains subject to case approval, scope validation, and Fellowship conditions; By submitting, applicants acknowledge the Fellowship Submission & Privacy Notice and confirm they are authorized to provide the submitted materials.
+    Applications are accepted throughout the month of May. Final selection date: 30 June. Program commencement: July. Recognition, where applicable, remains subject to case approval, scope validation, and Fellowship conditions. By submitting, applicants acknowledge the Fellowship Submission & Privacy Notice and confirm they are authorized to provide the submitted materials.
   </div>
 
   <div class="action-buttons">
@@ -1056,14 +1039,27 @@ a:hover{
       Request Information
     </a>
 
-    <button type="submit" class="submit-btn">
-      Submit Application
+    <button type="button" class="submit-btn" id="generateEmailBtn">
+      Generate Application Email
     </button>
   </div>
 
   <div class="status-message" id="formStatus"></div>
 
 </div>
+
+<!-- Attachment Instructions -->
+<div class="note-box" style="margin-top: 20px; background: var(--soft-gold); border-left-color: var(--gold-accent);">
+  <div class="note-label">Required Attachments</div>
+  After clicking the button above, your email client will open. Please attach the following files to the email before sending:<br><br>
+  <strong>1. CV / Résumé</strong> (PDF, DOC, or DOCX)<br>
+  <strong>2. Concrete Case File</strong> (case memorandum, supporting materials, or structured case file — PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, or ZIP)<br>
+  <strong>3. Optional Supporting Document</strong> (additional paper, portfolio, prior publication, technical note, or project summary)<br><br>
+  <em>Applications without the required attachments (CV and Case File) will be considered incomplete and cannot be evaluated.</em>
+</div>
+
+          </div>
+        </div>
       </section>
 
       <section id="COPYRIGHT" class="copyright-footer">
@@ -1087,51 +1083,180 @@ a:hover{
   </main>
 
   <script>
-    // Sidebar search
-    const searchInput = document.getElementById('sidebarSearch');
-    const navItems = document.querySelectorAll('.nav-item');
-    const sectionTitles = document.querySelectorAll('.nav-section-title');
-    const sidebar = document.getElementById('sidebar');
+  // Sidebar search
+  const searchInput = document.getElementById('sidebarSearch');
+  const navItems = document.querySelectorAll('.nav-item');
+  const sectionTitles = document.querySelectorAll('.nav-section-title');
+  const sidebar = document.getElementById('sidebar');
 
-    searchInput.addEventListener('input', function(e){
-      const term = e.target.value.toLowerCase();
+  searchInput.addEventListener('input', function(e){
+    const term = e.target.value.toLowerCase();
 
-      navItems.forEach(item => {
-        const text = item.textContent.toLowerCase();
-        item.classList.toggle('hidden', !text.includes(term));
-      });
-
-      sectionTitles.forEach(title => {
-        title.classList.toggle('hidden', term.length > 0);
-      });
+    navItems.forEach(item => {
+      const text = item.textContent.toLowerCase();
+      item.classList.toggle('hidden', !text.includes(term));
     });
 
-    document.querySelectorAll('.nav-item a').forEach(link => {
-      link.addEventListener('click', () => {
-        if (window.innerWidth <= 1024) {
-          sidebar.classList.remove('open');
-        }
-      });
+    sectionTitles.forEach(title => {
+      title.classList.toggle('hidden', term.length > 0);
     });
+  });
 
-    const fellowshipForm = document.getElementById('fellowshipForm');
-    const formStatus = document.getElementById('formStatus');
-
-    fellowshipForm.addEventListener('submit', function(e){
-      if (!fellowshipForm.checkValidity()) {
-        e.preventDefault();
-        formStatus.className = 'status-message error';
-        formStatus.textContent = 'Please complete all required fields before submitting the application.';
-        formStatus.style.display = 'block';
-        fellowshipForm.reportValidity();
-        return;
+  document.querySelectorAll('.nav-item a').forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 1024) {
+        sidebar.classList.remove('open');
       }
-
-      formStatus.className = 'status-message success';
-      formStatus.textContent = 'Submitting application...';
-      formStatus.style.display = 'block';
     });
-  </script>
+  });
+
+  // Mailto-based application submission
+  const generateEmailBtn = document.getElementById('generateEmailBtn');
+  const formStatus = document.getElementById('formStatus');
+
+  generateEmailBtn.addEventListener('click', function(e){
+    e.preventDefault();
+
+    const requiredFields = [
+      'fullName',
+      'email',
+      'country',
+      'city',
+      'profession',
+      'sectorTrack',
+      'statement',
+      'caseDescription'
+    ];
+
+    const checkboxes = [
+      'checkAccuracy',
+      'checkTerms',
+      'checkIP'
+    ];
+
+    let missing = [];
+
+    requiredFields.forEach(fieldId => {
+      const field = document.getElementById(fieldId);
+      const label = document.querySelector(`label[for="${fieldId}"]`);
+
+      if (!field.value.trim()) {
+        missing.push(label ? label.textContent.replace(' *', '') : fieldId);
+        field.style.borderColor = 'var(--danger)';
+      } else {
+        field.style.borderColor = 'var(--border-color)';
+      }
+    });
+
+    checkboxes.forEach(checkId => {
+      const check = document.getElementById(checkId);
+
+      if (!check.checked) {
+        missing.push(check.nextElementSibling.textContent.substring(0, 40) + '...');
+      }
+    });
+
+    if (missing.length > 0) {
+      formStatus.className = 'status-message error';
+      formStatus.textContent =
+        'Please complete all required fields and confirmations before generating the application email. Missing: ' +
+        missing.join(', ');
+      formStatus.style.display = 'block';
+      return;
+    }
+
+    const fullName = document.getElementById('fullName').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const country = document.getElementById('country').value.trim();
+    const city = document.getElementById('city').value.trim();
+    const linkedin = document.getElementById('linkedin').value.trim();
+    const profession = document.getElementById('profession').value.trim();
+    const sectorTrack = document.getElementById('sectorTrack').value.trim();
+    const statement = document.getElementById('statement').value.trim();
+    const caseDescription = document.getElementById('caseDescription').value.trim();
+    const availability = document.getElementById('availability').value.trim();
+
+    const subjectText =
+      'c-ECO Fellowship Application — ' + fullName + ' — ' + sectorTrack;
+
+    const emailBody = `
+Dear c-ECO Fellowship Selection Committee,
+
+I am submitting my application for the c-ECO Fellowship Program (Current Cycle: May–July 2026). Please find my details below:
+
+========================================
+APPLICANT INFORMATION
+========================================
+
+Full Name: ${fullName}
+Email: ${email}
+Country: ${country}
+City: ${city}
+Current Role / Profession: ${profession}
+${linkedin ? 'LinkedIn / Professional Profile: ' + linkedin + '\n' : ''}
+Primary Sectoral Track: ${sectorTrack}
+
+========================================
+STATEMENT OF INTEREST
+========================================
+
+${statement}
+
+========================================
+CONCRETE CASE SUMMARY
+========================================
+
+${caseDescription}
+
+${availability ? `
+========================================
+AVAILABILITY NOTE
+========================================
+
+${availability}
+` : ''}
+
+========================================
+DECLARATIONS
+========================================
+
+[✓] I confirm that the information provided in this application is accurate and submitted in good faith.
+[✓] I acknowledge that submission does not guarantee admission and that the Program is selective, controlled, and subject to institutional evaluation.
+[✓] I understand the intellectual property and administrative notice terms stated in the call for applications.
+
+========================================
+ATTACHED FILES — PLEASE ATTACH BEFORE SENDING
+========================================
+
+1. CV / Résumé — REQUIRED
+2. Concrete Case File — REQUIRED
+3. Optional Supporting Document
+
+I understand that applications without the required attachments — CV and Case File — will be considered incomplete and cannot be evaluated.
+
+Thank you for your consideration.
+
+Best regards,
+${fullName}
+`;
+
+    const mailtoLink =
+      'mailto:contact@c-eco.org?subject=' +
+      encodeURIComponent(subjectText) +
+      '&body=' +
+      encodeURIComponent(emailBody);
+
+    formStatus.className = 'status-message success';
+    formStatus.innerHTML =
+      'Your email client is opening with a pre-filled application addressed to <strong>contact@c-eco.org</strong>. <strong>Please attach your CV and Case File before sending.</strong> If your email client does not open automatically, <a href="' +
+      mailtoLink +
+      '" style="text-decoration: underline; font-weight: 700;">click here</a>.';
+
+    formStatus.style.display = 'block';
+
+    window.location.href = mailtoLink;
+  });
+</script>
 
 </body>
 </html>
