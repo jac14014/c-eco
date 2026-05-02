@@ -1,149 +1,204 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>c-ECO Amazon Living Lab — Phase Alpha Budget</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow">
+  <title>c-ECO | Amazon Living Lab — Phase Alpha</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
-    :root {
-      --gold: #b8954a;
-      --gold-light: #d4b896;
-      --stone-950: #0c0a09;
-      --stone-900: #1c1917;
-      --stone-800: #292524;
-      --stone-700: #44403c;
-      --stone-600: #57534e;
-      --stone-500: #78716c;
-      --stone-400: #a8a29e;
-      --stone-300: #d6d3d1;
-      --stone-200: #e7e5e4;
-      --stone-100: #f5f5f4;
+    :root{
+      --sidebar-width: 340px;
+      --legal-blue: #1a2b3c;
+      --gold-accent: #c5a059;
+      --bg-body: #f4f7f9;
+      --text-main: #1a1a1a;
+      --border-color: #dee2e6;
+      --response-bg: #fff8e6;
+      --response-border: #e6d5a8;
       --emerald: #10b981;
-      --emerald-dark: #059669;
       --blue: #3b82f6;
       --amber: #f59e0b;
       --red: #ef4444;
     }
-    
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    
-    body {
+
+    *{ box-sizing: border-box; }
+
+    body{
+      margin:0;
+      background: var(--bg-body);
       font-family: 'Inter', sans-serif;
-      background: var(--stone-100);
-      color: var(--stone-900);
       line-height: 1.6;
-      font-size: 10pt;
     }
-    
-    .page {
-      width: 210mm;
-      min-height: 297mm;
-      margin: 0 auto;
-      background: white;
-      padding: 20mm 18mm;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+
+    /* ===== SIDEBAR ===== */
+    .sidebar{
+      width: var(--sidebar-width);
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      background: #fff;
+      border-right: 1px solid var(--border-color);
+      padding: 16px;
+      overflow-y: auto;
+      z-index: 1000;
+      -webkit-overflow-scrolling: touch;
+      transition: transform .3s ease;
     }
-    
-    @media print {
-      body { background: white; }
-      .page { 
-        box-shadow: none; 
-        margin: 0; 
-        width: 100%;
-        padding: 15mm 15mm;
-      }
-      .no-print { display: none !important; }
-      .page-break { page-break-before: always; }
+
+    .sidebar-top{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+      border-bottom: 2px solid var(--gold-accent);
     }
-    
-    h1, h2, h3, h4, .serif { font-family: 'Playfair Display', serif; }
-    
-    /* Header */
-    .doc-header {
-      border-bottom: 2px solid var(--gold);
-      padding-bottom: 16px;
-      margin-bottom: 24px;
-    }
-    
-    .doc-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-    
-    .logo-block {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    
-    .logo-sigma {
+
+    .logo-box{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
       width: 40px;
       height: 40px;
-      border: 1.5px solid var(--gold);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      color: var(--gold);
-      font-weight: 300;
+      border: 1px solid var(--border-color);
+      background: #fff;
+      color: var(--legal-blue);
+      font-weight: 900;
+      font-size: 1.2rem;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-    
-    .logo-text {
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 0.25em;
-      color: var(--stone-500);
-      font-weight: 600;
-    }
-    
-    .doc-title {
-      text-align: right;
-    }
-    
-    .doc-title h1 {
-      font-size: 22px;
-      font-weight: 600;
-      color: var(--stone-950);
-      line-height: 1.2;
-      margin-bottom: 4px;
-    }
-    
-    .doc-title .subtitle {
+
+    .sidebar-title{
+      font-weight: 800;
       font-size: 11px;
-      color: var(--stone-500);
-      font-style: italic;
-    }
-    
-    .doc-info-bar {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px solid var(--stone-200);
-      font-size: 9px;
-      color: var(--stone-500);
+      letter-spacing: 1px;
+      color: var(--legal-blue);
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      line-height: 1.2;
+      margin: 0;
     }
+
+    .search-container {
+      margin-bottom: 12px;
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 10;
+      padding-bottom: 8px;
+    }
+
+    #sidebarSearch {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      outline: none;
+    }
+
+    #sidebarSearch:focus {
+      border-color: var(--gold-accent);
+      box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15);
+    }
+
+    .nav-list{ list-style:none; padding:0; margin:0; }
     
-    /* Executive Summary Box */
+    .nav-section-title{
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--gold-accent);
+      margin-top: 14px;
+      text-transform: uppercase;
+      border-top: 1px solid #eee;
+      padding-top: 10px;
+      padding-bottom: 5px;
+      letter-spacing: .8px;
+    }
+
+    .nav-sub-title{
+      font-size: 9px;
+      font-weight: 700;
+      color: #7a8a99;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin: 8px 0 3px 8px;
+    }
+
+    .nav-item a{
+      text-decoration:none;
+      color: var(--text-main);
+      font-size: 11px;
+      display:block;
+      padding: 5px 8px;
+      line-height: 1.35;
+      transition: .2s;
+      border-left: 3px solid transparent;
+    }
+    .nav-item a:hover{
+      background: rgba(197,160,89,0.12);
+      border-left-color: var(--gold-accent);
+    }
+
+    /* ===== CONTENT ===== */
+    .main-content{
+      margin-left: var(--sidebar-width);
+      padding: 40px 20px;
+      display:flex;
+      justify-content:center;
+    }
+
+    .document-page{
+      background:#fff;
+      width:100%;
+      max-width: 780px;
+      padding: 50px 50px;
+      box-shadow: 0 4px 25px rgba(0,0,0,0.06);
+    }
+
+    /* TIPOGRAFIA */
+    .section-header{
+      font-family:'Libre Baskerville', serif;
+      font-weight:700;
+      font-size:18px;
+      color:var(--legal-blue);
+      margin: 35px 0 20px 0;
+      padding-bottom: 10px;
+      border-bottom: 3px solid var(--gold-accent);
+    }
+
+    .subsection-header{
+      font-family:'Libre Baskerville', serif;
+      font-weight:700;
+      font-size:15px;
+      color:var(--legal-blue);
+      margin: 25px 0 15px 0;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    /* EXECUTIVE SUMMARY */
     .exec-box {
-      background: linear-gradient(135deg, var(--stone-950) 0%, var(--stone-900) 100%);
+      background: linear-gradient(135deg, var(--legal-blue) 0%, #2c3e50 100%);
       color: white;
-      padding: 20px 24px;
+      padding: 24px;
       border-radius: 4px;
       margin-bottom: 24px;
-      border-left: 4px solid var(--gold);
+      border-left: 4px solid var(--gold-accent);
     }
     
     .exec-box h2 {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      color: var(--gold-light);
+      font-family: 'Libre Baskerville', serif;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--gold-accent);
     }
     
     .exec-grid {
@@ -157,10 +212,10 @@
     }
     
     .exec-item .number {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Libre Baskerville', serif;
       font-size: 28px;
       font-weight: 700;
-      color: var(--gold);
+      color: var(--gold-accent);
       line-height: 1;
     }
     
@@ -168,129 +223,225 @@
       font-size: 8px;
       text-transform: uppercase;
       letter-spacing: 0.15em;
-      color: var(--stone-400);
+      color: #a8a29e;
       margin-top: 6px;
     }
-    
-    /* Tables */
-    .section {
-      margin-bottom: 28px;
+
+    /* CLAUSULAS / SECTIONS */
+    .clause-box{
+      background: #fafbfc;
+      border-left: 4px solid var(--legal-blue);
+      padding: 20px 24px;
+      margin-bottom: 25px;
     }
-    
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 10px;
-      padding-bottom: 6px;
-      border-bottom: 1px solid var(--stone-200);
+
+    .clause-number{
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--gold-accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
     }
-    
-    .section-header h2 {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--stone-950);
+
+    .clause-title{
+      font-family:'Libre Baskerville', serif;
+      font-weight:700;
+      font-size:16px;
+      color:var(--legal-blue);
+      margin-bottom:14px;
     }
-    
-    .section-header .section-total {
-      font-size: 13px;
+
+    .sub-clause{
+      margin-left: 18px;
+      margin-bottom: 12px;
+    }
+
+    .sub-clause-number{
       font-weight: 700;
-      color: var(--gold);
-      font-family: 'Playfair Display', serif;
+      color: var(--legal-blue);
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    .caput{ 
+      text-align:justify; 
+      margin-bottom:10px; 
+      font-family:'Libre Baskerville', serif; 
+      line-height:1.7; 
+      font-size:13.5px; 
+    }
+
+    .paragraph{ 
+      margin-left:24px; 
+      font-size:12.5px; 
+      margin-bottom:8px; 
+      line-height:1.6; 
+      color:#333; 
+    }
+
+    .inciso{ 
+      margin-left:48px; 
+      font-size:12.5px; 
+      margin-bottom:6px; 
+      color:#444; 
+    }
+
+    /* PHASE BADGES */
+    .phase-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 3px;
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-weight: 700;
+      margin-left: 8px;
+      color: #fff;
     }
     
-    table {
+    .badge-alpha { background: var(--emerald); }
+    .badge-beta { background: var(--blue); }
+    .badge-gamma { background: var(--amber); }
+
+    /* TABLES */
+    .budget-table {
       width: 100%;
       border-collapse: collapse;
       font-size: 9.5px;
+      margin-top: 12px;
     }
     
-    th {
-      background: var(--stone-100);
-      color: var(--stone-600);
+    .budget-table th {
+      background: #f5f5f4;
+      color: var(--legal-blue);
       font-size: 8px;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      font-weight: 600;
+      font-weight: 700;
       padding: 8px 10px;
       text-align: left;
-      border-bottom: 2px solid var(--stone-300);
+      border-bottom: 2px solid var(--gold-accent);
     }
     
-    td {
+    .budget-table td {
       padding: 8px 10px;
-      border-bottom: 1px solid var(--stone-200);
+      border-bottom: 1px solid #e7e5e4;
       vertical-align: top;
     }
     
-    tr:hover td {
-      background: var(--stone-50);
+    .budget-table tr:hover td {
+      background: #fafaf9;
     }
     
-    .col-line { width: 5%; color: var(--stone-400); font-weight: 500; }
-    .col-item { width: 28%; }
-    .col-desc { width: 27%; color: var(--stone-500); font-size: 8.5px; }
-    .col-calc { width: 18%; color: var(--stone-500); font-size: 8.5px; text-align: right; }
-    .col-y1 { width: 11%; text-align: right; font-weight: 500; }
-    .col-y2 { width: 11%; text-align: right; font-weight: 500; }
-    
     .subtotal-row td {
-      background: var(--stone-100);
-      font-weight: 600;
-      color: var(--stone-800);
-      border-top: 2px solid var(--stone-300);
-      border-bottom: 2px solid var(--stone-300);
+      background: #f5f5f4;
+      font-weight: 700;
+      color: var(--legal-blue);
+      border-top: 2px solid var(--border-color);
+      border-bottom: 2px solid var(--border-color);
     }
     
     .total-row td {
-      background: var(--stone-950);
+      background: var(--legal-blue);
       color: white;
       font-weight: 700;
       border: none;
     }
     
     .total-row .col-item {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Libre Baskerville', serif;
       font-size: 12px;
     }
     
     .total-row .col-y1, .total-row .col-y2 {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Libre Baskerville', serif;
       font-size: 13px;
-      color: var(--gold);
+      color: var(--gold-accent);
     }
     
-    .phase-badge {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 3px;
+    .col-line { width: 5%; color: #78716c; font-weight: 500; }
+    .col-item { width: 28%; }
+    .col-desc { width: 27%; color: #78716c; font-size: 8.5px; }
+    .col-calc { width: 18%; color: #78716c; font-size: 8.5px; text-align: right; }
+    .col-y1 { width: 11%; text-align: right; font-weight: 500; }
+    .col-y2 { width: 11%; text-align: right; font-weight: 500; }
+
+    /* MILESTONE TABLE */
+    .milestone-table th { text-align: center; }
+    .milestone-table td { text-align: center; font-size: 8.5px; }
+    .milestone-table td:first-child { text-align: left; font-weight: 500; }
+    
+    .milestone-y1 { background: rgba(16, 185, 129, 0.06); }
+    .milestone-y2 { background: rgba(59, 130, 246, 0.06); }
+
+    /* RISK MATRIX */
+    .risk-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    
+    .risk-item {
+      border: 1px solid var(--border-color);
+      padding: 12px;
+      border-radius: 4px;
+      background: #fff;
+    }
+    
+    .risk-item .risk-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    
+    .risk-item h5 {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--legal-blue);
+    }
+    
+    .risk-level {
       font-size: 7px;
       text-transform: uppercase;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.1em;
+      padding: 2px 6px;
+      border-radius: 2px;
       font-weight: 700;
-      margin-left: 8px;
     }
     
-    .badge-alpha { background: var(--emerald); color: white; }
-    .badge-beta { background: var(--blue); color: white; }
-    .badge-gamma { background: var(--amber); color: white; }
+    .risk-low { background: rgba(16, 185, 129, 0.15); color: #059669; }
+    .risk-med { background: rgba(245, 158, 11, 0.15); color: #b45309; }
+    .risk-high { background: rgba(239, 68, 68, 0.15); color: var(--red); }
     
-    /* Notes */
-    .note-box {
-      background: var(--stone-50);
-      border-left: 3px solid var(--gold);
-      padding: 12px 16px;
-      margin: 16px 0;
+    .risk-item p {
       font-size: 9px;
-      color: var(--stone-600);
+      color: #57534e;
+      line-height: 1.5;
     }
-    
-    .note-box strong {
-      color: var(--stone-800);
-      font-weight: 600;
+
+    /* NOTE BOX */
+    .note-box{
+      background: #f8fafc;
+      border-left: 4px solid var(--gold-accent);
+      padding: 14px 16px;
+      margin: 14px 0 22px 0;
+      font-size: 11.5px;
+      line-height: 1.6;
+      color: #333;
     }
-    
-    /* Assumptions */
+
+    .note-label{
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--legal-blue);
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      margin-bottom: 6px;
+    }
+
+    /* ASSUMPTIONS */
     .assumptions {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -299,14 +450,15 @@
     }
     
     .assumption-card {
-      border: 1px solid var(--stone-200);
+      border: 1px solid var(--border-color);
       padding: 12px;
       border-radius: 4px;
+      background: #fff;
     }
     
     .assumption-card h4 {
       font-size: 10px;
-      color: var(--gold);
+      color: var(--gold-accent);
       text-transform: uppercase;
       letter-spacing: 0.1em;
       margin-bottom: 8px;
@@ -315,7 +467,8 @@
     .assumption-card ul {
       list-style: none;
       font-size: 8.5px;
-      color: var(--stone-600);
+      color: #57534e;
+      padding: 0;
     }
     
     .assumption-card li {
@@ -328,85 +481,11 @@
       content: "›";
       position: absolute;
       left: 0;
-      color: var(--gold);
+      color: var(--gold-accent);
       font-weight: 700;
     }
-    
-    /* Footer */
-    .doc-footer {
-      margin-top: 32px;
-      padding-top: 16px;
-      border-top: 1px solid var(--stone-200);
-      display: flex;
-      justify-content: space-between;
-      font-size: 8px;
-      color: var(--stone-400);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-    
-    /* Currency toggle */
-    .currency-note {
-      text-align: right;
-      font-size: 8px;
-      color: var(--stone-500);
-      margin-bottom: 8px;
-      font-style: italic;
-    }
-    
-    /* Milestones */
-    .milestone-table th { text-align: center; }
-    .milestone-table td { text-align: center; font-size: 8.5px; }
-    .milestone-table td:first-child { text-align: left; font-weight: 500; }
-    
-    .milestone-table .milestone-y1 { background: rgba(16, 185, 129, 0.08); }
-    .milestone-table .milestone-y2 { background: rgba(59, 130, 246, 0.08); }
-    
-    /* Risk matrix */
-    .risk-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    
-    .risk-item {
-      border: 1px solid var(--stone-200);
-      padding: 10px;
-      border-radius: 4px;
-    }
-    
-    .risk-item .risk-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-    }
-    
-    .risk-item h5 {
-      font-size: 9px;
-      font-weight: 600;
-      color: var(--stone-800);
-    }
-    
-    .risk-level {
-      font-size: 7px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      padding: 2px 6px;
-      border-radius: 2px;
-      font-weight: 700;
-    }
-    
-    .risk-low { background: rgba(16, 185, 129, 0.15); color: var(--emerald-dark); }
-    .risk-med { background: rgba(245, 158, 11, 0.15); color: #b45309; }
-    .risk-high { background: rgba(239, 68, 68, 0.15); color: var(--red); }
-    
-    .risk-item p {
-      font-size: 8px;
-      color: var(--stone-500);
-    }
-    
-    /* Signature block */
+
+    /* SIGNATURE */
     .signature-block {
       margin-top: 40px;
       display: grid;
@@ -415,723 +494,854 @@
     }
     
     .signature-line {
-      border-top: 1px solid var(--stone-800);
+      border-top: 1px solid var(--legal-blue);
       padding-top: 8px;
       margin-top: 40px;
     }
     
     .signature-name {
-      font-weight: 600;
+      font-weight: 700;
       font-size: 10px;
-      color: var(--stone-900);
+      color: var(--legal-blue);
     }
     
     .signature-title {
       font-size: 8px;
-      color: var(--stone-500);
+      color: #78716c;
       margin-top: 2px;
     }
+
+    /* COST SHARING TABLE */
+    .cost-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 9.5px;
+      margin-top: 12px;
+    }
     
-    /* Page break helper */
-    .page-break { 
-      page-break-before: always; 
-      margin-top: 0;
-      padding-top: 20mm;
+    .cost-table th {
+      background: #f5f5f4;
+      color: var(--legal-blue);
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+      padding: 8px 10px;
+      text-align: left;
+      border-bottom: 2px solid var(--gold-accent);
+    }
+    
+    .cost-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #e7e5e4;
+    }
+
+    /* PRINT BUTTON */
+    .print-btn{
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--legal-blue);
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      font-weight: 700;
+      font-size: 12px;
+      z-index: 2000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .print-btn:hover{
+      background: #2c3e50;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    }
+
+    .print-btn::before{
+      content: "🖨️";
+      font-size: 14px;
+    }
+
+    /* MOBILE */
+    .mobile-btn{
+      display:none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--legal-blue);
+      color: #fff;
+      border: none;
+      padding: 14px 22px;
+      font-weight: 800;
+      font-size: 12px;
+      z-index: 2000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      cursor: pointer;
+      letter-spacing: 0.5px;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 1024px){
+      .sidebar{ transform: translateX(-100%); }
+      .sidebar.open{ transform: translateX(0); box-shadow: 10px 0 30px rgba(0,0,0,0.22); }
+      .main-content{ margin-left: 0; padding: 16px; }
+      .document-page{ padding: 24px; width:auto; margin:0; }
+      .mobile-btn{ display:block; }
+      .assumptions { grid-template-columns: 1fr; }
+      .risk-grid { grid-template-columns: 1fr; }
+      .exec-grid { grid-template-columns: repeat(2, 1fr); }
+      .print-btn { top: auto; bottom: 80px; right: 20px; }
+    }
+
+    @media (max-width: 1200px) and (min-width: 1025px) {
+      .document-page {
+        max-width: calc(100vw - var(--sidebar-width) - 40px);
+        padding: 40px 30px;
+      }
+    }
+
+    @media print {
+      .sidebar, .mobile-btn, .print-btn { display: none; }
+      .main-content { margin-left: 0; }
     }
   </style>
 </head>
+
 <body>
 
-<div class="page">
-  <!-- HEADER -->
-  <div class="doc-header">
-    <div class="doc-meta">
-      <div class="logo-block">
-        <div class="logo-sigma">Σ</div>
-        <div>
-          <div style="font-family:'Playfair Display',serif; font-size:13px; font-weight:600; color:var(--stone-950);">c-ECO</div>
-          <div class="logo-text">Systemic Coordination Infrastructure</div>
-        </div>
-      </div>
-      <div class="doc-title">
-        <h1>Amazon Living Lab — Phase Alpha</h1>
-        <div class="subtitle">Detailed Budget & Implementation Plan</div>
-      </div>
+  <button class="mobile-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+    INDEX
+  </button>
+  
+  <button class="print-btn" onclick="window.print()">
+    <span>Save PDF / Print</span>
+  </button>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar" aria-label="Amazon Lab Index">
+    <div class="sidebar-top">
+      <a href="c-eco.org" class="logo-box" aria-label="c-ECO Home">Σ</a>
+      <div class="sidebar-title">Amazon Living Lab</div>
     </div>
-    <div class="doc-info-bar">
-      <span>Document: BUD-AMZ-2026-001</span>
-      <span>Version: 1.0</span>
-      <span>Date: May 2026</span>
-      <span>Currency: USD</span>
-      <span>Exchange: 1 USD = 5.15 BRL</span>
+    <div class="search-container">
+      <input type="text" id="sidebarSearch" placeholder="Search section, budget line, or milestone..." aria-label="Search Index">
     </div>
-  </div>
+    <nav>
+      <ul class="nav-list">
+        <li class="nav-section-title">DOCUMENT</li>
+        <li class="nav-item"><a href="#HEADER">Document Header & Identification</a></li>
+        <li class="nav-item"><a href="#EXEC-SUMMARY">Executive Summary</a></li>
+        <li class="nav-item"><a href="#SCOPE-NOTE">Scope & Context</a></li>
 
-  <!-- EXECUTIVE SUMMARY -->
-  <div class="exec-box">
-    <h2>Executive Summary</h2>
-    <div class="exec-grid">
-      <div class="exec-item">
-        <div class="number">$1.47M</div>
-        <div class="label">Total Phase Alpha<br>18 Months</div>
-      </div>
-      <div class="exec-item">
-        <div class="number">$792K</div>
-        <div class="label">Amazon Lab Only<br>Belém, Brazil</div>
-      </div>
-      <div class="exec-item">
-        <div class="number">8</div>
-        <div class="label">Core Team<br>FTE Positions</div>
-      </div>
-      <div class="exec-item">
-        <div class="number">&lt;24h</div>
-        <div class="label">Target KPI<br>Detection-to-Decision</div>
-      </div>
-    </div>
-  </div>
+        <li class="nav-section-title">BUDGET SECTIONS</li>
+        <li class="nav-item"><a href="#SECTION-1">Section 1 — Personnel</a></li>
+        <li class="nav-item"><a href="#SECTION-2">Section 2 — Technology & Infrastructure</a></li>
+        <li class="nav-item"><a href="#SECTION-3">Section 3 — Field Operations</a></li>
+        <li class="nav-item"><a href="#SECTION-4">Section 4 — Legal & Governance</a></li>
+        <li class="nav-item"><a href="#SECTION-5">Section 5 — Administration & Overhead</a></li>
+        <li class="nav-item"><a href="#GRAND-TOTAL">Grand Total & Contingency</a></li>
 
-  <!-- NOTE -->
-  <div class="note-box">
-    <strong>Scope Note:</strong> This budget covers the <strong>Amazon Core Living Lab (L1.1 — Belém, Brazil)</strong> as the anchor node of Phase Alpha. 
-    Phase Alpha comprises 4 labs (Belém, Tromsø, London, Geneva) with a combined budget of $5–20M. 
-    The Amazon Lab operates under the c-ECO Global Integration Hub (GIH) coordination framework.
-  </div>
+        <li class="nav-section-title">IMPLEMENTATION</li>
+        <li class="nav-item"><a href="#MILESTONES">Disbursement Milestones</a></li>
+        <li class="nav-item"><a href="#RISK-MATRIX">Risk Matrix & Mitigation</a></li>
+        <li class="nav-item"><a href="#COST-SHARING">In-Kind Contributions</a></li>
 
-  <!-- SECTION 1: PERSONNEL -->
-  <div class="section">
-    <div class="section-header">
-      <h2>1. Personnel <span class="phase-badge badge-alpha">Alpha</span></h2>
-      <span class="section-total">$480,000</span>
-    </div>
-    <div class="currency-note">All salaries annualized. Benefits calculated at 25% of base.</div>
-    <table>
-      <thead>
-        <tr>
-          <th class="col-line">#</th>
-          <th class="col-item">Position</th>
-          <th class="col-desc">Role & Responsibilities</th>
-          <th class="col-calc">FTE / Rate</th>
-          <th class="col-y1">Year 1</th>
-          <th class="col-y2">Year 2</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="col-line">1.1</td>
-          <td class="col-item"><strong>Science-Policy Lead</strong><br><span style="color:var(--stone-500);font-size:8px;">Earth System Scientist</span></td>
-          <td class="col-desc">Scientific direction, tipping point detection protocols, peer review coordination, INPA/ACTO liaison</td>
-          <td class="col-calc">1.0 FTE<br>$95,000/yr + 25%</td>
-          <td class="col-y1">$118,750</td>
-          <td class="col-y2">$118,750</td>
-        </tr>
-        <tr>
-          <td class="col-line">1.2</td>
-          <td class="col-item"><strong>c-ECO Integration Officer</strong><br><span style="color:var(--stone-500);font-size:8px;">Complex Systems / TFP</span></td>
-          <td class="col-desc">TFP protocol design, cross-layer integration, eigenvector analysis, GIH coordination</td>
-          <td class="col-calc">1.0 FTE<br>$85,000/yr + 25%</td>
-          <td class="col-y1">$106,250</td>
-          <td class="col-y2">$106,250</td>
-        </tr>
-        <tr>
-          <td class="col-line">1.3</td>
-          <td class="col-item"><strong>Domain Expert — Hydrology</strong></td>
-          <td class="col-desc">Amazon hydrological cycle monitoring, flood prediction, river basin analysis, INMET data integration</td>
-          <td class="col-calc">0.75 FTE<br>$72,000/yr + 25%</td>
-          <td class="col-y1">$67,500</td>
-          <td class="col-y2">$67,500</td>
-        </tr>
-        <tr>
-          <td class="col-line">1.4</td>
-          <td class="col-item"><strong>Domain Expert — Ecology</strong></td>
-          <td class="col-desc">Deforestation monitoring, biodiversity-climate nexus, REDD+ verification, MPEG liaison</td>
-          <td class="col-calc">0.75 FTE<br>$68,000/yr + 25%</td>
-          <td class="col-y1">$63,750</td>
-          <td class="col-y2">$63,750</td>
-        </tr>
-        <tr>
-          <td class="col-line">1.5</td>
-          <td class="col-item"><strong>Domain Expert — Climate</strong></td>
-          <td class="col-desc">Climate modeling, tipping element assessment, GCOS/WMO alignment, scenario development</td>
-          <td class="col-calc">0.75 FTE<br>$70,000/yr + 25%</td>
-          <td class="col-y1">$65,625</td>
-          <td class="col-y2">$65,625</td>
-        </tr>
-        <tr>
-          <td class="col-line">1.6</td>
-          <td class="col-item"><strong>Data / AI Engineer (2x)</strong></td>
-          <td class="col-desc">Satellite data pipelines, ML model deployment, sensor network architecture, real-time analytics</td>
-          <td class="col-calc">2.0 FTE<br>$65,000/yr + 25% ea</td>
-          <td class="col-y1">$162,500</td>
-          <td class="col-y2">$162,500</td>
-        </tr>
-        <tr>
-          <td class="col-line">1.7</td>
-          <td class="col-item"><strong>Legal / Regulatory Specialist</strong></td>
-          <td class="col-desc">Brazilian Forest Code compliance, sovereign green bond clauses, contractual framework, ACTO legal liaison</td>
-          <td class="col-calc">0.5 FTE<br>$80,000/yr + 25%</td>
-          <td class="col-y1">$50,000</td>
-          <td class="col-y2">$50,000</td>
-        </tr>
-        <tr>
-          <td class="col-line">1.8</td>
-          <td class="col-item"><strong>Operations & Field Coordinator (2x)</strong></td>
-          <td class="col-desc">Field logistics, sensor maintenance, indigenous community liaison, local procurement, safety protocols</td>
-          <td class="col-calc">1.5 FTE<br>$35,000/yr + 25% ea</td>
-          <td class="col-y1">$65,625</td>
-          <td class="col-y2">$65,625</td>
-        </tr>
-        <tr>
-          <td class="col-line">1.9</td>
-          <td class="col-item"><strong>Network Liaison</strong></td>
-          <td class="col-desc">GIH coordination, partner relationship management, reporting, communications, event coordination</td>
-          <td class="col-calc">0.5 FTE<br>$55,000/yr + 25%</td>
-          <td class="col-y1">$34,375</td>
-          <td class="col-y2">$34,375</td>
-        </tr>
-        <tr class="subtotal-row">
-          <td></td>
-          <td><strong>Subtotal — Personnel</strong></td>
-          <td>8.0 FTE core + benefits (25%)</td>
-          <td></td>
-          <td><strong>$240,000</strong></td>
-          <td><strong>$240,000</strong></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+        <li class="nav-section-title">ASSUMPTIONS & GOVERNANCE</li>
+        <li class="nav-item"><a href="#ASSUMPTIONS">Financial & Operational Assumptions</a></li>
+        <li class="nav-item"><a href="#SIGNATURES">Signatures & Authorization</a></li>
 
-  <!-- SECTION 2: TECHNOLOGY & INFRASTRUCTURE -->
-  <div class="section">
-    <div class="section-header">
-      <h2>2. Technology & Infrastructure <span class="phase-badge badge-alpha">Alpha</span></h2>
-      <span class="section-total">$130,000</span>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th class="col-line">#</th>
-          <th class="col-item">Item</th>
-          <th class="col-desc">Specification & Purpose</th>
-          <th class="col-calc">Qty / Unit</th>
-          <th class="col-y1">Year 1</th>
-          <th class="col-y2">Year 2</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="col-line">2.1</td>
-          <td class="col-item"><strong>Satellite Data Subscription</strong></td>
-          <td class="col-desc">Planet Labs daily imagery + Sentinel-2 / Landsat-9 via AWS Open Data + INPE/Censipam access</td>
-          <td class="col-calc">Annual licenses<br>$18,000/yr</td>
-          <td class="col-y1">$18,000</td>
-          <td class="col-y2">$18,000</td>
-        </tr>
-        <tr>
-          <td class="col-line">2.2</td>
-          <td class="col-item"><strong>AWS Cloud Infrastructure</strong></td>
-          <td class="col-desc">Compute (EC2 GPU instances), storage (S3), ML pipelines (SageMaker), real-time streaming (Kinesis)</td>
-          <td class="col-calc">Monthly avg<br>$2,500/mo</td>
-          <td class="col-y1">$30,000</td>
-          <td class="col-y2">$30,000</td>
-        </tr>
-        <tr>
-          <td class="col-line">2.3</td>
-          <td class="col-item"><strong>Ground Sensor Network</strong></td>
-          <td class="col-desc">Weather stations, water level sensors, soil moisture probes, methane flux towers (partial, 3 pilot sites)</td>
-          <td class="col-calc">3 sites<br>$8,000/ea</td>
-          <td class="col-y1">$24,000</td>
-          <td class="col-y2">$12,000</td>
-        </tr>
-        <tr>
-          <td class="col-line">2.4</td>
-          <td class="col-item"><strong>Data Integration Platform</strong></td>
-          <td class="col-desc">c-ECO proprietary TFP engine development, API infrastructure, blockchain provenance layer (pilot)</td>
-          <td class="col-calc">Development<br>+ licensing</td>
-          <td class="col-y1">$15,000</td>
-          <td class="col-y2">$10,000</td>
-        </tr>
-        <tr>
-          <td class="col-line">2.5</td>
-          <td class="col-item"><strong>Hardware & Equipment</strong></td>
-          <td class="col-desc">Workstations (2x), field laptops (4x), drones (2x), satellite phones, GPS units, safety equipment</td>
-          <td class="col-calc">One-time + refresh</td>
-          <td class="col-y1">$18,000</td>
-          <td class="col-y2">$5,000</td>
-        </tr>
-        <tr>
-          <td class="col-line">2.6</td>
-          <td class="col-item"><strong>Software Licenses</strong></td>
-          <td class="col-desc">GIS (QGIS Pro), ML frameworks, project management, security, communication tools</td>
-          <td class="col-calc">Annual</td>
-          <td class="col-y1">$5,000</td>
-          <td class="col-y2">$5,000</td>
-        </tr>
-        <tr class="subtotal-row">
-          <td></td>
-          <td><strong>Subtotal — Technology</strong></td>
-          <td>Cloud-first, open-source preference, vendor-neutral</td>
-          <td></td>
-          <td><strong>$110,000</strong></td>
-          <td><strong>$80,000</strong></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- SECTION 3: FIELD OPERATIONS -->
-  <div class="section">
-    <div class="section-header">
-      <h2>3. Field Operations <span class="phase-badge badge-alpha">Alpha</span></h2>
-      <span class="section-total">$100,000</span>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th class="col-line">#</th>
-          <th class="col-item">Item</th>
-          <th class="col-desc">Description</th>
-          <th class="col-calc">Freq / Unit</th>
-          <th class="col-y1">Year 1</th>
-          <th class="col-y2">Year 2</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="col-line">3.1</td>
-          <td class="col-item"><strong>Site Deployment & Logistics</strong></td>
-          <td class="col-desc">Transportation to 3 pilot sites (river, road, air), accommodation, local permits, security</td>
-          <td class="col-calc">Monthly missions<br>$3,500/mo avg</td>
-          <td class="col-y1">$42,000</td>
-          <td class="col-y2">$36,000</td>
-        </tr>
-        <tr>
-          <td class="col-line">3.2</td>
-          <td class="col-item"><strong>Local Partnerships & Community</strong></td>
-          <td class="col-desc">Indigenous community engagement, local researcher collaboration, knowledge exchange workshops</td>
-          <td class="col-calc">Quarterly<br>$4,000/ea</td>
-          <td class="col-y1">$16,000</td>
-          <td class="col-y2">$16,000</td>
-        </tr>
-        <tr>
-          <td class="col-line">3.3</td>
-          <td class="col-item"><strong>Sensor Maintenance & Calibration</strong></td>
-          <td class="col-desc">Field technician visits, equipment replacement, calibration services, spare parts inventory</td>
-          <td class="col-calc">Bi-monthly<br>$1,500/ea</td>
-          <td class="col-y1">$9,000</td>
-          <td class="col-y2">$9,000</td>
-        </tr>
-        <tr>
-          <td class="col-line">3.4</td>
-          <td class="col-item"><strong>Emergency & Safety Protocols</strong></td>
-          <td class="col-desc">Medical evacuation insurance, satellite emergency beacons, first aid training, security briefings</td>
-          <td class="col-calc">Annual coverage</td>
-          <td class="col-y1">$8,000</td>
-          <td class="col-y2">$8,000</td>
-        </tr>
-        <tr class="subtotal-row">
-          <td></td>
-          <td><strong>Subtotal — Field Operations</strong></td>
-          <td>3 pilot sites across Western & Eastern Amazon</td>
-          <td></td>
-          <td><strong>$75,000</strong></td>
-          <td><strong>$69,000</strong></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- SECTION 4: LEGAL & GOVERNANCE -->
-  <div class="section">
-    <div class="section-header">
-      <h2>4. Legal & Governance <span class="phase-badge badge-alpha">Alpha</span></h2>
-      <span class="section-total">$50,000</span>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th class="col-line">#</th>
-          <th class="col-item">Item</th>
-          <th class="col-desc">Description</th>
-          <th class="col-calc">Scope</th>
-          <th class="col-y1">Year 1</th>
-          <th class="col-y2">Year 2</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="col-line">4.1</td>
-          <td class="col-item"><strong>Contractual Framework Development</strong></td>
-          <td class="col-desc">TFP template contracts, partnership MOUs, data sharing agreements, liability frameworks</td>
-          <td class="col-calc">Legal counsel<br>+ notary</td>
-          <td class="col-y1">$15,000</td>
-          <td class="col-y2">$8,000</td>
-        </tr>
-        <tr>
-          <td class="col-line">4.2</td>
-          <td class="col-item"><strong>Compliance & Audit</strong></td>
-          <td class="col-desc">LRQA or equivalent ESG audit, financial audit, data governance compliance (LGPD/GDPR)</td>
-          <td class="col-calc">Annual audit</td>
-          <td class="col-y1">$12,000</td>
-          <td class="col-y2">$12,000</td>
-        </tr>
-        <tr>
-          <td class="col-line">4.3</td>
-          <td class="col-item"><strong>Insurance & Risk Transfer</strong></td>
-          <td class="col-desc">Professional liability, cyber insurance, equipment insurance, directors & officers coverage</td>
-          <td class="col-calc">Annual premiums</td>
-          <td class="col-y1">$8,000</td>
-          <td class="col-y2">$8,000</td>
-        </tr>
-        <tr>
-          <td class="col-line">4.4</td>
-          <td class="col-item"><strong>IP & Trademark Protection</strong></td>
-          <td class="col-desc">c-ECO trademark registration (BR, US, EU), TFP methodology patent review, open-source licensing</td>
-          <td class="col-calc">One-time + renewals</td>
-          <td class="col-y1">$10,000</td>
-          <td class="col-y2">$2,000</td>
-        </tr>
-        <tr class="subtotal-row">
-          <td></td>
-          <td><strong>Subtotal — Legal & Governance</strong></td>
-          <td>Johann Christian Hasse Foundation as legal entity</td>
-          <td></td>
-          <td><strong>$45,000</strong></td>
-          <td><strong>$30,000</strong></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- SECTION 5: ADMIN & OVERHEAD -->
-  <div class="section">
-    <div class="section-header">
-      <h2>5. Administration & Overhead <span class="phase-badge badge-alpha">Alpha</span></h2>
-      <span class="section-total">$132,000</span>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th class="col-line">#</th>
-          <th class="col-item">Item</th>
-          <th class="col-desc">Description</th>
-          <th class="col-calc">Basis</th>
-          <th class="col-y1">Year 1</th>
-          <th class="col-y2">Year 2</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="col-line">5.1</td>
-          <td class="col-item"><strong>Office & Facilities (Belém)</strong></td>
-          <td class="col-desc">Co-working / small office rental, utilities, internet, meeting rooms, storage</td>
-          <td class="col-calc">$1,500/mo</td>
-          <td class="col-y1">$18,000</td>
-          <td class="col-y2">$18,000</td>
-        </tr>
-        <tr>
-          <td class="col-line">5.2</td>
-          <td class="col-item"><strong>Travel & Conferences</strong></td>
-          <td class="col-desc">GIH coordination meetings (Geneva), partner visits, COP / UNFCCC side events, academic conferences</td>
-          <td class="col-calc">$2,500/mo avg</td>
-          <td class="col-y1">$30,000</td>
-          <td class="col-y2">$30,000</td>
-        </tr>
-        <tr>
-          <td class="col-line">5.3</td>
-          <td class="col-item"><strong>Communications & Reporting</strong></td>
-          <td class="col-desc">Website, publications, design, translation, quarterly reports, stakeholder newsletters</td>
-          <td class="col-calc">$1,000/mo</td>
-          <td class="col-y1">$12,000</td>
-          <td class="col-y2">$12,000</td>
-        </tr>
-        <tr>
-          <td class="col-line">5.4</td>
-          <td class="col-item"><strong>Indirect Costs (Overhead)</strong></td>
-          <td class="col-desc">Accounting, banking, HR, administrative support, institutional overhead (15% of direct costs)</td>
-          <td class="col-calc">15% of direct</td>
-          <td class="col-y1">$70,500</td>
-          <td class="col-y2">$70,500</td>
-        </tr>
-        <tr class="subtotal-row">
-          <td></td>
-          <td><strong>Subtotal — Admin & Overhead</strong></td>
-          <td>Includes 15% institutional overhead on direct costs</td>
-          <td></td>
-          <td><strong>$130,500</strong></td>
-          <td><strong>$130,500</strong></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- GRAND TOTAL -->
-  <div class="section">
-    <table>
-      <tr class="total-row">
-        <td style="width:5%"></td>
-        <td class="col-item" style="width:28%">GRAND TOTAL — Amazon Living Lab</td>
-        <td style="width:27%; font-size:9px; font-weight:400;">Phase Alpha · 18 months · Belém, Brazil · L1.1</td>
-        <td style="width:18%"></td>
-        <td class="col-y1" style="width:11%">$600,750</td>
-        <td class="col-y2" style="width:11%">$549,500</td>
-      </tr>
-      <tr style="background:var(--stone-100);">
-        <td></td>
-        <td style="padding:8px 10px; font-weight:600; color:var(--stone-800);">TOTAL 18-MONTH BUDGET</td>
-        <td colspan="2" style="padding:8px 10px; color:var(--stone-500); font-size:9px;">Includes all direct costs, overhead, and contingency</td>
-        <td colspan="2" style="padding:8px 10px; text-align:right; font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--gold);">$792,000</td>
-      </tr>
-    </table>
-  </div>
-
-  <div class="note-box" style="margin-top:20px;">
-    <strong>Contingency Reserve:</strong> 5% of total budget ($39,600) is held in reserve for unforeseen operational risks, 
-    currency fluctuation, or emergency field response. Released only upon GIH Director and Science-Policy Lead joint approval.
-  </div>
-
-  <!-- ASSUMPTIONS -->
-  <div class="assumptions">
-    <div class="assumption-card">
-      <h4>Financial Assumptions</h4>
-      <ul>
-        <li>Exchange rate: 1 USD = 5.15 BRL (avg 2026)</li>
-        <li>Inflation: 3.5% p.a. (Brazilian IPCA)</li>
-        <li>Salary increases: 4% p.a. (Year 2)</li>
-        <li>Overhead rate: 15% (foundation standard)</li>
-        <li>Benefits load: 25% (FGTS, INSS, health)</li>
+        <li class="nav-section-title">PRIMARY SOURCES</li>
+        <li class="nav-item"><a href="law.html" style="font-weight: 700;">c-ECO Model Law — Full Statute</a></li>
+        <li class="nav-item"><a href="manual.html" style="font-weight: 700;">TFP — Integrated Operational Manual</a></li>
+        <li class="nav-item"><a href="english.html" style="font-weight: 700;">c-ECO Global System Map</a></li>
       </ul>
-    </div>
-    <div class="assumption-card">
-      <h4>Operational Assumptions</h4>
-      <ul>
-        <li>3 pilot sites: 1 Western Amazon, 2 Eastern</li>
-        <li>Office: shared/co-working in Belém (Year 1)</li>
-        <li>INPA/MPEG: data sharing at no cost (MOU)</li>
-        <li>AWS: nonprofit credits applied (est. $15k/yr)</li>
-        <li>Phase Alpha launch: Q3 2026 (pending funding)</li>
-      </ul>
-    </div>
-  </div>
+    </nav>
+  </aside>
 
-  <div class="doc-footer">
-    <span>c-ECO Systemic Coordination Infrastructure v4.1</span>
-    <span>Johann Christian Hasse Foundation · Brazil</span>
-    <span>contact@c-eco.org · c-eco.org</span>
-  </div>
-</div>
+  <main class="main-content">
+    <article class="document-page">
 
-<!-- PAGE 2: MILESTONES & RISK -->
-<div class="page page-break">
-  <div class="doc-header" style="border-bottom:2px solid var(--gold); padding-bottom:16px; margin-bottom:24px;">
-    <div class="doc-meta">
-      <div class="logo-block">
-        <div class="logo-sigma">Σ</div>
+      <!-- HEADER -->
+      <div id="HEADER" class="section-header">Amazon Living Lab — Phase Alpha</div>
+      <div class="caput" style="margin-bottom: 18px;">
+        This document presents the detailed budget and implementation plan for the <strong>Amazon Core Living Lab (L1.1 — Belém, Brazil)</strong>, anchor node of Phase Alpha within the c-ECO Systemic Coordination Infrastructure. The Lab operates under the Global Integration Hub (GIH) coordination framework and serves as the primary detection-to-trigger validation site for the Amazon biome.
+      </div>
+
+      <div class="note-box">
+        <div class="note-label">Document Identification</div>
+        <strong>Document:</strong> BUD-AMZ-2026-001 · <strong>Version:</strong> 1.0 · <strong>Date:</strong> May 2026 · <strong>Currency:</strong> USD · <strong>Exchange:</strong> 1 USD = 5.15 BRL · <strong>Phase:</strong> Alpha (L1.1) · <strong>Duration:</strong> 18 Months
+      </div>
+
+      <!-- EXECUTIVE SUMMARY -->
+      <div id="EXEC-SUMMARY" class="exec-box">
+        <h2>Executive Summary</h2>
+        <div class="exec-grid">
+          <div class="exec-item">
+            <div class="number">$1.47M</div>
+            <div class="label">Total Phase Alpha<br>18 Months · 4 Labs</div>
+          </div>
+          <div class="exec-item">
+            <div class="number">$792K</div>
+            <div class="label">Amazon Lab Only<br>Belém, Brazil · L1.1</div>
+          </div>
+          <div class="exec-item">
+            <div class="number">8</div>
+            <div class="label">Core Team<br>FTE Positions</div>
+          </div>
+          <div class="exec-item">
+            <div class="number">&lt;24h</div>
+            <div class="label">Target KPI<br>Detection-to-Decision</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCOPE NOTE -->
+      <div id="SCOPE-NOTE" class="note-box">
+        <div class="note-label">Scope Note</div>
+        This budget covers the <strong>Amazon Core Living Lab (L1.1 — Belém, Brazil)</strong> as the anchor node of Phase Alpha. Phase Alpha comprises 4 labs (Belém, Tromsø, London, Geneva) with a combined budget of $5–20M. The Amazon Lab operates under the c-ECO Global Integration Hub (GIH) coordination framework and is designed to validate the Trigger-Function-Protocol (TFP) in a tropical forest biome context.
+      </div>
+
+      <!-- SECTION 1: PERSONNEL -->
+      <div id="SECTION-1" class="section">
+        <div class="section-header">
+          Section 1 — Personnel <span class="phase-badge badge-alpha">Alpha</span>
+          <span style="float:right;font-family:'Libre Baskerville',serif;font-size:13px;color:var(--gold-accent);">$480,000</span>
+        </div>
+        <div style="text-align:right;font-size:8px;color:#78716c;margin-bottom:8px;font-style:italic;">All salaries annualized. Benefits calculated at 25% of base.</div>
+        <table class="budget-table">
+          <thead>
+            <tr>
+              <th class="col-line">#</th>
+              <th class="col-item">Position</th>
+              <th class="col-desc">Role & Responsibilities</th>
+              <th class="col-calc">FTE / Rate</th>
+              <th class="col-y1">Year 1</th>
+              <th class="col-y2">Year 2</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-line">1.1</td>
+              <td class="col-item"><strong>Science-Policy Lead</strong><br><span style="color:#78716c;font-size:8px;">Earth System Scientist</span></td>
+              <td class="col-desc">Scientific direction, tipping point detection protocols, peer review coordination, INPA/ACTO liaison</td>
+              <td class="col-calc">1.0 FTE<br>$95,000/yr + 25%</td>
+              <td class="col-y1">$118,750</td>
+              <td class="col-y2">$118,750</td>
+            </tr>
+            <tr>
+              <td class="col-line">1.2</td>
+              <td class="col-item"><strong>c-ECO Integration Officer</strong><br><span style="color:#78716c;font-size:8px;">Complex Systems / TFP</span></td>
+              <td class="col-desc">TFP protocol design, cross-layer integration, eigenvector analysis, GIH coordination</td>
+              <td class="col-calc">1.0 FTE<br>$85,000/yr + 25%</td>
+              <td class="col-y1">$106,250</td>
+              <td class="col-y2">$106,250</td>
+            </tr>
+            <tr>
+              <td class="col-line">1.3</td>
+              <td class="col-item"><strong>Domain Expert — Hydrology</strong></td>
+              <td class="col-desc">Amazon hydrological cycle monitoring, flood prediction, river basin analysis, INMET data integration</td>
+              <td class="col-calc">0.75 FTE<br>$72,000/yr + 25%</td>
+              <td class="col-y1">$67,500</td>
+              <td class="col-y2">$67,500</td>
+            </tr>
+            <tr>
+              <td class="col-line">1.4</td>
+              <td class="col-item"><strong>Domain Expert — Ecology</strong></td>
+              <td class="col-desc">Deforestation monitoring, biodiversity-climate nexus, REDD+ verification, MPEG liaison</td>
+              <td class="col-calc">0.75 FTE<br>$68,000/yr + 25%</td>
+              <td class="col-y1">$63,750</td>
+              <td class="col-y2">$63,750</td>
+            </tr>
+            <tr>
+              <td class="col-line">1.5</td>
+              <td class="col-item"><strong>Domain Expert — Climate</strong></td>
+              <td class="col-desc">Climate modeling, tipping element assessment, GCOS/WMO alignment, scenario development</td>
+              <td class="col-calc">0.75 FTE<br>$70,000/yr + 25%</td>
+              <td class="col-y1">$65,625</td>
+              <td class="col-y2">$65,625</td>
+            </tr>
+            <tr>
+              <td class="col-line">1.6</td>
+              <td class="col-item"><strong>Data / AI Engineer (2x)</strong></td>
+              <td class="col-desc">Satellite data pipelines, ML model deployment, sensor network architecture, real-time analytics</td>
+              <td class="col-calc">2.0 FTE<br>$65,000/yr + 25% ea</td>
+              <td class="col-y1">$162,500</td>
+              <td class="col-y2">$162,500</td>
+            </tr>
+            <tr>
+              <td class="col-line">1.7</td>
+              <td class="col-item"><strong>Legal / Regulatory Specialist</strong></td>
+              <td class="col-desc">Brazilian Forest Code compliance, sovereign green bond clauses, contractual framework, ACTO legal liaison</td>
+              <td class="col-calc">0.5 FTE<br>$80,000/yr + 25%</td>
+              <td class="col-y1">$50,000</td>
+              <td class="col-y2">$50,000</td>
+            </tr>
+            <tr>
+              <td class="col-line">1.8</td>
+              <td class="col-item"><strong>Operations & Field Coordinator (2x)</strong></td>
+              <td class="col-desc">Field logistics, sensor maintenance, indigenous community liaison, local procurement, safety protocols</td>
+              <td class="col-calc">1.5 FTE<br>$35,000/yr + 25% ea</td>
+              <td class="col-y1">$65,625</td>
+              <td class="col-y2">$65,625</td>
+            </tr>
+            <tr>
+              <td class="col-line">1.9</td>
+              <td class="col-item"><strong>Network Liaison</strong></td>
+              <td class="col-desc">GIH coordination, partner relationship management, reporting, communications, event coordination</td>
+              <td class="col-calc">0.5 FTE<br>$55,000/yr + 25%</td>
+              <td class="col-y1">$34,375</td>
+              <td class="col-y2">$34,375</td>
+            </tr>
+            <tr class="subtotal-row">
+              <td></td>
+              <td><strong>Subtotal — Personnel</strong></td>
+              <td>8.0 FTE core + benefits (25%)</td>
+              <td></td>
+              <td><strong>$240,000</strong></td>
+              <td><strong>$240,000</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SECTION 2: TECHNOLOGY -->
+      <div id="SECTION-2" class="section">
+        <div class="section-header">
+          Section 2 — Technology & Infrastructure <span class="phase-badge badge-alpha">Alpha</span>
+          <span style="float:right;font-family:'Libre Baskerville',serif;font-size:13px;color:var(--gold-accent);">$130,000</span>
+        </div>
+        <table class="budget-table">
+          <thead>
+            <tr>
+              <th class="col-line">#</th>
+              <th class="col-item">Item</th>
+              <th class="col-desc">Specification & Purpose</th>
+              <th class="col-calc">Qty / Unit</th>
+              <th class="col-y1">Year 1</th>
+              <th class="col-y2">Year 2</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-line">2.1</td>
+              <td class="col-item"><strong>Satellite Data Subscription</strong></td>
+              <td class="col-desc">Planet Labs daily imagery + Sentinel-2 / Landsat-9 via AWS Open Data + INPE/Censipam access</td>
+              <td class="col-calc">Annual licenses<br>$18,000/yr</td>
+              <td class="col-y1">$18,000</td>
+              <td class="col-y2">$18,000</td>
+            </tr>
+            <tr>
+              <td class="col-line">2.2</td>
+              <td class="col-item"><strong>AWS Cloud Infrastructure</strong></td>
+              <td class="col-desc">Compute (EC2 GPU instances), storage (S3), ML pipelines (SageMaker), real-time streaming (Kinesis)</td>
+              <td class="col-calc">Monthly avg<br>$2,500/mo</td>
+              <td class="col-y1">$30,000</td>
+              <td class="col-y2">$30,000</td>
+            </tr>
+            <tr>
+              <td class="col-line">2.3</td>
+              <td class="col-item"><strong>Ground Sensor Network</strong></td>
+              <td class="col-desc">Weather stations, water level sensors, soil moisture probes, methane flux towers (partial, 3 pilot sites)</td>
+              <td class="col-calc">3 sites<br>$8,000/ea</td>
+              <td class="col-y1">$24,000</td>
+              <td class="col-y2">$12,000</td>
+            </tr>
+            <tr>
+              <td class="col-line">2.4</td>
+              <td class="col-item"><strong>Data Integration Platform</strong></td>
+              <td class="col-desc">c-ECO proprietary TFP engine development, API infrastructure, blockchain provenance layer (pilot)</td>
+              <td class="col-calc">Development<br>+ licensing</td>
+              <td class="col-y1">$15,000</td>
+              <td class="col-y2">$10,000</td>
+            </tr>
+            <tr>
+              <td class="col-line">2.5</td>
+              <td class="col-item"><strong>Hardware & Equipment</strong></td>
+              <td class="col-desc">Workstations (2x), field laptops (4x), drones (2x), satellite phones, GPS units, safety equipment</td>
+              <td class="col-calc">One-time + refresh</td>
+              <td class="col-y1">$18,000</td>
+              <td class="col-y2">$5,000</td>
+            </tr>
+            <tr>
+              <td class="col-line">2.6</td>
+              <td class="col-item"><strong>Software Licenses</strong></td>
+              <td class="col-desc">GIS (QGIS Pro), ML frameworks, project management, security, communication tools</td>
+              <td class="col-calc">Annual</td>
+              <td class="col-y1">$5,000</td>
+              <td class="col-y2">$5,000</td>
+            </tr>
+            <tr class="subtotal-row">
+              <td></td>
+              <td><strong>Subtotal — Technology</strong></td>
+              <td>Cloud-first, open-source preference, vendor-neutral</td>
+              <td></td>
+              <td><strong>$110,000</strong></td>
+              <td><strong>$80,000</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SECTION 3: FIELD OPERATIONS -->
+      <div id="SECTION-3" class="section">
+        <div class="section-header">
+          Section 3 — Field Operations <span class="phase-badge badge-alpha">Alpha</span>
+          <span style="float:right;font-family:'Libre Baskerville',serif;font-size:13px;color:var(--gold-accent);">$100,000</span>
+        </div>
+        <table class="budget-table">
+          <thead>
+            <tr>
+              <th class="col-line">#</th>
+              <th class="col-item">Item</th>
+              <th class="col-desc">Description</th>
+              <th class="col-calc">Freq / Unit</th>
+              <th class="col-y1">Year 1</th>
+              <th class="col-y2">Year 2</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-line">3.1</td>
+              <td class="col-item"><strong>Site Deployment & Logistics</strong></td>
+              <td class="col-desc">Transportation to 3 pilot sites (river, road, air), accommodation, local permits, security</td>
+              <td class="col-calc">Monthly missions<br>$3,500/mo avg</td>
+              <td class="col-y1">$42,000</td>
+              <td class="col-y2">$36,000</td>
+            </tr>
+            <tr>
+              <td class="col-line">3.2</td>
+              <td class="col-item"><strong>Local Partnerships & Community</strong></td>
+              <td class="col-desc">Indigenous community engagement, local researcher collaboration, knowledge exchange workshops</td>
+              <td class="col-calc">Quarterly<br>$4,000/ea</td>
+              <td class="col-y1">$16,000</td>
+              <td class="col-y2">$16,000</td>
+            </tr>
+            <tr>
+              <td class="col-line">3.3</td>
+              <td class="col-item"><strong>Sensor Maintenance & Calibration</strong></td>
+              <td class="col-desc">Field technician visits, equipment replacement, calibration services, spare parts inventory</td>
+              <td class="col-calc">Bi-monthly<br>$1,500/ea</td>
+              <td class="col-y1">$9,000</td>
+              <td class="col-y2">$9,000</td>
+            </tr>
+            <tr>
+              <td class="col-line">3.4</td>
+              <td class="col-item"><strong>Emergency & Safety Protocols</strong></td>
+              <td class="col-desc">Medical evacuation insurance, satellite emergency beacons, first aid training, security briefings</td>
+              <td class="col-calc">Annual coverage</td>
+              <td class="col-y1">$8,000</td>
+              <td class="col-y2">$8,000</td>
+            </tr>
+            <tr class="subtotal-row">
+              <td></td>
+              <td><strong>Subtotal — Field Operations</strong></td>
+              <td>3 pilot sites across Western & Eastern Amazon</td>
+              <td></td>
+              <td><strong>$75,000</strong></td>
+              <td><strong>$69,000</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SECTION 4: LEGAL -->
+      <div id="SECTION-4" class="section">
+        <div class="section-header">
+          Section 4 — Legal & Governance <span class="phase-badge badge-alpha">Alpha</span>
+          <span style="float:right;font-family:'Libre Baskerville',serif;font-size:13px;color:var(--gold-accent);">$50,000</span>
+        </div>
+        <table class="budget-table">
+          <thead>
+            <tr>
+              <th class="col-line">#</th>
+              <th class="col-item">Item</th>
+              <th class="col-desc">Description</th>
+              <th class="col-calc">Scope</th>
+              <th class="col-y1">Year 1</th>
+              <th class="col-y2">Year 2</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-line">4.1</td>
+              <td class="col-item"><strong>Contractual Framework Development</strong></td>
+              <td class="col-desc">TFP template contracts, partnership MOUs, data sharing agreements, liability frameworks</td>
+              <td class="col-calc">Legal counsel<br>+ notary</td>
+              <td class="col-y1">$15,000</td>
+              <td class="col-y2">$8,000</td>
+            </tr>
+            <tr>
+              <td class="col-line">4.2</td>
+              <td class="col-item"><strong>Compliance & Audit</strong></td>
+              <td class="col-desc">LRQA or equivalent ESG audit, financial audit, data governance compliance (LGPD/GDPR)</td>
+              <td class="col-calc">Annual audit</td>
+              <td class="col-y1">$12,000</td>
+              <td class="col-y2">$12,000</td>
+            </tr>
+            <tr>
+              <td class="col-line">4.3</td>
+              <td class="col-item"><strong>Insurance & Risk Transfer</strong></td>
+              <td class="col-desc">Professional liability, cyber insurance, equipment insurance, directors & officers coverage</td>
+              <td class="col-calc">Annual premiums</td>
+              <td class="col-y1">$8,000</td>
+              <td class="col-y2">$8,000</td>
+            </tr>
+            <tr>
+              <td class="col-line">4.4</td>
+              <td class="col-item"><strong>IP & Trademark Protection</strong></td>
+              <td class="col-desc">c-ECO trademark registration (BR, US, EU), TFP methodology patent review, open-source licensing</td>
+              <td class="col-calc">One-time + renewals</td>
+              <td class="col-y1">$10,000</td>
+              <td class="col-y2">$2,000</td>
+            </tr>
+            <tr class="subtotal-row">
+              <td></td>
+              <td><strong>Subtotal — Legal & Governance</strong></td>
+              <td>Johann Christian Hasse Foundation as legal entity</td>
+              <td></td>
+              <td><strong>$45,000</strong></td>
+              <td><strong>$30,000</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SECTION 5: ADMIN -->
+      <div id="SECTION-5" class="section">
+        <div class="section-header">
+          Section 5 — Administration & Overhead <span class="phase-badge badge-alpha">Alpha</span>
+          <span style="float:right;font-family:'Libre Baskerville',serif;font-size:13px;color:var(--gold-accent);">$132,000</span>
+        </div>
+        <table class="budget-table">
+          <thead>
+            <tr>
+              <th class="col-line">#</th>
+              <th class="col-item">Item</th>
+              <th class="col-desc">Description</th>
+              <th class="col-calc">Basis</th>
+              <th class="col-y1">Year 1</th>
+              <th class="col-y2">Year 2</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-line">5.1</td>
+              <td class="col-item"><strong>Office & Facilities (Belém)</strong></td>
+              <td class="col-desc">Co-working / small office rental, utilities, internet, meeting rooms, storage</td>
+              <td class="col-calc">$1,500/mo</td>
+              <td class="col-y1">$18,000</td>
+              <td class="col-y2">$18,000</td>
+            </tr>
+            <tr>
+              <td class="col-line">5.2</td>
+              <td class="col-item"><strong>Travel & Conferences</strong></td>
+              <td class="col-desc">GIH coordination meetings (Geneva), partner visits, COP / UNFCCC side events, academic conferences</td>
+              <td class="col-calc">$2,500/mo avg</td>
+              <td class="col-y1">$30,000</td>
+              <td class="col-y2">$30,000</td>
+            </tr>
+            <tr>
+              <td class="col-line">5.3</td>
+              <td class="col-item"><strong>Communications & Reporting</strong></td>
+              <td class="col-desc">Website, publications, design, translation, quarterly reports, stakeholder newsletters</td>
+              <td class="col-calc">$1,000/mo</td>
+              <td class="col-y1">$12,000</td>
+              <td class="col-y2">$12,000</td>
+            </tr>
+            <tr>
+              <td class="col-line">5.4</td>
+              <td class="col-item"><strong>Indirect Costs (Overhead)</strong></td>
+              <td class="col-desc">Accounting, banking, HR, administrative support, institutional overhead (15% of direct costs)</td>
+              <td class="col-calc">15% of direct</td>
+              <td class="col-y1">$70,500</td>
+              <td class="col-y2">$70,500</td>
+            </tr>
+            <tr class="subtotal-row">
+              <td></td>
+              <td><strong>Subtotal — Admin & Overhead</strong></td>
+              <td>Includes 15% institutional overhead on direct costs</td>
+              <td></td>
+              <td><strong>$130,500</strong></td>
+              <td><strong>$130,500</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- GRAND TOTAL -->
+      <div id="GRAND-TOTAL" class="section">
+        <table class="budget-table">
+          <tr class="total-row">
+            <td style="width:5%"></td>
+            <td class="col-item" style="width:28%">GRAND TOTAL — Amazon Living Lab</td>
+            <td style="width:27%; font-size:9px; font-weight:400;">Phase Alpha · 18 months · Belém, Brazil · L1.1</td>
+            <td style="width:18%"></td>
+            <td class="col-y1" style="width:11%">$600,750</td>
+            <td class="col-y2" style="width:11%">$549,500</td>
+          </tr>
+          <tr style="background:#f5f5f4;">
+            <td></td>
+            <td style="padding:8px 10px; font-weight:700; color:var(--legal-blue);">TOTAL 18-MONTH BUDGET</td>
+            <td colspan="2" style="padding:8px 10px; color:#78716c; font-size:9px;">Includes all direct costs, overhead, and contingency</td>
+            <td colspan="2" style="padding:8px 10px; text-align:right; font-family:'Libre Baskerville',serif; font-size:18px; font-weight:700; color:var(--gold-accent);">$792,000</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="note-box">
+        <div class="note-label">Contingency Reserve</div>
+        <strong>5% of total budget ($39,600)</strong> is held in reserve for unforeseen operational risks, currency fluctuation, or emergency field response. Released only upon GIH Director and Science-Policy Lead joint approval.
+      </div>
+
+      <!-- MILESTONES -->
+      <div id="MILESTONES" class="section">
+        <div class="section-header">Disbursement Milestones & Tranched Release</div>
+        <table class="budget-table milestone-table">
+          <thead>
+            <tr>
+              <th style="width:22%">Milestone</th>
+              <th style="width:12%">Target Date</th>
+              <th style="width:12%">% of Budget</th>
+              <th style="width:27%">Deliverables</th>
+              <th style="width:27%">KPI Verification</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="milestone-y1">
+              <td><strong>M1: Foundation & Team</strong></td>
+              <td>Month 1-3</td>
+              <td>25%<br><span style="font-size:8px;color:#78716c;">($198k)</span></td>
+              <td style="text-align:left;">• MOU with INPA/MPEG<br>• 4 FTE hired<br>• Office operational<br>• Sensor network design</td>
+              <td style="text-align:left;">• Signed agreements<br>• Payroll records<br>• Lease contract<br>• Technical blueprint</td>
+            </tr>
+            <tr class="milestone-y1">
+              <td><strong>M2: Pilot Deployment</strong></td>
+              <td>Month 4-9</td>
+              <td>35%<br><span style="font-size:8px;color:#78716c;">($277k)</span></td>
+              <td style="text-align:left;">• 3 sites active<br>• First detection event<br>• TFP v1.0 tested<br>• Quarterly report #2</td>
+              <td style="text-align:left;">• Sensor data stream<br>• Detection log<br>• TFP execution record<br>• Peer review</td>
+            </tr>
+            <tr class="milestone-y1">
+              <td><strong>M3: Integration & Validation</strong></td>
+              <td>Month 10-12</td>
+              <td>20%<br><span style="font-size:8px;color:#78716c;">($158k)</span></td>
+              <td style="text-align:left;">• GIH integration test<br>• Financial transmission demo<br>• Year 1 audit passed<br>• Alpha review</td>
+              <td style="text-align:left;">• Geneva Hub handshake<br>• Mock TFP activation<br>• LRQA/audit sign-off<br>• Board assessment</td>
+            </tr>
+            <tr class="milestone-y2">
+              <td><strong>M4: Scale & Beta Prep</strong></td>
+              <td>Month 13-18</td>
+              <td>20%<br><span style="font-size:8px;color:#78716c;">($158k)</span></td>
+              <td style="text-align:left;">• 6-month continuous ops<br>• Beta lab specs<br>• Knowledge transfer<br>• Sustainability plan</td>
+              <td style="text-align:left;">• Uptime >95%<br>• Yaoundé/Dhaka specs<br>• Training materials<br>• Revenue model v1</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note-box">
+        <div class="note-label">Tranche Release Mechanism</div>
+        Funds are released quarterly upon independent verification of milestone completion by the GIH Oversight Committee. Unspent funds roll forward. Failure to meet 2 consecutive milestones triggers project review.
+      </div>
+
+      <!-- RISK MATRIX -->
+      <div id="RISK-MATRIX" class="section">
+        <div class="section-header">Risk Matrix & Mitigation</div>
+        <div class="risk-grid">
+          <div class="risk-item">
+            <div class="risk-header">
+              <h5>Key-Person Dependency</h5>
+              <span class="risk-level risk-high">High</span>
+            </div>
+            <p>Project currently depends on single founder for vision, partnerships, and execution.</p>
+            <p style="margin-top:6px; color:#059669; font-weight:600; font-size:9px;">Mitigation: Hire Science-Policy Lead and Integration Officer within 60 days. Document all TFP protocols. Establish GIH succession plan.</p>
+          </div>
+          <div class="risk-item">
+            <div class="risk-header">
+              <h5>Partner Formalization Delay</h5>
+              <span class="risk-level risk-med">Medium</span>
+            </div>
+            <p>INPA, MPEG, or ACTO may delay MOU execution due to institutional bureaucracy.</p>
+            <p style="margin-top:6px; color:#059669; font-weight:600; font-size:9px;">Mitigation: Start with Letter of Intent (1 page). Parallel track with 2 institutions. Use Hasse Foundation board connections.</p>
+          </div>
+          <div class="risk-item">
+            <div class="risk-header">
+              <h5>Currency & Inflation Volatility</h5>
+              <span class="risk-level risk-med">Medium</span>
+            </div>
+            <p>BRL volatility may erode purchasing power for local operations and salaries.</p>
+            <p style="margin-top:6px; color:#059669; font-weight:600; font-size:9px;">Mitigation: Hold 40% of local costs in USD reserve. Index salaries to IPCA. Use multi-currency accounting.</p>
+          </div>
+          <div class="risk-item">
+            <div class="risk-header">
+              <h5>Technology & Data Access</h5>
+              <span class="risk-level risk-med">Medium</span>
+            </div>
+            <p>Satellite data gaps, sensor failure in remote areas, or INPE access restrictions.</p>
+            <p style="margin-top:6px; color:#059669; font-weight:600; font-size:9px;">Mitigation: Multi-source redundancy (Planet + Sentinel + Landsat). Spare sensor inventory. Local technician training.</p>
+          </div>
+          <div class="risk-item">
+            <div class="risk-header">
+              <h5>Political & Regulatory Shift</h5>
+              <span class="risk-level risk-med">Medium</span>
+            </div>
+            <p>Changes in Brazilian environmental policy may affect Forest Code enforcement or data access.</p>
+            <p style="margin-top:6px; color:#059669; font-weight:600; font-size:9px;">Mitigation: Diversify regulatory hooks (subnational, private sector, international treaties). Maintain non-partisan positioning.</p>
+          </div>
+          <div class="risk-item">
+            <div class="risk-header">
+              <h5>Funding Continuity</h5>
+              <span class="risk-level risk-high">High</span>
+            </div>
+            <p>18-month runway with no guaranteed Beta phase funding creates cliff-edge risk.</p>
+            <p style="margin-top:6px; color:#059669; font-weight:600; font-size:9px;">Mitigation: Begin Beta fundraising at Month 6. Develop revenue model (TFP licensing, enterprise contracts). Build endowment case.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- COST SHARING -->
+      <div id="COST-SHARING" class="section">
+        <div class="section-header">In-Kind Contributions & Cost Sharing</div>
+        <table class="cost-table">
+          <thead>
+            <tr>
+              <th style="width:30%">Contributor</th>
+              <th style="width:35%">Contribution</th>
+              <th style="width:20%">Est. Value</th>
+              <th style="width:15%">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Johann Christian Hasse Foundation</strong></td>
+              <td>Legal entity, governance, board oversight, administrative infrastructure</td>
+              <td>$45,000</td>
+              <td><span style="color:var(--emerald);font-weight:700;">Active</span></td>
+            </tr>
+            <tr>
+              <td><strong>INMET / INCRA</strong></td>
+              <td>Satellite data access, meteorological baseline data, national alert system integration</td>
+              <td>$60,000</td>
+              <td><span style="color:var(--amber);font-weight:700;">Pending MOU</span></td>
+            </tr>
+            <tr>
+              <td><strong>MPEG (Goeldi Museum)</strong></td>
+              <td>Scientific advisory, biodiversity datasets, research station access, peer review network</td>
+              <td>$35,000</td>
+              <td><span style="color:var(--amber);font-weight:700;">Pending MOU</span></td>
+            </tr>
+            <tr>
+              <td><strong>Planet Labs / AWS</strong></td>
+              <td>Nonprofit imagery credits, cloud compute grants, open data program access</td>
+              <td>$40,000</td>
+              <td><span style="color:var(--amber);font-weight:700;">Application pending</span></td>
+            </tr>
+            <tr>
+              <td><strong>ISM (Instituto Silvio Meira)</strong></td>
+              <td>AI/ML advisory, researcher secondment, technical infrastructure consultation</td>
+              <td>$30,000</td>
+              <td><span style="color:var(--emerald);font-weight:700;">Active</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note-box">
+        <div class="note-label">Leverage Ratio</div>
+        Every $1 of external funding unlocks approximately <strong>$0.27 in verified in-kind contributions</strong>. Total project value: <strong>$1.00M+</strong> for $792K cash investment — a <strong>1.27x multiplier</strong>.
+      </div>
+
+      <!-- ASSUMPTIONS -->
+      <div id="ASSUMPTIONS" class="section">
+        <div class="section-header">Assumptions</div>
+        <div class="assumptions">
+          <div class="assumption-card">
+            <h4>Financial Assumptions</h4>
+            <ul>
+              <li>Exchange rate: 1 USD = 5.15 BRL (avg 2026)</li>
+              <li>Inflation: 3.5% p.a. (Brazilian IPCA)</li>
+              <li>Salary increases: 4% p.a. (Year 2)</li>
+              <li>Overhead rate: 15% (foundation standard)</li>
+              <li>Benefits load: 25% (FGTS, INSS, health)</li>
+            </ul>
+          </div>
+          <div class="assumption-card">
+            <h4>Operational Assumptions</h4>
+            <ul>
+              <li>3 pilot sites: 1 Western Amazon, 2 Eastern</li>
+              <li>Office: shared/co-working in Belém (Year 1)</li>
+              <li>INPA/MPEG: data sharing at no cost (MOU)</li>
+              <li>AWS: nonprofit credits applied (est. $15k/yr)</li>
+              <li>Phase Alpha launch: Q3 2026 (pending funding)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIGNATURES -->
+      <div id="SIGNATURES" class="signature-block">
         <div>
-          <div style="font-family:'Playfair Display',serif; font-size:13px; font-weight:600; color:var(--stone-950);">c-ECO</div>
-          <div class="logo-text">Systemic Coordination Infrastructure</div>
+          <div class="signature-line">
+            <div class="signature-name">Jacqueline A. Ennis</div>
+            <div class="signature-title">Founder & Principal Investigator<br>c-ECO Systemic Coordination Infrastructure<br>Johann Christian Hasse Foundation</div>
+          </div>
+        </div>
+        <div>
+          <div class="signature-line">
+            <div class="signature-name">Rodolfo Rivera</div>
+            <div class="signature-title">Board Member<br>Johann Christian Hasse Foundation<br>Polaris Risk Advisory</div>
+          </div>
         </div>
       </div>
-      <div class="doc-title">
-        <h1>Implementation Milestones & Risk Matrix</h1>
-        <div class="subtitle">Amazon Living Lab — Phase Alpha · Budget Appendix A</div>
-      </div>
-    </div>
-    <div class="doc-info-bar">
-      <span>Document: BUD-AMZ-2026-001-A</span>
-      <span>Version: 1.0</span>
-      <span>Date: May 2026</span>
-    </div>
-  </div>
 
-  <!-- MILESTONES -->
-  <div class="section">
-    <div class="section-header">
-      <h2>Disbursement Milestones</h2>
-      <span class="section-total">Tranched Release</span>
-    </div>
-    <table class="milestone-table">
-      <thead>
-        <tr>
-          <th style="width:25%">Milestone</th>
-          <th style="width:12%">Target Date</th>
-          <th style="width:13%">% of Budget</th>
-          <th style="width:25%">Deliverables</th>
-          <th style="width:25%">KPI Verification</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="milestone-y1">
-          <td><strong>M1: Foundation & Team</strong></td>
-          <td>Month 1-3</td>
-          <td>25%<br><span style="font-size:8px;color:var(--stone-500);">($198k)</span></td>
-          <td style="text-align:left;">• MOU with INPA/MPEG<br>• 4 FTE hired<br>• Office operational<br>• Sensor network design</td>
-          <td style="text-align:left;">• Signed agreements<br>• Payroll records<br>• Lease contract<br>• Technical blueprint</td>
-        </tr>
-        <tr class="milestone-y1">
-          <td><strong>M2: Pilot Deployment</strong></td>
-          <td>Month 4-9</td>
-          <td>35%<br><span style="font-size:8px;color:var(--stone-500);">($277k)</span></td>
-          <td style="text-align:left;">• 3 sites active<br>• First detection event<br>• TFP v1.0 tested<br>• Quarterly report #2</td>
-          <td style="text-align:left;">• Sensor data stream<br>• Detection log<br>• TFP execution record<br>• Peer review</td>
-        </tr>
-        <tr class="milestone-y1">
-          <td><strong>M3: Integration & Validation</strong></td>
-          <td>Month 10-12</td>
-          <td>20%<br><span style="font-size:8px;color:var(--stone-500);">($158k)</span></td>
-          <td style="text-align:left;">• GIH integration test<br>• Financial transmission demo<br>• Year 1 audit passed<br>• Alpha review</td>
-          <td style="text-align:left;">• Geneva Hub handshake<br>• Mock TFP activation<br>• LRQA/audit sign-off<br>• Board assessment</td>
-        </tr>
-        <tr class="milestone-y2">
-          <td><strong>M4: Scale & Beta Prep</strong></td>
-          <td>Month 13-18</td>
-          <td>20%<br><span style="font-size:8px;color:var(--stone-500);">($158k)</span></td>
-          <td style="text-align:left;">• 6-month continuous ops<br>• Beta lab specs<br>• Knowledge transfer<br>• Sustainability plan</td>
-          <td style="text-align:left;">• Uptime >95%<br>• Yaoundé/Dhaka specs<br>• Training materials<br>• Revenue model v1</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+      <!-- COPYRIGHT -->
+      <div style="margin-top: 40px; padding-top: 25px; border-top: 2px solid var(--border-color); font-size: 11px; line-height: 1.6; color: #555;">
+        <div style="font-weight: 700; color: var(--legal-blue); margin-bottom: 10px;">© 2026 c-ECO Systemic Governance Initiative. Supported by the Johann Christian Hasse Foundation. All rights reserved.</div>
+        <div style="margin-bottom: 10px;">Licensed under <strong>CC BY-NC-ND 4.0</strong>. Non-commercial use only. No derivatives without authorization.</div>
+        <div style="margin-bottom: 10px;"><strong>Document:</strong> Amazon Living Lab — Phase Alpha Budget & Implementation Plan · <strong>Version:</strong> 1.0 (May 2026)</div>
+        <div style="font-size: 10px; color: #888;"><strong>Disclaimer:</strong> Budget estimates subject to revision upon partner negotiation and funding confirmation. Implementation timeline contingent on milestone achievement.</div>
+      </div>
 
-  <div class="note-box" style="margin-top:16px;">
-    <strong>Tranche Release Mechanism:</strong> Funds are released quarterly upon independent verification of milestone completion 
-    by the GIH Oversight Committee. Unspent funds roll forward. Failure to meet 2 consecutive milestones triggers project review.
-  </div>
+    </article>
+  </main>
 
-  <!-- RISK MATRIX -->
-  <div class="section" style="margin-top:28px;">
-    <div class="section-header">
-      <h2>Risk Matrix & Mitigation</h2>
-      <span class="section-total">5 Critical Risks</span>
-    </div>
-    <div class="risk-grid">
-      <div class="risk-item">
-        <div class="risk-header">
-          <h5>Key-Person Dependency</h5>
-          <span class="risk-level risk-high">High</span>
-        </div>
-        <p>Project currently depends on single founder for vision, partnerships, and execution.</p>
-        <p style="margin-top:6px; color:var(--emerald-dark); font-weight:600;">Mitigation: Hire Science-Policy Lead and Integration Officer within 60 days. Document all TFP protocols. Establish GIH succession plan.</p>
-      </div>
-      <div class="risk-item">
-        <div class="risk-header">
-          <h5>Partner Formalization Delay</h5>
-          <span class="risk-level risk-med">Medium</span>
-        </div>
-        <p>INPA, MPEG, or ACTO may delay MOU execution due to institutional bureaucracy.</p>
-        <p style="margin-top:6px; color:var(--emerald-dark); font-weight:600;">Mitigation: Start with Letter of Intent (1 page). Parallel track with 2 institutions. Use Hasse Foundation board connections.</p>
-      </div>
-      <div class="risk-item">
-        <div class="risk-header">
-          <h5>Currency & Inflation Volatility</h5>
-          <span class="risk-level risk-med">Medium</span>
-        </div>
-        <p>BRL volatility may erode purchasing power for local operations and salaries.</p>
-        <p style="margin-top:6px; color:var(--emerald-dark); font-weight:600;">Mitigation: Hold 40% of local costs in USD reserve. Index salaries to IPCA. Use multi-currency accounting.</p>
-      </div>
-      <div class="risk-item">
-        <div class="risk-header">
-          <h5>Technology & Data Access</h5>
-          <span class="risk-level risk-med">Medium</span>
-        </div>
-        <p>Satellite data gaps, sensor failure in remote areas, or INPE access restrictions.</p>
-        <p style="margin-top:6px; color:var(--emerald-dark); font-weight:600;">Mitigation: Multi-source redundancy (Planet + Sentinel + Landsat). Spare sensor inventory. Local technician training.</p>
-      </div>
-      <div class="risk-item">
-        <div class="risk-header">
-          <h5>Political & Regulatory Shift</h5>
-          <span class="risk-level risk-med">Medium</span>
-        </div>
-        <p>Changes in Brazilian environmental policy may affect Forest Code enforcement or data access.</p>
-        <p style="margin-top:6px; color:var(--emerald-dark); font-weight:600;">Mitigation: Diversify regulatory hooks (subnational, private sector, international treaties). Maintain non-partisan positioning.</p>
-      </div>
-      <div class="risk-item">
-        <div class="risk-header">
-          <h5>Funding Continuity</h5>
-          <span class="risk-level risk-high">High</span>
-        </div>
-        <p>18-month runway with no guaranteed Beta phase funding creates cliff-edge risk.</p>
-        <p style="margin-top:6px; color:var(--emerald-dark); font-weight:600;">Mitigation: Begin Beta fundraising at Month 6. Develop revenue model (TFP licensing, enterprise contracts). Build endowment case.</p>
-      </div>
-    </div>
-  </div>
+  <script>
+    // Search logic
+    const searchInput = document.getElementById('sidebarSearch');
+    const navItems = document.querySelectorAll('.nav-item');
+    const sectionTitles = document.querySelectorAll('.nav-section-title, .nav-sub-title');
+    const sidebar = document.getElementById('sidebar');
 
-  <!-- COST SHARING -->
-  <div class="section" style="margin-top:28px;">
-    <div class="section-header">
-      <h2>In-Kind Contributions & Cost Sharing</h2>
-      <span class="section-total">$210,000+</span>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th style="width:30%">Contributor</th>
-          <th style="width:35%">Contribution</th>
-          <th style="width:20%">Est. Value</th>
-          <th style="width:15%">Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Johann Christian Hasse Foundation</strong></td>
-          <td>Legal entity, governance, board oversight, administrative infrastructure</td>
-          <td>$45,000</td>
-          <td><span style="color:var(--emerald);font-weight:600;">Active</span></td>
-        </tr>
-        <tr>
-          <td><strong>INMET / INCRA</strong></td>
-          <td>Satellite data access, meteorological baseline data, national alert system integration</td>
-          <td>$60,000</td>
-          <td><span style="color:var(--amber);font-weight:600;">Pending MOU</span></td>
-        </tr>
-        <tr>
-          <td><strong>MPEG (Goeldi Museum)</strong></td>
-          <td>Scientific advisory, biodiversity datasets, research station access, peer review network</td>
-          <td>$35,000</td>
-          <td><span style="color:var(--amber);font-weight:600;">Pending MOU</span></td>
-        </tr>
-        <tr>
-          <td><strong>Planet Labs / AWS</strong></td>
-          <td>Nonprofit imagery credits, cloud compute grants, open data program access</td>
-          <td>$40,000</td>
-          <td><span style="color:var(--amber);font-weight:600;">Application pending</span></td>
-        </tr>
-        <tr>
-          <td><strong>ISM (Instituto Silvio Meira)</strong></td>
-          <td>AI/ML advisory, researcher secondment, technical infrastructure consultation</td>
-          <td>$30,000</td>
-          <td><span style="color:var(--emerald);font-weight:600;">Active</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    searchInput.addEventListener('input', function(e) {
+      const term = e.target.value.toLowerCase();
+      
+      navItems.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.classList.toggle('hidden', !text.includes(term));
+      });
 
-  <div class="note-box">
-    <strong>Leverage Ratio:</strong> Every $1 of external funding unlocks approximately $0.27 in verified in-kind contributions. 
-    Total project value: <strong>$1.00M+</strong> for $792K cash investment — a 1.27x multiplier.
-  </div>
+      sectionTitles.forEach(title => {
+        title.classList.toggle('hidden', term.length > 0);
+      });
+    });
 
-  <!-- SIGNATURES -->
-  <div class="signature-block">
-    <div>
-      <div class="signature-line">
-        <div class="signature-name">Jacqueline A. Ennis</div>
-        <div class="signature-title">Founder & Principal Investigator<br>c-ECO Systemic Coordination Infrastructure<br>Johann Christian Hasse Foundation</div>
-      </div>
-    </div>
-    <div>
-      <div class="signature-line">
-        <div class="signature-name">Rodolfo Rivera</div>
-        <div class="signature-title">Board Member<br>Johann Christian Hasse Foundation<br>Polaris Risk Advisory</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="doc-footer" style="margin-top:48px;">
-    <span>c-ECO Systemic Coordination Infrastructure v4.1</span>
-    <span>Johann Christian Hasse Foundation · Brazil</span>
-    <span>contact@c-eco.org · c-eco.org</span>
-  </div>
-</div>
+    // Close menu mobile ao clicar link
+    document.querySelectorAll('.nav-item a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 1024) {
+          sidebar.classList.remove('open');
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>
