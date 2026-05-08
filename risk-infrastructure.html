@@ -1,0 +1,512 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<meta name="description" content="c-ECO Amazon Core Lab — Risk Reduction Infrastructure. The missing layer between ecological detection and financial action.">
+<title>c-ECO | Amazon Core Lab — Risk Infrastructure</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--sidebar-width:320px;--legal-blue:#1a2b3c;--gold-accent:#c5a059;--bg-body:#f4f7f9;--text-main:#1a1a1a;--border-color:#dee2e6;--emerald:#10b981;--blue:#3b82f6;--amber:#f59e0b;--red:#ef4444;--stone-100:#f5f5f4;--stone-200:#e7e5e4;--stone-500:#78716c;--stone-600:#57534e;--stone-800:#292524;--stone-950:#0c0a09;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--bg-body);color:var(--text-main);line-height:1.6;font-size:10pt;}
+.sidebar{width:var(--sidebar-width);position:fixed;top:0;left:0;height:100vh;background:#fff;border-right:1px solid var(--border-color);padding:16px;overflow-y:auto;z-index:1000;-webkit-overflow-scrolling:touch;transition:transform .3s ease;}
+.sidebar-top{display:flex;align-items:center;gap:10px;padding-bottom:10px;margin-bottom:12px;border-bottom:2px solid var(--gold-accent);}
+.logo-box{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid var(--border-color);background:#fff;color:var(--legal-blue);font-weight:900;font-size:1.2rem;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,0.1);}
+.sidebar-title{font-weight:800;font-size:11px;letter-spacing:1px;color:var(--legal-blue);text-transform:uppercase;line-height:1.2;margin:0;}
+.sidebar-sub{font-size:9px;color:var(--stone-500);margin-top:2px;letter-spacing:0.3px;}
+.search-container{margin-bottom:12px;position:sticky;top:0;background:#fff;z-index:10;padding-bottom:8px;}
+#sidebarSearch{width:100%;padding:10px 12px;border:1px solid var(--border-color);border-radius:4px;font-family:'Inter',sans-serif;font-size:13px;outline:none;}
+#sidebarSearch:focus{border-color:var(--gold-accent);box-shadow:0 0 0 3px rgba(197,160,89,0.15);}
+.nav-list{list-style:none;padding:0;margin:0;}
+.nav-section-title{font-size:9px;font-weight:800;color:var(--gold-accent);margin-top:14px;text-transform:uppercase;border-top:1px solid #eee;padding-top:10px;padding-bottom:5px;letter-spacing:.8px;}
+.nav-sub-title{font-size:8px;font-weight:700;color:#7a8a99;letter-spacing:0.5px;text-transform:uppercase;margin:8px 0 3px 8px;}
+.nav-item a{text-decoration:none;color:var(--text-main);font-size:10.5px;display:block;padding:5px 8px;line-height:1.35;transition:.2s;border-left:3px solid transparent;}
+.nav-item a:hover{background:rgba(197,160,89,0.12);border-left-color:var(--gold-accent);}
+.nav-item a.active{background:rgba(197,160,89,0.15);border-left-color:var(--gold-accent);font-weight:600;}
+.main-content{margin-left:var(--sidebar-width);padding:0;display:flex;justify-content:center;}
+.document-page{background:#fff;width:100%;max-width:820px;padding:50px 50px;box-shadow:0 4px 25px rgba(0,0,0,0.06);min-height:100vh;}
+.hero-section{background:linear-gradient(135deg,var(--stone-950) 0%,var(--stone-900) 100%);color:#fff;padding:48px 40px;margin:-50px -50px 40px -50px;border-bottom:4px solid var(--gold-accent);}
+.hero-label{font-size:9px;text-transform:uppercase;letter-spacing:0.3em;color:var(--gold-accent);font-weight:700;margin-bottom:16px;}
+.hero-title{font-family:'Libre Baskerville',serif;font-size:32px;font-weight:700;line-height:1.2;margin-bottom:16px;color:#fff;}
+.hero-subtitle{font-size:14px;color:var(--stone-400);font-style:italic;max-width:600px;line-height:1.5;}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:32px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.1);}
+.hero-stat{text-align:center;}
+.hero-stat-num{font-family:'Libre Baskerville',serif;font-size:28px;font-weight:700;color:var(--gold-accent);line-height:1;}
+.hero-stat-label{font-size:8px;text-transform:uppercase;letter-spacing:0.15em;color:var(--stone-500);margin-top:6px;}
+.section-header{font-family:'Libre Baskerville',serif;font-weight:700;font-size:20px;color:var(--legal-blue);margin:40px 0 20px 0;padding-bottom:10px;border-bottom:3px solid var(--gold-accent);scroll-margin-top:20px;}
+.subsection-header{font-family:'Libre Baskerville',serif;font-weight:700;font-size:15px;color:var(--legal-blue);margin:28px 0 14px 0;padding-bottom:6px;border-bottom:1px solid var(--border-color);scroll-margin-top:20px;}
+.problem-box{background:#fff;border:2px solid var(--red);padding:20px 24px;margin-bottom:24px;border-radius:4px;}
+.problem-box .label{font-size:9px;text-transform:uppercase;letter-spacing:0.2em;color:var(--red);font-weight:700;margin-bottom:8px;}
+.problem-box p{font-size:11px;color:var(--stone-800);line-height:1.6;}
+.card-grid{display:grid;gap:16px;}
+.card-grid-2{grid-template-columns:1fr 1fr;}
+.card-grid-3{grid-template-columns:repeat(3,1fr);}
+.card-grid-4{grid-template-columns:repeat(4,1fr);}
+.card{background:#fafbfc;border:1px solid var(--border-color);padding:20px;border-radius:4px;}
+.card h3{font-family:'Libre Baskerville',serif;font-size:14px;font-weight:700;color:var(--legal-blue);margin-bottom:10px;}
+.card p{font-size:10px;color:var(--stone-600);line-height:1.6;}
+.card .tag{font-size:8px;text-transform:uppercase;letter-spacing:0.15em;font-weight:700;margin-bottom:8px;display:inline-block;}
+.card-tag-red{color:var(--red);}
+.card-tag-blue{color:var(--blue);}
+.card-tag-amber{color:var(--amber);}
+.card-tag-emerald{color:var(--emerald);}
+.card .cost{font-size:10px;color:var(--red);font-weight:700;margin-top:10px;}
+.solution-strip{background:var(--stone-100);padding:24px;border-radius:4px;margin:24px 0;border-left:4px solid var(--emerald);}
+.solution-strip .label{font-size:9px;text-transform:uppercase;letter-spacing:0.2em;color:var(--emerald);font-weight:700;margin-bottom:8px;}
+.solution-strip h3{font-family:'Libre Baskerville',serif;font-size:16px;color:var(--stone-950);margin-bottom:8px;}
+.solution-strip p{font-size:10px;color:var(--stone-600);line-height:1.6;}
+.tfp-flow{display:flex;align-items:center;justify-content:center;gap:12px;margin:20px 0;padding:16px;background:#fff;border:1px dashed var(--gold-accent);border-radius:4px;flex-wrap:wrap;}
+.tfp-step{text-align:center;padding:10px 14px;background:var(--stone-950);color:#fff;border-radius:3px;font-size:8px;font-weight:700;min-width:100px;text-transform:uppercase;letter-spacing:0.1em;}
+.tfp-step span{display:block;font-size:7px;font-weight:400;color:var(--stone-500);text-transform:none;letter-spacing:0;margin-top:3px;}
+.tfp-arrow{color:var(--gold-accent);font-size:20px;font-weight:700;}
+.tfp-time{font-size:7px;color:var(--stone-600);text-transform:uppercase;letter-spacing:0.1em;text-align:center;margin-top:4px;}
+.deliv-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.deliv-item{border:1px solid var(--border-color);padding:14px;border-radius:4px;background:#fff;}
+.deliv-item .num{display:inline-block;width:22px;height:22px;background:var(--gold-accent);color:#fff;font-size:10px;font-weight:700;text-align:center;line-height:22px;border-radius:50%;margin-right:8px;}
+.deliv-item h4{font-size:11px;font-weight:700;color:var(--legal-blue);display:inline;}
+.deliv-item p{font-size:9.5px;color:var(--stone-600);margin-top:6px;line-height:1.5;}
+.ask-box{background:linear-gradient(135deg,var(--stone-950),var(--stone-900));color:#fff;padding:24px;border-radius:4px;margin:24px 0;}
+.ask-box .label{font-size:9px;text-transform:uppercase;letter-spacing:0.2em;color:var(--gold-accent);font-weight:700;margin-bottom:12px;}
+.ask-box h3{font-family:'Libre Baskerville',serif;font-size:18px;margin-bottom:16px;}
+.ask-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.ask-item{text-align:center;}
+.ask-item .num{font-family:'Libre Baskerville',serif;font-size:28px;font-weight:700;color:var(--gold-accent);line-height:1;}
+.ask-item .lbl{font-size:8px;text-transform:uppercase;letter-spacing:0.15em;color:var(--stone-500);margin-top:6px;}
+.budget-table{width:100%;border-collapse:collapse;font-size:9.5px;margin-top:12px;}
+.budget-table th{background:var(--stone-100);color:var(--legal-blue);font-size:8px;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;padding:8px 10px;text-align:left;border-bottom:2px solid var(--gold-accent);}
+.budget-table td{padding:8px 10px;border-bottom:1px solid var(--stone-200);vertical-align:top;}
+.budget-table tr:hover td{background:#fafaf9;}
+.subtotal-row td{background:var(--stone-100);font-weight:700;color:var(--stone-800);border-top:2px solid var(--stone-200);border-bottom:2px solid var(--stone-200);}
+.total-row td{background:var(--legal-blue);color:#fff;font-weight:700;border:none;}
+.total-row .col-item{font-family:'Libre Baskerville',serif;font-size:12px;}
+.total-row .col-y1,.total-row .col-y2{font-family:'Libre Baskerville',serif;font-size:13px;color:var(--gold-accent);}
+.col-line{width:5%;color:var(--stone-500);font-weight:500;}
+.col-item{width:28%;}
+.col-desc{width:27%;color:var(--stone-500);font-size:8.5px;}
+.col-calc{width:18%;color:var(--stone-500);font-size:8.5px;text-align:right;}
+.col-y1{width:11%;text-align:right;font-weight:500;}
+.col-y2{width:11%;text-align:right;font-weight:500;}
+.milestone-table th{text-align:center;}
+.milestone-table td{text-align:center;font-size:8.5px;}
+.milestone-table td:first-child{text-align:left;font-weight:500;}
+.milestone-y1{background:rgba(16,185,129,0.06);}
+.milestone-y2{background:rgba(59,130,246,0.06);}
+.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.risk-item{border:1px solid var(--border-color);padding:12px;border-radius:4px;background:#fff;}
+.risk-item .risk-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.risk-item h5{font-size:10px;font-weight:700;color:var(--legal-blue);}
+.risk-level{font-size:7px;text-transform:uppercase;letter-spacing:0.1em;padding:2px 6px;border-radius:2px;font-weight:700;}
+.risk-low{background:rgba(16,185,129,0.15);color:#059669;}
+.risk-med{background:rgba(245,158,11,0.15);color:#b45309;}
+.risk-high{background:rgba(239,68,68,0.15);color:var(--red);}
+.risk-item p{font-size:9px;color:var(--stone-600);line-height:1.5;}
+.note-box{background:var(--stone-100);border-left:4px solid var(--gold-accent);padding:14px 16px;margin:16px 0;font-size:10px;color:var(--stone-600);line-height:1.6;}
+.note-label{font-size:9px;font-weight:800;color:var(--legal-blue);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:6px;}
+.quote-box{font-family:'Libre Baskerville',serif;font-size:18px;font-style:italic;line-height:1.5;color:var(--stone-600);padding:24px 0;border-left:3px solid var(--gold-accent);padding-left:20px;margin:24px 0;}
+.phase-badge{display:inline-block;padding:2px 8px;border-radius:3px;font-size:7px;text-transform:uppercase;letter-spacing:0.15em;font-weight:700;margin-left:8px;color:#fff;}
+.badge-alpha{background:var(--emerald);}
+.badge-beta{background:var(--blue);}
+.badge-gamma{background:var(--amber);}
+.funder-tabs{display:flex;gap:4px;margin-bottom:20px;border-bottom:2px solid var(--border-color);}
+.funder-tab{padding:10px 16px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;cursor:pointer;border:none;background:none;color:var(--stone-500);border-bottom:3px solid transparent;transition:all 0.2s;}
+.funder-tab:hover{color:var(--legal-blue);}
+.funder-tab.active{color:var(--legal-blue);border-bottom-color:var(--gold-accent);}
+.funder-panel{display:none;}
+.funder-panel.active{display:block;}
+.funder-tag{display:inline-block;padding:3px 10px;border-radius:3px;font-size:8px;text-transform:uppercase;letter-spacing:0.15em;font-weight:700;margin-bottom:12px;color:#fff;}
+.tag-google{background:#4285f4;}
+.tag-worldbank{background:#00205b;}
+.tag-bezos{background:#232f3e;}
+.script-box{background:#fff;border:1px solid var(--border-color);padding:20px;border-radius:4px;margin-bottom:16px;}
+.script-time{font-size:9px;font-weight:800;color:var(--gold-accent);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:8px;}
+.script-title{font-family:'Libre Baskerville',serif;font-size:14px;font-weight:700;color:var(--legal-blue);margin-bottom:10px;}
+.script-content{font-size:10px;color:var(--stone-600);line-height:1.7;}
+.script-content blockquote{border-left:3px solid var(--gold-accent);padding-left:12px;margin:10px 0;font-style:italic;color:var(--stone-800);}
+.script-content strong{color:var(--legal-blue);}
+.assumptions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;}
+.assumption-card{border:1px solid var(--border-color);padding:12px;border-radius:4px;background:#fff;}
+.assumption-card h4{font-size:10px;color:var(--gold-accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;}
+.assumption-card ul{list-style:none;font-size:9px;color:var(--stone-600);padding:0;}
+.assumption-card li{padding:3px 0;padding-left:12px;position:relative;}
+.assumption-card li::before{content:">";position:absolute;left:0;color:var(--gold-accent);font-weight:700;}
+.signature-block{margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:40px;}
+.signature-line{border-top:1px solid var(--legal-blue);padding-top:8px;margin-top:40px;}
+.signature-name{font-weight:700;font-size:10px;color:var(--legal-blue);}
+.signature-title{font-size:8px;color:var(--stone-500);margin-top:2px;}
+.doc-footer{margin-top:40px;padding-top:20px;border-top:2px solid var(--border-color);display:flex;justify-content:space-between;font-size:8px;color:var(--stone-500);text-transform:uppercase;letter-spacing:0.1em;}
+.print-btn{position:fixed;top:20px;right:20px;background:var(--legal-blue);color:#fff;border:none;padding:12px 20px;font-weight:700;font-size:12px;z-index:2000;box-shadow:0 4px 15px rgba(0,0,0,0.2);cursor:pointer;letter-spacing:0.5px;border-radius:4px;display:flex;align-items:center;gap:8px;transition:all 0.3s ease;}
+.print-btn:hover{background:#2c3e50;transform:translateY(-2px);}
+.print-btn::before{content:"🖨️";font-size:14px;}
+.mobile-btn{display:none;position:fixed;bottom:20px;right:20px;background:var(--legal-blue);color:#fff;border:none;padding:14px 22px;font-weight:800;font-size:12px;z-index:2000;box-shadow:0 4px 15px rgba(0,0,0,0.3);cursor:pointer;letter-spacing:0.5px;}
+.hidden{display:none !important;}
+@media (max-width:1024px){.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);box-shadow:10px 0 30px rgba(0,0,0,0.22);}.main-content{margin-left:0;}.document-page{padding:24px;width:auto;margin:0;}.mobile-btn{display:block;}.card-grid-2,.card-grid-3,.card-grid-4{grid-template-columns:1fr;}.hero-stats{grid-template-columns:repeat(2,1fr);}.ask-grid{grid-template-columns:1fr;}.deliv-grid{grid-template-columns:1fr;}.risk-grid{grid-template-columns:1fr;}.assumptions{grid-template-columns:1fr;}.signature-block{grid-template-columns:1fr;}.hero-section{margin:-24px -24px 30px -24px;padding:32px 24px;}.hero-title{font-size:24px;}.print-btn{top:auto;bottom:80px;right:20px;}.funder-tabs{flex-wrap:wrap;}}
+@media (max-width:1200px) and (min-width:1025px){.document-page{max-width:calc(100vw - var(--sidebar-width) - 40px);padding:40px 30px;}}
+@media print{.sidebar,.mobile-btn,.print-btn,.funder-tabs{display:none !important;}.main-content{margin-left:0;}.funder-panel{display:block !important;}.hero-section{page-break-after:avoid;}.section-header{page-break-after:avoid;}.card,.risk-item,.deliv-item{page-break-inside:avoid;}}
+</style>
+</head>
+<body>
+<button class="mobile-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">INDEX</button>
+<button class="print-btn" onclick="window.print()"><span>Save PDF / Print</span></button>
+<aside class="sidebar" id="sidebar" aria-label="Risk Infrastructure Index">
+<div class="sidebar-top">
+<a href="https://c-eco.org" class="logo-box" aria-label="c-ECO Home">Σ</a>
+<div><div class="sidebar-title">Amazon Core Lab</div><div class="sidebar-sub">Risk Infrastructure · Phase Alpha</div></div>
+</div>
+<div class="search-container">
+<input type="text" id="sidebarSearch" placeholder="Search sections, budget, milestones..." aria-label="Search Index">
+</div>
+<nav>
+<ul class="nav-list">
+<li class="nav-section-title">Thesis</li>
+<li class="nav-item"><a href="#HERO">Hero Statement</a></li>
+<li class="nav-item"><a href="#GAP">The Structural Gap</a></li>
+<li class="nav-item"><a href="#CLIENTS">Who Loses Money</a></li>
+<li class="nav-section-title">Solution</li>
+<li class="nav-item"><a href="#SOLUTION">c-ECO Infrastructure</a></li>
+<li class="nav-item"><a href="#TFP">TFP — Trigger Flow</a></li>
+<li class="nav-item"><a href="#DELIVERABLES">Actionable Outputs</a></li>
+<li class="nav-item"><a href="#PILOTS">Phase Alpha Pilots</a></li>
+<li class="nav-section-title">Execution</li>
+<li class="nav-item"><a href="#TEAM">Team & Governance</a></li>
+<li class="nav-item"><a href="#BUDGET">Budget — $792K</a></li>
+<li class="nav-item"><a href="#MILESTONES">Milestones & Tranches</a></li>
+<li class="nav-item"><a href="#RISK">Risk Matrix</a></li>
+<li class="nav-section-title">Funder Alignment</li>
+<li class="nav-item"><a href="#FUNDERS">Tailored Proposals</a></li>
+<li class="nav-item"><a href="#GOOGLE">Google.org</a></li>
+<li class="nav-item"><a href="#WORLDBANK">World Bank / IDB</a></li>
+<li class="nav-item"><a href="#BEZOS">Bezos Earth Fund</a></li>
+<li class="nav-section-title">Operations</li>
+<li class="nav-item"><a href="#SCRIPT">Meeting Script</a></li>
+<li class="nav-item"><a href="#SEQUENCE">Deployment Sequence</a></li>
+<li class="nav-item"><a href="#ASSUMPTIONS">Assumptions</a></li>
+<li class="nav-section-title">Primary Sources</li>
+<li class="nav-item"><a href="https://c-eco.org/law.html" style="font-weight:700;">c-ECO Model Law</a></li>
+<li class="nav-item"><a href="https://c-eco.org/manual.html" style="font-weight:700;">TFP Manual</a></li>
+<li class="nav-item"><a href="https://c-eco.org/english.html" style="font-weight:700;">Global System Map</a></li>
+</ul>
+</nav>
+</aside>
+<main class="main-content">
+<article class="document-page">
+
+<!-- HERO -->
+<div id="HERO" class="hero-section">
+<div class="hero-label">Phase Alpha · L1.1 · Belém, Brazil · Q3 2026</div>
+<h1 class="hero-title">"The Amazon is not underfunded.<br>It is under-instrumented for decision."</h1>
+<p class="hero-subtitle">c-ECO Amazon Core Lab builds the missing layer between ecological detection and financial action. Not research. Risk reduction infrastructure.</p>
+<div class="hero-stats">
+<div class="hero-stat"><div class="hero-stat-num">$792K</div><div class="hero-stat-label">18-Month Budget</div></div>
+<div class="hero-stat"><div class="hero-stat-num">&lt;24h</div><div class="hero-stat-label">Detection-to-Trigger</div></div>
+<div class="hero-stat"><div class="hero-stat-num">8</div><div class="hero-stat-label">Core FTE</div></div>
+<div class="hero-stat"><div class="hero-stat-num">4</div><div class="hero-stat-label">Actionable Outputs</div></div>
+</div>
+</div>
+
+<!-- GAP -->
+<div id="GAP" class="section-header">The Structural Gap</div>
+<div class="problem-box">
+<div class="label">⚠ Structural Problem</div>
+<p>There is <strong>no mechanism</strong> that connects ecological signals from the Amazon to financial decisions, insurance pricing, or contractual adjustments <strong>in time to prevent loss</strong>. Detection exists. Capital exists. The <strong>link between them does not</strong>.</p>
+</div>
+<div class="card-grid card-grid-3">
+<div class="card"><div class="tag card-tag-emerald">🛰 Detection</div><h3>Satellites &amp; Sensors</h3><p>Satellites, sensors, and AI can detect deforestation, hydrological disruption, and methane flux in near-real-time.</p><div style="margin-top:8px;font-size:9px;color:var(--stone-500);">Exists. Operational. Underutilized.</div></div>
+<div class="card"><div class="tag card-tag-blue">💰 Capital</div><h3>Insurance &amp; Finance</h3><p>Insurance markets, development banks, and sovereign funds hold $2T+ in climate-transition capital seeking deployable risk frameworks.</p><div style="margin-top:8px;font-size:9px;color:var(--stone-500);">Exists. Available. Misallocated.</div></div>
+<div class="card"><div class="tag card-tag-red">❌ The Missing Layer</div><h3>No Infrastructure</h3><p>No infrastructure translates ecological signals into financial triggers, contract adjustments, or portfolio reallocation <strong>before</strong> systemic loss.</p><div style="margin-top:8px;font-size:9px;color:var(--red);">Does not exist. This is c-ECO.</div></div>
+</div>
+
+<!-- CLIENTS -->
+<div id="CLIENTS" class="section-header">Who Loses Money Without c-ECO</div>
+<div class="card-grid card-grid-3">
+<div class="card" style="border-left:3px solid var(--red);"><div class="tag card-tag-red">Client 01</div><h3>Reinsurance Markets</h3><p>Swiss Re, Lloyd's, Munich Re. Cannot price Amazon systemic risk. Parametric thresholds misaligned with ecology. Cat bonds underperform.</p><div class="cost">Cost of inaction: $50B+ by 2035</div></div>
+<div class="card" style="border-left:3px solid var(--blue);"><div class="tag card-tag-blue">Client 02</div><h3>Development Banks</h3><p>World Bank, IDB, IFC, NDB. Finance projects without pre-collapse triggers. No mechanism to restructure exposure. Stranded assets.</p><div class="cost" style="color:var(--blue);">Cost: $12B stranded assets</div></div>
+<div class="card" style="border-left:3px solid var(--amber);"><div class="tag card-tag-amber">Client 03</div><h3>Sovereign &amp; Green Funds</h3><p>GCF, GEF, Bezos Earth Fund. Capital arrives <em>ex post</em>. No contractual pre-adjustment. 30-40% capital inefficiency.</p><div class="cost" style="color:var(--amber);">Cost: $8B/year misdirected</div></div>
+</div>
+
+<!-- SOLUTION -->
+<div id="SOLUTION" class="section-header">The Solution</div>
+<div class="solution-strip">
+<div class="label">✓ Risk Reduction Infrastructure</div>
+<h3>Not a Lab. Not a Project. The Missing Layer.</h3>
+<p>The Amazon Core Lab deploys the <strong>Trigger-Function-Protocol (TFP)</strong> system: a contractual and computational layer that translates ecological detection into financial and legal action within <strong>&lt;72 hours</strong>.</p>
+</div>
+
+<!-- TFP -->
+<div id="TFP" class="subsection-header">TFP — Trigger-Function-Protocol</div>
+<div class="tfp-flow">
+<div><div class="tfp-step">DETECT<span>Satellite + Sensor + AI</span></div><div class="tfp-time">&lt; 6 hours</div></div>
+<div class="tfp-arrow">→</div>
+<div><div class="tfp-step">VALIDATE<span>Cross-layer + Peer review</span></div><div class="tfp-time">&lt; 12 hours</div></div>
+<div class="tfp-arrow">→</div>
+<div><div class="tfp-step" style="border:2px solid var(--gold-accent);">TRIGGER<span>TFP Execution Engine</span></div><div class="tfp-time" style="color:var(--gold-accent);font-weight:700;">&lt; 24 hours</div></div>
+<div class="tfp-arrow">→</div>
+<div><div class="tfp-step">ACT<span>Insurance / Bond / Contract</span></div><div class="tfp-time">&lt; 72 hours</div></div>
+</div>
+<div class="note-box">
+<div class="note-label">TFP Definition</div>
+<strong>Trigger-Function-Protocol (TFP):</strong> Proprietary system that embeds ecological thresholds into legal and financial instruments. When a threshold is crossed, the instrument self-adjusts — no human decision required. Governed by <strong>Γ = f(P, ΔV, σ, Lr)</strong>.
+</div>
+
+<!-- DELIVERABLES -->
+<div id="DELIVERABLES" class="section-header">Actionable Outputs — Not Reports, Assets</div>
+<div class="deliv-grid">
+<div class="deliv-item"><span class="num">1</span><h4>Amazon Risk Trigger Matrix (TFP-v1)</h4><p>Pre-configured triggers linking 14 ecological thresholds to insurance premium adjustments, bond covenants, and contract clauses. Ready for integration.</p></div>
+<div class="deliv-item"><span class="num">2</span><h4>Insurance Trigger Simulation Engine</h4><p>Live model demonstrating how parametric products would have performed on 5 historical Amazon events (2019-2025). Validated by actuarial review.</p></div>
+<div class="deliv-item"><span class="num">3</span><h4>Sovereign Exposure Adjustment Model</h4><p>Framework for development banks to restructure Amazon portfolio exposure before tipping point confirmation. Includes stress testing protocols.</p></div>
+<div class="deliv-item"><span class="num">4</span><h4>Embedded Contractual Clause Prototype</h4><p>Ready-to-insert legal language for sovereign green bonds, concession agreements, and supply chain contracts. Reviewed by international counsel.</p></div>
+</div>
+
+<!-- PILOTS -->
+<div id="PILOTS" class="section-header">Phase Alpha Pilots</div>
+<div class="card-grid card-grid-3">
+<div class="card" style="border-top:3px solid var(--emerald);"><div class="tag card-tag-emerald">Pilot A · Insurance</div><h3>Parametric Trigger Validation</h3><p>Deploy TFP on 3 historical Amazon flood/fire events. Demonstrate that c-ECO triggers would have activated <strong>48-72 hours faster</strong> than current thresholds.</p><div style="margin-top:10px;padding:8px;background:rgba(16,185,129,0.08);border-radius:3px;"><div style="font-size:9px;color:var(--emerald);font-weight:700;">Client Value:</div><div style="font-size:9px;color:var(--stone-500);">Swiss Re, Lloyd's — validated trigger design for Amazon cat bonds</div></div></div>
+<div class="card" style="border-top:3px solid var(--blue);"><div class="tag card-tag-blue">Pilot B · Finance</div><h3>Sovereign Exposure Simulation</h3><p>Model how World Bank/IDB Amazon portfolio would restructure if TFP triggers had been active 2019-2025. Quantify <strong>avoided losses</strong>.</p><div style="margin-top:10px;padding:8px;background:rgba(59,130,246,0.08);border-radius:3px;"><div style="font-size:9px;color:var(--blue);font-weight:700;">Client Value:</div><div style="font-size:9px;color:var(--stone-500);">IDB — pre-emptive portfolio adjustment framework</div></div></div>
+<div class="card" style="border-top:3px solid var(--amber);"><div class="tag card-tag-amber">Pilot C · Contractual</div><h3>Embedded Clause Prototype</h3><p>Draft and validate TFP-embedded clauses for 2 real sovereign green bonds and 1 supply chain contract. Legal review by <strong>international counsel</strong>.</p><div style="margin-top:10px;padding:8px;background:rgba(245,158,11,0.08);border-radius:3px;"><div style="font-size:9px;color:var(--amber);font-weight:700;">Client Value:</div><div style="font-size:9px;color:var(--stone-500);">GCF, sovereign issuers — ready-to-use legal language</div></div></div>
+</div>
+
+<!-- TEAM -->
+<div id="TEAM" class="section-header">Execution Team</div>
+<div class="card-grid card-grid-2">
+<div class="card"><div class="tag card-tag-emerald">Principal Investigator</div><h3>Jacqueline A. Ennis</h3><p>LLM, Washington University. Independent researcher. Creator of c-ECO systemic coordination framework. 5+ years developing TFP methodology, contractual equity models, and transnational risk governance. Background in AI, complex systems, and international law.</p></div>
+<div class="card"><div class="tag card-tag-blue">Board &amp; Governance</div><h3>Rodolfo Rivera</h3><p>Johann Christian Hasse Foundation Board. Polaris Risk Advisory. Due diligence and risk infrastructure expertise.</p></div>
+</div>
+<div class="subsection-header">8 Core FTE Roles (Hiring Q3 2026)</div>
+<div class="card-grid card-grid-2">
+<div class="card"><h3>Science-Policy Lead</h3><p>Earth System Scientist · INPA liaison · $95K/yr + 25%</p></div>
+<div class="card"><h3>c-ECO Integration Officer</h3><p>Complex Systems · TFP design · GIH coordination · $85K/yr + 25%</p></div>
+<div class="card"><h3>3 Domain Experts</h3><p>Hydrology · Ecology · Climate · INMET/MPEG liaison · $68-72K/yr + 25%</p></div>
+<div class="card"><h3>2 Data / AI Engineers</h3><p>ML pipelines · Satellite analytics · AWS · $65K/yr + 25% ea</p></div>
+<div class="card"><h3>Legal / Regulatory Specialist</h3><p>Forest Code · Green bonds · Contract law · $80K/yr + 25%</p></div>
+<div class="card"><h3>2 Field Operations + 1 Network Liaison</h3><p>Indigenous liaison · Sensor maintenance · GIH · $35-55K/yr + 25%</p></div>
+</div>
+
+<!-- BUDGET -->
+<div id="BUDGET" class="section-header">Budget — $792,000 · 18 Months</div>
+<div style="text-align:right;font-size:8px;color:var(--stone-500);margin-bottom:8px;font-style:italic;">Currency: USD · 1 USD = 5.15 BRL · Benefits: 25% of base</div>
+<table class="budget-table">
+<thead>
+<tr><th class="col-line">#</th><th class="col-item">Category</th><th class="col-desc">Description</th><th class="col-calc">Basis</th><th class="col-y1">Year 1</th><th class="col-y2">Year 2</th></tr>
+</thead>
+<tbody>
+<tr><td class="col-line">1</td><td class="col-item"><strong>Personnel</strong> <span style="color:var(--stone-500);font-size:8px;">(8 FTE + benefits)</span></td><td class="col-desc">Science, AI, Legal, Field, Integration</td><td class="col-calc">Annual salaries<br>+ 25% benefits</td><td class="col-y1">$240,000</td><td class="col-y2">$240,000</td></tr>
+<tr><td class="col-line">2</td><td class="col-item"><strong>Technology</strong> <span style="color:var(--stone-500);font-size:8px;">(cloud, sensors, AI)</span></td><td class="col-desc">Satellite data, AWS, sensors, TFP engine, hardware</td><td class="col-calc">Licenses +<br>development</td><td class="col-y1">$110,000</td><td class="col-y2">$80,000</td></tr>
+<tr><td class="col-line">3</td><td class="col-item"><strong>Field Operations</strong> <span style="color:var(--stone-500);font-size:8px;">(3 sites)</span></td><td class="col-desc">Logistics, community engagement, maintenance, safety</td><td class="col-calc">Monthly +<br>quarterly</td><td class="col-y1">$75,000</td><td class="col-y2">$69,000</td></tr>
+<tr><td class="col-line">4</td><td class="col-item"><strong>Legal &amp; Governance</strong> <span style="color:var(--stone-500);font-size:8px;">(contracts, audit)</span></td><td class="col-desc">TFP contracts, LRQA audit, insurance, IP protection</td><td class="col-calc">Legal +<br>annual</td><td class="col-y1">$45,000</td><td class="col-y2">$30,000</td></tr>
+<tr><td class="col-line">5</td><td class="col-item"><strong>Admin &amp; Overhead</strong> <span style="color:var(--stone-500);font-size:8px;">(15% OH)</span></td><td class="col-desc">Office, travel, communications, 15% institutional overhead</td><td class="col-calc">Monthly +<br>15% direct</td><td class="col-y1">$130,500</td><td class="col-y2">$130,500</td></tr>
+<tr class="subtotal-row"><td></td><td><strong>Subtotal Direct + OH</strong></td><td>All operational costs + institutional overhead</td><td></td><td><strong>$600,750</strong></td><td><strong>$549,500</strong></td></tr>
+<tr><td class="col-line">+</td><td class="col-item"><strong>Contingency</strong> <span style="color:var(--stone-500);font-size:8px;">(5% reserve)</span></td><td class="col-desc">Unforeseen risks, currency fluctuation, emergency response</td><td class="col-calc">5% of total</td><td class="col-y1">$30,000</td><td class="col-y2">$9,600</td></tr>
+<tr class="total-row"><td></td><td class="col-item"><strong>GRAND TOTAL</strong></td><td style="font-size:9px;font-weight:400;">Phase Alpha · 18 months · Belém · L1.1</td><td></td><td class="col-y1"><strong>$630,750</strong></td><td class="col-y2"><strong>$559,100</strong></td></tr>
+<tr style="background:var(--stone-100);"><td></td><td style="padding:8px 10px;font-weight:700;color:var(--legal-blue);">TOTAL 18-MONTH</td><td colspan="2" style="padding:8px 10px;color:var(--stone-500);font-size:9px;">Includes all direct costs, overhead, and contingency reserve</td><td colspan="2" style="padding:8px 10px;text-align:right;font-family:'Libre Baskerville',serif;font-size:18px;font-weight:700;color:var(--gold-accent);">$792,000</td></tr>
+</tbody>
+</table>
+<div class="note-box">
+<div class="note-label">In-Kind Contributions</div>
+<strong>$210,000+</strong> in verified contributions (Hasse Foundation, INMET, MPEG, ISM, AWS credits). <strong>Leverage ratio: 1.27x</strong> — every $1 of funding unlocks $0.27 in non-cash value.
+</div>
+
+<!-- MILESTONES -->
+<div id="MILESTONES" class="section-header">Disbursement Milestones &amp; Tranched Release</div>
+<table class="budget-table milestone-table">
+<thead>
+<tr><th style="width:20%">Milestone</th><th style="width:12%">Period</th><th style="width:12%">% / Amount</th><th style="width:28%">Deliverables</th><th style="width:28%">KPI Verification</th></tr>
+</thead>
+<tbody>
+<tr class="milestone-y1"><td><strong>M1: Foundation</strong></td><td>Month 1-3</td><td>25%<br><span style="font-size:8px;color:var(--stone-500);">($198k)</span></td><td style="text-align:left;">MOU INPA/MPEG · 4 FTE hired · Office operational · Sensor design</td><td style="text-align:left;">Signed agreements · Payroll records · Lease · Technical blueprint</td></tr>
+<tr class="milestone-y1"><td><strong>M2: Pilots</strong></td><td>Month 4-9</td><td>35%<br><span style="font-size:8px;color:var(--stone-500);">($277k)</span></td><td style="text-align:left;">3 sites active · First detection · TFP v1.0 tested · Report #2</td><td style="text-align:left;">Sensor stream · Detection log · TFP execution · Peer review</td></tr>
+<tr class="milestone-y1"><td><strong>M3: Integration</strong></td><td>Month 10-12</td><td>20%<br><span style="font-size:8px;color:var(--stone-500);">($158k)</span></td><td style="text-align:left;">GIH test · Financial demo · Audit passed · Alpha review</td><td style="text-align:left;">Geneva handshake · Mock TFP · LRQA sign-off · Board assessment</td></tr>
+<tr class="milestone-y2"><td><strong>M4: Scale</strong></td><td>Month 13-18</td><td>20%<br><span style="font-size:8px;color:var(--stone-500);">($158k)</span></td><td style="text-align:left;">6-month ops · Beta specs · Knowledge transfer · Revenue model</td><td style="text-align:left;">Uptime &gt;95% · Yaoundé/Dhaka specs · Training · Revenue v1</td></tr>
+</tbody>
+</table>
+<div class="note-box">
+<div class="note-label">Tranche Release</div>
+Funds released quarterly upon independent verification by GIH Oversight Committee. Unspent funds roll forward. Failure to meet 2 consecutive milestones triggers project review.
+</div>
+
+<!-- RISK -->
+<div id="RISK" class="section-header">Risk Matrix &amp; Mitigation</div>
+<div class="risk-grid">
+<div class="risk-item"><div class="risk-header"><h5>Key-Person Dependency</h5><span class="risk-level risk-high">High</span></div><p>Project depends on single founder for vision, partnerships, and execution.</p><p style="margin-top:6px;color:#059669;font-weight:700;font-size:9px;">Mitigation: Hire Science-Policy Lead and Integration Officer within 60 days. Document all TFP protocols. Establish GIH succession plan.</p></div>
+<div class="risk-item"><div class="risk-header"><h5>Partner Formalization Delay</h5><span class="risk-level risk-med">Medium</span></div><p>INPA, MPEG, or ACTO may delay MOU execution due to institutional bureaucracy.</p><p style="margin-top:6px;color:#059669;font-weight:700;font-size:9px;">Mitigation: Start with Letter of Intent (1 page). Parallel track with 2 institutions. Use Hasse Foundation board connections.</p></div>
+<div class="risk-item"><div class="risk-header"><h5>Currency &amp; Inflation Volatility</h5><span class="risk-level risk-med">Medium</span></div><p>BRL volatility may erode purchasing power for local operations and salaries.</p><p style="margin-top:6px;color:#059669;font-weight:700;font-size:9px;">Mitigation: Hold 40% of local costs in USD reserve. Index salaries to IPCA. Use multi-currency accounting.</p></div>
+<div class="risk-item"><div class="risk-header"><h5>Technology &amp; Data Access</h5><span class="risk-level risk-med">Medium</span></div><p>Satellite data gaps, sensor failure in remote areas, or INPE access restrictions.</p><p style="margin-top:6px;color:#059669;font-weight:700;font-size:9px;">Mitigation: Multi-source redundancy (Planet + Sentinel + Landsat). Spare sensor inventory. Local technician training.</p></div>
+<div class="risk-item"><div class="risk-header"><h5>Political &amp; Regulatory Shift</h5><span class="risk-level risk-med">Medium</span></div><p>Changes in Brazilian environmental policy may affect Forest Code enforcement or data access.</p><p style="margin-top:6px;color:#059669;font-weight:700;font-size:9px;">Mitigation: Diversify regulatory hooks (subnational, private sector, international treaties). Maintain non-partisan positioning.</p></div>
+<div class="risk-item"><div class="risk-header"><h5>Funding Continuity</h5><span class="risk-level risk-high">High</span></div><p>18-month runway with no guaranteed Beta phase funding creates cliff-edge risk.</p><p style="margin-top:6px;color:#059669;font-weight:700;font-size:9px;">Mitigation: Begin Beta fundraising at Month 6. Develop revenue model (TFP licensing, enterprise contracts). Build endowment case.</p></div>
+</div>
+
+<!-- FUNDER TABS -->
+<div id="FUNDERS" class="section-header">Tailored Proposals by Funder</div>
+<div class="funder-tabs">
+<button class="funder-tab active" onclick="showFunder('google',this)">Google.org</button>
+<button class="funder-tab" onclick="showFunder('worldbank',this)">World Bank / IDB</button>
+<button class="funder-tab" onclick="showFunder('bezos',this)">Bezos Earth Fund</button>
+</div>
+
+<div id="GOOGLE" class="funder-panel active">
+<div class="funder-tag tag-google">Tailored for Google.org — AI for Earth &amp; Crisis Response</div>
+<div class="quote-box" style="font-size:16px;">"AI Without Action is Just a Dashboard. We Build the Trigger Layer."</div>
+<div class="card-grid card-grid-2">
+<div class="card"><h3>🤖 AI-First Architecture</h3><p>c-ECO's TFP engine runs on ML anomaly detection, satellite computer vision, and NLP for contractual clause generation. Google Cloud TPUs would accelerate model training by 40%.</p></div>
+<div class="card"><h3>🌍 Earth Engine Integration</h3><p>Direct integration with Google Earth Engine for historical baseline analysis, deforestation trend modeling, and real-time change detection across 5.5M km² of Amazon basin.</p></div>
+</div>
+<div class="note-box"><div class="note-label">Google.org Differentiator</div>Unlike other climate AI projects, c-ECO does not stop at "detection." Our AI outputs directly modify legal instruments. This is "AI for social good" at the intersection of technology, law, and finance — a space Google.org has not yet occupied.</div>
+<div class="ask-box"><div class="label">Ask</div><h3>$300,000 · 12 Months · Technical Partnership</h3><div class="ask-grid"><div class="ask-item"><div class="num">$300K</div><div class="lbl">Google.org Grant<br>AI Infrastructure</div></div><div class="ask-item"><div class="num">$50K</div><div class="lbl">Cloud Credits<br>TPU + Earth Engine</div></div><div class="ask-item"><div class="num">5</div><div class="lbl">Open-Source Models<br>Published on GitHub</div></div></div></div>
+</div>
+
+<div id="WORLDBANK" class="funder-panel">
+<div class="funder-tag tag-worldbank">Tailored for World Bank / IDB — Disaster Risk &amp; Sovereign Finance</div>
+<div class="quote-box" style="font-size:16px;">"From Ex-Post Recovery to Ex-Ante Prevention: Sovereign Risk Infrastructure for the Amazon."</div>
+<div class="card-grid card-grid-2">
+<div class="card"><h3>🏛 Sovereign Bond Integration</h3><p>c-ECO's TFP clauses embed directly into sovereign green bond covenants. When Amazon tipping indicators cross thresholds, bond terms auto-adjust — protecting both issuer and investor.</p></div>
+<div class="card"><h3>📊 Portfolio Stress Testing</h3><p>Real-time Amazon exposure monitoring for development bank portfolios. c-ECO triggers signal when to restructure, divest, or condition loans — before stranded assets crystallize.</p></div>
+</div>
+<div class="note-box"><div class="note-label">Bank Differentiator</div>c-ECO is not another "Amazon conservation project." It is <strong>financial infrastructure</strong> that makes the Bank's existing Amazon portfolio smarter. Every dollar of c-ECO funding protects millions in existing Bank exposure.</div>
+<div class="ask-box"><div class="label">Ask</div><h3>$500,000 · 18 Months · Sovereign Finance Partnership</h3><div class="ask-grid"><div class="ask-item"><div class="num">$500K</div><div class="lbl">Bank Grant<br>Sovereign Infrastructure</div></div><div class="ask-item"><div class="num">1</div><div class="lbl">Country Pilot<br>Brazil Green Bond</div></div><div class="ask-item"><div class="num">4</div><div class="lbl">Regional Templates<br>Andean Amazon</div></div></div></div>
+</div>
+
+<div id="BEZOS" class="funder-panel">
+<div class="funder-tag tag-bezos">Tailored for Bezos Earth Fund — Bold Ideas &amp; Systems Change</div>
+<div class="quote-box" style="font-size:16px;">"The $10B Question: What If We Could See the Amazon Collapse Coming — And Actually Do Something About It?"</div>
+<div class="card-grid card-grid-2">
+<div class="card"><h3>🚀 10x Ambition</h3><p>Current Amazon funding: $2B/year spent on conservation that cannot measure if it works. c-ECO creates a <strong>feedback loop</strong> where every dollar of protection is linked to measurable, contractually-enforceable ecological outcomes.</p></div>
+<div class="card"><h3>🌐 Global Scalability</h3><p>Amazon validation creates template for Congo Basin, Arctic, Monsoon Asia. One investment in Belém unlocks <strong>planetary-scale replication</strong> via the 22-lab c-ECO network.</p></div>
+</div>
+<div class="note-box"><div class="note-label">Bezos Differentiator</div>Every other Amazon project says "We need more money to protect the forest." c-ECO says: <strong>"The money exists. The protection mechanism does not. We build it."</strong> This is the systems-change thinking Bezos Earth Fund was created to support.</div>
+<div class="ask-box"><div class="label">Ask</div><h3>$1,000,000 · 18 Months · Category-Defining Investment</h3><div class="ask-grid"><div class="ask-item"><div class="num">$1M</div><div class="lbl">Bezos Earth Fund<br>Anchor Investment</div></div><div class="ask-item"><div class="num">1</div><div class="lbl">Global First<br>Operational TFP</div></div><div class="ask-item"><div class="num">22</div><div class="lbl">Lab Network<br>Planetary Scale</div></div></div></div>
+</div>
+
+<!-- MEETING SCRIPT -->
+<div id="SCRIPT" class="section-header">Meeting Script — First 5 Minutes</div>
+<div class="note-box"><div class="note-label">Objective</div>Not vender o projeto. Fazer o funder sentir que <strong>ele já deveria ter construído isso</strong>.</div>
+
+<div class="script-box">
+<div class="script-time">MINUTO 0:00 — 0:30 | The Hook</div>
+<div class="script-title">Frase de Abertura</div>
+<div class="script-content">
+<blockquote>"The Amazon is not underfunded. It is under-instrumented for decision."</blockquote>
+<p><strong>Pausa.</strong> Deixe a frase ressoar. Não explique ainda.</p>
+<p><strong>Por que funciona:</strong> Desafia a premissa do funder. Reposiciona o problema como técnico, não financeiro. Cria curiosidade.</p>
+</div>
+</div>
+
+<div class="script-box">
+<div class="script-time">MINUTO 0:30 — 1:30 | The Gap</div>
+<div class="script-title">O problema dele, não seu</div>
+<div class="script-content">
+<blockquote>"You already spend [X millions/billions] on Amazon exposure. Insurance, sovereign bonds, development finance, supply chains. The detection exists. The capital exists. But there is no layer that connects them in time to prevent loss."</blockquote>
+<p><strong>Pergunte (rhetorical):</strong> "How much did you lose last year on mispriced Amazon risk? Not because you lacked data. Because you lacked the infrastructure to act on it."</p>
+</div>
+</div>
+
+<div class="script-box">
+<div class="script-time">MINUTO 1:30 — 3:00 | The Solution</div>
+<div class="script-title">Em uma frase</div>
+<div class="script-content">
+<blockquote>"c-ECO is the missing layer. We build risk reduction infrastructure — not research, not charity. A computational and contractual system that translates ecological detection into financial and legal action in under 72 hours."</blockquote>
+<p><strong>Exemplo concreto:</strong> "Imagine: deforestation in Pará crosses 15% in a quarter. Instead of reading about it in The Guardian next month, your sovereign bond covenant auto-adjusts the interest rate. Your insurance premium recalibrates. Your supply chain contract triggers a sourcing alternative. All within 72 hours."</p>
+</div>
+</div>
+
+<div class="script-box">
+<div class="script-time">MINUTO 3:00 — 4:00 | The Proof</div>
+<div class="script-title">Por que você</div>
+<div class="script-content">
+<p>"I've spent five years developing this methodology. LLM from Washington University. Background in AI, complex systems, and international law. The TFP framework is already documented. The legal architecture is drafted. The institutional relationships — INPA, MPEG, ACTO, INMET — are established."</p>
+<p><strong>Se perguntarem "por que você?":</strong> "Because I am the only person who has built the bridge between these three worlds: Earth system science, computational infrastructure, and contractual law."</p>
+</div>
+</div>
+
+<div class="script-box">
+<div class="script-time">MINUTO 4:00 — 5:00 | The Ask</div>
+<div class="script-title">E o próximo passo</div>
+<div class="script-content">
+<p><strong>NUNCA peça dinheiro nos primeiros 5 minutos.</strong></p>
+<blockquote>"I'm not asking you to fund a project. I'm asking you to stop paying for a gap that already costs you money. The question is not whether c-ECO works. The question is whether you can afford another year without it."</blockquote>
+<p><strong>Então:</strong> "What I'd like from this conversation is your assessment: does this infrastructure solve a problem you already have? And if so, what would it take for your institution to be the first to deploy it?"</p>
+</div>
+</div>
+
+<div class="subsection-header">Objections Anticipadas (Respostas de 15 segundos)</div>
+<div class="card-grid card-grid-2">
+<div class="card"><h3>"Você é só uma pessoa. Escala?"</h3><p>"Phase Alpha is 8 FTE, not me alone. But more importantly: c-ECO is methodology-first, not personality-dependent. Every TFP protocol is documented, every trigger is codified, every contract is templated. The system outlives any individual."</p></div>
+<div class="card"><h3>"Por que não existe isso já?"</h3><p>"Because detection and finance evolved in silos. Scientists don't write contracts. Bankers don't read satellite data. c-ECO is the translator — and translators only exist when both sides are speaking loudly enough to need one. They are now."</p></div>
+<div class="card"><h3>"Qual o ROI?"</h3><p>"For a reinsurer: every 1% improvement in trigger accuracy on Amazon cat bonds is worth $50M in mispriced exposure. For a development bank: avoiding one stranded asset pays for this entire lab. The ROI is 'return on risk reduction.'"</p></div>
+<div class="card"><h3>"Como sei que funciona?"</h3><p>"You don't. Yet. That's why Phase Alpha is 18 months and $792K — not $50M. We validate the architecture with 3 pilots, measurable KPIs, and independent audit. You fund proof, not promise."</p></div>
+</div>
+
+<!-- SEQUENCE -->
+<div id="SEQUENCE" class="section-header">Deployment Sequence</div>
+<table class="budget-table">
+<thead>
+<tr><th>Week</th><th>Action</th><th>Material</th><th>Target</th><th>Goal</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>W1</strong></td><td>Send One-Pager + 2-sentence email</td><td>This page (Hero + Gap)</td><td>All Tier 1 funders</td><td>Secure 15-min call</td></tr>
+<tr><td><strong>W2</strong></td><td>First call using Meeting Script</td><td>Script section above</td><td>Interested funders</td><td>Assess fit, get next step</td></tr>
+<tr><td><strong>W3</strong></td><td>Send tailored version + schedule deep-dive</td><td>Funder-specific tab</td><td>Qualified funders</td><td>Secure 30-min presentation</td></tr>
+<tr><td><strong>W4</strong></td><td>Formal pitch with full narrative</td><td>This entire page</td><td>Decision-makers</td><td>RFP / due diligence</td></tr>
+<tr><td><strong>W6-8</strong></td><td>Submit formal application with budget</td><td>Budget section + Milestones</td><td>Committed funders</td><td>Term sheet / grant agreement</td></tr>
+</tbody>
+</table>
+
+<!-- ASSUMPTIONS -->
+<div id="ASSUMPTIONS" class="section-header">Assumptions</div>
+<div class="assumptions">
+<div class="assumption-card"><h4>Financial Assumptions</h4><ul><li>Exchange rate: 1 USD = 5.15 BRL (avg 2026)</li><li>Inflation: 3.5% p.a. (Brazilian IPCA)</li><li>Salary increases: 4% p.a. (Year 2)</li><li>Overhead rate: 15% (foundation standard)</li><li>Benefits load: 25% (FGTS, INSS, health)</li></ul></div>
+<div class="assumption-card"><h4>Operational Assumptions</h4><ul><li>3 pilot sites: 1 Western Amazon, 2 Eastern</li><li>Office: shared/co-working in Belém (Year 1)</li><li>INPA/MPEG: data sharing at no cost (MOU)</li><li>AWS: nonprofit credits applied (est. $15k/yr)</li><li>Phase Alpha launch: Q3 2026 (pending funding)</li></ul></div>
+</div>
+
+<!-- SIGNATURES -->
+<div class="signature-block">
+<div><div class="signature-line"><div class="signature-name">Jacqueline A. Ennis</div><div class="signature-title">Founder &amp; Principal Investigator<br>c-ECO Systemic Coordination Infrastructure<br>Johann Christian Hasse Foundation</div></div></div>
+<div><div class="signature-line"><div class="signature-name">Rodolfo Rivera</div><div class="signature-title">Board Member<br>Johann Christian Hasse Foundation<br>Polaris Risk Advisory</div></div></div>
+</div>
+
+<!-- FOOTER -->
+<div style="margin-top:40px;padding-top:25px;border-top:2px solid var(--border-color);font-size:11px;line-height:1.6;color:#555;">
+<div style="font-weight:700;color:var(--legal-blue);margin-bottom:10px;">© 2026 c-ECO Systemic Governance Initiative. Supported by the Johann Christian Hasse Foundation. All rights reserved.</div>
+<div style="margin-bottom:10px;">Licensed under <strong>CC BY-NC-ND 4.0</strong>. Non-commercial use only. No derivatives without authorization.</div>
+<div style="margin-bottom:10px;"><strong>Document:</strong> Amazon Core Lab — Risk Infrastructure Proposal · <strong>Version:</strong> 1.0 (May 2026) · <strong>contact:</strong> contact@c-eco.org · <strong>web:</strong> c-eco.org</div>
+</div>
+
+</article>
+</main>
+
+<script>
+// Search
+const searchInput=document.getElementById('sidebarSearch');
+const navItems=document.querySelectorAll('.nav-item');
+const sectionTitles=document.querySelectorAll('.nav-section-title,.nav-sub-title');
+const sidebar=document.getElementById('sidebar');
+searchInput.addEventListener('input',function(e){
+  const term=e.target.value.toLowerCase();
+  navItems.forEach(item=>{item.classList.toggle('hidden',!item.textContent.toLowerCase().includes(term));});
+  sectionTitles.forEach(title=>{title.classList.toggle('hidden',term.length>0);});
+});
+document.querySelectorAll('.nav-item a').forEach(link=>{
+  link.addEventListener('click',()=>{if(window.innerWidth<=1024)sidebar.classList.remove('open');});
+});
+// Funder tabs
+function showFunder(id,btn){
+  document.querySelectorAll('.funder-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.funder-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id==='google'?'GOOGLE':id==='worldbank'?'WORLDBANK':'BEZOS').classList.add('active');
+  btn.classList.add('active');
+}
+// Active section highlighting
+const sections=document.querySelectorAll('[id]');
+const navLinks=document.querySelectorAll('.nav-item a');
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      navLinks.forEach(link=>{link.classList.toggle('active',link.getAttribute('href')==='#'+entry.target.id);});
+    }
+  });
+},{threshold:0.3,rootMargin:'-20% 0px -60% 0px'});
+sections.forEach(s=>observer.observe(s));
+</script>
+
+</body>
+</html>
