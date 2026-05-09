@@ -11,17 +11,25 @@
 <style>
 :root{
   --sidebar-width:340px;
-  --legal-blue:#1a2b3c;
-  --gold-accent:#c5a059;
-  --bg-body:#f4f7f9;
-  --text-main:#1a1a1a;
-  --text-secondary:#4a4a4a;
-  --border-color:#dee2e6;
+
+  --ink:#1a1a1a;
+  --ink-secondary:#4a4a4a;
+  --ink-tertiary:#6b6b6b;
+
+  --border:#c9c9c9;
+  --border-light:#e5e5e5;
+
+  --bg:#fafafa;
   --paper:#ffffff;
-  --accent-soft:#fff8e6;
-  --accent-border:#e6d5a8;
-  --red:#8b0000;
-  --green:#2d5a3d;
+
+  --accent:#8b7355;
+  --accent-light:#b8a88a;
+
+  --legal-blue:#1a1a1a;
+  --gold-accent:#8b7355;
+  --bg-body:#fafafa;
+  --text-main:#1a1a1a;
+  --border-color:#e5e5e5;
 }
 
 *{
@@ -33,10 +41,11 @@ body{
   background:var(--bg-body);
   font-family:'Inter',sans-serif;
   line-height:1.65;
-  color:var(--text-main);
+  color:var(--ink);
 }
 
-/* ===== SIDEBAR — UNIDROIT STYLE ===== */
+/* ===== SIDEBAR — UNIDROIT FUNCTION, NDA COLORS ===== */
+
 .sidebar{
   width:var(--sidebar-width);
   position:fixed;
@@ -44,7 +53,7 @@ body{
   left:0;
   height:100vh;
   background:#fff;
-  border-right:1px solid var(--border-color);
+  border-right:1px solid var(--border-light);
   padding:16px;
   overflow-y:auto;
   z-index:1000;
@@ -58,7 +67,7 @@ body{
   gap:10px;
   padding-bottom:10px;
   margin-bottom:12px;
-  border-bottom:2px solid var(--gold-accent);
+  border-bottom:2px solid var(--accent);
 }
 
 .logo-box{
@@ -67,20 +76,20 @@ body{
   justify-content:center;
   width:40px;
   height:40px;
-  border:1px solid var(--border-color);
+  border:1px solid var(--border-light);
   background:#fff;
-  color:var(--legal-blue);
+  color:var(--ink);
   font-weight:900;
   font-size:1.2rem;
   text-decoration:none;
-  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);
 }
 
 .sidebar-title{
   font-weight:800;
   font-size:11px;
   letter-spacing:1px;
-  color:var(--legal-blue);
+  color:var(--ink);
   text-transform:uppercase;
   line-height:1.2;
   margin:0;
@@ -98,7 +107,7 @@ body{
 #sidebarSearch{
   width:100%;
   padding:10px 12px;
-  border:1px solid var(--border-color);
+  border:1px solid var(--border-light);
   border-radius:4px;
   font-family:'Inter',sans-serif;
   font-size:13px;
@@ -106,8 +115,8 @@ body{
 }
 
 #sidebarSearch:focus{
-  border-color:var(--gold-accent);
-  box-shadow:0 0 0 3px rgba(197,160,89,0.15);
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(139,115,85,0.15);
 }
 
 .nav-list{
@@ -119,7 +128,7 @@ body{
 .nav-section-title{
   font-size:10px;
   font-weight:800;
-  color:var(--gold-accent);
+  color:var(--accent);
   margin-top:14px;
   text-transform:uppercase;
   border-top:1px solid #eee;
@@ -130,7 +139,7 @@ body{
 
 .nav-item a{
   text-decoration:none;
-  color:var(--text-main);
+  color:var(--ink);
   font-size:11px;
   display:block;
   padding:5px 8px;
@@ -140,15 +149,16 @@ body{
 }
 
 .nav-item a:hover{
-  background:rgba(197,160,89,0.12);
-  border-left-color:var(--gold-accent);
+  background:rgba(139,115,85,0.10);
+  border-left-color:var(--accent);
 }
 
 .hidden{
   display:none !important;
 }
 
-/* ===== CONTENT ===== */
+/* ===== MAIN LAYOUT ===== */
+
 .main-content{
   margin-left:var(--sidebar-width);
   padding:40px 20px;
@@ -159,17 +169,18 @@ body{
 .document-page{
   background:#fff;
   width:100%;
-  max-width:820px;
-  padding:50px 50px;
-  box-shadow:0 4px 25px rgba(0,0,0,0.06);
+  max-width:210mm;
+  padding:55px 65px;
+  box-shadow:0 2px 20px rgba(0,0,0,0.06);
 }
 
 /* ===== HEADER ===== */
+
 .header{
   text-align:center;
-  padding-bottom:28px;
-  border-bottom:2px solid var(--text-main);
-  margin-bottom:35px;
+  margin-bottom:40px;
+  padding-bottom:30px;
+  border-bottom:2px solid var(--ink);
   scroll-margin-top:25px;
 }
 
@@ -192,6 +203,7 @@ body{
   font-weight:600;
   letter-spacing:3px;
   text-transform:uppercase;
+  color:var(--ink);
   margin-bottom:8px;
 }
 
@@ -199,31 +211,33 @@ body{
   font-family:'Cormorant Garamond',serif;
   font-size:24pt;
   font-weight:700;
-  line-height:1.2;
+  color:var(--ink);
   margin-bottom:10px;
+  line-height:1.2;
 }
 
 .header-subtitle{
   font-size:10pt;
-  text-transform:uppercase;
+  color:var(--ink-tertiary);
   letter-spacing:1px;
-  color:var(--text-secondary);
+  text-transform:uppercase;
 }
 
 .execution{
   text-align:center;
-  color:#777;
+  color:var(--ink-tertiary);
   margin-bottom:35px;
   font-size:10pt;
 }
 
-/* ===== PRINT / MOBILE BUTTONS ===== */
+/* ===== BUTTONS ===== */
+
 .mobile-btn{
   display:none;
   position:fixed;
   bottom:20px;
   right:20px;
-  background:var(--legal-blue);
+  background:var(--ink);
   color:#fff;
   border:none;
   padding:14px 22px;
@@ -239,7 +253,7 @@ body{
   position:fixed;
   top:20px;
   right:20px;
-  background:var(--legal-blue);
+  background:var(--ink);
   color:#fff;
   border:none;
   padding:12px 20px;
@@ -257,7 +271,7 @@ body{
 }
 
 .print-btn:hover{
-  background:#2c3e50;
+  background:var(--accent);
   transform:translateY(-2px);
   box-shadow:0 6px 20px rgba(0,0,0,0.25);
 }
@@ -276,12 +290,12 @@ body{
   top:70px;
   right:20px;
   background:#fff;
-  border:2px solid var(--gold-accent);
+  border:2px solid var(--accent);
   padding:12px 16px;
   border-radius:4px;
   box-shadow:0 4px 15px rgba(0,0,0,0.15);
   font-size:12px;
-  color:var(--legal-blue);
+  color:var(--ink);
   font-weight:600;
   z-index:1999;
   display:none;
@@ -294,9 +308,10 @@ body{
 }
 
 /* ===== PARTIES ===== */
+
 .parties{
-  border-top:1px solid var(--border-color);
-  border-bottom:1px solid var(--border-color);
+  border-top:1px solid var(--border-light);
+  border-bottom:1px solid var(--border-light);
   padding:22px 0;
   margin-bottom:35px;
   overflow-wrap:anywhere;
@@ -314,15 +329,16 @@ body{
   font-size:9pt;
   text-transform:uppercase;
   letter-spacing:1.5px;
-  color:var(--gold-accent);
-  font-weight:700;
+  color:var(--accent);
+  font-weight:600;
   margin-bottom:5px;
 }
 
 .party-name{
   font-family:'Cormorant Garamond',serif;
   font-size:14pt;
-  font-weight:700;
+  font-weight:600;
+  color:var(--ink);
   margin-bottom:6px;
   line-height:1.35;
   overflow-wrap:anywhere;
@@ -330,48 +346,51 @@ body{
 
 .party-detail{
   font-size:10pt;
-  color:var(--text-secondary);
+  color:var(--ink-secondary);
   line-height:1.6;
   overflow-wrap:anywhere;
 }
 
-/* ===== TYPOGRAPHY ===== */
+/* ===== DOCUMENT TYPOGRAPHY ===== */
+
 .section-header{
   font-family:'Cormorant Garamond',serif;
+  font-size:16pt;
   font-weight:700;
-  font-size:18px;
-  color:var(--legal-blue);
-  margin:35px 0 20px;
-  padding-bottom:10px;
-  border-bottom:3px solid var(--gold-accent);
+  color:var(--ink);
+  margin:35px 0 15px;
+  padding-bottom:8px;
+  border-bottom:1px solid var(--border);
   scroll-margin-top:25px;
 }
 
 h2{
   font-family:'Cormorant Garamond',serif;
-  font-size:18px;
+  font-size:16pt;
   font-weight:700;
-  color:var(--legal-blue);
+  color:var(--ink);
   margin:32px 0 14px;
   padding-bottom:8px;
-  border-bottom:1px solid var(--border-color);
+  border-bottom:1px solid var(--border);
   scroll-margin-top:25px;
 }
 
 h3{
-  font-size:12px;
-  font-weight:800;
-  color:var(--legal-blue);
+  font-family:'Inter',sans-serif;
+  font-size:10.5pt;
+  font-weight:600;
+  color:var(--ink);
   margin:20px 0 10px;
-  text-transform:uppercase;
-  letter-spacing:.5px;
+  text-transform:none;
+  letter-spacing:0.3px;
   scroll-margin-top:25px;
 }
 
 p{
   margin-bottom:14px;
   font-size:10.5pt;
-  color:#444;
+  line-height:1.7;
+  color:var(--ink-secondary);
   text-align:justify;
 }
 
@@ -382,47 +401,41 @@ ul, ol{
 li{
   margin-bottom:8px;
   font-size:10.3pt;
-  color:#444;
+  line-height:1.65;
+  color:var(--ink-secondary);
 }
 
 /* ===== BOXES ===== */
-.note-box{
-  background:#f8fafc;
-  border-left:4px solid var(--gold-accent);
-  padding:14px 16px;
-  margin:14px 0 22px;
-  font-size:11.5px;
-  line-height:1.6;
-  color:#333;
+
+.note-box,
+.clause-box{
+  background:#f8f8f8;
+  border:1px solid var(--border-light);
+  border-left:4px solid var(--accent-light);
+  padding:18px 22px;
+  margin:25px 0;
+  scroll-margin-top:25px;
 }
 
 .note-label{
   font-size:10px;
   font-weight:800;
-  color:var(--legal-blue);
+  color:var(--accent);
   text-transform:uppercase;
   letter-spacing:.7px;
-  margin-bottom:6px;
+  margin-bottom:8px;
 }
 
 .notice{
-  background:var(--accent-soft);
-  border:2px dashed var(--accent-border);
-  padding:16px;
-  margin:20px 0;
+  background:#f7f3ee;
+  border-left:4px solid var(--accent);
+  padding:16px 18px;
+  margin:22px 0;
   font-size:10pt;
 }
 
 .notice strong{
-  color:var(--gold-accent);
-}
-
-.clause-box{
-  background:#fafbfc;
-  border-left:4px solid var(--legal-blue);
-  padding:20px 24px;
-  margin-bottom:25px;
-  scroll-margin-top:25px;
+  color:var(--accent);
 }
 
 .cross-ref{
@@ -431,10 +444,11 @@ li{
   border-radius:3px;
   font-size:9.5pt;
   font-weight:600;
-  color:#8b7355;
+  color:var(--accent);
 }
 
 /* ===== SIGNATURES ===== */
+
 .signature-block{
   margin-top:60px;
   display:grid;
@@ -444,7 +458,7 @@ li{
 }
 
 .signature{
-  border-top:1px solid var(--text-main);
+  border-top:1px solid var(--ink);
   padding-top:12px;
 }
 
@@ -455,28 +469,30 @@ li{
 }
 
 .signature-line{
-  border-bottom:1px solid var(--text-main);
+  border-bottom:1px solid var(--ink);
   height:42px;
   margin-bottom:8px;
 }
 
-/* ===== COPYRIGHT ===== */
+/* ===== FOOTER ===== */
+
 .copyright-footer{
   margin-top:40px;
   padding-top:25px;
-  border-top:2px solid var(--border-color);
+  border-top:2px solid var(--border-light);
   font-size:11px;
   line-height:1.6;
-  color:#555;
+  color:var(--ink-secondary);
 }
 
 .copyright-notice{
   font-weight:700;
-  color:var(--legal-blue);
+  color:var(--ink);
   margin-bottom:10px;
 }
 
 /* ===== RESPONSIVE ===== */
+
 @media (max-width:1024px){
   .sidebar{
     transform:translateX(-100%);
@@ -493,9 +509,10 @@ li{
   }
 
   .document-page{
-    padding:24px;
+    padding:36px 28px;
     width:auto;
     margin:0;
+    box-shadow:none;
   }
 
   .mobile-btn{
@@ -523,12 +540,16 @@ li{
     grid-template-columns:1fr;
     gap:35px;
   }
+
+  .header-title{
+    font-size:22pt;
+  }
 }
 
 @media (max-width:1200px) and (min-width:1025px){
   .document-page{
     max-width:calc(100vw - var(--sidebar-width) - 40px);
-    padding:40px 30px;
+    padding:45px 45px;
   }
 }
 
