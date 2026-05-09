@@ -33,6 +33,13 @@ body{
   line-height:1.65;
   color:var(--ink);
 }
+  html{
+  overflow-x:hidden;
+}
+
+body{
+  overflow-x:hidden;
+}
 .sidebar{
   width:var(--sidebar-width);
   position:fixed;
@@ -448,28 +455,103 @@ li{
   margin-bottom:10px;
 }
 @media (max-width:1024px){
-  .sidebar{transform:translateX(-100%);}
+
+  html, body{
+    width:100%;
+    overflow-x:hidden;
+  }
+
+  *{
+    max-width:100%;
+  }
+
+  .sidebar{
+    transform:translateX(-100%);
+    max-width:85vw;
+  }
+
   .sidebar.open{
     transform:translateX(0);
     box-shadow:10px 0 30px rgba(0,0,0,0.22);
   }
-  .main-content{margin-left:0;padding:16px;}
-  .document-page{padding:36px 28px;width:auto;margin:0;box-shadow:none;}
-  .mobile-btn{display:block;}
-  .print-btn{top:auto;bottom:80px;right:20px;padding:14px 18px;}
-  .print-btn span{display:none;}
-  .pdf-status{top:auto;bottom:140px;right:20px;}
-  .header-title{font-size:20pt;}
-  .signature-section{grid-template-columns:1fr;}
-}
-@media (max-width:1200px) and (min-width:1025px){
-  .document-page{max-width:calc(100vw - var(--sidebar-width) - 40px);padding:45px 45px;}
-}
-@media print{
-  .sidebar,.mobile-btn,.print-btn,.pdf-status{display:none !important;}
-  body{background:#fff;}
-  .main-content{margin-left:0;padding:0;}
-  .document-page{box-shadow:none;max-width:100%;padding:35px 45px;}
+
+  .main-content{
+    margin-left:0;
+    padding:10px;
+    width:100%;
+    overflow-x:hidden;
+  }
+
+  .document-page{
+    width:100%;
+    max-width:100%;
+    padding:28px 18px;
+    margin:0;
+    box-shadow:none;
+    overflow-x:hidden;
+  }
+
+  .mobile-btn{
+    display:block;
+  }
+
+  .print-btn{
+    top:auto;
+    bottom:80px;
+    right:16px;
+    padding:14px 18px;
+  }
+
+  .print-btn span{
+    display:none;
+  }
+
+  .pdf-status{
+    top:auto;
+    bottom:140px;
+    right:16px;
+    max-width:75vw;
+  }
+
+  .header-title{
+    font-size:18pt;
+    line-height:1.2;
+  }
+
+  .header-subtitle{
+    font-size:9pt;
+    line-height:1.5;
+  }
+
+  .signature-section{
+    grid-template-columns:1fr;
+    gap:28px;
+  }
+
+  table{
+    display:block;
+    width:100%;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  .party-name,
+  .party-detail,
+  p,
+  li,
+  td,
+  th{
+    overflow-wrap:anywhere;
+    word-break:break-word;
+  }
+
+  .clause-box,
+  .notice,
+  .critical-box,
+  .info-box{
+    padding:14px;
+  }
+
 }
 </style>
 </head>
@@ -507,8 +589,8 @@ li{
       <li class="nav-item"><a href="#COPYRIGHT">Copyright & Disclaimer</a></li>
       <li class="nav-section-title">Related Sources</li>
       <li class="nav-item"><a href="mou-ism.html">MOU — Instituto Silvio Meira</a></li>
-      <li class="nav-item"><a href="sda-ism.html">SDA No. 1 — Belém Operations</a></li>
-      <li class="nav-item"><a href="ism-nda.html">Institutional Confidentiality Agreement</a></li>
+      <li class="nav-item"><a href="fellowship-ism-sda-2026.html">SDA No. 1 — Belém Operations</a></li>
+      <li class="nav-item"><a href="fellowship-ism-addendum01-2026.html">Institutional Operations Addendum</a></li>
       <li class="nav-item"><a href="fellowship-portal.html">Fellowship Portal</a></li>
     </ul>
   </nav>
