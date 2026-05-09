@@ -11,9 +11,15 @@
 :root{
   --ink:#1a1a1a;
   --secondary:#555;
+  --tertiary:#777;
   --border:#d8d8d8;
   --accent:#8b7355;
+  --accent-light:#b8a88a;
   --bg:#fafafa;
+  --red:#8b0000;
+  --green:#2d5a3d;
+  --sidebar-bg:#f7f3ee;
+  --sidebar-border:#e0d5c5;
 }
 
 *{
@@ -30,15 +36,7 @@ body{
   padding:60px 0;
 }
 
-.document{
-  width:100%;
-  max-width:210mm;
-  margin:0 auto;
-  background:#fff;
-  padding:55px 65px;
-  box-shadow:0 2px 20px rgba(0,0,0,0.06);
-}
-
+/* PRINT CONTROLS */
 .print-controls{
   position:fixed;
   top:20px;
@@ -52,16 +50,125 @@ body{
   background:var(--ink);
   color:#fff;
   border:none;
-  padding:11px 20px;
+  padding:12px 24px;
   font-family:'Inter',sans-serif;
-  font-size:9pt;
+  font-size:10pt;
   font-weight:500;
   letter-spacing:1px;
   text-transform:uppercase;
   cursor:pointer;
   border-radius:4px;
+  transition:all 0.2s;
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
 
+.print-btn:hover{
+  background:var(--accent);
+}
+
+.print-btn.secondary{
+  background:#fff;
+  color:var(--ink);
+  border:1px solid var(--border);
+}
+
+.print-btn.secondary:hover{
+  background:var(--bg);
+}
+
+/* DOCUMENT LAYOUT */
+.document-wrapper{
+  max-width:260mm;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 55mm;
+  background:#fff;
+  box-shadow:0 2px 20px rgba(0,0,0,0.06);
+}
+
+.main-content{
+  padding:55px 50px 55px 65px;
+  min-width:0;
+}
+
+.sidebar{
+  background:var(--sidebar-bg);
+  border-left:1px solid var(--sidebar-border);
+  padding:55px 20px 40px;
+  font-size:9pt;
+  line-height:1.6;
+}
+
+/* SIDEBAR */
+.sidebar-section{
+  margin-bottom:28px;
+  padding-bottom:20px;
+  border-bottom:1px solid var(--sidebar-border);
+}
+
+.sidebar-section:last-child{
+  border-bottom:none;
+  margin-bottom:0;
+}
+
+.sidebar-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:11pt;
+  font-weight:700;
+  color:var(--accent);
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  margin-bottom:12px;
+}
+
+.sidebar-item{
+  margin-bottom:10px;
+  color:var(--secondary);
+}
+
+.sidebar-item strong{
+  color:var(--ink);
+  font-weight:600;
+  display:block;
+  margin-bottom:2px;
+  font-size:8.5pt;
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+}
+
+.sidebar-note{
+  background:#fff;
+  border:1px solid var(--sidebar-border);
+  border-left:3px solid var(--accent);
+  padding:10px 12px;
+  margin:12px 0 22px;
+  font-size:8.5pt;
+  color:var(--secondary);
+}
+
+.sidebar-note.critical{
+  border-left-color:var(--red);
+  background:#fdf2f2;
+}
+
+.sidebar-note.info{
+  border-left-color:var(--green);
+  background:#f0f5f2;
+}
+
+.sidebar-link{
+  color:var(--accent);
+  text-decoration:none;
+  font-weight:500;
+}
+
+.sidebar-link:hover{
+  text-decoration:underline;
+}
+
+/* HEADER */
 .header{
   text-align:center;
   padding-bottom:28px;
@@ -72,6 +179,7 @@ body{
 .logo-container{
   display:flex;
   justify-content:center;
+  align-items:center;
   margin-bottom:20px;
 }
 
@@ -106,21 +214,24 @@ body{
 
 .execution{
   text-align:center;
-  color:#777;
+  color:var(--tertiary);
   margin-bottom:35px;
   font-size:10pt;
 }
 
+/* PARTIES */
 .parties{
   border-top:1px solid var(--border);
   border-bottom:1px solid var(--border);
   padding:22px 0;
   margin-bottom:35px;
+  max-width:100%;
   overflow-wrap:anywhere;
 }
 
 .party{
   margin-bottom:22px;
+  max-width:100%;
 }
 
 .party:last-child{
@@ -142,20 +253,33 @@ body{
   font-weight:600;
   margin-bottom:6px;
   line-height:1.35;
+  max-width:100%;
+  overflow-wrap:anywhere;
 }
 
 .party-detail{
   font-size:10pt;
   color:var(--secondary);
-  line-height:1.55;
+  line-height:1.6;
+  max-width:100%;
+  overflow-wrap:anywhere;
 }
 
+/* BODY TYPOGRAPHY */
 h2{
   font-family:'Cormorant Garamond',serif;
   font-size:16pt;
   margin:30px 0 12px;
   padding-bottom:8px;
   border-bottom:1px solid var(--border);
+}
+
+h3{
+  font-family:'Inter',sans-serif;
+  font-size:11pt;
+  font-weight:600;
+  color:var(--ink);
+  margin:20px 0 10px;
 }
 
 p{
@@ -165,7 +289,7 @@ p{
   text-align:justify;
 }
 
-ul{
+ul, ol{
   margin:10px 0 18px 24px;
 }
 
@@ -175,6 +299,7 @@ li{
   color:#444;
 }
 
+/* BOXES */
 .notice{
   background:#f7f3ee;
   border-left:4px solid var(--accent);
@@ -183,6 +308,82 @@ li{
   font-size:10pt;
 }
 
+.notice strong{
+  color:var(--accent);
+}
+
+.critical-box{
+  background:#fdf2f2;
+  border:1px solid #e8c0c0;
+  border-left:4px solid var(--red);
+  padding:14px 18px;
+  margin:20px 0;
+  font-size:10pt;
+}
+
+.critical-box strong{
+  color:var(--red);
+}
+
+.info-box{
+  background:#f0f5f2;
+  border:1px solid #c8d5cc;
+  border-left:4px solid var(--green);
+  padding:14px 18px;
+  margin:20px 0;
+  font-size:10pt;
+}
+
+.info-box strong{
+  color:var(--green);
+}
+
+/* TOC */
+.toc{
+  background:#f8f8f8;
+  padding:20px 25px;
+  margin:25px 0;
+  border:1px solid var(--border);
+}
+
+.toc h3{
+  font-size:10pt;
+  margin-bottom:12px;
+  color:var(--accent);
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+.toc ul{
+  margin:0;
+  padding-left:0;
+  list-style:none;
+}
+
+.toc li{
+  font-size:9.5pt;
+  margin-bottom:6px;
+  padding-left:15px;
+  position:relative;
+}
+
+.toc li::before{
+  content:"—";
+  position:absolute;
+  left:0;
+  color:var(--accent-light);
+}
+
+.cross-ref{
+  background:#f0ebe3;
+  padding:2px 6px;
+  border-radius:3px;
+  font-size:9.5pt;
+  font-weight:500;
+  color:var(--accent);
+}
+
+/* SIGNATURES */
 .signature-block{
   margin-top:60px;
   display:grid;
@@ -198,18 +399,34 @@ li{
 .signature p{
   text-align:left;
   margin-bottom:4px;
+  font-size:10pt;
 }
 
+.signature-line{
+  border-bottom:1px solid var(--ink);
+  height:40px;
+  margin-bottom:8px;
+}
+
+/* PRINT */
 @media print{
   body{
     padding:0;
     background:#fff;
   }
 
-  .document{
+  .document-wrapper{
     box-shadow:none;
     max-width:100%;
-    padding:30px 40px;
+    grid-template-columns:minmax(0,1fr) 50mm;
+  }
+
+  .main-content{
+    padding:30px 36px;
+  }
+
+  .sidebar{
+    padding:30px 14px;
   }
 
   .print-controls{
@@ -217,24 +434,35 @@ li{
   }
 }
 
-@media screen and (max-width:768px){
+/* MOBILE */
+@media screen and (max-width:900px){
   body{
     padding:0;
     overflow-x:hidden;
   }
 
-  .document{
-    padding:36px 28px;
+  .document-wrapper{
+    grid-template-columns:1fr;
     max-width:100%;
     box-shadow:none;
+  }
+
+  .main-content{
+    padding:36px 28px;
+  }
+
+  .sidebar{
+    border-left:none;
+    border-top:1px solid var(--sidebar-border);
+    padding:30px 28px;
   }
 
   .print-controls{
     position:sticky;
     top:0;
     right:auto;
-    justify-content:center;
     padding:12px;
+    justify-content:center;
     background:#fff;
     flex-wrap:wrap;
   }
@@ -249,12 +477,8 @@ li{
     gap:35px;
   }
 
-  .parties,
-  .party,
-  .party-name,
-  .party-detail{
-    max-width:100%;
-    overflow-wrap:anywhere;
+  .header-title{
+    font-size:22pt;
   }
 }
 </style>
@@ -263,227 +487,473 @@ li{
 <body>
 
 <div class="print-controls">
-  <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+  <button class="print-btn" onclick="window.print()">
+    Print Document
+  </button>
+  <button class="print-btn secondary" onclick="window.print()">
+    Save as PDF
+  </button>
 </div>
 
-<div class="document">
+<div class="document-wrapper">
 
-<div class="header">
-  <div class="logo-container">
-    <img src="seal.PNG" alt="Johann Christian Hasse Foundation Seal" class="main-seal">
-  </div>
+  <main class="main-content">
+  
+      <div class="header">
+      <div class="logo-container">
+        <img src="seal.PNG" alt="Johann Christian Hasse Foundation Seal" class="main-seal">
+      </div>
 
-  <div class="header-logo">Johann Christian Hasse Foundation</div>
+      <div class="header-logo">Johann Christian Hasse Foundation</div>
 
-  <div class="header-title">
-    Confidentiality &<br>
-    Non-Disclosure Agreement
-  </div>
+      <div class="header-title">
+        Confidentiality &amp;<br>
+        Non-Disclosure Agreement
+      </div>
 
-  <div class="header-subtitle">
-    c-ECO Framework — TFP — Amazon Living Lab
-  </div>
-</div>
-
-<div class="execution">
-Execution Draft — May 2026
-</div>
-
-<div class="parties">
-  <div class="party">
-    <div class="party-label">Disclosing Party</div>
-    <div class="party-name">Johann Christian Hasse Foundation (“HF”)</div>
-    <div class="party-detail">
-      A Missouri nonprofit corporation recognized under Section 501(c)(3) of the Internal Revenue Code, EIN 41-4138929, with principal address at 2504 Grandview Cir, Columbia, Missouri 65203-7201, United States.
+      <div class="header-subtitle">
+        c-ECO Framework — TFP — Amazon Living Lab
+      </div>
     </div>
-  </div>
 
-  <div class="party">
-    <div class="party-label">Receiving Party</div>
-    <div class="party-name">Rodrigo Fernando de Almeida Oliveira (“Recipient”)</div>
-    <div class="party-detail">
-      Brazilian citizen, single, attorney-at-law and professor, holder of RG No. 28086414-0 and CPF No. 267.539.438-62,
-residing at Rua Jufari, s/n, Condomínio Encontro das Águas, Casa 109-A, Bairro Dom Pedro, CEP 69040-003, Manaus, Amazonas, Brazil.
+    <div class="execution">
+      Execution Draft — May 2026
     </div>
-  </div>
-</div>
 
-<p>
-This Confidentiality and Non-Disclosure Agreement (“Agreement”) is entered into for the purpose of enabling limited discussions, evaluations, institutional collaboration activities, and strategic coordination relating to the c-ECO Framework, the Threshold Function Protocol (“TFP”), the c-ECO Fellowship Program, the Amazon Living Lab, and associated governance structures developed, administered, or controlled by HF.
-</p>
+    <div class="parties">
+      <div class="party">
+        <div class="party-label">Disclosing Party</div>
+        <div class="party-name">Johann Christian Hasse Foundation (“HF”)</div>
+        <div class="party-detail">
+          A Missouri nonprofit corporation recognized under Section 501(c)(3) of the Internal Revenue Code, EIN 41-4138929, with principal address at 2504 Grandview Cir, Columbia, Missouri 65203-7201, United States.
+        </div>
+      </div>
 
-<p>
-This Agreement operates as a preliminary confidentiality and intellectual-property protection instrument. It does not replace any future Institutional Referral & Collaboration Agreement, Fellowship Participation Agreement, Confidentiality & Data Governance Agreement (“CDGA”), data-access protocol, licensing instrument, or implementation agreement that may later be required by HF.
-</p>
+      <div class="party">
+        <div class="party-label">Receiving Party</div>
+        <div class="party-name">Rodrigo Fernando de Almeida Oliveira (“Recipient”)</div>
+        <div class="party-detail">
+          Brazilian citizen, single, attorney-at-law and professor, holder of RG No. 28086414-0 and CPF No. 267.539.438-62, residing at Rua Jufari, s/n, Condomínio Encontro das Águas, Casa 109-A, Bairro Dom Pedro, CEP 69040-003, Manaus, Amazonas, Brazil.
+        </div>
+      </div>
+    </div>
 
-<div class="notice">
-<strong>IMPORTANT:</strong> Access to c-ECO or TFP materials does not create any license, ownership right, implementation right, teaching right, commercial right, derivative-framework right, or authority to represent, reproduce, adapt, disclose, or operationalize the c-ECO Framework without HF’s prior written authorization.
-</div>
+    <div class="toc">
+      <h3>Instrument Architecture</h3>
+      <ul>
+        <li>This NDA governs <strong>pre-contractual confidentiality</strong> between HF and Recipient.</li>
+        <li>It is distinct from the <span class="cross-ref">CDGA</span>, which governs data governance for admitted Fellows.</li>
+        <li>Institutional referral and collaboration are governed by a separate <span class="cross-ref">Referral &amp; Collaboration Agreement</span>.</li>
+        <li>Fellowship participation is governed by the <span class="cross-ref">FPA</span> and associated Exhibits.</li>
+        <li>All restricted disclosures may be subject to <span class="cross-ref">TFP</span>, Safe Mode, and role-based access controls.</li>
+      </ul>
+    </div>
 
-<h2>1. Confidential Information</h2>
+    <p>
+      This Confidentiality and Non-Disclosure Agreement (“Agreement”) is entered into as of <strong>[DATE]</strong> (“Effective Date”) for the purpose of enabling limited discussions, evaluations, institutional collaboration activities, and strategic coordination relating to the c-ECO Framework, the Threshold Function Protocol (“TFP”), the c-ECO Fellowship Program, the Amazon Living Lab, and associated governance structures developed, administered, or controlled by HF.
+    </p>
 
-<p>
-For purposes of this Agreement, “Confidential Information” includes, without limitation, all non-public information disclosed by or on behalf of HF, whether written, oral, visual, digital, technical, operational, strategic, institutional, legal, scientific, financial, or otherwise.
-</p>
+    <p>
+      This Agreement operates as a preliminary confidentiality and intellectual-property protection instrument. It does not replace any future Institutional Referral &amp; Collaboration Agreement, Fellowship Participation Agreement, Confidentiality &amp; Data Governance Agreement (“CDGA”), data-access protocol, licensing instrument, implementation agreement, or other written instrument that may later be required by HF.
+    </p>
 
-<ul>
-  <li>TFP operational structures, variables, indicators, formulas, trigger logic, threshold logic, Safe Mode procedures, analytical architecture, and implementation design;</li>
-  <li>c-ECO governance methodologies, legal theories, institutional architecture, model clauses, protocols, draft statutes, manuals, papers, templates, and strategic materials;</li>
-  <li>Fellowship structures, candidate materials, partner discussions, institutional negotiations, implementation plans, funding strategies, partner contacts, and referral opportunities;</li>
-  <li>Technical, legal, scientific, commercial, educational, operational, or financial information disclosed in connection with HF, c-ECO, TFP, the Fellowship Program, or the Amazon Living Lab;</li>
-  <li>Any information that should reasonably be understood to be confidential given the nature of the disclosure or the context in which it is provided.</li>
-</ul>
+    <div class="notice">
+      <strong>Important:</strong> Access to c-ECO or TFP materials does not create any license, ownership right, implementation right, teaching right, commercial right, derivative-framework right, or authority to represent, reproduce, adapt, disclose, or operationalize the c-ECO Framework without HF’s prior written authorization.
+    </div>
 
-<p>
-“Trade Secrets” include any proprietary methodology, unpublished framework, operational logic, threshold system, analytical model, know-how, implementation architecture, strategic process, or confidential compilation of information related to c-ECO or TFP that derives actual or potential value from not being generally known and is subject to reasonable efforts to maintain its secrecy.
-</p>
+    <h2>1. Confidential Information</h2>
 
-<h2>2. Confidentiality Obligations</h2>
+    <p>
+      For purposes of this Agreement, “Confidential Information” includes, without limitation, all non-public information disclosed by or on behalf of HF, whether written, oral, visual, digital, technical, operational, strategic, institutional, legal, scientific, financial, educational, or otherwise.
+    </p>
 
-<p>
-The Recipient agrees to maintain strict confidentiality regarding all Confidential Information and to use such information solely for the limited purpose expressly authorized by HF.
-</p>
+    <ul>
+      <li>TFP operational structures, variables, indicators, formulas, trigger logic, threshold logic, Safe Mode procedures, analytical architecture, band classification logic, and implementation design;</li>
+      <li>c-ECO governance methodologies, legal theories, institutional architecture, model clauses, sectoral workbooks, protocols, draft statutes, manuals, papers, templates, and strategic materials;</li>
+      <li>Fellowship structures, candidate materials, partner discussions, institutional negotiations, Living Lab plans, implementation roadmaps, funding strategies, partner contacts, and referral opportunities;</li>
+      <li>Technical, legal, scientific, commercial, educational, operational, or financial information disclosed in connection with HF, c-ECO, TFP, the Fellowship Program, or the Amazon Living Lab;</li>
+      <li>Any information marked or identified as “Confidential,” “Proprietary,” or “Trade Secret,” or that should reasonably be understood to be confidential given the nature of the disclosure or the context in which it is provided.</li>
+    </ul>
 
-<ul>
-  <li>The Recipient shall not disclose Confidential Information to any third party without HF’s prior written approval.</li>
-  <li>The Recipient shall not copy, reproduce, distribute, publish, upload, teach, present, summarize, circulate, or transmit Confidential Information except as expressly authorized in writing by HF.</li>
-  <li>The Recipient shall adopt reasonable security measures to prevent unauthorized access, disclosure, copying, or misuse.</li>
-  <li>The Recipient shall promptly notify HF of any actual or suspected unauthorized disclosure, access, loss, or misuse of Confidential Information.</li>
-</ul>
+    <h3>1.1 TFP Integration and Disclosure Cessation</h3>
 
-<h2>3. TFP Integration and Safe Mode Disclosure Restrictions</h2>
+    <p>
+      In the event of TFP band classification <strong>Red</strong>, <strong>Black</strong>, Safe Mode activation, emergency review, or any comparable heightened-risk disclosure condition determined by HF, all disclosure, discussion, dissemination, and further processing of Confidential Information shall immediately cease pending institutional review.
+    </p>
 
-<p>
-Disclosure of Confidential Information related to TFP, c-ECO implementation, institutional strategy, candidate data, technical models, or partner contacts may be restricted, suspended, delayed, or withdrawn by HF at any time when HF determines that continued disclosure would create institutional, legal, operational, reputational, data-governance, or systemic risk.
-</p>
+    <p>
+      Such cessation is non-discretionary and reflects internal governance, systemic risk, legal risk, reputational risk, data-governance risk, or operational-risk conditions as assessed by HF.
+    </p>
 
-<p>
-Without limiting the foregoing, HF may automatically suspend disclosure or access where the applicable internal governance status, risk review, or TFP-related evaluation enters a heightened-risk condition, including any Red or Black disclosure band, Safe Mode condition, emergency review, or comparable restriction defined by HF.
-</p>
+    <h3>1.2 Trade Secret Definition</h3>
 
-<p>
-The Recipient acknowledges that TFP-related information may be disclosed progressively and conditionally, and that no disclosure shall be interpreted as authorization to access higher-restriction layers of the c-ECO architecture.
-</p>
+    <p>
+      “Trade Secrets” include any proprietary methodology, unpublished framework, formula, pattern, compilation, program, device, method, technique, process, threshold system, analytical model, know-how, implementation architecture, strategic process, sectoral mapping, confidential compilation, or operational logic related to c-ECO or TFP that derives actual or potential value from not being generally known and is subject to reasonable efforts to maintain its secrecy.
+    </p>
 
-<h2>4. Return and Destruction of Materials</h2>
+    <p>
+      The TFP core logic, Safe Operating Space calibration parameters, sectoral threshold mappings, proprietary analytical instruments, and unpublished c-ECO methodological materials constitute Trade Secrets to the extent permitted by applicable law.
+    </p>
 
-<p>
-Upon HF’s request, or upon termination of discussions or collaboration, the Recipient shall promptly return, delete, or destroy all Confidential Information and related copies, notes, summaries, extracts, working files, digital files, printed materials, and derivative materials in the Recipient’s possession or control.
-</p>
+    <h2>2. Confidentiality Obligations</h2>
 
-<p>
-Upon request, the Recipient shall provide written certification confirming such return, deletion, or destruction.
-</p>
+    <p>
+      Recipient agrees to maintain strict confidentiality regarding all Confidential Information and to use such information solely for the limited purpose expressly authorized by HF.
+    </p>
 
-<h2>5. Intellectual Property and No License</h2>
+    <ul>
+      <li>Recipient shall use at least the same degree of care used to protect Recipient’s own confidential information, but in no event less than reasonable care.</li>
+      <li>Recipient shall not disclose Confidential Information to any third party without HF’s prior written approval.</li>
+      <li>Recipient shall not copy, reproduce, distribute, publish, upload, teach, present, summarize, circulate, or transmit Confidential Information except as expressly authorized in writing by HF.</li>
+      <li>Recipient shall not use Confidential Information for any purpose detrimental to HF, the c-ECO Framework, the TFP, or associated institutional interests.</li>
+      <li>Recipient shall adopt reasonable physical, electronic, and procedural security measures to prevent unauthorized access, copying, disclosure, or misuse.</li>
+      <li>Recipient shall promptly notify HF of any actual or suspected unauthorized disclosure, access, loss, or misuse of Confidential Information.</li>
+    </ul>
 
-<p>
-All rights, title, and interests in and to the c-ECO Framework, TFP, related methodologies, legal architecture, operational logic, drafts, models, protocols, publications, visual materials, training materials, and institutional strategies remain exclusively with HF and/or their respective authors, contributors, or affiliated entities.
-</p>
+    <h3>2.1 Authorized Disclosure</h3>
 
-<p>
-No license, assignment, transfer, waiver, commercial right, implementation right, teaching right, sublicensing right, publication right, derivative-work right, ownership interest, or implied authorization is granted under this Agreement.
-</p>
+    <p>
+      Recipient may disclose Confidential Information only to individuals or entities expressly approved by HF in writing on a case-by-case basis before disclosure.
+    </p>
 
-<h2>6. No Reverse Engineering or Derivative Frameworks</h2>
+    <p>
+      General authorization, professional status, institutional affiliation, participation in discussions, or involvement in a related matter shall not constitute authorization to receive Confidential Information. Recipient shall ensure that any authorized person is bound by confidentiality obligations no less protective than those contained herein, and Recipient shall remain responsible for any breach by such person.
+    </p>
 
-<p>
-The Recipient shall not reverse engineer, reconstruct, imitate, repackage, adapt, translate, teach, commercialize, implement, or create derivative frameworks, methodologies, protocols, models, clauses, training programs, consulting services, or institutional structures based on the c-ECO Framework, TFP, or any Confidential Information.
-</p>
+    <h3>2.2 Return and Destruction</h3>
 
-<p>
-The Recipient shall not use Confidential Information to develop, support, advise, promote, or participate in any competing or substantially similar framework, initiative, fellowship, governance model, threshold protocol, or institutional program without HF’s prior written authorization.
-</p>
+    <p>
+      Upon written request by HF, or upon termination of discussions or this Agreement, Recipient shall promptly return, delete, or destroy all Confidential Information and related copies, notes, summaries, extracts, working files, digital files, printed materials, derivative materials, and tangible embodiments in Recipient’s possession or control.
+    </p>
 
-<h2>7. Non-Circumvention</h2>
+    <p>
+      Recipient shall certify such return, deletion, or destruction in writing within fifteen (15) days of HF’s request. Recipient may retain one archival copy solely to demonstrate compliance with this Agreement, provided such copy remains subject to all confidentiality obligations herein.
+    </p>
+    
+        <h2>3. Intellectual Property and No License</h2>
 
-<p>
-The Recipient shall not directly or indirectly circumvent HF in relation to institutional contacts, partners, fellows, candidates, funders, implementation opportunities, licensing discussions, referral opportunities, strategic negotiations, or related initiatives introduced, disclosed, or developed through the collaboration.
-</p>
+    <p>
+      All rights, title, and interests in and to the c-ECO Framework, TFP, sectoral workbooks, methodological instruments, legal architecture, operational logic, drafts, models, protocols, publications, visual materials, training materials, institutional strategies, and associated concepts remain exclusively with HF and/or their respective authors, contributors, or affiliated entities, including Jacqueline A. Ennis as lead architect and doctrinal custodian.
+    </p>
 
-<p>
-The Recipient shall not independently approach, solicit, negotiate with, or enter into arrangements with such contacts or opportunities in a manner that bypasses, excludes, prejudices, or undermines HF’s role, rights, authorship, institutional position, or strategic interests.
-</p>
+    <p>
+      No license, assignment, transfer, waiver, commercial right, implementation right, teaching right, sublicensing right, publication right, derivative-work right, ownership interest, or implied authorization is granted under this Agreement or by virtue of any disclosure of Confidential Information.
+    </p>
 
-<h2>8. Authorized Disclosure</h2>
+    <p>
+      Recipient shall not apply for, register, claim, or assist any third party in applying for, registering, or claiming any patent, copyright, trademark, trade secret, domain name, methodology, framework, program, protocol, or other intellectual-property protection based on or derived from Confidential Information.
+    </p>
 
-<p>
-Any disclosure to another individual or entity requires HF’s prior written approval for each specific person or entity. General authorization, implied authorization, professional status, institutional affiliation, or participation in discussions shall not constitute authorization to receive Confidential Information.
-</p>
+    <h2>4. No Reverse Engineering or Derivative Frameworks</h2>
 
-<p>
-HF may condition any disclosure on additional NDAs, CDGAs, data-access restrictions, role-based permissions, Safe Mode review, or other governance controls.
-</p>
+    <p>
+      Recipient shall not reverse engineer, reconstruct, imitate, repackage, adapt, translate, teach, commercialize, implement, operationalize, or create derivative frameworks, methodologies, protocols, models, clauses, training programs, consulting services, institutional structures, or governance architectures based on the c-ECO Framework, TFP, or any Confidential Information.
+    </p>
 
-<h2>9. Relationship to CDGA and Data Governance</h2>
+    <p>
+      Recipient shall not use Confidential Information to develop, support, advise, promote, or participate in any competing or substantially similar framework, initiative, fellowship, governance model, threshold protocol, consulting model, academic program, or institutional program without HF’s prior written authorization.
+    </p>
 
-<p>
-This Agreement does not authorize the Recipient to access, process, store, transfer, analyze, or govern candidate data, fellow data, institutional data, sensitive data, technical datasets, or operational system data.
-</p>
+    <h2>5. Non-Circumvention</h2>
 
-<p>
-Any such access shall require a separate CDGA, data-processing authorization, or other written instrument approved by HF. In the event of inconsistency between this Agreement and any later CDGA concerning data governance, the more specific data-governance instrument shall control.
-</p>
+    <p>
+      Recipient shall not directly or indirectly circumvent HF in relation to institutional contacts, partners, fellows, candidates, funders, implementation opportunities, licensing discussions, referral opportunities, strategic negotiations, or related initiatives introduced, disclosed, or developed through the collaboration.
+    </p>
 
-<h2>10. Remedies</h2>
+    <p>
+      For a period of twenty-four (24) months from the Effective Date, Recipient shall refer all such opportunities to HF and shall not pursue them independently, through third parties, or through affiliated entities without HF’s prior written consent.
+    </p>
 
-<p>
-The Recipient acknowledges that unauthorized disclosure, misuse, circumvention, reverse engineering, or unauthorized implementation of Confidential Information may cause irreparable harm for which monetary damages alone may be insufficient.
-</p>
+    <p>
+      Recipient shall not independently approach, solicit, negotiate with, or enter into arrangements with such contacts or opportunities in a manner that bypasses, excludes, prejudices, or undermines HF’s role, rights, authorship, institutional position, or strategic interests.
+    </p>
 
-<p>
-HF shall therefore be entitled to seek injunctive relief, specific performance, equitable remedies, damages, attorneys’ fees where available, and any other remedies available under applicable law.
-</p>
+    <h2>6. Relationship to CDGA and Data Governance</h2>
 
-<h2>11. Governing Law</h2>
+    <p>
+      This Agreement does not authorize Recipient to access, process, store, transfer, analyze, govern, export, disclose, or otherwise handle candidate data, fellow data, institutional data, sensitive data, technical datasets, operational system data, or any other data subject to data-governance controls.
+    </p>
 
-<p>
-This Agreement shall be governed by and construed in accordance with the laws of the State of Missouri, United States, without regard to conflict-of-law principles.
-</p>
+    <p>
+      Any such access shall require a separate CDGA, data-processing authorization, role-based access approval, or other written instrument approved by HF.
+    </p>
 
-<h2>12. Term and Survival</h2>
+    <p>
+      In the event of inconsistency between this Agreement and any later CDGA concerning data governance, the more specific data-governance instrument shall control.
+    </p>
 
-<p>
-This Agreement shall remain in effect for five (5) years following the last disclosure of Confidential Information.
-</p>
+    <h2>7. Exceptions</h2>
 
-<p>
-Obligations relating to Trade Secrets, proprietary methodologies, TFP logic, c-ECO architecture, non-circumvention, no-license obligations, no-reverse-engineering obligations, and unauthorized derivative use shall survive indefinitely to the extent permitted by law.
-</p>
+    <p>
+      The confidentiality obligations in this Agreement shall not apply to information that Recipient can demonstrate through written records:
+    </p>
 
-<h2>13. Severability</h2>
+    <ol type="a">
+      <li>Was already known to Recipient prior to disclosure by HF;</li>
+      <li>Is or becomes publicly available through no breach of this Agreement by Recipient;</li>
+      <li>Is rightfully received by Recipient from a third party without restriction and without breach of any confidentiality obligation;</li>
+      <li>Is independently developed by Recipient without use of or reference to HF’s Confidential Information; or</li>
+      <li>Is required to be disclosed by law, regulation, court order, or governmental authority, provided Recipient gives HF prompt written notice and cooperates in seeking a protective order or confidential treatment.</li>
+    </ol>
 
-<p>
-If any provision of this Agreement is held to be invalid, illegal, or unenforceable, the remaining provisions shall remain in full force and effect, and the invalid provision shall be modified to the minimum extent necessary to make it enforceable while preserving its original intent.
-</p>
+    <h2>8. Remedies</h2>
 
-<h2>14. Entire Agreement</h2>
+    <p>
+      Recipient acknowledges that unauthorized disclosure, misuse, circumvention, reverse engineering, derivative use, or unauthorized implementation of Confidential Information may cause irreparable harm for which monetary damages alone may be insufficient.
+    </p>
 
-<p>
-This Agreement constitutes the entire agreement between the parties with respect to the confidentiality and protection of Confidential Information disclosed in connection with the matters described herein, and supersedes prior oral or written understandings concerning such subject matter.
-</p>
+    <p>
+      HF shall therefore be entitled to seek injunctive relief, temporary restraining orders, preliminary and permanent injunctions, specific performance, equitable remedies, accounting, damages, attorneys’ fees where available, and any other remedies available under applicable law, in equity, or under this Agreement.
+    </p>
 
-<p>
-Any modification or waiver of this Agreement must be made in writing and signed by HF.
-</p>
+    <h2>9. Governing Law and Dispute Resolution</h2>
 
-<div class="signature-block">
-  <div class="signature">
-    <p><strong>Johann Christian Hasse Foundation</strong></p>
-    <p>Authorized Representative</p>
-    <br><br>
-    <p>__________________________________</p>
-    <p>Name / Signature / Date</p>
-  </div>
+    <p>
+      This Agreement shall be governed by and construed in accordance with the laws of the State of Missouri, United States, without regard to conflict-of-law principles.
+    </p>
 
-  <div class="signature">
-    <p><strong>Recipient</strong></p>
-    <p>Rodrigo Fernando de Almeida Oliveira</p>
-    <br><br>
-    <p>__________________________________</p>
-    <p>Signature / Date</p>
-  </div>
-</div>
+    <p>
+      Any dispute arising from or relating to this Agreement shall be resolved through binding arbitration administered by the American Arbitration Association in Columbia, Missouri, under its Commercial Arbitration Rules. The arbitrator’s decision shall be final and binding. Judgment on the award may be entered in any court of competent jurisdiction.
+    </p>
+
+    <p>
+      Notwithstanding the foregoing, HF may seek injunctive, equitable, or emergency relief in any court of competent jurisdiction to prevent or remedy unauthorized disclosure, misuse, circumvention, reverse engineering, or infringement of Confidential Information or intellectual-property rights.
+    </p>
+
+    <h2>10. Term and Survival</h2>
+
+    <p>
+      This Agreement shall remain in effect for five (5) years from the Effective Date.
+    </p>
+
+    <p>
+      Obligations relating to Trade Secrets, proprietary methodologies, TFP logic, c-ECO architecture, non-circumvention, no-license obligations, no-reverse-engineering obligations, unauthorized derivative use, and unauthorized implementation shall survive indefinitely to the extent permitted by law.
+    </p>
+
+    <h2>11. Notices</h2>
+
+    <p>
+      All notices under this Agreement shall be in writing and delivered by email with confirmation of receipt, certified mail, courier, or other traceable delivery method to the addresses set forth in the parties block, or to such other address as either party may designate by written notice.
+    </p>
+
+    <h2>12. Severability</h2>
+
+    <p>
+      If any provision of this Agreement is held invalid, illegal, or unenforceable by a court or arbitral tribunal of competent jurisdiction, such provision shall be modified to the minimum extent necessary to make it valid and enforceable, and the remaining provisions shall continue in full force and effect.
+    </p>
+
+    <h2>13. Entire Agreement</h2>
+
+    <p>
+      This Agreement constitutes the entire understanding between the parties regarding the confidentiality and protection of Confidential Information disclosed in connection with the matters described herein and supersedes all prior negotiations, representations, and agreements, whether written or oral, concerning such subject matter.
+    </p>
+
+    <p>
+      No amendment, modification, or waiver shall be effective unless made in writing and signed by HF.
+    </p>
+
+    <div class="signature-block">
+      <div class="signature">
+        <p><strong>Johann Christian Hasse Foundation</strong></p>
+        <p>Authorized Representative</p>
+        <div class="signature-line"></div>
+        <p>Name: Jacqueline Goncalves Alves</p>
+        <p>Title: President</p>
+        <p>Date: _________________________</p>
+      </div>
+
+      <div class="signature">
+        <p><strong>Recipient</strong></p>
+        <p>Rodrigo Fernando de Almeida Oliveira</p>
+        <div class="signature-line"></div>
+        <p>Signature</p>
+        <p>Date: _________________________</p>
+      </div>
+    </div>
+
+  </main>
+  
+    <aside class="sidebar">
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">Document Profile</div>
+
+      <div class="sidebar-item">
+        <strong>Type</strong>
+        Confidentiality &amp; Non-Disclosure Agreement
+      </div>
+
+      <div class="sidebar-item">
+        <strong>Status</strong>
+        Execution Draft — May 2026
+      </div>
+
+      <div class="sidebar-item">
+        <strong>Governing Law</strong>
+        State of Missouri, United States
+      </div>
+
+      <div class="sidebar-item">
+        <strong>Dispute Forum</strong>
+        AAA Arbitration — Columbia, Missouri
+      </div>
+
+      <div class="sidebar-item">
+        <strong>Core Purpose</strong>
+        Pre-contractual confidentiality, IP protection, non-circumvention, and controlled disclosure.
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">Parties</div>
+
+      <div class="sidebar-item">
+        <strong>Disclosing Party</strong>
+        Johann Christian Hasse Foundation<br>
+        501(c)(3) nonprofit corporation<br>
+        EIN 41-4138929<br>
+        Columbia, Missouri, USA
+      </div>
+
+      <div class="sidebar-item">
+        <strong>Receiving Party</strong>
+        Rodrigo Fernando de Almeida Oliveira<br>
+        Attorney-at-law and professor<br>
+        Manaus, Amazonas, Brazil
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">Instrument Stack</div>
+
+      <div class="sidebar-item">
+        <strong>This NDA</strong>
+        Preliminary confidentiality and IP protection.
+      </div>
+
+      <div class="sidebar-item">
+        <strong>Referral Agreement</strong>
+        Institutional collaboration, referrals, and commercial terms.
+      </div>
+
+      <div class="sidebar-item">
+        <strong>FPA</strong>
+        Fellowship participation and program obligations.
+      </div>
+
+      <div class="sidebar-item">
+        <strong>CDGA</strong>
+        Confidentiality and data governance for admitted Fellows.
+      </div>
+
+      <div class="sidebar-item">
+        <strong>MAI</strong>
+        Methodological adherence and integrity.
+      </div>
+
+      <div class="sidebar-item">
+        <strong>LLEP</strong>
+        Living Lab engagement protocol.
+      </div>
+
+      <div class="sidebar-item">
+        <strong>CSAM</strong>
+        Case-specific analytical mandate.
+      </div>
+    </div>
+
+    <div class="sidebar-note critical">
+      <strong>Critical distinction:</strong> This NDA does not authorize data access, Fellowship data processing, TFP implementation, or operational use of restricted c-ECO materials.
+    </div>
+
+    <div class="sidebar-note info">
+      <strong>TFP Integration:</strong> Disclosure may cease automatically upon Red/Black classification, Safe Mode activation, emergency review, or comparable HF restriction.
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">Protected Assets</div>
+
+      <div class="sidebar-item">
+        <strong>TFP Core Logic</strong>
+        Threshold variables, trigger logic, band classification, Safe Mode procedures, and implementation design.
+      </div>
+
+      <div class="sidebar-item">
+        <strong>c-ECO Framework</strong>
+        Legal architecture, pre-threshold governance, systemic reversibility logic, and institutional methodology.
+      </div>
+
+      <div class="sidebar-item">
+        <strong>Sectoral Workbooks</strong>
+        Analytical instruments, sectoral mappings, implementation templates, and governance protocols.
+      </div>
+
+      <div class="sidebar-item">
+        <strong>Institutional Strategy</strong>
+        Partner contacts, referral opportunities, funding discussions, Living Lab roadmaps, and negotiations.
+      </div>
+
+      <div class="sidebar-item">
+        <strong>Legal Drafts</strong>
+        Model clauses, white papers, statutes, manuals, agreements, and unpublished doctrinal materials.
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">Key Restrictions</div>
+
+      <div class="sidebar-item">
+        <strong>No License</strong>
+        Disclosure does not grant rights to use, teach, implement, commercialize, or reproduce c-ECO or TFP.
+      </div>
+
+      <div class="sidebar-item">
+        <strong>No Derivatives</strong>
+        No reverse engineering, repackaging, imitation, adaptation, or competing framework.
+      </div>
+
+      <div class="sidebar-item">
+        <strong>No Circumvention</strong>
+        Protected contacts and opportunities must not be pursued independently.
+      </div>
+
+      <div class="sidebar-item">
+        <strong>Return / Destruction</strong>
+        Materials must be returned, deleted, or destroyed upon HF request.
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">Survival</div>
+
+      <div class="sidebar-item">
+        <strong>General Term</strong>
+        Five (5) years from Effective Date.
+      </div>
+
+      <div class="sidebar-item">
+        <strong>Indefinite Survival</strong>
+        Trade Secrets, TFP logic, c-ECO architecture, no-license, non-circumvention, and no-reverse-engineering obligations survive to the extent permitted by law.
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">Related Links</div>
+
+      <div class="sidebar-item">
+        <a href="https://c-eco.org/fellowship-portal.html" class="sidebar-link" target="_blank">Fellowship Portal ↗</a>
+      </div>
+
+      <div class="sidebar-item">
+        <a href="https://c-eco.org/fellowship.html" class="sidebar-link" target="_blank">Current Application Cycle ↗</a>
+      </div>
+
+      <div class="sidebar-item">
+        <a href="#" class="sidebar-link">Referral &amp; Collaboration Agreement</a>
+      </div>
+    </div>
+
+  </aside>
 
 </div>
 
