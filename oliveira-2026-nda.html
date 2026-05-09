@@ -449,29 +449,71 @@ li{
 
 /* ===== SIGNATURES ===== */
 
-.signature-block{
-  margin-top:60px;
+.signature-section{
+  margin-top:50px;
+  padding-top:28px;
+  border-top:1px solid var(--border);
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:50px;
-  scroll-margin-top:25px;
+  gap:42px;
+  page-break-inside:avoid;
+  break-inside:avoid;
 }
 
-.signature{
-  border-top:1px solid var(--ink);
-  padding-top:12px;
+.signature-card{
+  page-break-inside:avoid;
+  break-inside:avoid;
 }
 
-.signature p{
-  text-align:left;
+.signature-party{
+  font-family:'Cormorant Garamond',serif;
+  font-size:13pt;
+  font-weight:700;
+  color:var(--ink);
+  line-height:1.3;
   margin-bottom:4px;
-  font-size:10pt;
+}
+
+.signature-role{
+  font-size:9.5pt;
+  color:var(--ink-secondary);
+  margin-bottom:32px;
+  line-height:1.45;
 }
 
 .signature-line{
   border-bottom:1px solid var(--ink);
-  height:42px;
-  margin-bottom:8px;
+  height:26px;
+  margin-bottom:10px;
+}
+
+.signature-info{
+  font-size:9.3pt;
+  color:var(--ink-secondary);
+  line-height:1.65;
+}
+
+@media max-width:1024px{
+  .signature-section{
+    grid-template-columns:1fr;
+    gap:34px;
+  }
+}
+
+@media print{
+  .signature-section{
+    margin-top:35px;
+    padding-top:22px;
+    gap:35px;
+  }
+
+  .signature-role{
+    margin-bottom:24px;
+  }
+
+  .signature-line{
+    height:22px;
+  }
 }
 
 /* ===== FOOTER ===== */
@@ -534,11 +576,6 @@ li{
     top:auto;
     bottom:140px;
     right:20px;
-  }
-
-  .signature-block{
-    grid-template-columns:1fr;
-    gap:35px;
   }
 
   .header-title{
@@ -904,25 +941,34 @@ li{
   No amendment, modification, or waiver shall be effective unless made in writing and signed by HF.
 </p>
 
-<section id="SIGNATURES" class="signature-block">
-  <div class="signature">
-    <p><strong>Johann Christian Hasse Foundation</strong></p>
-    <p>Authorized Representative</p>
+<section id="SIGNATURES" class="signature-section">
+
+  <div class="signature-card">
+    <div class="signature-party">Johann Christian Hasse Foundation</div>
+    <div class="signature-role">Authorized Representative</div>
+
     <div class="signature-line"></div>
-    <p>Name: Jacqueline Goncalves Alves</p>
-    <p>Title: President</p>
-    <p>Date: _________________________</p>
+
+    <div class="signature-info">
+      Name: Jacqueline Goncalves Alves<br>
+      Title: President<br>
+      Date: ____________________
+    </div>
   </div>
 
-  <div class="signature">
-    <p><strong>Recipient</strong></p>
-    <p>Rodrigo Fernando de Almeida Oliveira</p>
+  <div class="signature-card">
+    <div class="signature-party">Recipient</div>
+    <div class="signature-role">Rodrigo Fernando de Almeida Oliveira</div>
+
     <div class="signature-line"></div>
-    <p>Signature</p>
-    <p>Date: _________________________</p>
+
+    <div class="signature-info">
+      Signature<br>
+      Date: ____________________
+    </div>
   </div>
+
 </section>
-
 <section id="COPYRIGHT" class="copyright-footer">
   <div class="copyright-notice">
     © 2026 Johann Christian Hasse Foundation / c-ECO Systemic Governance Initiative. All rights reserved.
