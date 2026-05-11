@@ -1,0 +1,1091 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>c-ECO Operational Flowcharts v1.1 — Fellowship & Enterprise</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --sidebar-width:340px;
+  --ink:#1a1a1a;
+  --ink-secondary:#4a4a4a;
+  --ink-tertiary:#6b6b6b;
+  --border:#c9c9c9;
+  --border-light:#e5e5e5;
+  --bg-body:#fafafa;
+  --paper:#ffffff;
+  --accent:#8b7355;
+  --accent-light:#b8a88a;
+  --soft:#f7f3ee;
+  --soft2:#f8f8f8;
+}
+
+*{ box-sizing:border-box; }
+
+body{
+  margin:0;
+  background:var(--bg-body);
+  font-family:'Inter',sans-serif;
+  line-height:1.55;
+  color:var(--ink);
+}
+
+.sidebar{
+  width:var(--sidebar-width);
+  position:fixed;
+  top:0;
+  left:0;
+  height:100vh;
+  background:#fff;
+  border-right:1px solid var(--border-light);
+  padding:16px;
+  overflow-y:auto;
+  z-index:1000;
+}
+
+.sidebar-top{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding-bottom:10px;
+  margin-bottom:12px;
+  border-bottom:2px solid var(--accent);
+}
+
+.logo-box{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:40px;
+  height:40px;
+  border:1px solid var(--border-light);
+  background:#fff;
+  color:var(--ink);
+  font-weight:900;
+  font-size:1.2rem;
+  text-decoration:none;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+.sidebar-title{
+  font-weight:800;
+  font-size:11px;
+  letter-spacing:1px;
+  color:var(--ink);
+  text-transform:uppercase;
+  line-height:1.2;
+  margin:0;
+}
+
+.nav-list{
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+
+.nav-section-title{
+  font-size:10px;
+  font-weight:800;
+  color:var(--accent);
+  margin-top:14px;
+  text-transform:uppercase;
+  border-top:1px solid #eee;
+  padding-top:10px;
+  padding-bottom:5px;
+  letter-spacing:.8px;
+}
+
+.nav-item a{
+  text-decoration:none;
+  color:var(--ink);
+  font-size:11px;
+  display:block;
+  padding:6px 8px;
+  line-height:1.35;
+  transition:.2s;
+  border-left:3px solid transparent;
+}
+
+.nav-item a:hover{
+  background:rgba(139,115,85,0.10);
+  border-left-color:var(--accent);
+}
+
+.main-content{
+  margin-left:var(--sidebar-width);
+  padding:40px 20px;
+  display:flex;
+  justify-content:center;
+}
+
+.document-page{
+  background:#fff;
+  width:100%;
+  max-width:210mm;
+  padding:55px 65px;
+  box-shadow:0 2px 20px rgba(0,0,0,0.06);
+}
+
+.header{
+  text-align:center;
+  margin-bottom:38px;
+  padding-bottom:30px;
+  border-bottom:2px solid var(--ink);
+}
+
+.header-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:14pt;
+  font-weight:600;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--ink);
+  margin-bottom:8px;
+}
+
+.header-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:24pt;
+  font-weight:700;
+  color:var(--ink);
+  margin-bottom:10px;
+  line-height:1.15;
+}
+
+.header-subtitle{
+  font-size:10pt;
+  color:var(--ink-tertiary);
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+
+.execution{
+  text-align:center;
+  color:var(--ink-tertiary);
+  margin-bottom:32px;
+  font-size:10pt;
+}
+
+h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:17pt;
+  font-weight:700;
+  color:var(--ink);
+  margin:38px 0 16px;
+  padding-bottom:8px;
+  border-bottom:1px solid var(--border);
+  scroll-margin-top:25px;
+}
+
+h3{
+  font-family:'Inter',sans-serif;
+  font-size:10.5pt;
+  font-weight:700;
+  color:var(--ink);
+  margin:20px 0 10px;
+}
+
+p{
+  margin-bottom:14px;
+  font-size:10.5pt;
+  line-height:1.7;
+  color:var(--ink-secondary);
+  text-align:justify;
+}
+
+.notice{
+  background:#f7f3ee;
+  border-left:4px solid var(--accent);
+  padding:16px 18px;
+  margin:22px 0;
+  font-size:10pt;
+  color:var(--ink-secondary);
+}
+
+.notice strong{ color:var(--accent); }
+
+.flow-caption{
+  font-size:10px;
+  font-weight:800;
+  color:var(--accent);
+  text-transform:uppercase;
+  letter-spacing:.8px;
+  margin-bottom:10px;
+}
+
+.flowchart{
+  margin:26px 0 34px;
+  padding:22px;
+  background:#fff;
+  border:1px solid var(--border-light);
+  box-shadow:0 1px 10px rgba(0,0,0,0.04);
+  page-break-inside:avoid;
+}
+
+.flow-row{
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  flex-wrap:wrap;
+  margin:10px 0;
+}
+
+.flow-node{
+  border:1px solid var(--border-light);
+  background:#fff;
+  padding:13px 15px;
+  min-width:180px;
+  max-width:230px;
+  text-align:center;
+  font-size:10pt;
+  line-height:1.4;
+  color:var(--ink-secondary);
+  box-shadow:0 4px 12px rgba(0,0,0,0.045);
+}
+
+.flow-node strong{
+  display:block;
+  color:var(--ink);
+  font-weight:800;
+  font-size:10.3pt;
+  margin-bottom:4px;
+}
+
+.flow-node.entry{ border-top:4px solid var(--ink); }
+.flow-node.foundation{ border-top:4px solid var(--accent); background:#fdfbf8; }
+.flow-node.decision{ border:2px solid var(--accent); background:#f7f3ee; }
+.flow-node.warning{ border-top:4px solid #6b6b6b; background:#f8f8f8; }
+.flow-node.license{ border-top:4px solid var(--accent); background:#fbf8f2; }
+.flow-node.terminal{ border-top:4px solid #1a1a1a; background:#f3f3f3; }
+.flow-node.exit{ border-top:4px solid #c0392b; background:#fdf5f5; }
+.flow-node.bridge{ border:2px dashed var(--accent); background:#fdfbf8; }
+
+.arrow{
+  text-align:center;
+  color:var(--accent);
+  font-weight:900;
+  font-size:18px;
+  line-height:1;
+  margin:4px 0;
+}
+
+.arrow-dashed{
+  text-align:center;
+  color:var(--accent);
+  font-weight:700;
+  font-size:14px;
+  line-height:1;
+  margin:4px 0;
+  border-bottom:2px dashed var(--accent-light);
+  padding-bottom:4px;
+}
+
+.divider-label{
+  margin:22px 0 12px;
+  text-align:center;
+  font-size:10px;
+  font-weight:800;
+  color:var(--ink);
+  text-transform:uppercase;
+  letter-spacing:1.2px;
+  position:relative;
+}
+
+.divider-label::before,
+.divider-label::after{
+  content:"";
+  display:inline-block;
+  width:60px;
+  border-top:1px solid var(--border-light);
+  vertical-align:middle;
+  margin:0 12px;
+}
+
+.layer-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  margin:16px 0;
+}
+
+.layer-card{
+  border:1px solid var(--border-light);
+  background:#fff;
+  padding:16px;
+  min-height:130px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.04);
+}
+
+.layer-card .tier{
+  font-size:10px;
+  font-weight:800;
+  color:var(--accent);
+  letter-spacing:.8px;
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
+
+.layer-card h4{
+  margin:0 0 8px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:15pt;
+  color:var(--ink);
+}
+
+.layer-card p{
+  font-size:9.6pt;
+  line-height:1.55;
+  margin:0;
+  text-align:left;
+}
+
+.band-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin:14px 0;
+}
+
+.band{
+  border:1px solid var(--border-light);
+  padding:14px 10px;
+  text-align:center;
+  background:#fff;
+}
+
+.band strong{
+  display:block;
+  font-size:11pt;
+  color:var(--ink);
+  margin-bottom:4px;
+}
+
+.band span{
+  display:block;
+  font-size:8.8pt;
+  color:var(--ink-secondary);
+  line-height:1.35;
+}
+
+.matrix{
+  width:100%;
+  border-collapse:collapse;
+  margin:18px 0 24px;
+  font-size:9.5pt;
+}
+
+.matrix th{
+  background:#f7f3ee;
+  color:var(--ink);
+  text-align:left;
+  padding:10px;
+  border:1px solid var(--border-light);
+  font-weight:800;
+}
+
+.matrix td{
+  padding:10px;
+  border:1px solid var(--border-light);
+  color:var(--ink-secondary);
+  vertical-align:top;
+}
+
+.price-note{
+  background:#f7f3ee;
+  border:1px solid var(--border-light);
+  border-left:4px solid var(--accent);
+  padding:14px 18px;
+  margin:16px 0;
+  font-size:10pt;
+  color:var(--ink-secondary);
+}
+
+.price-note strong{
+  color:var(--accent);
+}
+
+.print-btn{
+  position:fixed;
+  top:20px;
+  right:20px;
+  background:var(--ink);
+  color:#fff;
+  border:none;
+  padding:12px 20px;
+  font-weight:700;
+  font-size:12px;
+  z-index:2000;
+  box-shadow:0 4px 15px rgba(0,0,0,0.2);
+  cursor:pointer;
+  letter-spacing:.5px;
+  border-radius:4px;
+}
+
+.mobile-btn{
+  display:none;
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:var(--ink);
+  color:#fff;
+  border:none;
+  padding:14px 22px;
+  font-weight:800;
+  font-size:12px;
+  z-index:2000;
+  box-shadow:0 4px 15px rgba(0,0,0,0.3);
+  cursor:pointer;
+  letter-spacing:.5px;
+}
+
+.copyright-footer{
+  margin-top:40px;
+  padding-top:25px;
+  border-top:2px solid var(--border-light);
+  font-size:11px;
+  line-height:1.6;
+  color:var(--ink-secondary);
+}
+
+.copyright-notice{
+  font-weight:700;
+  color:var(--ink);
+  margin-bottom:10px;
+}
+
+@media (max-width:1024px){
+  .sidebar{
+    transform:translateX(-100%);
+    transition:transform .3s ease;
+  }
+  .sidebar.open{
+    transform:translateX(0);
+    box-shadow:10px 0 30px rgba(0,0,0,0.22);
+  }
+  .main-content{
+    margin-left:0;
+    padding:16px;
+  }
+  .document-page{
+    padding:36px 28px;
+    width:auto;
+    margin:0;
+    box-shadow:none;
+  }
+  .mobile-btn{ display:block; }
+  .print-btn{
+    top:auto;
+    bottom:80px;
+    right:20px;
+    padding:14px 18px;
+  }
+  .layer-grid,
+  .band-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media print{
+  .sidebar,
+  .mobile-btn,
+  .print-btn{
+    display:none !important;
+  }
+  body{ background:#fff; }
+  .main-content{
+    margin-left:0;
+    padding:0;
+  }
+  .document-page{
+    box-shadow:none;
+    max-width:100%;
+    padding:30px 40px;
+  }
+  .flowchart{
+    box-shadow:none;
+    page-break-inside:avoid;
+  }
+  h2{ page-break-after:avoid; }
+}
+</style>
+</head>
+
+<body>
+
+<button class="mobile-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">INDEX</button>
+<button class="print-btn" onclick="window.print()">Save PDF / Print</button>
+
+<aside class="sidebar" id="sidebar" aria-label="Flowchart Index">
+  <div class="sidebar-top">
+    <a href="fellowship-portal.html" class="logo-box" aria-label="Back to Fellowship Portal">Σ</a>
+    <div class="sidebar-title">
+      c-ECO Operational<br>
+      Flowchart Index
+    </div>
+  </div>
+
+  <nav>
+    <ul class="nav-list">
+      <li class="nav-section-title">Document</li>
+      <li class="nav-item"><a href="#HEADER">Header</a></li>
+      <li class="nav-item"><a href="#PRINCIPLE">Operating Principle</a></li>
+
+      <li class="nav-section-title">Flowchart 1</li>
+      <li class="nav-item"><a href="#FLOW-1">Fellowship + Recognition + License</a></li>
+      <li class="nav-item"><a href="#EXIT-PATHS">Exit &amp; Non-Completion Pathways</a></li>
+      <li class="nav-item"><a href="#FLOW-1-MATRIX">Fellowship Layer Matrix</a></li>
+      <li class="nav-item"><a href="#FELLOW-ENTERPRISE">Fellow → Enterprise Bridge</a></li>
+
+      <li class="nav-section-title">Flowchart 2</li>
+      <li class="nav-item"><a href="#FLOW-2">Enterprise Contractual Monitoring</a></li>
+      <li class="nav-item"><a href="#SERVICE-TIERS">Three Service Tiers</a></li>
+      <li class="nav-item"><a href="#STATE-BANDS">State Bands &amp; Concrete Actions</a></li>
+      <li class="nav-item"><a href="#LIVING-LAB">Living Lab Integration</a></li>
+
+      <li class="nav-section-title">Execution</li>
+      <li class="nav-item"><a href="#COPYRIGHT">Copyright</a></li>
+    </ul>
+  </nav>
+</aside>
+
+<main class="main-content">
+<article class="document-page">
+
+<section id="HEADER" class="header">
+  <div class="header-logo">Johann Christian Hasse Foundation</div>
+  <div class="header-title">
+    c-ECO Operational Flowcharts
+  </div>
+  <div class="header-subtitle">
+    Fellowship Licensing Architecture + Enterprise Contractual Monitoring System
+  </div>
+</section>
+
+<div class="execution">
+  Visual System Draft — Version 1.1 — May 2026
+</div>
+
+<section id="PRINCIPLE" class="notice">
+  <strong>Core operating distinction:</strong> Fellowship admission grants controlled methodological access. Institutional recognition validates a function within a defined scope. A separate license authorizes real-world use. Enterprise deployment occurs only through a distinct contractual monitoring and governance pathway.
+</section>
+
+<h2 id="FLOW-1">1. Fellowship + Recognition + Fellow License Architecture</h2>
+
+<p>
+  This flowchart represents the controlled pathway from candidate application to fellowship participation, institutional recognition, standing management, and, where applicable, a separate case-based license for real-world use of the c-ECO framework.
+</p>
+
+<section class="flowchart">
+  <div class="flow-caption">Flowchart 1 — Controlled Fellowship Entry Layer</div>
+
+  <div class="flow-row">
+    <div class="flow-node entry"><strong>Applicant / Candidate</strong>Professional profile + proposed case environment</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node"><strong>Case Summary</strong>Concrete asset, operation, exposure, transaction, or governance problem</div>
+    <div class="flow-node"><strong>Professional Profile</strong>Experience, sector relevance, institutional fit</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node foundation"><strong>Case Viability Review</strong>Systemic relevance + signal viability + reversibility exposure</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node decision"><strong>Viable Case?</strong>Admission depends on case viability, not credentials alone</div>
+  </div>
+
+  <div class="flow-row">
+    <div class="flow-node exit"><strong>No</strong>Deferral / restructure case / non-selection</div>
+    <div class="flow-node foundation"><strong>Yes</strong>Fellowship admission decision</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="divider-label">Contractual Adhesion Layer</div>
+
+  <div class="flow-row">
+    <div class="flow-node"><strong>FPA</strong>Fellowship Participation Agreement</div>
+    <div class="flow-node"><strong>MAI</strong>Methodological Adherence Instrument</div>
+    <div class="flow-node"><strong>CDGA</strong>Confidentiality & Data Governance Agreement</div>
+    <div class="flow-node"><strong>CSAM</strong>Case-Specific Analytical Mandate</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="divider-label">Controlled Methodological Environment</div>
+
+  <div class="flow-row">
+    <div class="flow-node foundation"><strong>Phase I</strong>Guided methodological immersion</div>
+    <div class="flow-node foundation"><strong>Phase II</strong>CSAM development + threshold mapping</div>
+    <div class="flow-node foundation"><strong>Phase III</strong>Field / Living Lab integration where applicable</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node decision"><strong>Methodological Review</strong>Validated function within approved scope?</div>
+  </div>
+
+  <div class="flow-row">
+    <div class="flow-node exit"><strong>No</strong>Correction / conditional status / no recognition</div>
+    <div class="flow-node license"><strong>Yes</strong>Institutional recognition issued by Foundation</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="divider-label">Recognition + Standing Layer</div>
+
+  <div class="flow-row">
+    <div class="flow-node"><strong>Analyst</strong>Diagnostic + threshold interpretation</div>
+    <div class="flow-node"><strong>Senior</strong>Contractual translation + supervised case application</div>
+    <div class="flow-node"><strong>Architect</strong>Governance design + system integration</div>
+  </div>
+
+  <div class="flow-row">
+    <div class="flow-node"><strong>Active</strong>Valid within scope</div>
+    <div class="flow-node"><strong>Conditional</strong>Corrective requirements</div>
+    <div class="flow-node"><strong>Lapsed</strong>Expired / no current standing</div>
+    <div class="flow-node exit"><strong>Suspended / Revoked</strong>Integrity breach or institutional sanction</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="divider-label">Separate License Layer</div>
+
+  <div class="flow-row">
+    <div class="flow-node decision"><strong>Real-World Use Requested?</strong>Operational, contractual, institutional, or monitoring application</div>
+  </div>
+
+  <div class="flow-row">
+    <div class="flow-node terminal"><strong>No</strong>Recognition only — no operational license</div>
+    <div class="flow-node license"><strong>Yes</strong>Separate license review by Foundation</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node decision"><strong>License Approved?</strong>Case sensitivity + sector + data + scope review</div>
+  </div>
+
+  <div class="flow-row">
+    <div class="flow-node warning"><strong>No</strong>No deployment authorization</div>
+    <div class="flow-node license"><strong>Yes</strong>Case-based c-ECO license</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node terminal"><strong>Licensed Scope</strong>Sector + case + duration + standing + methodological version</div>
+    <div class="flow-node terminal"><strong>Lifecycle Control</strong>Renewal / revalidation / suspension / revocation</div>
+  </div>
+
+  <div class="arrow-dashed">↓ Unauthorized derivative use triggers revocation + equitable remedies ↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node exit"><strong>Non-Compete Protection</strong>Revocation + injunctive relief + accounting for unauthorized competing frameworks</div>
+  </div>
+</section>
+
+<h2 id="EXIT-PATHS">2. Exit &amp; Non-Completion Pathways</h2>
+
+<p>
+  Fellows may exit the program through multiple pathways. Each pathway has distinct contractual, recognition, and standing consequences.
+</p>
+
+<section class="flowchart">
+  <div class="flow-caption">Flowchart 1A — Fellow Exit Architecture</div>
+
+  <div class="flow-row">
+    <div class="flow-node entry"><strong>Enrolled Fellow</strong>Under FPA, MAI, CDGA, CSAM</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node decision"><strong>Exit Trigger</strong></div>
+  </div>
+
+  <div class="flow-row">
+    <div class="flow-node exit"><strong>Dropout</strong>Voluntary withdrawal before completion</div>
+    <div class="flow-node exit"><strong>Incomplete</strong>Non-completion of required phases</div>
+    <div class="flow-node exit"><strong>Expelled</strong>Violation of FPA, CDGA, or integrity standards</div>
+    <div class="flow-node exit"><strong>Lapsed</strong>Standing expired without renewal</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node warning"><strong>No Recognition</strong>Dropout / Incomplete / Expelled / Lapsed before recognition</div>
+    <div class="flow-node foundation"><strong>Standing Affected</strong>Active → Conditional / Lapsed / Suspended / Revoked</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node terminal"><strong>Post-Exit Obligations</strong>Return of materials + confidentiality survival + non-circumvention + no derivative use</div>
+  </div>
+</section>
+
+<h2 id="FLOW-1-MATRIX">3. Fellowship Layer Matrix</h2>
+
+<table class="matrix">
+  <thead>
+    <tr>
+      <th>Layer</th>
+      <th>Function</th>
+      <th>What It Does Not Confer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Admission</td>
+      <td>Entry into controlled methodological environment.</td>
+      <td>No certification, no license, no operational authorization.</td>
+    </tr>
+    <tr>
+      <td>Participation</td>
+      <td>Guided analytical work under FPA, MAI, CDGA, and CSAM.</td>
+      <td>No independent use of c-ECO in real-world cases.</td>
+    </tr>
+    <tr>
+      <td>Recognition</td>
+      <td>Foundation-issued validation of function within scope.</td>
+      <td>No permanent accreditation or general professional authority.</td>
+    </tr>
+    <tr>
+      <td>Standing</td>
+      <td>Current validity status: Active, Conditional, Lapsed, Suspended, Revoked.</td>
+      <td>No expansion beyond the certificate scope.</td>
+    </tr>
+    <tr>
+      <td>License</td>
+      <td>Separate authorization for real-world use in a defined case.</td>
+      <td>No unrestricted deployment or sublicensing rights.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="FELLOW-ENTERPRISE">4. Fellow → Enterprise Bridge</h2>
+
+<p>
+  Licensed fellows may be engaged as analysts, senior reviewers, or architects under enterprise monitoring agreements, subject to separate contractual terms and Foundation authorization.
+</p>
+
+<section class="flowchart">
+  <div class="flow-caption">Flowchart 1B — Licensed Fellow to Enterprise Pipeline</div>
+
+  <div class="flow-row">
+    <div class="flow-node license"><strong>Licensed Fellow</strong>Valid standing + case-based license</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node foundation"><strong>Enterprise Engagement Request</strong>Company/institution requests c-ECO monitoring or governance services</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node decision"><strong>Foundation Authorization?</strong>Match fellow expertise + enterprise need + case sensitivity</div>
+  </div>
+
+  <div class="flow-row">
+    <div class="flow-node warning"><strong>No</strong>Fellow not authorized for this engagement</div>
+    <div class="flow-node bridge"><strong>Yes</strong>Separate enterprise service agreement</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node terminal"><strong>Enterprise Deployment</strong>Fellow operates under Foundation supervision within licensed scope</div>
+    <div class="flow-node terminal"><strong>Foundation Oversight</strong>Quality control + methodological integrity + reporting</div>
+  </div>
+</section>
+
+<h2 id="FLOW-2">5. Enterprise Contractual Monitoring + Governance Architecture</h2>
+
+<p>
+  This flowchart represents the enterprise pathway for companies, institutions, project sponsors, or public-private actors seeking to apply c-ECO in contractual monitoring, systemic risk governance, TFP calibration, and continuous pre-threshold oversight.
+</p>
+
+<section class="flowchart">
+  <div class="flow-caption">Flowchart 2 — Enterprise Deployment and Monitoring Layer</div>
+
+  <div class="flow-row">
+    <div class="flow-node entry"><strong>Company / Institution</strong>Enterprise, project sponsor, public body, investor, operator, or consortium</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node foundation"><strong>Institutional Briefing</strong>Initial conversation + sector + project context</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node"><strong>Initial Systemic Assessment</strong>Risk structure, operational boundaries, decision points</div>
+    <div class="flow-node"><strong>Compatibility Review</strong>Fit with c-ECO pre-threshold governance logic</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node decision"><strong>c-ECO Applicable?</strong>Does the project involve monitorable systemic risk?</div>
+  </div>
+
+  <div class="flow-row">
+    <div class="flow-node warning"><strong>No</strong>Traditional governance / no c-ECO deployment</div>
+    <div class="flow-node foundation"><strong>Yes</strong>Proceed to scope definition</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node"><strong>Project Scope Definition</strong>Asset, operation, contract, territory, portfolio, or transaction</div>
+    <div class="flow-node"><strong>Signal Viability Assessment</strong>Data sources + measurable indicators + monitoring capacity</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node decision"><strong>Signal Viability Adequate?</strong>Can TFP be meaningfully computed?</div>
+  </div>
+
+  <div class="flow-row">
+    <div class="flow-node warning"><strong>No</strong>Restructure data / redesign case / reject deployment</div>
+    <div class="flow-node foundation"><strong>Yes</strong>Threshold architecture design</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="divider-label">TFP Configuration Layer</div>
+
+  <div class="flow-row">
+    <div class="flow-node"><strong>P</strong>Position relative to threshold</div>
+    <div class="flow-node"><strong>ΔV</strong>Velocity / rate of change</div>
+    <div class="flow-node"><strong>σ</strong>Uncertainty / confidence limits</div>
+    <div class="flow-node"><strong>Lr</strong>Reversibility liquidity</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node license"><strong>Contractual Monitoring Architecture</strong>Clauses + triggers + data governance + escalation design</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node decision"><strong>Service Tier Selection</strong>Structured Entry / Operational Governance / Institutional Integration</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="divider-label">Contractual Implementation Layer</div>
+
+  <div class="flow-row">
+    <div class="flow-node license"><strong>License / Service Agreement</strong>Scope + fees + monitoring obligations + data rules</div>
+    <div class="flow-node license"><strong>Monitoring Protocol</strong>Reporting cadence + dashboard + escalation pathways</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node foundation"><strong>Continuous TFP Monitoring</strong>Trajectory-based classification under current data conditions</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node decision"><strong>Systemic Classification</strong>Green / Amber / Red / Black</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node terminal"><strong>Governance Response</strong>Review, escalation, Safe Mode, restoration-first logic, renewal, recalibration</div>
+  </div>
+</section>
+
+<h2 id="SERVICE-TIERS">6. Three Enterprise Service Tiers</h2>
+
+<section class="layer-grid">
+  <div class="layer-card">
+    <div class="tier">Tier I</div>
+    <h4>Structured Entry</h4>
+    <p>
+      Initial diagnostic, systemic mapping, signal viability review, preliminary TFP framing,
+      and basic contractual clause integration for small-scale or pilot environments.
+    </p>
+  </div>
+
+  <div class="layer-card">
+    <div class="tier">Tier II</div>
+    <h4>Operational Governance</h4>
+    <p>
+      TFP calibration, dashboard logic, periodic monitoring, governance review,
+      escalation pathways, contractual triggers, and Safe Mode response planning.
+    </p>
+  </div>
+
+  <div class="layer-card">
+    <div class="tier">Tier III</div>
+    <h4>Institutional Integration</h4>
+    <p>
+      Portfolio-level integration, multi-contract governance, AI-assisted monitoring,
+      cross-border coordination, continuous recalibration, and institutional implementation.
+    </p>
+  </div>
+</section>
+
+<div class="price-note">
+  <strong>Pricing:</strong> Tier-specific fees available upon institutional inquiry. All enterprise engagements require a separate written service agreement and license instrument issued by the Foundation. No pricing is disclosed in fellowship or public materials.
+</div>
+
+<table class="matrix">
+  <thead>
+    <tr>
+      <th>Tier</th>
+      <th>Primary Use</th>
+      <th>Typical Components</th>
+      <th>Contractual Form</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Tier I — Structured Entry</td>
+      <td>Pilot, initial review, small-scale application.</td>
+      <td>Diagnostic, mapping, clause review, basic monitoring logic.</td>
+      <td>Limited license / pilot service agreement.</td>
+    </tr>
+    <tr>
+      <td>Tier II — Operational Governance</td>
+      <td>Mid-scale project, active contract, operational risk monitoring.</td>
+      <td>TFP calibration, dashboard, periodic review, escalation architecture.</td>
+      <td>Monitoring agreement + license + data governance annex.</td>
+    </tr>
+    <tr>
+      <td>Tier III — Institutional Integration</td>
+      <td>Enterprise, infrastructure, sovereign, cross-border, high-sensitivity systems.</td>
+      <td>Portfolio governance, multi-contract integration, AI-assisted monitoring, continuous recalibration.</td>
+      <td>Master services + institutional license + monitoring protocol.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="STATE-BANDS">7. Systemic Classification Bands &amp; Concrete Actions</h2>
+
+<section class="band-grid">
+  <div class="band">
+    <strong>GREEN</strong>
+    <span>Normal execution<br>routine monitoring</span>
+  </div>
+  <div class="band">
+    <strong>AMBER</strong>
+    <span>Enhanced monitoring<br>compressed decision window</span>
+  </div>
+  <div class="band">
+    <strong>RED</strong>
+    <span>Safe Mode<br>containment priority</span>
+  </div>
+  <div class="band">
+    <strong>BLACK</strong>
+    <span>Restoration-first<br>irreversibility / emergency logic</span>
+  </div>
+</section>
+
+<table class="matrix">
+  <thead>
+    <tr>
+      <th>Band</th>
+      <th>Trigger Condition</th>
+      <th>Concrete Governance Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>GREEN</strong></td>
+      <td>System within normal operating parameters. No threshold proximity detected.</td>
+      <td>Routine monitoring. Standard reporting cadence. No escalation required. Preventive measures maintained.</td>
+    </tr>
+    <tr>
+      <td><strong>AMBER</strong></td>
+      <td>System approaching threshold. Accelerated indicators. Compressed decision window.</td>
+      <td>Enhanced monitoring frequency. Stakeholder notification. Preventive action planning. Contractual review trigger activated.</td>
+    </tr>
+    <tr>
+      <td><strong>RED</strong></td>
+      <td>Threshold proximity critical. Safe Mode conditions met. Containment required.</td>
+      <td>Safe Mode activation. Contractual suspension or modification. Emergency stakeholder assembly. Mediation or arbitration trigger. Regulatory notification where required.</td>
+    </tr>
+    <tr>
+      <td><strong>BLACK</strong></td>
+      <td>Irreversibility detected or imminent. Emergency logic applies. Restoration-first priority.</td>
+      <td>Restoration-first protocol. Transaction reversal or suspension. Full regulatory notification. Legal remedy activation. Post-event systemic review. Recalibration of all monitoring parameters.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="LIVING-LAB">8. Living Lab Integration in Enterprise</h2>
+
+<p>
+  Living Labs serve as field validation nodes where enterprise monitoring logic is tested, calibrated, and refined under real-world conditions before broader deployment.
+</p>
+
+<section class="flowchart">
+  <div class="flow-caption">Flowchart 2A — Living Lab as Enterprise Validation Node</div>
+
+  <div class="flow-row">
+    <div class="flow-node entry"><strong>Enterprise Tier II/III</strong>Operational or institutional integration engagement</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node foundation"><strong>Living Lab Selection</strong>Geographic + sector + community + data availability match</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node"><strong>Field Calibration</strong>TFP parameters tested against local conditions</div>
+    <div class="flow-node"><strong>Community Protocol</strong>FPIC + territorial engagement + local stakeholder alignment</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node foundation"><strong>Validation Cycle</strong>3–6 months of monitored data collection + methodological adjustment</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node decision"><strong>Validation Successful?</strong>Data quality + methodological fit + community acceptance</div>
+  </div>
+
+  <div class="flow-row">
+    <div class="flow-node warning"><strong>No</strong>Redesign parameters / change Lab / abort deployment</div>
+    <div class="flow-node license"><strong>Yes</strong>Authorized for broader enterprise deployment</div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <div class="flow-row">
+    <div class="flow-node terminal"><strong>Scaled Deployment</strong>Enterprise monitoring protocol applied to full operational scope</div>
+    <div class="flow-node terminal"><strong>Continuous Lab Feedback</strong>Field data feeds back into TFP recalibration</div>
+  </div>
+</section>
+
+<section id="COPYRIGHT" class="copyright-footer">
+  <div class="copyright-notice">
+    © 2026 Johann Christian Hasse Foundation. c-ECO Framework. All rights reserved.
+  </div>
+
+  <div>
+    <strong>Document:</strong> c-ECO Operational Flowcharts — Fellowship & Enterprise Architecture<br>
+    <strong>Status:</strong> Visual System Draft — Version 1.1 — May 2026
+  </div>
+
+  <div style="font-size:10px; color:#888; margin-top:10px;">
+    <strong>Disclaimer:</strong> This visual template is for institutional drafting and operational communication purposes and does not constitute legal advice.
+  </div>
+</section>
+
+</article>
+</main>
+
+<script>
+document.querySelectorAll('.nav-item a').forEach(link => {
+  link.addEventListener('click', () => {
+    const sidebar = document.getElementById('sidebar');
+    if(window.innerWidth <= 1024 && sidebar){
+      sidebar.classList.remove('open');
+    }
+  });
+});
+</script>
+
+</body>
+</html>
