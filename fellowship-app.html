@@ -18,12 +18,12 @@
     <!-- Apple Touch Icons -->
     <link rel="apple-touch-icon" href="/icons/icon-192.png">
     <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180.png">
-    <link rel="apple-touch-icon" sizes="167x167" href="/icons/icon-167.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="/icons/icon-192.png">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-192.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-192.png">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -220,6 +220,48 @@
         }
         
         /* ============================================ */
+        /* OFFLINE NOTICE                               */
+        /* ============================================ */
+        
+        .offline-banner {
+            background: #FEF3C7;
+            border: 1px solid #FCD34D;
+            color: #92400E;
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+            font-size: 13px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .offline-banner.visible {
+            display: flex;
+        }
+        
+        /* ============================================ */
+        /* ERROR BANNER                                 */
+        /* ============================================ */
+        
+        .error-banner {
+            background: #FEE2E2;
+            border: 1px solid #DC2626;
+            color: #991B1B;
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+            font-size: 13px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .error-banner.visible {
+            display: flex;
+        }
+        
+        /* ============================================ */
         /* STAGE NAVIGATION                             */
         /* ============================================ */
         
@@ -386,7 +428,7 @@
         }
         
         /* ============================================ */
-        /* SUBMISSION AREA                                */
+        /* SUBMISSION AREA                              */
         /* ============================================ */
         
         .submission-area {
@@ -503,7 +545,7 @@
         }
         
         /* ============================================ */
-        /* AI RESPONSE                                    */
+        /* AI RESPONSE                                  */
         /* ============================================ */
         
         .ai-response {
@@ -621,27 +663,6 @@
         }
         
         /* ============================================ */
-        /* OFFLINE NOTICE                               */
-        /* ============================================ */
-        
-        .offline-banner {
-            background: #FEF3C7;
-            border: 1px solid #FCD34D;
-            color: #92400E;
-            padding: 12px 16px;
-            border-radius: 4px;
-            margin-bottom: 16px;
-            font-size: 13px;
-            display: none;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .offline-banner.visible {
-            display: flex;
-        }
-        
-        /* ============================================ */
         /* FOOTER                                       */
         /* ============================================ */
         
@@ -743,6 +764,12 @@
         <div class="offline-banner" id="offline-banner">
             <span>⚠️</span>
             <span>You are offline. Submissions will queue and sync when connection returns.</span>
+        </div>
+        
+        <!-- Error Notice -->
+        <div class="error-banner" id="error-banner">
+            <span>❌</span>
+            <span id="error-message">API error. Please retry.</span>
         </div>
         
         <!-- Stage Navigation -->
@@ -877,6 +904,7 @@
         let currentStage = 0;
         let history = [];
         let isProcessing = false;
+        let pendingQueue = [];
         
         // ============================================
         // PWA — Service Worker Registration
@@ -920,7 +948,6 @@
         // iOS detection
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
         if (isIOS && !window.navigator.standalone) {
-            // Show iOS install hint (simplified)
             console.log('[PWA] iOS detected — show Add to Home Screen hint');
         }
         
@@ -929,14 +956,25 @@
         // ============================================
         
         const offlineBanner = document.getElementById('offline-banner');
+        const errorBanner = document.getElementById('error-banner');
+        const errorMessage = document.getElementById('error-message');
         
         function updateOnlineStatus() {
             offlineBanner.classList.toggle('visible', !navigator.onLine);
+            if (navigator.onLine && pendingQueue.length > 0) {
+                syncPendingSubmissions();
+            }
         }
         
         window.addEventListener('online', updateOnlineStatus);
         window.addEventListener('offline', updateOnlineStatus);
         updateOnlineStatus();
+        
+        function showError(msg) {
+            errorMessage.textContent = msg;
+            errorBanner.classList.add('visible');
+            setTimeout(() => errorBanner.classList.remove('visible'), 5000);
+        }
         
         // ============================================
         // WORD COUNT
@@ -950,6 +988,83 @@
             wordCount.textContent = `${words} / 500 words`;
             wordCount.classList.toggle('warning', words > 500);
         });
+        
+        // ============================================
+        // REAL API CALL (GPT-4 via Vercel)
+        // ============================================
+        
+        async function callRealAPI(input, stage) {
+            try {
+                const response = await fetch('/api/review', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ input, stage })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
+                return await response.json();
+                
+            } catch (error) {
+                console.error('[API] Error:', error);
+                if (!navigator.onLine) {
+                    pendingQueue.push({ input, stage, timestamp: new Date().toISOString() });
+                    savePendingQueue();
+                    return {
+                        status: 'insufficient',
+                        content: `┌─────────────────────────────────────────────┐
+│ STRUCTURAL REVIEW — Stage ${stage}          │
+├─────────────────────────────────────────────┤
+│ Status: OFFLINE — QUEUED                    │
+│                                             │
+│ Your submission has been saved locally.     │
+│ It will sync automatically when you         │
+│ reconnect.                                  │
+│                                             │
+│ Do NOT close this window.                   │
+└─────────────────────────────────────────────┘`
+                    };
+                }
+                throw error;
+            }
+        }
+        
+        // ============================================
+        // SYNC PENDING SUBMISSIONS
+        // ============================================
+        
+        async function syncPendingSubmissions() {
+            if (pendingQueue.length === 0) return;
+            console.log('[SYNC] Processing', pendingQueue.length, 'pending submissions');
+            
+            const queue = [...pendingQueue];
+            pendingQueue = [];
+            savePendingQueue();
+            
+            for (const item of queue) {
+                try {
+                    const result = await callRealAPI(item.input, item.stage);
+                    console.log('[SYNC] Submitted stage', item.stage, ':', result.status);
+                } catch (err) {
+                    console.error('[SYNC] Failed:', err);
+                    pendingQueue.push(item);
+                }
+            }
+            savePendingQueue();
+        }
+        
+        function savePendingQueue() {
+            localStorage.setItem('c-eco-pending-queue', JSON.stringify(pendingQueue));
+        }
+        
+        function loadPendingQueue() {
+            const saved = localStorage.getItem('c-eco-pending-queue');
+            if (saved) {
+                pendingQueue = JSON.parse(saved);
+            }
+        }
         
         // ============================================
         // SUBMIT ANALYSIS
@@ -988,57 +1103,25 @@
             document.getElementById('response-timestamp').textContent = new Date().toLocaleTimeString();
             
             try {
-                // In production, this calls your backend API
-                // For now, simulate with timeout
-                await new Promise(r => setTimeout(r, 1500));
-                
-                // Simulated response (replace with real API call)
+                // REAL API CALL
                 const result = await callRealAPI(input, currentStage);
-
+                
+                if (result.status === 'error') {
+                    throw new Error(result.error || 'API returned error');
+                }
+                
                 processResponse(result);
                 
             } catch (error) {
+                showError(error.message || 'Service temporarily unavailable. Please try again.');
                 document.getElementById('response-content').innerHTML = 
-                    '<div class="structural-box">Service temporarily unavailable. Please try again.</div>';
+                    '<div class="structural-box">❌ ' + escapeHtml(error.message || 'Service temporarily unavailable. Please try again.') + '</div>';
             } finally {
                 isProcessing = false;
                 btn.classList.remove('loading');
                 btn.disabled = false;
             }
         }
-        
-        async function callRealAPI(input, stage) {
-  try {
-    const response = await fetch('/api/review', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ input, stage })
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-
-    return await response.json();
-
-  } catch (error) {
-    // Fallback se offline ou erro
-    return {
-      status: 'insufficient',
-      content: `┌─────────────────────────────────────────────┐
-│ STRUCTURAL REVIEW — Stage ${stage}          │
-├─────────────────────────────────────────────┤
-│ Status: OFFLINE / ERROR                     │
-│                                             │
-│ ${error.message}                            │
-│                                             │
-│ Submissions saved locally.                  │
-│ Will retry when connection returns.         │
-└─────────────────────────────────────────────┘`
-    };
-  }
-}
-
         
         // ============================================
         // PROCESS RESPONSE
@@ -1214,7 +1297,6 @@
         }
         
         function toggleMenu() {
-            // Future: slide-out menu
             console.log('Menu toggle');
         }
         
@@ -1223,6 +1305,7 @@
         // ============================================
         
         loadProgress();
+        loadPendingQueue();
         updateUI();
     </script>
 </body>
