@@ -1,5 +1,218 @@
-const CACHE_NAME='c-eco-pwa-v1';
-const APP_SHELL=['/review-engine.html','/offline.html','/manifest.json','/icons/icon-192.png','/icons/icon-512.png'];
-self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(APP_SHELL)).then(()=>self.skipWaiting()))});
-self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.map(k=>k!==CACHE_NAME&&caches.delete(k)))).then(()=>self.clients.claim()))});
-self.addEventListener('fetch',e=>{const r=e.request,u=new URL(r.url); if(r.method!=='GET'||u.pathname.startsWith('/api/')) return; if(r.mode==='navigate'){e.respondWith(fetch(r).catch(()=>caches.match('/offline.html')));return;} e.respondWith(caches.match(r).then(c=>c||fetch(r)));});
+
+// ============================================
+// c-ECO STRUCTURAL REVIEW ENGINE — SERVICE WORKER
+// Version 2.5.0 | July 2026
+// ============================================
+const CACHE_NAME = 'c-eco-review-v2-5-0';
+const STATIC_CACHE = 'c-eco-static-v2-5-0';
+const DYNAMIC_CACHE = 'c-eco-dynamic-v2-5-0';
+
+// Assets to cache on install
+const STATIC_ASSETS = [
+  '/',
+  '/fellowship-app.html',
+  '/fellowship-portal.html',
+  '/offline.html',
+  '/manifest.json',
+  '/icons/icon-192.png',
+  '/icons/icon-512.png'
+];
+
+// ============================================
+// INSTALL — Cache static assets
+// ============================================
+self.addEventListener('install', (event) => {
+  console.log('[SW] Installing c-ECO Review Engine...');
+  event.waitUntil(
+    caches.open(STATIC_CACHE)
+      .then((cache) => {
+        console.log('[SW] Caching static assets');
+        return cache.addAll(STATIC_ASSETS);
+      })
+      .then(() => {
+        console.log('[SW] Static assets cached');
+        return self.skipWaiting();
+      })
+      .catch((err) => {
+        console.error('[SW] Cache failed:', err);
+      })
+  );
+});
+
+// ============================================
+// ACTIVATE — Clean old caches
+// ============================================
+self.addEventListener('activate', (event) => {
+  console.log('[SW] Activating...');
+  event.waitUntil(
+    caches.keys()
+      .then((cacheNames) => {
+        return Promise.all(
+          cacheNames
+            .filter((name) => {
+              return name.startsWith('c-eco-') &&
+                name !== STATIC_CACHE &&
+                name !== DYNAMIC_CACHE;
+            })
+            .map((name) => {
+              console.log('[SW] Deleting old cache:', name);
+              return caches.delete(name);
+            })
+        );
+      })
+      .then(() => {
+        console.log('[SW] Activated');
+        return self.clients.claim();
+      })
+  );
+});
+
+// ============================================
+// FETCH — Cache strategies
+// ============================================
+self.addEventListener('fetch', (event) => {
+  const { request } = event;
+  const url = new URL(request.url);
+
+  // Skip non-GET requests
+  if (request.method !== 'GET') {
+    return;
+  }
+
+  // Skip API calls (don't cache backend)
+  if (url.pathname.startsWith('/api/')) {
+    return;
+  }
+
+  // Skip external URLs
+  if (url.origin !== self.location.origin) {
+    return;
+  }
+
+  // Strategy: Cache First for static assets
+  if (isStaticAsset(request)) {
+    event.respondWith(cacheFirst(request));
+    return;
+  }
+
+  // Strategy: Network First for HTML pages
+  if (request.headers.get('accept')?.includes('text/html')) {
+    event.respondWith(networkFirst(request));
+    return;
+  }
+
+  // Default: Stale While Revalidate
+  event.respondWith(staleWhileRevalidate(request));
+});
+
+// ============================================
+// CACHE STRATEGIES
+// ============================================
+function isStaticAsset(request) {
+  const staticExtensions = [
+    '.css', '.js', '.png', '.jpg', '.jpeg', '.svg',
+    '.woff', '.woff2', '.ttf', '.ico'
+  ];
+  return staticExtensions.some(ext => request.url.endsWith(ext));
+}
+
+async function cacheFirst(request) {
+  const cached = await caches.match(request);
+  if (cached) {
+    return cached;
+  }
+  try {
+    const response = await fetch(request);
+    const cache = await caches.open(STATIC_CACHE);
+    cache.put(request, response.clone());
+    return response;
+  } catch (error) {
+    console.error('[SW] Cache first failed:', error);
+    return new Response('Offline — Asset unavailable', {
+      status: 503,
+      headers: { 'Content-Type': 'text/plain' }
+    });
+  }
+}
+
+async function networkFirst(request) {
+  try {
+    const networkResponse = await fetch(request);
+    const cache = await caches.open(DYNAMIC_CACHE);
+    cache.put(request, networkResponse.clone());
+    return networkResponse;
+  } catch (error) {
+    const cached = await caches.match(request);
+    if (cached) {
+      return cached;
+    }
+    // Offline fallback page
+    return caches.match('/offline.html');
+  }
+}
+
+async function staleWhileRevalidate(request) {
+  const cached = await caches.match(request);
+  const fetchPromise = fetch(request)
+    .then((response) => {
+      const cache = caches.open(DYNAMIC_CACHE);
+      cache.then(c => c.put(request, response.clone()));
+      return response;
+    })
+    .catch(() => cached);
+  return cached || fetchPromise;
+}
+
+// ============================================
+// PUSH NOTIFICATIONS (future)
+// ============================================
+self.addEventListener('push', (event) => {
+  const data = event.data?.json() || {};
+  const options = {
+    body: data.body || 'Structural review update available.',
+    icon: '/icons/icon-192.png',
+    badge: '/icons/icon-72.png',
+    tag: data.tag || 'c-eco-review',
+    requireInteraction: true,
+    data: { url: data.url || '/fellowship-app.html' }
+  };
+  event.waitUntil(
+    self.registration.showNotification(
+      data.title || 'c-ECO Review Engine',
+      options
+    )
+  );
+});
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  event.waitUntil(
+    clients.openWindow(event.notification.data?.url || '/fellowship-app.html')
+  );
+});
+
+// ============================================
+// BACKGROUND SYNC (future)
+// ============================================
+self.addEventListener('sync', (event) => {
+  if (event.tag === 'sync-submissions') {
+    event.waitUntil(syncPendingSubmissions());
+  }
+});
+
+async function syncPendingSubmissions() {
+  console.log('[SW] Background sync triggered');
+  const clients = await self.clients.matchAll();
+  clients.forEach(client => {
+    client.postMessage({ type: 'SYNC_PENDING' });
+  });
+}
+
+// Listen for messages from clients
+self.addEventListener('message', (event) => {
+  if (event.data === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
+
+console.log('[SW] c-ECO Structural Review Engine v2.5.0 loaded');
