@@ -1,0 +1,1271 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#A51C30">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="c-ECO Review">
+    <meta name="description" content="c-ECO Structural Review Engine — Pre-threshold analytical system. Stage-by-stage validation.">
+    
+    <title>c-ECO Structural Review Engine</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="/icons/icon-167.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ============================================ */
+        /* c-ECO STRUCTURAL REVIEW ENGINE — PWA STYLES  */
+        /* ============================================ */
+        
+        :root {
+            --harvard-crimson: #A51C30;
+            --harvard-dark: #1E1E1E;
+            --harvard-gray: #6C757D;
+            --harvard-light: #F8F9FA;
+            --accent-gold: #C4A35A;
+            --status-sufficient: #10B981;
+            --status-insufficient: #DC2626;
+            --status-invalid: #7C2D12;
+            --status-locked: #9CA3AF;
+            --border: #E5E7EB;
+            --shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        html {
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--harvard-dark);
+            background: #FAFAFA;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+        
+        /* Safe area for notched devices */
+        .safe-area {
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+        }
+        
+        /* ============================================ */
+        /* HEADER                                       */
+        /* ============================================ */
+        
+        .app-header {
+            background: var(--harvard-dark);
+            color: white;
+            padding: 16px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--harvard-crimson);
+        }
+        
+        .header-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .brand-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--harvard-crimson);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Crimson Pro', serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .brand-name {
+            font-family: 'Crimson Pro', serif;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.2;
+            color: white;
+        }
+        
+        .brand-sub {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: rgba(255,255,255,0.6);
+        }
+        
+        .header-menu {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 4px;
+        }
+        
+        /* ============================================ */
+        /* MAIN CONTENT                                 */
+        /* ============================================ */
+        
+        .main-content {
+            flex: 1;
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* ============================================ */
+        /* INSTALL PROMPT (PWA)                         */
+        /* ============================================ */
+        
+        .install-banner {
+            background: linear-gradient(135deg, var(--harvard-crimson) 0%, #7A1525 100%);
+            color: white;
+            padding: 16px 20px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        
+        .install-banner.visible {
+            display: flex;
+        }
+        
+        .install-text {
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        
+        .install-text strong {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+        
+        .install-btn {
+            background: white;
+            color: var(--harvard-crimson);
+            border: none;
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        
+        .install-close {
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.7);
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px;
+            flex-shrink: 0;
+        }
+        
+        /* ============================================ */
+        /* STAGE NAVIGATION                             */
+        /* ============================================ */
+        
+        .stage-section {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 24px 20px;
+            margin-bottom: 16px;
+        }
+        
+        .stage-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .stage-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--harvard-gray);
+        }
+        
+        .stage-current {
+            font-family: 'Crimson Pro', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--harvard-dark);
+        }
+        
+        .stage-dots {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            margin-bottom: 24px;
+        }
+        
+        .stage-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #E5E7EB;
+            color: var(--harvard-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .stage-dot.completed {
+            background: var(--accent-gold);
+            color: white;
+        }
+        
+        .stage-dot.active {
+            background: var(--harvard-crimson);
+            color: white;
+            box-shadow: 0 0 0 4px rgba(165,28,48,0.15);
+        }
+        
+        .stage-dot.locked {
+            background: #F3F4F6;
+            color: #D1D5DB;
+        }
+        
+        .stage-connector {
+            width: 24px;
+            height: 2px;
+            background: #E5E7EB;
+            transition: all 0.3s ease;
+        }
+        
+        .stage-connector.completed {
+            background: var(--accent-gold);
+        }
+        
+        /* ============================================ */
+        /* STRUCTURAL STATUS TABLE                      */
+        /* ============================================ */
+        
+        .status-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+        
+        .status-table th {
+            text-align: left;
+            padding: 10px 12px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--harvard-gray);
+            border-bottom: 2px solid var(--harvard-dark);
+            background: var(--harvard-light);
+        }
+        
+        .status-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+        
+        .status-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 4px 10px;
+            border-radius: 3px;
+        }
+        
+        .status-badge.sufficient {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+        
+        .status-badge.insufficient {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+        
+        .status-badge.invalid {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+        
+        .status-badge.locked {
+            background: #F3F4F6;
+            color: #9CA3AF;
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        
+        .status-dot.sufficient { background: var(--status-sufficient); }
+        .status-dot.insufficient { background: var(--status-insufficient); }
+        .status-dot.invalid { background: var(--status-invalid); }
+        .status-dot.locked { background: var(--status-locked); }
+        
+        .ref-link {
+            font-size: 11px;
+            color: var(--harvard-gray);
+            font-family: monospace;
+        }
+        
+        /* ============================================ */
+        /* SUBMISSION AREA                                */
+        /* ============================================ */
+        
+        .submission-area {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 24px 20px;
+        }
+        
+        .submission-header {
+            margin-bottom: 16px;
+        }
+        
+        .submission-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--harvard-dark);
+            margin-bottom: 4px;
+        }
+        
+        .submission-hint {
+            font-size: 12px;
+            color: var(--harvard-gray);
+        }
+        
+        .analysis-input {
+            width: 100%;
+            min-height: 200px;
+            padding: 16px;
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            line-height: 1.7;
+            resize: vertical;
+            transition: border-color 0.2s;
+            background: #FAFAFA;
+        }
+        
+        .analysis-input:focus {
+            outline: none;
+            border-color: var(--harvard-crimson);
+            background: white;
+        }
+        
+        .analysis-input::placeholder {
+            color: #9CA3AF;
+            font-style: italic;
+        }
+        
+        .input-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 12px;
+            gap: 12px;
+        }
+        
+        .word-count {
+            font-size: 12px;
+            color: var(--harvard-gray);
+        }
+        
+        .word-count.warning {
+            color: var(--status-insufficient);
+            font-weight: 600;
+        }
+        
+        .submit-btn {
+            background: var(--harvard-crimson);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .submit-btn:hover {
+            background: #7A1525;
+        }
+        
+        .submit-btn:disabled {
+            background: #D1D5DB;
+            cursor: not-allowed;
+        }
+        
+        .submit-btn .spinner {
+            display: none;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        
+        .submit-btn.loading .spinner {
+            display: inline-block;
+        }
+        
+        .submit-btn.loading .btn-text {
+            opacity: 0.7;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* ============================================ */
+        /* AI RESPONSE                                    */
+        /* ============================================ */
+        
+        .ai-response {
+            margin-top: 20px;
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            display: none;
+        }
+        
+        .ai-response.visible {
+            display: block;
+        }
+        
+        .response-header {
+            background: var(--harvard-dark);
+            color: white;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .response-status {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .response-status.sufficient {
+            color: #6EE7B7;
+        }
+        
+        .response-status.insufficient {
+            color: #FCA5A5;
+        }
+        
+        .response-status.invalid {
+            color: #FCD34D;
+        }
+        
+        .response-timestamp {
+            font-size: 11px;
+            color: rgba(255,255,255,0.5);
+            font-family: monospace;
+        }
+        
+        .response-body {
+            padding: 20px;
+            background: white;
+            font-size: 13px;
+            line-height: 1.7;
+            overflow-x: auto;
+        }
+        
+        .structural-box {
+            background: #FAFAFA;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            padding: 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-break: break-word;
+            color: var(--harvard-dark);
+        }
+        
+        .response-actions {
+            padding: 12px 16px;
+            background: var(--harvard-light);
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 3px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+        
+        .action-btn.proceed {
+            background: var(--harvard-crimson);
+            color: white;
+        }
+        
+        .action-btn.proceed:hover {
+            background: #7A1525;
+        }
+        
+        .action-btn.stay {
+            background: white;
+            color: var(--harvard-gray);
+            border: 1px solid var(--border);
+        }
+        
+        .action-btn.stay:hover {
+            border-color: var(--harvard-gray);
+            color: var(--harvard-dark);
+        }
+        
+        .action-btn.restart {
+            background: var(--harvard-dark);
+            color: white;
+        }
+        
+        /* ============================================ */
+        /* OFFLINE NOTICE                               */
+        /* ============================================ */
+        
+        .offline-banner {
+            background: #FEF3C7;
+            border: 1px solid #FCD34D;
+            color: #92400E;
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+            font-size: 13px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .offline-banner.visible {
+            display: flex;
+        }
+        
+        /* ============================================ */
+        /* FOOTER                                       */
+        /* ============================================ */
+        
+        .app-footer {
+            background: var(--harvard-dark);
+            color: rgba(255,255,255,0.5);
+            padding: 16px 20px;
+            text-align: center;
+            font-size: 11px;
+            margin-top: auto;
+        }
+        
+        .footer-version {
+            font-family: monospace;
+            letter-spacing: 0.5px;
+        }
+        
+        /* ============================================ */
+        /* ANIMATIONS                                   */
+        /* ============================================ */
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.3s ease forwards;
+        }
+        
+        /* ============================================ */
+        /* RESPONSIVE                                   */
+        /* ============================================ */
+        
+        @media (max-width: 640px) {
+            .main-content {
+                padding: 12px;
+            }
+            
+            .stage-section,
+            .submission-area {
+                padding: 16px;
+            }
+            
+            .stage-dot {
+                width: 28px;
+                height: 28px;
+                font-size: 11px;
+            }
+            
+            .stage-connector {
+                width: 16px;
+            }
+            
+            .brand-name {
+                font-size: 16px;
+            }
+            
+            .input-meta {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .submit-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body class="safe-area">
+    <!-- Header -->
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand">
+                <div class="brand-icon">Σ</div>
+                <div class="brand-text">
+                    <span class="brand-name">c-ECO</span>
+                    <span class="brand-sub">Structural Review Engine</span>
+                </div>
+            </div>
+            <button class="header-menu" onclick="toggleMenu()" aria-label="Menu">☰</button>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Install Banner (PWA) -->
+        <div class="install-banner" id="install-banner">
+            <div class="install-text">
+                <strong>Install c-ECO Review</strong>
+                Add to home screen for offline access
+            </div>
+            <button class="install-btn" id="install-btn">Install</button>
+            <button class="install-close" id="install-close">×</button>
+        </div>
+        
+        <!-- Offline Notice -->
+        <div class="offline-banner" id="offline-banner">
+            <span>⚠️</span>
+            <span>You are offline. Submissions will queue and sync when connection returns.</span>
+        </div>
+        
+        <!-- Stage Navigation -->
+        <div class="stage-section">
+            <div class="stage-header">
+                <span class="stage-label">Structural Progression</span>
+                <span class="stage-current" id="stage-current">Stage 0</span>
+            </div>
+            
+            <div class="stage-dots" id="stage-dots">
+                <div class="stage-dot active" data-stage="0">0</div>
+                <div class="stage-connector"></div>
+                <div class="stage-dot locked" data-stage="1">1</div>
+                <div class="stage-connector"></div>
+                <div class="stage-dot locked" data-stage="2">2</div>
+                <div class="stage-connector"></div>
+                <div class="stage-dot locked" data-stage="3">3</div>
+                <div class="stage-connector"></div>
+                <div class="stage-dot locked" data-stage="4">4</div>
+                <div class="stage-connector"></div>
+                <div class="stage-dot locked" data-stage="5">5</div>
+            </div>
+            
+            <!-- Structural Status Table -->
+            <table class="status-table">
+                <thead>
+                    <tr>
+                        <th>Stage</th>
+                        <th>Component</th>
+                        <th>Status</th>
+                        <th>Reference</th>
+                    </tr>
+                </thead>
+                <tbody id="status-body">
+                    <tr>
+                        <td>0</td>
+                        <td>Case Anchor</td>
+                        <td><span class="status-badge insufficient"><span class="status-dot insufficient"></span>Pending</span></td>
+                        <td class="ref-link">[TFP-3.1]</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>System</td>
+                        <td><span class="status-badge locked"><span class="status-dot locked"></span>Locked</span></td>
+                        <td class="ref-link">[CECO-ART-005-B]</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>TFP Variables</td>
+                        <td><span class="status-badge locked"><span class="status-dot locked"></span>Locked</span></td>
+                        <td class="ref-link">[TFP-3.1]</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Trajectory</td>
+                        <td><span class="status-badge locked"><span class="status-dot locked"></span>Locked</span></td>
+                        <td class="ref-link">[TDR-MATH]</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Recognition-Action Gap</td>
+                        <td><span class="status-badge locked"><span class="status-dot locked"></span>Locked</span></td>
+                        <td class="ref-link">[CECO-ART-005-B]</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Decision Pressure</td>
+                        <td><span class="status-badge locked"><span class="status-dot locked"></span>Locked</span></td>
+                        <td class="ref-link">[TFP-9.3]</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Submission Area -->
+        <div class="submission-area">
+            <div class="submission-header">
+                <div class="submission-title" id="submission-title">Case Anchor — Stage 0</div>
+                <div class="submission-hint" id="submission-hint">
+                    Define asset, instrument, and bioregion. No sector labels. No abstractions.
+                </div>
+            </div>
+            
+            <textarea 
+                class="analysis-input" 
+                id="analysis-input"
+                placeholder="Submit your analysis for structural review.\n\nMaximum 500 words.\nThe Engine evaluates structure, not correctness.\n\nExample: 'Carteira de R$ 500M em crédito rural para soja no MATOPIBA'"
+                maxlength="3000"
+            ></textarea>
+            
+            <div class="input-meta">
+                <span class="word-count" id="word-count">0 / 500 words</span>
+                <button class="submit-btn" id="submit-btn" onclick="submitAnalysis()">
+                    <span class="spinner"></span>
+                    <span class="btn-text">Submit for Review</span>
+                </button>
+            </div>
+            
+            <!-- AI Response -->
+            <div class="ai-response" id="ai-response">
+                <div class="response-header">
+                    <span class="response-status" id="response-status">PROCESSING</span>
+                    <span class="response-timestamp" id="response-timestamp">--:--:--</span>
+                </div>
+                <div class="response-body">
+                    <div class="structural-box" id="response-content"></div>
+                </div>
+                <div class="response-actions" id="response-actions"></div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="app-footer">
+        <span class="footer-version">c-ECO Structural Review Engine v2.5.0 | Fellowship July 2026</span>
+    </footer>
+    
+    <script>
+        // ============================================
+        // c-ECO REVIEW ENGINE — PWA JAVASCRIPT
+        // ============================================
+        
+        const STAGES = [
+            { name: 'Case Anchor', hint: 'Define asset, instrument, and bioregion. No sector labels. No abstractions.', ref: '[TFP-3.1]' },
+            { name: 'System', hint: 'Define biophysical system, degrading variable, and SOS boundary.', ref: '[CECO-ART-005-B]' },
+            { name: 'TFP Variables', hint: 'Define P (Position), ΔV (Velocity), σ (Uncertainty), Lr (Reversibility Liquidity).', ref: '[TFP-3.1]' },
+            { name: 'Trajectory', hint: 'Show sustained direction, question stability, detect CSD if applicable.', ref: '[TDR-MATH]' },
+            { name: 'Recognition-Action Gap', hint: 'Did identified risk translate into operational or legal consequence?', ref: '[CECO-ART-005-B]' },
+            { name: 'Decision Pressure', hint: 'Apply Consequence + Reversibility + Contradiction tests.', ref: '[TFP-9.3]' }
+        ];
+        
+        let currentStage = 0;
+        let history = [];
+        let isProcessing = false;
+        
+        // ============================================
+        // PWA — Service Worker Registration
+        // ============================================
+        
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(reg => console.log('[PWA] SW registered:', reg.scope))
+                .catch(err => console.error('[PWA] SW failed:', err));
+        }
+        
+        // ============================================
+        // PWA — Install Prompt
+        // ============================================
+        
+        let deferredPrompt = null;
+        const installBanner = document.getElementById('install-banner');
+        const installBtn = document.getElementById('install-btn');
+        const installClose = document.getElementById('install-close');
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installBanner.classList.add('visible');
+        });
+        
+        installBtn.addEventListener('click', async () => {
+            if (!deferredPrompt) return;
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+                installBanner.classList.remove('visible');
+            }
+            deferredPrompt = null;
+        });
+        
+        installClose.addEventListener('click', () => {
+            installBanner.classList.remove('visible');
+        });
+        
+        // iOS detection
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        if (isIOS && !window.navigator.standalone) {
+            // Show iOS install hint (simplified)
+            console.log('[PWA] iOS detected — show Add to Home Screen hint');
+        }
+        
+        // ============================================
+        // OFFLINE DETECTION
+        // ============================================
+        
+        const offlineBanner = document.getElementById('offline-banner');
+        
+        function updateOnlineStatus() {
+            offlineBanner.classList.toggle('visible', !navigator.onLine);
+        }
+        
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+        updateOnlineStatus();
+        
+        // ============================================
+        // WORD COUNT
+        // ============================================
+        
+        const textarea = document.getElementById('analysis-input');
+        const wordCount = document.getElementById('word-count');
+        
+        textarea.addEventListener('input', () => {
+            const words = textarea.value.trim().split(/\\s+/).filter(w => w.length > 0).length;
+            wordCount.textContent = `${words} / 500 words`;
+            wordCount.classList.toggle('warning', words > 500);
+        });
+        
+        // ============================================
+        // SUBMIT ANALYSIS
+        // ============================================
+        
+        async function submitAnalysis() {
+            if (isProcessing) return;
+            
+            const input = textarea.value.trim();
+            if (!input) {
+                alert('Submit your analysis first.');
+                return;
+            }
+            
+            const words = input.split(/\\s+/).filter(w => w.length > 0).length;
+            if (words > 500) {
+                alert(`Maximum 500 words. Current: ${words}`);
+                return;
+            }
+            
+            isProcessing = true;
+            const btn = document.getElementById('submit-btn');
+            btn.classList.add('loading');
+            btn.disabled = true;
+            
+            // Show response container
+            const responseDiv = document.getElementById('ai-response');
+            responseDiv.classList.add('visible');
+            responseDiv.classList.add('fade-in');
+            
+            // Set processing state
+            document.getElementById('response-status').textContent = 'PROCESSING';
+            document.getElementById('response-status').className = 'response-status';
+            document.getElementById('response-content').innerHTML = 'Analyzing structural sufficiency...';
+            document.getElementById('response-actions').innerHTML = '';
+            document.getElementById('response-timestamp').textContent = new Date().toLocaleTimeString();
+            
+            try {
+                // In production, this calls your backend API
+                // For now, simulate with timeout
+                await new Promise(r => setTimeout(r, 1500));
+                
+                // Simulated response (replace with real API call)
+                const result = simulateAIResponse(input, currentStage);
+                processResponse(result);
+                
+            } catch (error) {
+                document.getElementById('response-content').innerHTML = 
+                    '<div class="structural-box">Service temporarily unavailable. Please try again.</div>';
+            } finally {
+                isProcessing = false;
+                btn.classList.remove('loading');
+                btn.disabled = false;
+            }
+        }
+        
+        // ============================================
+        // SIMULATED AI RESPONSE (replace with API)
+        // ============================================
+        
+        function simulateAIResponse(input, stage) {
+            const lower = input.toLowerCase();
+            
+            // Stage 0: Case Anchor
+            if (stage === 0) {
+                const vagueTerms = ['análise', 'risco', 'estudo', 'generic'];
+                const hasVague = vagueTerms.some(t => lower.includes(t));
+                const hasConcrete = lower.includes('r$') || lower.includes('carteira') || 
+                                     lower.includes('crédito') || lower.includes('banco') ||
+                                     lower.includes('asset') || lower.includes('portfolio');
+                
+                if (hasVague || !hasConcrete || input.length < 50) {
+                    return {
+                        status: 'insufficient',
+                        content: `┌─────────────────────────────────────────────────────┐
+│ STRUCTURAL REVIEW — Stage 0                         │
+├─────────────────────────────────────────────────────┤
+│ Stage: 0 — Case Anchor                              │
+│ Status: INSUFFICIENT                                │
+│                                                     │
+│ CASE CONTEXT — INSUFFICIENT                         │
+│ → Response vague or generic [TFP-3.1]              │
+│                                                     │
+│ Define:                                             │
+│ → Specific asset or operation                       │
+│ → Financial instrument type                         │
+│ → Bioregion or jurisdiction                         │
+│                                                     │
+│ Do NOT proceed.                                      │
+└─────────────────────────────────────────────────────┘`
+                    };
+                }
+                
+                return {
+                    status: 'sufficient',
+                    content: `┌─────────────────────────────────────────────────────┐
+│ STRUCTURAL REVIEW — Stage 0                         │
+├─────────────────────────────────────────────────────┤
+│ Stage: 0 — Case Anchor                              │
+│ Status: SUFFICIENT                                  │
+│                                                     │
+│ CASE CONTEXT — SUFFICIENT                           │
+│ → Asset defined                                     │
+│ → Instrument identified                             │
+│ → Location specified                                │
+│                                                     │
+│ [TFP-3.1]                                           │
+│                                                     │
+│ Proceed to Stage 1.                                  │
+└─────────────────────────────────────────────────────┘`
+                };
+            }
+            
+            // Default for other stages
+            return {
+                status: 'sufficient',
+                content: `┌─────────────────────────────────────────────────────┐
+│ STRUCTURAL REVIEW — Stage ${stage}                         │
+├─────────────────────────────────────────────────────┤
+│ Stage: ${stage} — ${STAGES[stage].name.padEnd(25)}│
+│ Status: SUFFICIENT                                  │
+│                                                     │
+│ ${STAGES[stage].name.toUpperCase()} — SUFFICIENT                    │
+│ → Minimum structure demonstrated                    │
+│                                                     │
+│ [${STAGES[stage].ref}]                              │
+│                                                     │
+│ Proceed to Stage ${stage + 1}.                             │
+└─────────────────────────────────────────────────────┘`
+            };
+        }
+        
+        // ============================================
+        // PROCESS RESPONSE
+        // ============================================
+        
+        function processResponse(result) {
+            const statusEl = document.getElementById('response-status');
+            const contentEl = document.getElementById('response-content');
+            const actionsEl = document.getElementById('response-actions');
+            
+            statusEl.textContent = result.status.toUpperCase();
+            statusEl.className = 'response-status ' + result.status;
+            contentEl.innerHTML = `<div class="structural-box">${escapeHtml(result.content)}</div>`;
+            
+            // Record history
+            history.push({
+                stage: currentStage,
+                status: result.status,
+                timestamp: new Date().toISOString()
+            });
+            
+            // Build action buttons
+            actionsEl.innerHTML = '';
+            
+            if (result.status === 'sufficient' && currentStage < 5) {
+                const btn = document.createElement('button');
+                btn.className = 'action-btn proceed';
+                btn.textContent = `Proceed to Stage ${currentStage + 1}`;
+                btn.onclick = advanceStage;
+                actionsEl.appendChild(btn);
+            } else if (result.status === 'invalid') {
+                const btn = document.createElement('button');
+                btn.className = 'action-btn restart';
+                btn.textContent = 'Restart from Stage 0';
+                btn.onclick = resetProgress;
+                actionsEl.appendChild(btn);
+            } else {
+                const btn = document.createElement('button');
+                btn.className = 'action-btn stay';
+                btn.textContent = 'Resubmit for Same Stage';
+                btn.onclick = () => {
+                    textarea.value = '';
+                    document.getElementById('ai-response').classList.remove('visible');
+                    textarea.focus();
+                };
+                actionsEl.appendChild(btn);
+            }
+            
+            updateUI();
+            saveProgress();
+        }
+        
+        // ============================================
+        // STAGE MANAGEMENT
+        // ============================================
+        
+        function advanceStage() {
+            if (currentStage < 5) {
+                currentStage++;
+                textarea.value = '';
+                wordCount.textContent = '0 / 500 words';
+                wordCount.classList.remove('warning');
+                document.getElementById('ai-response').classList.remove('visible');
+                updateUI();
+            }
+        }
+        
+        function resetProgress() {
+            currentStage = 0;
+            history = [];
+            textarea.value = '';
+            wordCount.textContent = '0 / 500 words';
+            document.getElementById('ai-response').classList.remove('visible');
+            updateUI();
+            saveProgress();
+        }
+        
+        // ============================================
+        // UI UPDATES
+        // ============================================
+        
+        function updateUI() {
+            // Update stage dots
+            document.querySelectorAll('.stage-dot').forEach((dot, idx) => {
+                dot.classList.remove('active', 'completed', 'locked');
+                if (idx < currentStage) {
+                    dot.classList.add('completed');
+                } else if (idx === currentStage) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.add('locked');
+                }
+            });
+            
+            // Update connectors
+            document.querySelectorAll('.stage-connector').forEach((line, idx) => {
+                line.classList.toggle('completed', idx < currentStage);
+            });
+            
+            // Update titles
+            document.getElementById('stage-current').textContent = `Stage ${currentStage}`;
+            document.getElementById('submission-title').textContent = `${STAGES[currentStage].name} — Stage ${currentStage}`;
+            document.getElementById('submission-hint').textContent = STAGES[currentStage].hint;
+            
+            // Update status table
+            updateStatusTable();
+        }
+        
+        function updateStatusTable() {
+            const tbody = document.getElementById('status-body');
+            tbody.innerHTML = STAGES.map((stage, idx) => {
+                let status, badgeClass;
+                
+                if (idx < currentStage) {
+                    status = 'sufficient';
+                    badgeClass = 'sufficient';
+                } else if (idx === currentStage) {
+                    const lastSubmission = history.filter(h => h.stage === idx).pop();
+                    status = lastSubmission ? lastSubmission.status : 'insufficient';
+                    badgeClass = status;
+                } else {
+                    status = 'locked';
+                    badgeClass = 'locked';
+                }
+                
+                const statusLabels = {
+                    sufficient: 'Sufficient',
+                    insufficient: 'Insufficient',
+                    invalid: 'Invalid',
+                    locked: 'Locked'
+                };
+                
+                return `
+                    <tr>
+                        <td>${idx}</td>
+                        <td>${stage.name}</td>
+                        <td><span class="status-badge ${badgeClass}"><span class="status-dot ${badgeClass}"></span>${statusLabels[status]}</span></td>
+                        <td class="ref-link">${stage.ref}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+        
+        // ============================================
+        // PERSISTENCE
+        // ============================================
+        
+        function saveProgress() {
+            localStorage.setItem('c-eco-review-progress', JSON.stringify({
+                currentStage,
+                history,
+                lastUpdate: new Date().toISOString()
+            }));
+        }
+        
+        function loadProgress() {
+            const saved = localStorage.getItem('c-eco-review-progress');
+            if (saved) {
+                const data = JSON.parse(saved);
+                currentStage = data.currentStage || 0;
+                history = data.history || [];
+            }
+        }
+        
+        // ============================================
+        // UTILITIES
+        // ============================================
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        function toggleMenu() {
+            // Future: slide-out menu
+            console.log('Menu toggle');
+        }
+        
+        // ============================================
+        // INIT
+        // ============================================
+        
+        loadProgress();
+        updateUI();
+    </script>
+</body>
+</html>
