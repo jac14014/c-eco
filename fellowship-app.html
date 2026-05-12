@@ -1007,81 +1007,38 @@
             }
         }
         
-        // ============================================
-        // SIMULATED AI RESPONSE (replace with API)
-        // ============================================
-        
-        function simulateAIResponse(input, stage) {
-            const lower = input.toLowerCase();
-            
-            // Stage 0: Case Anchor
-            if (stage === 0) {
-                const vagueTerms = ['análise', 'risco', 'estudo', 'generic'];
-                const hasVague = vagueTerms.some(t => lower.includes(t));
-                const hasConcrete = lower.includes('r$') || lower.includes('carteira') || 
-                                     lower.includes('crédito') || lower.includes('banco') ||
-                                     lower.includes('asset') || lower.includes('portfolio');
-                
-                if (hasVague || !hasConcrete || input.length < 50) {
-                    return {
-                        status: 'insufficient',
-                        content: `┌─────────────────────────────────────────────────────┐
-│ STRUCTURAL REVIEW — Stage 0                         │
-├─────────────────────────────────────────────────────┤
-│ Stage: 0 — Case Anchor                              │
-│ Status: INSUFFICIENT                                │
-│                                                     │
-│ CASE CONTEXT — INSUFFICIENT                         │
-│ → Response vague or generic [TFP-3.1]              │
-│                                                     │
-│ Define:                                             │
-│ → Specific asset or operation                       │
-│ → Financial instrument type                         │
-│ → Bioregion or jurisdiction                         │
-│                                                     │
-│ Do NOT proceed.                                      │
-└─────────────────────────────────────────────────────┘`
-                    };
-                }
-                
-                return {
-                    status: 'sufficient',
-                    content: `┌─────────────────────────────────────────────────────┐
-│ STRUCTURAL REVIEW — Stage 0                         │
-├─────────────────────────────────────────────────────┤
-│ Stage: 0 — Case Anchor                              │
-│ Status: SUFFICIENT                                  │
-│                                                     │
-│ CASE CONTEXT — SUFFICIENT                           │
-│ → Asset defined                                     │
-│ → Instrument identified                             │
-│ → Location specified                                │
-│                                                     │
-│ [TFP-3.1]                                           │
-│                                                     │
-│ Proceed to Stage 1.                                  │
-└─────────────────────────────────────────────────────┘`
-                };
-            }
-            
-            // Default for other stages
-            return {
-                status: 'sufficient',
-                content: `┌─────────────────────────────────────────────────────┐
-│ STRUCTURAL REVIEW — Stage ${stage}                         │
-├─────────────────────────────────────────────────────┤
-│ Stage: ${stage} — ${STAGES[stage].name.padEnd(25)}│
-│ Status: SUFFICIENT                                  │
-│                                                     │
-│ ${STAGES[stage].name.toUpperCase()} — SUFFICIENT                    │
-│ → Minimum structure demonstrated                    │
-│                                                     │
-│ [${STAGES[stage].ref}]                              │
-│                                                     │
-│ Proceed to Stage ${stage + 1}.                             │
-└─────────────────────────────────────────────────────┘`
-            };
-        }
+        async function callRealAPI(input, stage) {
+  try {
+    const response = await fetch('/api/review', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ input, stage })
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    return await response.json();
+
+  } catch (error) {
+    // Fallback se offline ou erro
+    return {
+      status: 'insufficient',
+      content: `┌─────────────────────────────────────────────┐
+│ STRUCTURAL REVIEW — Stage ${stage}          │
+├─────────────────────────────────────────────┤
+│ Status: OFFLINE / ERROR                     │
+│                                             │
+│ ${error.message}                            │
+│                                             │
+│ Submissions saved locally.                  │
+│ Will retry when connection returns.         │
+└─────────────────────────────────────────────┘`
+    };
+  }
+}
+
         
         // ============================================
         // PROCESS RESPONSE
