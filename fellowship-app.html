@@ -1,1312 +1,867 @@
-
-<!DOCTYPE html>
+'''<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#A51C30">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="c-ECO Review">
-    <meta name="description" content="c-ECO Structural Review Engine — Pre-threshold analytical system. Stage-by-stage validation.">
-    
-    <title>c-ECO Structural Review Engine</title>
-    
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="/manifest.json">
-    
-    <!-- Apple Touch Icons -->
-    <link rel="apple-touch-icon" href="/icons/icon-192.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192.png">
-    <link rel="apple-touch-icon" sizes="167x167" href="/icons/icon-192.png">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-192.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-192.png">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* ============================================ */
-        /* c-ECO STRUCTURAL REVIEW ENGINE — PWA STYLES  */
-        /* ============================================ */
-        
-        :root {
-            --harvard-crimson: #A51C30;
-            --harvard-dark: #1E1E1E;
-            --harvard-gray: #6C757D;
-            --harvard-light: #F8F9FA;
-            --accent-gold: #C4A35A;
-            --status-sufficient: #10B981;
-            --status-insufficient: #DC2626;
-            --status-invalid: #7C2D12;
-            --status-locked: #9CA3AF;
-            --border: #E5E7EB;
-            --shadow: 0 1px 3px rgba(0,0,0,0.08);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        html {
-            font-size: 16px;
-            -webkit-text-size-adjust: 100%;
-        }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: var(--harvard-dark);
-            background: #FAFAFA;
-            min-height: 100vh;
-            min-height: 100dvh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-        }
-        
-        /* Safe area for notched devices */
-        .safe-area {
-            padding-top: env(safe-area-inset-top);
-            padding-bottom: env(safe-area-inset-bottom);
-            padding-left: env(safe-area-inset-left);
-            padding-right: env(safe-area-inset-right);
-        }
-        
-        /* ============================================ */
-        /* HEADER                                       */
-        /* ============================================ */
-        
-        .app-header {
-            background: var(--harvard-dark);
-            color: white;
-            padding: 16px 20px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 3px solid var(--harvard-crimson);
-        }
-        
-        .header-inner {
-            max-width: 900px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .brand-icon {
-            width: 36px;
-            height: 36px;
-            background: var(--harvard-crimson);
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Crimson Pro', serif;
-            font-size: 18px;
-            font-weight: 700;
-            color: white;
-        }
-        
-        .brand-text {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .brand-name {
-            font-family: 'Crimson Pro', serif;
-            font-size: 18px;
-            font-weight: 700;
-            line-height: 1.2;
-            color: white;
-        }
-        
-        .brand-sub {
-            font-size: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: rgba(255,255,255,0.6);
-        }
-        
-        .header-menu {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            padding: 4px;
-        }
-        
-        /* ============================================ */
-        /* MAIN CONTENT                                 */
-        /* ============================================ */
-        
-        .main-content {
-            flex: 1;
-            max-width: 900px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        /* ============================================ */
-        /* INSTALL PROMPT (PWA)                         */
-        /* ============================================ */
-        
-        .install-banner {
-            background: linear-gradient(135deg, var(--harvard-crimson) 0%, #7A1525 100%);
-            color: white;
-            padding: 16px 20px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            display: none;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-        }
-        
-        .install-banner.visible {
-            display: flex;
-        }
-        
-        .install-text {
-            font-size: 13px;
-            line-height: 1.5;
-        }
-        
-        .install-text strong {
-            display: block;
-            font-size: 14px;
-            margin-bottom: 2px;
-        }
-        
-        .install-btn {
-            background: white;
-            color: var(--harvard-crimson);
-            border: none;
-            padding: 8px 16px;
-            font-size: 13px;
-            font-weight: 600;
-            border-radius: 4px;
-            cursor: pointer;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-        
-        .install-close {
-            background: none;
-            border: none;
-            color: rgba(255,255,255,0.7);
-            font-size: 18px;
-            cursor: pointer;
-            padding: 4px;
-            flex-shrink: 0;
-        }
-        
-        /* ============================================ */
-        /* OFFLINE NOTICE                               */
-        /* ============================================ */
-        
-        .offline-banner {
-            background: #FEF3C7;
-            border: 1px solid #FCD34D;
-            color: #92400E;
-            padding: 12px 16px;
-            border-radius: 4px;
-            margin-bottom: 16px;
-            font-size: 13px;
-            display: none;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .offline-banner.visible {
-            display: flex;
-        }
-        
-        /* ============================================ */
-        /* ERROR BANNER                                 */
-        /* ============================================ */
-        
-        .error-banner {
-            background: #FEE2E2;
-            border: 1px solid #DC2626;
-            color: #991B1B;
-            padding: 12px 16px;
-            border-radius: 4px;
-            margin-bottom: 16px;
-            font-size: 13px;
-            display: none;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .error-banner.visible {
-            display: flex;
-        }
-        
-        /* ============================================ */
-        /* STAGE NAVIGATION                             */
-        /* ============================================ */
-        
-        .stage-section {
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            padding: 24px 20px;
-            margin-bottom: 16px;
-        }
-        
-        .stage-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-        
-        .stage-label {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--harvard-gray);
-        }
-        
-        .stage-current {
-            font-family: 'Crimson Pro', serif;
-            font-size: 22px;
-            font-weight: 600;
-            color: var(--harvard-dark);
-        }
-        
-        .stage-dots {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0;
-            margin-bottom: 24px;
-        }
-        
-        .stage-dot {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: #E5E7EB;
-            color: var(--harvard-gray);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 700;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-        
-        .stage-dot.completed {
-            background: var(--accent-gold);
-            color: white;
-        }
-        
-        .stage-dot.active {
-            background: var(--harvard-crimson);
-            color: white;
-            box-shadow: 0 0 0 4px rgba(165,28,48,0.15);
-        }
-        
-        .stage-dot.locked {
-            background: #F3F4F6;
-            color: #D1D5DB;
-        }
-        
-        .stage-connector {
-            width: 24px;
-            height: 2px;
-            background: #E5E7EB;
-            transition: all 0.3s ease;
-        }
-        
-        .stage-connector.completed {
-            background: var(--accent-gold);
-        }
-        
-        /* ============================================ */
-        /* STRUCTURAL STATUS TABLE                      */
-        /* ============================================ */
-        
-        .status-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-            margin-bottom: 20px;
-        }
-        
-        .status-table th {
-            text-align: left;
-            padding: 10px 12px;
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--harvard-gray);
-            border-bottom: 2px solid var(--harvard-dark);
-            background: var(--harvard-light);
-        }
-        
-        .status-table td {
-            padding: 12px;
-            border-bottom: 1px solid var(--border);
-            vertical-align: top;
-        }
-        
-        .status-table tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 4px 10px;
-            border-radius: 3px;
-        }
-        
-        .status-badge.sufficient {
-            background: #D1FAE5;
-            color: #065F46;
-        }
-        
-        .status-badge.insufficient {
-            background: #FEE2E2;
-            color: #991B1B;
-        }
-        
-        .status-badge.invalid {
-            background: #FEF3C7;
-            color: #92400E;
-        }
-        
-        .status-badge.locked {
-            background: #F3F4F6;
-            color: #9CA3AF;
-        }
-        
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-        }
-        
-        .status-dot.sufficient { background: var(--status-sufficient); }
-        .status-dot.insufficient { background: var(--status-insufficient); }
-        .status-dot.invalid { background: var(--status-invalid); }
-        .status-dot.locked { background: var(--status-locked); }
-        
-        .ref-link {
-            font-size: 11px;
-            color: var(--harvard-gray);
-            font-family: monospace;
-        }
-        
-        /* ============================================ */
-        /* SUBMISSION AREA                              */
-        /* ============================================ */
-        
-        .submission-area {
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            padding: 24px 20px;
-        }
-        
-        .submission-header {
-            margin-bottom: 16px;
-        }
-        
-        .submission-title {
-            font-family: 'Crimson Pro', serif;
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--harvard-dark);
-            margin-bottom: 4px;
-        }
-        
-        .submission-hint {
-            font-size: 12px;
-            color: var(--harvard-gray);
-        }
-        
-        .analysis-input {
-            width: 100%;
-            min-height: 200px;
-            padding: 16px;
-            border: 2px solid var(--border);
-            border-radius: 4px;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            line-height: 1.7;
-            resize: vertical;
-            transition: border-color 0.2s;
-            background: #FAFAFA;
-        }
-        
-        .analysis-input:focus {
-            outline: none;
-            border-color: var(--harvard-crimson);
-            background: white;
-        }
-        
-        .analysis-input::placeholder {
-            color: #9CA3AF;
-            font-style: italic;
-        }
-        
-        .input-meta {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 12px;
-            gap: 12px;
-        }
-        
-        .word-count {
-            font-size: 12px;
-            color: var(--harvard-gray);
-        }
-        
-        .word-count.warning {
-            color: var(--status-insufficient);
-            font-weight: 600;
-        }
-        
-        .submit-btn {
-            background: var(--harvard-crimson);
-            color: white;
-            border: none;
-            padding: 12px 28px;
-            font-size: 14px;
-            font-weight: 600;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .submit-btn:hover {
-            background: #7A1525;
-        }
-        
-        .submit-btn:disabled {
-            background: #D1D5DB;
-            cursor: not-allowed;
-        }
-        
-        .submit-btn .spinner {
-            display: none;
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-        
-        .submit-btn.loading .spinner {
-            display: inline-block;
-        }
-        
-        .submit-btn.loading .btn-text {
-            opacity: 0.7;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        /* ============================================ */
-        /* AI RESPONSE                                  */
-        /* ============================================ */
-        
-        .ai-response {
-            margin-top: 20px;
-            border: 2px solid var(--border);
-            border-radius: 4px;
-            overflow: hidden;
-            display: none;
-        }
-        
-        .ai-response.visible {
-            display: block;
-        }
-        
-        .response-header {
-            background: var(--harvard-dark);
-            color: white;
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .response-status {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .response-status.sufficient {
-            color: #6EE7B7;
-        }
-        
-        .response-status.insufficient {
-            color: #FCA5A5;
-        }
-        
-        .response-status.invalid {
-            color: #FCD34D;
-        }
-        
-        .response-timestamp {
-            font-size: 11px;
-            color: rgba(255,255,255,0.5);
-            font-family: monospace;
-        }
-        
-        .response-body {
-            padding: 20px;
-            background: white;
-            font-size: 13px;
-            line-height: 1.7;
-            overflow-x: auto;
-        }
-        
-        .structural-box {
-            background: #FAFAFA;
-            border: 1px solid var(--border);
-            border-radius: 3px;
-            padding: 16px;
-            font-family: 'Courier New', monospace;
-            font-size: 12px;
-            line-height: 1.6;
-            white-space: pre-wrap;
-            word-break: break-word;
-            color: var(--harvard-dark);
-        }
-        
-        .response-actions {
-            padding: 12px 16px;
-            background: var(--harvard-light);
-            border-top: 1px solid var(--border);
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        
-        .action-btn {
-            padding: 8px 16px;
-            font-size: 13px;
-            font-weight: 600;
-            border-radius: 3px;
-            cursor: pointer;
-            border: none;
-            transition: all 0.2s;
-        }
-        
-        .action-btn.proceed {
-            background: var(--harvard-crimson);
-            color: white;
-        }
-        
-        .action-btn.proceed:hover {
-            background: #7A1525;
-        }
-        
-        .action-btn.stay {
-            background: white;
-            color: var(--harvard-gray);
-            border: 1px solid var(--border);
-        }
-        
-        .action-btn.stay:hover {
-            border-color: var(--harvard-gray);
-            color: var(--harvard-dark);
-        }
-        
-        .action-btn.restart {
-            background: var(--harvard-dark);
-            color: white;
-        }
-        
-        /* ============================================ */
-        /* FOOTER                                       */
-        /* ============================================ */
-        
-        .app-footer {
-            background: var(--harvard-dark);
-            color: rgba(255,255,255,0.5);
-            padding: 16px 20px;
-            text-align: center;
-            font-size: 11px;
-            margin-top: auto;
-        }
-        
-        .footer-version {
-            font-family: monospace;
-            letter-spacing: 0.5px;
-        }
-        
-        /* ============================================ */
-        /* ANIMATIONS                                   */
-        /* ============================================ */
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.3s ease forwards;
-        }
-        
-        /* ============================================ */
-        /* RESPONSIVE                                   */
-        /* ============================================ */
-        
-        @media (max-width: 640px) {
-            .main-content {
-                padding: 12px;
-            }
-            
-            .stage-section,
-            .submission-area {
-                padding: 16px;
-            }
-            
-            .stage-dot {
-                width: 28px;
-                height: 28px;
-                font-size: 11px;
-            }
-            
-            .stage-connector {
-                width: 16px;
-            }
-            
-            .brand-name {
-                font-size: 16px;
-            }
-            
-            .input-meta {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .submit-btn {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#a5162d" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="c-ECO Review" />
+<meta name="description" content="c-ECO Structural Review Engine — Pre-threshold analytical system. Stage-by-stage validation." />
+
+<title>c-ECO Structural Review Engine</title>
+
+<!-- PWA Manifest -->
+<link rel="manifest" href="/manifest.json" />
+
+<!-- Apple Touch Icons -->
+<link rel="apple-touch-icon" href="/icons/icon-192.png" />
+<link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152.png" />
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-192.png" />
+
+<style>
+:root{
+  --red:#a5162d;
+  --dark:#171717;
+  --gold:#b99a52;
+  --green:#4d9b43;
+  --gray:#e6e6e6;
+  --text:#1d1d1d;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:#f5f5f3;
+  color:var(--text);
+  font-family:Arial, sans-serif;
+}
+
+.app{
+  max-width:430px;
+  margin:0 auto;
+  min-height:100vh;
+  background:#fbfaf7;
+  border-left:1px solid #ccc;
+  border-right:1px solid #ccc;
+}
+
+.screen{
+  display:none;
+  min-height:100vh;
+  padding:28px;
+}
+
+.screen.active{display:block}
+
+h1,h2{
+  font-family:Georgia, serif;
+  font-weight:400;
+}
+
+.logo{
+  text-align:center;
+  margin-top:80px;
+}
+
+.shield{
+  margin:0 auto 28px;
+  width:90px;
+  height:110px;
+  border:4px solid var(--red);
+  color:var(--red);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:Georgia, serif;
+  font-size:22px;
+  font-weight:bold;
+}
+
+.logo h1{
+  font-size:39px;
+  line-height:1.08;
+  margin:0;
+}
+
+.logo .red{color:var(--red)}
+
+.line{
+  width:42px;
+  height:2px;
+  background:var(--gold);
+  margin:28px auto;
+}
+
+.tag{
+  color:var(--gold);
+  letter-spacing:1.5px;
+  font-size:12px;
+  text-transform:uppercase;
+}
+
+.desc{
+  font-size:14px;
+  line-height:1.5;
+  max-width:300px;
+  margin:32px auto;
+}
+
+.warning{
+  border:1px solid var(--red);
+  padding:16px;
+  margin:35px 0;
+  text-align:center;
+  font-size:13px;
+}
+
+.warning strong{color:var(--red)}
+
+button{
+  width:100%;
+  border:none;
+  padding:16px;
+  background:var(--red);
+  color:white;
+  font-weight:bold;
+  letter-spacing:1px;
+  cursor:pointer;
+  font-size:13px;
+  text-transform:uppercase;
+}
+
+.secondary{
+  background:transparent;
+  color:#333;
+  border-bottom:1px solid #333;
+  width:auto;
+  padding:6px;
+  display:block;
+  margin:18px auto;
+}
+
+.header{
+  background:var(--dark);
+  color:white;
+  padding:22px;
+  margin:-28px -28px 28px;
+}
+
+.header .brand{
+  color:var(--red);
+  font-family:Georgia, serif;
+  font-size:26px;
+}
+
+.header .sub{
+  font-size:12px;
+  letter-spacing:2px;
+}
+
+.progress{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:26px 0;
+}
+
+.dot{
+  width:24px;
+  height:24px;
+  border-radius:50%;
+  border:1px solid #999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  background:white;
+}
+
+.dot.done{background:var(--green);color:white;border:none}
+.dot.active{background:var(--red);color:white;border:none}
+
+.bar{
+  height:2px;
+  width:34px;
+  background:#aaa;
+}
+
+.bar.done{background:var(--green)}
+
+.card{
+  border:1px solid #ccc;
+  background:white;
+  margin:22px 0;
+}
+
+.card-title{
+  padding:14px;
+  font-size:12px;
+  font-weight:bold;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  border-bottom:1px solid #ccc;
+  color:var(--red);
+}
+
+.row{
+  display:grid;
+  grid-template-columns:42px 1fr 92px;
+  border-bottom:1px solid #ddd;
+  font-size:12px;
+}
+
+.row:last-child{border-bottom:none}
+
+.cell{
+  padding:14px 10px;
+  border-right:1px solid #ddd;
+}
+
+.cell:last-child{border-right:none}
+
+.status{
+  font-size:10px;
+  text-transform:uppercase;
+}
+
+.ok{color:var(--green)}
+.bad{color:var(--red)}
+.lock{color:#999}
+
+.notice{
+  border:1px solid #d8b6bd;
+  border-left:5px solid var(--red);
+  padding:16px;
+  background:#fff7f8;
+  font-size:13px;
+  line-height:1.4;
+}
+
+.stage-top{
+  background:var(--red);
+  color:white;
+  margin:-28px -28px 28px;
+  padding:32px 28px;
+}
+
+.stage-top small{
+  font-weight:bold;
+  font-size:12px;
+}
+
+.stage-top h2{
+  font-size:31px;
+  margin:8px 0 0;
+}
+
+.section-label{
+  color:var(--red);
+  font-size:12px;
+  font-weight:bold;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  margin-top:28px;
+}
+
+textarea{
+  width:100%;
+  min-height:160px;
+  padding:16px;
+  border:1px solid #ccc;
+  font-family:Arial, sans-serif;
+  font-size:14px;
+  margin-top:14px;
+}
+
+.bottom-nav{
+  position:sticky;
+  bottom:0;
+  background:var(--dark);
+  display:flex;
+  justify-content:space-around;
+  padding:14px 0;
+  margin:28px -28px -28px;
+}
+
+.bottom-nav button{
+  background:transparent;
+  color:white;
+  width:auto;
+  padding:10px;
+  font-size:10px;
+}
+
+.result{
+  display:none;
+  margin-top:18px;
+  padding:16px;
+  border-left:5px solid var(--red);
+  background:#fff7f8;
+  font-size:13px;
+}
+
+.result.sufficient{
+  border-left-color:var(--green);
+  background:#f0f8f0;
+}
+
+.result.insufficient{
+  border-left-color:var(--red);
+  background:#fff7f8;
+}
+
+.result.invalid{
+  border-left-color:#92400E;
+  background:#FEF3C7;
+}
+
+.offline-banner{
+  background:#FEF3C7;
+  border:1px solid #FCD34D;
+  color:#92400E;
+  padding:12px 16px;
+  margin:14px 0;
+  font-size:13px;
+  display:none;
+}
+
+.offline-banner.visible{display:block}
+
+.error-banner{
+  background:#FEE2E2;
+  border:1px solid #DC2626;
+  color:#991B1B;
+  padding:12px 16px;
+  margin:14px 0;
+  font-size:13px;
+  display:none;
+}
+
+.error-banner.visible{display:block}
+
+.word-count{
+  font-size:12px;
+  color:#666;
+  margin-top:8px;
+}
+
+.word-count.warning{
+  color:var(--red);
+  font-weight:bold;
+}
+
+.spinner{
+  display:none;
+  width:16px;
+  height:16px;
+  border:2px solid rgba(255,255,255,0.3);
+  border-top-color:white;
+  border-radius:50%;
+  animation:spin 0.8s linear infinite;
+  margin-right:8px;
+}
+
+button.loading .spinner{display:inline-block}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+</style>
 </head>
-<body class="safe-area">
-    <!-- Header -->
-    <header class="app-header">
-        <div class="header-inner">
-            <div class="brand">
-                <div class="brand-icon">Σ</div>
-                <div class="brand-text">
-                    <span class="brand-name">c-ECO</span>
-                    <span class="brand-sub">Structural Review Engine</span>
-                </div>
-            </div>
-            <button class="header-menu" onclick="toggleMenu()" aria-label="Menu">☰</button>
-        </div>
-    </header>
-    
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Install Banner (PWA) -->
-        <div class="install-banner" id="install-banner">
-            <div class="install-text">
-                <strong>Install c-ECO Review</strong>
-                Add to home screen for offline access
-            </div>
-            <button class="install-btn" id="install-btn">Install</button>
-            <button class="install-close" id="install-close">×</button>
-        </div>
-        
-        <!-- Offline Notice -->
-        <div class="offline-banner" id="offline-banner">
-            <span>⚠️</span>
-            <span>You are offline. Submissions will queue and sync when connection returns.</span>
-        </div>
-        
-        <!-- Error Notice -->
-        <div class="error-banner" id="error-banner">
-            <span>❌</span>
-            <span id="error-message">API error. Please retry.</span>
-        </div>
-        
-        <!-- Stage Navigation -->
-        <div class="stage-section">
-            <div class="stage-header">
-                <span class="stage-label">Structural Progression</span>
-                <span class="stage-current" id="stage-current">Stage 0</span>
-            </div>
-            
-            <div class="stage-dots" id="stage-dots">
-                <div class="stage-dot active" data-stage="0">0</div>
-                <div class="stage-connector"></div>
-                <div class="stage-dot locked" data-stage="1">1</div>
-                <div class="stage-connector"></div>
-                <div class="stage-dot locked" data-stage="2">2</div>
-                <div class="stage-connector"></div>
-                <div class="stage-dot locked" data-stage="3">3</div>
-                <div class="stage-connector"></div>
-                <div class="stage-dot locked" data-stage="4">4</div>
-                <div class="stage-connector"></div>
-                <div class="stage-dot locked" data-stage="5">5</div>
-            </div>
-            
-            <!-- Structural Status Table -->
-            <table class="status-table">
-                <thead>
-                    <tr>
-                        <th>Stage</th>
-                        <th>Component</th>
-                        <th>Status</th>
-                        <th>Reference</th>
-                    </tr>
-                </thead>
-                <tbody id="status-body">
-                    <tr>
-                        <td>0</td>
-                        <td>Case Anchor</td>
-                        <td><span class="status-badge insufficient"><span class="status-dot insufficient"></span>Pending</span></td>
-                        <td class="ref-link">[TFP-3.1]</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>System</td>
-                        <td><span class="status-badge locked"><span class="status-dot locked"></span>Locked</span></td>
-                        <td class="ref-link">[CECO-ART-005-B]</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>TFP Variables</td>
-                        <td><span class="status-badge locked"><span class="status-dot locked"></span>Locked</span></td>
-                        <td class="ref-link">[TFP-3.1]</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Trajectory</td>
-                        <td><span class="status-badge locked"><span class="status-dot locked"></span>Locked</span></td>
-                        <td class="ref-link">[TDR-MATH]</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Recognition-Action Gap</td>
-                        <td><span class="status-badge locked"><span class="status-dot locked"></span>Locked</span></td>
-                        <td class="ref-link">[CECO-ART-005-B]</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Decision Pressure</td>
-                        <td><span class="status-badge locked"><span class="status-dot locked"></span>Locked</span></td>
-                        <td class="ref-link">[TFP-9.3]</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        
-        <!-- Submission Area -->
-        <div class="submission-area">
-            <div class="submission-header">
-                <div class="submission-title" id="submission-title">Case Anchor — Stage 0</div>
-                <div class="submission-hint" id="submission-hint">
-                    Define asset, instrument, and bioregion. No sector labels. No abstractions.
-                </div>
-            </div>
-            
-            <textarea 
-                class="analysis-input" 
-                id="analysis-input"
-                placeholder="Submit your analysis for structural review.\n\nMaximum 500 words.\nThe Engine evaluates structure, not correctness.\n\nExample: 'Carteira de R$ 500M em crédito rural para soja no MATOPIBA'"
-                maxlength="3000"
-            ></textarea>
-            
-            <div class="input-meta">
-                <span class="word-count" id="word-count">0 / 500 words</span>
-                <button class="submit-btn" id="submit-btn" onclick="submitAnalysis()">
-                    <span class="spinner"></span>
-                    <span class="btn-text">Submit for Review</span>
-                </button>
-            </div>
-            
-            <!-- AI Response -->
-            <div class="ai-response" id="ai-response">
-                <div class="response-header">
-                    <span class="response-status" id="response-status">PROCESSING</span>
-                    <span class="response-timestamp" id="response-timestamp">--:--:--</span>
-                </div>
-                <div class="response-body">
-                    <div class="structural-box" id="response-content"></div>
-                </div>
-                <div class="response-actions" id="response-actions"></div>
-            </div>
-        </div>
-    </main>
-    
-    <!-- Footer -->
-    <footer class="app-footer">
-        <span class="footer-version">c-ECO Structural Review Engine v2.5.0 | Fellowship July 2026</span>
-    </footer>
-    
-    <script>
-        // ============================================
-        // c-ECO REVIEW ENGINE — PWA JAVASCRIPT
-        // ============================================
-        
-        const STAGES = [
-            { name: 'Case Anchor', hint: 'Define asset, instrument, and bioregion. No sector labels. No abstractions.', ref: '[TFP-3.1]' },
-            { name: 'System', hint: 'Define biophysical system, degrading variable, and SOS boundary.', ref: '[CECO-ART-005-B]' },
-            { name: 'TFP Variables', hint: 'Define P (Position), ΔV (Velocity), σ (Uncertainty), Lr (Reversibility Liquidity).', ref: '[TFP-3.1]' },
-            { name: 'Trajectory', hint: 'Show sustained direction, question stability, detect CSD if applicable.', ref: '[TDR-MATH]' },
-            { name: 'Recognition-Action Gap', hint: 'Did identified risk translate into operational or legal consequence?', ref: '[CECO-ART-005-B]' },
-            { name: 'Decision Pressure', hint: 'Apply Consequence + Reversibility + Contradiction tests.', ref: '[TFP-9.3]' }
-        ];
-        
-        let currentStage = 0;
-        let history = [];
-        let isProcessing = false;
-        let pendingQueue = [];
-        
-        // ============================================
-        // PWA — Service Worker Registration
-        // ============================================
-        
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js')
-                .then(reg => console.log('[PWA] SW registered:', reg.scope))
-                .catch(err => console.error('[PWA] SW failed:', err));
+
+<body>
+<div class="app">
+
+  <!-- HOME -->
+  <section id="home" class="screen active">
+    <div class="logo">
+      <div class="shield">c-ΣCO</div>
+      <h1><span class="red">c-ΣCO</span><br>Structural<br>Review Engine</h1>
+      <div class="line"></div>
+      <div class="tag">Cognitive Pressure. Structural Integrity.</div>
+      <p class="desc">
+        This engine inspects the structural architecture of your reasoning.
+        Progress only when your structure is sufficient.
+      </p>
+    </div>
+
+    <div class="warning">
+      <strong>SUFFICIENT ≠ CORRECT</strong><br>
+      Partial correctness is not acceptable.
+    </div>
+
+    <button onclick="go('dashboard')">Enter Engine</button>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section id="dashboard" class="screen">
+    <div class="header">
+      <div class="brand">c-ΣCO</div>
+      <div class="sub">STRUCTURAL REVIEW ENGINE</div>
+    </div>
+
+    <h2>Fellow Dashboard</h2>
+
+    <!-- Offline Notice -->
+    <div class="offline-banner" id="offline-banner">
+      ⚠️ You are offline. Submissions will queue and sync when connection returns.
+    </div>
+
+    <!-- Error Notice -->
+    <div class="error-banner" id="error-banner">
+      ❌ <span id="error-message">API error. Please retry.</span>
+    </div>
+
+    <div class="section-label">Structural Progression</div>
+    <div class="progress" id="progress-dots">
+      <div class="dot active" data-stage="0">1</div><div class="bar"></div>
+      <div class="dot" data-stage="1">2</div><div class="bar"></div>
+      <div class="dot" data-stage="2">3</div><div class="bar"></div>
+      <div class="dot" data-stage="3">4</div><div class="bar"></div>
+      <div class="dot" data-stage="4">5</div><div class="bar"></div>
+      <div class="dot" data-stage="5">6</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Structural Status</div>
+      <div id="status-rows">
+        <div class="row"><div class="cell">1</div><div class="cell">Case Anchor</div><div class="cell status bad" id="status-0">Pending</div></div>
+        <div class="row"><div class="cell">2</div><div class="cell">System</div><div class="cell status lock" id="status-1">Locked</div></div>
+        <div class="row"><div class="cell">3</div><div class="cell">TFP Variables</div><div class="cell status lock" id="status-2">Locked</div></div>
+        <div class="row"><div class="cell">4</div><div class="cell">Trajectory</div><div class="cell status lock" id="status-3">Locked</div></div>
+        <div class="row"><div class="cell">5</div><div class="cell">Recognition-Action Gap</div><div class="cell status lock" id="status-4">Locked</div></div>
+        <div class="row"><div class="cell">6</div><div class="cell">Decision Pressure</div><div class="cell status lock" id="status-5">Locked</div></div>
+      </div>
+    </div>
+
+    <div class="notice" id="dashboard-notice">
+      <strong>Stage 1: Case Anchor is pending.</strong><br>
+      Submit your analysis to begin structural review.
+    </div>
+
+    <br>
+    <button onclick="goToCurrentStage()" id="continue-btn">Begin Stage 1</button>
+
+    <div class="bottom-nav">
+      <button onclick="go('dashboard')">Dashboard</button>
+      <button onclick="goToCurrentStage()">Submissions</button>
+      <button onclick="alert('Profile screen coming soon')">Profile</button>
+    </div>
+  </section>
+
+  <!-- STAGE -->
+  <section id="stage" class="screen">
+    <div class="stage-top">
+      <small id="stage-label">STAGE 1 OF 6</small>
+      <h2 id="stage-title">Case Anchor</h2>
+    </div>
+
+    <div class="progress" id="stage-progress">
+      <div class="dot active" data-stage="0">1</div><div class="bar"></div>
+      <div class="dot" data-stage="1">2</div><div class="bar"></div>
+      <div class="dot" data-stage="2">3</div><div class="bar"></div>
+      <div class="dot" data-stage="3">4</div><div class="bar"></div>
+      <div class="dot" data-stage="4">5</div><div class="bar"></div>
+      <div class="dot" data-stage="5">6</div>
+    </div>
+
+    <div class="section-label">Objective</div>
+    <p id="stage-hint">Define asset, instrument, and bioregion. No sector labels. No abstractions.</p>
+
+    <div class="section-label">Required Structure</div>
+    <div class="card" id="required-structure">
+      <div class="row"><div class="cell">•</div><div class="cell">Specific asset or operation</div><div class="cell status bad">Required</div></div>
+      <div class="row"><div class="cell">•</div><div class="cell">Financial instrument type</div><div class="cell status bad">Required</div></div>
+      <div class="row"><div class="cell">•</div><div class="cell">Bioregion or jurisdiction</div><div class="cell status bad">Required</div></div>
+    </div>
+
+    <div class="section-label">Submission</div>
+    <textarea id="submission" placeholder="Submit your analysis for structural review. Maximum 500 words. The Engine evaluates structure, not correctness. Example: 'Carteira de R$ 500M em crédito rural para soja no MATOPIBA'"></textarea>
+    <div class="word-count" id="word-count">0 / 500 words</div>
+
+    <button onclick="submitAnalysis()" id="submit-btn">
+      <span class="spinner"></span>
+      <span class="btn-text">Submit for Review</span>
+    </button>
+    <button class="secondary" onclick="saveDraft()">Save Draft</button>
+
+    <div id="result" class="result"></div>
+
+    <div class="bottom-nav">
+      <button onclick="go('dashboard')">Dashboard</button>
+      <button onclick="go('stage')">Submissions</button>
+      <button onclick="alert('Profile screen coming soon')">Profile</button>
+    </div>
+  </section>
+
+</div>
+
+<script>
+// ============================================
+// c-ECO FELLOWSHIP APP — PWA JAVASCRIPT
+// ============================================
+
+const STAGES = [
+  { name: 'Case Anchor', hint: 'Define asset, instrument, and bioregion. No sector labels. No abstractions.', ref: '[TFP-3.1]' },
+  { name: 'System', hint: 'Define biophysical system, degrading variable, and SOS boundary.', ref: '[CECO-ART-005-B]' },
+  { name: 'TFP Variables', hint: 'Define P (Position), ΔV (Velocity), σ (Uncertainty), Lr (Reversibility Liquidity).', ref: '[TFP-3.1]' },
+  { name: 'Trajectory', hint: 'Show sustained direction, question stability, detect CSD if applicable.', ref: '[TDR-MATH]' },
+  { name: 'Recognition-Action Gap', hint: 'Did identified risk translate into operational or legal consequence?', ref: '[CECO-ART-005-B]' },
+  { name: 'Decision Pressure', hint: 'Apply Consequence + Reversibility + Contradiction tests.', ref: '[TFP-9.3]' }
+];
+
+let currentStage = 0;
+let history = [];
+let isProcessing = false;
+let pendingQueue = [];
+
+// ============================================
+// PWA — Service Worker
+// ============================================
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js')
+    .then(reg => console.log('[PWA] SW registered:', reg.scope))
+    .catch(err => console.error('[PWA] SW failed:', err));
+}
+
+// ============================================
+// NAVIGATION
+// ============================================
+function go(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (id === 'dashboard') updateDashboard();
+  if (id === 'stage') updateStageView();
+}
+
+function goToCurrentStage() {
+  updateStageView();
+  go('stage');
+}
+
+// ============================================
+// OFFLINE DETECTION
+// ============================================
+const offlineBanner = document.getElementById('offline-banner');
+const errorBanner = document.getElementById('error-banner');
+const errorMessage = document.getElementById('error-message');
+
+function updateOnlineStatus() {
+  offlineBanner.classList.toggle('visible', !navigator.onLine);
+  if (navigator.onLine && pendingQueue.length > 0) {
+    syncPendingSubmissions();
+  }
+}
+
+window.addEventListener('online', updateOnlineStatus);
+window.addEventListener('offline', updateOnlineStatus);
+updateOnlineStatus();
+
+function showError(msg) {
+  errorMessage.textContent = msg;
+  errorBanner.classList.add('visible');
+  setTimeout(() => errorBanner.classList.remove('visible'), 5000);
+}
+
+// ============================================
+// WORD COUNT
+// ============================================
+const textarea = document.getElementById('submission');
+const wordCount = document.getElementById('word-count');
+
+textarea.addEventListener('input', () => {
+  const words = textarea.value.trim().split(/\\s+/).filter(w => w.length > 0).length;
+  wordCount.textContent = `${words} / 500 words`;
+  wordCount.classList.toggle('warning', words > 500);
+});
+
+// ============================================
+// REAL API CALL (GPT-4 via Vercel)
+// ============================================
+async function callRealAPI(input, stage) {
+  try {
+    const response = await fetch('/api/review', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ input, stage })
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    return await response.json();
+
+  } catch (error) {
+    console.error('[API] Error:', error);
+    if (!navigator.onLine) {
+      pendingQueue.push({ input, stage, timestamp: new Date().toISOString() });
+      savePendingQueue();
+      return {
+        status: 'insufficient',
+        content: `STRUCTURAL REVIEW — Stage ${stage}
+Status: OFFLINE — QUEUED
+Your submission has been saved locally.
+It will sync automatically when you reconnect.`
+      };
+    }
+    throw error;
+  }
+}
+
+// ============================================
+// SYNC PENDING
+// ============================================
+async function syncPendingSubmissions() {
+  if (pendingQueue.length === 0) return;
+  const queue = [...pendingQueue];
+  pendingQueue = [];
+  savePendingQueue();
+
+  for (const item of queue) {
+    try {
+      const result = await callRealAPI(item.input, item.stage);
+      console.log('[SYNC] Stage', item.stage, ':', result.status);
+    } catch (err) {
+      pendingQueue.push(item);
+    }
+  }
+  savePendingQueue();
+}
+
+function savePendingQueue() {
+  localStorage.setItem('c-eco-pending-queue', JSON.stringify(pendingQueue));
+}
+
+function loadPendingQueue() {
+  const saved = localStorage.getItem('c-eco-pending-queue');
+  if (saved) pendingQueue = JSON.parse(saved);
+}
+
+// ============================================
+// SUBMIT ANALYSIS
+// ============================================
+async function submitAnalysis() {
+  if (isProcessing) return;
+
+  const input = textarea.value.trim();
+  if (!input) {
+    alert('Submit your analysis first.');
+    return;
+  }
+
+  const words = input.split(/\\s+/).filter(w => w.length > 0).length;
+  if (words > 500) {
+    alert(`Maximum 500 words. Current: ${words}`);
+    return;
+  }
+
+  isProcessing = true;
+  const btn = document.getElementById('submit-btn');
+  btn.classList.add('loading');
+
+  const resultDiv = document.getElementById('result');
+  resultDiv.style.display = 'none';
+  resultDiv.className = 'result';
+
+  try {
+    const result = await callRealAPI(input, currentStage);
+
+    if (result.status === 'error') {
+      throw new Error(result.error || 'API returned error');
+    }
+
+    processResponse(result);
+
+  } catch (error) {
+    showError(error.message || 'Service temporarily unavailable.');
+    resultDiv.innerHTML = '<strong>ERROR.</strong><br>' + escapeHtml(error.message || 'Service temporarily unavailable.');
+    resultDiv.className = 'result insufficient';
+    resultDiv.style.display = 'block';
+  } finally {
+    isProcessing = false;
+    btn.classList.remove('loading');
+  }
+}
+
+function processResponse(result) {
+  const resultDiv = document.getElementById('result');
+
+  history.push({
+    stage: currentStage,
+    status: result.status,
+    timestamp: new Date().toISOString()
+  });
+
+  if (result.status === 'sufficient') {
+    resultDiv.innerHTML = '<strong>SUFFICIENT.</strong><br>' + escapeHtml(result.content).replace(/\\n/g, '<br>');
+    resultDiv.className = 'result sufficient';
+    if (currentStage < 5) {
+      setTimeout(() => {
+        if (confirm('Stage ' + (currentStage + 1) + ' sufficient. Proceed to Stage ' + (currentStage + 2) + '?')) {
+          advanceStage();
         }
-        
-        // ============================================
-        // PWA — Install Prompt
-        // ============================================
-        
-        let deferredPrompt = null;
-        const installBanner = document.getElementById('install-banner');
-        const installBtn = document.getElementById('install-btn');
-        const installClose = document.getElementById('install-close');
-        
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            installBanner.classList.add('visible');
-        });
-        
-        installBtn.addEventListener('click', async () => {
-            if (!deferredPrompt) return;
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            if (outcome === 'accepted') {
-                installBanner.classList.remove('visible');
-            }
-            deferredPrompt = null;
-        });
-        
-        installClose.addEventListener('click', () => {
-            installBanner.classList.remove('visible');
-        });
-        
-        // iOS detection
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-        if (isIOS && !window.navigator.standalone) {
-            console.log('[PWA] iOS detected — show Add to Home Screen hint');
-        }
-        
-        // ============================================
-        // OFFLINE DETECTION
-        // ============================================
-        
-        const offlineBanner = document.getElementById('offline-banner');
-        const errorBanner = document.getElementById('error-banner');
-        const errorMessage = document.getElementById('error-message');
-        
-        function updateOnlineStatus() {
-            offlineBanner.classList.toggle('visible', !navigator.onLine);
-            if (navigator.onLine && pendingQueue.length > 0) {
-                syncPendingSubmissions();
-            }
-        }
-        
-        window.addEventListener('online', updateOnlineStatus);
-        window.addEventListener('offline', updateOnlineStatus);
-        updateOnlineStatus();
-        
-        function showError(msg) {
-            errorMessage.textContent = msg;
-            errorBanner.classList.add('visible');
-            setTimeout(() => errorBanner.classList.remove('visible'), 5000);
-        }
-        
-        // ============================================
-        // WORD COUNT
-        // ============================================
-        
-        const textarea = document.getElementById('analysis-input');
-        const wordCount = document.getElementById('word-count');
-        
-        textarea.addEventListener('input', () => {
-            const words = textarea.value.trim().split(/\\s+/).filter(w => w.length > 0).length;
-            wordCount.textContent = `${words} / 500 words`;
-            wordCount.classList.toggle('warning', words > 500);
-        });
-        
-        // ============================================
-        // REAL API CALL (GPT-4 via Vercel)
-        // ============================================
-        
-        async function callRealAPI(input, stage) {
-            try {
-                const response = await fetch('/api/review', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ input, stage })
-                });
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}`);
-                }
-                
-                return await response.json();
-                
-            } catch (error) {
-                console.error('[API] Error:', error);
-                if (!navigator.onLine) {
-                    pendingQueue.push({ input, stage, timestamp: new Date().toISOString() });
-                    savePendingQueue();
-                    return {
-                        status: 'insufficient',
-                        content: `┌─────────────────────────────────────────────┐
-│ STRUCTURAL REVIEW — Stage ${stage}          │
-├─────────────────────────────────────────────┤
-│ Status: OFFLINE — QUEUED                    │
-│                                             │
-│ Your submission has been saved locally.     │
-│ It will sync automatically when you         │
-│ reconnect.                                  │
-│                                             │
-│ Do NOT close this window.                   │
-└─────────────────────────────────────────────┘`
-                    };
-                }
-                throw error;
-            }
-        }
-        
-        // ============================================
-        // SYNC PENDING SUBMISSIONS
-        // ============================================
-        
-        async function syncPendingSubmissions() {
-            if (pendingQueue.length === 0) return;
-            console.log('[SYNC] Processing', pendingQueue.length, 'pending submissions');
-            
-            const queue = [...pendingQueue];
-            pendingQueue = [];
-            savePendingQueue();
-            
-            for (const item of queue) {
-                try {
-                    const result = await callRealAPI(item.input, item.stage);
-                    console.log('[SYNC] Submitted stage', item.stage, ':', result.status);
-                } catch (err) {
-                    console.error('[SYNC] Failed:', err);
-                    pendingQueue.push(item);
-                }
-            }
-            savePendingQueue();
-        }
-        
-        function savePendingQueue() {
-            localStorage.setItem('c-eco-pending-queue', JSON.stringify(pendingQueue));
-        }
-        
-        function loadPendingQueue() {
-            const saved = localStorage.getItem('c-eco-pending-queue');
-            if (saved) {
-                pendingQueue = JSON.parse(saved);
-            }
-        }
-        
-        // ============================================
-        // SUBMIT ANALYSIS
-        // ============================================
-        
-        async function submitAnalysis() {
-            if (isProcessing) return;
-            
-            const input = textarea.value.trim();
-            if (!input) {
-                alert('Submit your analysis first.');
-                return;
-            }
-            
-            const words = input.split(/\\s+/).filter(w => w.length > 0).length;
-            if (words > 500) {
-                alert(`Maximum 500 words. Current: ${words}`);
-                return;
-            }
-            
-            isProcessing = true;
-            const btn = document.getElementById('submit-btn');
-            btn.classList.add('loading');
-            btn.disabled = true;
-            
-            // Show response container
-            const responseDiv = document.getElementById('ai-response');
-            responseDiv.classList.add('visible');
-            responseDiv.classList.add('fade-in');
-            
-            // Set processing state
-            document.getElementById('response-status').textContent = 'PROCESSING';
-            document.getElementById('response-status').className = 'response-status';
-            document.getElementById('response-content').innerHTML = 'Analyzing structural sufficiency...';
-            document.getElementById('response-actions').innerHTML = '';
-            document.getElementById('response-timestamp').textContent = new Date().toLocaleTimeString();
-            
-            try {
-                // REAL API CALL
-                const result = await callRealAPI(input, currentStage);
-                
-                if (result.status === 'error') {
-                    throw new Error(result.error || 'API returned error');
-                }
-                
-                processResponse(result);
-                
-            } catch (error) {
-                showError(error.message || 'Service temporarily unavailable. Please try again.');
-                document.getElementById('response-content').innerHTML = 
-                    '<div class="structural-box">❌ ' + escapeHtml(error.message || 'Service temporarily unavailable. Please try again.') + '</div>';
-            } finally {
-                isProcessing = false;
-                btn.classList.remove('loading');
-                btn.disabled = false;
-            }
-        }
-        
-        // ============================================
-        // PROCESS RESPONSE
-        // ============================================
-        
-        function processResponse(result) {
-            const statusEl = document.getElementById('response-status');
-            const contentEl = document.getElementById('response-content');
-            const actionsEl = document.getElementById('response-actions');
-            
-            statusEl.textContent = result.status.toUpperCase();
-            statusEl.className = 'response-status ' + result.status;
-            contentEl.innerHTML = `<div class="structural-box">${escapeHtml(result.content)}</div>`;
-            
-            // Record history
-            history.push({
-                stage: currentStage,
-                status: result.status,
-                timestamp: new Date().toISOString()
-            });
-            
-            // Build action buttons
-            actionsEl.innerHTML = '';
-            
-            if (result.status === 'sufficient' && currentStage < 5) {
-                const btn = document.createElement('button');
-                btn.className = 'action-btn proceed';
-                btn.textContent = `Proceed to Stage ${currentStage + 1}`;
-                btn.onclick = advanceStage;
-                actionsEl.appendChild(btn);
-            } else if (result.status === 'invalid') {
-                const btn = document.createElement('button');
-                btn.className = 'action-btn restart';
-                btn.textContent = 'Restart from Stage 0';
-                btn.onclick = resetProgress;
-                actionsEl.appendChild(btn);
-            } else {
-                const btn = document.createElement('button');
-                btn.className = 'action-btn stay';
-                btn.textContent = 'Resubmit for Same Stage';
-                btn.onclick = () => {
-                    textarea.value = '';
-                    document.getElementById('ai-response').classList.remove('visible');
-                    textarea.focus();
-                };
-                actionsEl.appendChild(btn);
-            }
-            
-            updateUI();
-            saveProgress();
-        }
-        
-        // ============================================
-        // STAGE MANAGEMENT
-        // ============================================
-        
-        function advanceStage() {
-            if (currentStage < 5) {
-                currentStage++;
-                textarea.value = '';
-                wordCount.textContent = '0 / 500 words';
-                wordCount.classList.remove('warning');
-                document.getElementById('ai-response').classList.remove('visible');
-                updateUI();
-            }
-        }
-        
-        function resetProgress() {
-            currentStage = 0;
-            history = [];
-            textarea.value = '';
-            wordCount.textContent = '0 / 500 words';
-            document.getElementById('ai-response').classList.remove('visible');
-            updateUI();
-            saveProgress();
-        }
-        
-        // ============================================
-        // UI UPDATES
-        // ============================================
-        
-        function updateUI() {
-            // Update stage dots
-            document.querySelectorAll('.stage-dot').forEach((dot, idx) => {
-                dot.classList.remove('active', 'completed', 'locked');
-                if (idx < currentStage) {
-                    dot.classList.add('completed');
-                } else if (idx === currentStage) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.add('locked');
-                }
-            });
-            
-            // Update connectors
-            document.querySelectorAll('.stage-connector').forEach((line, idx) => {
-                line.classList.toggle('completed', idx < currentStage);
-            });
-            
-            // Update titles
-            document.getElementById('stage-current').textContent = `Stage ${currentStage}`;
-            document.getElementById('submission-title').textContent = `${STAGES[currentStage].name} — Stage ${currentStage}`;
-            document.getElementById('submission-hint').textContent = STAGES[currentStage].hint;
-            
-            // Update status table
-            updateStatusTable();
-        }
-        
-        function updateStatusTable() {
-            const tbody = document.getElementById('status-body');
-            tbody.innerHTML = STAGES.map((stage, idx) => {
-                let status, badgeClass;
-                
-                if (idx < currentStage) {
-                    status = 'sufficient';
-                    badgeClass = 'sufficient';
-                } else if (idx === currentStage) {
-                    const lastSubmission = history.filter(h => h.stage === idx).pop();
-                    status = lastSubmission ? lastSubmission.status : 'insufficient';
-                    badgeClass = status;
-                } else {
-                    status = 'locked';
-                    badgeClass = 'locked';
-                }
-                
-                const statusLabels = {
-                    sufficient: 'Sufficient',
-                    insufficient: 'Insufficient',
-                    invalid: 'Invalid',
-                    locked: 'Locked'
-                };
-                
-                return `
-                    <tr>
-                        <td>${idx}</td>
-                        <td>${stage.name}</td>
-                        <td><span class="status-badge ${badgeClass}"><span class="status-dot ${badgeClass}"></span>${statusLabels[status]}</span></td>
-                        <td class="ref-link">${stage.ref}</td>
-                    </tr>
-                `;
-            }).join('');
-        }
-        
-        // ============================================
-        // PERSISTENCE
-        // ============================================
-        
-        function saveProgress() {
-            localStorage.setItem('c-eco-review-progress', JSON.stringify({
-                currentStage,
-                history,
-                lastUpdate: new Date().toISOString()
-            }));
-        }
-        
-        function loadProgress() {
-            const saved = localStorage.getItem('c-eco-review-progress');
-            if (saved) {
-                const data = JSON.parse(saved);
-                currentStage = data.currentStage || 0;
-                history = data.history || [];
-            }
-        }
-        
-        // ============================================
-        // UTILITIES
-        // ============================================
-        
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-        
-        function toggleMenu() {
-            console.log('Menu toggle');
-        }
-        
-        // ============================================
-        // INIT
-        // ============================================
-        
-        loadProgress();
-        loadPendingQueue();
-        updateUI();
-    </script>
+      }, 500);
+    }
+  } else if (result.status === 'invalid') {
+    resultDiv.innerHTML = '<strong>INVALID.</strong><br>' + escapeHtml(result.content).replace(/\\n/g, '<br>');
+    resultDiv.className = 'result invalid';
+  } else {
+    resultDiv.innerHTML = '<strong>INSUFFICIENT.</strong><br>' + escapeHtml(result.content).replace(/\\n/g, '<br>');
+    resultDiv.className = 'result insufficient';
+  }
+
+  resultDiv.style.display = 'block';
+  saveProgress();
+  updateDashboard();
+}
+
+function advanceStage() {
+  if (currentStage < 5) {
+    currentStage++;
+    textarea.value = '';
+    wordCount.textContent = '0 / 500 words';
+    wordCount.classList.remove('warning');
+    document.getElementById('result').style.display = 'none';
+    updateStageView();
+    saveProgress();
+  }
+}
+
+function saveDraft() {
+  localStorage.setItem('c-eco-draft-' + currentStage, textarea.value);
+  alert('Draft saved for Stage ' + (currentStage + 1));
+}
+
+// ============================================
+// UPDATE VIEWS
+// ============================================
+function updateDashboard() {
+  // Update dots
+  const dots = document.querySelectorAll('#progress-dots .dot');
+  const bars = document.querySelectorAll('#progress-dots .bar');
+
+  dots.forEach((dot, idx) => {
+    dot.classList.remove('done', 'active');
+    if (idx < currentStage) {
+      dot.classList.add('done');
+    } else if (idx === currentStage) {
+      dot.classList.add('active');
+    }
+  });
+
+  bars.forEach((bar, idx) => {
+    bar.classList.toggle('done', idx < currentStage);
+  });
+
+  // Update status rows
+  for (let i = 0; i < 6; i++) {
+    const cell = document.getElementById('status-' + i);
+    const lastSubmission = history.filter(h => h.stage === i).pop();
+
+    if (i < currentStage) {
+      cell.textContent = 'Sufficient';
+      cell.className = 'cell status ok';
+    } else if (i === currentStage) {
+      if (lastSubmission) {
+        cell.textContent = lastSubmission.status === 'sufficient' ? 'Sufficient' : 'Pending';
+        cell.className = 'cell status ' + (lastSubmission.status === 'sufficient' ? 'ok' : 'bad');
+      } else {
+        cell.textContent = 'Pending';
+        cell.className = 'cell status bad';
+      }
+    } else {
+      cell.textContent = 'Locked';
+      cell.className = 'cell status lock';
+    }
+  }
+
+  // Update notice
+  const notice = document.getElementById('dashboard-notice');
+  const lastSubmission = history.filter(h => h.stage === currentStage).pop();
+  if (lastSubmission && lastSubmission.status === 'sufficient') {
+    if (currentStage < 5) {
+      notice.innerHTML = '<strong>Stage ' + (currentStage + 1) + ' is sufficient.</strong><br>Proceed to Stage ' + (currentStage + 2) + '.';
+      document.getElementById('continue-btn').textContent = 'Proceed to Stage ' + (currentStage + 2);
+    } else {
+      notice.innerHTML = '<strong>All stages complete.</strong><br>Structural review finished.';
+      document.getElementById('continue-btn').textContent = 'Review Complete';
+      document.getElementById('continue-btn').disabled = true;
+    }
+  } else {
+    notice.innerHTML = '<strong>Stage ' + (currentStage + 1) + ': ' + STAGES[currentStage].name + ' is pending.</strong><br>Submit your analysis to begin structural review.';
+    document.getElementById('continue-btn').textContent = 'Continue Stage ' + (currentStage + 1);
+    document.getElementById('continue-btn').disabled = false;
+  }
+}
+
+function updateStageView() {
+  const stage = STAGES[currentStage];
+  document.getElementById('stage-label').textContent = 'STAGE ' + (currentStage + 1) + ' OF 6';
+  document.getElementById('stage-title').textContent = stage.name;
+  document.getElementById('stage-hint').textContent = stage.hint;
+
+  // Update stage progress dots
+  const dots = document.querySelectorAll('#stage-progress .dot');
+  const bars = document.querySelectorAll('#stage-progress .bar');
+
+  dots.forEach((dot, idx) => {
+    dot.classList.remove('done', 'active');
+    if (idx < currentStage) {
+      dot.classList.add('done');
+    } else if (idx === currentStage) {
+      dot.classList.add('active');
+    }
+  });
+
+  bars.forEach((bar, idx) => {
+    bar.classList.toggle('done', idx < currentStage);
+  });
+
+  // Load draft if exists
+  const draft = localStorage.getItem('c-eco-draft-' + currentStage);
+  if (draft) textarea.value = draft;
+}
+
+// ============================================
+// PERSISTENCE
+// ============================================
+function saveProgress() {
+  localStorage.setItem('c-eco-review-progress', JSON.stringify({
+    currentStage,
+    history,
+    lastUpdate: new Date().toISOString()
+  }));
+}
+
+function loadProgress() {
+  const saved = localStorage.getItem('c-eco-review-progress');
+  if (saved) {
+    const data = JSON.parse(saved);
+    currentStage = data.currentStage || 0;
+    history = data.history || [];
+  }
+}
+
+// ============================================
+// UTILITIES
+// ============================================
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// ============================================
+// INIT
+// ============================================
+loadProgress();
+loadPendingQueue();
+updateDashboard();
+</script>
 </body>
 </html>
