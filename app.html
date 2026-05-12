@@ -1,183 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>c-ECO Structural Review Engine</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
 <style>
-
 :root{
-  --bg:#f5f2eb;
-  --paper:#faf8f4;
-  --dark:#151515;
-  --red:#9f1d35;
-  --gold:#b59b63;
-  --line:#d8d2c7;
-  --text:#1e1e1e;
-  --muted:#777;
-  --green:#567a4f;
+  --red:#a5162d;
+  --dark:#171717;
+  --gold:#b99a52;
+  --green:#4d9b43;
+  --gray:#e6e6e6;
+  --text:#1d1d1d;
 }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
-  background:var(--bg);
-  font-family:'Inter',sans-serif;
+  margin:0;
+  background:#f5f5f3;
   color:var(--text);
+  font-family:Arial, sans-serif;
 }
 
 .app{
   max-width:430px;
   margin:0 auto;
   min-height:100vh;
-  background:var(--paper);
-  position:relative;
-  overflow:hidden;
+  background:#fbfaf7;
+  border-left:1px solid #ccc;
+  border-right:1px solid #ccc;
 }
 
-/* HEADER */
-
-.topbar{
-  background:var(--dark);
-  color:white;
-  padding:24px;
-  border-bottom:4px solid var(--red);
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:14px;
-}
-
-.shield{
-  width:52px;
-  height:64px;
-  border:2px solid var(--red);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-family:'Cormorant Garamond',serif;
-  font-size:15px;
-  color:var(--red);
-  letter-spacing:1px;
-}
-
-.brand-text h1{
-  font-family:'Cormorant Garamond',serif;
-  font-size:30px;
-  font-weight:600;
-  line-height:1;
-}
-
-.brand-text small{
-  display:block;
-  margin-top:4px;
-  letter-spacing:2px;
-  font-size:10px;
-  opacity:.65;
-}
-
-/* HERO */
-
-.hero{
-  padding:42px 28px;
-}
-
-.hero-label{
-  color:var(--gold);
-  text-transform:uppercase;
-  letter-spacing:2px;
-  font-size:11px;
-  margin-bottom:18px;
-}
-
-.hero h2{
-  font-family:'Cormorant Garamond',serif;
-  font-size:46px;
-  line-height:1;
-  font-weight:600;
-  margin-bottom:24px;
-}
-
-.hero p{
-  color:#444;
-  line-height:1.7;
-  font-size:14px;
-}
-
-.warning{
-  margin-top:28px;
-  border-left:4px solid var(--red);
-  background:#fff8f8;
-  padding:18px;
-  font-size:13px;
-  line-height:1.6;
-}
-
-.warning strong{
-  color:var(--red);
-}
-
-/* BUTTON */
-
-.main-btn{
-  width:100%;
-  background:var(--red);
-  color:white;
-  border:none;
-  padding:18px;
-  margin-top:32px;
-  text-transform:uppercase;
-  letter-spacing:2px;
-  font-size:11px;
-  font-weight:700;
-  cursor:pointer;
-  transition:.25s;
-}
-
-.main-btn:hover{
-  background:#7f1429;
-  transform:translateY(-1px);
-}
-
-/* DASHBOARD */
-
-.dashboard{
+.screen{
+  display:none;
+  min-height:100vh;
   padding:28px;
 }
 
-.section-title{
-  font-family:'Cormorant Garamond',serif;
-  font-size:34px;
-  margin-bottom:22px;
+.screen.active{display:block}
+
+h1,h2{
+  font-family:Georgia, serif;
+  font-weight:400;
 }
 
-/* PROGRESS */
+.logo{
+  text-align:center;
+  margin-top:80px;
+}
+
+.shield{
+  margin:0 auto 28px;
+  width:90px;
+  height:110px;
+  border:4px solid var(--red);
+  color:var(--red);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:Georgia, serif;
+  font-size:22px;
+  font-weight:bold;
+}
+
+.logo h1{
+  font-size:39px;
+  line-height:1.08;
+  margin:0;
+}
+
+.logo .red{color:var(--red)}
+
+.line{
+  width:42px;
+  height:2px;
+  background:var(--gold);
+  margin:28px auto;
+}
+
+.tag{
+  color:var(--gold);
+  letter-spacing:1.5px;
+  font-size:12px;
+  text-transform:uppercase;
+}
+
+.desc{
+  font-size:14px;
+  line-height:1.5;
+  max-width:300px;
+  margin:32px auto;
+}
+
+.warning{
+  border:1px solid var(--red);
+  padding:16px;
+  margin:35px 0;
+  text-align:center;
+  font-size:13px;
+}
+
+.warning strong{color:var(--red)}
+
+button{
+  width:100%;
+  border:none;
+  padding:16px;
+  background:var(--red);
+  color:white;
+  font-weight:bold;
+  letter-spacing:1px;
+  cursor:pointer;
+  font-size:13px;
+  text-transform:uppercase;
+}
+
+.secondary{
+  background:transparent;
+  color:#333;
+  border-bottom:1px solid #333;
+  width:auto;
+  padding:6px;
+  display:block;
+  margin:18px auto;
+}
+
+.header{
+  background:var(--dark);
+  color:white;
+  padding:22px;
+  margin:-28px -28px 28px;
+}
+
+.header .brand{
+  color:var(--red);
+  font-family:Georgia, serif;
+  font-size:26px;
+}
+
+.header .sub{
+  font-size:12px;
+  letter-spacing:2px;
+}
 
 .progress{
   display:flex;
   align-items:center;
   justify-content:center;
-  margin:30px 0;
+  margin:26px 0;
 }
 
 .dot{
-  width:28px;
-  height:28px;
+  width:24px;
+  height:24px;
   border-radius:50%;
-  border:1px solid #bbb;
+  border:1px solid #999;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -185,193 +164,261 @@ body{
   background:white;
 }
 
-.dot.done{
-  background:var(--green);
-  border:none;
-  color:white;
-}
+.dot.done{background:var(--green);color:white;border:none}
+.dot.active{background:var(--red);color:white;border:none}
 
-.dot.active{
-  background:var(--red);
-  border:none;
-  color:white;
-}
-
-.line{
+.bar{
+  height:2px;
   width:34px;
-  height:1px;
-  background:#bbb;
+  background:#aaa;
 }
 
-.line.done{
-  background:var(--green);
-}
-
-/* CARD */
+.bar.done{background:var(--green)}
 
 .card{
+  border:1px solid #ccc;
   background:white;
-  border:1px solid var(--line);
-  margin-top:24px;
+  margin:22px 0;
 }
 
-.card-header{
-  padding:16px 18px;
-  border-bottom:1px solid var(--line);
-  text-transform:uppercase;
+.card-title{
+  padding:14px;
+  font-size:12px;
+  font-weight:bold;
   letter-spacing:1px;
-  font-size:11px;
-  font-weight:700;
+  text-transform:uppercase;
+  border-bottom:1px solid #ccc;
   color:var(--red);
 }
 
-.status-row{
+.row{
   display:grid;
-  grid-template-columns:48px 1fr 100px;
-  border-bottom:1px solid #eee;
+  grid-template-columns:42px 1fr 92px;
+  border-bottom:1px solid #ddd;
+  font-size:12px;
 }
 
-.status-row:last-child{
-  border-bottom:none;
-}
+.row:last-child{border-bottom:none}
 
 .cell{
-  padding:18px 14px;
-  font-size:13px;
+  padding:14px 10px;
+  border-right:1px solid #ddd;
 }
 
-.cell.status{
-  font-size:11px;
+.cell:last-child{border-right:none}
+
+.status{
+  font-size:10px;
   text-transform:uppercase;
-  font-weight:700;
 }
 
 .ok{color:var(--green)}
 .bad{color:var(--red)}
 .lock{color:#999}
 
-/* MOBILE NAV */
-
-.bottom-nav{
-  position:fixed;
-  bottom:0;
-  left:50%;
-  transform:translateX(-50%);
-  width:430px;
-  max-width:100%;
-  background:var(--dark);
-  display:flex;
-  justify-content:space-around;
-  padding:14px 0;
-}
-
-.bottom-nav button{
-  background:none;
-  border:none;
-  color:white;
-  font-size:11px;
-  letter-spacing:1px;
-  cursor:pointer;
-}
-
-/* STAGE PAGE */
-
-.stage{
-  padding:28px;
+.notice{
+  border:1px solid #d8b6bd;
+  border-left:5px solid var(--red);
+  padding:16px;
+  background:#fff7f8;
+  font-size:13px;
+  line-height:1.4;
 }
 
 .stage-top{
   background:var(--red);
   color:white;
-  margin:-28px -28px 32px;
-  padding:38px 28px;
+  margin:-28px -28px 28px;
+  padding:32px 28px;
 }
 
 .stage-top small{
-  letter-spacing:2px;
-  font-size:10px;
+  font-weight:bold;
+  font-size:12px;
 }
 
-.stage-top h3{
-  font-family:'Cormorant Garamond',serif;
-  font-size:42px;
-  margin-top:10px;
-  line-height:1;
+.stage-top h2{
+  font-size:31px;
+  margin:8px 0 0;
+}
+
+.section-label{
+  color:var(--red);
+  font-size:12px;
+  font-weight:bold;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  margin-top:28px;
 }
 
 textarea{
   width:100%;
-  min-height:180px;
-  margin-top:18px;
-  border:1px solid var(--line);
-  padding:18px;
-  background:white;
+  min-height:160px;
+  padding:16px;
+  border:1px solid #ccc;
+  font-family:Arial, sans-serif;
   font-size:14px;
-  resize:none;
-  font-family:'Inter',sans-serif;
-  line-height:1.7;
+  margin-top:14px;
+}
+
+.bottom-nav{
+  position:sticky;
+  bottom:0;
+  background:var(--dark);
+  display:flex;
+  justify-content:space-around;
+  padding:14px 0;
+  margin:28px -28px -28px;
+}
+
+.bottom-nav button{
+  background:transparent;
+  color:white;
+  width:auto;
+  padding:10px;
+  font-size:10px;
 }
 
 .result{
-  margin-top:22px;
-  padding:18px;
-  background:#fff8f8;
-  border-left:4px solid var(--red);
   display:none;
-  line-height:1.7;
+  margin-top:18px;
+  padding:16px;
+  border-left:5px solid var(--red);
+  background:#fff7f8;
   font-size:13px;
 }
-
-.spacer{
-  height:90px;
-}
-
 </style>
 </head>
 
 <body>
-
 <div class="app">
 
-<div class="topbar">
-  <div class="brand">
-    <div class="shield">c-ECO</div>
-
-    <div class="brand-text">
-      <h1>c-ECO</h1>
-      <small>STRUCTURAL REVIEW ENGINE</small>
+  <!-- HOME -->
+  <section id="home" class="screen active">
+    <div class="logo">
+      <div class="shield">c-ECO</div>
+      <h1><span class="red">c-ECO</span><br>Structural<br>Review Engine</h1>
+      <div class="line"></div>
+      <div class="tag">Cognitive Pressure. Structural Integrity.</div>
+      <p class="desc">
+        This engine inspects the structural architecture of your reasoning.
+        Progress only when your structure is sufficient.
+      </p>
     </div>
-  </div>
+
+    <div class="warning">
+      <strong>SUFFICIENT ≠ CORRECT</strong><br>
+      Partial correctness is not acceptable.
+    </div>
+
+    <button onclick="go('dashboard')">Enter Engine</button>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section id="dashboard" class="screen">
+    <div class="header">
+      <div class="brand">c-ECO</div>
+      <div class="sub">STRUCTURAL REVIEW ENGINE</div>
+    </div>
+
+    <h2>Fellow Dashboard</h2>
+
+    <div class="section-label">Structural Progression</div>
+    <div class="progress">
+      <div class="dot done">1</div><div class="bar done"></div>
+      <div class="dot done">2</div><div class="bar"></div>
+      <div class="dot active">3</div><div class="bar"></div>
+      <div class="dot">4</div><div class="bar"></div>
+      <div class="dot">5</div><div class="bar"></div>
+      <div class="dot">6</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Structural Status</div>
+      <div class="row"><div class="cell">1</div><div class="cell">Case Anchor</div><div class="cell status ok">Sufficient</div></div>
+      <div class="row"><div class="cell">2</div><div class="cell">System</div><div class="cell status ok">Sufficient</div></div>
+      <div class="row"><div class="cell">3</div><div class="cell">TFP Variables</div><div class="cell status bad">Insufficient</div></div>
+      <div class="row"><div class="cell">4</div><div class="cell">Trajectory</div><div class="cell status lock">Locked</div></div>
+      <div class="row"><div class="cell">5</div><div class="cell">Recognition-Action Gap</div><div class="cell status lock">Locked</div></div>
+      <div class="row"><div class="cell">6</div><div class="cell">Decision Pressure</div><div class="cell status lock">Locked</div></div>
+    </div>
+
+    <div class="notice">
+      <strong>Stage 3: TFP Variables is insufficient.</strong><br>
+      Resubmit with complete structural architecture.
+    </div>
+
+    <br>
+    <button onclick="go('stage3')">Continue Stage 3</button>
+
+    <div class="bottom-nav">
+      <button onclick="go('dashboard')">Dashboard</button>
+      <button onclick="go('stage3')">Submissions</button>
+      <button onclick="alert('Profile screen coming soon')">Profile</button>
+    </div>
+  </section>
+
+  <!-- STAGE 3 -->
+  <section id="stage3" class="screen">
+    <div class="stage-top">
+      <small>STAGE 3 OF 6</small>
+      <h2>TFP Variables</h2>
+    </div>
+
+    <div class="progress">
+      <div class="dot done">1</div><div class="bar done"></div>
+      <div class="dot done">2</div><div class="bar"></div>
+      <div class="dot active">3</div><div class="bar"></div>
+      <div class="dot">4</div><div class="bar"></div>
+      <div class="dot">5</div><div class="bar"></div>
+      <div class="dot">6</div>
+    </div>
+
+    <div class="section-label">Objective</div>
+    <p>Define and operationalize the four TFP variables within the defined system and boundary.</p>
+
+    <div class="section-label">Required Structure</div>
+    <div class="card">
+      <div class="row"><div class="cell">P</div><div class="cell">Pressure<br><small>Define the pressure applied or present.</small></div><div class="cell status bad">Insufficient</div></div>
+      <div class="row"><div class="cell">ΔV</div><div class="cell">Change in Volume<br><small>Define the change in volume.</small></div><div class="cell status bad">Insufficient</div></div>
+      <div class="row"><div class="cell">σ</div><div class="cell">Stress<br><small>Define the stress experienced.</small></div><div class="cell status bad">Insufficient</div></div>
+      <div class="row"><div class="cell">Lr</div><div class="cell">Loss Ratio<br><small>Define the loss ratio.</small></div><div class="cell status bad">Insufficient</div></div>
+    </div>
+
+    <div class="section-label">Submission</div>
+    <textarea id="submission" placeholder="Write the fellow's structural answer here..."></textarea>
+
+    <button onclick="review()">Submit for Review</button>
+    <button class="secondary">Save Draft</button>
+
+    <div id="result" class="result"></div>
+  </section>
+
 </div>
 
-<div class="hero">
+<script>
+function go(id){
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
 
-  <div class="hero-label">
-    Fellowship Platform • July 2026
-  </div>
+function review(){
+  const text = document.getElementById('submission').value.toLowerCase();
+  const result = document.getElementById('result');
 
-  <h2>
-    Governance<br>
-    Before<br>
-    The Threshold
-  </h2>
+  const hasP = text.includes('pressure') || text.includes('pressão') || text.includes('p ');
+  const hasDV = text.includes('volume') || text.includes('velocity') || text.includes('Δv');
+  const hasSigma = text.includes('stress') || text.includes('uncertainty') || text.includes('sigma') || text.includes('σ');
+  const hasLr = text.includes('loss') || text.includes('reversibility') || text.includes('liquidity') || text.includes('lr');
 
-  <p>
-    The Structural Review Engine evaluates the architecture of reasoning under conditions of systemic pressure.
-  </p>
+  if(hasP && hasDV && hasSigma && hasLr){
+    result.innerHTML = "<strong>SUFFICIENT.</strong><br>Minimum structural architecture detected. Proceed to Stage 4.";
+  } else {
+    result.innerHTML = "<strong>INSUFFICIENT.</strong><br>All four variables must be defined with system linkage and operational clarity.";
+  }
 
-  <div class="warning">
-    <strong>SUFFICIENT ≠ CORRECT</strong><br><br>
-    The engine evaluates structural integrity, not rhetorical sophistication.
-  </div>
-
-  <button class="main-btn">
-    Enter Engine
-  </button>
-
-</div>
-
-</div>
-
+  result.style.display = "block";
+}
+</script>
 </body>
 </html>
