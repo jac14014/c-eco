@@ -983,6 +983,162 @@ p{
     page-break-inside:avoid;
   }
 }
+
+  /* ============================================
+   FIX — Mobile + Print overflow / cut content
+============================================ */
+
+/* Impede qualquer corte lateral geral */
+html,
+body{
+  max-width:100%;
+  overflow-x:hidden;
+}
+
+.document-page,
+.flowchart,
+.feedback-loop,
+#operational-traceability{
+  max-width:100%;
+  overflow:visible;
+}
+
+/* Tabelas quebram texto em vez de sair da página */
+.matrix{
+  width:100%;
+  table-layout:fixed;
+  border-collapse:collapse;
+}
+
+.matrix th,
+.matrix td{
+  white-space:normal;
+  word-break:normal;
+  overflow-wrap:anywhere;
+  hyphens:auto;
+}
+
+/* Mobile */
+@media (max-width:768px){
+
+  .document-page{
+    padding:28px 14px;
+    width:100%;
+    max-width:100%;
+  }
+
+  .flowchart,
+  .feedback-loop{
+    padding:16px 12px;
+    margin-left:0;
+    margin-right:0;
+    overflow:visible;
+  }
+
+  .matrix{
+    display:table;
+    width:100%;
+    table-layout:fixed;
+    font-size:8pt;
+  }
+
+  .matrix th,
+  .matrix td{
+    padding:7px 5px;
+    font-size:7.8pt;
+    line-height:1.35;
+  }
+
+  .artifact-anchor{
+    display:block;
+    margin-left:0;
+    margin-top:4px;
+    width:max-content;
+    max-width:100%;
+  }
+
+  .feedback-step{
+    min-width:0;
+    max-width:100%;
+  }
+}
+
+/* Print */
+@media print{
+
+  @page{
+    size:letter;
+    margin:0.55in;
+  }
+
+  html,
+  body{
+    width:100%;
+    overflow:visible !important;
+  }
+
+  .main-content{
+    margin-left:0 !important;
+    padding:0 !important;
+    display:block !important;
+  }
+
+  .document-page{
+    width:100% !important;
+    max-width:none !important;
+    padding:0 !important;
+    margin:0 !important;
+    box-shadow:none !important;
+    overflow:visible !important;
+  }
+
+  .flowchart,
+  .feedback-loop{
+    width:100% !important;
+    max-width:100% !important;
+    overflow:visible !important;
+    box-shadow:none !important;
+    page-break-inside:auto;
+    break-inside:auto;
+  }
+
+  .matrix{
+    width:100% !important;
+    table-layout:fixed !important;
+    font-size:8pt !important;
+    page-break-inside:auto;
+  }
+
+  .matrix th,
+  .matrix td{
+    white-space:normal !important;
+    word-break:normal !important;
+    overflow-wrap:anywhere !important;
+    hyphens:auto !important;
+    padding:6px 5px !important;
+    line-height:1.3 !important;
+    font-size:7.6pt !important;
+  }
+
+  tr{
+    page-break-inside:avoid;
+    break-inside:avoid;
+  }
+
+  .trace-grid{
+    grid-template-columns:1fr !important;
+  }
+
+  .feedback-step{
+    min-width:0 !important;
+    max-width:100% !important;
+  }
+
+  .state-strip{
+    page-break-inside:avoid;
+    break-inside:avoid;
+  }
+}
 </style>
 </head>
 
