@@ -526,6 +526,437 @@ p{
   height:auto;
   display:block;
 }
+  /* ============================================
+   CSS DELTA — Operational Traceability Layer
+   c-ECO flowcharts-operational.html
+   ============================================ */
+
+#operational-traceability{
+  margin-top:48px;
+  padding-top:32px;
+  border-top:2px solid var(--ink);
+}
+
+/* State Strip */
+.state-strip{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:18px 0 24px;
+}
+
+.state-pill{
+  padding:8px 16px;
+  border-radius:3px;
+  font-weight:700;
+  font-size:9pt;
+  text-transform:uppercase;
+  letter-spacing:.6px;
+  border:1px solid;
+  font-family:'Inter',sans-serif;
+  white-space:nowrap;
+}
+
+.state-pill.core{
+  background:#fff;
+  color:var(--ink);
+  border-color:var(--border);
+}
+
+.state-pill.fellow{
+  background:var(--soft);
+  color:var(--ink);
+  border-color:var(--accent-light);
+}
+
+.state-pill.enterprise{
+  background:#fbf8f2;
+  color:var(--ink);
+  border-color:var(--accent-light);
+}
+
+.state-pill.warning{
+  background:#fdf9ed;
+  color:#7c5c20;
+  border-color:#e8d5a0;
+}
+
+.state-pill.exception{
+  background:#fdf5f5;
+  color:#8b0000;
+  border-color:#e8b8b8;
+}
+
+/* Trace Grid */
+.trace-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  margin-top:20px;
+}
+
+.trace-card{
+  border:1px solid var(--border-light);
+  background:#fff;
+  padding:18px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.03);
+}
+
+.trace-label{
+  font-size:9pt;
+  font-weight:800;
+  color:var(--accent);
+  text-transform:uppercase;
+  letter-spacing:.8px;
+  margin-bottom:10px;
+}
+
+.trace-card h4{
+  font-family:'Cormorant Garamond',serif;
+  font-size:13pt;
+  font-weight:700;
+  color:var(--ink);
+  margin:0 0 8px 0;
+}
+
+.trace-card p{
+  font-size:9.5pt;
+  line-height:1.6;
+  color:var(--ink-secondary);
+  margin:0;
+  text-align:left;
+}
+
+/* Artifact Anchor */
+.artifact-anchor{
+  display:inline-block;
+  background:var(--soft);
+  color:var(--accent);
+  padding:2px 7px;
+  border-radius:3px;
+  font-size:7.5pt;
+  font-weight:800;
+  letter-spacing:.5px;
+  margin-left:5px;
+  border:1px solid var(--border-light);
+  text-transform:uppercase;
+}
+
+/* Feedback Loop */
+.feedback-loop{
+  margin:26px 0 34px;
+  padding:22px;
+  background:#fff;
+  border:1px solid var(--border-light);
+  box-shadow:0 1px 10px rgba(0,0,0,0.04);
+  page-break-inside:avoid;
+}
+
+.feedback-step{
+  border:1px solid var(--border-light);
+  background:#fff;
+  padding:13px 15px;
+  min-width:160px;
+  max-width:200px;
+  text-align:center;
+  font-size:10pt;
+  line-height:1.4;
+  color:var(--ink-secondary);
+  box-shadow:0 4px 12px rgba(0,0,0,0.045);
+}
+
+.feedback-step strong{
+  display:block;
+  color:var(--accent);
+  font-weight:800;
+  font-size:14pt;
+  font-family:'Cormorant Garamond',serif;
+  margin-bottom:4px;
+}
+
+.trace-note{
+  background:var(--soft);
+  border-left:4px solid var(--accent);
+  padding:14px 18px;
+  margin-top:18px;
+  font-size:10pt;
+  color:var(--ink-secondary);
+  line-height:1.6;
+}
+
+.trace-note strong{
+  color:var(--accent);
+}
+
+/* Trace Intro */
+.trace-intro{
+  text-align:center;
+  font-size:10.5pt;
+  color:var(--ink-tertiary);
+  margin-bottom:32px;
+  font-style:italic;
+  letter-spacing:.3px;
+}
+
+/* Responsive */
+@media (max-width:1024px){
+  .trace-grid{ grid-template-columns:repeat(2,1fr); }
+}
+
+@media (max-width:768px){
+  .trace-grid{ grid-template-columns:1fr; }
+  .state-strip{ gap:6px; }
+  .state-pill{ font-size:8pt; padding:6px 10px; }
+  .feedback-step{ min-width:120px; max-width:100%; }
+}
+
+@media print{
+  .feedback-loop,
+  .trace-card{
+    box-shadow:none;
+    page-break-inside:avoid;
+  }
+}
+/* ============================================
+   CSS DELTA — Operational Traceability Layer v1.0
+============================================ */
+
+#operational-traceability{
+  margin-top:48px;
+  padding-top:32px;
+  border-top:2px solid var(--ink);
+}
+
+.state-strip{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:14px 0 10px;
+}
+
+.state-strip + .state-strip-label{
+  margin-top:16px;
+}
+
+.state-strip-label{
+  width:100%;
+  text-align:center;
+  font-size:8pt;
+  font-weight:800;
+  color:var(--ink-tertiary);
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-bottom:6px;
+}
+
+.state-pill{
+  padding:8px 16px;
+  border-radius:3px;
+  font-weight:700;
+  font-size:9pt;
+  text-transform:uppercase;
+  letter-spacing:.6px;
+  border:1px solid;
+  font-family:'Inter',sans-serif;
+  white-space:nowrap;
+}
+
+.state-pill.core{
+  background:#fff;
+  color:var(--ink);
+  border-color:var(--border);
+}
+
+.state-pill.fellow,
+.state-pill.enterprise{
+  background:#fbf8f2;
+  color:var(--ink);
+  border-color:var(--accent-light);
+}
+
+.state-pill.warning{
+  background:#fdf9ed;
+  color:#7c5c20;
+  border-color:#e8d5a0;
+}
+
+.state-pill.exception{
+  background:#fdf5f5;
+  color:#8b0000;
+  border-color:#e8b8b8;
+}
+
+.trace-intro{
+  text-align:center;
+  font-size:10.5pt;
+  color:var(--ink-tertiary);
+  margin-bottom:32px;
+  font-style:italic;
+  letter-spacing:.3px;
+}
+
+.entity-note{
+  text-align:center;
+  font-size:9pt;
+  color:var(--ink-tertiary);
+  margin:8px 0 16px;
+  font-style:italic;
+}
+
+.trace-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  margin-top:20px;
+}
+
+.trace-card{
+  border:1px solid var(--border-light);
+  background:#fff;
+  padding:18px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.03);
+}
+
+.trace-label{
+  font-size:9pt;
+  font-weight:800;
+  color:var(--accent);
+  text-transform:uppercase;
+  letter-spacing:.8px;
+  margin-bottom:10px;
+}
+
+.trace-card h4{
+  font-family:'Cormorant Garamond',serif;
+  font-size:13pt;
+  font-weight:700;
+  color:var(--ink);
+  margin:0 0 8px 0;
+}
+
+.trace-card p{
+  font-size:9.5pt;
+  line-height:1.6;
+  color:var(--ink-secondary);
+  margin:0;
+  text-align:left;
+}
+
+.artifact-anchor{
+  display:inline-block;
+  background:var(--soft);
+  color:var(--accent);
+  padding:2px 7px;
+  border-radius:3px;
+  font-size:7.5pt;
+  font-weight:800;
+  letter-spacing:.5px;
+  margin-left:5px;
+  border:1px solid var(--border-light);
+  text-transform:uppercase;
+}
+
+.trace-note{
+  background:var(--soft);
+  border-left:4px solid var(--accent);
+  padding:14px 18px;
+  margin-top:18px;
+  font-size:10pt;
+  color:var(--ink-secondary);
+  line-height:1.6;
+}
+
+.trace-note strong{
+  color:var(--accent);
+}
+
+.feedback-loop{
+  margin:26px 0 34px;
+  padding:22px;
+  background:#fff;
+  border:1px solid var(--border-light);
+  box-shadow:0 1px 10px rgba(0,0,0,0.04);
+  page-break-inside:avoid;
+}
+
+.feedback-step{
+  border:1px solid var(--border-light);
+  background:#fff;
+  padding:13px 15px;
+  min-width:140px;
+  max-width:180px;
+  text-align:center;
+  font-size:9.5pt;
+  line-height:1.4;
+  color:var(--ink-secondary);
+  box-shadow:0 4px 12px rgba(0,0,0,0.045);
+}
+
+.feedback-step strong{
+  display:block;
+  color:var(--accent);
+  font-weight:800;
+  font-size:14pt;
+  font-family:'Cormorant Garamond',serif;
+  margin-bottom:4px;
+}
+
+.version-footer{
+  text-align:center;
+  font-size:8pt;
+  color:var(--ink-tertiary);
+  margin-top:24px;
+  padding-top:16px;
+  border-top:1px solid var(--border-light);
+  letter-spacing:.5px;
+}
+
+@media (max-width:1024px){
+  .trace-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media (max-width:768px){
+  .trace-grid{
+    grid-template-columns:1fr;
+  }
+
+  .state-strip{
+    gap:6px;
+  }
+
+  .state-pill{
+    font-size:8pt;
+    padding:6px 10px;
+  }
+
+  .feedback-step{
+    min-width:110px;
+    max-width:100%;
+    font-size:8.5pt;
+  }
+
+  .matrix{
+    display:block;
+    overflow-x:auto;
+    white-space:nowrap;
+  }
+}
+
+@media print{
+  .feedback-loop,
+  .trace-card{
+    box-shadow:none;
+    page-break-inside:avoid;
+  }
+
+  #operational-traceability .flowchart{
+    page-break-inside:avoid;
+  }
+}
 </style>
 </head>
 
@@ -1079,6 +1510,316 @@ p{
     <div class="flow-node terminal"><strong>Continuous Lab Feedback</strong>Field data feeds back into TFP recalibration</div>
   </div>
 </section>
+
+  <!-- ============================================
+     OPERATIONAL TRACEABILITY LAYER v1.0
+     c-ECO Fellowship & Enterprise — Operating System
+     May 2026
+     ============================================ -->
+
+<section id="operational-traceability">
+
+  <h2>Operational Traceability Layer</h2>
+
+  <p class="trace-intro">
+    Operating states, artifacts, governance decisions, and exception protocols
+    for Fellows, Enterprise Clients, and Living Labs within the c-ECO system.
+  </p>
+
+  <!-- 1. STATE REGISTRY -->
+  <div class="flowchart">
+
+    <div class="flow-caption">State Registry</div>
+
+    <!-- Happy Path -->
+    <div class="state-strip-label">Happy Path</div>
+    <div class="state-strip">
+      <div class="state-pill core">Applied</div>
+      <div class="state-pill core">Screened</div>
+      <div class="state-pill fellow">Fellow-Active</div>
+      <div class="state-pill fellow">Fellow-Alumni</div>
+      <div class="state-pill enterprise">Enterprise-Ready</div>
+      <div class="state-pill enterprise">Enterprise-Active</div>
+    </div>
+
+    <!-- Pre-admission Exceptions -->
+    <div class="state-strip-label">Pre-Admission Exceptions</div>
+    <div class="state-strip">
+      <div class="state-pill warning">Deferred</div>
+      <div class="state-pill exception">Rejected</div>
+    </div>
+
+    <!-- Post-admission Exceptions -->
+    <div class="state-strip-label">Post-Admission Exceptions</div>
+    <div class="state-strip">
+      <div class="state-pill warning">Withdrawn</div>
+      <div class="state-pill exception">Suspended</div>
+      <div class="state-pill exception">Terminated</div>
+    </div>
+
+    <p class="entity-note">
+      States apply differently to Fellows, Enterprise Clients, and Living Labs.
+      See Governance Matrix for entity-specific routing.
+    </p>
+
+    <div class="trace-grid">
+      <div class="trace-card">
+        <div class="trace-label">State Logic</div>
+        <h4>Participant Status</h4>
+        <p>
+          Each entity exists in a defined operational state.
+          Movement requires a documented activation condition, approving actor,
+          traceable artifact, and archive location.
+        </p>
+      </div>
+      <div class="trace-card">
+        <div class="trace-label">Gate Criteria</div>
+        <h4>Pass / Hold / Exit</h4>
+        <p>
+          Each transition is governed by a threshold-based gate:
+          accepted, deferred, rejected, withdrawn, suspended,
+          terminated, or escalated to Safe Mode.
+        </p>
+      </div>
+      <div class="trace-card">
+        <div class="trace-label">Exception Path</div>
+        <h4>Graceful Degradation</h4>
+        <p>
+          When a node fails, the system routes the entity into
+          deferred, withdrawn, suspended, or terminated status.
+          Safe Mode triggers for data breach or methodological conflict.
+        </p>
+      </div>
+    </div>
+
+    <div class="trace-note">
+      <strong>Traceability rule:</strong>
+      each operational node must identify its activation condition, responsible authority, input,
+      process, output, gate, exception route, and archive location.
+    </div>
+
+  </div>
+
+  <!-- 2. ARTIFACT REGISTRY -->
+  <div class="flowchart">
+
+    <div class="flow-caption">Artifact Registry</div>
+
+    <table class="matrix">
+      <thead>
+        <tr>
+          <th>Artifact</th>
+          <th>Activation Point</th>
+          <th>Responsible Authority</th>
+          <th>Gate / Output</th>
+          <th>Archive</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Application Form</td>
+          <td>Portal submission</td>
+          <td>Administrative Intake System</td>
+          <td>Initial validation → Review queue</td>
+          <td>Fellowship Portal DB</td>
+        </tr>
+        <tr>
+          <td>Screening Report</td>
+          <td>Application validated</td>
+          <td>Coordination Fellowship</td>
+          <td>Eligibility gate → FPA or Rejected</td>
+          <td>Shared Drive / GitHub</td>
+        </tr>
+        <tr>
+          <td>
+            FPA
+            <span class="artifact-anchor">Core Agreement</span>
+          </td>
+          <td>Screening passed</td>
+          <td>Legal / Program Administrators</td>
+          <td>Execution → Fellow-Active status</td>
+          <td>Contract Repository</td>
+        </tr>
+        <tr>
+          <td>
+            MAI
+            <span class="artifact-anchor">Exhibit A</span>
+          </td>
+          <td>Module 3–4 completion</td>
+          <td>Methodology Lead / Board</td>
+          <td>Threshold ≥ 7.5 → Enterprise-Ready</td>
+          <td>Audit Trail</td>
+        </tr>
+        <tr>
+          <td>
+            Enterprise Readiness Report
+            <span class="artifact-anchor">Assessment</span>
+          </td>
+          <td>Fellow-Alumni status + MAI threshold</td>
+          <td>Board c-ECO</td>
+          <td>Board vote → Enterprise-Ready or Deferred</td>
+          <td>Board Minutes Archive</td>
+        </tr>
+        <tr>
+          <td>
+            CDGA
+            <span class="artifact-anchor">Exhibit B</span>
+          </td>
+          <td>Enterprise-Ready approved</td>
+          <td>Legal / Compliance</td>
+          <td>Execution → Enterprise-Active</td>
+          <td>Encrypted Vault</td>
+        </tr>
+        <tr>
+          <td>
+            LLEP
+            <span class="artifact-anchor">Exhibit C</span>
+          </td>
+          <td>Living Lab activation request</td>
+          <td>Lab Lead / ISM</td>
+          <td>Protocol signed → Lab operational</td>
+          <td>Lab Operations DB</td>
+        </tr>
+        <tr>
+          <td>
+            CSAM
+            <span class="artifact-anchor">Exhibit D</span>
+          </td>
+          <td>Case-specific trigger</td>
+          <td>CSAM Lead / Board</td>
+          <td>Mandate issued → Analysis authorized</td>
+          <td>Case Repository</td>
+        </tr>
+        <tr>
+          <td>
+            Outcome Record
+            <span class="artifact-anchor">Feedback</span>
+          </td>
+          <td>Enterprise engagement closure</td>
+          <td>Lab Lead / Program Administrators</td>
+          <td>Data captured → Curriculum recalibration</td>
+          <td>Feedback Loop DB</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <!-- 3. GOVERNANCE & EXCEPTION MATRIX -->
+  <div class="flowchart">
+
+    <div class="flow-caption">Governance & Exception Matrix</div>
+
+    <table class="matrix">
+      <thead>
+        <tr>
+          <th>Decision</th>
+          <th>Decision Level</th>
+          <th>Instrument</th>
+          <th>Exception Route</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Approve Fellow</td>
+          <td>Fellowship Coordination</td>
+          <td>Screening Report + FPA</td>
+          <td>Rejected / Deferred</td>
+        </tr>
+        <tr>
+          <td>Move to Enterprise-Ready</td>
+          <td>Board c-ECO</td>
+          <td>MAI threshold + Readiness Report</td>
+          <td>Fellow-Alumni / Deferred</td>
+        </tr>
+        <tr>
+          <td>Activate Enterprise Track</td>
+          <td>Legal + Compliance</td>
+          <td>CDGA + MSA / Service Terms</td>
+          <td>Suspended / Terminated</td>
+        </tr>
+        <tr>
+          <td>Activate Living Lab</td>
+          <td>Lab Lead + ISM</td>
+          <td>LLEP Protocol</td>
+          <td>Operational Pause / Lab Reassignment</td>
+        </tr>
+        <tr>
+          <td>Authorize Case Analysis</td>
+          <td>CSAM Lead + Board</td>
+          <td>CSAM Mandate</td>
+          <td>Scope Revision / Safe Mode</td>
+        </tr>
+        <tr>
+          <td>Financial Non-Compliance</td>
+          <td>Finance + Legal</td>
+          <td>Payment Default Notice</td>
+          <td>Payment Delay → Payment Default → Terminated</td>
+        </tr>
+        <tr>
+          <td>Data Breach</td>
+          <td>Compliance + Board Emergency</td>
+          <td>Forensic Audit + CDGA Review</td>
+          <td>Safe Mode → Suspended → Terminated</td>
+        </tr>
+        <tr>
+          <td>Methodological Non-Compliance</td>
+          <td>MAI Lead + Lab Lead</td>
+          <td>Corrective Action Plan</td>
+          <td>Re-training → Safe Mode → Suspended</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <!-- 4. FEEDBACK LOOP -->
+  <div class="feedback-loop">
+
+    <div class="flow-caption">Feedback Loop</div>
+
+    <div class="flow-row">
+      <div class="feedback-step">
+        <strong>I</strong>
+        Enterprise Outcome Data
+      </div>
+      <div class="feedback-step">
+        <strong>II</strong>
+        Alumni Performance Metrics
+      </div>
+      <div class="feedback-step">
+        <strong>III</strong>
+        Fellowship Curriculum Update
+      </div>
+      <div class="feedback-step">
+        <strong>IV</strong>
+        New Cohort Design
+      </div>
+      <div class="feedback-step">
+        <strong>V</strong>
+        Enterprise Re-Assessment
+      </div>
+    </div>
+
+    <div class="arrow">↻</div>
+    <div class="flow-caption">Continuous System Recalibration</div>
+
+    <div class="trace-note">
+      <strong>System logic:</strong>
+      enterprise outcomes do not remain external to the Fellowship.
+      They return into curriculum, screening, readiness thresholds,
+      and future enterprise activation criteria.
+    </div>
+
+  </div>
+
+  <div class="version-footer">
+    Operational Traceability Layer — Version 1.0 — May 2026
+  </div>
+
+</section>
+<!-- END OPERATIONAL TRACEABILITY LAYER v1.0 -->
+
 
 <section id="COPYRIGHT" class="copyright-footer">
   <div class="copyright-notice">
