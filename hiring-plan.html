@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,6 +19,8 @@
     --green:#4F6F52;
     --brown:#8B4A18;
     --gray:#777;
+    --navy:#1e3a5f;
+    --teal:#2c5f5f;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 body {
@@ -116,51 +119,6 @@ body {
     font-style:italic;
     color:#666;
 }
-.section-header {
-    color:var(--gold-dark);
-    border-left:3px solid var(--gold);
-    padding-left:10px;
-    margin:26px 0 12px;
-    text-transform:uppercase;
-    letter-spacing:.08em;
-    font-size:15px;
-}
-.grid {
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:14px;
-}
-.card {
-    border:1px solid #e7dec9;
-    border-left:4px solid var(--gold);
-    background:linear-gradient(135deg,#fff,#fdfaf2);
-    padding:15px;
-}
-.card-badge {
-    float:right;
-    background:#eee;
-    color:#555;
-    padding:2px 8px;
-    font-size:10px;
-    text-transform:uppercase;
-    letter-spacing:.08em;
-}
-.card-title {
-    color:var(--gold-dark);
-    text-transform:uppercase;
-    letter-spacing:.06em;
-    font-weight:600;
-    font-size:14px;
-}
-.card-role {
-    font-style:italic;
-    color:#555;
-    margin:5px 0;
-}
-.card-cost {
-    font-weight:600;
-    color:var(--brown);
-}
 .budget-box {
     background:var(--gold-pale);
     border:1px solid var(--gold);
@@ -173,6 +131,109 @@ body {
     text-align:center;
     font-weight:600;
 }
+
+/* ===== NEW STRUCTURE: ORG UNIT HEADERS ===== */
+.org-unit {
+    margin:28px 0 16px;
+    border-top:2px solid var(--gold);
+    padding-top:14px;
+}
+.org-unit-header {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:14px;
+}
+.org-unit-icon {
+    width:36px;
+    height:36px;
+    background:var(--gold-pale);
+    border:1.5px solid var(--gold);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:16px;
+    color:var(--gold-dark);
+}
+.org-unit-title {
+    color:var(--gold-dark);
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    font-size:15px;
+    font-weight:600;
+}
+.org-unit-subtitle {
+    color:#888;
+    font-style:italic;
+    font-size:13px;
+    margin-left:48px;
+    margin-top:-10px;
+    margin-bottom:12px;
+}
+
+/* ===== NEW STRUCTURE: ROLE CARDS ===== */
+.roles-grid {
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:12px;
+}
+.role-card {
+    border:1px solid #e7dec9;
+    border-left:4px solid var(--gold);
+    background:linear-gradient(135deg,#fff,#fdfaf2);
+    padding:14px;
+    position:relative;
+}
+.role-card.presidency { border-left-color:var(--navy); }
+.role-card.treasury { border-left-color:var(--teal); }
+.role-card.grants { border-left-color:var(--gold); }
+.role-card.operations { border-left-color:#8B4513; }
+.role-card.tech { border-left-color:#4a6741; }
+.role-card.fellowship { border-left-color:#6b4c7a; }
+.role-card.governance { border-left-color:#8b6914; }
+
+.role-badge {
+    float:right;
+    padding:2px 8px;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    border-radius:2px;
+}
+.role-badge.volunteer { background:#f0f0f0; color:#666; }
+.role-badge.contract { background:#e8f4f8; color:var(--navy); }
+.role-badge.w2 { background:#e8f8e8; color:var(--green); }
+.role-badge.founder { background:var(--gold-pale); color:var(--gold-dark); }
+.role-badge.advisory { background:#f8f0e8; color:var(--brown); }
+
+.role-title {
+    color:var(--gold-dark);
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    font-weight:600;
+    font-size:13px;
+}
+.role-function {
+    font-style:italic;
+    color:#555;
+    margin:6px 0;
+    font-size:13px;
+    line-height:1.4;
+}
+.role-cost {
+    font-weight:600;
+    color:var(--brown);
+    font-size:13px;
+}
+.role-reports-to {
+    font-size:11px;
+    color:#999;
+    margin-top:4px;
+    font-style:italic;
+}
+
+/* ===== TABLE STYLES ===== */
 table {
     width:100%;
     border-collapse:collapse;
@@ -185,11 +246,56 @@ th {
     border-bottom:2px solid var(--gold);
     padding:8px;
     text-align:left;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    font-size:12px;
 }
 td {
     padding:8px;
     border-bottom:1px solid #eee;
 }
+tr:hover td { background:#fdfaf5; }
+
+/* ===== SUMMARY BOX ===== */
+.summary-box {
+    background:linear-gradient(135deg, var(--gold-pale), #fff);
+    border:1px solid var(--gold);
+    padding:18px;
+    margin:20px 0;
+    border-radius:4px;
+}
+.summary-title {
+    color:var(--gold-dark);
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    font-size:14px;
+    margin-bottom:10px;
+    text-align:center;
+}
+.summary-grid {
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:12px;
+    text-align:center;
+}
+.summary-item {
+    padding:10px;
+    border-right:1px solid #e7dec9;
+}
+.summary-item:last-child { border-right:none; }
+.summary-number {
+    font-size:22px;
+    color:var(--gold-dark);
+    font-weight:600;
+}
+.summary-label {
+    font-size:11px;
+    color:#888;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    margin-top:4px;
+}
+
 .footer {
     text-align:center;
     color:#888;
@@ -217,13 +323,16 @@ td {
     cursor:pointer;
     text-transform:uppercase;
     letter-spacing:.06em;
+    font-family:'Cormorant Garamond', Georgia, serif;
 }
 .btn:hover { background:var(--gold); color:white; }
 
 @media(max-width:800px){
     .page { width:100%; margin:0; padding:25px; }
     .page::before { display:none; }
-    .grid { grid-template-columns:1fr; }
+    .roles-grid { grid-template-columns:1fr; }
+    .summary-grid { grid-template-columns:1fr; }
+    .summary-item { border-right:none; border-bottom:1px solid #e7dec9; }
     .print-bar { position:static; }
 }
 @media print {
@@ -269,95 +378,289 @@ td {
     <p style="text-align:center;">Lean nonprofit operating structure before full Living Lab activation.</p>
 </div>
 
-<div class="section-header">Core Governance — Mostly Voluntary</div>
-
-<div class="grid">
-    <div class="card"><span class="card-badge">Volunteer</span><div class="card-title">Board of Directors</div><div class="card-role">Fiduciary oversight, institutional integrity, mission control.</div><div class="card-cost">$0 – $25k reimbursements</div></div>
-    <div class="card"><span class="card-badge">Volunteer</span><div class="card-title">Standing Committees</div><div class="card-role">Audit, Risk, Governance, Finance, Technology & AI.</div><div class="card-cost">$0 – $15k support</div></div>
-    <div class="card"><span class="card-badge">Advisory</span><div class="card-title">Scientific & International Councils</div><div class="card-role">Non-voting advisory support and validation.</div><div class="card-cost">$0 – $25k honoraria</div></div>
-    <div class="card"><span class="card-badge">Founder</span><div class="card-title">Founder & Lead Architect</div><div class="card-role">Doctrine, architecture, TFP logic, institutional positioning.</div><div class="card-cost">$60k – $150k stipend/contract</div></div>
+<div class="summary-box">
+    <div class="summary-title">Phase Zero at a Glance</div>
+    <div class="summary-grid">
+        <div class="summary-item">
+            <div class="summary-number">14</div>
+            <div class="summary-label">Total Roles</div>
+        </div>
+        <div class="summary-item">
+            <div class="summary-number">8</div>
+            <div class="summary-label">Compensated FTE</div>
+        </div>
+        <div class="summary-item">
+            <div class="summary-number">6</div>
+            <div class="summary-label">Voluntary / Advisory</div>
+        </div>
+    </div>
 </div>
 
-<div class="section-header">Office of Grants, Strategic Partnerships & International Programs</div>
+<!-- UNIT 1: EXECUTIVE LEADERSHIP -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">◆</div>
+        <div class="org-unit-title">Unit 1 — Executive Leadership</div>
+    </div>
+    <div class="org-unit-subtitle">Strategic direction, fiduciary oversight, institutional representation</div>
+    
+    <div class="roles-grid">
+        <div class="role-card presidency">
+            <span class="role-badge founder">Founder</span>
+            <div class="role-title">President of the Board</div>
+            <div class="role-function">Institutional vision, external representation, doctrine stewardship, strategic alliances. Chairs Board meetings and sets annual agenda.</div>
+            <div class="role-cost">$60k – $150k stipend / contract</div>
+            <div class="role-reports-to">Reports to: Board of Directors</div>
+        </div>
+        
+        <div class="role-card treasury">
+            <span class="role-badge volunteer">Volunteer</span>
+            <div class="role-title">Treasurer of the Board</div>
+            <div class="role-function">Financial oversight, budget approval, audit liaison, investment policy. Distinct from Presidency — ensures checks and balances.</div>
+            <div class="role-cost">$0 – $15k reimbursements</div>
+            <div class="role-reports-to">Reports to: Board of Directors</div>
+        </div>
+        
+        <div class="role-card governance">
+            <span class="role-badge volunteer">Volunteer</span>
+            <div class="role-title">Secretary of the Board</div>
+            <div class="role-function">Corporate records, minutes, resolutions, governance documentation, compliance calendar.</div>
+            <div class="role-cost">$0 – $10k reimbursements</div>
+            <div class="role-reports-to">Reports to: Board of Directors</div>
+        </div>
+        
+        <div class="role-card governance">
+            <span class="role-badge advisory">Advisory</span>
+            <div class="role-title">Board Members-at-Large (2–4 seats)</div>
+            <div class="role-function">Fiduciary oversight, mission control, conflict-of-interest governance, succession planning.</div>
+            <div class="role-cost">$0 – $25k total honoraria</div>
+            <div class="role-reports-to">Reports to: Board of Directors</div>
+        </div>
+    </div>
+</div>
 
-<table>
-<thead>
-<tr>
-<th>Position</th>
-<th>Function</th>
-<th>Regime</th>
-<th>Annual Cost</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Director of Grants & Strategic Partnerships</td>
-<td>Grant pipeline, funder relations, institutional proposals.</td>
-<td>W-2 or 1099</td>
-<td>$95k – $140k</td>
-</tr>
-<tr>
-<td>International Programs Officer</td>
-<td>UN, universities, Brazil–US programs, multilateral coordination.</td>
-<td>W-2</td>
-<td>$70k – $105k</td>
-</tr>
-<tr>
-<td>Grant Writer / Proposal Strategist</td>
-<td>Federal, foundation and international grant submissions.</td>
-<td>1099 or W-2</td>
-<td>$65k – $110k</td>
-</tr>
-<tr>
-<td>Partnerships & Donor Relations Manager</td>
-<td>CRM, donor stewardship, institutional outreach.</td>
-<td>W-2</td>
-<td>$60k – $90k</td>
-</tr>
-<tr>
-<td>Compliance & Reporting Coordinator</td>
-<td>Grant compliance, reporting calendar, restricted funds tracking.</td>
-<td>W-2</td>
-<td>$55k – $80k</td>
-</tr>
-</tbody>
-</table>
+<!-- UNIT 2: STANDING COMMITTEES -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">◎</div>
+        <div class="org-unit-title">Unit 2 — Standing Committees</div>
+    </div>
+    <div class="org-unit-subtitle">Specialized oversight functions reporting to the Board</div>
+    
+    <div class="roles-grid">
+        <div class="role-card governance">
+            <span class="role-badge volunteer">Volunteer</span>
+            <div class="role-title">Audit Committee Chair</div>
+            <div class="role-function">Independent financial review, auditor selection, internal controls assessment, fraud prevention.</div>
+            <div class="role-cost">$0 – $5k support</div>
+            <div class="role-reports-to">Reports to: Treasurer → Board</div>
+        </div>
+        
+        <div class="role-card governance">
+            <span class="role-badge volunteer">Volunteer</span>
+            <div class="role-title">Risk Committee Chair</div>
+            <div class="role-function">Enterprise risk register, TFP risk thresholds, irreversibility protocols, scenario planning.</div>
+            <div class="role-cost">$0 – $5k support</div>
+            <div class="role-reports-to">Reports to: President → Board</div>
+        </div>
+        
+        <div class="role-card governance">
+            <span class="role-badge volunteer">Volunteer</span>
+            <div class="role-title">Governance & Nominations Chair</div>
+            <div class="role-function">Board composition, committee appointments, bylaws review, ethics enforcement.</div>
+            <div class="role-cost">$0 – $3k support</div>
+            <div class="role-reports-to">Reports to: Secretary → Board</div>
+        </div>
+        
+        <div class="role-card governance">
+            <span class="role-badge volunteer">Volunteer</span>
+            <div class="role-title">Technology & AI Committee Chair</div>
+            <div class="role-function">AI ethics, data governance, platform architecture review, cybersecurity policy.</div>
+            <div class="role-cost">$0 – $5k support</div>
+            <div class="role-reports-to">Reports to: President → Board</div>
+        </div>
+    </div>
+</div>
 
-<div class="section-header">Foundation Operating Staff</div>
+<!-- UNIT 3: ADVISORY COUNCILS -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">◇</div>
+        <div class="org-unit-title">Unit 3 — Advisory Councils</div>
+    </div>
+    <div class="org-unit-subtitle">Non-voting external validation and scientific credibility</div>
+    
+    <div class="roles-grid">
+        <div class="role-card governance">
+            <span class="role-badge advisory">Advisory</span>
+            <div class="role-title">Scientific Council Members (3–5)</div>
+            <div class="role-function">Peer review of TFP methodology, threshold validation, publication strategy, research integrity.</div>
+            <div class="role-cost">$0 – $15k honoraria</div>
+            <div class="role-reports-to">Advisory to: President & Chief Scientist</div>
+        </div>
+        
+        <div class="role-card governance">
+            <span class="role-badge advisory">Advisory</span>
+            <div class="role-title">International Council Members (3–5)</div>
+            <div class="role-function">Geopolitical risk assessment, multilateral engagement, diplomatic access, partnership vetting.</div>
+            <div class="role-cost">$0 – $10k honoraria</div>
+            <div class="role-reports-to">Advisory to: President & International Programs Officer</div>
+        </div>
+    </div>
+</div>
 
-<table>
-<thead>
-<tr>
-<th>Position</th>
-<th>Priority</th>
-<th>Annual Cost</th>
-</tr>
-</thead>
-<tbody>
-<tr><td>Executive Director / COO</td><td>High</td><td>$90k – $140k</td></tr>
-<tr><td>Operations & Compliance Manager</td><td>High</td><td>$70k – $100k</td></tr>
-<tr><td>Fellowship Program Manager</td><td>Medium</td><td>$65k – $90k</td></tr>
-<tr><td>Technical Architect / PWA Lead</td><td>Medium</td><td>$70k – $120k</td></tr>
-<tr><td>Administrative Assistant</td><td>Medium</td><td>$45k – $60k</td></tr>
-</tbody>
-</table>
+<!-- UNIT 4: OFFICE OF THE EXECUTIVE DIRECTOR -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">■</div>
+        <div class="org-unit-title">Unit 4 — Office of the Executive Director</div>
+    </div>
+    <div class="org-unit-subtitle">Day-to-day institutional operations and compliance</div>
+    
+    <div class="roles-grid">
+        <div class="role-card operations">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">Executive Director / COO</div>
+            <div class="role-function">Operational leadership, staff management, budget execution, Board liaison, institutional risk management. Bridges governance and operations.</div>
+            <div class="role-cost">$90k – $140k</div>
+            <div class="role-reports-to">Reports to: President of the Board</div>
+        </div>
+        
+        <div class="role-card operations">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">Operations & Compliance Manager</div>
+            <div class="role-function">HR administration, vendor management, insurance, facilities, operational compliance, D&O coordination, record retention.</div>
+            <div class="role-cost">$70k – $100k</div>
+            <div class="role-reports-to">Reports to: Executive Director</div>
+        </div>
+        
+        <div class="role-card operations">
+            <span class="role-badge w2">W-2 • Medium Priority</span>
+            <div class="role-title">Administrative Assistant</div>
+            <div class="role-function">Calendar management, correspondence, travel logistics, meeting support, front-office coordination.</div>
+            <div class="role-cost">$45k – $60k</div>
+            <div class="role-reports-to">Reports to: Executive Director</div>
+        </div>
+    </div>
+</div>
 
-<div class="section-header">Phase Zero Budget Allocation</div>
+<!-- UNIT 5: OFFICE OF GRANTS & STRATEGIC PARTNERSHIPS -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">$</div>
+        <div class="org-unit-title">Unit 5 — Office of Grants & Strategic Partnerships</div>
+    </div>
+    <div class="org-unit-subtitle">Revenue generation, funder relations, institutional proposals</div>
+    
+    <div class="roles-grid">
+        <div class="role-card grants">
+            <span class="role-badge contract">W-2 / 1099 • High Priority</span>
+            <div class="role-title">Director of Grants & Strategic Partnerships</div>
+            <div class="role-function">Grant pipeline development, funder cultivation, major gift strategy, proposal architecture, revenue forecasting. Leads all fundraising.</div>
+            <div class="role-cost">$95k – $140k</div>
+            <div class="role-reports-to">Reports to: Executive Director</div>
+        </div>
+        
+        <div class="role-card grants">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">Grant Writer / Proposal Strategist</div>
+            <div class="role-function">Federal, foundation and international grant submissions, narrative development, budget narratives, compliance attachments.</div>
+            <div class="role-cost">$65k – $110k</div>
+            <div class="role-reports-to">Reports to: Director of Grants</div>
+        </div>
+        
+        <div class="role-card grants">
+            <span class="role-badge w2">W-2 • Medium Priority</span>
+            <div class="role-title">Partnerships & Donor Relations Manager</div>
+            <div class="role-function">CRM stewardship, donor communications, institutional outreach, event coordination, pledge tracking, recognition programs.</div>
+            <div class="role-cost">$60k – $90k</div>
+            <div class="role-reports-to">Reports to: Director of Grants</div>
+        </div>
+        
+        <div class="role-card grants">
+            <span class="role-badge w2">W-2 • Medium Priority</span>
+            <div class="role-title">Compliance & Reporting Coordinator</div>
+            <div class="role-function">Grant compliance calendar, restricted-fund tracking, donor reporting, audit preparation, expenditure verification.</div>
+            <div class="role-cost">$55k – $80k</div>
+            <div class="role-reports-to">Reports to: Director of Grants → Operations Manager</div>
+        </div>
+        
+        <div class="role-card grants">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">International Programs Officer</div>
+            <div class="role-function">UN engagement, university partnerships, Brazil–US program coordination, multilateral funding access, diplomatic liaison.</div>
+            <div class="role-cost">$70k – $105k</div>
+            <div class="role-reports-to">Reports to: Director of Grants → Executive Director</div>
+        </div>
+    </div>
+</div>
 
-<table>
-<thead>
-<tr><th>Category</th><th>Projected Budget</th></tr>
-</thead>
-<tbody>
-<tr><td>Personnel and contractors</td><td>$480k – $720k</td></tr>
-<tr><td>Legal, accounting, insurance, D&O</td><td>$80k – $160k</td></tr>
-<tr><td>Website, CRM, cloud, AI/PWA infrastructure</td><td>$60k – $140k</td></tr>
-<tr><td>Fundraising, travel, events, institutional meetings</td><td>$80k – $180k</td></tr>
-</tbody>
-</table>
+<!-- UNIT 6: FELLOWSHIP & PROGRAMS -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">✦</div>
+        <div class="org-unit-title">Unit 6 — Fellowship & Institutional Programs</div>
+    </div>
+    <div class="org-unit-subtitle">Fellowship readiness, curriculum, cohort management</div>
+    
+    <div class="roles-grid">
+        <div class="role-card fellowship">
+            <span class="role-badge w2">W-2 • Medium Priority</span>
+            <div class="role-title">Fellowship Program Manager</div>
+            <div class="role-function">Cohort design, selection process, curriculum coordination, mentor matching, alumni network, program evaluation.</div>
+            <div class="role-cost">$65k – $90k</div>
+            <div class="role-reports-to">Reports to: Executive Director</div>
+        </div>
+    </div>
+</div>
+
+<!-- UNIT 7: TECHNOLOGY & INFRASTRUCTURE -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">⚙</div>
+        <div class="org-unit-title">Unit 7 — Technology & Infrastructure</div>
+    </div>
+    <div class="org-unit-subtitle">PWA development, AI governance platform, data architecture</div>
+    
+    <div class="roles-grid">
+        <div class="role-card tech">
+            <span class="role-badge contract">W-2 / 1099 • Medium Priority</span>
+            <div class="role-title">Technical Architect / PWA Lead</div>
+            <div class="role-function">Platform architecture, Progressive Web App development, API design, cloud infrastructure, security protocols, AI integration roadmap.</div>
+            <div class="role-cost">$70k – $120k</div>
+            <div class="role-reports-to">Reports to: Executive Director → Technology & AI Committee</div>
+        </div>
+    </div>
+</div>
+
+<!-- BUDGET ALLOCATION -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">◈</div>
+        <div class="org-unit-title">Phase Zero Budget Allocation</div>
+    </div>
+    
+    <table>
+    <thead>
+    <tr>
+        <th>Category</th>
+        <th>Projected Budget</th>
+        <th>% of Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr><td><strong>Personnel and contractors (Units 4–7)</strong></td><td><strong>$480k – $720k</strong></td><td><strong>~52%</strong></td></tr>
+    <tr><td>Legal, accounting, insurance, D&O</td><td>$80k – $160k</td><td>~11%</td></tr>
+    <tr><td>Website, CRM, cloud, AI/PWA infrastructure</td><td>$60k – $140k</td><td>~10%</td></tr>
+    <tr><td>Fundraising, travel, events, institutional meetings</td><td>$80k – $180k</td><td>~12%</td></tr>
+    <tr><td>Governance reimbursements & honoraria (Units 1–3)</td><td>$0 – $65k</td><td>~4%</td></tr>
+    <tr style="background:var(--gold-pale);"><td><strong>Total Annual Operating Budget</strong></td><td><strong>$700k – $1,265k</strong></td><td><strong>100%</strong></td></tr>
+    </tbody>
+    </table>
+</div>
 
 <div class="footer">
-Foundation Phase Zero — c-ECO Institutional Readiness Plan
+Foundation Phase Zero — c-ECO Institutional Readiness Plan • Restructured Roles v2.0
 </div>
 
 </div>
@@ -386,45 +689,438 @@ Foundation Phase Zero — c-ECO Institutional Readiness Plan
     <p style="text-align:center;">Pilot operational validation within the $5M–$20M target range.</p>
 </div>
 
-<div class="section-header">Alpha Hiring Target</div>
-
-<table>
-<thead>
-<tr><th>Unit</th><th>Headcount</th><th>Budget</th></tr>
-</thead>
-<tbody>
-<tr><td>Foundation HQ + Grants Office</td><td>15–20 FTE</td><td>$2M – $3M</td></tr>
-<tr><td>Belém Amazon Core Lab</td><td>10–12 FTE</td><td>$900k – $1.8M</td></tr>
-<tr><td>Tromsø Arctic Carbon Lab</td><td>10–12 FTE</td><td>$900k – $1.8M</td></tr>
-<tr><td>London Global Finance Lab</td><td>10–12 FTE</td><td>$900k – $1.8M</td></tr>
-<tr><td>Geneva Integration Hub Lab</td><td>10–12 FTE</td><td>$900k – $1.8M</td></tr>
-</tbody>
-</table>
-
-<div class="section-header">Standard Lab Team</div>
-
-<div class="grid">
-    <div class="card"><span class="card-badge">Director</span><div class="card-title">Lab Director</div><div class="card-role">Strategic leadership and institutional representation.</div></div>
-    <div class="card"><span class="card-badge">Deputy</span><div class="card-title">Deputy Director</div><div class="card-role">Operations, staffing, logistics and delivery.</div></div>
-    <div class="card"><span class="card-badge">Science</span><div class="card-title">Chief Scientist</div><div class="card-role">Scientific protocols, thresholds and validation.</div></div>
-    <div class="card"><span class="card-badge">Data</span><div class="card-title">Senior Data Analysts</div><div class="card-role">Signal processing, data quality and dashboard inputs.</div></div>
-    <div class="card"><span class="card-badge">Tech</span><div class="card-title">Systems Engineers</div><div class="card-role">Sensors, cloud, cybersecurity and uptime.</div></div>
-    <div class="card"><span class="card-badge">Compliance</span><div class="card-title">Compliance & Integrity Officer</div><div class="card-role">Ethics, safeguards, reporting and institutional compliance.</div></div>
+<div class="summary-box">
+    <div class="summary-title">Phase Alpha at a Glance</div>
+    <div class="summary-grid">
+        <div class="summary-item">
+            <div class="summary-number">50–70</div>
+            <div class="summary-label">Total FTE</div>
+        </div>
+        <div class="summary-item">
+            <div class="summary-number">4</div>
+            <div class="summary-label">Living Labs</div>
+        </div>
+        <div class="summary-item">
+            <div class="summary-number">8</div>
+            <div class="summary-label">Organizational Units</div>
+        </div>
+    </div>
 </div>
 
-<div class="section-header">Alpha Infrastructure</div>
+<!-- ALPHA UNIT 1: EXECUTIVE LEADERSHIP -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">◆</div>
+        <div class="org-unit-title">Unit 1 — Executive Leadership</div>
+    </div>
+    <div class="org-unit-subtitle">Board governance and strategic oversight (expanded from Phase Zero)</div>
+    
+    <div class="roles-grid">
+        <div class="role-card presidency">
+            <span class="role-badge founder">Founder</span>
+            <div class="role-title">President of the Board</div>
+            <div class="role-function">Institutional vision, doctrine stewardship, major donor cultivation, international representation, strategic alliances.</div>
+            <div class="role-cost">$80k – $180k stipend / contract</div>
+            <div class="role-reports-to">Reports to: Board of Directors</div>
+        </div>
+        
+        <div class="role-card treasury">
+            <span class="role-badge volunteer">Volunteer</span>
+            <div class="role-title">Treasurer of the Board</div>
+            <div class="role-function">Financial oversight, multi-lab budget consolidation, audit supervision, investment policy, restricted-fund governance.</div>
+            <div class="role-cost">$0 – $25k reimbursements</div>
+            <div class="role-reports-to">Reports to: Board of Directors</div>
+        </div>
+        
+        <div class="role-card governance">
+            <span class="role-badge volunteer">Volunteer</span>
+            <div class="role-title">Secretary of the Board</div>
+            <div class="role-function">Corporate governance, resolutions, compliance documentation, multi-jurisdiction record keeping.</div>
+            <div class="role-cost">$0 – $15k reimbursements</div>
+            <div class="role-reports-to">Reports to: Board of Directors</div>
+        </div>
+        
+        <div class="role-card governance">
+            <span class="role-badge advisory">Advisory</span>
+            <div class="role-title">Board Members-at-Large (3–5 seats)</div>
+            <div class="role-function">Fiduciary oversight, mission control, succession planning, ethics enforcement, lab governance liaison.</div>
+            <div class="role-cost">$0 – $40k total honoraria</div>
+            <div class="role-reports-to">Reports to: Board of Directors</div>
+        </div>
+    </div>
+</div>
 
-<table>
-<tbody>
-<tr><td>Sensors, data feeds and field equipment</td><td>$1.5M – $4M</td></tr>
-<tr><td>Cloud, AI governance platform and dashboards</td><td>$800k – $2M</td></tr>
-<tr><td>Travel, workshops and partner convenings</td><td>$700k – $1.5M</td></tr>
-<tr><td>Legal, compliance, insurance and audit</td><td>$500k – $1M</td></tr>
-</tbody>
-</table>
+<!-- ALPHA UNIT 2: STANDING COMMITTEES -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">◎</div>
+        <div class="org-unit-title">Unit 2 — Standing Committees</div>
+    </div>
+    <div class="org-unit-subtitle">Expanded oversight for multi-lab operations</div>
+    
+    <div class="roles-grid">
+        <div class="role-card governance">
+            <span class="role-badge volunteer">Volunteer</span>
+            <div class="role-title">Audit Committee Chair + Members (2)</div>
+            <div class="role-function">Multi-lab financial audit, inter-lab fund transfers, internal controls, fraud prevention.</div>
+            <div class="role-cost">$0 – $15k support</div>
+            <div class="role-reports-to">Reports to: Treasurer → Board</div>
+        </div>
+        
+        <div class="role-card governance">
+            <span class="role-badge volunteer">Volunteer</span>
+            <div class="role-title">Risk Committee Chair + Members (2)</div>
+            <div class="role-function">Cross-lab risk register, TFP threshold validation, irreversibility protocols, scenario modeling.</div>
+            <div class="role-cost">$0 – $15k support</div>
+            <div class="role-reports-to">Reports to: President → Board</div>
+        </div>
+        
+        <div class="role-card governance">
+            <span class="role-badge volunteer">Volunteer</span>
+            <div class="role-title">Governance & Nominations Chair</div>
+            <div class="role-function">Board expansion planning, lab governance frameworks, committee appointments, bylaws evolution.</div>
+            <div class="role-cost">$0 – $8k support</div>
+            <div class="role-reports-to">Reports to: Secretary → Board</div>
+        </div>
+        
+        <div class="role-card governance">
+            <span class="role-badge volunteer">Volunteer</span>
+            <div class="role-title">Technology & AI Committee Chair + Members (2)</div>
+            <div class="role-function">Platform scalability review, AI ethics across 4 labs, data interoperability, cybersecurity standards.</div>
+            <div class="role-cost">$0 – $15k support</div>
+            <div class="role-reports-to">Reports to: President → Board</div>
+        </div>
+    </div>
+</div>
+
+<!-- ALPHA UNIT 3: ADVISORY COUNCILS -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">◇</div>
+        <div class="org-unit-title">Unit 3 — Advisory Councils</div>
+    </div>
+    <div class="org-unit-subtitle">Scientific validation and international credibility</div>
+    
+    <div class="roles-grid">
+        <div class="role-card governance">
+            <span class="role-badge advisory">Advisory</span>
+            <div class="role-title">Scientific Council Members (5–7)</div>
+            <div class="role-function">Peer review of lab protocols, threshold calibration, publication strategy, data quality standards.</div>
+            <div class="role-cost">$0 – $30k honoraria</div>
+            <div class="role-reports-to">Advisory to: President & Lab Chief Scientists</div>
+        </div>
+        
+        <div class="role-card governance">
+            <span class="role-badge advisory">Advisory</span>
+            <div class="role-title">International Council Members (5–7)</div>
+            <div class="role-function">Geopolitical risk, multilateral engagement, diplomatic access, partnership vetting, host-country liaison.</div>
+            <div class="role-cost">$0 – $25k honoraria</div>
+            <div class="role-reports-to">Advisory to: President & International Programs Director</div>
+        </div>
+    </div>
+</div>
+
+<!-- ALPHA UNIT 4: FOUNDATION HQ & EXECUTIVE OPERATIONS -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">■</div>
+        <div class="org-unit-title">Unit 4 — Foundation HQ & Executive Operations</div>
+    </div>
+    <div class="org-unit-subtitle">Central coordination for multi-lab pilot</div>
+    
+    <div class="roles-grid">
+        <div class="role-card operations">
+            <span class="role-badge w2">W-2 • Critical</span>
+            <div class="role-title">Executive Director / COO</div>
+            <div class="role-function">Central operations leadership, lab coordination, staff management, budget consolidation, Board liaison, risk management.</div>
+            <div class="role-cost">$120k – $180k</div>
+            <div class="role-reports-to">Reports to: President of the Board</div>
+        </div>
+        
+        <div class="role-card operations">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">Chief Financial Officer (new)</div>
+            <div class="role-function">Multi-lab financial consolidation, grant fund accounting, audit management, cash-flow forecasting, treasury operations.</div>
+            <div class="role-cost">$110k – $160k</div>
+            <div class="role-reports-to">Reports to: Executive Director → Treasurer</div>
+        </div>
+        
+        <div class="role-card operations">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">Operations & Compliance Manager</div>
+            <div class="role-function">HR across 4 labs, vendor management, insurance, facilities, operational compliance, inter-lab logistics.</div>
+            <div class="role-cost">$85k – $120k</div>
+            <div class="role-reports-to">Reports to: Executive Director</div>
+        </div>
+        
+        <div class="role-card operations">
+            <span class="role-badge w2">W-2 • Medium Priority</span>
+            <div class="role-title">Administrative Coordinator</div>
+            <div class="role-function">Central calendar, correspondence, travel logistics, meeting support, document management.</div>
+            <div class="role-cost">$50k – $70k</div>
+            <div class="role-reports-to">Reports to: Executive Director</div>
+        </div>
+    </div>
+</div>
+
+<!-- ALPHA UNIT 5: OFFICE OF GRANTS & DEVELOPMENT -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">$</div>
+        <div class="org-unit-title">Unit 5 — Office of Grants & Development</div>
+    </div>
+    <div class="org-unit-subtitle">Revenue generation scaled for multi-lab demonstration</div>
+    
+    <div class="roles-grid">
+        <div class="role-card grants">
+            <span class="role-badge w2">W-2 • Critical</span>
+            <div class="role-title">Chief Development & Grants Officer (new title)</div>
+            <div class="role-function">Major gifts, institutional grants, public/private funder strategy, revenue forecasting, donor stewardship at scale.</div>
+            <div class="role-cost">$130k – $190k</div>
+            <div class="role-reports-to">Reports to: Executive Director → President</div>
+        </div>
+        
+        <div class="role-card grants">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">Senior Grant Writer / Proposal Strategist</div>
+            <div class="role-function">Federal, foundation, international grant submissions, narrative architecture, budget development, compliance attachments.</div>
+            <div class="role-cost">$85k – $130k</div>
+            <div class="role-reports-to">Reports to: Chief Development Officer</div>
+        </div>
+        
+        <div class="role-card grants">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">Partnerships & Donor Relations Manager</div>
+            <div class="role-function">CRM stewardship, donor communications, institutional outreach, event coordination, pledge tracking.</div>
+            <div class="role-cost">$70k – $100k</div>
+            <div class="role-reports-to">Reports to: Chief Development Officer</div>
+        </div>
+        
+        <div class="role-card grants">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">Grant Compliance & Reporting Manager</div>
+            <div class="role-function">Multi-grant compliance calendar, restricted-fund tracking, donor reporting, audit preparation, expenditure verification.</div>
+            <div class="role-cost">$75k – $110k</div>
+            <div class="role-reports-to">Reports to: Chief Development Officer → CFO</div>
+        </div>
+        
+        <div class="role-card grants">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">International Programs Director (expanded)</div>
+            <div class="role-function">UN engagement, university partnerships, Brazil–US coordination, multilateral funding, diplomatic liaison across 4 lab jurisdictions.</div>
+            <div class="role-cost">$90k – $135k</div>
+            <div class="role-reports-to">Reports to: Chief Development Officer → Executive Director</div>
+        </div>
+        
+        <div class="role-card grants">
+            <span class="role-badge w2">W-2 • Medium Priority</span>
+            <div class="role-title">Monitoring, Evaluation & Learning (MEL) Specialist (new)</div>
+            <div class="role-function">Impact metrics design, donor reporting, theory of change, results framework, lab performance indicators.</div>
+            <div class="role-cost">$75k – $110k</div>
+            <div class="role-reports-to">Reports to: Chief Development Officer</div>
+        </div>
+    </div>
+</div>
+
+<!-- ALPHA UNIT 6: FELLOWSHIP & TRAINING -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">✦</div>
+        <div class="org-unit-title">Unit 6 — Fellowship & Training Programs</div>
+    </div>
+    <div class="org-unit-subtitle">Pilot fellowship cohort across 4 labs</div>
+    
+    <div class="roles-grid">
+        <div class="role-card fellowship">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">Fellowship Program Director (expanded)</div>
+            <div class="role-function">Cohort design, selection, curriculum, mentor matching, alumni network, evaluation, cross-lab fellow placement.</div>
+            <div class="role-cost">$85k – $120k</div>
+            <div class="role-reports-to">Reports to: Executive Director</div>
+        </div>
+        
+        <div class="role-card fellowship">
+            <span class="role-badge w2">W-2 • Medium Priority</span>
+            <div class="role-title">Fellowship Coordinator</div>
+            <div class="role-function">Application management, onboarding, logistics, stipend administration, event coordination, alumni engagement.</div>
+            <div class="role-cost">$55k – $75k</div>
+            <div class="role-reports-to">Reports to: Fellowship Program Director</div>
+        </div>
+        
+        <div class="role-card fellowship">
+            <span class="role-badge contract">1099 • Medium Priority</span>
+            <div class="role-title">Curriculum Designers (2–3)</div>
+            <div class="role-function">TFP module development, sector-specific content, assessment rubrics, certification standards.</div>
+            <div class="role-cost">$40k – $70k each</div>
+            <div class="role-reports-to">Reports to: Fellowship Program Director</div>
+        </div>
+    </div>
+</div>
+
+<!-- ALPHA UNIT 7: TECHNOLOGY & PLATFORM -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">⚙</div>
+        <div class="org-unit-title">Unit 7 — Technology & AI Platform</div>
+    </div>
+    <div class="org-unit-subtitle">Multi-lab platform development and data infrastructure</div>
+    
+    <div class="roles-grid">
+        <div class="role-card tech">
+            <span class="role-badge w2">W-2 • Critical</span>
+            <div class="role-title">Chief Technology Officer (new)</div>
+            <div class="role-function">Technology strategy, platform architecture, AI roadmap, cybersecurity, vendor management, lab tech integration.</div>
+            <div class="role-cost">$140k – $200k</div>
+            <div class="role-reports-to">Reports to: Executive Director → Technology & AI Committee</div>
+        </div>
+        
+        <div class="role-card tech">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">Senior Platform Architect</div>
+            <div class="role-function">PWA scalability, API design, cloud infrastructure, data pipelines, multi-lab interoperability.</div>
+            <div class="role-cost">$110k – $160k</div>
+            <div class="role-reports-to">Reports to: CTO</div>
+        </div>
+        
+        <div class="role-card tech">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">AI / Machine Learning Engineer</div>
+            <div class="role-function">Predictive models, TFP algorithms, signal processing, anomaly detection, model validation.</div>
+            <div class="role-cost">$120k – $170k</div>
+            <div class="role-reports-to">Reports to: CTO</div>
+        </div>
+        
+        <div class="role-card tech">
+            <span class="role-badge w2">W-2 • Medium Priority</span>
+            <div class="role-title">DevOps / Cloud Engineer</div>
+            <div class="role-function">Infrastructure as code, CI/CD, monitoring, backup, disaster recovery, cost optimization.</div>
+            <div class="role-cost">$95k – $140k</div>
+            <div class="role-reports-to">Reports to: CTO → Senior Platform Architect</div>
+        </div>
+        
+        <div class="role-card tech">
+            <span class="role-badge w2">W-2 • Medium Priority</span>
+            <div class="role-title">Data Engineer</div>
+            <div class="role-function">ETL pipelines, data warehousing, sensor integration, quality assurance, dashboard feeds.</div>
+            <div class="role-cost">$100k – $145k</div>
+            <div class="role-reports-to">Reports to: CTO → Senior Platform Architect</div>
+        </div>
+        
+        <div class="role-card tech">
+            <span class="role-badge contract">1099 • Medium Priority</span>
+            <div class="role-title">Cybersecurity Consultant</div>
+            <div class="role-function">Security audits, penetration testing, compliance (SOC 2, GDPR), incident response planning.</div>
+            <div class="role-cost">$60k – $100k</div>
+            <div class="role-reports-to">Reports to: CTO → Technology & AI Committee</div>
+        </div>
+    </div>
+</div>
+
+<!-- ALPHA UNIT 8: LIVING LABS (4) -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">●</div>
+        <div class="org-unit-title">Unit 8 — Living Labs (4 Demonstration Sites)</div>
+    </div>
+    <div class="org-unit-subtitle">Belém Amazon Core • Tromsø Arctic Carbon • London Global Finance • Geneva Integration Hub</div>
+    
+    <table>
+    <thead>
+    <tr>
+        <th>Lab</th>
+        <th>Headcount</th>
+        <th>Annual Budget</th>
+        <th>Focus Sector</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr><td><strong>Belém Amazon Core Lab</strong></td><td>10–12 FTE</td><td>$900k – $1.8M</td><td>Biodiversity, Mining, Water, Indigenous Governance</td></tr>
+    <tr><td><strong>Tromsø Arctic Carbon Lab</strong></td><td>10–12 FTE</td><td>$900k – $1.8M</td><td>Carbon, Energy, Climate Systems, Permafrost</td></tr>
+    <tr><td><strong>London Global Finance Lab</strong></td><td>10–12 FTE</td><td>$900k – $1.8M</td><td>Finance, Insurance, Supply Chain, ESG</td></tr>
+    <tr><td><strong>Geneva Integration Hub Lab</strong></td><td>10–12 FTE</td><td>$900k – $1.8M</td><td>Policy, Health, Governance, Multilateral</td></tr>
+    </tbody>
+    </table>
+    
+    <div class="roles-grid">
+        <div class="role-card">
+            <span class="role-badge w2">W-2</span>
+            <div class="role-title">Lab Director (4 positions)</div>
+            <div class="role-function">Strategic leadership, institutional representation, stakeholder engagement, local partnership management.</div>
+            <div class="role-cost">$95k – $140k each</div>
+            <div class="role-reports-to">Reports to: Executive Director → President</div>
+        </div>
+        
+        <div class="role-card">
+            <span class="role-badge w2">W-2</span>
+            <div class="role-title">Deputy Director / Operations Lead (4 positions)</div>
+            <div class="role-function">Operations, staffing, logistics, delivery, local compliance, vendor management, safety protocols.</div>
+            <div class="role-cost">$75k – $110k each</div>
+            <div class="role-reports-to">Reports to: Lab Director → Executive Director</div>
+        </div>
+        
+        <div class="role-card">
+            <span class="role-badge w2">W-2</span>
+            <div class="role-title">Chief Scientist (4 positions)</div>
+            <div class="role-function">Scientific protocols, threshold validation, data quality, peer review liaison, publication strategy.</div>
+            <div class="role-cost">$85k – $125k each</div>
+            <div class="role-reports-to">Reports to: Lab Director → Scientific Council</div>
+        </div>
+        
+        <div class="role-card">
+            <span class="role-badge w2">W-2</span>
+            <div class="role-title">Senior Data Analysts (8 positions, 2 per lab)</div>
+            <div class="role-function">Signal processing, data quality assurance, dashboard inputs, anomaly flagging, threshold monitoring.</div>
+            <div class="role-cost">$65k – $95k each</div>
+            <div class="role-reports-to">Reports to: Chief Scientist → CTO</div>
+        </div>
+        
+        <div class="role-card">
+            <span class="role-badge w2">W-2</span>
+            <div class="role-title">Systems Engineers (8 positions, 2 per lab)</div>
+            <div class="role-function">Sensor deployment, cloud connectivity, cybersecurity at edge, uptime maintenance, field troubleshooting.</div>
+            <div class="role-cost">$70k – $100k each</div>
+            <div class="role-reports-to">Reports to: Deputy Director → CTO</div>
+        </div>
+        
+        <div class="role-card">
+            <span class="role-badge w2">W-2</span>
+            <div class="role-title">Compliance & Integrity Officer (4 positions)</div>
+            <div class="role-function">Ethics, safeguards, reporting, institutional compliance, indigenous consultation, human subjects protection.</div>
+            <div class="role-cost">$60k – $85k each</div>
+            <div class="role-reports-to">Reports to: Lab Director → Operations Manager</div>
+        </div>
+    </div>
+</div>
+
+<!-- ALPHA BUDGET ALLOCATION -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">◈</div>
+        <div class="org-unit-title">Phase Alpha Budget Allocation</div>
+    </div>
+    
+    <table>
+    <thead>
+    <tr>
+        <th>Category</th>
+        <th>Projected Budget</th>
+        <th>% of Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr><td><strong>Foundation HQ Personnel (Units 4–7)</strong></td><td><strong>$2M – $3M</strong></td><td><strong>~20%</strong></td></tr>
+    <tr><td><strong>4 Living Labs Personnel (Unit 8)</strong></td><td><strong>$3.6M – $7.2M</strong></td><td><strong>~40%</strong></td></tr>
+    <tr><td>Sensors, data feeds and field equipment</td><td>$1.5M – $4M</td><td>~18%</td></tr>
+    <tr><td>Cloud, AI governance platform and dashboards</td><td>$800k – $2M</td><td>~10%</td></tr>
+    <tr><td>Travel, workshops and partner convenings</td><td>$700k – $1.5M</td><td>~7%</td></tr>
+    <tr><td>Legal, compliance, insurance and audit</td><td>$500k – $1M</td><td>~5%</td></tr>
+    <tr style="background:var(--gold-pale);"><td><strong>Total Phase Alpha Budget</strong></td><td><strong>$8M – $15M</strong></td><td><strong>100%</strong></td></tr>
+    </tbody>
+    </table>
+</div>
 
 <div class="footer">
-Phase Alpha — Demonstration Network • 50–70 total personnel
+Phase Alpha — Four-Lab Demonstration Network • Restructured Roles v2.0
 </div>
 
 </div>
@@ -453,45 +1149,493 @@ Phase Alpha — Demonstration Network • 50–70 total personnel
     <p style="text-align:center;">Scaled institutional capacity within the $25M–$60M strategic range.</p>
 </div>
 
-<div class="section-header">Beta Hiring Structure</div>
-
-<table>
-<thead>
-<tr><th>Unit</th><th>Headcount</th><th>Annual / Phase Cost</th></tr>
-</thead>
-<tbody>
-<tr><td>Foundation HQ + Grants Office</td><td>35–45 FTE</td><td>$5M – $7M</td></tr>
-<tr><td>8 Living Labs</td><td>120 FTE</td><td>$14M – $20M</td></tr>
-<tr><td>Engineering, AI and TDR Platform</td><td>20–30 FTE</td><td>$6M – $12M</td></tr>
-<tr><td>Fellowship, certification and training</td><td>15–25 FTE</td><td>$3M – $8M</td></tr>
-</tbody>
-</table>
-
-<div class="section-header">Expanded Grants Office</div>
-
-<div class="grid">
-    <div class="card"><span class="card-badge">Director</span><div class="card-title">Chief Development & Grants Officer</div><div class="card-role">Major gifts, institutional grants, public/private funder strategy.</div></div>
-    <div class="card"><span class="card-badge">Federal</span><div class="card-title">US Federal Grants Lead</div><div class="card-role">NSF, EPA, DOE, USAID and federal compliance.</div></div>
-    <div class="card"><span class="card-badge">Global</span><div class="card-title">International Funding Lead</div><div class="card-role">EU, UN, development banks, climate and biodiversity funds.</div></div>
-    <div class="card"><span class="card-badge">Brazil</span><div class="card-title">Brazil Programs & Grants Lead</div><div class="card-role">Amazon-facing funding, universities, state/federal interfaces.</div></div>
-    <div class="card"><span class="card-badge">Reports</span><div class="card-title">Monitoring, Evaluation & Learning Lead</div><div class="card-role">Impact metrics, donor reporting, restricted-fund compliance.</div></div>
-    <div class="card"><span class="card-badge">CRM</span><div class="card-title">Donor Systems Manager</div><div class="card-role">CRM, stewardship, donor records and campaign analytics.</div></div>
+<div class="summary-box">
+    <div class="summary-title">Phase Beta at a Glance</div>
+    <div class="summary-grid">
+        <div class="summary-item">
+            <div class="summary-number">160–220</div>
+            <div class="summary-label">Total FTE</div>
+        </div>
+        <div class="summary-item">
+            <div class="summary-number">8</div>
+            <div class="summary-label">Living Labs</div>
+        </div>
+        <div class="summary-item">
+            <div class="summary-number">9</div>
+            <div class="summary-label">Organizational Units</div>
+        </div>
+    </div>
 </div>
 
-<div class="section-header">Beta Budget Allocation</div>
+<!-- BETA UNIT 1: EXECUTIVE LEADERSHIP -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">◆</div>
+        <div class="org-unit-title">Unit 1 — Executive Leadership</div>
+    </div>
+    <div class="org-unit-subtitle">Governance maturity for regional scale</div>
+    
+    <div class="roles-grid">
+        <div class="role-card presidency">
+            <span class="role-badge founder">Founder</span>
+            <div class="role-title">President of the Board</div>
+            <div class="role-function">Institutional vision, doctrine stewardship, major donor cultivation, international representation, strategic alliances, thought leadership.</div>
+            <div class="role-cost">$120k – $220k stipend / contract</div>
+            <div class="role-reports-to">Reports to: Board of Directors</div>
+        </div>
+        
+        <div class="role-card treasury">
+            <span class="role-badge volunteer">Volunteer</span>
+            <div class="role-title">Treasurer of the Board</div>
+            <div class="role-function">Financial oversight, multi-lab budget consolidation, audit supervision, investment policy, restricted-fund governance, reserve management.</div>
+            <div class="role-cost">$0 – $35k reimbursements</div>
+            <div class="role-reports-to">Reports to: Board of Directors</div>
+        </div>
+        
+        <div class="role-card governance">
+            <span class="role-badge volunteer">Volunteer</span>
+            <div class="role-title">Secretary of the Board</div>
+            <div class="role-function">Corporate governance, resolutions, compliance documentation, multi-jurisdiction record keeping, bylaws evolution.</div>
+            <div class="role-cost">$0 – $20k reimbursements</div>
+            <div class="role-reports-to">Reports to: Board of Directors</div>
+        </div>
+        
+        <div class="role-card governance">
+            <span class="role-badge advisory">Advisory</span>
+            <div class="role-title">Board Members-at-Large (5–7 seats)</div>
+            <div class="role-function">Fiduciary oversight, mission control, succession planning, ethics enforcement, lab governance liaison, regional representation.</div>
+            <div class="role-cost">$0 – $60k total honoraria</div>
+            <div class="role-reports-to">Reports to: Board of Directors</div>
+        </div>
+    </div>
+</div>
 
-<table>
-<tbody>
-<tr><td>Personnel</td><td>$20M – $28M</td></tr>
-<tr><td>Platform, AI, sensors and data infrastructure</td><td>$6M – $12M</td></tr>
-<tr><td>Fellowship, certification and institutional training</td><td>$3M – $8M</td></tr>
-<tr><td>Legal, audit, compliance and insurance</td><td>$1M – $3M</td></tr>
-<tr><td>Strategic reserve</td><td>$2M – $5M</td></tr>
-</tbody>
-</table>
+<!-- BETA UNIT 2: STANDING COMMITTEES -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">◎</div>
+        <div class="org-unit-title">Unit 2 — Standing Committees</div>
+    </div>
+    <div class="org-unit-subtitle">Expanded oversight for 8-lab regional network</div>
+    
+    <div class="roles-grid">
+        <div class="role-card governance">
+            <span class="role-badge volunteer">Volunteer</span>
+            <div class="role-title">Audit Committee Chair + Members (3)</div>
+            <div class="role-function">Multi-lab financial audit, inter-lab fund transfers, internal controls, fraud prevention, regional audit coordination.</div>
+            <div class="role-cost">$0 – $25k support</div>
+            <div class="role-reports-to">Reports to: Treasurer → Board</div>
+        </div>
+        
+        <div class="role-card governance">
+            <span class="role-badge volunteer">Volunteer</span>
+            <div class="role-title">Risk Committee Chair + Members (3)</div>
+            <div class="role-function">Cross-lab risk register, TFP threshold validation, irreversibility protocols, scenario modeling, regional risk profiles.</div>
+            <div class="role-cost">$0 – $25k support</div>
+            <div class="role-reports-to">Reports to: President → Board</div>
+        </div>
+        
+        <div class="role-card governance">
+            <span class="role-badge volunteer">Volunteer</span>
+            <div class="role-title">Governance & Nominations Chair + Members (2)</div>
+            <div class="role-function">Board expansion, lab governance frameworks, committee appointments, bylaws, ethics, regional board development.</div>
+            <div class="role-cost">$0 – $15k support</div>
+            <div class="role-reports-to">Reports to: Secretary → Board</div>
+        </div>
+        
+        <div class="role-card governance">
+            <span class="role-badge volunteer">Volunteer</span>
+            <div class="role-title">Technology & AI Committee Chair + Members (3)</div>
+            <div class="role-function">Platform scalability, AI ethics across 8 labs, data interoperability, cybersecurity standards, vendor oversight.</div>
+            <div class="role-cost">$0 – $25k support</div>
+            <div class="role-reports-to">Reports to: President → Board</div>
+        </div>
+    </div>
+</div>
+
+<!-- BETA UNIT 3: ADVISORY COUNCILS -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">◇</div>
+        <div class="org-unit-title">Unit 3 — Advisory Councils</div>
+    </div>
+    <div class="org-unit-subtitle">Scientific credibility and international diplomacy at scale</div>
+    
+    <div class="roles-grid">
+        <div class="role-card governance">
+            <span class="role-badge advisory">Advisory</span>
+            <div class="role-title">Scientific Council Members (7–10)</div>
+            <div class="role-function">Peer review of lab protocols, threshold calibration, publication strategy, data quality, cross-lab methodology standardization.</div>
+            <div class="role-cost">$0 – $50k honoraria</div>
+            <div class="role-reports-to">Advisory to: President & Chief Science Officer</div>
+        </div>
+        
+        <div class="role-card governance">
+            <span class="role-badge advisory">Advisory</span>
+            <div class="role-title">International Council Members (7–10)</div>
+            <div class="role-function">Geopolitical risk, multilateral engagement, diplomatic access, partnership vetting, host-country liaison, regional strategy.</div>
+            <div class="role-cost">$0 – $40k honoraria</div>
+            <div class="role-reports-to">Advisory to: President & Regional Directors</div>
+        </div>
+    </div>
+</div>
+
+<!-- BETA UNIT 4: FOUNDATION HQ & EXECUTIVE OPERATIONS -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">■</div>
+        <div class="org-unit-title">Unit 4 — Foundation HQ & Executive Operations</div>
+    </div>
+    <div class="org-unit-subtitle">Central coordination for 8-lab regional network</div>
+    
+    <div class="roles-grid">
+        <div class="role-card operations">
+            <span class="role-badge w2">W-2 • Critical</span>
+            <div class="role-title">Executive Director / COO</div>
+            <div class="role-function">Central operations leadership, lab coordination, staff management, budget consolidation, Board liaison, risk management.</div>
+            <div class="role-cost">$150k – $220k</div>
+            <div class="role-reports-to">Reports to: President of the Board</div>
+        </div>
+        
+        <div class="role-card operations">
+            <span class="role-badge w2">W-2 • Critical</span>
+            <div class="role-title">Chief Financial Officer</div>
+            <div class="role-function">Multi-lab financial consolidation, grant fund accounting, audit management, cash-flow forecasting, treasury, reserve management.</div>
+            <div class="role-cost">$140k – $200k</div>
+            <div class="role-reports-to">Reports to: Executive Director → Treasurer</div>
+        </div>
+        
+        <div class="role-card operations">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">Chief Operations Officer (new)</div>
+            <div class="role-function">Operations strategy, regional lab coordination, supply chain, facilities management, safety protocols, crisis management.</div>
+            <div class="role-cost">$130k – $190k</div>
+            <div class="role-reports-to">Reports to: Executive Director</div>
+        </div>
+        
+        <div class="role-card operations">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">General Counsel (new)</div>
+            <div class="role-function">Multi-jurisdiction legal oversight, contracts, IP protection, regulatory compliance, litigation management, ethics.</div>
+            <div class="role-cost">$160k – $240k</div>
+            <div class="role-reports-to">Reports to: Executive Director → President</div>
+        </div>
+        
+        <div class="role-card operations">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">Operations & Compliance Manager</div>
+            <div class="role-function">HR across 8 labs, vendor management, insurance, facilities, operational compliance, inter-lab logistics.</div>
+            <div class="role-cost">$95k – $140k</div>
+            <div class="role-reports-to">Reports to: COO</div>
+        </div>
+        
+        <div class="role-card operations">
+            <span class="role-badge w2">W-2 • Medium Priority</span>
+            <div class="role-title">Administrative Coordinator</div>
+            <div class="role-function">Central calendar, correspondence, travel logistics, meeting support, document management.</div>
+            <div class="role-cost">$55k – $80k</div>
+            <div class="role-reports-to">Reports to: COO</div>
+        </div>
+    </div>
+</div>
+
+<!-- BETA UNIT 5: OFFICE OF GRANTS & DEVELOPMENT -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">$</div>
+        <div class="org-unit-title">Unit 5 — Office of Grants & Development</div>
+    </div>
+    <div class="org-unit-subtitle">Revenue generation scaled for 8-lab regional network</div>
+    
+    <div class="roles-grid">
+        <div class="role-card grants">
+            <span class="role-badge w2">W-2 • Critical</span>
+            <div class="role-title">Chief Development & Grants Officer</div>
+            <div class="role-function">Major gifts, institutional grants, public/private funder strategy, revenue forecasting, donor stewardship at scale.</div>
+            <div class="role-cost">$160k – $240k</div>
+            <div class="role-reports-to">Reports to: Executive Director → President</div>
+        </div>
+        
+        <div class="role-card grants">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">US Federal Grants Lead</div>
+            <div class="role-function">NSF, EPA, DOE, USAID and federal compliance, federal proposal architecture, congressional liaison.</div>
+            <div class="role-cost">$110k – $160k</div>
+            <div class="role-reports-to">Reports to: Chief Development Officer</div>
+        </div>
+        
+        <div class="role-card grants">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">International Funding Lead</div>
+            <div class="role-function">EU, UN, development banks, climate and biodiversity funds, multilateral proposal strategy.</div>
+            <div class="role-cost">$120k – $175k</div>
+            <div class="role-reports-to">Reports to: Chief Development Officer</div>
+        </div>
+        
+        <div class="role-card grants">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">Brazil Programs & Grants Lead</div>
+            <div class="role-function">Amazon-facing funding, Brazilian universities, state/federal interfaces, FUNBIO, BNDES engagement.</div>
+            <div class="role-cost">$90k – $135k</div>
+            <div class="role-reports-to">Reports to: Chief Development Officer → International Funding Lead</div>
+        </div>
+        
+        <div class="role-card grants">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">Monitoring, Evaluation & Learning Lead</div>
+            <div class="role-function">Impact metrics, donor reporting, restricted-fund compliance, theory of change, results framework.</div>
+            <div class="role-cost">$95k – $140k</div>
+            <div class="role-reports-to">Reports to: Chief Development Officer</div>
+        </div>
+        
+        <div class="role-card grants">
+            <span class="role-badge w2">W-2 • Medium Priority</span>
+            <div class="role-title">Donor Systems Manager</div>
+            <div class="role-function">CRM, stewardship, donor records, campaign analytics, reporting dashboards, pledge management.</div>
+            <div class="role-cost">$70k – $100k</div>
+            <div class="role-reports-to">Reports to: Chief Development Officer</div>
+        </div>
+    </div>
+</div>
+
+<!-- BETA UNIT 6: FELLOWSHIP & TRAINING -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">✦</div>
+        <div class="org-unit-title">Unit 6 — Fellowship & Training Programs</div>
+    </div>
+    <div class="org-unit-subtitle">Scaled fellowship and certification across 8 labs</div>
+    
+    <div class="roles-grid">
+        <div class="role-card fellowship">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">Fellowship Program Director</div>
+            <div class="role-function">Cohort design, selection, curriculum, mentor matching, alumni network, evaluation, cross-lab fellow placement.</div>
+            <div class="role-cost">$100k – $145k</div>
+            <div class="role-reports-to">Reports to: Executive Director</div>
+        </div>
+        
+        <div class="role-card fellowship">
+            <span class="role-badge w2">W-2 • Medium Priority</span>
+            <div class="role-title">Fellowship Coordinator</div>
+            <div class="role-function">Application management, onboarding, logistics, stipend administration, event coordination, alumni engagement.</div>
+            <div class="role-cost">$60k – $85k</div>
+            <div class="role-reports-to">Reports to: Fellowship Program Director</div>
+        </div>
+        
+        <div class="role-card fellowship">
+            <span class="role-badge contract">1099 • Medium Priority</span>
+            <div class="role-title">Curriculum Designers (3–5)</div>
+            <div class="role-function">TFP module development, sector-specific content, assessment rubrics, certification standards, regional adaptation.</div>
+            <div class="role-cost">$45k – $75k each</div>
+            <div class="role-reports-to">Reports to: Fellowship Program Director</div>
+        </div>
+        
+        <div class="role-card fellowship">
+            <span class="role-badge w2">W-2 • Medium Priority</span>
+            <div class="role-title">Certification & Licensing Manager (new)</div>
+            <div class="role-function">Certification standards, exam design, credential management, partner university accreditation, quality assurance.</div>
+            <div class="role-cost">$75k – $110k</div>
+            <div class="role-reports-to">Reports to: Fellowship Program Director</div>
+        </div>
+    </div>
+</div>
+
+<!-- BETA UNIT 7: TECHNOLOGY & PLATFORM -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">⚙</div>
+        <div class="org-unit-title">Unit 7 — Technology & AI Platform</div>
+    </div>
+    <div class="org-unit-subtitle">Scaled platform for 8-lab regional network</div>
+    
+    <div class="roles-grid">
+        <div class="role-card tech">
+            <span class="role-badge w2">W-2 • Critical</span>
+            <div class="role-title">Chief Technology Officer</div>
+            <div class="role-function">Technology strategy, platform architecture, AI roadmap, cybersecurity, vendor management, lab tech integration.</div>
+            <div class="role-cost">$170k – $250k</div>
+            <div class="role-reports-to">Reports to: Executive Director → Technology & AI Committee</div>
+        </div>
+        
+        <div class="role-card tech">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">VP of Engineering (new)</div>
+            <div class="role-function">Engineering leadership, team management, sprint planning, code quality, architecture decisions, vendor oversight.</div>
+            <div class="role-cost">$150k – $220k</div>
+            <div class="role-reports-to">Reports to: CTO</div>
+        </div>
+        
+        <div class="role-card tech">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">Senior Platform Architects (2)</div>
+            <div class="role-function">PWA scalability, API design, cloud infrastructure, data pipelines, multi-lab interoperability, load balancing.</div>
+            <div class="role-cost">$130k – $190k each</div>
+            <div class="role-reports-to">Reports to: VP of Engineering</div>
+        </div>
+        
+        <div class="role-card tech">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">AI / Machine Learning Engineers (3–4)</div>
+            <div class="role-function">Predictive models, TFP algorithms, signal processing, anomaly detection, model validation, retraining pipelines.</div>
+            <div class="role-cost">$130k – $190k each</div>
+            <div class="role-reports-to">Reports to: VP of Engineering → CTO</div>
+        </div>
+        
+        <div class="role-card tech">
+            <span class="role-badge w2">W-2 • Medium Priority</span>
+            <div class="role-title">DevOps / Cloud Engineers (2–3)</div>
+            <div class="role-function">Infrastructure as code, CI/CD, monitoring, backup, disaster recovery, cost optimization, multi-region deployment.</div>
+            <div class="role-cost">$110k – $160k each</div>
+            <div class="role-reports-to">Reports to: VP of Engineering</div>
+        </div>
+        
+        <div class="role-card tech">
+            <span class="role-badge w2">W-2 • Medium Priority</span>
+            <div class="role-title">Data Engineers (2–3)</div>
+            <div class="role-function">ETL pipelines, data warehousing, sensor integration, quality assurance, dashboard feeds, real-time streaming.</div>
+            <div class="role-cost">$115k – $170k each</div>
+            <div class="role-reports-to">Reports to: VP of Engineering</div>
+        </div>
+    </div>
+</div>
+
+<!-- BETA UNIT 8: LIVING LABS (8) -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">●</div>
+        <div class="org-unit-title">Unit 8 — Living Labs (8 Regional Sites)</div>
+    </div>
+    <div class="org-unit-subtitle">4 Alpha labs + 4 new regional labs</div>
+    
+    <table>
+    <thead>
+    <tr>
+        <th>Lab</th>
+        <th>Headcount</th>
+        <th>Annual Budget</th>
+        <th>Focus Region</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr><td><strong>Belém Amazon Core Lab</strong></td><td>12–15 FTE</td><td>$1.2M – $2.2M</td><td>South America — Amazon Basin</td></tr>
+    <tr><td><strong>Tromsø Arctic Carbon Lab</strong></td><td>12–15 FTE</td><td>$1.2M – $2.2M</td><td>Europe — Arctic / Boreal</td></tr>
+    <tr><td><strong>London Global Finance Lab</strong></td><td>12–15 FTE</td><td>$1.2M – $2.2M</td><td>Europe — Finance / ESG</td></tr>
+    <tr><td><strong>Geneva Integration Hub Lab</strong></td><td>12–15 FTE</td><td>$1.2M – $2.2M</td><td>Europe — Policy / Multilateral</td></tr>
+    <tr><td><strong>Nairobi Africa Sustainability Lab</strong></td><td>10–14 FTE</td><td>$900k – $1.8M</td><td>Africa — Water / Agriculture</td></tr>
+    <tr><td><strong>Jakarta Asia-Pacific Lab</strong></td><td>10–14 FTE</td><td>$900k – $1.8M</td><td>Asia-Pacific — Marine / Coastal</td></tr>
+    <tr><td><strong>San Francisco Tech Innovation Lab</strong></td><td>10–14 FTE</td><td>$1M – $2M</td><td>North America — Tech / AI</td></tr>
+    <tr><td><strong>Middle East Water Security Lab</strong></td><td>10–14 FTE</td><td>$900k – $1.8M</td><td>MENA — Water / Energy</td></tr>
+    </tbody>
+    </table>
+    
+    <div class="roles-grid">
+        <div class="role-card">
+            <span class="role-badge w2">W-2</span>
+            <div class="role-title">Lab Director (8 positions)</div>
+            <div class="role-function">Strategic leadership, institutional representation, stakeholder engagement, local partnership management, regional advocacy.</div>
+            <div class="role-cost">$100k – $150k each</div>
+            <div class="role-reports-to">Reports to: Executive Director → President</div>
+        </div>
+        
+        <div class="role-card">
+            <span class="role-badge w2">W-2</span>
+            <div class="role-title">Deputy Director / Operations Lead (8 positions)</div>
+            <div class="role-function">Operations, staffing, logistics, delivery, local compliance, vendor management, safety protocols, crisis response.</div>
+            <div class="role-cost">$80k – $120k each</div>
+            <div class="role-reports-to">Reports to: Lab Director → COO</div>
+        </div>
+        
+        <div class="role-card">
+            <span class="role-badge w2">W-2</span>
+            <div class="role-title">Chief Scientist (8 positions)</div>
+            <div class="role-function">Scientific protocols, threshold validation, data quality, peer review liaison, publication strategy, regional methodology.</div>
+            <div class="role-cost">$90k – $135k each</div>
+            <div class="role-reports-to">Reports to: Lab Director → Scientific Council</div>
+        </div>
+        
+        <div class="role-card">
+            <span class="role-badge w2">W-2</span>
+            <div class="role-title">Senior Data Analysts (16 positions, 2 per lab)</div>
+            <div class="role-function">Signal processing, data quality assurance, dashboard inputs, anomaly flagging, threshold monitoring, regional calibration.</div>
+            <div class="role-cost">$70k – $105k each</div>
+            <div class="role-reports-to">Reports to: Chief Scientist → CTO</div>
+        </div>
+        
+        <div class="role-card">
+            <span class="role-badge w2">W-2</span>
+            <div class="role-title">Systems Engineers (16 positions, 2 per lab)</div>
+            <div class="role-function">Sensor deployment, cloud connectivity, cybersecurity at edge, uptime maintenance, field troubleshooting, hardware procurement.</div>
+            <div class="role-cost">$75k – $110k each</div>
+            <div class="role-reports-to">Reports to: Deputy Director → VP Engineering</div>
+        </div>
+        
+        <div class="role-card">
+            <span class="role-badge w2">W-2</span>
+            <div class="role-title">Compliance & Integrity Officer (8 positions)</div>
+            <div class="role-function">Ethics, safeguards, reporting, institutional compliance, indigenous consultation, human subjects protection, cultural protocols.</div>
+            <div class="role-cost">$65k – $95k each</div>
+            <div class="role-reports-to">Reports to: Lab Director → General Counsel</div>
+        </div>
+    </div>
+</div>
+
+<!-- BETA UNIT 9: REGIONAL COORDINATION -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">◐</div>
+        <div class="org-unit-title">Unit 9 — Regional Coordination</div>
+    </div>
+    <div class="org-unit-subtitle">Cross-regional integration and knowledge transfer</div>
+    
+    <div class="roles-grid">
+        <div class="role-card operations">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">Regional Directors (4 positions)</div>
+            <div class="role-function">Americas, Europe, Africa/MENA, Asia-Pacific regional strategy, lab cluster coordination, funder relations, government liaison.</div>
+            <div class="role-cost">$110k – $160k each</div>
+            <div class="role-reports-to">Reports to: Executive Director → President</div>
+        </div>
+        
+        <div class="role-card operations">
+            <span class="role-badge w2">W-2 • Medium Priority</span>
+            <div class="role-title">Knowledge Transfer Coordinator</div>
+            <div class="role-function">Cross-lab learning, best practice dissemination, methodology standardization, training material distribution, community of practice.</div>
+            <div class="role-cost">$70k – $100k</div>
+            <div class="role-reports-to">Reports to: COO → Fellowship Director</div>
+        </div>
+    </div>
+</div>
+
+<!-- BETA BUDGET ALLOCATION -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">◈</div>
+        <div class="org-unit-title">Phase Beta Budget Allocation</div>
+    </div>
+    
+    <table>
+    <thead>
+    <tr>
+        <th>Category</th>
+        <th>Projected Budget</th>
+        <th>% of Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr><td><strong>Foundation HQ Personnel (Units 4–7, 9)</strong></td><td><strong>$5M – $7M</strong></td><td><strong>~17%</strong></td></tr>
+    <tr><td><strong>8 Living Labs Personnel (Unit 8)</strong></td><td><strong>$14M – $20M</strong></td><td><strong>~47%</strong></td></tr>
+    <tr><td>Platform, AI, sensors and data infrastructure</td><td>$6M – $12M</td><td>~20%</td></tr>
+    <tr><td>Fellowship, certification and institutional training</td><td>$3M – $8M</td><td>~11%</td></tr>
+    <tr><td>Legal, audit, compliance and insurance</td><td>$1M – $3M</td><td>~4%</td></tr>
+    <tr><td>Strategic reserve</td><td>$2M – $5M</td><td>~7%</td></tr>
+    <tr style="background:var(--gold-pale);"><td><strong>Total Phase Beta Budget</strong></td><td><strong>$30M – $45M</strong></td><td><strong>100%</strong></td></tr>
+    </tbody>
+    </table>
+</div>
 
 <div class="footer">
-Phase Beta — Regional Scaling • 160–220 personnel
+Phase Beta — Regional Scaling Network • Restructured Roles v2.0
 </div>
 
 </div>
@@ -506,7 +1650,7 @@ Phase Beta — Regional Scaling • 160–220 personnel
 <div class="letterhead">
     <img src="seal.PNG" class="seal" alt="Foundation Seal">
     <div class="org-name">Johann Christian Hasse Foundation</div>
-    <div class="subtitle">Phase Gamma / Full Operation Financial & Hiring Plan</div>
+    <div class="subtitle">Phase Gamma Financial & Hiring Plan</div>
 </div>
 
 <div class="phase-title">
@@ -520,50 +1664,510 @@ Phase Beta — Regional Scaling • 160–220 personnel
     <p style="text-align:center;">Full annual operating budget for global c-ECO implementation.</p>
 </div>
 
-<div class="section-header">Full Network Staffing</div>
-
-<table>
-<thead>
-<tr><th>Unit</th><th>Headcount</th><th>Annual Cost</th></tr>
-</thead>
-<tbody>
-<tr><td>Foundation HQ + Global Integration Hub</td><td>70–100 FTE</td><td>$15M – $22M</td></tr>
-<tr><td>22 Living Labs</td><td>440–660 FTE</td><td>$60M – $110M</td></tr>
-<tr><td>Technology, AI, data, cybersecurity</td><td>80–120 FTE</td><td>$25M – $50M</td></tr>
-<tr><td>Fellowship, licensing and certification</td><td>60–100 FTE</td><td>$10M – $20M</td></tr>
-<tr><td>Grants, development and institutional partnerships</td><td>30–50 FTE</td><td>$6M – $12M</td></tr>
-</tbody>
-</table>
-
-<div class="section-header">Global Office of Grants & Institutional Programs</div>
-
-<div class="grid">
-    <div class="card"><span class="card-badge">Chief</span><div class="card-title">Chief Institutional Development Officer</div><div class="card-role">Global fundraising, endowment strategy, strategic alliances.</div></div>
-    <div class="card"><span class="card-badge">Regions</span><div class="card-title">Regional Funding Directors</div><div class="card-role">Americas, Europe, Africa, Asia-Pacific and Middle East.</div></div>
-    <div class="card"><span class="card-badge">Programs</span><div class="card-title">International Programs Directors</div><div class="card-role">UN, universities, development banks and research consortia.</div></div>
-    <div class="card"><span class="card-badge">Compliance</span><div class="card-title">Grant Compliance & Restricted Funds Unit</div><div class="card-role">Audit trails, donor compliance and expenditure controls.</div></div>
+<div class="summary-box">
+    <div class="summary-title">Phase Gamma at a Glance</div>
+    <div class="summary-grid">
+        <div class="summary-item">
+            <div class="summary-number">600–900</div>
+            <div class="summary-label">Total FTE</div>
+        </div>
+        <div class="summary-item">
+            <div class="summary-number">22</div>
+            <div class="summary-label">Living Labs</div>
+        </div>
+        <div class="summary-item">
+            <div class="summary-number">10</div>
+            <div class="summary-label">Organizational Units</div>
+        </div>
+    </div>
 </div>
 
-<div class="section-header">Gamma Budget Allocation</div>
+<!-- GAMMA UNIT 1: EXECUTIVE LEADERSHIP -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">◆</div>
+        <div class="org-unit-title">Unit 1 — Executive Leadership</div>
+    </div>
+    <div class="org-unit-subtitle">Global governance maturity and institutional stewardship</div>
+    
+    <div class="roles-grid">
+        <div class="role-card presidency">
+            <span class="role-badge founder">Founder</span>
+            <div class="role-title">President of the Board</div>
+            <div class="role-function">Global institutional vision, doctrine stewardship, major donor cultivation, international representation, strategic alliances, thought leadership, global advocacy.</div>
+            <div class="role-cost">$180k – $320k stipend / contract</div>
+            <div class="role-reports-to">Reports to: Board of Directors</div>
+        </div>
+        
+        <div class="role-card treasury">
+            <span class="role-badge volunteer">Volunteer</span>
+            <div class="role-title">Treasurer of the Board</div>
+            <div class="role-function">Global financial oversight, 22-lab budget consolidation, audit supervision, investment policy, restricted-fund governance, reserve management, endowment strategy.</div>
+            <div class="role-cost">$0 – $50k reimbursements</div>
+            <div class="role-reports-to">Reports to: Board of Directors</div>
+        </div>
+        
+        <div class="role-card governance">
+            <span class="role-badge volunteer">Volunteer</span>
+            <div class="role-title">Secretary of the Board</div>
+            <div class="role-function">Global corporate governance, resolutions, compliance documentation, multi-jurisdiction record keeping, bylaws evolution, subsidiary governance.</div>
+            <div class="role-cost">$0 – $30k reimbursements</div>
+            <div class="role-reports-to">Reports to: Board of Directors</div>
+        </div>
+        
+        <div class="role-card governance">
+            <span class="role-badge advisory">Advisory</span>
+            <div class="role-title">Board Members-at-Large (7–9 seats)</div>
+            <div class="role-function">Fiduciary oversight, mission control, succession planning, ethics enforcement, lab governance liaison, regional representation, endowment oversight.</div>
+            <div class="role-cost">$0 – $80k total honoraria</div>
+            <div class="role-reports-to">Reports to: Board of Directors</div>
+        </div>
+    </div>
+</div>
 
-<table>
-<tbody>
-<tr><td>Personnel and benefits</td><td>$85M – $150M</td></tr>
-<tr><td>Data, sensors, AI platform and cybersecurity</td><td>$25M – $50M</td></tr>
-<tr><td>Fellowship, certification and global training</td><td>$10M – $20M</td></tr>
-<tr><td>Legal, insurance, audit and compliance</td><td>$5M – $12M</td></tr>
-<tr><td>Reserve fund, 12–18 months OPEX target</td><td>$20M – $40M</td></tr>
-</tbody>
-</table>
+<!-- GAMMA UNIT 2: STANDING COMMITTEES -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">◎</div>
+        <div class="org-unit-title">Unit 2 — Standing Committees</div>
+    </div>
+    <div class="org-unit-subtitle">Global oversight for 22-lab worldwide network</div>
+    
+    <div class="roles-grid">
+        <div class="role-card governance">
+            <span class="role-badge volunteer">Volunteer</span>
+            <div class="role-title">Audit Committee Chair + Members (4)</div>
+            <div class="role-function">Global financial audit, inter-lab fund transfers, internal controls, fraud prevention, regional audit coordination, subsidiary audit.</div>
+            <div class="role-cost">$0 – $35k support</div>
+            <div class="role-reports-to">Reports to: Treasurer → Board</div>
+        </div>
+        
+        <div class="role-card governance">
+            <span class="role-badge volunteer">Volunteer</span>
+            <div class="role-title">Risk Committee Chair + Members (4)</div>
+            <div class="role-function">Global risk register, TFP threshold validation, irreversibility protocols, scenario modeling, regional risk profiles, geopolitical risk.</div>
+            <div class="role-cost">$0 – $35k support</div>
+            <div class="role-reports-to">Reports to: President → Board</div>
+        </div>
+        
+        <div class="role-card governance">
+            <span class="role-badge volunteer">Volunteer</span>
+            <div class="role-title">Governance & Nominations Chair + Members (3)</div>
+            <div class="role-function">Global board expansion, lab governance frameworks, committee appointments, bylaws, ethics, regional board development, subsidiary boards.</div>
+            <div class="role-cost">$0 – $25k support</div>
+            <div class="role-reports-to">Reports to: Secretary → Board</div>
+        </div>
+        
+        <div class="role-card governance">
+            <span class="role-badge volunteer">Volunteer</span>
+            <div class="role-title">Technology & AI Committee Chair + Members (4)</div>
+            <div class="role-function">Global platform scalability, AI ethics across 22 labs, data interoperability, cybersecurity standards, vendor oversight, emerging tech review.</div>
+            <div class="role-cost">$0 – $35k support</div>
+            <div class="role-reports-to">Reports to: President → Board</div>
+        </div>
+    </div>
+</div>
 
-<div class="section-header">Strategic Rule</div>
+<!-- GAMMA UNIT 3: ADVISORY COUNCILS -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">◇</div>
+        <div class="org-unit-title">Unit 3 — Advisory Councils</div>
+    </div>
+    <div class="org-unit-subtitle">Global scientific credibility and international diplomacy</div>
+    
+    <div class="roles-grid">
+        <div class="role-card governance">
+            <span class="role-badge advisory">Advisory</span>
+            <div class="role-title">Scientific Council Members (10–15)</div>
+            <div class="role-function">Global peer review, threshold calibration, publication strategy, data quality, cross-lab methodology standardization, Nobel-level scientific advisory.</div>
+            <div class="role-cost">$0 – $80k honoraria</div>
+            <div class="role-reports-to">Advisory to: President & Chief Science Officer</div>
+        </div>
+        
+        <div class="role-card governance">
+            <span class="role-badge advisory">Advisory</span>
+            <div class="role-title">International Council Members (10–15)</div>
+            <div class="role-function">Global geopolitical risk, multilateral engagement, diplomatic access, partnership vetting, host-country liaison, regional strategy, UN agency liaison.</div>
+            <div class="role-cost">$0 – $60k honoraria</div>
+            <div class="role-reports-to">Advisory to: President & Regional Directors</div>
+        </div>
+    </div>
+</div>
 
-<div class="budget-box">
-    <p><strong>Governance remains lean and independent.</strong> Board and advisory functions should remain primarily voluntary or honorarium-based. Operational, technical, lab, compliance, grant, and data functions should be compensated once they require sustained deliverables, supervision, or legal accountability.</p>
+<!-- GAMMA UNIT 4: GLOBAL INTEGRATION HUB & EXECUTIVE OPERATIONS -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">■</div>
+        <div class="org-unit-title">Unit 4 — Global Integration Hub & Executive Operations</div>
+    </div>
+    <div class="org-unit-subtitle">Central coordination for 22-lab global network</div>
+    
+    <div class="roles-grid">
+        <div class="role-card operations">
+            <span class="role-badge w2">W-2 • Critical</span>
+            <div class="role-title">Executive Director / COO</div>
+            <div class="role-function">Global operations leadership, lab coordination, staff management, budget consolidation, Board liaison, risk management, crisis response.</div>
+            <div class="role-cost">$200k – $300k</div>
+            <div class="role-reports-to">Reports to: President of the Board</div>
+        </div>
+        
+        <div class="role-card operations">
+            <span class="role-badge w2">W-2 • Critical</span>
+            <div class="role-title">Chief Financial Officer</div>
+            <div class="role-function">Global financial consolidation, grant fund accounting, audit management, cash-flow forecasting, treasury, reserve management, endowment operations.</div>
+            <div class="role-cost">$190k – $280k</div>
+            <div class="role-reports-to">Reports to: Executive Director → Treasurer</div>
+        </div>
+        
+        <div class="role-card operations">
+            <span class="role-badge w2">W-2 • Critical</span>
+            <div class="role-title">Chief Operations Officer</div>
+            <div class="role-function">Global operations strategy, regional lab coordination, supply chain, facilities management, safety protocols, crisis management, business continuity.</div>
+            <div class="role-cost">$180k – $270k</div>
+            <div class="role-reports-to">Reports to: Executive Director</div>
+        </div>
+        
+        <div class="role-card operations">
+            <span class="role-badge w2">W-2 • Critical</span>
+            <div class="role-title">General Counsel</div>
+            <div class="role-function">Global multi-jurisdiction legal oversight, contracts, IP protection, regulatory compliance, litigation management, ethics, subsidiary legal structure.</div>
+            <div class="role-cost">$220k – $330k</div>
+            <div class="role-reports-to">Reports to: Executive Director → President</div>
+        </div>
+        
+        <div class="role-card operations">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">VP of Global Operations (new)</div>
+            <div class="role-function">Regional operations oversight, lab performance metrics, operational excellence, process standardization, inter-lab resource allocation.</div>
+            <div class="role-cost">$150k – $220k</div>
+            <div class="role-reports-to">Reports to: COO</div>
+        </div>
+        
+        <div class="role-card operations">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">Global HR Director (new)</div>
+            <div class="role-function">Global talent acquisition, compensation strategy, labor law compliance, diversity & inclusion, performance management, succession planning.</div>
+            <div class="role-cost">$140k – $210k</div>
+            <div class="role-reports-to">Reports to: COO → Executive Director</div>
+        </div>
+    </div>
+</div>
+
+<!-- GAMMA UNIT 5: GLOBAL OFFICE OF GRANTS & INSTITUTIONAL PROGRAMS -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">$</div>
+        <div class="org-unit-title">Unit 5 — Global Office of Grants & Institutional Programs</div>
+    </div>
+    <div class="org-unit-subtitle">Global revenue generation and institutional partnerships</div>
+    
+    <div class="roles-grid">
+        <div class="role-card grants">
+            <span class="role-badge w2">W-2 • Critical</span>
+            <div class="role-title">Chief Institutional Development Officer</div>
+            <div class="role-function">Global fundraising, endowment strategy, strategic alliances, major gifts, public-private partnerships, revenue diversification.</div>
+            <div class="role-cost">$220k – $330k</div>
+            <div class="role-reports-to">Reports to: Executive Director → President</div>
+        </div>
+        
+        <div class="role-card grants">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">Regional Funding Directors (5 positions)</div>
+            <div class="role-function">Americas, Europe, Africa, Asia-Pacific and Middle East regional funding strategy, local funder cultivation, government relations.</div>
+            <div class="role-cost">$130k – $200k each</div>
+            <div class="role-reports-to">Reports to: Chief Institutional Development Officer</div>
+        </div>
+        
+        <div class="role-card grants">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">International Programs Directors (3–4)</div>
+            <div class="role-function">UN, universities, development banks, research consortia, multilateral funding, diplomatic liaison, treaty engagement.</div>
+            <div class="role-cost">$140k – $210k each</div>
+            <div class="role-reports-to">Reports to: Chief Institutional Development Officer</div>
+        </div>
+        
+        <div class="role-card grants">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">Grant Compliance & Restricted Funds Unit (4–6 staff)</div>
+            <div class="role-function">Global audit trails, donor compliance, expenditure controls, multi-jurisdiction reporting, restricted-fund verification, forensic accounting.</div>
+            <div class="role-cost">$80k – $120k each</div>
+            <div class="role-reports-to">Reports to: Chief Institutional Development Officer → CFO</div>
+        </div>
+    </div>
+</div>
+
+<!-- GAMMA UNIT 6: FELLOWSHIP, LICENSING & CERTIFICATION -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">✦</div>
+        <div class="org-unit-title">Unit 6 — Fellowship, Licensing & Certification</div>
+    </div>
+    <div class="org-unit-subtitle">Global fellowship and professional certification system</div>
+    
+    <div class="roles-grid">
+        <div class="role-card fellowship">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">VP of Fellowship & Education (new)</div>
+            <div class="role-function">Global fellowship strategy, curriculum architecture, certification standards, university partnerships, alumni network governance, thought leadership.</div>
+            <div class="role-cost">$160k – $240k</div>
+            <div class="role-reports-to">Reports to: Executive Director</div>
+        </div>
+        
+        <div class="role-card fellowship">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">Global Fellowship Directors (4–5)</div>
+            <div class="role-function">Regional cohort management, selection, placement, evaluation, mentor networks, regional curriculum adaptation.</div>
+            <div class="role-cost">$110k – $165k each</div>
+            <div class="role-reports-to">Reports to: VP of Fellowship & Education</div>
+        </div>
+        
+        <div class="role-card fellowship">
+            <span class="role-badge w2">W-2 • Medium Priority</span>
+            <div class="role-title">Certification & Licensing Director</div>
+            <div class="role-function">Global certification standards, exam governance, credential management, partner university accreditation, quality assurance, professional ethics.</div>
+            <div class="role-cost">$120k – $180k</div>
+            <div class="role-reports-to">Reports to: VP of Fellowship & Education</div>
+        </div>
+        
+        <div class="role-card fellowship">
+            <span class="role-badge contract">1099 • Medium Priority</span>
+            <div class="role-title">Distinguished Faculty & Mentors (15–25)</div>
+            <div class="role-function">Sector-specific instruction, thesis supervision, professional mentorship, research guidance, global thought leadership.</div>
+            <div class="role-cost">$30k – $80k each</div>
+            <div class="role-reports-to">Reports to: Global Fellowship Directors</div>
+        </div>
+    </div>
+</div>
+
+<!-- GAMMA UNIT 7: TECHNOLOGY, AI & CYBERSECURITY -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">⚙</div>
+        <div class="org-unit-title">Unit 7 — Technology, AI & Cybersecurity</div>
+    </div>
+    <div class="org-unit-subtitle">Global platform for 22-lab worldwide network</div>
+    
+    <div class="roles-grid">
+        <div class="role-card tech">
+            <span class="role-badge w2">W-2 • Critical</span>
+            <div class="role-title">Chief Technology Officer</div>
+            <div class="role-function">Global technology strategy, platform architecture, AI roadmap, cybersecurity, vendor management, lab tech integration, emerging technology.</div>
+            <div class="role-cost">$220k – $330k</div>
+            <div class="role-reports-to">Reports to: Executive Director → Technology & AI Committee</div>
+        </div>
+        
+        <div class="role-card tech">
+            <span class="role-badge w2">W-2 • Critical</span>
+            <div class="role-title">Chief Information Security Officer (new)</div>
+            <div class="role-function">Global cybersecurity strategy, threat intelligence, incident response, compliance (SOC 2, ISO 27001, GDPR), security architecture.</div>
+            <div class="role-cost">$200k – $300k</div>
+            <div class="role-reports-to">Reports to: CTO → Technology & AI Committee</div>
+        </div>
+        
+        <div class="role-card tech">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">VP of Engineering</div>
+            <div class="role-function">Global engineering leadership, team management, sprint planning, code quality, architecture decisions, vendor oversight, platform reliability.</div>
+            <div class="role-cost">$190k – $280k</div>
+            <div class="role-reports-to">Reports to: CTO</div>
+        </div>
+        
+        <div class="role-card tech">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">Principal Platform Architects (3–4)</div>
+            <div class="role-function">Global PWA scalability, API ecosystem, cloud infrastructure, data pipelines, multi-lab interoperability, edge computing.</div>
+            <div class="role-cost">$170k – $250k each</div>
+            <div class="role-reports-to">Reports to: VP of Engineering</div>
+        </div>
+        
+        <div class="role-card tech">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">Principal AI Scientists (4–6)</div>
+            <div class="role-function">Global predictive models, TFP algorithms, signal processing, anomaly detection, model validation, federated learning, explainable AI.</div>
+            <div class="role-cost">$180k – $270k each</div>
+            <div class="role-reports-to">Reports to: VP of Engineering → CTO</div>
+        </div>
+        
+        <div class="role-card tech">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">Global Data Engineering Team (8–12)</div>
+            <div class="role-function">ETL pipelines, data warehousing, sensor integration, quality assurance, dashboard feeds, real-time streaming, data lakes.</div>
+            <div class="role-cost">$130k – $190k each</div>
+            <div class="role-reports-to">Reports to: VP of Engineering</div>
+        </div>
+    </div>
+</div>
+
+<!-- GAMMA UNIT 8: LIVING LABS (22) -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">●</div>
+        <div class="org-unit-title">Unit 8 — Living Labs (22 Global Sites)</div>
+    </div>
+    <div class="org-unit-subtitle">Full global network covering all 17 monitored sectors</div>
+    
+    <table>
+    <thead>
+    <tr>
+        <th>Region</th>
+        <th>Labs</th>
+        <th>Headcount</th>
+        <th>Annual Budget</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr><td><strong>Americas</strong></td><td>6 labs</td><td>120–180 FTE</td><td>$18M – $32M</td></tr>
+    <tr><td><strong>Europe</strong></td><td>5 labs</td><td>100–150 FTE</td><td>$15M – $28M</td></tr>
+    <tr><td><strong>Africa & MENA</strong></td><td>4 labs</td><td>80–120 FTE</td><td>$10M – $18M</td></tr>
+    <tr><td><strong>Asia-Pacific</strong></td><td>5 labs</td><td>100–150 FTE</td><td>$12M – $22M</td></tr>
+    <tr><td><strong>Polar & Oceanic</strong></td><td>2 labs</td><td>40–60 FTE</td><td>$5M – $10M</td></tr>
+    </tbody>
+    </table>
+    
+    <div class="roles-grid">
+        <div class="role-card">
+            <span class="role-badge w2">W-2</span>
+            <div class="role-title">Lab Director (22 positions)</div>
+            <div class="role-function">Strategic leadership, institutional representation, stakeholder engagement, local partnership management, regional advocacy, sector expertise.</div>
+            <div class="role-cost">$110k – $170k each</div>
+            <div class="role-reports-to">Reports to: Regional Director → Executive Director</div>
+        </div>
+        
+        <div class="role-card">
+            <span class="role-badge w2">W-2</span>
+            <div class="role-title">Deputy Director / Operations Lead (22 positions)</div>
+            <div class="role-function">Operations, staffing, logistics, delivery, local compliance, vendor management, safety protocols, crisis response, resource optimization.</div>
+            <div class="role-cost">$90k – $135k each</div>
+            <div class="role-reports-to">Reports to: Lab Director → VP Global Operations</div>
+        </div>
+        
+        <div class="role-card">
+            <span class="role-badge w2">W-2</span>
+            <div class="role-title">Chief Scientist (22 positions)</div>
+            <div class="role-function">Scientific protocols, threshold validation, data quality, peer review liaison, publication strategy, regional methodology, sector specialization.</div>
+            <div class="role-cost">$100k – $155k each</div>
+            <div class="role-reports-to">Reports to: Lab Director → Scientific Council</div>
+        </div>
+        
+        <div class="role-card">
+            <span class="role-badge w2">W-2</span>
+            <div class="role-title">Senior Data Analysts (44 positions, 2 per lab)</div>
+            <div class="role-function">Signal processing, data quality assurance, dashboard inputs, anomaly flagging, threshold monitoring, regional calibration, AI model feedback.</div>
+            <div class="role-cost">$80k – $120k each</div>
+            <div class="role-reports-to">Reports to: Chief Scientist → Principal AI Scientists</div>
+        </div>
+        
+        <div class="role-card">
+            <span class="role-badge w2">W-2</span>
+            <div class="role-title">Systems Engineers (44 positions, 2 per lab)</div>
+            <div class="role-function">Sensor deployment, cloud connectivity, cybersecurity at edge, uptime maintenance, field troubleshooting, hardware procurement, IoT management.</div>
+            <div class="role-cost">$85k – $125k each</div>
+            <div class="role-reports-to">Reports to: Deputy Director → VP Engineering</div>
+        </div>
+        
+        <div class="role-card">
+            <span class="role-badge w2">W-2</span>
+            <div class="role-title">Compliance & Integrity Officer (22 positions)</div>
+            <div class="role-function">Ethics, safeguards, reporting, institutional compliance, indigenous consultation, human subjects protection, cultural protocols, whistleblower protection.</div>
+            <div class="role-cost">$75k – $110k each</div>
+            <div class="role-reports-to">Reports to: Lab Director → General Counsel</div>
+        </div>
+    </div>
+</div>
+
+<!-- GAMMA UNIT 9: REGIONAL COORDINATION -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">◐</div>
+        <div class="org-unit-title">Unit 9 — Regional Coordination</div>
+    </div>
+    <div class="org-unit-subtitle">Global cross-regional integration and knowledge governance</div>
+    
+    <div class="roles-grid">
+        <div class="role-card operations">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">Regional Directors (5 positions)</div>
+            <div class="role-function">Americas, Europe, Africa/MENA, Asia-Pacific, Polar/Oceanic regional strategy, lab cluster coordination, funder relations, government liaison, crisis management.</div>
+            <div class="role-cost">$140k – $210k each</div>
+            <div class="role-reports-to">Reports to: Executive Director → President</div>
+        </div>
+        
+        <div class="role-card operations">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">Global Knowledge Transfer Director (new)</div>
+            <div class="role-function">Cross-lab learning, best practice dissemination, methodology standardization, training material distribution, community of practice, open science strategy.</div>
+            <div class="role-cost">$130k – $195k</div>
+            <div class="role-reports-to">Reports to: COO → VP Fellowship & Education</div>
+        </div>
+        
+        <div class="role-card operations">
+            <span class="role-badge w2">W-2 • Medium Priority</span>
+            <div class="role-title">Global Communications Director (new)</div>
+            <div class="role-function">External communications, media relations, thought leadership, publication strategy, social media, brand management, crisis communications.</div>
+            <div class="role-cost">$120k – $180k</div>
+            <div class="role-reports-to">Reports to: Executive Director → President</div>
+        </div>
+    </div>
+</div>
+
+<!-- GAMMA UNIT 10: STRATEGIC RESERVE & ENDOWMENT -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">◈</div>
+        <div class="org-unit-title">Unit 10 — Strategic Reserve & Endowment Governance</div>
+    </div>
+    <div class="org-unit-subtitle">Long-term financial sustainability and institutional permanence</div>
+    
+    <div class="roles-grid">
+        <div class="role-card treasury">
+            <span class="role-badge w2">W-2 • High Priority</span>
+            <div class="role-title">Endowment & Investment Manager (new)</div>
+            <div class="role-function">Endowment strategy, investment portfolio management, donor-advised funds, planned giving, financial sustainability modeling, board investment committee liaison.</div>
+            <div class="role-cost">$150k – $230k</div>
+            <div class="role-reports-to">Reports to: CFO → Treasurer</div>
+        </div>
+        
+        <div class="role-card treasury">
+            <span class="role-badge w2">W-2 • Medium Priority</span>
+            <div class="role-title">Reserve Fund Controller (new)</div>
+            <div class="role-function">12–18 month OPEX reserve management, liquidity planning, risk-adjusted returns, contingency fund governance, drawdown protocols.</div>
+            <div class="role-cost">$120k – $180k</div>
+            <div class="role-reports-to">Reports to: CFO → Treasurer</div>
+        </div>
+    </div>
+</div>
+
+<!-- GAMMA BUDGET ALLOCATION -->
+<div class="org-unit">
+    <div class="org-unit-header">
+        <div class="org-unit-icon">◈</div>
+        <div class="org-unit-title">Phase Gamma Budget Allocation</div>
+    </div>
+    
+    <table>
+    <thead>
+    <tr>
+        <th>Category</th>
+        <th>Projected Budget</th>
+        <th>% of Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr><td><strong>Global Integration Hub Personnel (Units 4–7, 9–10)</strong></td><td><strong>$15M – $22M</strong></td><td><strong>~12%</strong></td></tr>
+    <tr><td><strong>22 Living Labs Personnel (Unit 8)</strong></td><td><strong>$60M – $110M</strong></td><td><strong>~46%</strong></td></tr>
+    <tr><td>Technology, AI, data and cybersecurity</td><td>$25M – $50M</td><td>~21%</td></tr>
+    <tr><td>Fellowship, certification and global training</td><td>$10M – $20M</td><td>~8%</td></tr>
+    <tr><td>Grants, development and institutional partnerships</td><td>$6M – $12M</td><td>~5%</td></tr>
+    <tr><td>Legal, insurance, audit and compliance</td><td>$5M – $12M</td><td>~4%</td></tr>
+    <tr><td>Reserve fund, 12–18 months OPEX target</td><td>$20M – $40M</td><td>~15%</td></tr>
+    <tr style="background:var(--gold-pale);"><td><strong>Total Phase Gamma Annual Budget</strong></td><td><strong>$130M – $240M</strong></td><td><strong>100%</strong></td></tr>
+    </tbody>
+    </table>
 </div>
 
 <div class="footer">
-Phase Gamma — Full Global Functioning • 600–900 personnel
+Phase Gamma — Full Global Functioning • Restructured Roles v2.0
 </div>
 
 </div>
