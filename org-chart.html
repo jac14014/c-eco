@@ -522,6 +522,32 @@ background:var(--gold-dark);
         padding: .14in .15in;
     }
 }
+            /* ===== FORCE COLLAPSED JOB DESCRIPTIONS ON SCREEN ===== */
+
+@media screen {
+    .job-description {
+        display: none !important;
+        visibility: hidden;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        margin-top: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        border-width: 0;
+    }
+
+    .job-description.show {
+        display: block !important;
+        visibility: visible;
+        max-height: none;
+        overflow: visible;
+        opacity: 1;
+        margin-top: .12in;
+        padding: .1in .12in;
+        border: 0.5px solid var(--gold-light);
+    }
+}
 </style>
 </head>
 
@@ -4592,6 +4618,9 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
+        description.classList.remove('show');
+        card.classList.remove('expanded');
+
         let toggle = card.querySelector('.role-toggle');
 
         if (!toggle) {
@@ -4603,6 +4632,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         toggle.addEventListener('click', function (event) {
+            event.preventDefault();
             event.stopPropagation();
 
             const isOpen = description.classList.toggle('show');
