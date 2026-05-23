@@ -4235,27 +4235,46 @@ c-ECO Foundation — Living Labs Network (22 Labs • 3 Phases • 4 Layers • 
 </div><!-- end page-container -->
 
 <script>
-
-function showTab(tabName, button){
-
-document.querySelectorAll('.tab-content').forEach(tab=>{
-tab.classList.remove('active');
-});
-
-document.getElementById(tabName).classList.add('active');
-
-document.querySelectorAll('.nav-tab').forEach(btn=>{
-btn.classList.remove('active');
-});
-
-if(button){
-button.classList.add('active');
+function showTab(tabName) {
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    document.getElementById(tabName).classList.add('active');
+    
+    document.querySelectorAll('.nav-tab').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+    
+    window.scrollTo(0, 0);
 }
 
-window.scrollTo(0,0);
-
-}
-
+// Toggle job description on card click
+document.addEventListener('click', function(e) {
+    const card = e.target.closest('.org-card');
+    if (!card) return;
+    
+    // Don't toggle if clicking on a button or link inside the card
+    if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
+    
+    const jd = card.querySelector('.job-description');
+    if (!jd) return;
+    
+    // Close all other open descriptions in the same tab
+    const currentTab = card.closest('.tab-content');
+    if (currentTab) {
+        currentTab.querySelectorAll('.org-card.expanded').forEach(otherCard => {
+            if (otherCard !== card) {
+                otherCard.classList.remove('expanded');
+                const otherJd = otherCard.querySelector('.job-description');
+                if (otherJd) otherJd.classList.remove('show');
+            }
+        });
+    }
+    
+    card.classList.toggle('expanded');
+    jd.classList.toggle('show');
+});
 </script>
 
 </body>
