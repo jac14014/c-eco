@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>c-ECO Financial & Hiring Plan — Johann Christian Hasse Foundation</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --gold:#C9A227;
+    --gold-light:#D4AF37;
+    --gold-dark:#8B6914;
+    --gold-pale:#F5F0E8;
+    --ink:#1A1A1A;
+    --cream:#FDFCF8;
+    --green:#4F6F52;
+    --brown:#8B4A18;
+    --gray:#777;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+    font-family:'Cormorant Garamond', Georgia, serif;
+    background:linear-gradient(135deg,#f5f0e8,#ede6d8);
+    color:var(--ink);
+}
+.nav-tabs {
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    background:white;
+    border-bottom:1px solid var(--gold);
+    position:sticky;
+    top:0;
+    z-index:20;
+}
+.nav-tab {
+    padding:14px 22px;
+    background:white;
+    border:none;
+    border-bottom:3px solid transparent;
+    color:#777;
+    font-size:12px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    cursor:pointer;
+}
+.nav-tab.active {
+    color:var(--gold-dark);
+    border-bottom-color:var(--gold);
+}
+.page {
+    width:8.5in;
+    min-height:11in;
+    background:white;
+    margin:30px auto;
+    padding:.55in .75in;
+    box-shadow:0 0 30px rgba(0,0,0,.12);
+    position:relative;
+}
+.page::before {
+    content:'';
+    position:absolute;
+    inset:.25in;
+    border:1.5px solid var(--gold);
+    pointer-events:none;
+}
+.content { position:relative; z-index:2; }
+.letterhead {
+    text-align:center;
+    border-bottom:1px solid var(--gold);
+    padding-bottom:18px;
+    margin-bottom:28px;
+}
+.seal {
+    width:90px;
+    height:90px;
+    object-fit:contain;
+    margin-bottom:8px;
+}
+.org-name {
+    color:var(--gold-dark);
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    font-size:20px;
+}
+.subtitle {
+    color:#666;
+    font-style:italic;
+}
+.motto {
+    color:var(--gold);
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    margin-top:6px;
+}
+.phase-title {
+    text-align:center;
+    margin:25px 0;
+}
+.phase-label {
+    color:var(--gold);
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    font-size:13px;
+}
+.phase-name {
+    color:var(--gold-dark);
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    font-size:28px;
+}
+.phase-note {
+    font-style:italic;
+    color:#666;
+}
+.section-header {
+    color:var(--gold-dark);
+    border-left:3px solid var(--gold);
+    padding-left:10px;
+    margin:26px 0 12px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    font-size:15px;
+}
+.grid {
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+}
+.card {
+    border:1px solid #e7dec9;
+    border-left:4px solid var(--gold);
+    background:linear-gradient(135deg,#fff,#fdfaf2);
+    padding:15px;
+}
+.card-badge {
+    float:right;
+    background:#eee;
+    color:#555;
+    padding:2px 8px;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+}
+.card-title {
+    color:var(--gold-dark);
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    font-weight:600;
+    font-size:14px;
+}
+.card-role {
+    font-style:italic;
+    color:#555;
+    margin:5px 0;
+}
+.card-cost {
+    font-weight:600;
+    color:var(--brown);
+}
+.budget-box {
+    background:var(--gold-pale);
+    border:1px solid var(--gold);
+    padding:16px;
+    margin:18px 0;
+}
+.budget-total {
+    font-size:24px;
+    color:var(--gold-dark);
+    text-align:center;
+    font-weight:600;
+}
+table {
+    width:100%;
+    border-collapse:collapse;
+    margin:15px 0;
+    font-size:14px;
+}
+th {
+    background:var(--gold-pale);
+    color:var(--gold-dark);
+    border-bottom:2px solid var(--gold);
+    padding:8px;
+    text-align:left;
+}
+td {
+    padding:8px;
+    border-bottom:1px solid #eee;
+}
+.footer {
+    text-align:center;
+    color:#888;
+    border-top:1px solid var(--gold-light);
+    margin-top:28px;
+    padding-top:12px;
+    font-size:12px;
+}
+.print-bar {
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    background:white;
+    border-top:2px solid var(--gold);
+    padding:12px;
+    text-align:center;
+    z-index:30;
+}
+.btn {
+    border:1px solid var(--gold);
+    background:white;
+    color:var(--gold-dark);
+    padding:8px 18px;
+    cursor:pointer;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+}
+.btn:hover { background:var(--gold); color:white; }
+
+@media(max-width:800px){
+    .page { width:100%; margin:0; padding:25px; }
+    .page::before { display:none; }
+    .grid { grid-template-columns:1fr; }
+    .print-bar { position:static; }
+}
+@media print {
+    .nav-tabs,.print-bar { display:none; }
+    .page { box-shadow:none; margin:0; page-break-after:always; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="nav-tabs">
+    <button class="nav-tab active" onclick="showTab(event,'foundation')">Phase Zero</button>
+    <button class="nav-tab" onclick="showTab(event,'alpha')">Phase Alpha</button>
+    <button class="nav-tab" onclick="showTab(event,'beta')">Phase Beta</button>
+    <button class="nav-tab" onclick="showTab(event,'gamma')">Phase Gamma</button>
+</div>
+
+<div class="print-bar">
+    <button class="btn" onclick="window.print()">Print / Save PDF</button>
+</div>
+
+<!-- PHASE ZERO -->
+<div id="foundation" class="tab-content">
+<div class="page">
+<div class="content">
+
+<div class="letterhead">
+    <img src="seal.PNG" class="seal" alt="Foundation Seal">
+    <div class="org-name">Johann Christian Hasse Foundation</div>
+    <div class="subtitle">c-ECO Financial & Hiring Plan</div>
+    <div class="motto">Governance • Grants • Strategic Partnerships • Institutional Programs</div>
+</div>
+
+<div class="phase-title">
+    <div class="phase-label">Foundation Phase Zero</div>
+    <div class="phase-name">Institutional Buildout</div>
+    <div class="phase-note">0–12 months • Governance, fundraising, fellowship readiness and grant capacity</div>
+</div>
+
+<div class="budget-box">
+    <div class="budget-total">$700,000 – $1,200,000 / year</div>
+    <p style="text-align:center;">Lean nonprofit operating structure before full Living Lab activation.</p>
+</div>
+
+<div class="section-header">Core Governance — Mostly Voluntary</div>
+
+<div class="grid">
+    <div class="card"><span class="card-badge">Volunteer</span><div class="card-title">Board of Directors</div><div class="card-role">Fiduciary oversight, institutional integrity, mission control.</div><div class="card-cost">$0 – $25k reimbursements</div></div>
+    <div class="card"><span class="card-badge">Volunteer</span><div class="card-title">Standing Committees</div><div class="card-role">Audit, Risk, Governance, Finance, Technology & AI.</div><div class="card-cost">$0 – $15k support</div></div>
+    <div class="card"><span class="card-badge">Advisory</span><div class="card-title">Scientific & International Councils</div><div class="card-role">Non-voting advisory support and validation.</div><div class="card-cost">$0 – $25k honoraria</div></div>
+    <div class="card"><span class="card-badge">Founder</span><div class="card-title">Founder & Lead Architect</div><div class="card-role">Doctrine, architecture, TFP logic, institutional positioning.</div><div class="card-cost">$60k – $150k stipend/contract</div></div>
+</div>
+
+<div class="section-header">Office of Grants, Strategic Partnerships & International Programs</div>
+
+<table>
+<thead>
+<tr>
+<th>Position</th>
+<th>Function</th>
+<th>Regime</th>
+<th>Annual Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Director of Grants & Strategic Partnerships</td>
+<td>Grant pipeline, funder relations, institutional proposals.</td>
+<td>W-2 or 1099</td>
+<td>$95k – $140k</td>
+</tr>
+<tr>
+<td>International Programs Officer</td>
+<td>UN, universities, Brazil–US programs, multilateral coordination.</td>
+<td>W-2</td>
+<td>$70k – $105k</td>
+</tr>
+<tr>
+<td>Grant Writer / Proposal Strategist</td>
+<td>Federal, foundation and international grant submissions.</td>
+<td>1099 or W-2</td>
+<td>$65k – $110k</td>
+</tr>
+<tr>
+<td>Partnerships & Donor Relations Manager</td>
+<td>CRM, donor stewardship, institutional outreach.</td>
+<td>W-2</td>
+<td>$60k – $90k</td>
+</tr>
+<tr>
+<td>Compliance & Reporting Coordinator</td>
+<td>Grant compliance, reporting calendar, restricted funds tracking.</td>
+<td>W-2</td>
+<td>$55k – $80k</td>
+</tr>
+</tbody>
+</table>
+
+<div class="section-header">Foundation Operating Staff</div>
+
+<table>
+<thead>
+<tr>
+<th>Position</th>
+<th>Priority</th>
+<th>Annual Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>Executive Director / COO</td><td>High</td><td>$90k – $140k</td></tr>
+<tr><td>Operations & Compliance Manager</td><td>High</td><td>$70k – $100k</td></tr>
+<tr><td>Fellowship Program Manager</td><td>Medium</td><td>$65k – $90k</td></tr>
+<tr><td>Technical Architect / PWA Lead</td><td>Medium</td><td>$70k – $120k</td></tr>
+<tr><td>Administrative Assistant</td><td>Medium</td><td>$45k – $60k</td></tr>
+</tbody>
+</table>
+
+<div class="section-header">Phase Zero Budget Allocation</div>
+
+<table>
+<thead>
+<tr><th>Category</th><th>Projected Budget</th></tr>
+</thead>
+<tbody>
+<tr><td>Personnel and contractors</td><td>$480k – $720k</td></tr>
+<tr><td>Legal, accounting, insurance, D&O</td><td>$80k – $160k</td></tr>
+<tr><td>Website, CRM, cloud, AI/PWA infrastructure</td><td>$60k – $140k</td></tr>
+<tr><td>Fundraising, travel, events, institutional meetings</td><td>$80k – $180k</td></tr>
+</tbody>
+</table>
+
+<div class="footer">
+Foundation Phase Zero — c-ECO Institutional Readiness Plan
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- PHASE ALPHA -->
+<div id="alpha" class="tab-content" style="display:none;">
+<div class="page">
+<div class="content">
+
+<div class="letterhead">
+    <img src="seal.PNG" class="seal" alt="Foundation Seal">
+    <div class="org-name">Johann Christian Hasse Foundation</div>
+    <div class="subtitle">Phase Alpha Financial & Hiring Plan</div>
+</div>
+
+<div class="phase-title">
+    <div class="phase-label">Phase Alpha</div>
+    <div class="phase-name">Four-Lab Demonstration</div>
+    <div class="phase-note">18 months • Belém, Tromsø, London, Geneva</div>
+</div>
+
+<div class="budget-box">
+    <div class="budget-total">$8M – $15M</div>
+    <p style="text-align:center;">Pilot operational validation within the $5M–$20M target range.</p>
+</div>
+
+<div class="section-header">Alpha Hiring Target</div>
+
+<table>
+<thead>
+<tr><th>Unit</th><th>Headcount</th><th>Budget</th></tr>
+</thead>
+<tbody>
+<tr><td>Foundation HQ + Grants Office</td><td>15–20 FTE</td><td>$2M – $3M</td></tr>
+<tr><td>Belém Amazon Core Lab</td><td>10–12 FTE</td><td>$900k – $1.8M</td></tr>
+<tr><td>Tromsø Arctic Carbon Lab</td><td>10–12 FTE</td><td>$900k – $1.8M</td></tr>
+<tr><td>London Global Finance Lab</td><td>10–12 FTE</td><td>$900k – $1.8M</td></tr>
+<tr><td>Geneva Integration Hub Lab</td><td>10–12 FTE</td><td>$900k – $1.8M</td></tr>
+</tbody>
+</table>
+
+<div class="section-header">Standard Lab Team</div>
+
+<div class="grid">
+    <div class="card"><span class="card-badge">Director</span><div class="card-title">Lab Director</div><div class="card-role">Strategic leadership and institutional representation.</div></div>
+    <div class="card"><span class="card-badge">Deputy</span><div class="card-title">Deputy Director</div><div class="card-role">Operations, staffing, logistics and delivery.</div></div>
+    <div class="card"><span class="card-badge">Science</span><div class="card-title">Chief Scientist</div><div class="card-role">Scientific protocols, thresholds and validation.</div></div>
+    <div class="card"><span class="card-badge">Data</span><div class="card-title">Senior Data Analysts</div><div class="card-role">Signal processing, data quality and dashboard inputs.</div></div>
+    <div class="card"><span class="card-badge">Tech</span><div class="card-title">Systems Engineers</div><div class="card-role">Sensors, cloud, cybersecurity and uptime.</div></div>
+    <div class="card"><span class="card-badge">Compliance</span><div class="card-title">Compliance & Integrity Officer</div><div class="card-role">Ethics, safeguards, reporting and institutional compliance.</div></div>
+</div>
+
+<div class="section-header">Alpha Infrastructure</div>
+
+<table>
+<tbody>
+<tr><td>Sensors, data feeds and field equipment</td><td>$1.5M – $4M</td></tr>
+<tr><td>Cloud, AI governance platform and dashboards</td><td>$800k – $2M</td></tr>
+<tr><td>Travel, workshops and partner convenings</td><td>$700k – $1.5M</td></tr>
+<tr><td>Legal, compliance, insurance and audit</td><td>$500k – $1M</td></tr>
+</tbody>
+</table>
+
+<div class="footer">
+Phase Alpha — Demonstration Network • 50–70 total personnel
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- PHASE BETA -->
+<div id="beta" class="tab-content" style="display:none;">
+<div class="page">
+<div class="content">
+
+<div class="letterhead">
+    <img src="seal.PNG" class="seal" alt="Foundation Seal">
+    <div class="org-name">Johann Christian Hasse Foundation</div>
+    <div class="subtitle">Phase Beta Financial & Hiring Plan</div>
+</div>
+
+<div class="phase-title">
+    <div class="phase-label">Phase Beta</div>
+    <div class="phase-name">Regional Scaling</div>
+    <div class="phase-note">3 years • 8 active labs • regional validation and grant expansion</div>
+</div>
+
+<div class="budget-box">
+    <div class="budget-total">$30M – $45M</div>
+    <p style="text-align:center;">Scaled institutional capacity within the $25M–$60M strategic range.</p>
+</div>
+
+<div class="section-header">Beta Hiring Structure</div>
+
+<table>
+<thead>
+<tr><th>Unit</th><th>Headcount</th><th>Annual / Phase Cost</th></tr>
+</thead>
+<tbody>
+<tr><td>Foundation HQ + Grants Office</td><td>35–45 FTE</td><td>$5M – $7M</td></tr>
+<tr><td>8 Living Labs</td><td>120 FTE</td><td>$14M – $20M</td></tr>
+<tr><td>Engineering, AI and TDR Platform</td><td>20–30 FTE</td><td>$6M – $12M</td></tr>
+<tr><td>Fellowship, certification and training</td><td>15–25 FTE</td><td>$3M – $8M</td></tr>
+</tbody>
+</table>
+
+<div class="section-header">Expanded Grants Office</div>
+
+<div class="grid">
+    <div class="card"><span class="card-badge">Director</span><div class="card-title">Chief Development & Grants Officer</div><div class="card-role">Major gifts, institutional grants, public/private funder strategy.</div></div>
+    <div class="card"><span class="card-badge">Federal</span><div class="card-title">US Federal Grants Lead</div><div class="card-role">NSF, EPA, DOE, USAID and federal compliance.</div></div>
+    <div class="card"><span class="card-badge">Global</span><div class="card-title">International Funding Lead</div><div class="card-role">EU, UN, development banks, climate and biodiversity funds.</div></div>
+    <div class="card"><span class="card-badge">Brazil</span><div class="card-title">Brazil Programs & Grants Lead</div><div class="card-role">Amazon-facing funding, universities, state/federal interfaces.</div></div>
+    <div class="card"><span class="card-badge">Reports</span><div class="card-title">Monitoring, Evaluation & Learning Lead</div><div class="card-role">Impact metrics, donor reporting, restricted-fund compliance.</div></div>
+    <div class="card"><span class="card-badge">CRM</span><div class="card-title">Donor Systems Manager</div><div class="card-role">CRM, stewardship, donor records and campaign analytics.</div></div>
+</div>
+
+<div class="section-header">Beta Budget Allocation</div>
+
+<table>
+<tbody>
+<tr><td>Personnel</td><td>$20M – $28M</td></tr>
+<tr><td>Platform, AI, sensors and data infrastructure</td><td>$6M – $12M</td></tr>
+<tr><td>Fellowship, certification and institutional training</td><td>$3M – $8M</td></tr>
+<tr><td>Legal, audit, compliance and insurance</td><td>$1M – $3M</td></tr>
+<tr><td>Strategic reserve</td><td>$2M – $5M</td></tr>
+</tbody>
+</table>
+
+<div class="footer">
+Phase Beta — Regional Scaling • 160–220 personnel
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- PHASE GAMMA -->
+<div id="gamma" class="tab-content" style="display:none;">
+<div class="page">
+<div class="content">
+
+<div class="letterhead">
+    <img src="seal.PNG" class="seal" alt="Foundation Seal">
+    <div class="org-name">Johann Christian Hasse Foundation</div>
+    <div class="subtitle">Phase Gamma / Full Operation Financial & Hiring Plan</div>
+</div>
+
+<div class="phase-title">
+    <div class="phase-label">Phase Gamma</div>
+    <div class="phase-name">Full Global Functioning</div>
+    <div class="phase-note">22 Living Labs • Global Integration Hub • Fellowship and certification system</div>
+</div>
+
+<div class="budget-box">
+    <div class="budget-total">$130M – $240M / year</div>
+    <p style="text-align:center;">Full annual operating budget for global c-ECO implementation.</p>
+</div>
+
+<div class="section-header">Full Network Staffing</div>
+
+<table>
+<thead>
+<tr><th>Unit</th><th>Headcount</th><th>Annual Cost</th></tr>
+</thead>
+<tbody>
+<tr><td>Foundation HQ + Global Integration Hub</td><td>70–100 FTE</td><td>$15M – $22M</td></tr>
+<tr><td>22 Living Labs</td><td>440–660 FTE</td><td>$60M – $110M</td></tr>
+<tr><td>Technology, AI, data, cybersecurity</td><td>80–120 FTE</td><td>$25M – $50M</td></tr>
+<tr><td>Fellowship, licensing and certification</td><td>60–100 FTE</td><td>$10M – $20M</td></tr>
+<tr><td>Grants, development and institutional partnerships</td><td>30–50 FTE</td><td>$6M – $12M</td></tr>
+</tbody>
+</table>
+
+<div class="section-header">Global Office of Grants & Institutional Programs</div>
+
+<div class="grid">
+    <div class="card"><span class="card-badge">Chief</span><div class="card-title">Chief Institutional Development Officer</div><div class="card-role">Global fundraising, endowment strategy, strategic alliances.</div></div>
+    <div class="card"><span class="card-badge">Regions</span><div class="card-title">Regional Funding Directors</div><div class="card-role">Americas, Europe, Africa, Asia-Pacific and Middle East.</div></div>
+    <div class="card"><span class="card-badge">Programs</span><div class="card-title">International Programs Directors</div><div class="card-role">UN, universities, development banks and research consortia.</div></div>
+    <div class="card"><span class="card-badge">Compliance</span><div class="card-title">Grant Compliance & Restricted Funds Unit</div><div class="card-role">Audit trails, donor compliance and expenditure controls.</div></div>
+</div>
+
+<div class="section-header">Gamma Budget Allocation</div>
+
+<table>
+<tbody>
+<tr><td>Personnel and benefits</td><td>$85M – $150M</td></tr>
+<tr><td>Data, sensors, AI platform and cybersecurity</td><td>$25M – $50M</td></tr>
+<tr><td>Fellowship, certification and global training</td><td>$10M – $20M</td></tr>
+<tr><td>Legal, insurance, audit and compliance</td><td>$5M – $12M</td></tr>
+<tr><td>Reserve fund, 12–18 months OPEX target</td><td>$20M – $40M</td></tr>
+</tbody>
+</table>
+
+<div class="section-header">Strategic Rule</div>
+
+<div class="budget-box">
+    <p><strong>Governance remains lean and independent.</strong> Board and advisory functions should remain primarily voluntary or honorarium-based. Operational, technical, lab, compliance, grant, and data functions should be compensated once they require sustained deliverables, supervision, or legal accountability.</p>
+</div>
+
+<div class="footer">
+Phase Gamma — Full Global Functioning • 600–900 personnel
+</div>
+
+</div>
+</div>
+</div>
+
+<script>
+function showTab(event, tabName) {
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.style.display = 'none';
+    });
+    document.getElementById(tabName).style.display = 'block';
+
+    document.querySelectorAll('.nav-tab').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    event.currentTarget.classList.add('active');
+
+    window.scrollTo(0,0);
+}
+</script>
+
+</body>
+</html>
