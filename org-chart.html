@@ -449,102 +449,79 @@ background:var(--gold-dark);
             .job-description { display: block !important; }
         }
         
-        /* ===== EXPANDABLE JOB DESCRIPTION ===== */
-        .org-card {
-            cursor: pointer;
-            position: relative;
-        }
-        
-        .org-card::after {
-            content: "▼";
-            position: absolute;
-            bottom: 4px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 8pt;
-            color: var(--gold);
-            opacity: 0.6;
-            transition: all 0.3s ease;
-        }
-        
-        .org-card:hover::after {
-            opacity: 1;
-            color: var(--gold-dark);
-        }
-        
-        .org-card.expanded::after {
-            content: "▲";
-            color: var(--gold-dark);
-        }
-        
-        .job-description {
-            display: none;
-            margin-top: 0.1in;
-            padding: 0.1in 0.12in;
-            background: linear-gradient(135deg, #FDFCF8 0%, #F5F0E8 100%);
-            border: 0.5px solid var(--gold-light);
-            border-radius: 2px;
-            text-align: left;
-            font-size: 8.5pt;
-            line-height: 1.5;
-            color: var(--ink-light);
-            animation: slideDown 0.3s ease;
-        }
-        
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .job-description.show {
-            display: block;
-        }
-        
-        .job-description h4 {
-            font-family: 'Trajan Pro 3', serif;
-            font-size: 8pt;
-            color: var(--gold-dark);
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            margin: 0.06in 0 0.04in;
-            border-bottom: 0.5px solid var(--gold-pale);
-            padding-bottom: 0.03in;
-        }
-        
-        .job-description h4:first-child {
-            margin-top: 0;
-        }
-        
-        .job-description ul {
-            margin: 0.04in 0;
-            padding-left: 0.15in;
-        }
-        
-        .job-description li {
-            margin-bottom: 0.03in;
-            list-style-type: disc;
-        }
-        
-        .job-description .reporting-line {
-            font-style: italic;
-            color: var(--gold-dark);
-            border-top: 0.5px solid var(--gold-pale);
-            padding-top: 0.06in;
-            margin-top: 0.08in;
-            font-size: 8pt;
-        }
-        
-        .job-description .key-metrics {
-            background: rgba(201, 162, 39, 0.08);
-            padding: 0.06in 0.1in;
-            border-radius: 2px;
-            margin-top: 0.06in;
-            font-size: 8pt;
-        }
-        
-        .job-description .key-metrics strong {
-            color: var(--gold-dark);
-        }
+        /* ===== EXPANDABLE JOB DESCRIPTION ===== */<style>
+/* ===== MOBILE-FRIENDLY JOB DESCRIPTION TOGGLE ===== */
+
+.org-card {
+    cursor: default;
+    padding-bottom: .18in;
+}
+
+.org-card::after {
+    content: none !important;
+}
+
+.role-toggle {
+    margin-top: .08in;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: 1px solid var(--gold-light);
+    background: white;
+    color: var(--gold-dark);
+    font-family: 'Cormorant Garamond','EB Garamond',Georgia,serif;
+    font-size: 8pt;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 5px 11px;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(201,162,39,.12);
+    transition: all .25s ease;
+}
+
+.role-toggle:hover {
+    background: var(--gold-ghost);
+    border-color: var(--gold);
+}
+
+.role-toggle::after {
+    content: "▼";
+    font-size: 7pt;
+    color: var(--gold);
+    transition: transform .25s ease;
+}
+
+.org-card.expanded .role-toggle::after {
+    content: "▲";
+}
+
+.job-description {
+    width: 100%;
+    margin-top: .12in;
+}
+
+@media (max-width: 768px) {
+    .org-card {
+        max-width: calc(100vw - 48px);
+        width: calc(100vw - 48px);
+        padding: .18in .18in .16in;
+    }
+
+    .role-toggle {
+        width: auto;
+        min-height: 34px;
+        font-size: 8.5pt;
+        padding: 7px 14px;
+        margin-top: .1in;
+    }
+
+    .job-description {
+        font-size: 9.5pt;
+        padding: .14in .15in;
+    }
+}
 </style>
 </head>
 
@@ -4587,6 +4564,53 @@ document.addEventListener('click', function(e) {
     jd.classList.toggle('show');
 });
 </script>
+<script>
+function showTab(tabId, element) {
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+    });
 
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+
+    const selectedTab = document.getElementById(tabId);
+    if (selectedTab) {
+        selectedTab.classList.add('active');
+    }
+
+    if (element) {
+        element.classList.add('active');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.org-card').forEach(function (card) {
+        const description = card.querySelector('.job-description');
+
+        if (!description) {
+            return;
+        }
+
+        let toggle = card.querySelector('.role-toggle');
+
+        if (!toggle) {
+            toggle = document.createElement('button');
+            toggle.type = 'button';
+            toggle.className = 'role-toggle';
+            toggle.textContent = 'View role';
+            description.parentNode.insertBefore(toggle, description);
+        }
+
+        toggle.addEventListener('click', function (event) {
+            event.stopPropagation();
+
+            const isOpen = description.classList.toggle('show');
+            card.classList.toggle('expanded', isOpen);
+            toggle.textContent = isOpen ? 'Hide role' : 'View role';
+        });
+    });
+});
+</script>
 </body>
 </html>
