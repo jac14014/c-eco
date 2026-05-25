@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,9 +14,7 @@
             --ink: #1A1A1A;
             --ink-light: #444;
             --cream: #FDFCF8;
-            --dark-bg: #0d1b2a;
-            --dark-card: #1a3a5c;
-            --dark-text: #e0e0e0;
+            --cream-dark: #F5F0E8;
             --green: #2e7d32;
             --yellow: #f9a825;
             --red: #c62828;
@@ -26,62 +23,68 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Cormorant Garamond', Georgia, serif;
-            background: linear-gradient(135deg, var(--dark-bg) 0%, #1b2838 100%);
-            color: var(--dark-text);
+            background: linear-gradient(135deg, #f5f0e8 0%, #ede6d8 100%);
+            color: var(--ink);
             line-height: 1.7;
             font-size: 11pt;
             min-height: 100vh;
         }
         .header {
             text-align: center;
-            padding: 0.6in 0.75in 0.3in;
-            border-bottom: 2px solid var(--gold);
-            background: linear-gradient(180deg, var(--dark-bg) 0%, var(--dark-card) 100%);
+            padding: 0.5in 0.75in 0.25in;
+            border-bottom: 1.5px solid var(--gold);
+            background: white;
         }
         .seal {
-            width: 1.5in;
-            height: 1.5in;
-            margin: 0 auto 0.15in;
+            width: 1.3in;
+            height: 1.3in;
+            margin: 0 auto 0.1in;
         }
         .seal img {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            filter: brightness(0.9) sepia(0.2);
         }
         .org-name {
             font-family: 'Trajan Pro 3', 'Times New Roman', serif;
-            font-size: 16pt;
-            color: var(--gold);
-            letter-spacing: 0.1em;
+            font-size: 15pt;
+            color: var(--gold-dark);
+            letter-spacing: 0.08em;
             text-transform: uppercase;
         }
-        .org-subtitle {
-            font-size: 10pt;
-            color: var(--gold-light);
+        .org-address {
+            font-size: 9pt;
+            color: #666;
+            margin-top: 0.03in;
+            font-style: italic;
+        }
+        .org-motto {
+            font-size: 8pt;
+            color: var(--gold);
             letter-spacing: 0.15em;
             text-transform: uppercase;
             margin-top: 0.05in;
         }
         .page-title {
             font-family: 'Trajan Pro 3', serif;
-            font-size: 22pt;
-            color: var(--gold);
+            font-size: 20pt;
+            color: var(--gold-dark);
             text-align: center;
             margin: 0.3in 0 0.1in;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
         }
         .page-subtitle {
             text-align: center;
             font-size: 11pt;
-            color: var(--gold-light);
+            color: #555;
             font-style: italic;
-            margin-bottom: 0.2in;
+            margin-bottom: 0.15in;
         }
         .version-badge {
             display: inline-block;
             background: var(--gold);
-            color: var(--dark-bg);
+            color: white;
             padding: 0.03in 0.15in;
             font-family: 'Trajan Pro 3', serif;
             font-size: 8pt;
@@ -95,15 +98,15 @@
             display: flex;
             justify-content: center;
             gap: 0;
-            background: var(--dark-card);
-            border-bottom: 2px solid var(--gold);
+            background: white;
+            border-bottom: 1.5px solid var(--gold);
             position: sticky;
             top: 0;
             z-index: 50;
             flex-wrap: wrap;
         }
         .nav-tab {
-            padding: 0.12in 0.2in;
+            padding: 0.1in 0.18in;
             border: none;
             background: transparent;
             font-family: 'Trajan Pro 3', serif;
@@ -112,47 +115,62 @@
             cursor: pointer;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            border-bottom: 3px solid transparent;
+            border-bottom: 2.5px solid transparent;
             transition: all 0.3s;
             white-space: nowrap;
         }
         .nav-tab:hover {
-            color: var(--gold-light);
-            background: rgba(201, 162, 39, 0.1);
+            color: var(--gold-dark);
+            background: rgba(201, 162, 39, 0.08);
         }
         .nav-tab.active {
-            color: var(--gold);
+            color: var(--gold-dark);
             border-bottom-color: var(--gold);
-            background: rgba(201, 162, 39, 0.15);
+            background: rgba(201, 162, 39, 0.12);
         }
         .tab-content {
             display: none;
             max-width: 900px;
             margin: 0 auto;
-            padding: 0.4in 0.5in;
+            padding: 0.3in 0.5in 0.5in;
+            background: white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.08);
+            min-height: 8in;
         }
         .tab-content.active {
             display: block;
         }
+        .tab-content::before {
+            content: '';
+            position: absolute;
+            top: 0.3in;
+            left: 0.3in;
+            right: 0.3in;
+            bottom: 0.3in;
+            border: 1.5px solid var(--gold);
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.3;
+        }
         .section-header {
             font-family: 'Trajan Pro 3', serif;
-            font-size: 12pt;
-            color: var(--gold);
+            font-size: 10pt;
+            color: var(--gold-dark);
             text-transform: uppercase;
             letter-spacing: 0.06em;
-            margin: 0.3in 0 0.15in;
-            border-left: 3px solid var(--gold);
-            padding-left: 0.12in;
+            margin: 0.25in 0 0.12in;
+            border-left: 2.5px solid var(--gold);
+            padding-left: 0.1in;
         }
         .section-header:first-child {
             margin-top: 0.1in;
         }
         .highlight-box {
-            background: linear-gradient(135deg, rgba(26, 58, 92, 0.8) 0%, rgba(13, 27, 42, 0.9) 100%);
-            border: 1px solid var(--gold);
-            padding: 0.15in 0.2in;
-            margin: 0.15in 0;
-            border-radius: 3px;
+            background: linear-gradient(135deg, #FDFCF8 0%, #F5F0E8 100%);
+            border: 1px solid var(--gold-light);
+            padding: 0.12in 0.15in;
+            margin: 0.12in 0;
+            border-radius: 2px;
         }
         .highlight-box p {
             margin-bottom: 0.06in;
@@ -161,19 +179,23 @@
         .highlight-box p:last-child {
             margin-bottom: 0;
         }
-        .evidence-box {
-            background: linear-gradient(135deg, rgba(200, 230, 201, 0.15) 0%, rgba(13, 27, 42, 0.9) 100%);
-            border: 1px solid var(--green);
-            padding: 0.15in 0.2in;
-            margin: 0.15in 0;
-            border-radius: 3px;
+        .highlight-box-red {
+            border: 1.5px solid var(--red);
+            background: linear-gradient(135deg, #fff5f5 0%, #FDFCF8 100%);
         }
-        .evidence-box-yellow {
-            background: linear-gradient(135deg, rgba(255, 249, 196, 0.15) 0%, rgba(13, 27, 42, 0.9) 100%);
+        .evidence-green {
+            background: linear-gradient(135deg, #f1f8e9 0%, #FDFCF8 100%);
+            border: 1px solid var(--green);
+            padding: 0.12in 0.15in;
+            margin: 0.1in 0;
+            border-radius: 2px;
+        }
+        .evidence-yellow {
+            background: linear-gradient(135deg, #fffde7 0%, #FDFCF8 100%);
             border: 1px solid var(--yellow);
         }
-        .evidence-box-red {
-            background: linear-gradient(135deg, rgba(255, 205, 210, 0.15) 0%, rgba(13, 27, 42, 0.9) 100%);
+        .evidence-red {
+            background: linear-gradient(135deg, #ffebee 0%, #FDFCF8 100%);
             border: 1px solid var(--red);
         }
         .cycle-flow {
@@ -181,29 +203,29 @@
             justify-content: center;
             align-items: center;
             gap: 0.05in;
-            margin: 0.25in 0;
+            margin: 0.2in 0;
             flex-wrap: wrap;
         }
         .cycle-step {
-            background: var(--dark-card);
-            border: 1px solid var(--gold);
+            background: white;
+            border: 1.5px solid var(--gold);
             padding: 0.08in 0.12in;
             text-align: center;
-            min-width: 1.2in;
+            min-width: 1.3in;
         }
         .cycle-step .step-label {
             font-family: 'Trajan Pro 3', serif;
             font-size: 7pt;
-            color: var(--gold);
+            color: var(--gold-dark);
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
         .cycle-step .step-actor {
             font-size: 8pt;
-            color: var(--dark-text);
+            color: var(--ink-light);
         }
         .cycle-arrow {
-            color: var(--gold);
+            color: var(--gold-dark);
             font-size: 14pt;
         }
         .return-arrow {
@@ -214,44 +236,44 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 0.15in 0;
+            margin: 0.12in 0;
             font-size: 10pt;
         }
         th {
-            background: var(--dark-card);
-            color: var(--gold);
+            background: var(--gold-pale);
+            color: var(--gold-dark);
             font-family: 'Trajan Pro 3', serif;
             font-size: 8pt;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            padding: 0.08in;
+            padding: 0.06in 0.08in;
             text-align: left;
             border-bottom: 2px solid var(--gold);
         }
         td {
-            padding: 0.06in 0.08in;
-            border-bottom: 1px solid rgba(201, 162, 39, 0.2);
+            padding: 0.05in 0.07in;
+            border-bottom: 1px solid #e0e0e0;
             vertical-align: top;
         }
         tr:hover td {
-            background: rgba(201, 162, 39, 0.05);
+            background: rgba(201, 162, 39, 0.04);
         }
         .metric-card {
-            background: var(--dark-card);
-            border: 1px solid var(--gold);
-            padding: 0.15in;
-            margin: 0.1in;
+            background: white;
+            border: 1.5px solid var(--gold);
+            padding: 0.12in;
+            margin: 0.08in;
             text-align: center;
-            min-width: 2in;
+            min-width: 1.8in;
         }
         .metric-value {
             font-family: 'Trajan Pro 3', serif;
-            font-size: 18pt;
-            color: var(--gold);
+            font-size: 16pt;
+            color: var(--gold-dark);
         }
         .metric-label {
-            font-size: 9pt;
-            color: #aaa;
+            font-size: 8pt;
+            color: #666;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
@@ -259,32 +281,32 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 0.1in;
-            margin: 0.2in 0;
+            gap: 0.08in;
+            margin: 0.15in 0;
         }
         .doc-link {
             display: inline-block;
-            background: rgba(201, 162, 39, 0.1);
+            background: white;
             border: 1px solid var(--gold);
-            color: var(--gold);
-            padding: 0.05in 0.15in;
+            color: var(--gold-dark);
+            padding: 0.04in 0.12in;
             text-decoration: none;
             font-family: 'Trajan Pro 3', serif;
             font-size: 8pt;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             transition: all 0.3s;
-            margin: 0.03in;
+            margin: 0.02in;
         }
         .doc-link:hover {
             background: var(--gold);
-            color: var(--dark-bg);
+            color: white;
         }
         .chart-container {
-            background: var(--dark-card);
-            border: 1px solid var(--gold);
-            padding: 0.2in;
-            margin: 0.2in 0;
+            background: white;
+            border: 1px solid var(--gold-light);
+            padding: 0.15in;
+            margin: 0.15in 0;
             text-align: center;
         }
         .chart-container img {
@@ -293,10 +315,11 @@
         }
         .chart-title {
             font-family: 'Trajan Pro 3', serif;
-            font-size: 10pt;
-            color: var(--gold);
-            margin-bottom: 0.1in;
+            font-size: 9pt;
+            color: var(--gold-dark);
+            margin-bottom: 0.08in;
             text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
         .status-green { color: var(--green); font-weight: bold; }
         .status-yellow { color: var(--yellow); font-weight: bold; }
@@ -304,31 +327,32 @@
         .status-orange { color: var(--orange); font-weight: bold; }
         .footer {
             text-align: center;
-            padding: 0.3in;
+            padding: 0.25in;
             border-top: 1px solid var(--gold);
-            margin-top: 0.5in;
+            margin-top: 0.3in;
             font-size: 8pt;
-            color: #666;
+            color: #888;
+            background: white;
         }
         .print-bar {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: var(--dark-bg);
+            background: white;
             border-top: 2px solid var(--gold);
             padding: 0.1in;
             display: flex;
             justify-content: center;
-            gap: 0.15in;
-            box-shadow: 0 -4px 15px rgba(0,0,0,0.3);
+            gap: 0.12in;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
             z-index: 100;
         }
         .btn {
-            padding: 0.06in 0.2in;
+            padding: 0.06in 0.18in;
             border: 1px solid var(--gold);
-            background: transparent;
-            color: var(--gold);
+            background: white;
+            color: var(--gold-dark);
             font-family: 'Trajan Pro 3', serif;
             font-size: 8pt;
             cursor: pointer;
@@ -340,32 +364,29 @@
         }
         .btn:hover {
             background: var(--gold);
-            color: var(--dark-bg);
+            color: white;
         }
         .btn-primary {
             background: var(--gold);
-            color: var(--dark-bg);
+            color: white;
         }
         .btn-primary:hover {
             background: var(--gold-dark);
         }
         @media (max-width: 768px) {
             .nav-tabs { flex-wrap: wrap; }
-            .nav-tab { font-size: 7pt; padding: 0.08in 0.12in; }
-            .tab-content { padding: 0.2in; }
+            .nav-tab { font-size: 7pt; padding: 0.08in 0.1in; }
+            .tab-content { padding: 0.15in; }
             .cycle-flow { flex-direction: column; }
             .cycle-arrow { transform: rotate(90deg); }
             .metrics-row { flex-direction: column; align-items: center; }
             .print-bar { flex-wrap: wrap; }
         }
         @media print {
-            body { background: white; color: black; }
-            .header { background: white; }
+            body { background: white; }
             .nav-tabs, .print-bar { display: none !important; }
             .tab-content { display: block !important; page-break-before: always; }
             .tab-content:first-of-type { page-break-before: auto; }
-            .dark-card, .highlight-box, .evidence-box { background: #f5f5f5 !important; border-color: #999 !important; }
-            .seal img { filter: none; }
         }
     </style>
 </head>
@@ -377,8 +398,8 @@
         <img src="seal.PNG" alt="Johann Christian Hasse Foundation Seal">
     </div>
     <div class="org-name">Johann Christian Hasse Foundation</div>
-    <div class="org-subtitle">Economic Governance System</div>
-    <div class="version-badge">EGS v1.2 — May 2026</div>
+    <div class="org-address">2504 Grandview Circle • Columbia, Missouri 65203 • United States of America</div>
+    <div class="org-motto">Mani Festum Societatis • Caritas • Continuitas • Auctoritas</div>
 </div>
 
 <!-- NAVIGATION -->
@@ -406,9 +427,10 @@
 <div id="overview" class="tab-content active">
     <div class="page-title">Economic Governance System</div>
     <div class="page-subtitle">"Who can claim value, under what conditions, and for how long"</div>
+    <div class="version-badge">EGS v1.2 — May 2026</div>
 
-    <div class="highlight-box">
-        <p style="text-align: center; font-style: italic; font-size: 12pt; color: var(--gold-light);">
+    <div class="highlight-box" style="margin-top: 0.2in;">
+        <p style="text-align: center; font-style: italic; font-size: 12pt; color: var(--gold-dark);">
             "It is not enough to decide; one must continue verifying as long as reversibility exists."
         </p>
     </div>
@@ -710,8 +732,8 @@
     </table>
 
     <div class="section-header">Handoff Rule</div>
-    <div class="highlight-box" style="border-color: var(--red);">
-        <p style="text-align: center; font-weight: bold; color: var(--gold);">
+    <div class="highlight-box highlight-box-red">
+        <p style="text-align: center; font-weight: bold; color: var(--gold-dark);">
             USE does not end responsibility.<br>
             Responsibility only ends when:<br>
             MONITORING → RETIRE<br>
@@ -725,7 +747,7 @@
     <p>The IVC reopens classification, reevaluates the causal chain, and issues a new classification (🟡 or 🔴). The cycle restarts at REVIEW, allowing the claim to be recovered if new evidence emerges — preserving the reversibility of the EGS itself.</p>
 
     <div class="section-header">Prohibition on Resurrection</div>
-    <div class="highlight-box" style="border-color: var(--red);">
+    <div class="highlight-box highlight-box-red">
         <p>No retired metric may be reused without complete revalidation.</p>
         <p>Complete revalidation = new Working Paper + new peer review + new IVC classification + new CEP-LOG registration.</p>
         <p>This prevents: cherry-picking, reviving old benchmarks, "resurrecting" ROI, reusing without updating assumptions.</p>
@@ -749,17 +771,17 @@
     <div class="page-subtitle">CECO-DOC-001 — How We Calculate</div>
 
     <div class="section-header">Evidence Classification</div>
-    <div class="evidence-box">
+    <div class="evidence-green">
         <p><span class="status-green">🟢 DEMONSTRATED</span> — Published benchmark by independent third party. Citable source; reproducible method; age ≤3 years.</p>
-        <p style="margin-top: 0.08in;"><strong>Example:</strong> Predictive maintenance reduces emergency costs by 15-25% (Oxmaint 2025)</p>
+        <p style="margin-top: 0.06in;"><strong>Example:</strong> Predictive maintenance reduces emergency costs by 15-25% (Oxmaint 2025)</p>
     </div>
-    <div class="evidence-box evidence-box-yellow">
+    <div class="evidence-yellow">
         <p><span class="status-yellow">🟡 MODELLED</span> — c-ECO hypothesis sustained by framework architecture. Internal peer review; explicit causal chain; requires pilot validation.</p>
-        <p style="margin-top: 0.08in;"><strong>Example:</strong> Pre-threshold governance reduces litigation by 15-30%</p>
+        <p style="margin-top: 0.06in;"><strong>Example:</strong> Pre-threshold governance reduces litigation by 15-30%</p>
     </div>
-    <div class="evidence-box evidence-box-red">
+    <div class="evidence-red">
         <p><span class="status-red">🔴 CONCEPTUAL</span> — c-ECO concept without direct quantitative validation. NEVER in due diligence or grant application. Presented as STRATEGIC CAPABILITY enabled.</p>
-        <p style="margin-top: 0.08in;"><strong>Example:</strong> Reversibility liquidity (NOT quantifiable in cash)</p>
+        <p style="margin-top: 0.06in;"><strong>Example:</strong> Reversibility liquidity (NOT quantifiable in cash)</p>
     </div>
 
     <div class="section-header">Three ROI Scenarios</div>
@@ -917,7 +939,7 @@
     <div class="highlight-box">
         <p><strong>Before:</strong> Fellowship = Revenue Stream ($12K/candidate)</p>
         <p><strong>Now:</strong> Fellowship = Talent Pipeline (cost: $25K/candidate)</p>
-        <p style="margin-top: 0.08in;"><strong>Return:</strong> Reduces CAC by 45-70% ($150K → $83K/enterprise)</p>
+        <p style="margin-top: 0.06in;"><strong>Return:</strong> Reduces CAC by 45-70% ($150K → $83K/enterprise)</p>
         <p><strong>20%</strong> of fellows convert to advisory roles ($85K/engagement)</p>
         <p>Each fellow generates <strong>0.3 qualified enterprise leads</strong></p>
     </div>
@@ -1083,18 +1105,18 @@
     </table>
 
     <div class="section-header">Mandatory Disclaimers</div>
-    <div class="evidence-box">
+    <div class="evidence-green">
         <p><strong>🟢 DEMONSTRATED:</strong> "Based on [SOURCE], published [DATE]. See Economic Impact Methodology (CECO-DOC-001) for full citation and methodology."</p>
     </div>
-    <div class="evidence-box evidence-box-yellow">
+    <div class="evidence-yellow">
         <p><strong>🟡 MODELLED:</strong> "Based on c-ECO internal hypothesis, not yet validated by independent study. See Working Paper [REF] for assumptions and limitations."</p>
     </div>
-    <div class="evidence-box evidence-box-red">
+    <div class="evidence-red">
         <p><strong>🔴 CONCEPTUAL:</strong> "This represents a conceptual capability of the c-ECO framework, not a guaranteed outcome. No empirical validation exists. See Commercial Evidence Policy (CECO-CEP-001) for classification."</p>
     </div>
 
     <div class="section-header">Prohibited Combinations</div>
-    <div class="highlight-box" style="border-color: var(--red);">
+    <div class="highlight-box highlight-box-red">
         <p>□ Summing 🟢 + 🟡 + 🔴 in a single "ROI" or "total savings" number</p>
         <p>□ Presenting 🔴 as 🟢 in any channel</p>
         <p>□ Omitting 🟡 disclaimer in grant or due diligence</p>
@@ -1194,7 +1216,7 @@
 
     <div class="section-header">Proposed Resolution</div>
     <div class="highlight-box">
-        <p style="text-align: center; font-family: 'Trajan Pro 3', serif; color: var(--gold); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.15in;">
+        <p style="text-align: center; font-family: 'Trajan Pro 3', serif; color: var(--gold-dark); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.15in;">
             BE IT RESOLVED THAT
         </p>
         <p>the Board of Trustees of the Johann Christian Hasse Foundation approves the <strong>conditional launch</strong> of the c-ECO Pilot Program with the following parameters:</p>
@@ -1213,7 +1235,7 @@
     </div>
 
     <div class="section-header">Vote Required</div>
-    <p style="text-align: center; font-size: 12pt; color: var(--gold);">Simple majority of Trustees present.</p>
+    <p style="text-align: center; font-size: 12pt; color: var(--gold-dark);">Simple majority of Trustees present.</p>
 </div>
 
 <!-- ===== TAB 9: VISUALS ===== -->
@@ -1270,17 +1292,17 @@
     <div class="chart-container">
         <div class="chart-title">Evidence Classification System</div>
         <div style="display: flex; justify-content: center; gap: 0.2in; flex-wrap: wrap; padding: 0.2in;">
-            <div style="background: rgba(46, 125, 50, 0.2); border: 1px solid var(--green); padding: 0.15in; min-width: 2.5in; text-align: center;">
+            <div style="background: #f1f8e9; border: 1.5px solid var(--green); padding: 0.15in; min-width: 2.5in; text-align: center;">
                 <div style="font-family: 'Trajan Pro 3', serif; color: var(--green); font-size: 10pt;">🟢 DEMONSTRATED</div>
-                <div style="font-size: 8pt; color: #aaa; margin-top: 0.05in;">Published benchmark<br>Source citable | Reproducible<br>Age ≤3 years</div>
+                <div style="font-size: 8pt; color: #666; margin-top: 0.05in;">Published benchmark<br>Source citable | Reproducible<br>Age ≤3 years</div>
             </div>
-            <div style="background: rgba(249, 168, 37, 0.2); border: 1px solid var(--yellow); padding: 0.15in; min-width: 2.5in; text-align: center;">
-                <div style="font-family: 'Trajan Pro 3', serif; color: var(--yellow); font-size: 10pt;">🟡 MODELLED</div>
-                <div style="font-size: 8pt; color: #aaa; margin-top: 0.05in;">c-ECO hypothesis<br>Peer review | Causal chain<br>Requires pilot validation</div>
+            <div style="background: #fffde7; border: 1.5px solid var(--yellow); padding: 0.15in; min-width: 2.5in; text-align: center;">
+                <div style="font-family: 'Trajan Pro 3', serif; color: #8B6914; font-size: 10pt;">🟡 MODELLED</div>
+                <div style="font-size: 8pt; color: #666; margin-top: 0.05in;">c-ECO hypothesis<br>Peer review | Causal chain<br>Requires pilot validation</div>
             </div>
-            <div style="background: rgba(198, 40, 40, 0.2); border: 1px solid var(--red); padding: 0.15in; min-width: 2.5in; text-align: center;">
+            <div style="background: #ffebee; border: 1.5px solid var(--red); padding: 0.15in; min-width: 2.5in; text-align: center;">
                 <div style="font-family: 'Trajan Pro 3', serif; color: var(--red); font-size: 10pt;">🔴 CONCEPTUAL</div>
-                <div style="font-size: 8pt; color: #aaa; margin-top: 0.05in;">c-ECO concept<br>No empirical validation<br>Strategic capability only</div>
+                <div style="font-size: 8pt; color: #666; margin-top: 0.05in;">c-ECO concept<br>No empirical validation<br>Strategic capability only</div>
             </div>
         </div>
     </div>
@@ -1330,7 +1352,7 @@
                 <td>$875K</td>
                 <td>$1.25M</td>
             </tr>
-            <tr style="background: rgba(201, 162, 39, 0.1);">
+            <tr style="background: var(--gold-pale);">
                 <td><strong>TOTAL</strong></td>
                 <td><strong>$2.44M</strong></td>
                 <td><strong>$7.93M</strong></td>
@@ -1350,18 +1372,14 @@
 
 <script>
 function showTab(tabName) {
-    // Hide all tabs
     document.querySelectorAll('.tab-content').forEach(tab => {
         tab.classList.remove('active');
     });
-    // Show selected tab
     document.getElementById(tabName).classList.add('active');
-    // Update nav
     document.querySelectorAll('.nav-tab').forEach(btn => {
         btn.classList.remove('active');
     });
     event.target.classList.add('active');
-    // Scroll to top
     window.scrollTo(0, 0);
 }
 </script>
