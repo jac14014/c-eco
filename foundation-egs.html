@@ -1,541 +1,717 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Economic Governance System (EGS) — Johann Christian Hasse Foundation</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Trajan+Pro+3&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --gold: #C9A227;
-            --gold-light: #D4AF37;
-            --gold-dark: #8B6914;
-            --gold-pale: #F5F0E8;
-            --ink: #1A1A1A;
-            --ink-light: #444;
-            --cream: #FDFCF8;
-            --cream-dark: #F5F0E8;
-            --green: #2e7d32;
-            --green-light: #4a6741;
-            --yellow: #8B6914;
-            --red: #8B0000;
-            --orange: #f57c00;
-            --blue: #3d5a80;
-            --purple: #6b4c9a;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            background: linear-gradient(135deg, #f5f0e8 0%, #ede6d8 100%);
-            color: var(--ink);
-            line-height: 1.7;
-            font-size: 11pt;
-            min-height: 100vh;
-        }
-        .letterhead {
-            text-align: center;
-            padding: 0.4in 0.75in 0.2in;
-            border-bottom: 1px solid var(--gold);
-            margin-bottom: 0;
-            background: white;
-        }
-        .seal {
-            width: 1.3in;
-            height: 1.3in;
-            margin: 0 auto 0.1in;
-        }
-        .seal img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-        .org-name {
-            font-family: 'Trajan Pro 3', 'Times New Roman', serif;
-            font-size: 15pt;
-            color: var(--gold-dark);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }
-        .org-address {
-            font-size: 9pt;
-            color: #666;
-            margin-top: 0.03in;
-            font-style: italic;
-        }
-        .org-motto {
-            font-size: 8pt;
-            color: var(--gold);
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            margin-top: 0.05in;
-        }
-        .nav-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 0;
-            background: white;
-            border-bottom: 1.5px solid var(--gold);
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            flex-wrap: wrap;
-        }
-        .nav-tab {
-            padding: 0.1in 0.18in;
-            border: none;
-            background: transparent;
-            font-family: 'Trajan Pro 3', serif;
-            font-size: 8pt;
-            color: #888;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            border-bottom: 2.5px solid transparent;
-            transition: all 0.3s;
-            white-space: nowrap;
-        }
-        .nav-tab:hover {
-            color: var(--gold-dark);
-            background: rgba(201, 162, 39, 0.08);
-        }
-        .nav-tab.active {
-            color: var(--gold-dark);
-            border-bottom-color: var(--gold);
-            background: rgba(201, 162, 39, 0.12);
-        }
-        .page {
-            width: 8.5in;
-            min-height: 11in;
-            margin: 0 auto;
-            background: white;
-            position: relative;
-            box-shadow: 0 0 30px rgba(0,0,0,0.12);
-            padding: 0 0.75in 0.75in;
-        }
-        .page::before {
-            content: '';
-            position: absolute;
-            top: 0.3in;
-            left: 0.3in;
-            right: 0.3in;
-            bottom: 0.3in;
-            border: 1.5px solid var(--gold);
-            pointer-events: none;
-            z-index: 1;
-        }
-        .page::after {
-            content: '';
-            position: absolute;
-            top: 0.4in;
-            left: 0.4in;
-            right: 0.4in;
-            bottom: 0.4in;
-            border: 0.5px solid var(--gold-light);
-            pointer-events: none;
-            opacity: 0.5;
-            z-index: 1;
-        }
-        .content {
-            padding-top: 0.3in;
-            position: relative;
-            z-index: 2;
-        }
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active {
-            display: block;
-        }
-        .page-title {
-            font-family: 'Trajan Pro 3', serif;
-            font-size: 20pt;
-            color: var(--gold-dark);
-            text-align: center;
-            margin: 0.2in 0 0.1in;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-        }
-        .page-subtitle {
-            text-align: center;
-            font-size: 11pt;
-            color: #555;
-            font-style: italic;
-            margin-bottom: 0.15in;
-        }
-        .version-badge {
-            display: inline-block;
-            background: var(--gold);
-            color: white;
-            padding: 0.03in 0.15in;
-            font-family: 'Trajan Pro 3', serif;
-            font-size: 8pt;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            margin: 0 auto 0.2in;
-            display: block;
-            width: fit-content;
-        }
-        .section-header {
-            font-family: 'Trajan Pro 3', serif;
-            font-size: 10pt;
-            color: var(--gold-dark);
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            margin: 0.22in 0 0.12in;
-            border-left: 2.5px solid var(--gold);
-            padding-left: 0.1in;
-        }
-        .section-header:first-child {
-            margin-top: 0.1in;
-        }
-        .highlight-box {
-            background: linear-gradient(135deg, #FDFCF8 0%, #F5F0E8 100%);
-            border: 1px solid var(--gold-light);
-            padding: 0.12in 0.15in;
-            margin: 0.12in 0;
-            border-radius: 2px;
-        }
-        .highlight-box p {
-            margin-bottom: 0.06in;
-            text-indent: 0;
-        }
-        .highlight-box p:last-child {
-            margin-bottom: 0;
-        }
-        .highlight-box-red {
-            border: 1.5px solid var(--red);
-            background: linear-gradient(135deg, #fff5f5 0%, #FDFCF8 100%);
-        }
-        /* NOVO SISTEMA DE EVIDENCIA SEM BOLAS COLORIDAS */
-        .evidence-box {
-            padding: 0.12in 0.15in;
-            margin: 0.1in 0;
-            border-radius: 2px;
-            border-left: 4px solid;
-            position: relative;
-        }
-        .evidence-demonstrated {
-            background: linear-gradient(135deg, #f1f8e9 0%, #FDFCF8 100%);
-            border-color: var(--green);
-            border-top: 1px solid var(--green);
-            border-right: 1px solid var(--green);
-            border-bottom: 1px solid var(--green);
-        }
-        .evidence-modelled {
-            background: linear-gradient(135deg, #fdf8e8 0%, #FDFCF8 100%);
-            border-color: var(--yellow);
-            border-top: 1px solid var(--yellow);
-            border-right: 1px solid var(--yellow);
-            border-bottom: 1px solid var(--yellow);
-        }
-        .evidence-conceptual {
-            background: linear-gradient(135deg, #ffebee 0%, #FDFCF8 100%);
-            border-color: var(--red);
-            border-top: 1px solid var(--red);
-            border-right: 1px solid var(--red);
-            border-bottom: 1px solid var(--red);
-        }
-        .evidence-badge {
-            display: inline-block;
-            font-family: 'Trajan Pro 3', serif;
-            font-size: 7pt;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            padding: 0.02in 0.08in;
-            border-radius: 2px;
-            margin-right: 0.08in;
-            font-weight: bold;
-        }
-        .badge-demo {
-            background: var(--green);
-            color: white;
-            border: 1px solid var(--green);
-        }
-        .badge-model {
-            background: var(--yellow);
-            color: white;
-            border: 1px solid var(--yellow);
-        }
-        .badge-concept {
-            background: var(--red);
-            color: white;
-            border: 1px solid var(--red);
-        }
-        .evidence-icon {
-            font-family: 'Trajan Pro 3', serif;
-            font-size: 14pt;
-            margin-right: 0.1in;
-            vertical-align: middle;
-        }
-        .icon-demo { color: var(--green); }
-        .icon-model { color: var(--yellow); }
-        .icon-concept { color: var(--red); }
-        .cycle-flow {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0.05in;
-            margin: 0.2in 0;
-            flex-wrap: wrap;
-        }
-        .cycle-step {
-            background: white;
-            border: 1.5px solid var(--gold);
-            padding: 0.08in 0.12in;
-            text-align: center;
-            min-width: 1.3in;
-        }
-        .cycle-step .step-label {
-            font-family: 'Trajan Pro 3', serif;
-            font-size: 7pt;
-            color: var(--gold-dark);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        .cycle-step .step-actor {
-            font-size: 8pt;
-            color: var(--ink-light);
-        }
-        .cycle-arrow {
-            color: var(--gold-dark);
-            font-size: 14pt;
-        }
-        .return-arrow {
-            color: var(--orange);
-            font-size: 10pt;
-            font-style: italic;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 0.12in 0;
-            font-size: 10pt;
-        }
-        th {
-            background: var(--gold-pale);
-            color: var(--gold-dark);
-            font-family: 'Trajan Pro 3', serif;
-            font-size: 8pt;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding: 0.06in 0.08in;
-            text-align: left;
-            border-bottom: 2px solid var(--gold);
-        }
-        td {
-            padding: 0.05in 0.07in;
-            border-bottom: 1px solid #e0e0e0;
-            vertical-align: top;
-        }
-        tr:hover td {
-            background: rgba(201, 162, 39, 0.04);
-        }
-        .metric-card {
-            background: white;
-            border: 1.5px solid var(--gold);
-            padding: 0.12in;
-            margin: 0.08in;
-            text-align: center;
-            min-width: 1.8in;
-        }
-        .metric-value {
-            font-family: 'Trajan Pro 3', serif;
-            font-size: 16pt;
-            color: var(--gold-dark);
-        }
-        .metric-label {
-            font-size: 8pt;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        .metrics-row {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 0.08in;
-            margin: 0.15in 0;
-        }
-        .doc-link {
-            display: inline-block;
-            background: white;
-            border: 1px solid var(--gold);
-            color: var(--gold-dark);
-            padding: 0.04in 0.12in;
-            text-decoration: none;
-            font-family: 'Trajan Pro 3', serif;
-            font-size: 8pt;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            transition: all 0.3s;
-            margin: 0.02in;
-        }
-        .doc-link:hover {
-            background: var(--gold);
-            color: white;
-        }
-        .chart-container {
-            background: white;
-            border: 1px solid var(--gold-light);
-            padding: 0.15in;
-            margin: 0.15in 0;
-            text-align: center;
-            page-break-inside: avoid;
-        }
-        .chart-container img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-        }
-        .chart-title {
-            font-family: 'Trajan Pro 3', serif;
-            font-size: 9pt;
-            color: var(--gold-dark);
-            margin-bottom: 0.08in;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        .chart-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.15in;
-            margin: 0.15in 0;
-        }
-        .chart-grid .chart-container {
-            margin: 0;
-        }
-        .chart-grid-full {
-            grid-column: 1 / -1;
-        }
-        .status-badge {
-            display: inline-block;
-            padding: 0.02in 0.06in;
-            font-size: 8pt;
-            font-weight: bold;
-            border-radius: 2px;
-            border: 1px solid;
-        }
-        .status-green { 
-            color: var(--green); 
-            background: #f1f8e9;
-            border-color: var(--green);
-        }
-        .status-yellow { 
-            color: var(--yellow); 
-            background: #fdf8e8;
-            border-color: var(--yellow);
-        }
-        .status-red { 
-            color: var(--red); 
-            background: #ffebee;
-            border-color: var(--red);
-        }
-        .status-orange { 
-            color: var(--orange); 
-            background: #fff3e0;
-            border-color: var(--orange);
-        }
-        .doc-footer {
-            margin-top: 0.3in;
-            text-align: center;
-            font-size: 8pt;
-            color: #888;
-            border-top: 0.5px solid var(--gold-light);
-            padding-top: 0.08in;
-        }
-        .print-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            border-top: 2px solid var(--gold);
-            padding: 0.1in;
-            display: flex;
-            justify-content: center;
-            gap: 0.12in;
-            box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
-            z-index: 100;
-        }
-        .btn {
-            padding: 0.06in 0.18in;
-            border: 1px solid var(--gold);
-            background: white;
-            color: var(--gold-dark);
-            font-family: 'Trajan Pro 3', serif;
-            font-size: 8pt;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .btn:hover {
-            background: var(--gold);
-            color: white;
-        }
-        .btn-primary {
-            background: var(--gold);
-            color: white;
-        }
-        .btn-primary:hover {
-            background: var(--gold-dark);
-        }
-        @media (max-width: 768px) {
-            .page { width: 100%; min-height: auto; padding: 0.2in; }
-            .page::before, .page::after { display: none; }
-            .nav-tabs { flex-wrap: wrap; }
-            .nav-tab { font-size: 7pt; padding: 0.08in 0.1in; }
-            .cycle-flow { flex-direction: column; }
-            .cycle-arrow { transform: rotate(90deg); }
-            .metrics-row { flex-direction: column; align-items: center; }
-            .print-bar { flex-wrap: wrap; }
-            .chart-grid { grid-template-columns: 1fr; }
-        }
-        @media print {
-            body { background: white; }
-            .page { box-shadow: none; margin: 0; width: 8.5in; }
-            .nav-tabs, .print-bar { display: none !important; }
-            .tab-content { display: block !important; page-break-before: always; }
-            .tab-content:first-of-type { page-break-before: auto; }
-            .page::before, .page::after { display: block; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Economic Governance System (EGS) — Johann Christian Hasse Foundation</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Trajan+Pro+3&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --gold: #C9A227;
+    --gold-light: #D4AF37;
+    --gold-dark: #8B6914;
+    --gold-pale: #F5F0E8;
+    --ink: #1A1A1A;
+    --ink-light: #444;
+    --cream: #FDFCF8;
+    --cream-dark: #F5F0E8;
+    --green: #2e7d32;
+    --yellow: #8B6914;
+    --red: #8B0000;
+    --orange: #f57c00;
+    --blue: #3d5a80;
+    --purple: #6b4c9a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    background: linear-gradient(135deg, #f5f0e8 0%, #ede6d8 100%);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 11pt;
+    min-height: 100vh;
+    padding-bottom: 0.7in;
+}
+
+/* LETTERHEAD */
+.letterhead {
+    text-align: center;
+    padding: 0.4in 0.75in 0.2in;
+    border-bottom: 1px solid var(--gold);
+    background: white;
+}
+
+.seal {
+    width: 1.3in;
+    height: 1.3in;
+    margin: 0 auto 0.1in;
+}
+
+.seal img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.org-name {
+    font-family: 'Trajan Pro 3', 'Times New Roman', serif;
+    font-size: 15pt;
+    color: var(--gold-dark);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.org-address {
+    font-size: 9pt;
+    color: #666;
+    margin-top: 0.03in;
+    font-style: italic;
+}
+
+.org-motto {
+    font-size: 8pt;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-top: 0.05in;
+}
+
+/* NAVIGATION */
+.nav-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    background: white;
+    border-bottom: 1.5px solid var(--gold);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    flex-wrap: wrap;
+}
+
+.nav-tab {
+    padding: 0.1in 0.18in;
+    border: none;
+    background: transparent;
+    font-family: 'Trajan Pro 3', serif;
+    font-size: 8pt;
+    color: #888;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 2.5px solid transparent;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+
+.nav-tab:hover {
+    color: var(--gold-dark);
+    background: rgba(201, 162, 39, 0.08);
+}
+
+.nav-tab.active {
+    color: var(--gold-dark);
+    border-bottom-color: var(--gold);
+    background: rgba(201, 162, 39, 0.12);
+}
+
+/* PAGE */
+.page {
+    width: 8.5in;
+    min-height: 11in;
+    margin: 0.25in auto;
+    background: white;
+    position: relative;
+    box-shadow: 0 0 30px rgba(0,0,0,0.12);
+    padding: 0 0.75in 0.75in;
+}
+
+.page::before {
+    content: '';
+    position: absolute;
+    top: 0.3in;
+    left: 0.3in;
+    right: 0.3in;
+    bottom: 0.3in;
+    border: 1.5px solid var(--gold);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.page::after {
+    content: '';
+    position: absolute;
+    top: 0.4in;
+    left: 0.4in;
+    right: 0.4in;
+    bottom: 0.4in;
+    border: 0.5px solid var(--gold-light);
+    pointer-events: none;
+    opacity: 0.5;
+    z-index: 1;
+}
+
+.content {
+    padding-top: 0.3in;
+    position: relative;
+    z-index: 2;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* TITLES */
+.page-title {
+    font-family: 'Trajan Pro 3', serif;
+    font-size: 20pt;
+    color: var(--gold-dark);
+    text-align: center;
+    margin: 0.2in 0 0.1in;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.page-subtitle {
+    text-align: center;
+    font-size: 11pt;
+    color: #555;
+    font-style: italic;
+    margin-bottom: 0.15in;
+}
+
+.version-badge {
+    background: var(--gold);
+    color: white;
+    padding: 0.03in 0.15in;
+    font-family: 'Trajan Pro 3', serif;
+    font-size: 8pt;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 0 auto 0.2in;
+    display: block;
+    width: fit-content;
+}
+
+/* SECTIONS */
+.section-header {
+    font-family: 'Trajan Pro 3', serif;
+    font-size: 10pt;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0.22in 0 0.12in;
+    border-left: 2.5px solid var(--gold);
+    padding-left: 0.1in;
+}
+
+.section-header:first-child {
+    margin-top: 0.1in;
+}
+
+p {
+    margin-bottom: 0.08in;
+}
+
+.highlight-box {
+    background: linear-gradient(135deg, #FDFCF8 0%, #F5F0E8 100%);
+    border: 1px solid var(--gold-light);
+    padding: 0.12in 0.15in;
+    margin: 0.12in 0;
+    border-radius: 2px;
+}
+
+.highlight-box p {
+    margin-bottom: 0.06in;
+}
+
+.highlight-box p:last-child {
+    margin-bottom: 0;
+}
+
+.highlight-box-red {
+    border: 1.5px solid var(--red);
+    background: linear-gradient(135deg, #fff5f5 0%, #FDFCF8 100%);
+}
+
+/* EVIDENCE */
+.evidence-box {
+    padding: 0.12in 0.15in;
+    margin: 0.1in 0;
+    border-radius: 2px;
+    border-left: 4px solid;
+}
+
+.evidence-demonstrated {
+    background: linear-gradient(135deg, #f1f8e9 0%, #FDFCF8 100%);
+    border-color: var(--green);
+}
+
+.evidence-modelled {
+    background: linear-gradient(135deg, #fdf8e8 0%, #FDFCF8 100%);
+    border-color: var(--yellow);
+}
+
+.evidence-conceptual {
+    background: linear-gradient(135deg, #ffebee 0%, #FDFCF8 100%);
+    border-color: var(--red);
+}
+
+.evidence-badge {
+    display: inline-block;
+    font-family: 'Trajan Pro 3', serif;
+    font-size: 7pt;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.02in 0.08in;
+    border-radius: 2px;
+    margin-right: 0.08in;
+    font-weight: bold;
+}
+
+.badge-demo {
+    background: var(--green);
+    color: white;
+}
+
+.badge-model {
+    background: var(--yellow);
+    color: white;
+}
+
+.badge-concept {
+    background: var(--red);
+    color: white;
+}
+
+.evidence-icon {
+    font-family: 'Trajan Pro 3', serif;
+    font-size: 14pt;
+    margin-right: 0.1in;
+    vertical-align: middle;
+}
+
+.icon-demo { color: var(--green); }
+.icon-model { color: var(--yellow); }
+.icon-concept { color: var(--red); }
+
+/* CYCLE */
+.cycle-flow {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 0.05in;
+    margin: 0.2in 0;
+    flex-wrap: wrap;
+}
+
+.cycle-step {
+    background: white;
+    border: 1.5px solid var(--gold);
+    padding: 0.08in 0.12in;
+    text-align: center;
+    min-width: 1.25in;
+    flex: 1 1 1.25in;
+}
+
+.cycle-step .step-label {
+    font-family: 'Trajan Pro 3', serif;
+    font-size: 7pt;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.cycle-step .step-actor {
+    font-size: 8pt;
+    color: var(--ink-light);
+}
+
+.cycle-arrow {
+    color: var(--gold-dark);
+    font-size: 14pt;
+    align-self: center;
+}
+
+.return-arrow {
+    color: var(--orange);
+    font-size: 10pt;
+    font-style: italic;
+}
+
+/* TABLES */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.12in 0;
+    font-size: 10pt;
+}
+
+th {
+    background: var(--gold-pale);
+    color: var(--gold-dark);
+    font-family: 'Trajan Pro 3', serif;
+    font-size: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.06in 0.08in;
+    text-align: left;
+    border-bottom: 2px solid var(--gold);
+}
+
+td {
+    padding: 0.05in 0.07in;
+    border-bottom: 1px solid #e0e0e0;
+    vertical-align: top;
+}
+
+tr:hover td {
+    background: rgba(201, 162, 39, 0.04);
+}
+
+/* METRICS */
+.metrics-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.08in;
+    margin: 0.15in 0;
+}
+
+.metric-card {
+    background: white;
+    border: 1.5px solid var(--gold);
+    padding: 0.12in;
+    text-align: center;
+    min-width: 1.55in;
+    flex: 1 1 1.55in;
+}
+
+.metric-value {
+    font-family: 'Trajan Pro 3', serif;
+    font-size: 16pt;
+    color: var(--gold-dark);
+}
+
+.metric-label {
+    font-size: 8pt;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* LINKS */
+.doc-link {
+    display: inline-block;
+    background: white;
+    border: 1px solid var(--gold);
+    color: var(--gold-dark);
+    padding: 0.04in 0.12in;
+    text-decoration: none;
+    font-family: 'Trajan Pro 3', serif;
+    font-size: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 0.25s ease;
+    margin: 0.02in;
+}
+
+.doc-link:hover {
+    background: var(--gold);
+    color: white;
+}
+
+/* CHARTS */
+.chart-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.15in;
+    margin: 0.15in 0;
+}
+
+.chart-container {
+    background: white;
+    border: 1px solid var(--gold-light);
+    padding: 0.15in;
+    text-align: center;
+    page-break-inside: avoid;
+}
+
+.chart-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    object-fit: contain;
+}
+
+.chart-title {
+    font-family: 'Trajan Pro 3', serif;
+    font-size: 9pt;
+    color: var(--gold-dark);
+    margin-bottom: 0.08in;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.chart-grid-full {
+    grid-column: 1 / -1;
+}
+
+/* BADGES */
+.status-badge {
+    display: inline-block;
+    padding: 0.02in 0.06in;
+    font-size: 8pt;
+    font-weight: bold;
+    border-radius: 2px;
+    border: 1px solid;
+    white-space: nowrap;
+}
+
+.status-green {
+    color: var(--green);
+    background: #f1f8e9;
+    border-color: var(--green);
+}
+
+.status-yellow {
+    color: var(--yellow);
+    background: #fdf8e8;
+    border-color: var(--yellow);
+}
+
+.status-red {
+    color: var(--red);
+    background: #ffebee;
+    border-color: var(--red);
+}
+
+.status-orange {
+    color: var(--orange);
+    background: #fff3e0;
+    border-color: var(--orange);
+}
+
+/* FOOTER */
+.doc-footer {
+    margin-top: 0.3in;
+    text-align: center;
+    font-size: 8pt;
+    color: #888;
+    border-top: 0.5px solid var(--gold-light);
+    padding-top: 0.08in;
+}
+
+/* PRINT BAR */
+.print-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 2px solid var(--gold);
+    padding: 0.1in;
+    display: flex;
+    justify-content: center;
+    gap: 0.12in;
+    box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
+    z-index: 100;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 0.06in 0.18in;
+    border: 1px solid var(--gold);
+    background: white;
+    color: var(--gold-dark);
+    font-family: 'Trajan Pro 3', serif;
+    font-size: 8pt;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn:hover {
+    background: var(--gold);
+    color: white;
+}
+
+.btn-primary {
+    background: var(--gold);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--gold-dark);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    body {
+        padding-bottom: 1.2in;
+    }
+
+    .letterhead {
+        padding: 0.28in 0.25in 0.18in;
+    }
+
+    .page {
+        width: calc(100% - 0.2in);
+        min-height: auto;
+        padding: 0 0.25in 0.45in;
+        margin: 0.15in auto;
+    }
+
+    .page::before,
+    .page::after {
+        display: none;
+    }
+
+    .page-title {
+        font-size: 16pt;
+    }
+
+    .nav-tab {
+        font-size: 7pt;
+        padding: 0.08in 0.09in;
+    }
+
+    .cycle-flow {
+        flex-direction: column;
+    }
+
+    .cycle-step {
+        width: 100%;
+    }
+
+    .cycle-arrow {
+        transform: rotate(90deg);
+        margin: -0.03in 0;
+    }
+
+    .metrics-row {
+        flex-direction: column;
+    }
+
+    .chart-grid {
+        grid-template-columns: 1fr;
+    }
+
+    table {
+        font-size: 9pt;
+        display: block;
+        overflow-x: auto;
+        white-space: normal;
+    }
+}
+
+/* PRINT */
+@media print {
+    body {
+        background: white;
+        padding-bottom: 0;
+    }
+
+    .letterhead {
+        border-bottom: 1px solid var(--gold);
+        padding-top: 0.25in;
+    }
+
+    .nav-tabs,
+    .print-bar {
+        display: none !important;
+    }
+
+    .page {
+        box-shadow: none;
+        margin: 0;
+        width: 8.5in;
+        min-height: 11in;
+        page-break-after: always;
+    }
+
+    .page:last-child {
+        page-break-after: auto;
+    }
+
+    .tab-content {
+        display: none !important;
+    }
+
+    .tab-content.active,
+    body.print-all .tab-content {
+        display: block !important;
+    }
+
+    .page::before,
+    .page::after {
+        display: block;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+}
+</style>
 </head>
+
 <body>
 
-
-<!-- NAVIGATION — NO TOPO -->
-<div class="nav-tabs">
-    <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
-    <button class="nav-tab" onclick="showTab('governance')">Governance Charter</button>
-    <button class="nav-tab" onclick="showTab('methodology')">Methodology</button>
-    <button class="nav-tab" onclick="showTab('pricing')">Pricing</button>
-    <button class="nav-tab" onclick="showTab('pilot')">Pilot Playbook</button>
-    <button class="nav-tab" onclick="showTab('cep')">Evidence Policy</button>
-    <button class="nav-tab" onclick="showTab('ivc')">IVC</button>
-    <button class="nav-tab" onclick="showTab('board')">Board One-Pager</button>
-    <button class="nav-tab" onclick="showTab('visuals')">Visuals</button>
-</div>
-
-
 <!-- LETTERHEAD -->
-<div class="letterhead">
+<header class="letterhead">
     <div class="seal">
         <img src="seal.PNG" alt="Johann Christian Hasse Foundation Seal">
     </div>
-    
+
+    <div class="org-name">Johann Christian Hasse Foundation</div>
+    <div class="org-address">2504 Grandview Circle, Columbia, Missouri 65203</div>
+    <div class="org-motto">Contractual Equity &amp; Ecological Co-Responsibility</div>
+</header>
+
+<!-- NAVIGATION -->
+<nav class="nav-tabs" aria-label="Economic Governance System Navigation">
+    <button class="nav-tab active" type="button" data-tab="overview">Overview</button>
+    <button class="nav-tab" type="button" data-tab="governance">Governance Charter</button>
+    <button class="nav-tab" type="button" data-tab="methodology">Methodology</button>
+    <button class="nav-tab" type="button" data-tab="pricing">Pricing</button>
+    <button class="nav-tab" type="button" data-tab="pilot">Pilot Playbook</button>
+    <button class="nav-tab" type="button" data-tab="cep">Evidence Policy</button>
+    <button class="nav-tab" type="button" data-tab="ivc">IVC</button>
+    <button class="nav-tab" type="button" data-tab="board">Board One-Pager</button>
+    <button class="nav-tab" type="button" data-tab="visuals">Visuals</button>
+</nav>
+
 <!-- PRINT BAR -->
 <div class="print-bar">
-    <button class="btn" onclick="window.print()">Print All</button>
-    <button class="btn btn-primary" onclick="showTab('overview'); setTimeout(() => window.print(), 100)">Overview</button>
-    <button class="btn" onclick="showTab('governance'); setTimeout(() => window.print(), 100)">Charter</button>
-    <button class="btn" onclick="showTab('visuals'); setTimeout(() => window.print(), 100)">Visuals</button>
+    <button class="btn" type="button" onclick="printAllTabs()">Print All</button>
+    <button class="btn btn-primary" type="button" onclick="printSingleTab('overview')">Overview</button>
+    <button class="btn" type="button" onclick="printSingleTab('governance')">Charter</button>
+    <button class="btn" type="button" onclick="printSingleTab('visuals')">Visuals</button>
 </div>
 
-
+<!-- TAB 1: OVERVIEW -->
 <div id="overview" class="tab-content active">
     <div class="page">
         <div class="content">
@@ -550,58 +726,217 @@
             </div>
 
             <div class="section-header">Six-Authority Cycle</div>
+
             <div class="cycle-flow">
-                <div class="cycle-step"><div class="step-label">Create</div><div class="step-actor">VP Research + Architect</div></div>
+                <div class="cycle-step">
+                    <div class="step-label">Create</div>
+                    <div class="step-actor">VP Research + Architect</div>
+                </div>
+
                 <div class="cycle-arrow">→</div>
-                <div class="cycle-step"><div class="step-label">Review</div><div class="step-actor">IVC (3 members)</div></div>
+
+                <div class="cycle-step">
+                    <div class="step-label">Review</div>
+                    <div class="step-actor">IVC (3 members)</div>
+                </div>
+
                 <div class="cycle-arrow">→</div>
-                <div class="cycle-step"><div class="step-label">Approve</div><div class="step-actor">Board of Trustees</div></div>
+
+                <div class="cycle-step">
+                    <div class="step-label">Approve</div>
+                    <div class="step-actor">Board of Trustees</div>
+                </div>
+
                 <div class="cycle-arrow">→</div>
-                <div class="cycle-step"><div class="step-label">Use</div><div class="step-actor">Business Owner</div></div>
+
+                <div class="cycle-step">
+                    <div class="step-label">Use</div>
+                    <div class="step-actor">Business Owner</div>
+                </div>
+
                 <div class="cycle-arrow">→</div>
-                <div class="cycle-step"><div class="step-label">Monitoring</div><div class="step-actor">Research + IVC</div></div>
+
+                <div class="cycle-step">
+                    <div class="step-label">Monitoring</div>
+                    <div class="step-actor">Research + IVC</div>
+                </div>
+
                 <div class="cycle-arrow">→</div>
-                <div class="cycle-step"><div class="step-label">Retire</div><div class="step-actor">IVC + Board</div></div>
+
+                <div class="cycle-step">
+                    <div class="step-label">Retire</div>
+                    <div class="step-actor">IVC + Board</div>
+                </div>
             </div>
+
             <div style="text-align: center; margin: 0.1in 0;">
-                <span class="return-arrow">&#8617; MONITORING &rarr; REVIEW (return path)</span>
+                <span class="return-arrow">&#8617; Monitoring &rarr; Review / Revalidation return path</span>
             </div>
 
             <div class="section-header">Key Metrics at a Glance</div>
+
             <div class="metrics-row">
-                <div class="metric-card"><div class="metric-value">$2.2B</div><div class="metric-label">TAM (17 sectors)</div></div>
-                <div class="metric-card"><div class="metric-value">$230M</div><div class="metric-label">SAM (3-year reachable)</div></div>
-                <div class="metric-card"><div class="metric-value">$14M</div><div class="metric-label">SOM (realistic capture)</div></div>
-                <div class="metric-card"><div class="metric-value">204%</div><div class="metric-label">ROI Demonstrated</div></div>
-                <div class="metric-card"><div class="metric-value">695%</div><div class="metric-label">ROI Modelled</div></div>
-                <div class="metric-card"><div class="metric-value">~4 mo</div><div class="metric-label">Payback</div></div>
+                <div class="metric-card">
+                    <div class="metric-value">$2.2B</div>
+                    <div class="metric-label">TAM / 17 sectors</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-value">$230M</div>
+                    <div class="metric-label">SAM / 3-year reachable</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-value">$14M</div>
+                    <div class="metric-label">SOM / realistic capture</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-value">204%</div>
+                    <div class="metric-label">ROI Demonstrated</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-value">695%</div>
+                    <div class="metric-label">ROI Modelled</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-value">~4 mo</div>
+                    <div class="metric-label">Payback</div>
+                </div>
             </div>
 
             <div class="section-header">Document Hierarchy</div>
+
             <table>
-                <tr><th>Level</th><th>Document</th><th>Function</th><th>Status</th></tr>
-                <tr><td><strong>META</strong></td><td>CECO-GOV-001</td><td>Governance Charter</td><td><span class="status-badge status-yellow">Draft</span></td></tr>
-                <tr><td><strong>STRATEGIC</strong></td><td>CECO-CEP-001</td><td>Commercial Evidence Policy</td><td><span class="status-badge status-yellow">Draft</span></td></tr>
-                <tr><td><strong>STRATEGIC</strong></td><td>CECO-DOC-001</td><td>Economic Impact Methodology</td><td><span class="status-badge status-yellow">Draft</span></td></tr>
-                <tr><td><strong>STRATEGIC</strong></td><td>CECO-PRC-001</td><td>Pricing Architecture (4 Tiers)</td><td><span class="status-badge status-yellow">Draft</span></td></tr>
-                <tr><td><strong>STRATEGIC</strong></td><td>CECO-PIL-001</td><td>Pilot Program Playbook</td><td><span class="status-badge status-yellow">Draft</span></td></tr>
-                <tr><td><strong>TACTICAL</strong></td><td>CECO-BRD-001</td><td>Board One-Pager</td><td><span class="status-badge status-yellow">Draft</span></td></tr>
-                <tr><td><strong>TACTICAL</strong></td><td>CECO-IVC-TOR-001</td><td>IVC Terms of Reference</td><td><span class="status-badge status-yellow">Draft</span></td></tr>
+                <thead>
+                    <tr>
+                        <th>Level</th>
+                        <th>Document</th>
+                        <th>Function</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td><strong>META</strong></td>
+                        <td>CECO-GOV-001</td>
+                        <td>Governance Charter</td>
+                        <td><span class="status-badge status-yellow">Draft</span></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>STRATEGIC</strong></td>
+                        <td>CECO-CEP-001</td>
+                        <td>Commercial Evidence Policy</td>
+                        <td><span class="status-badge status-yellow">Draft</span></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>STRATEGIC</strong></td>
+                        <td>CECO-DOC-001</td>
+                        <td>Economic Impact Methodology</td>
+                        <td><span class="status-badge status-yellow">Draft</span></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>STRATEGIC</strong></td>
+                        <td>CECO-PRC-001</td>
+                        <td>Pricing Architecture</td>
+                        <td><span class="status-badge status-yellow">Draft</span></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>STRATEGIC</strong></td>
+                        <td>CECO-PIL-001</td>
+                        <td>Pilot Program Playbook</td>
+                        <td><span class="status-badge status-yellow">Draft</span></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>TACTICAL</strong></td>
+                        <td>CECO-BRD-001</td>
+                        <td>Board One-Pager</td>
+                        <td><span class="status-badge status-yellow">Draft</span></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>TACTICAL</strong></td>
+                        <td>CECO-IVC-TOR-001</td>
+                        <td>IVC Terms of Reference</td>
+                        <td><span class="status-badge status-yellow">Draft</span></td>
+                    </tr>
+                </tbody>
             </table>
 
             <div class="section-header">7 Board Decisions Required</div>
+
             <table>
-                <tr><th>#</th><th>Decision</th><th>Type</th><th>Priority</th></tr>
-                <tr><td>1</td><td>Economic Impact Methodology</td><td>Governance</td><td><span class="status-badge status-green">High</span></td></tr>
-                <tr><td>2</td><td>Fellowship Reclassification</td><td>Governance</td><td><span class="status-badge status-green">High</span></td></tr>
-                <tr><td>3</td><td>Pricing Architecture (4 Tiers)</td><td>Governance</td><td><span class="status-badge status-green">High</span></td></tr>
-                <tr><td>4</td><td>Pilot Program (Resolution)</td><td><span class="status-badge status-orange">Binding</span></td><td><span class="status-badge status-green">Critical</span></td></tr>
-                <tr><td>5</td><td>Commercial Evidence Policy</td><td>Governance</td><td><span class="status-badge status-green">High</span></td></tr>
-                <tr><td>6</td><td>IVC Terms of Reference</td><td>Governance</td><td><span class="status-badge status-green">High</span></td></tr>
-                <tr><td>7</td><td><strong>Governance Charter (CECO-GOV-001)</strong></td><td>Governance</td><td><span class="status-badge status-red">FIRST</span></td></tr>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Decision</th>
+                        <th>Type</th>
+                        <th>Priority</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Economic Impact Methodology</td>
+                        <td>Governance</td>
+                        <td><span class="status-badge status-green">High</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>2</td>
+                        <td>Fellowship Reclassification</td>
+                        <td>Governance</td>
+                        <td><span class="status-badge status-green">High</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>3</td>
+                        <td>Pricing Architecture</td>
+                        <td>Governance</td>
+                        <td><span class="status-badge status-green">High</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>4</td>
+                        <td>Pilot Program Resolution</td>
+                        <td><span class="status-badge status-orange">Binding</span></td>
+                        <td><span class="status-badge status-green">Critical</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>5</td>
+                        <td>Commercial Evidence Policy</td>
+                        <td>Governance</td>
+                        <td><span class="status-badge status-green">High</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>6</td>
+                        <td>IVC Terms of Reference</td>
+                        <td>Governance</td>
+                        <td><span class="status-badge status-green">High</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>7</td>
+                        <td><strong>Governance Charter CECO-GOV-001</strong></td>
+                        <td>Governance</td>
+                        <td><span class="status-badge status-red">First</span></td>
+                    </tr>
+                </tbody>
             </table>
 
             <div class="section-header">Download Documents</div>
+
             <div style="text-align: center;">
                 <a href="01_Economic_Impact_Methodology.docx" class="doc-link">Methodology</a>
                 <a href="02_Pricing_Architecture.docx" class="doc-link">Pricing</a>
@@ -620,6 +955,7 @@
     </div>
 </div>
 
+
 <!-- TAB 2: GOVERNANCE CHARTER -->
 <div id="governance" class="tab-content">
     <div class="page">
@@ -628,38 +964,100 @@
             <div class="page-subtitle">Governance Charter for Economic Claims — EGS v1.2</div>
 
             <div class="section-header">Preamble</div>
-            <p>The c-ECO Doctrine was built on the principle of <em>"pre-threshold responsibility"</em> — the obligation to act before decisions become irreversible. This principle applies, meta-recursively, to the Foundation's own economic claims about its value.</p>
+
+            <p>
+                The c-ECO Doctrine was built on the principle of <em>pre-threshold responsibility</em> —
+                the obligation to act before decisions become irreversible. This principle applies,
+                meta-recursively, to the Foundation's own economic claims about its value.
+            </p>
 
             <div class="section-header">Six-Authority Rule</div>
-            <p>Every economic claim passes through 6 distinct authorities sequentially, without exception:</p>
+
+            <p>
+                Every economic claim passes through six distinct authorities sequentially, without exception.
+            </p>
+
             <table>
-                <tr><th>Authority</th><th>Function</th><th>Actor</th><th>Document</th></tr>
-                <tr><td><strong>CREATE</strong></td><td>Originate (hypothesis or benchmark)</td><td>VP Research + Lead Architect</td><td>Working Paper (CECO-WP-NNNN)</td></tr>
-                <tr><td><strong>REVIEW</strong></td><td>Classify (DEMO / MODEL / CONCEPT)</td><td>IVC (3 members)</td><td>Evidence Review (IVC-REV-001)</td></tr>
-                <tr><td><strong>APPROVE</strong></td><td>Authorize (for external use)</td><td>Board of Trustees</td><td>Board Resolution + CEP-LOG</td></tr>
-                <tr><td><strong>USE</strong></td><td>Apply (appropriate channel)</td><td>Business Owner (Accountable)</td><td>CEP-LOG entry</td></tr>
-                <tr><td><strong>MONITORING</strong></td><td>Verify (permanence of validity)</td><td>VP Research + IVC Analytics</td><td>Monitoring Report (IVC-MON-001)</td></tr>
-                <tr><td><strong>RETIRE</strong></td><td>Retire (shelf life)</td><td>IVC + Board</td><td>Degradation Notice + Archive</td></tr>
+                <thead>
+                    <tr>
+                        <th>Authority</th>
+                        <th>Function</th>
+                        <th>Actor</th>
+                        <th>Document</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td><strong>Create</strong></td>
+                        <td>Originate hypothesis, benchmark, or economic claim</td>
+                        <td>VP Research + Lead Architect</td>
+                        <td>Working Paper CECO-WP-NNNN</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Review</strong></td>
+                        <td>Classify evidence as DEMO, MODEL, or CONCEPT</td>
+                        <td>Independent Validation Committee</td>
+                        <td>Evidence Review IVC-REV-001</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Approve</strong></td>
+                        <td>Authorize external use</td>
+                        <td>Board of Trustees</td>
+                        <td>Board Resolution + CEP-LOG</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Use</strong></td>
+                        <td>Apply claim in the appropriate channel</td>
+                        <td>Business Owner</td>
+                        <td>CEP-LOG entry</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Monitoring</strong></td>
+                        <td>Verify permanence of validity</td>
+                        <td>VP Research + IVC Analytics</td>
+                        <td>Monitoring Report IVC-MON-001</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Retire</strong></td>
+                        <td>Remove obsolete or invalid claims from use</td>
+                        <td>IVC + Board</td>
+                        <td>Degradation Notice + Archive</td>
+                    </tr>
+                </tbody>
             </table>
 
             <div class="section-header">Non-Delegable Powers</div>
+
             <div class="highlight-box">
-                <p>&#9744; Approval of Methodology (CECO-DOC-001)</p>
-                <p>&#9744; Approval of Commercial Evidence Policy (CECO-CEP-001)</p>
-                <p>&#9744; Approval of IVC Terms of Reference (CECO-IVC-TOR-001)</p>
-                <p>&#9744; Approval of this Charter (CECO-GOV-001)</p>
-                <p>&#9744; Institutional Upgrade: MODEL&rarr;DEMO for grants and due diligence</p>
-                <p>&#9744; Degradation of DEMO&rarr;MODEL impacting projections &gt;$500K</p>
-                <p>&#9744; Retirement of metrics in active contracts</p>
-                <p>&#9744; Suspension or revocation of the EGS (sunset clause)</p>
+                <p>&#9744; Approval of Methodology CECO-DOC-001</p>
+                <p>&#9744; Approval of Commercial Evidence Policy CECO-CEP-001</p>
+                <p>&#9744; Approval of IVC Terms of Reference CECO-IVC-TOR-001</p>
+                <p>&#9744; Approval of this Charter CECO-GOV-001</p>
+                <p>&#9744; Institutional upgrade from MODEL to DEMO for grants and due diligence</p>
+                <p>&#9744; Degradation from DEMO to MODEL affecting projections above $500,000</p>
+                <p>&#9744; Retirement of metrics used in active contracts</p>
+                <p>&#9744; Suspension or revocation of the EGS under the sunset clause</p>
             </div>
 
             <div class="section-header">Section 5A — Monitoring Authority</div>
-            <p><strong>Purpose:</strong> Monitor economic claims after use to verify permanence of validity. MONITORING is not passive. It implies measurement, detection, updating, and trigger.</p>
-            <p><strong>Triggers (7 types):</strong></p>
+
+            <p>
+                <strong>Purpose:</strong> Monitoring verifies economic claims after use to confirm the
+                permanence of validity. Monitoring is not passive. It implies measurement, detection,
+                updating, and trigger.
+            </p>
+
+            <p><strong>Seven monitoring triggers:</strong></p>
+
             <div class="highlight-box">
-                <p>&#9744; Benchmark reached 75% of shelf life</p>
-                <p>&#9744; Deviation &gt;20% between projected and observed</p>
+                <p>&#9744; Benchmark reaches 75% of shelf life</p>
+                <p>&#9744; Deviation exceeds 20% between projected and observed result</p>
                 <p>&#9744; Contradictory pilot result</p>
                 <p>&#9744; Relevant regulatory change</p>
                 <p>&#9744; New external evidence</p>
@@ -667,46 +1065,109 @@
                 <p>&#9744; Whistleblower report received</p>
             </div>
 
-            <p><strong>Outputs:</strong></p>
+            <p><strong>Monitoring outputs:</strong></p>
+
             <table>
-                <tr><th>Result</th><th>Definition</th><th>Consequence</th></tr>
-                <tr><td><span class="status-badge status-green">MAINTAIN</span></td><td>Claim remains valid within tolerance</td><td>No action; update CEP-LOG</td></tr>
-                <tr><td><span class="status-badge status-yellow">ADAPT</span></td><td>Claim remains valid but requires adjustment</td><td>Replace benchmark; update Working Paper; notify Business Owner</td></tr>
-                <tr><td><span class="status-badge status-orange">DEGRADE</span></td><td>Claim loses empirical validity</td><td>DEMO&rarr;MODEL or MODEL&rarr;CONCEPT; update all materials; suspend external use</td></tr>
-                <tr><td><span class="status-badge status-red">ESCALATE</span></td><td>Claim questioned with significant institutional impact</td><td>Submit to Board; suspend use until decision</td></tr>
-                <tr><td><span class="status-badge status-red">RETIRE</span></td><td>Claim obsolete or irreversibly invalidated</td><td>Retire; archive; notify all affected Business Owners</td></tr>
+                <thead>
+                    <tr>
+                        <th>Result</th>
+                        <th>Definition</th>
+                        <th>Consequence</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td><span class="status-badge status-green">Maintain</span></td>
+                        <td>Claim remains valid within tolerance</td>
+                        <td>No action; update CEP-LOG</td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="status-badge status-yellow">Adapt</span></td>
+                        <td>Claim remains valid but requires adjustment</td>
+                        <td>Replace benchmark; update Working Paper; notify Business Owner</td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="status-badge status-orange">Degrade</span></td>
+                        <td>Claim loses empirical validity</td>
+                        <td>DEMO to MODEL or MODEL to CONCEPT; update materials; suspend external use</td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="status-badge status-red">Escalate</span></td>
+                        <td>Claim is questioned with significant institutional impact</td>
+                        <td>Submit to Board; suspend use until decision</td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="status-badge status-red">Retire</span></td>
+                        <td>Claim becomes obsolete or irreversibly invalidated</td>
+                        <td>Retire; archive; notify all affected Business Owners</td>
+                    </tr>
+                </tbody>
             </table>
 
             <div class="section-header">Handoff Rule</div>
+
             <div class="highlight-box highlight-box-red">
                 <p style="text-align: center; font-weight: bold; color: var(--gold-dark);">
                     USE does not end responsibility.<br>
                     Responsibility only ends when:<br>
-                    MONITORING &rarr; RETIRE<br>or<br>MONITORING &rarr; revalidation
+                    MONITORING &rarr; RETIRE<br>
+                    or<br>
+                    MONITORING &rarr; REVALIDATION
                 </p>
             </div>
 
             <div class="section-header">Return Path</div>
-            <p>MONITORING &rarr; REVIEW: When monitoring detects that a DEMO claim has lost empirical support but still has hypothetical value, the output is not RETIRE. It is DEGRADE &rarr; REVIEW.</p>
-            <p>The IVC reopens classification, reevaluates the causal chain, and issues a new classification (MODEL or CONCEPT). The cycle restarts at REVIEW, allowing the claim to be recovered if new evidence emerges.</p>
+
+            <p>
+                Monitoring returns to Review when a DEMO claim loses empirical support but still has
+                hypothetical or operational value. In that case, the correct output is not immediate
+                retirement. It is degradation followed by review.
+            </p>
+
+            <p>
+                The Independent Validation Committee reopens classification, reevaluates the causal
+                chain, and issues a new classification as MODEL or CONCEPT. The cycle restarts at Review,
+                allowing the claim to be recovered only if new evidence later emerges.
+            </p>
 
             <div class="section-header">Prohibition on Resurrection</div>
+
             <div class="highlight-box highlight-box-red">
                 <p>No retired metric may be reused without complete revalidation.</p>
-                <p>Complete revalidation = new Working Paper + new peer review + new IVC classification + new CEP-LOG registration.</p>
-                <p>This prevents: cherry-picking, reviving old benchmarks, "resurrecting" ROI, reusing without updating assumptions.</p>
+                <p>
+                    Complete revalidation requires a new Working Paper, new peer review, new IVC
+                    classification, and new CEP-LOG registration.
+                </p>
+                <p>
+                    This prevents cherry-picking, reviving old benchmarks, resurrecting ROI, or reusing
+                    assumptions without updated validation.
+                </p>
             </div>
 
             <div class="section-header">Sunset Clause</div>
+
             <p>If within 24 months of approval:</p>
+
             <div class="highlight-box">
-                <p>&#9744; &lt;50% of DEMO metrics are revalidated, OR</p>
-                <p>&#9744; &lt;3 DEMO evidences are generated by pilots, OR</p>
-                <p>&#9744; IVC is not constituted, OR</p>
-                <p>&#9744; &lt;80% shelf-life compliance</p>
+                <p>&#9744; Less than 50% of DEMO metrics are revalidated; or</p>
+                <p>&#9744; Fewer than three DEMO evidences are generated by pilots; or</p>
+                <p>&#9744; The Independent Validation Committee is not constituted; or</p>
+                <p>&#9744; Shelf-life compliance falls below 80%.</p>
             </div>
-            <p>Then this Charter is <strong>suspended</strong> and the Board reverts to direct governance of all economic claims.</p>
-            <p>The Foundation will not operate with ungoverned economic claims.</p>
+
+            <p>
+                Then this Charter is suspended, and the Board reverts to direct governance of all
+                economic claims.
+            </p>
+
+            <p>
+                The Foundation will not operate with ungoverned economic claims.
+            </p>
 
             <div class="doc-footer">
                 Document issued in compliance with Board Resolution and the ECO Institutional Governance Protocol.<br>
@@ -715,7 +1176,6 @@
         </div>
     </div>
 </div>
-
 <!-- TAB 3: METHODOLOGY -->
 <div id="methodology" class="tab-content">
     <div class="page">
@@ -724,43 +1184,143 @@
             <div class="page-subtitle">CECO-DOC-001 — How We Calculate</div>
 
             <div class="section-header">Evidence Classification</div>
+
             <div class="evidence-box evidence-demonstrated">
-                <p><span class="evidence-icon icon-demo">&#10003;</span><span class="evidence-badge badge-demo">DEMONSTRATED</span><strong>Published Benchmark</strong> — Source citable; reproducible method; age &le;3 years.</p>
-                <p style="margin-top: 0.06in; margin-left: 0.3in; font-size: 9pt; color: #666; font-style: italic;">Example: Predictive maintenance reduces emergency costs by 15-25% (Oxmaint 2025)</p>
+                <p>
+                    <span class="evidence-icon icon-demo">&#10003;</span>
+                    <span class="evidence-badge badge-demo">Demonstrated</span>
+                    <strong>Published Benchmark</strong> — Source citable; reproducible method; age &le; 3 years.
+                </p>
+                <p style="margin-top: 0.06in; margin-left: 0.3in; font-size: 9pt; color: #666; font-style: italic;">
+                    Example: Predictive maintenance reduces emergency costs by 15–25%.
+                </p>
             </div>
+
             <div class="evidence-box evidence-modelled">
-                <p><span class="evidence-icon icon-model">&#126;</span><span class="evidence-badge badge-model">MODELLED</span><strong>c-ECO Hypothesis</strong> — Internal peer review; explicit causal chain; requires pilot validation.</p>
-                <p style="margin-top: 0.06in; margin-left: 0.3in; font-size: 9pt; color: #666; font-style: italic;">Example: Pre-threshold governance reduces litigation by 15-30%</p>
+                <p>
+                    <span class="evidence-icon icon-model">&#126;</span>
+                    <span class="evidence-badge badge-model">Modelled</span>
+                    <strong>c-ECO Hypothesis</strong> — Internal peer review; explicit causal chain; requires pilot validation.
+                </p>
+                <p style="margin-top: 0.06in; margin-left: 0.3in; font-size: 9pt; color: #666; font-style: italic;">
+                    Example: Pre-threshold governance reduces litigation exposure by 15–30%.
+                </p>
             </div>
+
             <div class="evidence-box evidence-conceptual">
-                <p><span class="evidence-icon icon-concept">&#9674;</span><span class="evidence-badge badge-concept">CONCEPTUAL</span><strong>Strategic Capability</strong> — No empirical validation. NEVER in due diligence or grant application.</p>
-                <p style="margin-top: 0.06in; margin-left: 0.3in; font-size: 9pt; color: #666; font-style: italic;">Example: Reversibility liquidity (NOT quantifiable in cash)</p>
+                <p>
+                    <span class="evidence-icon icon-concept">&#9674;</span>
+                    <span class="evidence-badge badge-concept">Conceptual</span>
+                    <strong>Strategic Capability</strong> — No empirical validation. Never used as quantified ROI.
+                </p>
+                <p style="margin-top: 0.06in; margin-left: 0.3in; font-size: 9pt; color: #666; font-style: italic;">
+                    Example: Reversibility liquidity as a governance capability, not as a cash projection.
+                </p>
             </div>
 
             <div class="section-header">Three ROI Scenarios</div>
+
             <table>
-                <tr><th>Scenario</th><th>ROI</th><th>Evidence</th><th>Use</th></tr>
-                <tr><td><span class="status-badge status-green">Demonstrated</span></td><td><strong>204%</strong></td><td>Published benchmark</td><td>External presentation, grantmakers</td></tr>
-                <tr><td><span class="status-badge status-yellow">Modelled</span></td><td><strong>695%</strong></td><td>c-ECO hypothesis + architecture</td><td>Board, due diligence</td></tr>
-                <tr><td><span class="status-badge status-red">Transformational</span></td><td><strong>752%</strong></td><td>Quantifiable items only; CONCEPT excluded</td><td>Pitch, prospecting (with DEMO)</td></tr>
+                <thead>
+                    <tr>
+                        <th>Scenario</th>
+                        <th>ROI</th>
+                        <th>Evidence</th>
+                        <th>Permitted Use</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td><span class="status-badge status-green">Demonstrated</span></td>
+                        <td><strong>204%</strong></td>
+                        <td>Published benchmark</td>
+                        <td>External presentation, grantmakers, conservative prospecting</td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="status-badge status-yellow">Modelled</span></td>
+                        <td><strong>695%</strong></td>
+                        <td>c-ECO hypothesis + architecture</td>
+                        <td>Board, internal strategy, qualified due diligence</td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="status-badge status-red">Transformational</span></td>
+                        <td><strong>752%</strong></td>
+                        <td>Quantifiable items only; conceptual value excluded</td>
+                        <td>Pitch and prospecting only with DEMO/MODEL qualification</td>
+                    </tr>
+                </tbody>
             </table>
 
-            <div class="section-header">Market Sizing (Auditable)</div>
+            <div class="section-header">Market Sizing</div>
+
             <table>
-                <tr><th>Layer</th><th>Value</th><th>Methodology</th></tr>
-                <tr><td><strong>TAM</strong></td><td>$2.2B</td><td>17 sectors &times; enterprises &gt;$100M &times; average sector ticket</td></tr>
-                <tr><td><strong>SAM</strong></td><td>$230M</td><td>TAM &times; 0.35 geographic &times; 0.60 readiness &times; 0.50 regulatory pressure</td></tr>
-                <tr><td><strong>SOM</strong></td><td>$14M</td><td>SAM &times; 0.25 competition &times; 0.60 brand &times; 0.40 time (3 years)</td></tr>
+                <thead>
+                    <tr>
+                        <th>Layer</th>
+                        <th>Value</th>
+                        <th>Methodology</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td><strong>TAM</strong></td>
+                        <td>$2.2B</td>
+                        <td>17 sectors × enterprises above $100M × average sector ticket</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>SAM</strong></td>
+                        <td>$230M</td>
+                        <td>TAM × 0.35 geographic reach × 0.60 readiness × 0.50 regulatory pressure</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>SOM</strong></td>
+                        <td>$14M</td>
+                        <td>SAM × 0.25 competition × 0.60 brand × 0.40 three-year capture period</td>
+                    </tr>
+                </tbody>
             </table>
 
-            <div class="section-header">Value Separation</div>
+            <div class="section-header">Value Separation Rule</div>
+
             <table>
-                <tr><th>Type</th><th>Nature</th><th>Annual Range</th></tr>
-                <tr><td><span class="status-badge status-green">Hard Savings</span></td><td>Measurable (maintenance, ESG, audit)</td><td>$845K – $1.36M</td></tr>
-                <tr><td><span class="status-badge status-yellow">Risk Avoidance</span></td><td>Probabilistic (penalties, litigation, reputation)</td><td>$670K – $1.30M</td></tr>
-                <tr><td><span class="status-badge status-red">Strategic Optionality</span></td><td>Capability (reversibility, capital access, M&amp;A)</td><td>NOT quantified</td></tr>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Nature</th>
+                        <th>Annual Range</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td><span class="status-badge status-green">Hard Savings</span></td>
+                        <td>Measurable maintenance, ESG, audit, and compliance efficiencies</td>
+                        <td>$845K – $1.36M</td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="status-badge status-yellow">Risk Avoidance</span></td>
+                        <td>Probabilistic penalties, litigation, reputational loss, and delay avoidance</td>
+                        <td>$670K – $1.30M</td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="status-badge status-red">Strategic Optionality</span></td>
+                        <td>Capability value such as reversibility, capital access, and M&amp;A positioning</td>
+                        <td>Not quantified</td>
+                    </tr>
+                </tbody>
             </table>
-            <p style="font-style: italic; color: #888; margin-top: 0.1in;">Rule: NEVER mix the three in a single "ROI" number.</p>
+
+            <p style="font-style: italic; color: #888; margin-top: 0.1in;">
+                Rule: never combine hard savings, risk avoidance, and strategic optionality into one unqualified ROI number.
+            </p>
 
             <div class="doc-footer">
                 Document issued in compliance with Board Resolution and the ECO Institutional Governance Protocol.<br>
@@ -769,6 +1329,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- TAB 4: PRICING -->
 <div id="pricing" class="tab-content">
@@ -778,30 +1339,99 @@
             <div class="page-subtitle">CECO-PRC-001 — How We Charge</div>
 
             <div class="section-header">Four Tiers</div>
+
             <table>
-                <tr><th>Tier</th><th>Name</th><th>Price</th><th>Audience</th><th>Purpose</th></tr>
-                <tr><td><strong>0</strong></td><td>Foundation Access</td><td><span class="status-badge status-green">$0</span></td><td>Public institutions</td><td>Mission access (Model Law, templates, community)</td></tr>
-                <tr><td><strong>1</strong></td><td>Essential</td><td>$45K/year</td><td>Mid-market ($50M-$500M)</td><td>Basic governance + 5 sectors</td></tr>
-                <tr><td><strong>2</strong></td><td>Professional</td><td>$150K/year</td><td>Enterprise (&gt;$500M)</td><td>Full governance + 17 sectors + API</td></tr>
-                <tr><td><strong>3</strong></td><td>Sovereign</td><td>Custom</td><td>Governments, consortia</td><td>Systemic governance + co-development</td></tr>
+                <thead>
+                    <tr>
+                        <th>Tier</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Audience</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td><strong>0</strong></td>
+                        <td>Foundation Access</td>
+                        <td><span class="status-badge status-green">$0</span></td>
+                        <td>Public institutions</td>
+                        <td>Mission access, model law, templates, and community tools</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>1</strong></td>
+                        <td>Essential</td>
+                        <td>$45K/year</td>
+                        <td>Mid-market entities between $50M and $500M</td>
+                        <td>Basic governance, sector screening, and limited advisory access</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>2</strong></td>
+                        <td>Professional</td>
+                        <td>$150K/year</td>
+                        <td>Enterprise entities above $500M</td>
+                        <td>Full governance, 17 sectors, API access, and advanced reporting</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>3</strong></td>
+                        <td>Sovereign</td>
+                        <td>Custom</td>
+                        <td>Governments, consortia, multilateral programs</td>
+                        <td>Systemic governance, co-development, and institutional integration</td>
+                    </tr>
+                </tbody>
             </table>
 
             <div class="section-header">Cross-Sell Matrix</div>
+
             <table>
-                <tr><th>Base Product</th><th>Cross-Sell</th><th>Bundle Price</th></tr>
-                <tr><td>Tier 1 Essential</td><td>+ c-ECO Seal</td><td>$45K + $25K = $70K</td></tr>
-                <tr><td>Tier 1 Essential</td><td>+ Advisory Bundle</td><td>$45K + $85K = $130K</td></tr>
-                <tr><td>Tier 2 Professional</td><td>+ Advisory Retainer</td><td>$150K + $200K = $350K</td></tr>
-                <tr><td>Tier 2 Professional</td><td>+ Living Lab Lead</td><td>$150K + $120K = $270K</td></tr>
+                <thead>
+                    <tr>
+                        <th>Base Product</th>
+                        <th>Cross-Sell</th>
+                        <th>Bundle Price</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Tier 1 Essential</td>
+                        <td>+ c-ECO Seal</td>
+                        <td>$45K + $25K = $70K</td>
+                    </tr>
+
+                    <tr>
+                        <td>Tier 1 Essential</td>
+                        <td>+ Advisory Bundle</td>
+                        <td>$45K + $85K = $130K</td>
+                    </tr>
+
+                    <tr>
+                        <td>Tier 2 Professional</td>
+                        <td>+ Advisory Retainer</td>
+                        <td>$150K + $200K = $350K</td>
+                    </tr>
+
+                    <tr>
+                        <td>Tier 2 Professional</td>
+                        <td>+ Living Lab Lead</td>
+                        <td>$150K + $120K = $270K</td>
+                    </tr>
+                </tbody>
             </table>
 
-            <div class="section-header">Fellowship = Pipeline (Not Revenue)</div>
+            <div class="section-header">Fellowship as Pipeline, Not Revenue</div>
+
             <div class="highlight-box">
-                <p><strong>Before:</strong> Fellowship = Revenue Stream ($12K/candidate)</p>
-                <p><strong>Now:</strong> Fellowship = Talent Pipeline (cost: $25K/candidate)</p>
-                <p style="margin-top: 0.06in;"><strong>Return:</strong> Reduces CAC by 45-70% ($150K &rarr; $83K/enterprise)</p>
-                <p><strong>20%</strong> of fellows convert to advisory roles ($85K/engagement)</p>
-                <p>Each fellow generates <strong>0.3 qualified enterprise leads</strong></p>
+                <p><strong>Previous classification:</strong> Fellowship as revenue stream at $12K per candidate.</p>
+                <p><strong>Current classification:</strong> Fellowship as talent pipeline with estimated cost of $25K per candidate.</p>
+                <p><strong>Expected return:</strong> Reduces customer acquisition cost by 45–70%, from approximately $150K to $83K per enterprise.</p>
+                <p><strong>Conversion logic:</strong> 20% of fellows may convert into advisory roles at approximately $85K per engagement.</p>
+                <p><strong>Lead logic:</strong> Each fellow generates an estimated 0.3 qualified enterprise leads.</p>
             </div>
 
             <div class="doc-footer">
@@ -811,46 +1441,127 @@
         </div>
     </div>
 </div>
+
 
 <!-- TAB 5: PILOT -->
 <div id="pilot" class="tab-content">
     <div class="page">
         <div class="content">
             <div class="page-title">Pilot Program Playbook</div>
-            <div class="page-subtitle">CECO-PIL-001 — How We Validate (90 Days)</div>
+            <div class="page-subtitle">CECO-PIL-001 — How We Validate in 90 Days</div>
 
             <div class="section-header">Three Phases</div>
+
             <div class="cycle-flow">
-                <div class="cycle-step"><div class="step-label">Discover</div><div class="step-actor">Days 1-30</div></div>
+                <div class="cycle-step">
+                    <div class="step-label">Discover</div>
+                    <div class="step-actor">Days 1–30</div>
+                </div>
+
                 <div class="cycle-arrow">&rarr;</div>
-                <div class="cycle-step"><div class="step-label">Deploy</div><div class="step-actor">Days 31-60</div></div>
+
+                <div class="cycle-step">
+                    <div class="step-label">Deploy</div>
+                    <div class="step-actor">Days 31–60</div>
+                </div>
+
                 <div class="cycle-arrow">&rarr;</div>
-                <div class="cycle-step"><div class="step-label">Demonstrate</div><div class="step-actor">Days 61-90</div></div>
+
+                <div class="cycle-step">
+                    <div class="step-label">Demonstrate</div>
+                    <div class="step-actor">Days 61–90</div>
+                </div>
             </div>
 
-            <div class="section-header">Four Conversion Paths (Day 90)</div>
-            <p>At least ONE must be satisfied:</p>
+            <div class="section-header">Four Conversion Paths at Day 90</div>
+
+            <p>At least one conversion path must be satisfied.</p>
+
             <table>
-                <tr><th>Path</th><th>Criterion</th><th>Evidence</th></tr>
-                <tr><td><strong>A — Economic</strong></td><td>Hard Savings &ge;5% or Risk Avoidance &ge;10%</td><td>Baseline/pilot comparison with data source</td></tr>
-                <tr><td><strong>B — Governance</strong></td><td>&ge;1 documented governance intervention</td><td>Minutes or formal record of decision based on early warning</td></tr>
-                <tr><td><strong>C — Risk Anticipation</strong></td><td>&ge;1 validated risk anticipation</td><td>c-ECO alert preceded real event or near-miss documented by third party</td></tr>
-                <tr><td><strong>D — Decision Quality</strong></td><td>&ge;1 critical decision reduction</td><td>Before/after documentation: decision restructured with time and information</td></tr>
+                <thead>
+                    <tr>
+                        <th>Path</th>
+                        <th>Criterion</th>
+                        <th>Evidence</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td><strong>A — Economic</strong></td>
+                        <td>Hard savings &ge; 5% or risk avoidance &ge; 10%</td>
+                        <td>Baseline / pilot comparison with identified data source</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>B — Governance</strong></td>
+                        <td>At least one documented governance intervention</td>
+                        <td>Minutes or formal record of decision based on early-warning information</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>C — Risk Anticipation</strong></td>
+                        <td>At least one validated risk anticipation</td>
+                        <td>c-ECO alert preceded real event, near-miss, or third-party documented signal</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>D — Decision Quality</strong></td>
+                        <td>At least one critical decision reduction</td>
+                        <td>Before / after documentation showing decision restructuring with better timing and information</td>
+                    </tr>
+                </tbody>
             </table>
 
-            <div class="section-header">Gates</div>
+            <div class="section-header">Pilot Gates</div>
+
             <table>
-                <tr><th>Gate</th><th>Day</th><th>Decision</th></tr>
-                <tr><td>Continue?</td><td>30</td><td>Board sponsor + &ge;3 early warnings</td></tr>
-                <tr><td>Expand?</td><td>60</td><td>2 contracts working + 10 trained users</td></tr>
-                <tr><td>Convert?</td><td>90</td><td>Impact Report + NPS &ge;7 + contract terms</td></tr>
+                <thead>
+                    <tr>
+                        <th>Gate</th>
+                        <th>Day</th>
+                        <th>Decision Criteria</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Continue?</td>
+                        <td>30</td>
+                        <td>Board sponsor identified and at least three early-warning candidates documented</td>
+                    </tr>
+
+                    <tr>
+                        <td>Expand?</td>
+                        <td>60</td>
+                        <td>Two contracts or instruments mapped and at least ten trained users</td>
+                    </tr>
+
+                    <tr>
+                        <td>Convert?</td>
+                        <td>90</td>
+                        <td>Impact Report, NPS &ge; 7, and commercial contract terms prepared</td>
+                    </tr>
+                </tbody>
             </table>
 
             <div class="section-header">Expected Value</div>
+
             <div class="metrics-row">
-                <div class="metric-card"><div class="metric-value">$54.25K</div><div class="metric-label">Expected Value/Pilot</div></div>
-                <div class="metric-card"><div class="metric-value">60%</div><div class="metric-label">Conversion Target</div></div>
-                <div class="metric-card"><div class="metric-value">$83K</div><div class="metric-label">CAC via Fellowship</div></div>
+                <div class="metric-card">
+                    <div class="metric-value">$54.25K</div>
+                    <div class="metric-label">Expected value / pilot</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-value">60%</div>
+                    <div class="metric-label">Conversion target</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-value">$83K</div>
+                    <div class="metric-label">CAC via fellowship</div>
+                </div>
             </div>
 
             <div class="doc-footer">
@@ -860,6 +1571,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- TAB 6: CEP -->
 <div id="cep" class="tab-content">
@@ -869,36 +1581,115 @@
             <div class="page-subtitle">CECO-CEP-001 — Rules About Rules</div>
 
             <div class="section-header">Channel Matrix</div>
+
             <table>
-                <tr><th>Channel</th><th>DEMO Allowed</th><th>MODEL Allowed</th><th>CONCEPT Allowed</th><th>Disclaimer</th></tr>
-                <tr><td>Pitch / Prospecting</td><td><span class="status-badge status-green">Yes</span></td><td><span class="status-badge status-yellow">Yes (qualified)</span></td><td><span class="status-badge status-red">Yes (framed)</span></td><td>Required</td></tr>
-                <tr><td>Grant Application</td><td><span class="status-badge status-green">Yes</span></td><td><span class="status-badge status-yellow">Yes (with note)</span></td><td><span class="status-badge status-red">No</span></td><td>Required</td></tr>
-                <tr><td>Due Diligence</td><td><span class="status-badge status-green">Yes</span></td><td><span class="status-badge status-yellow">Yes (with note)</span></td><td><span class="status-badge status-red">No</span></td><td>Required</td></tr>
-                <tr><td>Board Materials</td><td><span class="status-badge status-green">Yes</span></td><td><span class="status-badge status-yellow">Yes</span></td><td><span class="status-badge status-red">No</span></td><td>Required</td></tr>
-                <tr><td>Press Release</td><td><span class="status-badge status-green">Yes</span></td><td><span class="status-badge status-red">No</span></td><td><span class="status-badge status-red">No</span></td><td>N/A</td></tr>
-                <tr><td>Website (public)</td><td><span class="status-badge status-green">Yes</span></td><td><span class="status-badge status-red">No</span></td><td><span class="status-badge status-red">No</span></td><td>N/A</td></tr>
-                <tr><td>Academic Publication</td><td><span class="status-badge status-green">Yes</span></td><td><span class="status-badge status-yellow">Yes</span></td><td><span class="status-badge status-red">Yes (as hyp.)</span></td><td>Required</td></tr>
+                <thead>
+                    <tr>
+                        <th>Channel</th>
+                        <th>DEMO Allowed</th>
+                        <th>MODEL Allowed</th>
+                        <th>CONCEPT Allowed</th>
+                        <th>Disclaimer</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Pitch / Prospecting</td>
+                        <td><span class="status-badge status-green">Yes</span></td>
+                        <td><span class="status-badge status-yellow">Yes, qualified</span></td>
+                        <td><span class="status-badge status-red">Yes, framed</span></td>
+                        <td>Required</td>
+                    </tr>
+
+                    <tr>
+                        <td>Grant Application</td>
+                        <td><span class="status-badge status-green">Yes</span></td>
+                        <td><span class="status-badge status-yellow">Yes, with note</span></td>
+                        <td><span class="status-badge status-red">No</span></td>
+                        <td>Required</td>
+                    </tr>
+
+                    <tr>
+                        <td>Due Diligence</td>
+                        <td><span class="status-badge status-green">Yes</span></td>
+                        <td><span class="status-badge status-yellow">Yes, with note</span></td>
+                        <td><span class="status-badge status-red">No</span></td>
+                        <td>Required</td>
+                    </tr>
+
+                    <tr>
+                        <td>Board Materials</td>
+                        <td><span class="status-badge status-green">Yes</span></td>
+                        <td><span class="status-badge status-yellow">Yes</span></td>
+                        <td><span class="status-badge status-red">No</span></td>
+                        <td>Required</td>
+                    </tr>
+
+                    <tr>
+                        <td>Press Release</td>
+                        <td><span class="status-badge status-green">Yes</span></td>
+                        <td><span class="status-badge status-red">No</span></td>
+                        <td><span class="status-badge status-red">No</span></td>
+                        <td>N/A</td>
+                    </tr>
+
+                    <tr>
+                        <td>Website Public Page</td>
+                        <td><span class="status-badge status-green">Yes</span></td>
+                        <td><span class="status-badge status-red">No</span></td>
+                        <td><span class="status-badge status-red">No</span></td>
+                        <td>N/A</td>
+                    </tr>
+
+                    <tr>
+                        <td>Academic Publication</td>
+                        <td><span class="status-badge status-green">Yes</span></td>
+                        <td><span class="status-badge status-yellow">Yes</span></td>
+                        <td><span class="status-badge status-red">Yes, as hypothesis</span></td>
+                        <td>Required</td>
+                    </tr>
+                </tbody>
             </table>
 
             <div class="section-header">Mandatory Disclaimers</div>
+
             <div class="evidence-box evidence-demonstrated">
-                <p><span class="evidence-badge badge-demo">DEMO</span> <strong>DEMONSTRATED:</strong> "Based on [SOURCE], published [DATE]. See Economic Impact Methodology (CECO-DOC-001) for full citation and methodology."</p>
+                <p>
+                    <span class="evidence-badge badge-demo">DEMO</span>
+                    <strong>Demonstrated:</strong>
+                    “Based on published or externally verifiable evidence. See Economic Impact Methodology
+                    CECO-DOC-001 for citation, assumptions, and methodology.”
+                </p>
             </div>
+
             <div class="evidence-box evidence-modelled">
-                <p><span class="evidence-badge badge-model">MODEL</span> <strong>MODELLED:</strong> "Based on c-ECO internal hypothesis, not yet validated by independent study. See Working Paper [REF] for assumptions and limitations."</p>
+                <p>
+                    <span class="evidence-badge badge-model">MODEL</span>
+                    <strong>Modelled:</strong>
+                    “Based on c-ECO internal hypothesis and architecture, not yet validated by independent
+                    study. See the corresponding Working Paper for assumptions and limitations.”
+                </p>
             </div>
+
             <div class="evidence-box evidence-conceptual">
-                <p><span class="evidence-badge badge-concept">CONCEPT</span> <strong>CONCEPTUAL:</strong> "This represents a conceptual capability of the c-ECO framework, not a guaranteed outcome. No empirical validation exists. See Commercial Evidence Policy (CECO-CEP-001) for classification."</p>
+                <p>
+                    <span class="evidence-badge badge-concept">CONCEPT</span>
+                    <strong>Conceptual:</strong>
+                    “This represents a conceptual capability of the c-ECO framework, not a guaranteed outcome.
+                    No empirical validation exists. See Commercial Evidence Policy CECO-CEP-001 for classification.”
+                </p>
             </div>
 
             <div class="section-header">Prohibited Combinations</div>
+
             <div class="highlight-box highlight-box-red">
-                <p>&#9744; Summing DEMO + MODEL + CONCEPT in a single "ROI" or "total savings" number</p>
-                <p>&#9744; Presenting CONCEPT as DEMO in any channel</p>
-                <p>&#9744; Omitting MODEL disclaimer in grant or due diligence</p>
-                <p>&#9744; Using DEMO benchmark &gt;3 years without revalidation</p>
-                <p>&#9744; Citing "internal studies" without published hypothesis document</p>
-                <p>&#9744; Promising specific savings ("you will save $X") without performance contract or completed pilot</p>
+                <p>&#9744; Summing DEMO + MODEL + CONCEPT into a single ROI or total savings number.</p>
+                <p>&#9744; Presenting CONCEPT as DEMO in any external or institutional channel.</p>
+                <p>&#9744; Omitting MODEL disclaimers in grant, diligence, or board materials.</p>
+                <p>&#9744; Using DEMO benchmarks older than three years without revalidation.</p>
+                <p>&#9744; Citing internal studies without a published hypothesis document.</p>
+                <p>&#9744; Promising specific savings without a performance contract or completed pilot.</p>
             </div>
 
             <div class="doc-footer">
@@ -917,29 +1708,117 @@
             <div class="page-subtitle">CECO-IVC-TOR-001 — Who Validates</div>
 
             <div class="section-header">Composition</div>
+
             <table>
-                <tr><th>Seat</th><th>Profile</th><th>Term</th><th>Selection</th></tr>
-                <tr><td><strong>Chair</strong></td><td>Economist with ESG valuation experience</td><td>2 years (renewable)</td><td>Board appointment (unanimous vote)</td></tr>
-                <tr><td><strong>Member 1</strong></td><td>Regulatory lawyer with environmental/compliance enforcement background</td><td>2 years (renewable)</td><td>Board appointment (simple majority)</td></tr>
-                <tr><td><strong>Member 2</strong></td><td>c-ECO Architect (internal) without conflict on material under review</td><td>2 years (renewable)</td><td>President nomination (Board confirmation)</td></tr>
+                <thead>
+                    <tr>
+                        <th>Seat</th>
+                        <th>Profile</th>
+                        <th>Term</th>
+                        <th>Selection</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td><strong>Chair</strong></td>
+                        <td>Economist with ESG valuation, risk, or impact-assessment experience</td>
+                        <td>2 years, renewable</td>
+                        <td>Board appointment by unanimous vote</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Member 1</strong></td>
+                        <td>Regulatory lawyer with environmental, compliance, or enforcement background</td>
+                        <td>2 years, renewable</td>
+                        <td>Board appointment by simple majority</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Member 2</strong></td>
+                        <td>c-ECO Architect or technical reviewer without conflict on the material under review</td>
+                        <td>2 years, renewable</td>
+                        <td>President nomination with Board confirmation</td>
+                    </tr>
+                </tbody>
             </table>
 
             <div class="section-header">Compensation</div>
+
             <table>
-                <tr><th>Component</th><th>External Members</th><th>Internal Member</th></tr>
-                <tr><td>Annual retainer</td><td>$15,000 USD</td><td>$5,000 USD (stipend)</td></tr>
-                <tr><td>Per-meeting fee</td><td>$2,500 USD</td><td>$1,000 USD</td></tr>
-                <tr><td>Travel reimbursement</td><td>Actual costs</td><td>N/A (remote)</td></tr>
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>External Members</th>
+                        <th>Internal Member</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Annual retainer</td>
+                        <td>$15,000 USD</td>
+                        <td>$5,000 USD stipend</td>
+                    </tr>
+
+                    <tr>
+                        <td>Per-meeting fee</td>
+                        <td>$2,500 USD</td>
+                        <td>$1,000 USD</td>
+                    </tr>
+
+                    <tr>
+                        <td>Travel reimbursement</td>
+                        <td>Actual and reasonable costs</td>
+                        <td>N/A if remote</td>
+                    </tr>
+                </tbody>
             </table>
-            <p style="margin-top: 0.1in;"><strong>Total annual budget:</strong> ~$50,000 USD</p>
+
+            <p style="margin-top: 0.1in;">
+                <strong>Total annual budget:</strong> approximately $50,000 USD.
+            </p>
 
             <div class="section-header">Meeting Cadence</div>
+
             <table>
-                <tr><th>Type</th><th>Frequency</th><th>Purpose</th></tr>
-                <tr><td>Regular Session</td><td>Quarterly</td><td>Review evidence classification; audit CEP-LOG sample; approve upgrades</td></tr>
-                <tr><td>Emergency Session</td><td>Ad hoc (48h notice)</td><td>Whistleblower report; material breach; Board request</td></tr>
-                <tr><td>Annual Review</td><td>Annual (Q4)</td><td>Full methodology audit; benchmark shelf life review; report to Board</td></tr>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Frequency</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Regular Session</td>
+                        <td>Quarterly</td>
+                        <td>Review evidence classification, audit CEP-LOG samples, and approve upgrades or degradation recommendations</td>
+                    </tr>
+
+                    <tr>
+                        <td>Emergency Session</td>
+                        <td>Ad hoc, 48-hour notice</td>
+                        <td>Whistleblower report, material breach, contradictory evidence, or Board request</td>
+                    </tr>
+
+                    <tr>
+                        <td>Annual Review</td>
+                        <td>Annual, Q4</td>
+                        <td>Full methodology audit, benchmark shelf-life review, and report to the Board</td>
+                    </tr>
+                </tbody>
             </table>
+
+            <div class="section-header">Independence Safeguards</div>
+
+            <div class="highlight-box">
+                <p>&#9744; Members must disclose financial, institutional, advisory, or personal conflicts before each review.</p>
+                <p>&#9744; A conflicted member may not vote on the classification of the affected claim.</p>
+                <p>&#9744; The IVC may request source documents, assumptions, calculations, and pilot evidence before issuing classification.</p>
+                <p>&#9744; The IVC may recommend Maintain, Adapt, Degrade, Escalate, or Retire.</p>
+            </div>
 
             <div class="doc-footer">
                 Document issued in compliance with Board Resolution and the ECO Institutional Governance Protocol.<br>
@@ -948,6 +1827,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- TAB 8: BOARD ONE-PAGER -->
 <div id="board" class="tab-content">
@@ -957,27 +1837,70 @@
             <div class="page-subtitle">CECO-BRD-001 — How We Decide</div>
 
             <div class="section-header">Proposed Resolution</div>
+
             <div class="highlight-box">
                 <p style="text-align: center; font-family: 'Trajan Pro 3', serif; color: var(--gold-dark); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.15in;">
-                    BE IT RESOLVED THAT
+                    Be It Resolved That
                 </p>
-                <p>the Board of Trustees of the Johann Christian Hasse Foundation approves the <strong>conditional launch</strong> of the c-ECO Pilot Program with the following parameters:</p>
-                <p style="margin-top: 0.1in;"><strong>1. SCOPE:</strong> Maximum of 5 (five) pilot engagements in Year 1, selected from priority sectors per the Sector Allocation Framework.</p>
-                <p><strong>2. BUDGET:</strong> Total allocation of $150,000 for pilot execution, inclusive of fellow time, technical setup, and Impact Report production.</p>
-                <p><strong>3. GOVERNANCE:</strong></p>
-                <p style="margin-left: 0.2in;">&#8226; Annual review of pilot outcomes by the Independent Validation Committee</p>
-                <p style="margin-left: 0.2in;">&#8226; Quarterly reporting to the Board on pilot progress, conversion rates, and evidence quality</p>
-                <p style="margin-left: 0.2in;">&#8226; <strong>No external claims of ROI, savings, or economic impact prior to completion of at least 3 (three) pilots with validated Impact Reports</strong></p>
-                <p><strong>4. CONDITIONS PRECEDENT:</strong></p>
-                <p style="margin-left: 0.2in;">&#8226; Approval of the Commercial Evidence Policy (CECO-CEP-001)</p>
-                <p style="margin-left: 0.2in;">&#8226; Constitution of the Independent Validation Committee</p>
-                <p style="margin-left: 0.2in;">&#8226; Execution of standard Pilot Agreement templates by all participating clients</p>
-                <p><strong>5. SUNSET CLAUSE:</strong></p>
-                <p style="margin-left: 0.2in;">If conversion rate falls below 40% after 5 pilots, or if no DEMO DEMONSTRATED evidence is generated within 12 months, the Board shall review continuation of the program.</p>
+
+                <p>
+                    The Board of Trustees of the Johann Christian Hasse Foundation approves the
+                    <strong>conditional launch</strong> of the c-ECO Pilot Program with the following parameters.
+                </p>
+
+                <p style="margin-top: 0.1in;">
+                    <strong>1. Scope:</strong> Maximum of five pilot engagements in Year 1, selected from priority
+                    sectors under the Sector Allocation Framework.
+                </p>
+
+                <p>
+                    <strong>2. Budget:</strong> Total allocation of $150,000 for pilot execution, inclusive of fellow
+                    time, technical setup, and Impact Report production.
+                </p>
+
+                <p>
+                    <strong>3. Governance:</strong>
+                </p>
+
+                <p style="margin-left: 0.2in;">&#8226; Annual review of pilot outcomes by the Independent Validation Committee.</p>
+                <p style="margin-left: 0.2in;">&#8226; Quarterly reporting to the Board on pilot progress, conversion rates, and evidence quality.</p>
+                <p style="margin-left: 0.2in;">
+                    &#8226; <strong>No external claims of ROI, savings, or economic impact before completion of at least
+                    three pilots with validated Impact Reports.</strong>
+                </p>
+
+                <p>
+                    <strong>4. Conditions Precedent:</strong>
+                </p>
+
+                <p style="margin-left: 0.2in;">&#8226; Approval of the Commercial Evidence Policy CECO-CEP-001.</p>
+                <p style="margin-left: 0.2in;">&#8226; Constitution of the Independent Validation Committee.</p>
+                <p style="margin-left: 0.2in;">&#8226; Execution of standard Pilot Agreement templates by all participating clients.</p>
+
+                <p>
+                    <strong>5. Sunset Clause:</strong>
+                </p>
+
+                <p style="margin-left: 0.2in;">
+                    If conversion rate falls below 40% after five pilots, or if no DEMO evidence is generated
+                    within 12 months, the Board shall review continuation of the program.
+                </p>
             </div>
 
             <div class="section-header">Vote Required</div>
-            <p style="text-align: center; font-size: 12pt; color: var(--gold-dark);">Simple majority of Trustees present.</p>
+
+            <p style="text-align: center; font-size: 12pt; color: var(--gold-dark);">
+                Simple majority of Trustees present, unless bylaws require a higher threshold.
+            </p>
+
+            <div class="section-header">Board Decision Package</div>
+
+            <div class="highlight-box">
+                <p>&#9744; Approve CECO-GOV-001 before approving economic claim use.</p>
+                <p>&#9744; Approve CECO-CEP-001 before publishing ROI, savings, or economic impact language.</p>
+                <p>&#9744; Approve CECO-IVC-TOR-001 before upgrading MODEL evidence to DEMO evidence.</p>
+                <p>&#9744; Approve pilot launch only as conditional and evidence-generating, not as validated commercial proof.</p>
+            </div>
 
             <div class="doc-footer">
                 Document issued in compliance with Board Resolution and the ECO Institutional Governance Protocol.<br>
@@ -986,6 +1909,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- TAB 9: VISUALS -->
 <div id="visuals" class="tab-content">
@@ -997,55 +1921,67 @@
             <div class="chart-grid">
                 <div class="chart-container">
                     <div class="chart-title">Client Annual Cost Savings by Category</div>
-                    <img src="chart1_savings.PNG" alt="Cost Savings by Category" style="max-width: 100%;">
+                    <img src="chart1_savings.PNG" alt="Client Annual Cost Savings by Category">
                 </div>
+
                 <div class="chart-container">
                     <div class="chart-title">Total Cost of Ownership: Baseline vs c-ECO</div>
-                    <img src="chart2_tco.PNG" alt="TCO Comparison" style="max-width: 100%;">
+                    <img src="chart2_tco.PNG" alt="Total Cost of Ownership Baseline versus c-ECO">
                 </div>
+
                 <div class="chart-container">
                     <div class="chart-title">c-ECO Revenue Projection by Stream</div>
-                    <img src="chart3_revenue.PNG" alt="Revenue Projection" style="max-width: 100%;">
+                    <img src="chart3_revenue.PNG" alt="c-ECO Revenue Projection by Stream">
                 </div>
+
                 <div class="chart-container">
                     <div class="chart-title">Market Sizing &amp; Revenue Trajectory</div>
-                    <img src="chart4_market.PNG" alt="Market Sizing" style="max-width: 100%;">
+                    <img src="chart4_market.PNG" alt="Market Sizing and Revenue Trajectory">
                 </div>
+
                 <div class="chart-container">
                     <div class="chart-title">Evidence Classification System</div>
-                    <img src="chart5_evidence.PNG" alt="Evidence Classification" style="max-width: 100%;">
+                    <img src="chart5_evidence.PNG" alt="Evidence Classification System">
                 </div>
+
                 <div class="chart-container">
                     <div class="chart-title">Six-Authority Governance Cycle</div>
-                    <img src="chart6_cycle.PNG" alt="Governance Cycle" style="max-width: 100%;">
+                    <img src="chart6_cycle.PNG" alt="Six-Authority Governance Cycle">
                 </div>
+
                 <div class="chart-container">
-                    <div class="chart-title">Client Value: 3 Evidence Scenarios</div>
-                    <img src="chart7_scenarios.PNG" alt="Evidence Scenarios" style="max-width: 100%;">
+                    <div class="chart-title">Client Value: Three Evidence Scenarios</div>
+                    <img src="chart7_scenarios.PNG" alt="Client Value Three Evidence Scenarios">
                 </div>
+
                 <div class="chart-container">
                     <div class="chart-title">Pilot Program: 90-Day Funnel</div>
-                    <img src="chart8_pilot.PNG" alt="Pilot Funnel" style="max-width: 100%;">
+                    <img src="chart8_pilot.PNG" alt="Pilot Program 90-Day Funnel">
                 </div>
+
                 <div class="chart-container">
                     <div class="chart-title">Document Hierarchy &amp; Governance Flow</div>
-                    <img src="chart9_hierarchy.PNG" alt="Document Hierarchy" style="max-width: 100%;">
+                    <img src="chart9_hierarchy.PNG" alt="Document Hierarchy and Governance Flow">
                 </div>
+
                 <div class="chart-container">
-                    <div class="chart-title">Revenue Mix v2.1 (Fellowship = Pipeline)</div>
-                    <img src="chart10_revenue_mix.PNG" alt="Revenue Mix" style="max-width: 100%;">
+                    <div class="chart-title">Revenue Mix v2.1 — Fellowship as Pipeline</div>
+                    <img src="chart10_revenue_mix.PNG" alt="Revenue Mix Fellowship as Pipeline">
                 </div>
+
                 <div class="chart-container">
                     <div class="chart-title">Key Metrics at a Glance</div>
-                    <img src="chart11_metrics.PNG" alt="Key Metrics" style="max-width: 100%;">
+                    <img src="chart11_metrics.PNG" alt="Key Metrics at a Glance">
                 </div>
+
                 <div class="chart-container">
-                    <div class="chart-title">6 Board Decisions Required</div>
-                    <img src="chart12_decisions.PNG" alt="Board Decisions" style="max-width: 100%;">
+                    <div class="chart-title">Six Board Decisions Required</div>
+                    <img src="chart12_decisions.PNG" alt="Six Board Decisions Required">
                 </div>
+
                 <div class="chart-container chart-grid-full">
                     <div class="chart-title">CECO-GOV-001 — Governance Charter Flow</div>
-                    <img src="chart13_gov_flow.PNG" alt="Governance Flow" style="max-width: 100%;">
+                    <img src="chart13_gov_flow.PNG" alt="Governance Charter Flow">
                 </div>
             </div>
 
@@ -1057,31 +1993,72 @@
     </div>
 </div>
 
+
 <script>
+const tabButtons = document.querySelectorAll('.nav-tab');
+const tabContents = document.querySelectorAll('.tab-content');
+
 function showTab(tabName) {
-    document.querySelectorAll('.tab-content').forEach(tab => {
+    tabContents.forEach(tab => {
         tab.classList.remove('active');
     });
-    document.getElementById(tabName).classList.add('active');
-    document.querySelectorAll('.nav-tab').forEach(tab => {
-        tab.classList.remove('active');
+
+    const selectedTab = document.getElementById(tabName);
+    if (selectedTab) {
+        selectedTab.classList.add('active');
+    }
+
+    tabButtons.forEach(button => {
+        button.classList.toggle('active', button.dataset.tab === tabName);
     });
-    event.target.classList.add('active');
-    window.scrollTo(0, 0);
+
+    document.body.classList.remove('print-all');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        showTab(button.dataset.tab);
+    });
+});
+
+function printSingleTab(tabName) {
+    showTab(tabName);
+    document.body.classList.remove('print-all');
+
+    setTimeout(() => {
+        window.print();
+    }, 150);
+}
+
+function printAllTabs() {
+    document.body.classList.add('print-all');
+
+    setTimeout(() => {
+        window.print();
+        setTimeout(() => {
+            document.body.classList.remove('print-all');
+        }, 300);
+    }, 150);
 }
 
 document.addEventListener('keydown', function(e) {
-    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-        const tabs = Array.from(document.querySelectorAll('.nav-tab'));
-        const activeIndex = tabs.findIndex(t => t.classList.contains('active'));
-        let newIndex;
-        if (e.key === 'ArrowRight') {
-            newIndex = (activeIndex + 1) % tabs.length;
-        } else {
-            newIndex = (activeIndex - 1 + tabs.length) % tabs.length;
-        }
-        tabs[newIndex].click();
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+
+    const tabs = Array.from(tabButtons);
+    const activeIndex = tabs.findIndex(tab => tab.classList.contains('active'));
+
+    if (activeIndex === -1) return;
+
+    let newIndex;
+
+    if (e.key === 'ArrowRight') {
+        newIndex = (activeIndex + 1) % tabs.length;
+    } else {
+        newIndex = (activeIndex - 1 + tabs.length) % tabs.length;
     }
+
+    showTab(tabs[newIndex].dataset.tab);
 });
 </script>
 
