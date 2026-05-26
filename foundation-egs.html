@@ -565,6 +565,50 @@ tr:hover td {
 .btn-primary:hover {
     background: var(--gold-dark);
 }
+    }
+   .document-header {
+    display: grid;
+    grid-template-columns: 0.75in 1fr auto;
+    align-items: center;
+    gap: 0.15in;
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 0.12in;
+    margin-bottom: 0.22in;
+}
+
+.document-logo img {
+    width: 0.65in;
+    height: 0.65in;
+    object-fit: contain;
+}
+
+.document-kicker {
+    font-family: 'Trajan Pro 3', serif;
+    font-size: 8pt;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.03in;
+}
+
+.document-org {
+    font-family: 'Trajan Pro 3', serif;
+    font-size: 11pt;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.document-meta {
+    text-align: right;
+    font-size: 8pt;
+    color: #666;
+    line-height: 1.35;
+}
+
+.document-meta strong {
+    color: var(--gold-dark);
+} 
 
 /* RESPONSIVE */
 @media (max-width: 900px) {
@@ -628,14 +672,16 @@ tr:hover td {
 
 /* PRINT */
 @media print {
-    body {
-        background: white;
-        padding-bottom: 0;
+    @page {
+        size: Letter;
+        margin: 0.6in;
     }
 
-    .letterhead {
-        border-bottom: 1px solid var(--gold);
-        padding-top: 0.25in;
+    body {
+        background: white !important;
+        padding: 0 !important;
+        font-size: 10.5pt;
+        line-height: 1.45;
     }
 
     .nav-tabs,
@@ -643,16 +689,8 @@ tr:hover td {
         display: none !important;
     }
 
-    .page {
-        box-shadow: none;
-        margin: 0;
-        width: 8.5in;
-        min-height: 11in;
-        page-break-after: always;
-    }
-
-    .page:last-child {
-        page-break-after: auto;
+    .letterhead {
+        display: none !important;
     }
 
     .tab-content {
@@ -664,32 +702,118 @@ tr:hover td {
         display: block !important;
     }
 
-    .page::before,
-    .page::after {
-        display: block;
+    .page {
+        width: auto !important;
+        min-height: auto !important;
+        margin: 0 !important;
+        padding: 0.25in 0.35in 0.35in !important;
+        box-shadow: none !important;
+        background: white !important;
+        page-break-after: always;
     }
 
-    a {
-        color: inherit;
-        text-decoration: none;
+    .page:last-child {
+        page-break-after: auto;
     }
+
+    .page::before,
+    .page::after {
+        display: none !important;
+    }
+
+    .content {
+        padding-top: 0 !important;
+    }
+
+    .page-title {
+        font-size: 17pt !important;
+        margin: 0 0 0.06in !important;
+        color: #8B6914 !important;
+        text-align: center;
+    }
+
+    .page-subtitle {
+        font-size: 10.5pt !important;
+        margin-bottom: 0.1in !important;
+        text-align: center;
+        color: #444 !important;
+    }
+
+    .version-badge {
+        margin-bottom: 0.15in !important;
+    }
+
+    .section-header {
+        font-size: 9pt !important;
+        margin: 0.16in 0 0.07in !important;
+        page-break-after: avoid;
+    }
+
+    .highlight-box,
+    .evidence-box,
+    .metric-card,
+    .cycle-step,
+    .chart-container {
+        background: white !important;
+        box-shadow: none !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    table {
+        font-size: 8.8pt !important;
+        page-break-inside: auto;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tr {
+        page-break-inside: avoid;
+    }
+
+    th {
+        background: #F5F0E8 !important;
+        color: #8B6914 !important;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+
+    .doc-footer {
+        font-size: 7.5pt !important;
+        color: #777 !important;
+        margin-top: 0.18in !important;
+    }
+
+.document-header {
+    grid-template-columns: 0.6in 1fr auto !important;
+    padding-bottom: 0.08in !important;
+    margin-bottom: 0.16in !important;
+    page-break-after: avoid;
 }
+
+.document-logo img {
+    width: 0.52in !important;
+    height: 0.52in !important;
+}
+
+.document-kicker {
+    font-size: 7pt !important;
+}
+
+.document-org {
+    font-size: 9.5pt !important;
+}
+
+.document-meta {
+    font-size: 7.5pt !important;
+}
+
 </style>
 </head>
 
 <body>
-
-<!-- LETTERHEAD -->
-<header class="letterhead">
-    <div class="seal">
-        <img src="seal.PNG" alt="Johann Christian Hasse Foundation Seal">
-    </div>
-
-    <div class="org-name">Johann Christian Hasse Foundation</div>
-    <div class="org-address">2504 Grandview Circle, Columbia, Missouri 65203</div>
-    <div class="org-motto">Contractual Equity &amp; Ecological Co-Responsibility</div>
-</header>
-
 <!-- NAVIGATION -->
 <nav class="nav-tabs" aria-label="Economic Governance System Navigation">
     <button class="nav-tab active" type="button" data-tab="overview">Overview</button>
@@ -717,6 +841,22 @@ tr:hover td {
 <div id="overview" class="tab-content active">
     <div class="page">
         <div class="content">
+            <div class="document-header">
+    <div class="document-logo">
+        <img src="seal.PNG" alt="Johann Christian Hasse Foundation Seal">
+    </div>
+
+    <div>
+        <div class="document-kicker">Economic Governance System</div>
+        <div class="document-org">Johann Christian Hasse Foundation</div>
+    </div>
+
+    <div class="document-meta">
+        <strong>EGS v1.2</strong><br>
+        May 2026<br>
+        Columbia, Missouri
+    </div>
+</div>
             <div class="page-title">Economic Governance System</div>
             <div class="page-subtitle">"Who can claim value, under what conditions, and for how long"</div>
             <div class="version-badge">EGS v1.2 — May 2026</div>
@@ -963,6 +1103,22 @@ tr:hover td {
     <div class="page">
         <div class="content">
             <div class="page-title">CECO-GOV-001</div>
+            <div class="document-header">
+    <div class="document-logo">
+        <img src="seal.PNG" alt="Johann Christian Hasse Foundation Seal">
+    </div>
+
+    <div>
+        <div class="document-kicker">Economic Governance System</div>
+        <div class="document-org">Johann Christian Hasse Foundation</div>
+    </div>
+
+    <div class="document-meta">
+        <strong>EGS v1.2</strong><br>
+        May 2026<br>
+        Columbia, Missouri
+    </div>
+</div>
             <div class="page-subtitle">Governance Charter for Economic Claims — EGS v1.2</div>
 
             <div class="section-header">Preamble</div>
@@ -1182,6 +1338,22 @@ tr:hover td {
 <div id="methodology" class="tab-content">
     <div class="page">
         <div class="content">
+            <div class="document-header">
+    <div class="document-logo">
+        <img src="seal.PNG" alt="Johann Christian Hasse Foundation Seal">
+    </div>
+
+    <div>
+        <div class="document-kicker">Economic Governance System</div>
+        <div class="document-org">Johann Christian Hasse Foundation</div>
+    </div>
+
+    <div class="document-meta">
+        <strong>EGS v1.2</strong><br>
+        May 2026<br>
+        Columbia, Missouri
+    </div>
+</div>
             <div class="page-title">Economic Impact Methodology</div>
             <div class="page-subtitle">CECO-DOC-001 — How We Calculate</div>
 
@@ -1339,6 +1511,22 @@ tr:hover td {
 <div class="page">
 
 <div class="content">
+    <div class="document-header">
+    <div class="document-logo">
+        <img src="seal.PNG" alt="Johann Christian Hasse Foundation Seal">
+    </div>
+
+    <div>
+        <div class="document-kicker">Economic Governance System</div>
+        <div class="document-org">Johann Christian Hasse Foundation</div>
+    </div>
+
+    <div class="document-meta">
+        <strong>EGS v1.2</strong><br>
+        May 2026<br>
+        Columbia, Missouri
+    </div>
+</div>
 
 <div class="page-title">
 
@@ -3525,6 +3713,22 @@ Johann Christian Hasse Foundation
 <div id="pricing" class="tab-content">
     <div class="page">
         <div class="content">
+            <div class="document-header">
+    <div class="document-logo">
+        <img src="seal.PNG" alt="Johann Christian Hasse Foundation Seal">
+    </div>
+
+    <div>
+        <div class="document-kicker">Economic Governance System</div>
+        <div class="document-org">Johann Christian Hasse Foundation</div>
+    </div>
+
+    <div class="document-meta">
+        <strong>EGS v1.2</strong><br>
+        May 2026<br>
+        Columbia, Missouri
+    </div>
+</div>
             <div class="page-title">Pricing Architecture</div>
             <div class="page-subtitle">CECO-PRC-001 — How We Charge</div>
 
@@ -3637,6 +3841,22 @@ Johann Christian Hasse Foundation
 <div id="pilot" class="tab-content">
     <div class="page">
         <div class="content">
+            <div class="document-header">
+    <div class="document-logo">
+        <img src="seal.PNG" alt="Johann Christian Hasse Foundation Seal">
+    </div>
+
+    <div>
+        <div class="document-kicker">Economic Governance System</div>
+        <div class="document-org">Johann Christian Hasse Foundation</div>
+    </div>
+
+    <div class="document-meta">
+        <strong>EGS v1.2</strong><br>
+        May 2026<br>
+        Columbia, Missouri
+    </div>
+</div>
             <div class="page-title">Pilot Program Playbook</div>
             <div class="page-subtitle">CECO-PIL-001 — How We Validate in 90 Days</div>
 
@@ -3767,6 +3987,22 @@ Johann Christian Hasse Foundation
 <div id="cep" class="tab-content">
     <div class="page">
         <div class="content">
+            <div class="document-header">
+    <div class="document-logo">
+        <img src="seal.PNG" alt="Johann Christian Hasse Foundation Seal">
+    </div>
+
+    <div>
+        <div class="document-kicker">Economic Governance System</div>
+        <div class="document-org">Johann Christian Hasse Foundation</div>
+    </div>
+
+    <div class="document-meta">
+        <strong>EGS v1.2</strong><br>
+        May 2026<br>
+        Columbia, Missouri
+    </div>
+</div>
             <div class="page-title">Commercial Evidence Policy</div>
             <div class="page-subtitle">CECO-CEP-001 — Rules About Rules</div>
 
@@ -3894,6 +4130,22 @@ Johann Christian Hasse Foundation
 <div id="ivc" class="tab-content">
     <div class="page">
         <div class="content">
+            <div class="document-header">
+    <div class="document-logo">
+        <img src="seal.PNG" alt="Johann Christian Hasse Foundation Seal">
+    </div>
+
+    <div>
+        <div class="document-kicker">Economic Governance System</div>
+        <div class="document-org">Johann Christian Hasse Foundation</div>
+    </div>
+
+    <div class="document-meta">
+        <strong>EGS v1.2</strong><br>
+        May 2026<br>
+        Columbia, Missouri
+    </div>
+</div>
             <div class="page-title">Independent Validation Committee</div>
             <div class="page-subtitle">CECO-IVC-TOR-001 — Who Validates</div>
 
@@ -4023,6 +4275,22 @@ Johann Christian Hasse Foundation
 <div id="board" class="tab-content">
     <div class="page">
         <div class="content">
+            <div class="document-header">
+    <div class="document-logo">
+        <img src="seal.PNG" alt="Johann Christian Hasse Foundation Seal">
+    </div>
+
+    <div>
+        <div class="document-kicker">Economic Governance System</div>
+        <div class="document-org">Johann Christian Hasse Foundation</div>
+    </div>
+
+    <div class="document-meta">
+        <strong>EGS v1.2</strong><br>
+        May 2026<br>
+        Columbia, Missouri
+    </div>
+</div>
             <div class="page-title">Board Resolution</div>
             <div class="page-subtitle">CECO-BRD-001 — How We Decide</div>
 
