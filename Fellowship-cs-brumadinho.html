@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow">
+
+<title>c-ECO | Brumadinho Retrospective Governance Simulation</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+  --sidebar-width:340px;
+  --earth-green:#1e3a2f;
+  --gold-accent:#d4a373;
+  --bg-body:#f5f7f4;
+  --text-main:#1a1a1a;
+  --border-color:#d4d8d4;
+  --soft-blue:#2c5282;
+  --soft-bg:#fafcfa;
+  --red-band:#8b2e2e;
+  --amber-band:#b7791f;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html, body{
+  margin:0;
+  padding:0;
+  width:100%;
+  max-width:100%;
+  overflow-x:hidden;
+  background:var(--bg-body);
+  font-family:'Inter', sans-serif;
+  line-height:1.65;
+  color:var(--text-main);
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:var(--sidebar-width);
+  position:fixed;
+  top:0;
+  left:0;
+  height:100vh;
+  background:#fff;
+  border-right:1px solid var(--border-color);
+  padding:16px;
+  overflow-y:auto;
+  z-index:1000;
+  transition:transform .3s ease;
+}
+
+.sidebar-top{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding-bottom:12px;
+  margin-bottom:14px;
+  border-bottom:2px solid var(--gold-accent);
+}
+
+.logo-box{
+  width:40px;
+  height:40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#fff;
+  border:1px solid var(--border-color);
+  color:var(--earth-green);
+  font-weight:900;
+  text-decoration:none;
+  font-size:1.2rem;
+}
+
+.sidebar-title{
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:1px;
+  color:var(--earth-green);
+  text-transform:uppercase;
+  line-height:1.2;
+}
+
+.search-container{
+  margin-bottom:14px;
+}
+
+#sidebarSearch{
+  width:100%;
+  padding:10px 12px;
+  border:1px solid var(--border-color);
+  font-size:12px;
+  outline:none;
+}
+
+#sidebarSearch:focus{
+  border-color:var(--gold-accent);
+}
+
+.nav-list{
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+
+.nav-section-title{
+  font-size:10px;
+  font-weight:800;
+  color:var(--soft-blue);
+  margin-top:14px;
+  text-transform:uppercase;
+  border-top:1px solid #eee;
+  padding-top:10px;
+  padding-bottom:5px;
+  letter-spacing:.8px;
+}
+
+.nav-item a{
+  text-decoration:none;
+  color:var(--text-main);
+  font-size:11px;
+  display:block;
+  padding:6px 8px;
+  line-height:1.35;
+  border-left:3px solid transparent;
+  transition:.2s;
+}
+
+.nav-item a:hover{
+  background:rgba(44,82,130,0.08);
+  border-left-color:var(--soft-blue);
+}
+
+/* MAIN */
+
+.main-content{
+  margin-left:var(--sidebar-width);
+  padding:40px 20px;
+  display:flex;
+  justify-content:center;
+}
+
+.document-page{
+  background:#fff;
+  width:100%;
+  max-width:820px;
+  padding:50px;
+  box-shadow:0 4px 25px rgba(0,0,0,0.06);
+  overflow-x:hidden;
+}
+
+/* HEADER */
+
+.submission-header{
+  background:linear-gradient(135deg,#1e3a2f 0%,#2c5282 100%);
+  color:#fff;
+  padding:30px;
+  margin:-50px -50px 30px -50px;
+  border-bottom:3px solid var(--gold-accent);
+}
+
+.submission-title{
+  font-family:'Libre Baskerville', serif;
+  font-size:28px;
+  line-height:1.3;
+  margin-bottom:12px;
+}
+
+.submission-subtitle{
+  font-size:13px;
+  opacity:.92;
+  line-height:1.6;
+}
+
+.metadata-bar{
+  margin-top:18px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.metadata-pill{
+  padding:6px 10px;
+  border:1px solid rgba(255,255,255,0.2);
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+}
+
+/* SECTIONS */
+
+.section-header{
+  font-family:'Libre Baskerville', serif;
+  font-size:20px;
+  font-weight:700;
+  color:var(--earth-green);
+  margin:40px 0 20px;
+  padding-bottom:10px;
+  border-bottom:3px solid var(--soft-blue);
+}
+
+.subsection-header{
+  font-family:'Libre Baskerville', serif;
+  font-size:16px;
+  font-weight:700;
+  color:var(--earth-green);
+  margin:28px 0 16px;
+  padding-bottom:8px;
+  border-bottom:1px solid var(--border-color);
+}
+
+.caput{
+  font-family:'Libre Baskerville', serif;
+  font-size:13.5px;
+  line-height:1.75;
+  text-align:justify;
+  margin-bottom:14px;
+}
+
+.paragraph{
+  margin-left:20px;
+  margin-bottom:10px;
+  font-size:12.5px;
+}
+
+.inciso{
+  margin-left:42px;
+  margin-bottom:8px;
+  font-size:12.5px;
+}
+
+/* BOXES */
+
+.note-box,
+.principle-box,
+.timeline-box,
+.question-box{
+  background:#fafcfa;
+  border-left:4px solid var(--soft-blue);
+  padding:18px 20px;
+  margin:20px 0;
+}
+
+.note-label,
+.principle-title{
+  font-size:10px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.7px;
+  color:var(--earth-green);
+  margin-bottom:8px;
+}
+
+.stat-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+  margin:20px 0;
+}
+
+.stat-card{
+  border:1px solid var(--border-color);
+  padding:18px;
+  background:#fff;
+}
+
+.stat-number{
+  font-size:26px;
+  font-weight:800;
+  color:var(--earth-green);
+  line-height:1;
+}
+
+.stat-label{
+  margin-top:8px;
+  font-size:11px;
+  text-transform:uppercase;
+  font-weight:700;
+  color:#666;
+  letter-spacing:.5px;
+}
+
+.stat-note{
+  margin-top:10px;
+  font-size:11px;
+  line-height:1.5;
+}
+
+/* TABLES */
+
+.table-wrap{
+  width:100%;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  margin:18px 0 28px;
+  border:1px solid var(--border-color);
+}
+
+table{
+  width:100%;
+  min-width:680px;
+  border-collapse:collapse;
+}
+
+th{
+  background:var(--earth-green);
+  color:#fff;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+  padding:12px 10px;
+  text-align:left;
+}
+
+td{
+  border-bottom:1px solid #eee;
+  padding:12px 10px;
+  font-size:12px;
+  vertical-align:top;
+}
+
+tr:nth-child(even){
+  background:#fafafa;
+}
+
+/* TIMELINE */
+
+.timeline-item{
+  border-left:3px solid var(--soft-blue);
+  padding-left:16px;
+  margin-bottom:24px;
+}
+
+.timeline-date{
+  font-size:10px;
+  font-weight:800;
+  color:var(--soft-blue);
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-bottom:5px;
+}
+
+.timeline-title{
+  font-family:'Libre Baskerville', serif;
+  font-size:15px;
+  color:var(--earth-green);
+  font-weight:700;
+  margin-bottom:8px;
+}
+
+.timeline-text{
+  font-size:12.5px;
+  line-height:1.7;
+}
+  .mobile-btn{
+  display:none;
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:var(--earth-green);
+  color:#fff;
+  border:none;
+  padding:14px 22px;
+  font-weight:800;
+  font-size:12px;
+  z-index:2000;
+  box-shadow:0 4px 15px rgba(0,0,0,0.3);
+  cursor:pointer;
+}
+
+.print-btn{
+  position:fixed;
+  top:20px;
+  right:20px;
+  background:var(--earth-green);
+  color:#fff;
+  border:none;
+  padding:12px 20px;
+  font-weight:700;
+  font-size:12px;
+  z-index:2000;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  border-radius:4px;
+  box-shadow:0 4px 15px rgba(0,0,0,0.2);
+}
+
+.print-btn:hover{
+  background:#2c5282;
+}
+
+.references-section{
+  margin-top:40px;
+  border-top:3px solid var(--soft-blue);
+  padding-top:20px;
+}
+
+.references-title{
+  font-family:'Libre Baskerville', serif;
+  font-size:17px;
+  font-weight:700;
+  color:var(--earth-green);
+  margin-bottom:18px;
+}
+
+.reference-item{
+  margin-bottom:12px;
+  font-size:12px;
+  line-height:1.65;
+}
+
+.reference-item .author{
+  font-weight:700;
+  color:var(--earth-green);
+}
+
+.reference-item .title{
+  font-style:italic;
+}
+
+.copyright-footer{
+  margin-top:45px;
+  padding-top:25px;
+  border-top:2px solid var(--border-color);
+  font-size:11px;
+  color:#666;
+  line-height:1.7;
+}
+
+/* MOBILE */
+
+@media (max-width:1024px){
+
+  .sidebar{
+    width:min(340px,88vw);
+    transform:translateX(-100%);
+  }
+
+  .sidebar.open{
+    transform:translateX(0);
+    box-shadow:10px 0 30px rgba(0,0,0,0.22);
+  }
+
+  .main-content{
+    margin-left:0;
+    padding:12px;
+    display:block;
+  }
+
+  .document-page{
+    width:100%;
+    max-width:100%;
+    padding:22px 16px;
+  }
+
+  .submission-header{
+    margin:-22px -16px 20px -16px;
+    padding:24px 18px;
+  }
+
+  .submission-title{
+    font-size:21px;
+  }
+
+  .section-header{
+    font-size:17px;
+  }
+
+  .subsection-header{
+    font-size:15px;
+  }
+
+  .caput{
+    text-align:left;
+    font-size:13px;
+  }
+
+  .paragraph{
+    margin-left:12px;
+  }
+
+  .inciso{
+    margin-left:18px;
+  }
+
+  .stat-grid{
+    grid-template-columns:1fr;
+  }
+
+  table{
+    min-width:560px;
+  }
+
+  .mobile-btn{
+    display:block;
+  }
+
+  .print-btn{
+    top:auto;
+    bottom:80px;
+    right:20px;
+  }
+}
+
+@media print{
+
+  .sidebar,
+  .mobile-btn,
+  .print-btn{
+    display:none !important;
+  }
+
+  .main-content{
+    margin-left:0;
+  }
+
+  .document-page{
+    box-shadow:none;
+    max-width:100%;
+  }
+
+  body{
+    background:#fff;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<button class="mobile-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+INDEX
+</button>
+
+<button class="print-btn" onclick="window.print()">
+🖨️ Save PDF
+</button>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar" id="sidebar">
+
+<div class="sidebar-top">
+<a href="index.html" class="logo-box">Σ</a>
+<div class="sidebar-title">
+BRUMADINHO CASE STUDY
+</div>
+</div>
+
+<div class="search-container">
+<input type="text" id="sidebarSearch" placeholder="Search sections..." />
+</div>
+
+<nav>
+<ul class="nav-list">
+
+<li class="nav-section-title">INTRODUCTION</li>
+<li class="nav-item"><a href="#overview">Overview</a></li>
+<li class="nav-item"><a href="#methodology">Methodological Note</a></li>
+<li class="nav-item"><a href="#research-question">Core Research Question</a></li>
+
+<li class="nav-section-title">CASE ANALYSIS</li>
+<li class="nav-item"><a href="#signals">Signals of Instability</a></li>
+<li class="nav-item"><a href="#gap">Recognition–Action Gap</a></li>
+<li class="nav-item"><a href="#timeline">Governance Escalation Timeline</a></li>
+
+<li class="nav-section-title">TFP SIMULATION</li>
+<li class="nav-item"><a href="#tfp">TFP Retrospective Simulation</a></li>
+<li class="nav-item"><a href="#bands">Prudential Bands</a></li>
+<li class="nav-item"><a href="#safe-mode">Safe Mode</a></li>
+<li class="nav-item"><a href="#restoration">Restoration First</a></li>
+
+<li class="nav-section-title">CONTRACTUAL GOVERNANCE</li>
+<li class="nav-item"><a href="#living-contract">Living Contract Simulation</a></li>
+<li class="nav-item"><a href="#clauses">Illustrative Clauses</a></li>
+
+<li class="nav-section-title">ECONOMIC ANALYSIS</li>
+<li class="nav-item"><a href="#economic">Economic Counterfactual</a></li>
+<li class="nav-item"><a href="#scenarios">Scenario Analysis</a></li>
+
+<li class="nav-section-title">FELLOWSHIP</li>
+<li class="nav-item"><a href="#deliverables">Deliverables</a></li>
+<li class="nav-item"><a href="#questions">Discussion Questions</a></li>
+
+<li class="nav-section-title">REFERENCES</li>
+<li class="nav-item"><a href="#references">Bibliography</a></li>
+
+</ul>
+</nav>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main-content">
+
+<article class="document-page">
+
+<!-- HEADER -->
+
+<header class="submission-header">
+
+<div class="submission-title">
+c-ECO Applied Case Study — Brumadinho Retrospective Governance Simulation
+</div>
+
+<div class="submission-subtitle">
+Educational governance counterfactual examining the Recognition–Action Gap,
+prudential escalation, reversibility contraction, and pre-threshold
+governance mechanisms under the c-ECO systemic governance framework.
+</div>
+
+<div class="metadata-bar">
+
+<div class="metadata-pill">
+July 2026 Fellowship Cohort
+</div>
+
+<div class="metadata-pill">
+Educational Draft v2.1
+</div>
+
+<div class="metadata-pill">
+Johann Christian Hasse Foundation
+</div>
+
+<div class="metadata-pill">
+c-ECO Global System
+</div>
+
+</div>
+
+</header>
+
+<!-- OVERVIEW -->
+
+<section id="overview">
+
+<div class="section-header">
+CASE OVERVIEW
+</div>
+
+<div class="caput">
+The Brumadinho tailings dam collapse of January 25, 2019 constitutes one of the
+most consequential industrial and environmental disasters in modern Brazilian
+history. The event exposed profound failures in systemic governance, risk
+escalation, operational containment, and institutional responsiveness despite
+the existence of detectable technical indicators of instability prior to
+collapse.
+</div>
+
+<div class="caput">
+This study does not attempt to demonstrate deterministic predictive certainty.
+Instead, it evaluates whether documented signals of reversibility contraction
+were sufficient to justify earlier prudential intervention and whether a
+structured governance escalation architecture could plausibly have reduced the
+probability, scale, or irreversibility of resulting damage.
+</div>
+
+<div class="stat-grid">
+
+<div class="stat-card">
+<div class="stat-number">270</div>
+<div class="stat-label">Confirmed Deaths</div>
+<div class="stat-note">
+Majority of victims were Vale employees located in operational facilities
+directly impacted by the collapse.
+</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-number">11.7M m³</div>
+<div class="stat-label">Tailings Released</div>
+<div class="stat-note">
+Toxic tailings propagated across the Paraopeba watershed following collapse.
+</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-number">US$ 17.9B</div>
+<div class="stat-label">Documented Provisions</div>
+<div class="stat-note">
+Vale S.A. provisions and compensation obligations as publicly reported.
+</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-number">3.13M m²</div>
+<div class="stat-label">Area Impacted</div>
+<div class="stat-note">
+Severe destruction affecting Mata Atlântica vegetation and watershed systems.
+</div>
+</div>
+
+</div>
+
+</section>
+<section id="methodology">
+
+<div class="section-header">
+METHODOLOGICAL NOTE
+</div>
+
+<div class="note-box">
+
+<div class="note-label">
+Educational Governance Simulation
+</div>
+
+This document should be interpreted as a retrospective governance simulation and
+prudential counterfactual exercise. It does not claim that the c-ECO framework
+would necessarily have prevented the Brumadinho collapse with certainty.
+Rather, it examines whether documented indicators of instability could have
+justified earlier governance escalation while reversibility still remained
+materially available.
+
+</div>
+
+<div class="caput">
+The central analytical premise is not that perfect prediction was possible,
+but that measurable indicators of systemic deterioration existed and were not
+converted into binding operational consequences before irreversible loss
+occurred.
+</div>
+
+<div class="principle-box">
+
+<div class="principle-title">
+Core c-ECO Premise
+</div>
+
+Governance systems frequently detect instability before irreversible collapse,
+yet remain institutionally incapable of converting recognition into binding
+operational escalation while reversibility still exists.
+
+</div>
+
+</section>
+
+<!-- RESEARCH QUESTION -->
+
+<section id="research-question">
+
+<div class="section-header">
+CORE RESEARCH QUESTION
+</div>
+
+<div class="question-box">
+
+<div class="caput">
+The central question explored by this case study is not:
+</div>
+
+<div class="inciso">
+“Could the system predict collapse with certainty?”
+</div>
+
+<div class="caput">
+But rather:
+</div>
+
+<div class="inciso">
+“Were detectable indicators of reversibility contraction sufficient to justify
+prudential escalation before irreversible transition occurred?”
+</div>
+
+</div>
+
+<div class="caput">
+This distinction is fundamental to the c-ECO framework. The objective is not
+perfect foresight, but operational governance responsiveness under uncertainty.
+</div>
+
+</section>
+
+<!-- SIGNALS -->
+
+<section id="signals">
+
+<div class="section-header">
+DOCUMENTED SIGNALS OF INSTABILITY
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Indicator</th>
+<th>Documented Evidence</th>
+<th>Governance Relevance</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>InSAR Deformation</td>
+<td>
+Slow and continuous deformation patterns identified months before collapse.
+</td>
+<td>
+Potential indicator of progressive instability trajectory.
+</td>
+</tr>
+
+<tr>
+<td>Acceleration Phases</td>
+<td>
+Retrospective analyses identified multiple acceleration periods throughout 2018.
+</td>
+<td>
+Suggested sustained negative trajectory rather than isolated fluctuation.
+</td>
+</tr>
+
+<tr>
+<td>Rainfall Increase</td>
+<td>
+Significant precipitation increase documented during critical periods.
+</td>
+<td>
+Potential stress amplification factor affecting structural saturation.
+</td>
+</tr>
+
+<tr>
+<td>Operational Inactivity</td>
+<td>
+Inactive upstream tailings structure with saturated conditions.
+</td>
+<td>
+Reduced operational adaptability and increased containment dependency.
+</td>
+</tr>
+
+<tr>
+<td>Reversibility Constraints</td>
+<td>
+Absence of segregated restoration liquidity and emergency containment capacity.
+</td>
+<td>
+Low reversibility liquidity under crisis conditions.
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div class="caput">
+Retrospective research from multiple sources suggests that detectable indicators
+of instability existed before collapse. The dispute is therefore not merely
+whether signals existed, but whether institutional governance mechanisms were
+capable of transforming those signals into binding operational escalation.
+</div>
+
+</section>
+
+<!-- GAP -->
+
+<section id="gap">
+
+<div class="section-header">
+THE RECOGNITION–ACTION GAP
+</div>
+
+<div class="caput">
+The Brumadinho disaster illustrates what the c-ECO framework defines as the
+Recognition–Action Gap: the condition in which technical recognition of
+instability exists, but institutional structures fail to convert recognition
+into operationally binding escalation.
+</div>
+
+<div class="timeline-box">
+
+<div class="timeline-item">
+
+<div class="timeline-date">
+2003
+</div>
+
+<div class="timeline-title">
+Early Structural Concerns
+</div>
+
+<div class="timeline-text">
+Independent investigations later suggested that concerns regarding the dam’s
+stability profile were known internally for years prior to collapse.
+</div>
+
+</div>
+
+<div class="timeline-item">
+
+<div class="timeline-date">
+March–August 2018
+</div>
+
+<div class="timeline-title">
+Acceleration Phase
+</div>
+
+<div class="timeline-text">
+Retrospective InSAR analyses identified measurable acceleration patterns and
+persistent deformation behavior.
+</div>
+
+</div>
+
+<div class="timeline-item">
+
+<div class="timeline-date">
+October–December 2018
+</div>
+
+<div class="timeline-title">
+Escalating Instability
+</div>
+
+<div class="timeline-text">
+Multiple indicators suggested deterioration of systemic stability amid
+increased rainfall and accelerating movement patterns.
+</div>
+
+</div>
+
+<div class="timeline-item">
+
+<div class="timeline-date">
+January 25, 2019
+</div>
+
+<div class="timeline-title">
+Irreversible Transition
+</div>
+
+<div class="timeline-text">
+Collapse resulted in irreversible loss of life, environmental devastation,
+economic damage, and systemic regulatory consequences.
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- TIMELINE -->
+
+<section id="timeline">
+
+<div class="section-header">
+RETROSPECTIVE GOVERNANCE ESCALATION TIMELINE
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Period</th>
+<th>Documented Reality</th>
+<th>Illustrative c-ECO Response</th>
+<th>Governance Objective</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>2003</td>
+<td>Early structural concerns documented.</td>
+<td>
+High-consequence infrastructure classification and mandatory TFP integration.
+</td>
+<td>
+Long-term prudential oversight.
+</td>
+</tr>
+
+<tr>
+<td>March 2018</td>
+<td>Initial acceleration indicators emerge.</td>
+<td>
+Transition to AMBER state with intensified monitoring.
+</td>
+<td>
+Early escalation under uncertainty.
+</td>
+</tr>
+
+<tr>
+<td>August 2018</td>
+<td>Relative stabilization interpreted as temporary normalization.</td>
+<td>
+Continued AMBER status due to prudential asymmetry.
+</td>
+<td>
+Prevent premature de-escalation.
+</td>
+</tr>
+
+<tr>
+<td>October 2018</td>
+<td>Escalation of instability indicators.</td>
+<td>
+Transition to RED / Safe Mode.
+</td>
+<td>
+Containment and reversibility preservation.
+</td>
+</tr>
+
+<tr>
+<td>December 2018</td>
+<td>Increasing concern and instability acceleration.</td>
+<td>
+Potential BLACK / Restoration First intervention.
+</td>
+<td>
+Emergency restoration prioritization.
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+  <!-- TFP -->
+
+<section id="tfp">
+
+<div class="section-header">
+TFP RETROSPECTIVE SIMULATION
+</div>
+
+<div class="caput">
+The Threshold Function Protocol (TFP) was retrospectively applied as an
+illustrative prudential framework to evaluate how governance escalation could
+have evolved under a pre-threshold operational architecture.
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Variable</th>
+<th>Retrospective Interpretation</th>
+<th>Illustrative Classification</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>P — Position</td>
+<td>
+Inactive upstream tailings structure with saturated material conditions and
+reduced adaptive flexibility.
+</td>
+<td>
+Proximity to estimated Safe Operating Space boundary.
+</td>
+</tr>
+
+<tr>
+<td>ΔV — Velocity</td>
+<td>
+Progressive deformation acceleration patterns documented retrospectively.
+</td>
+<td>
+Sustained negative trajectory.
+</td>
+</tr>
+
+<tr>
+<td>σ — Uncertainty</td>
+<td>
+Conflicting interpretations and incomplete certainty regarding instability.
+</td>
+<td>
+Prudential amplification under uncertainty.
+</td>
+</tr>
+
+<tr>
+<td>Lr — Reversibility Liquidity</td>
+<td>
+Absence of segregated restoration reserves and emergency containment capacity.
+</td>
+<td>
+Low reversibility liquidity profile.
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div class="principle-box">
+
+<div class="principle-title">
+Prudential Asymmetry
+</div>
+
+Under the c-ECO framework, errors arising from premature escalation are treated
+as economically reversible, whereas errors resulting from delayed intervention
+may become biophysically irreversible.
+
+</div>
+
+</section>
+
+<!-- BANDS -->
+
+<section id="bands">
+
+<div class="section-header">
+ILLUSTRATIVE PRUDENTIAL BAND CLASSIFICATION
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Period</th>
+<th>Illustrative Band</th>
+<th>Governance Implication</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>March–August 2018</td>
+<td>AMBER</td>
+<td>
+Enhanced monitoring, audit intensification, liquidity protection.
+</td>
+</tr>
+
+<tr>
+<td>August–October 2018</td>
+<td>AMBER (Maintained)</td>
+<td>
+No return to GREEN due to uncertainty amplification.
+</td>
+</tr>
+
+<tr>
+<td>October–December 2018</td>
+<td>RED / Safe Mode</td>
+<td>
+Operational modulation, containment, restoration prioritization.
+</td>
+</tr>
+
+<tr>
+<td>December 2018–January 2019</td>
+<td>Potential BLACK / Restoration First</td>
+<td>
+Emergency governance intervention and restoration-first containment logic.
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+<!-- SAFE MODE -->
+
+<section id="safe-mode">
+
+<div class="section-header">
+SAFE MODE — NOT DEFAULT
+</div>
+
+<div class="caput">
+One of the central legal-operational concepts explored by the c-ECO framework
+is the introduction of an intermediate governance condition between nominal
+compliance and irreversible collapse.
+</div>
+
+<div class="principle-box">
+
+<div class="principle-title">
+Governance Transition
+</div>
+
+Compliance → Safe Mode → Irreversible Collapse
+
+</div>
+
+<div class="caput">
+Under this logic, Safe Mode does not constitute insolvency, contractual breach,
+or default. Instead, it represents a prudential containment state intended to
+preserve reversibility while operational adaptation remains materially
+possible.
+</div>
+
+<div class="caput">
+Illustratively, Safe Mode mechanisms could include:
+</div>
+
+<div class="inciso">
+• Operational modulation and suspension of non-essential activities
+</div>
+
+<div class="inciso">
+• Redirection of liquidity toward restoration and containment
+</div>
+
+<div class="inciso">
+• Temporary reconfiguration of contractual priorities
+</div>
+
+<div class="inciso">
+• Activation of systemic curatorship structures
+</div>
+
+</section>
+
+<!-- RESTORATION -->
+
+<section id="restoration">
+
+<div class="section-header">
+RESTORATION FIRST
+</div>
+
+<div class="caput">
+At severe levels of reversibility contraction, the c-ECO framework proposes a
+transition from nominal operational continuity toward Restoration First logic,
+in which preservation of systemic stability temporarily supersedes ordinary
+economic optimization.
+</div>
+
+<div class="caput">
+This mechanism is not conceptualized as punitive intervention, but rather as a
+prudential emergency regime intended to preserve residual reversibility under
+conditions of escalating systemic instability.
+</div>
+
+</section>
+
+<!-- LIVING CONTRACT -->
+
+<section id="living-contract">
+
+<div class="section-header">
+LIVING CONTRACT SIMULATION
+</div>
+
+<div class="caput">
+This study also explores how dynamic contractual architectures could respond to
+systemic instability through automatic governance transitions triggered by
+certified technical evidence.
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Illustrative Clause</th>
+<th>Potential Function</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Safe Mode Clause</td>
+<td>
+Automatic operational modulation upon RED state transition.
+</td>
+</tr>
+
+<tr>
+<td>Liquidity Preservation Clause</td>
+<td>
+Segregated restoration reserve allocation during AMBER escalation.
+</td>
+</tr>
+
+<tr>
+<td>Restoration Conversion Mechanism</td>
+<td>
+Potential conversion of guarantees toward restoration priorities.
+</td>
+</tr>
+
+<tr>
+<td>Technical Escalation Clause</td>
+<td>
+Mandatory notification and escalation procedures across stakeholders.
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+<!-- ECONOMIC -->
+
+<section id="economic">
+
+<div class="section-header">
+ECONOMIC COUNTERFACTUAL
+</div>
+
+<div class="caput">
+The c-ECO framework evaluates not only the cost of intervention, but the cost
+of delayed governance escalation under irreversible conditions.
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Documented Outcome</th>
+<th>Illustrative c-ECO Counterfactual</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Human Impact</td>
+<td>270 deaths</td>
+<td>
+Substantial reduction potential through earlier containment and evacuation.
+</td>
+</tr>
+
+<tr>
+<td>Environmental Damage</td>
+<td>Severe irreversible contamination and destruction</td>
+<td>
+Preservation of reversibility through earlier intervention.
+</td>
+</tr>
+
+<tr>
+<td>Financial Cost</td>
+<td>US$ 17.9B+ documented provisions</td>
+<td>
+Potentially lower containment and restoration expenditure.
+</td>
+</tr>
+
+<tr>
+<td>Reputational Damage</td>
+<td>Global reputational deterioration</td>
+<td>
+Governance credibility preservation.
+</td>
+</tr>
+
+<tr>
+<td>Regulatory Impact</td>
+<td>Sector-wide reactive escalation</td>
+<td>
+Reduced systemic spillover effects.
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+<!-- DELIVERABLES -->
+
+<section id="deliverables">
+
+<div class="section-header">
+FELLOWSHIP DELIVERABLES
+</div>
+
+<div class="inciso">
+1. Reconstruction of the instability timeline.
+</div>
+
+<div class="inciso">
+2. Retrospective TFP variable assessment.
+</div>
+
+<div class="inciso">
+3. Governance band classification exercise.
+</div>
+
+<div class="inciso">
+4. Recognition–Action Gap analysis.
+</div>
+
+<div class="inciso">
+5. Illustrative Living Contract drafting exercise.
+</div>
+
+<div class="inciso">
+6. Economic counterfactual governance analysis.
+</div>
+
+<div class="inciso">
+7. Regulatory integration proposal for dam governance systems.
+</div>
+
+</section>
+
+<!-- QUESTIONS -->
+
+<section id="questions">
+
+<div class="section-header">
+DISCUSSION QUESTIONS
+</div>
+
+<div class="question-box">
+
+<div class="caput">
+1. At what point does prudential escalation become justified under uncertainty?
+</div>
+
+<div class="caput">
+2. Can governance systems legitimately prioritize reversibility preservation
+before material collapse occurs?
+</div>
+
+<div class="caput">
+3. How should legal systems balance uncertainty against irreversible systemic
+harm?
+</div>
+
+<div class="caput">
+4. Could Safe Mode architectures reduce destructive delay dynamics in
+high-consequence infrastructure systems?
+</div>
+
+</div>
+
+</section>
+
+<!-- REFERENCES -->
+
+<section id="references" class="references-section">
+
+<div class="references-title">
+REFERENCES & BIBLIOGRAPHY
+</div>
+
+<div class="reference-item">
+<span class="author">Grebby et al.</span>
+<span class="title">
+Satellite InSAR analysis of precursor deformation associated with the
+Brumadinho tailings dam collapse.
+</span>
+Communications Earth & Environment.
+</div>
+
+<div class="reference-item">
+<span class="author">ETH Zürich.</span>
+<span class="title">
+Spectral time-series analysis identifying instability acceleration patterns.
+</span>
+2024.
+</div>
+
+<div class="reference-item">
+<span class="author">Vale S.A.</span>
+<span class="title">
+ESG and Brumadinho reparation reports.
+</span>
+2025.
+</div>
+
+<div class="reference-item">
+<span class="author">Rockström et al.</span>
+<span class="title">
+A Safe Operating Space for Humanity.
+</span>
+Nature, 2009.
+</div>
+
+<div class="reference-item">
+<span class="author">Kotzé & Kim.</span>
+<span class="title">
+Earth System Law and Earth System Governance.
+</span>
+2019.
+</div>
+
+<div class="reference-item">
+<span class="author">Steffen et al.</span>
+<span class="title">
+Planetary Boundaries: Guiding Human Development on a Changing Planet.
+</span>
+Science, 2015.
+</div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer class="copyright-footer">
+
+<strong>
+© 2026 c-ECO Systemic Governance Initiative
+</strong>
+
+<br><br>
+
+Educational governance simulation for fellowship and institutional analysis
+purposes only. This document does not constitute legal advice, technical
+certification, or deterministic prediction of historical outcomes.
+
+<br><br>
+
+Johann Christian Hasse Foundation — c-ECO Global System
+
+</footer>
+
+</article>
+
+</main>
+
+<script>
+
+const searchInput = document.getElementById('sidebarSearch');
+const navItems = document.querySelectorAll('.nav-item');
+
+searchInput.addEventListener('input', function(e){
+
+const term = e.target.value.toLowerCase();
+
+navItems.forEach(item => {
+
+const text = item.textContent.toLowerCase();
+
+if(text.includes(term)){
+item.style.display = 'block';
+}else{
+item.style.display = 'none';
+}
+
+});
+
+});
+
+document.querySelectorAll('.nav-item a').forEach(link => {
+
+link.addEventListener('click', () => {
+
+if(window.innerWidth <= 1024){
+document.getElementById('sidebar').classList.remove('open');
+}
+
+});
+
+});
+
+</script>
+
+</body>
+</html>
