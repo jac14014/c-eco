@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 6: Capstone — Mining Integration and Certification</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+:root {
+  --harvard-crimson:#A51C30;
+  --harvard-dark:#1E1E1E;
+  --harvard-gray:#6C757D;
+  --harvard-light:#F8F9FA;
+  --mastery-gold:#C4A35A;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Inter',sans-serif;
+  line-height:1.7;
+  color:var(--harvard-dark);
+  background:#fff;
+}
+.module-header{
+  background:linear-gradient(135deg,var(--harvard-crimson) 0%,#7A1525 50%,var(--mastery-gold) 100%);
+  color:white;
+  padding:60px 80px;
+}
+.module-number{
+  font-size:14px;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  opacity:.9;
+  margin-bottom:16px;
+}
+h1{
+  font-family:'Crimson Pro',serif;
+  font-size:44px;
+  font-weight:700;
+  line-height:1.2;
+  margin-bottom:20px;
+}
+.module-meta{
+  display:flex;
+  gap:40px;
+  font-size:14px;
+  opacity:.9;
+  flex-wrap:wrap;
+}
+.content-body{
+  max-width:900px;
+  margin:0 auto;
+  padding:60px 40px;
+}
+.learning-objectives{
+  background:var(--harvard-light);
+  border-left:4px solid var(--mastery-gold);
+  padding:30px 35px;
+  margin:40px 0;
+}
+.learning-objectives h3{
+  font-family:'Crimson Pro',serif;
+  font-size:22px;
+  color:#92400E;
+  margin-bottom:20px;
+}
+.learning-objectives ul{list-style:none;}
+.learning-objectives li{
+  padding:8px 0 8px 28px;
+  position:relative;
+}
+.learning-objectives li::before{
+  content:"→";
+  position:absolute;
+  left:0;
+  color:var(--mastery-gold);
+  font-weight:600;
+}
+h2{
+  font-family:'Crimson Pro',serif;
+  font-size:32px;
+  font-weight:600;
+  margin:50px 0 25px;
+  color:var(--harvard-dark);
+}
+h3{
+  font-family:'Crimson Pro',serif;
+  font-size:24px;
+  font-weight:600;
+  margin:35px 0 18px;
+}
+p{margin:14px 0;}
+.exam-structure{
+  background:linear-gradient(135deg,#fef3c7 0%,#fde68a 100%);
+  border:3px solid var(--mastery-gold);
+  padding:35px;
+  margin:35px 0;
+}
+.exam-header{
+  background:var(--mastery-gold);
+  color:white;
+  padding:15px 25px;
+  margin:-35px -35px 25px -35px;
+  font-weight:700;
+  font-size:16px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+.exam-section{
+  background:#fff;
+  padding:25px;
+  margin:20px 0;
+  border-left:4px solid var(--harvard-crimson);
+}
+.section-title{
+  font-family:'Crimson Pro',serif;
+  font-size:20px;
+  font-weight:600;
+  color:var(--harvard-crimson);
+  margin-bottom:15px;
+}
+.competency-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:25px;
+  margin:30px 0;
+}
+.competency-card{
+  background:var(--harvard-light);
+  padding:25px;
+  border-radius:4px;
+}
+.competency-domain{
+  font-family:'Crimson Pro',serif;
+  font-size:18px;
+  font-weight:600;
+  color:var(--harvard-crimson);
+  margin-bottom:15px;
+}
+.certification-badge{
+  text-align:center;
+  padding:40px;
+  background:linear-gradient(135deg,var(--harvard-crimson) 0%,#7A1525 100%);
+  color:white;
+  margin:40px 0;
+}
+.badge-icon{
+  font-size:64px;
+  margin-bottom:20px;
+}
+.badge-title{
+  font-family:'Crimson Pro',serif;
+  font-size:28px;
+  font-weight:700;
+  margin-bottom:15px;
+}
+.review-module-link{
+  background:#FFF8F3;
+  border-left:4px solid #C4A35A;
+  padding:24px 28px;
+  margin:40px 0;
+}
+.review-module-link h3{
+  font-family:'Crimson Pro',serif;
+  font-size:20px;
+  color:#1E1E1E;
+  margin:0 0 10px 0;
+}
+.review-module-link p{
+  font-size:14px;
+  color:#6C757D;
+  line-height:1.6;
+  margin:0 0 15px 0;
+}
+.review-module-link a{
+  display:inline-block;
+  background:#A51C30;
+  color:white;
+  text-decoration:none;
+  padding:10px 24px;
+  font-size:13px;
+  font-weight:600;
+  border-radius:4px;
+}
+.prep-guide{
+  background:var(--harvard-dark);
+  color:white;
+  padding:35px;
+  margin:40px 0;
+}
+.prep-guide h3{
+  color:white;
+  font-size:20px;
+  margin-bottom:20px;
+}
+.prep-time{
+  display:inline-block;
+  background:var(--mastery-gold);
+  padding:8px 20px;
+  font-size:13px;
+  font-weight:600;
+  margin-bottom:20px;
+}
+.module-navigation{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:50px;
+  padding-top:30px;
+  border-top:2px solid var(--harvard-light);
+}
+.nav-btn{
+  text-decoration:none;
+  font-size:14px;
+  font-weight:600;
+  padding:10px 18px;
+  border-radius:4px;
+  transition:all .2s ease;
+}
+.nav-back{
+  color:var(--harvard-gray);
+  border:1px solid #dee2e6;
+  background:transparent;
+}
+.nav-back:hover{
+  color:var(--harvard-dark);
+  border-color:var(--harvard-gray);
+}
+.nav-next{
+  background:var(--harvard-crimson);
+  color:white;
+}
+.nav-next:hover{
+  background:#7A1525;
+}
+.footer-note{
+  margin-top:60px;
+  padding-top:30px;
+  border-top:2px solid var(--harvard-light);
+  font-size:13px;
+  color:var(--harvard-gray);
+}
+@media(max-width:760px){
+  .module-header{padding:40px 28px;}
+  h1{font-size:34px;}
+  .content-body{padding:40px 24px;}
+  .module-meta{gap:14px;flex-direction:column;}
+  .competency-grid{grid-template-columns:1fr;}
+  .module-navigation{flex-direction:column;gap:16px;align-items:stretch;}
+}
+</style>
+</head>
+<body>
+<header class="module-header">
+  <div class="module-number">Module 06 of 06</div>
+  <h1>Capstone: Mining Integration and Professional Certification</h1>
+  <div class="module-meta">
+    <span>⛏️ Sector 1 — Mining & Mineral Extraction</span>
+    <span>🎓 Comprehensive Examination</span>
+    <span>🏆 Certification Eligible</span>
+  </div>
+</header>
+<main class="content-body">
+<div class="learning-objectives">
+  <h3>Learning Objectives</h3>
+  <ul>
+    <li>Integrate all c-ECO concepts into coherent mining-sector professional practice.</li>
+    <li>Demonstrate mastery of TFP mathematics, threshold logic, temporal validity, and mining contractual translation.</li>
+    <li>Defend professional judgment under Socratic examination and technical challenge.</li>
+    <li>Qualify for c-ECO Mining Practitioner recognition within the Fellowship track.</li>
+    <li>Articulate a professional identity as a systemic governance specialist for extractive systems.</li>
+  </ul>
+</div>
+<h2>Comprehensive Examination Structure</h2>
+<div class="exam-structure">
+  <div class="exam-header">c-ECO Mining Practitioner Certification Examination</div>
+  <div class="exam-section">
+    <div class="section-title">Part I: Written Examination — 2.5 Hours</div>
+    <p><strong>Format:</strong> Closed-book, individual assessment.</p>
+    <p><strong>Components:</strong></p>
+    <ul style="margin-left:25px;line-height:2;">
+      <li><strong>Section A — Conceptual:</strong> Short-answer questions on pre-threshold mining governance, reversibility, systemic incompatibility, Safe Mode, and Restoration First.</li>
+      <li><strong>Section B — Quantitative:</strong> Problems requiring P, ΔV, σ, Lr calculations from mining data such as pore pressure, displacement, seepage, groundwater drawdown, and restoration capital.</li>
+      <li><strong>Section C — Applied:</strong> Mining case analysis requiring integrated use of TFP classification, temporal validity, and contractual governance.</li>
+    </ul>
+  </div>
+  <div class="exam-section">
+    <div class="section-title">Part II: Oral Examination — 1 Hour</div>
+    <p><strong>Format:</strong> Socratic dialogue with two examiners.</p>
+    <p><strong>Components:</strong></p>
+    <ul style="margin-left:25px;line-height:2;">
+      <li><strong>Case Defense — 30 min:</strong> Present and defend your Module 5 Mining Field Project.</li>
+      <li><strong>Professional Scenario — 20 min:</strong> Respond to a real-time mining scenario involving conflicting technical, legal, financial, and community pressures.</li>
+      <li><strong>Reflection — 10 min:</strong> Articulate how c-ECO changes your professional judgment in mining governance.</li>
+    </ul>
+  </div>
+</div>
+<h2>Competency Domains Assessed</h2>
+<div class="competency-grid">
+  <div class="competency-card">
+    <div class="competency-domain">1. Mining Systemic Foundation</div>
+    <ul style="margin-left:20px;line-height:1.8;">
+      <li>Accident vs. failure trajectory</li>
+      <li>Pre-threshold mining governance</li>
+      <li>Reversibility as governing condition</li>
+      <li>Operational continuity vs. systemic compatibility</li>
+    </ul>
+  </div>
+  <div class="competency-card">
+    <div class="competency-domain">2. Technical Proficiency</div>
+    <ul style="margin-left:20px;line-height:1.8;">
+      <li>TFP variables: P, ΔV, σ, Lr</li>
+      <li>Geotechnical and hydrological signal interpretation</li>
+      <li>Band classification</li>
+      <li>Safe Mode and Restoration First triggers</li>
+    </ul>
+  </div>
+  <div class="competency-card">
+    <div class="competency-domain">3. Legal Architecture</div>
+    <ul style="margin-left:20px;line-height:1.8;">
+      <li>Conditioned continuity of mining obligations</li>
+      <li>Ex-ante unenforceability for aggravating acts</li>
+      <li>Monitoring covenants and trigger clauses</li>
+      <li>Guarantee conversion toward restoration</li>
+    </ul>
+  </div>
+  <div class="competency-card">
+    <div class="competency-domain">4. Temporal Validity</div>
+    <ul style="margin-left:20px;line-height:1.8;">
+      <li>Stale technical reports</li>
+      <li>Expired closure assumptions</li>
+      <li>Restoration cost drift</li>
+      <li>Monitoring frequency as legal condition</li>
+    </ul>
+  </div>
+  <div class="competency-card">
+    <div class="competency-domain">5. Professional Judgment</div>
+    <ul style="margin-left:20px;line-height:1.8;">
+      <li>Decision under geotechnical uncertainty</li>
+      <li>Intervention timing</li>
+      <li>Board, regulator, and community communication</li>
+      <li>Ethical handling of early-warning signals</li>
+    </ul>
+  </div>
+  <div class="competency-card">
+    <div class="competency-domain">6. Communication</div>
+    <ul style="margin-left:20px;line-height:1.8;">
+      <li>Technical clarity</li>
+      <li>Non-technical translation</li>
+      <li>Written precision</li>
+      <li>Oral defense under pressure</li>
+    </ul>
+  </div>
+</div>
+<div class="certification-badge">
+  <div class="badge-icon">🏆</div>
+  <div class="badge-title">c-ECO Mining Practitioner Recognition</div>
+  <p style="font-size:16px;max-width:600px;margin:0 auto;">
+    Upon successful completion of the comprehensive examination, the Fellow may receive recognition for completing the Mining & Mineral Extraction track, demonstrating capacity to apply pre-threshold systemic governance to extractive systems.
+  </p>
+  <p style="margin-top:20px;font-size:14px;opacity:.9;">
+    Recognized practitioners may present this training as controlled Fellowship completion and sectoral competency in mining systemic governance.
+  </p>
+</div>
+<h2>Sample Examination Questions</h2>
+<h3>Section A — Conceptual Example</h3>
+<p>
+<strong>Question:</strong> A mine remains formally permitted and no collapse has occurred. However, pore pressure, seepage variance, slope displacement, and downstream turbidity have all deteriorated for three monitoring cycles. Explain why c-ECO treats this as a legal-operational problem before accident occurrence. Address the distinction between incident response and pre-threshold governance.
+</p>
+<h3>Section B — Quantitative Example</h3>
+<p>
+<strong>Question:</strong> A tailings facility reports current pore pressure of 160 kPa. The critical boundary is 180 kPa. The reference safe state is 90 kPa. Measurement uncertainty is ±10%. Displacement increased from 2 mm/month to 8 mm/month over 24 months. Immediately mobilizable stabilization capital is $18M. Projected technical stabilization cost is $45M. Calculate: (a) P with asymmetric uncertainty, (b) ΔV, (c) Lr, and (d) likely prudential band.
+</p>
+<h3>Section C — Applied Example</h3>
+<p>
+<strong>Question:</strong> You are advising a board that wants to continue production at a high-value mine while commissioning additional studies. Community groups allege downstream contamination. The operator argues that all permits are current and closure bonds are in place. Draft a two-page memorandum explaining whether continuation remains c-ECO-compatible, what data must be verified, and which contractual or operational measures should be triggered immediately.
+</p>
+<div class="review-module-link">
+  <h3>🎓 Structural Review — Mining Module 6</h3>
+  <p>
+    Enter defense simulation mode. Expected: intensive Contradiction Test — defend every mining assumption under pressure.
+  </p>
+  <a href="https://chatgpt.com/g/g-69fa9a2d2738819186e8f195c06067b1-c-eco-review" target="_blank" rel="noopener">
+    Enter Mining Banca Simulation →
+  </a>
+  <p style="margin-top:12px;font-size:12px;color:#6C757D;">
+    Same mining case. Final test. The Engine will attack your premises. Defend them.
+  </p>
+</div>
+<div class="prep-guide">
+  <div class="prep-time">⏱ Preparation Time: Self-Directed — Recommended 20+ Hours</div>
+  <h3>Certification Preparation Guide</h3>
+  <p><strong>Phase 1 — Review:</strong></p>
+  <ul style="margin-left:25px;line-height:2;">
+    <li>Re-read Mining Modules 1–5 and consolidate feedback.</li>
+    <li>Review TFP variables, Safe Mode, Restoration First, and temporal validity.</li>
+    <li>Create a one-page formula and trigger summary for personal preparation.</li>
+  </ul>
+  <p><strong>Phase 2 — Practice:</strong></p>
+  <ul style="margin-left:25px;line-height:2;">
+    <li>Complete timed quantitative problems using mining data.</li>
+    <li>Conduct mock oral examination with a peer or mentor.</li>
+    <li>Prepare answers to the 10 hardest questions about your Module 5 mining project.</li>
+  </ul>
+  <p><strong>Phase 3 — Integration:</strong></p>
+  <ul style="margin-left:25px;line-height:2;">
+    <li>Synthesize your professional theory of mining systemic governance.</li>
+    <li>Prepare a 2-minute, 5-minute, and 10-minute explanation of your case.</li>
+    <li>Practice translating technical risk into board-level and community-facing language.</li>
+  </ul>
+</div>
+<h2>Post-Completion Pathways</h2>
+<p>Successful Fellows may pursue:</p>
+<ul style="margin-left:25px;line-height:2;">
+  <li><strong>Advanced Sectoral Work:</strong> Tailings governance, mine closure, restoration finance, or mining-contract design.</li>
+  <li><strong>Living Lab Participation:</strong> Applied work connected to mining, watershed, or restoration cases.</li>
+  <li><strong>Calibration Support:</strong> Contribution to sectoral parameter development for mining TFP variables.</li>
+  <li><strong>Institutional Practice:</strong> Integration of c-ECO logic into mining governance, lender due diligence, ESG review, or legal advisory work.</li>
+</ul>
+<div class="module-navigation">
+  <a href="fellowship-module5-min.html" class="nav-btn nav-back">
+    ← Return to Mining Module 5
+  </a>
+  <a href="fellowship-portal.html" class="nav-btn nav-next">
+    Fellowship Portal →
+  </a>
+</div>
+<div class="footer-note">
+  <p><strong>Academic Standards:</strong> The c-ECO Mining Practitioner examination requires technical accuracy, legal-operational reasoning, and capacity to defend judgment under uncertainty.</p>
+  <p style="margin-top:15px;">
+    <strong>Congratulations</strong> on completing the c-ECO Mining & Mineral Extraction Track. You are now prepared to analyze extractive systems through pre-threshold systemic governance.
+  </p>
+</div>
+</main>
+</body>
+</html>
