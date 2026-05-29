@@ -3,1156 +3,990 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Board Onboarding — Johann Christian Hasse Foundation</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Trajan+Pro+3&display=swap" rel="stylesheet">
+    <title>c-ECO Predictive Governance Framework — Chapters 2 &amp; 3</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Trajan+Pro+3&display=swap" rel="stylesheet">
     <style>
         :root {
             --gold: #C9A227;
             --gold-light: #D4AF37;
             --gold-dark: #8B6914;
             --gold-pale: #F5F0E8;
+            --gold-faint: rgba(201,162,39,0.08);
             --ink: #1A1A1A;
             --ink-light: #444;
+            --ink-muted: #666;
             --cream: #FDFCF8;
             --border-gold: 1.5px solid var(--gold);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 70px; }
         body {
             font-family: 'Cormorant Garamond', Georgia, serif;
             background: linear-gradient(135deg, #f5f0e8 0%, #ede6d8 100%);
-            color: var(--ink); line-height: 1.6; font-size: 11pt; min-height: 100vh;
+            color: var(--ink); line-height: 1.65; font-size: 11.5pt;
         }
+
+        /* ========== LETTERHEAD ========== */
         .letterhead {
-            text-align: center; padding: 0.4in 0.75in 0.2in;
-            border-bottom: 1px solid var(--gold); margin-bottom: 0; background: white;
+            text-align: center; padding: 0.5in 0.75in 0.25in;
+            border-bottom: 1px solid var(--gold); background: white;
+            position: sticky; top: 0; z-index: 90;
         }
-        .seal { width: 1.3in; height: 1.3in; margin: 0 auto 0.1in; }
+        .seal { width: 1.1in; height: 1.1in; margin: 0 auto 0.08in; }
         .seal img { width: 100%; height: 100%; object-fit: contain; }
         .org-name {
             font-family: 'Trajan Pro 3', 'Times New Roman', serif;
-            font-size: 15pt; color: var(--gold-dark); letter-spacing: 0.08em; text-transform: uppercase;
+            font-size: 13pt; color: var(--gold-dark); letter-spacing: 0.08em; text-transform: uppercase;
         }
-        .org-address { font-size: 9pt; color: #666; margin-top: 0.03in; font-style: italic; }
+        .org-address { font-size: 8.5pt; color: #777; margin-top: 0.03in; font-style: italic; }
         .org-motto {
-            font-size: 8pt; color: var(--gold); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 0.05in;
+            font-size: 7.5pt; color: var(--gold); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 0.04in;
         }
+
+        /* ========== NAVIGATION ========== */
+        .nav-bar {
+            display: flex; justify-content: center; gap: 0;
+            background: white; border-bottom: 1px solid var(--gold);
+            position: sticky; top: 0; z-index: 80;
+            flex-wrap: wrap;
+        }
+        .nav-bar a {
+            padding: 0.1in 0.2in; font-family: 'Trajan Pro 3', serif; font-size: 7.5pt;
+            color: #888; text-transform: uppercase; letter-spacing: 0.05em;
+            text-decoration: none; border-bottom: 2px solid transparent;
+            transition: all 0.3s; white-space: nowrap;
+        }
+        .nav-bar a:hover { color: var(--gold-dark); }
+        .nav-bar a.active { color: var(--gold-dark); border-bottom-color: var(--gold); }
+
+        /* ========== PAGE ========== */
+        .page-wrap { max-width: 8.5in; margin: 0 auto; }
         .page {
-            width: 8.5in; min-height: 11in; margin: 0 auto; background: white;
-            position: relative; box-shadow: 0 0 30px rgba(0,0,0,0.12); padding: 0 0.75in 0.75in;
+            background: white; position: relative; box-shadow: 0 0 30px rgba(0,0,0,0.12);
+            padding: 0.6in 0.75in 0.75in; min-height: 11in;
         }
         .page::before {
-            content: ''; position: absolute; top: 0.3in; left: 0.3in; right: 0.3in; bottom: 0.3in;
+            content: ''; position: absolute; top: 0.25in; left: 0.25in; right: 0.25in; bottom: 0.25in;
             border: var(--border-gold); pointer-events: none; z-index: 1;
         }
         .page::after {
-            content: ''; position: absolute; top: 0.4in; left: 0.4in; right: 0.4in; bottom: 0.4in;
-            border: 0.5px solid var(--gold-light); pointer-events: none; opacity: 0.5; z-index: 1;
+            content: ''; position: absolute; top: 0.35in; left: 0.35in; right: 0.35in; bottom: 0.35in;
+            border: 0.5px solid var(--gold-light); pointer-events: none; opacity: 0.4; z-index: 1;
         }
-        .content { padding-top: 0.3in; position: relative; z-index: 2; }
-        .date-place { text-align: right; font-style: italic; margin-bottom: 0.25in; color: #555; font-size: 10pt; }
-        .salutation { font-weight: 600; margin-bottom: 0.15in; font-size: 11pt; }
-        .body-text p { margin-bottom: 0.12in; text-align: justify; text-indent: 0.2in; }
-        .body-text p.no-indent { text-indent: 0; }
-        .section-header {
-            font-family: 'Trajan Pro 3', serif; font-size: 10pt; color: var(--gold-dark);
+        .content { position: relative; z-index: 2; }
+
+        /* ========== DOCUMENT HEADER ========== */
+        .doc-header { text-align: center; margin-bottom: 0.3in; padding-bottom: 0.2in; border-bottom: 0.5px solid var(--gold-light); }
+        .doc-title {
+            font-family: 'Trajan Pro 3', serif; font-size: 14pt; color: var(--gold-dark);
+            text-transform: uppercase; letter-spacing: 0.08em; line-height: 1.4;
+        }
+        .doc-subtitle { font-size: 10pt; color: var(--ink-muted); margin-top: 0.08in; font-style: italic; }
+        .doc-meta { font-size: 8.5pt; color: #888; margin-top: 0.1in; letter-spacing: 0.03em; }
+
+        /* ========== CHAPTER HEADERS ========== */
+        .chapter-title {
+            font-family: 'Trajan Pro 3', serif; font-size: 16pt; color: var(--gold-dark);
+            text-transform: uppercase; letter-spacing: 0.1em; text-align: center;
+            margin: 0.4in 0 0.3in; padding: 0.15in 0;
+            border-top: 2px solid var(--gold); border-bottom: 2px solid var(--gold);
+        }
+        .chapter-number { display: block; font-size: 11pt; color: var(--gold); margin-bottom: 0.05in; letter-spacing: 0.15em; }
+
+        /* ========== SECTION HEADERS ========== */
+        .section-title {
+            font-family: 'Trajan Pro 3', serif; font-size: 11pt; color: var(--gold-dark);
             text-transform: uppercase; letter-spacing: 0.06em;
-            margin: 0.22in 0 0.12in; border-left: 2.5px solid var(--gold); padding-left: 0.1in;
+            margin: 0.35in 0 0.15in; border-left: 3px solid var(--gold); padding-left: 0.12in;
         }
+
+        /* ========== BODY TEXT ========== */
+        .body-text p {
+            margin-bottom: 0.14in; text-align: justify; text-indent: 0.25in;
+        }
+        .body-text p.no-indent { text-indent: 0; }
+        .body-text strong { color: var(--ink); font-weight: 700; }
+
+        /* ========== PROBLEM / SOLUTION BOXES ========== */
+        .problem-box {
+            background: linear-gradient(135deg, #FFF5F0 0%, #FDF0E8 100%);
+            border-left: 4px solid #C75B39; padding: 0.12in 0.18in; margin: 0.15in 0;
+            border-radius: 0 3px 3px 0;
+        }
+        .problem-box .label {
+            font-family: 'Trajan Pro 3', serif; font-size: 9pt; color: #C75B39;
+            text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.06in; display: block;
+        }
+        .problem-box p { text-indent: 0; margin-bottom: 0.06in; }
+        .problem-box p:last-child { margin-bottom: 0; }
+
+        .solution-box {
+            background: linear-gradient(135deg, #F5FAF5 0%, #E8F5E8 100%);
+            border-left: 4px solid #2E7D32; padding: 0.12in 0.18in; margin: 0.15in 0;
+            border-radius: 0 3px 3px 0;
+        }
+        .solution-box .label {
+            font-family: 'Trajan Pro 3', serif; font-size: 9pt; color: #2E7D32;
+            text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.06in; display: block;
+        }
+        .solution-box p { text-indent: 0; margin-bottom: 0.06in; }
+        .solution-box p:last-child { margin-bottom: 0; }
+
         .highlight-box {
-            background: linear-gradient(135deg, #FDFCF8 0%, #F5F0E8 100%);
+            background: linear-gradient(135deg, var(--cream) 0%, var(--gold-pale) 100%);
             border: 1px solid var(--gold-light); padding: 0.12in 0.15in; margin: 0.15in 0; border-radius: 2px;
         }
-        .highlight-box p { margin-bottom: 0.06in; text-indent: 0; }
+        .highlight-box p { text-indent: 0; margin-bottom: 0.06in; }
         .highlight-box p:last-child { margin-bottom: 0; }
-        .signature-block { margin-top: 0.4in; display: flex; justify-content: space-between; }
-        .signature { width: 42%; }
-        .signature-line { border-bottom: 1px solid var(--ink); height: 0.35in; margin-bottom: 0.04in; }
-        .signature-name { font-weight: 600; font-size: 10pt; }
-        .signature-title { font-size: 9pt; color: #555; font-style: italic; }
-        .doc-footer {
-            margin-top: 0.3in; text-align: center; font-size: 8pt; color: #888;
-            border-top: 0.5px solid var(--gold-light); padding-top: 0.08in;
+
+        /* ========== TABLES ========== */
+        table {
+            width: 100%; border-collapse: collapse; font-size: 9.5pt;
+            margin: 0.2in 0;
         }
+        thead tr {
+            background: var(--gold-pale); border-bottom: 2px solid var(--gold);
+        }
+        th {
+            padding: 0.08in 0.06in; text-align: left;
+            font-family: 'Trajan Pro 3', serif; font-size: 8pt;
+            color: var(--gold-dark); text-transform: uppercase; letter-spacing: 0.04em;
+        }
+        td { padding: 0.07in 0.06in; border-bottom: 1px solid #e8e0d0; vertical-align: top; }
+        tr:hover { background: var(--gold-faint); }
+        td:first-child { font-weight: 600; color: var(--ink); }
+
+        /* ========== BULLETS ========== */
+        .bullet-list { margin: 0.1in 0 0.1in 0.3in; }
+        .bullet-list li {
+            margin-bottom: 0.06in; list-style-type: disc; text-indent: 0;
+        }
+
+        /* ========== SOURCE TABLE ========== */
+        .source-table { font-size: 8.5pt; }
+        .source-table th { font-size: 7pt; }
+        .source-table td { padding: 0.05in 0.04in; }
+        .class-a { color: #2E7D32; font-weight: 700; }
+        .class-b { color: var(--gold-dark); font-weight: 600; }
+        .class-c { color: #888; }
+        .class-cec { color: #1565C0; font-weight: 600; }
+
+        /* ========== SYNTHESIS TABLE ========== */
+        .synth-table td:first-child { font-weight: 600; color: var(--gold-dark); background: var(--gold-faint); }
+        .synth-table td:nth-child(2) { font-weight: 500; }
+        .synth-table td:nth-child(3) { font-size: 8.5pt; color: #555; }
+
+        /* ========== PHASE TABLE ========== */
+        .phase-table td:first-child { font-weight: 700; color: var(--gold-dark); text-align: center; width: 5%; }
+        .phase-table td:nth-child(2) { font-weight: 600; width: 15%; }
+        .phase-table td:nth-child(3) { font-style: italic; color: var(--ink-muted); width: 12%; }
+
+        /* ========== STAGE TABLE ========== */
+        .stage-table td:first-child { font-weight: 700; color: var(--gold-dark); width: 5%; }
+        .stage-table td:nth-child(2) { font-weight: 600; width: 18%; }
+        .stage-table td:nth-child(3) { font-style: italic; color: var(--ink-muted); width: 12%; }
+
+        /* ========== TOOL TABLE ========== */
+        .tool-table td:first-child { font-weight: 700; color: #2E7D32; background: rgba(46,125,50,0.06); }
+        .tool-table td:nth-child(2) { font-weight: 600; color: var(--gold-dark); }
+
+        /* ========== PAGE BREAK ========== */
+        .page-break {
+            page-break-before: always;
+            border-top: 1px dashed var(--gold-light); margin: 0.3in 0; padding-top: 0.3in;
+        }
+
+        /* ========== DOC FOOTER ========== */
+        .doc-footer {
+            margin-top: 0.4in; text-align: center; font-size: 8pt; color: #999;
+            border-top: 0.5px solid var(--gold-light); padding-top: 0.1in;
+        }
+
+        /* ========== PRINT BAR ========== */
         .print-bar {
             position: fixed; bottom: 0; left: 0; right: 0; background: white;
-            border-top: 2px solid var(--gold); padding: 0.12in;
+            border-top: 2px solid var(--gold); padding: 0.1in;
             display: flex; justify-content: center; gap: 0.15in;
             box-shadow: 0 -4px 15px rgba(0,0,0,0.1); z-index: 100;
         }
         .btn {
-            padding: 0.08in 0.25in; border: 1px solid var(--gold); background: white;
-            color: var(--gold-dark); font-family: 'Trajan Pro 3', serif; font-size: 9pt;
+            padding: 0.07in 0.2in; border: 1px solid var(--gold); background: white;
+            color: var(--gold-dark); font-family: 'Trajan Pro 3', serif; font-size: 8pt;
             cursor: pointer; text-transform: uppercase; letter-spacing: 0.05em;
             transition: all 0.3s; text-decoration: none; display: inline-block;
         }
         .btn:hover { background: var(--gold); color: white; }
         .btn-primary { background: var(--gold); color: white; }
         .btn-primary:hover { background: var(--gold-dark); }
-        .certificate-page {
-            width: 11in; height: 14in; margin: 0.5in auto; background: var(--cream);
-            position: relative; box-shadow: 0 0 40px rgba(0,0,0,0.15); display: none;
-        }
-        .certificate-page.active { display: block; }
-        .cert-border-outer { position: absolute; top: 0.25in; left: 0.25in; right: 0.25in; bottom: 0.25in; border: 2px solid var(--gold); }
-        .cert-border-middle { position: absolute; top: 0.35in; left: 0.35in; right: 0.35in; bottom: 0.35in; border: 1px solid var(--gold-light); }
-        .cert-border-inner { position: absolute; top: 0.45in; left: 0.45in; right: 0.45in; bottom: 0.45in; border: 0.5px solid var(--gold); background: linear-gradient(180deg, #FDFCF8 0%, #F5F0E8 50%, #FDFCF8 100%); }
-        .cert-corner { position: absolute; width: 0.5in; height: 0.5in; border: 2px solid var(--gold); }
-        .cert-corner-tl { top: 0.3in; left: 0.3in; border-right: none; border-bottom: none; }
-        .cert-corner-tr { top: 0.3in; right: 0.3in; border-left: none; border-bottom: none; }
-        .cert-corner-bl { bottom: 0.3in; left: 0.3in; border-right: none; border-top: none; }
-        .cert-corner-br { bottom: 0.3in; right: 0.3in; border-left: none; border-top: none; }
-        .cert-content {
-            position: absolute; top: 0.6in; left: 0.6in; right: 0.6in; bottom: 0.6in;
-            display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 0.3in 0;
-        }
-        .cert-seal-large {
-    width: 1.8in;
-    height: 1.8in;
-    margin: 0 auto 0.1in;
-}
 
-.cert-seal-large img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-}
-        .cert-header-text { text-align: center; }
-        .cert-org-name { font-family: 'Trajan Pro 3', serif; font-size: 14pt; color: var(--gold-dark); letter-spacing: 0.1em; text-transform: uppercase; }
-        .cert-org-sub { font-size: 9pt; color: #666; font-style: italic; }
-        .cert-divider { width: 2.5in; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 0.15in 0; }
-        .cert-title { font-family: 'Trajan Pro 3', serif; font-size: 20pt; color: var(--gold-dark); text-transform: uppercase; letter-spacing: 0.15em; text-align: center; line-height: 1.3; }
-        .cert-subtitle { font-size: 10pt; color: #555; letter-spacing: 0.2em; text-transform: uppercase; }
-        .cert-recipient { font-family: 'Trajan Pro 3', serif; font-size: 24pt; color: var(--ink); text-align: center; margin: 0.2in 0; border-bottom: 1px solid var(--gold); padding-bottom: 0.08in; display: inline-block; }
-        .cert-body { text-align: center; font-size: 11pt; line-height: 1.7; max-width: 6in; }
-        .cert-body p { margin: 0.08in 0; }
-        .cert-details { border: 1px solid var(--gold-light); padding: 0.12in 0.25in; margin: 0.15in 0; background: rgba(201, 162, 39, 0.05); }
-        .cert-signatures { display: flex; justify-content: center; gap: 0.8in; }
-        .cert-sig { text-align: center; width: 2.2in; }
-        .cert-sig-line { border-bottom: 1px solid var(--ink); height: 0.4in; margin-bottom: 0.04in; }
-        .cert-footer { text-align: center; font-size: 8pt; color: var(--gold-dark); letter-spacing: 0.2em; text-transform: uppercase; }
-        .form-page { display: none; }
-        .form-page.active { display: block; }
-        .form-section { margin-bottom: 0.25in; }
-        .form-label { font-weight: 600; font-size: 10pt; margin-bottom: 0.05in; display: block; }
-        .form-field {
-            width: 100%; padding: 0.06in; border: 1px solid #ccc; border-bottom: 2px solid var(--gold);
-            font-family: 'Cormorant Garamond', serif; font-size: 11pt; background: #fafafa; margin-bottom: 0.1in;
-        }
-        .form-field:focus { outline: none; border-bottom-color: var(--gold-dark); background: white; }
-        .checkbox-group { display: flex; gap: 0.15in; margin-bottom: 0.08in; }
-        .checkbox-group label { display: flex; align-items: center; gap: 0.03in; font-size: 10pt; }
-        .nav-tabs {
-            display: flex; justify-content: center; gap: 0; background: white;
-            border-bottom: 1px solid var(--gold); position: sticky; top: 0; z-index: 50;
-        }
-        .nav-tab {
-            padding: 0.1in 0.2in; border: none; background: transparent;
-            font-family: 'Trajan Pro 3', serif; font-size: 8pt; color: #888;
-            cursor: pointer; text-transform: uppercase; letter-spacing: 0.05em;
-            border-bottom: 2px solid transparent; transition: all 0.3s;
-        }
-        .nav-tab:hover { color: var(--gold-dark); }
-        .nav-tab.active { color: var(--gold-dark); border-bottom-color: var(--gold); }
+        /* ========== ANCHOR OFFSET ========== */
+        .anchor { position: relative; top: -50px; }
+
+        /* ========== RESPONSIVE ========== */
         @media (max-width: 768px) {
-            .page, .certificate-page { width: 100%; min-height: auto; padding: 0.2in; }
-            .page::before, .page::after, .cert-border-outer, .cert-border-middle, .cert-border-inner, .cert-corner { display: none; }
-            .signature-block { flex-direction: column; gap: 0.15in; }
-            .signature { width: 100%; }
-            .cert-signatures { flex-direction: column; gap: 0.2in; }
-            .cert-sig { width: 100%; }
-            .print-bar { flex-wrap: wrap; padding: 0.08in; }
-            .nav-tabs { flex-wrap: wrap; }
+            .page { padding: 0.3in 0.2in; }
+            .page::before, .page::after { display: none; }
+            .nav-bar a { font-size: 7pt; padding: 0.08in 0.12in; }
+            table { font-size: 8pt; }
+            .doc-title { font-size: 11pt; }
+            .chapter-title { font-size: 12pt; }
         }
         @media print {
             body { background: white; }
-            .page, .certificate-page { box-shadow: none; margin: 0; width: 8.5in; }
-            .certificate-page { width: 11in; height: 14in; page-break-before: always; }
-            .print-bar, .nav-tabs { display: none !important; }
+            .page { box-shadow: none; margin: 0; }
+            .print-bar, .nav-bar { display: none !important; }
             .page::before, .page::after { display: block; }
-            .certificate-page.active { display: block !important; }
-            .form-page.active { display: block !important; }
+            .page-break { border: none; margin: 0; padding: 0; }
         }
     </style>
 </head>
 <body>
 
 <!-- NAVIGATION -->
-    <div class="nav-tabs">
-        <button class="nav-tab active" onclick="showTab('appointment')">Appointment Letter</button>
-        <button class="nav-tab" onclick="showTab('certificate')">Certificate</button>
-        <button class="nav-tab" onclick="showTab('resolution')">Board Resolution</button>
-        <button class="nav-tab" onclick="showTab('coi')">Conflict of Interest</button>
-        <button class="nav-tab" onclick="showTab('matrix')">Recusal Matrix</button>
+<div class="nav-bar" id="navbar">
+    <a href="#top" class="active">Top</a>
+    <a href="#ch2">Ch. 2 &mdash; Diagnosis</a>
+    <a href="#s21">2.1 Framework</a>
+    <a href="#s22">2.2 Insurance</a>
+    <a href="#s23">2.3 Infrastructure</a>
+    <a href="#s24">2.4 Sovereign</a>
+    <a href="#s25">2.5 Repricing</a>
+    <a href="#s26">2.6 Cascade</a>
+    <a href="#ch3">Ch. 3 &mdash; Deficits</a>
+    <a href="#s31">3.1 Speed</a>
+    <a href="#s32">3.2 Silos</a>
+    <a href="#s33">3.3 Reactive</a>
+    <a href="#s34">3.4 Data</a>
+    <a href="#s35">3.5 Inertia</a>
+    <a href="#s36">3.6 Stages</a>
+    <a href="#synth">Synthesis</a>
+    <a href="#refs">References</a>
+</div>
+
+<!-- PRINT BAR -->
+<div class="print-bar">
+    <button class="btn" onclick="window.print()">Print Document</button>
+    <a class="btn btn-primary" href="#ch2">Chapter 2</a>
+    <a class="btn btn-primary" href="#ch3">Chapter 3</a>
+    <a class="btn" href="#synth">Synthesis</a>
+    <a class="btn" href="#refs">References</a>
+</div>
+
+<div class="page-wrap">
+<div class="page">
+
+<!-- LETTERHEAD -->
+<div class="letterhead" id="top">
+    <div class="seal">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Seal_sample.svg/200px-Seal_sample.svg.png" alt="Johann Christian Hasse Foundation Seal">
     </div>
-
-    <!-- PRINT BAR -->
-    <div class="print-bar">
-        <button class="btn" onclick="window.print()">🖨️ Print All</button>
-        <button class="btn btn-primary" onclick="showTab('appointment'); setTimeout(() => window.print(), 100)">📄 Appointment Letter</button>
-        <button class="btn" onclick="showTab('certificate'); setTimeout(() => window.print(), 100)">🏆 Certificate</button>
-        <button class="btn" onclick="showTab('coi'); setTimeout(() => window.print(), 100)">📝 COI Form</button>
-    </div>
-
-    <!-- ===== TAB 1: APPOINTMENT LETTER ===== -->
-    <div id="appointment" class="tab-content">
-        <div class="page">
-            <!-- Letterhead -->
-            <div class="letterhead">
-                <div class="seal">
-                    <img src="seal.PNG" alt="Johann Christian Hasse Foundation Seal">
-                </div>
-                <div class="org-name">Johann Christian Hasse Foundation</div>
-                <div class="org-address">2504 Grandview Circle • Columbia, Missouri 65203 • United States of America</div>
-                <div class="org-motto">Mani Festum Societatis • Caritas • Continuitas • Auctoritas</div>
-            </div>
-
-            <div class="content">
-                <div class="date-place">
-                    Columbia, Missouri, <span id="appt-date">[DATE]</span>
-                </div>
-
-                <div class="salutation">
-                    Dear <span id="appt-name">[FULL NAME]</span>
-                </div>
-
-                <div class="body-text">
-                    <p>By this letter, I have the honor to confirm your formal appointment as a member of the <strong>Board of Directors</strong> of the <strong>Johann Christian Hasse Foundation</strong>, a nonprofit public benefit corporation organized under the laws of the State of Missouri, pursuant to <strong>Board Resolution No. <span id="appt-resolution">[___]</span></strong>, dated <span id="appt-resolution-date">[DATE]</span>, adopted unanimously by the Directors in office.</p>
-
-                    <div class="section-header">I. Nature of the Mandate</div>
-
-                    <p>Your appointment shall take effect on <span id="appt-start">[START DATE]</span>, for an initial term of <strong>three (3) years</strong>, renewable by Board resolution, in accordance with Article IV, Section 4.04, of the Foundation's Bylaws. This is a <strong>voluntary service agreement</strong> and does not constitute an employment contract. No compensation shall be due for the performance of your duties as Director, except for reimbursement of reasonable expenses previously approved, in compliance with the Foundation's <em>Compensation & Reasonableness Policy</em>.</p>
-
-                    <div class="section-header">II. Functions and Responsibilities</div>
-
-                    <p>As a member of the Board, you shall be responsible for:</p>
-
-                    <div class="highlight-box">
-                        <p><strong>(a)</strong> The exercise of governance, oversight, and ultimate fiduciary authority over the affairs of the Foundation;</p>
-                        <p><strong>(b)</strong> Participation in annual Board meetings, ordinary or extraordinary, in person or by electronic means;</p>
-                        <p><strong>(c)</strong> Contribution to the integrity, continuity, and alignment of the systemic governance frameworks sponsored by the Foundation, including the c-ECO Model Law, the Threshold Function Protocol (TFP), and the Integrated Operational Manual (IOM);</p>
-                        <p><strong>(d)</strong> Representation of the Foundation in relevant international forums, promoting the understanding of the c-ECO regime as prudential market infrastructure;</p>
-                        <p><strong>(e)</strong> Participation in technical or special Committees, when established by the Board, in accordance with Article VI of the Bylaws.</p>
-                    </div>
-
-                    <div class="section-header">III. Fiduciary Duties</div>
-
-                    <p>You undertake to discharge your duties <em>in good faith</em>, with the <strong>diligence of a prudent person</strong> in a like position, in a manner reasonably believed to be in the <strong>best interests of the Foundation</strong>, in strict compliance with the Bylaws, the <em>ECO Institutional Governance Protocol</em>, and the policies on <em>Conflict of Interest</em>, <em>Whistleblower & Governance Integrity</em>, and <em>Compensation & Reasonableness</em>, with immediate recusal from any deliberation in which a real or apparent conflict of interest exists.</p>
-
-                    <div class="section-header">IV. Supplementary Documentation</div>
-
-                    <p>Attached to this letter (available for download on the digital portal), you will find:</p>
-
-                    <div class="highlight-box">
-                        <p>1. Copy of the Foundation's Bylaws;</p>
-                        <p>2. ECO Institutional Governance Protocol;</p>
-                        <p>3. Conflict of Interest Policy;</p>
-                        <p>4. Conflict of Interest Disclosure Form (to be completed online);</p>
-                        <p>5. Whistleblower & Governance Integrity Policy;</p>
-                        <p>6. Compensation & Reasonableness Policy;</p>
-                        <p>7. Personalized Pre-Clearance Matrix (mandatory recusal guide).</p>
-                    </div>
-
-                    <p>We request the submission of the <strong>Conflict of Interest Disclosure Form</strong>, duly completed, within <strong>thirty (30) days</strong> from the date of this letter, via the secure portal.</p>
-
-                    <div class="section-header">V. Formal Acceptance</div>
-
-                    <p>This appointment is conditioned upon your express acceptance, which may be communicated by reply to this letter, by email addressed to <strong>board@c-eco.org</strong>, or by any other means that leaves unequivocal record of the appointee's will.</p>
-
-                    <div class="section-header">VI. Renewal and Resignation</div>
-
-                    <p>The mandate may be renewed by Board resolution. Resignation may be communicated at any time, in writing, with a minimum advance notice of sixty (60) days, addressed to the President or Secretary of the Foundation.</p>
-
-                    <div class="section-header">VII. Final Provisions</div>
-
-                    <p>The Foundation recognizes that your contribution transcends the formal exercise of corporate governance. This is an invitation to co-construct a legal-institutional architecture capable of operationalizing, at transnational scale, the primacy of the <em>Safe Operating Space</em> over private, administrative, or state autonomy — without delegation of sovereignty, without substitution of the environmental public order, and without creating new regulation, but providing prudential market infrastructure for the implementation of existing expectations.</p>
-
-                    <p>Confident that this appointment will significantly strengthen the Foundation's institutional capacity to fulfill its mission of <strong>charity, education, science, and research</strong>, I remain available for any additional clarifications.</p>
-                </div>
-
-                <div class="signature-block">
-                    <div class="signature">
-                        <div class="signature-line"></div>
-                        <div class="signature-name">Jacqueline Alves</div>
-                        <div class="signature-title">President & Treasurer</div>
-                    </div>
-                    <div class="signature">
-                        <div class="signature-line"></div>
-                        <div class="signature-name">Viktoriya Zhelyazkova</div>
-                        <div class="signature-title">Secretary & Compliance Officer</div>
-                    </div>
-                </div>
-
-                <div class="doc-footer">
-                    Document issued in compliance with Board Resolution No. 001 and the ECO Institutional Governance Protocol.<br>
-                    Johann Christian Hasse Foundation • 2504 Grandview Circle, Columbia, Missouri 65203
-                </div>
-            </div>
-        </div>
-    </div>
-
-<!-- ===== TAB 2: CERTIFICATE ===== -->
-    <div id="certificate" class="tab-content" style="display:none;">
-        <div class="certificate-page active">
-            <div class="cert-border-outer"></div>
-            <div class="cert-border-middle"></div>
-            <div class="cert-border-inner"></div>
-
-            <div class="cert-corner cert-corner-tl"></div>
-            <div class="cert-corner cert-corner-tr"></div>
-            <div class="cert-corner cert-corner-bl"></div>
-            <div class="cert-corner cert-corner-br"></div>
-
-            <div class="cert-content">
-                <div>
-                    <div class="cert-seal-large">
-                        <img src="seal.PNG" alt="Johann Christian Hasse Foundation Seal">
-                    </div>
-
-                    <div class="cert-header-text">
-                        <div class="cert-org-name">Johann Christian Hasse Foundation</div>
-                        <div class="cert-org-sub">A Missouri Nonprofit Public Benefit Corporation</div>
-                        <div class="cert-org-sub">Organized under Section 501(c)(3) of the Internal Revenue Code</div>
-                    </div>
-                </div>
-
-                <div class="cert-divider"></div>
-
-                <div class="cert-title">
-                    Certificate<br>of Appointment<br>to the<br>Board of Directors
-                </div>
-
-                <div class="cert-subtitle">Duly Adopted by Board Resolution</div>
-
-                <div class="cert-divider"></div>
-
-                <div class="cert-body">
-                    <p>This is to certify that</p>
-
-                    <div class="cert-recipient" id="cert-name">[FULL NAME]</div>
-
-                    <p>has been duly appointed to the</p>
-                    <p><strong style="font-size: 13pt; letter-spacing: 0.1em;">BOARD OF DIRECTORS</strong></p>
-                    <p>of the</p>
-                    <p><strong style="color: var(--gold-dark);">JOHANN CHRISTIAN HASSE FOUNDATION</strong></p>
-
-                    <div class="cert-details">
-                        <p>Pursuant to <strong>Board Resolution No. <span id="cert-resolution">[___]</span></strong></p>
-                        <p>Adopted on <strong><span id="cert-adopted">[DATE]</span></strong></p>
-                        <p>Effective <strong><span id="cert-effective">[DATE]</span></strong></p>
-                        <p>Initial term: <strong>Three (3) years</strong></p>
-                    </div>
-
-                    <p style="font-style: italic; font-size: 9pt; margin-top: 0.15in;">
-                        This appointment is made in recognition of distinguished professional<br>
-                        accomplishment and commitment to the advancement of<br>
-                        systemic governance, biophysical integrity, and transnational legal innovation.
-                    </p>
-                </div>
-
-                <div class="cert-signatures">
-                    <div class="cert-sig">
-                        <div class="cert-sig-line"></div>
-                        <div style="font-weight: 600; font-size: 10pt;">Jacqueline Alves</div>
-                        <div style="font-size: 9pt; color: #555; font-style: italic;">President & Treasurer</div>
-                    </div>
-                    <div class="cert-sig">
-                        <div class="cert-sig-line"></div>
-                        <div style="font-weight: 600; font-size: 10pt;">Viktoriya Zhelyazkova</div>
-                        <div style="font-size: 9pt; color: #555; font-style: italic;">Secretary & Compliance Officer</div>
-                    </div>
-                </div>
-
-                <div class="cert-footer">
-                    Mani Festum Societatis • Caritas • Continuitas • Auctoritas
-                </div>
-            </div>
-        </div>
-    </div>
-
-<!-- ===== TAB 3: BOARD RESOLUTION ===== -->
-    <div id="resolution" class="tab-content" style="display:none;">
-        <div class="page">
-            <div class="letterhead">
-                <div class="seal">
-                    <img src="seal.PNG" alt="Johann Christian Hasse Foundation Seal">
-                </div>
-                <div class="org-name">Johann Christian Hasse Foundation</div>
-                <div class="org-address">2504 Grandview Circle • Columbia, Missouri 65203 • United States of America</div>
-                <div class="org-motto">Manete Paulisper ut Expediamus Celerius</div>
-            </div>
-
-            <div class="content">
-                <div style="text-align: center; margin-bottom: 0.2in;">
-                    <div style="font-family: 'Trajan Pro 3', serif; font-size: 12pt; color: var(--gold-dark); text-transform: uppercase; letter-spacing: 0.1em;">
-                        Board Resolution No. <span id="res-number">[002/2026]</span>
-                    </div>
-                    <div style="font-size: 9pt; color: #666; margin-top: 0.05in;">
-                        Resolution of the Board of Directors
-                    </div>
-                </div>
-
-                <div class="date-place" style="text-align: left; font-style: normal;">
-                    Columbia, Missouri, <span id="res-date">[MEETING DATE]</span>
-                </div>
-
-                <div class="body-text">
-                    <p class="no-indent"><strong>PREAMBLE</strong></p>
-
-                    <p>WHEREAS, the Johann Christian Hasse Foundation (the "Foundation") was duly incorporated as a Missouri Nonprofit Public Benefit Corporation and is organized exclusively for charitable, educational, scientific, and research purposes consistent with Section 501(c)(3) of the Internal Revenue Code;</p>
-
-                    <p>WHEREAS, the Board of Directors (the "Board") possesses ultimate governance, oversight, and fiduciary authority over the affairs of the Foundation, pursuant to Article IV of the Bylaws;</p>
-
-                    <p>WHEREAS, the Foundation seeks to strengthen its institutional capacity, transnational reach, and doctrinal authority in systemic governance by expanding the composition of the Board to include distinguished professionals of international standing in corporate law, transnational litigation, and juridical-academic institutions;</p>
-
-                    <p>WHEREAS, <span id="res-nominees">Rodolfo Rudy Rivera and André Augusto Malcher Meira</span> have been formally invited to serve as Directors and have communicated their acceptance in writing;</p>
-
-                    <p>NOW, THEREFORE, the Board of Directors hereby adopts the following resolutions:</p>
-
-                    <div class="section-header">Section 1 — Confirmation of Acceptance</div>
-
-                    <p>RESOLVED, that the acceptance by <span id="res-acceptance">Rodolfo Rudy Rivera and André Augusto Malcher Meira</span> of their appointment to the Board of Directors is hereby confirmed and ratified; and</p>
-
-                    <p>RESOLVED FURTHER, that their respective appointments shall be effective as of the date of this Resolution.</p>
-
-                    <div class="section-header">Section 2 — Appointment of Directors</div>
-
-                    <p>RESOLVED, that the following individuals are hereby formally appointed as Directors of the Johann Christian Hasse Foundation, each to serve an initial term of three (3) years, unless sooner removed, resigned, or deceased:</p>
-
-                    <div class="highlight-box">
-                        <p><strong>2.1 Rodolfo Rudy Rivera</strong></p>
-                        <p>Chief International Counsel, Fidelity National Financial</p>
-                        <p>Adjunct Professor, Washington University in St. Louis</p>
-                        <p>Term: <span id="res-term-rivera">[DATE] through [DATE + 3 years]</span></p>
-
-                        <p style="margin-top: 0.1in;"><strong>2.2 André Augusto Malcher Meira</strong></p>
-                        <p>President, Instituto Silvio Meira (ISM)</p>
-                        <p>President, Colégio de Presidentes das Academias Jurídicas do Brasil (COPAJUB)</p>
-                        <p>Term: <span id="res-term-meira">[DATE] through [DATE + 3 years]</span></p>
-                    </div>
-
-                    <div class="section-header">Section 3 — Ratification of Governance Documents</div>
-
-                    <p>RESOLVED, that each newly appointed Director shall be bound by, and shall acknowledge receipt of, the following governing documents of the Foundation: (a) Bylaws; (b) ECO Institutional Governance Protocol; (c) Conflict of Interest Policy; (d) Compensation & Reasonableness Policy; (e) Whistleblower & Governance Integrity Policy; (f) Document Retention Policy.</p>
-
-                    <div class="section-header">Section 4 — Fiduciary Duties and Standards of Conduct</div>
-
-                    <p>RESOLVED, that each Director shall discharge their duties: (a) In good faith; (b) With the care an ordinarily prudent person in a like position would exercise under similar circumstances; (c) In a manner reasonably believed to be in the best interests of the Foundation; (d) In compliance with all applicable laws, regulations, and the Foundation's governing documents.</p>
-
-                    <div class="section-header">Section 5 — Committee Assignments</div>
-
-                    <p>RESOLVED, that Committee assignments shall be determined by the Board at the next annual meeting, or by the President with subsequent ratification by the Board; and</p>
-
-                    <p>RESOLVED FURTHER, that the Technical Committee and the Calibration Committee, when established, shall be available for participation by all Directors, subject to expertise and availability.</p>
-
-                    <div class="section-header">Section 6 — Compensation and Expense Reimbursement</div>
-
-                    <p>RESOLVED, that service as Director is voluntary and without compensation, except for reimbursement of reasonable expenses incurred in the performance of Board duties, pre-approved by the President or Treasurer and documented in accordance with the Compensation & Reasonableness Policy; and</p>
-
-                    <p>RESOLVED FURTHER, that no Director shall receive any financial benefit from Foundation activities except as expressly authorized by the Board and consistent with Section 501(c)(3) of the Internal Revenue Code.</p>
-
-                    <div class="section-header">Section 7 — Conflict of Interest</div>
-
-                    <p>RESOLVED, that each Director shall complete and submit the Foundation's Conflict of Interest Disclosure Form within thirty (30) days of the effective date of this Resolution; and</p>
-
-                    <p>RESOLVED FURTHER, that any Director with a real or apparent conflict of interest in any matter before the Board shall recuse themselves from discussion and vote on such matter, in accordance with the Conflict of Interest Policy.</p>
-
-                    <div class="section-header">Section 8 — Indemnification</div>
-
-                    <p>RESOLVED, that each Director shall be entitled to indemnification to the fullest extent permitted under Section 355.476 of the Missouri Revised Statutes, as provided in Article VIII of the Bylaws.</p>
-
-                    <div class="section-header">Section 9 — Effective Date</div>
-
-                    <p>RESOLVED, that this Resolution shall take effect immediately upon adoption.</p>
-
-                    <div class="section-header">Adoption</div>
-
-                    <p>This Resolution was duly adopted by the Board of Directors of the Johann Christian Hasse Foundation at a meeting held on <span id="res-meeting-date">[DATE]</span>, by <span id="res-vote">unanimous vote</span>, constituting a quorum.</p>
-
-                    <div class="section-header">Certification</div>
-
-                    <p>The undersigned hereby certifies that the foregoing Resolution was duly adopted by the Board of Directors and constitutes a true and complete record of the proceedings.</p>
-                </div>
-
-                <div class="signature-block" style="margin-top: 0.3in;">
-                    <div class="signature">
-                        <div class="signature-line"></div>
-                        <div class="signature-name">Jacqueline Alves</div>
-                        <div class="signature-title">President & Treasurer</div>
-                    </div>
-                    <div class="signature">
-                        <div class="signature-line"></div>
-                        <div class="signature-name">Viktoriya Zhelyazkova</div>
-                        <div class="signature-title">Secretary & Compliance Officer</div>
-                    </div>
-                </div>
-
-                <div class="doc-footer">
-                    Zoho Sign Document ID: <span id="res-zoho">[___]</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-<!-- ===== TAB 4: CONFLICT OF INTEREST FORM ===== -->
-    <div id="coi" class="tab-content form-page" style="display:none;">
-        <div class="page">
-            <div class="letterhead">
-                <div class="seal">
-                    <img src="seal.PNG" alt="Johann Christian Hasse Foundation Seal">
-                </div>
-                <div class="org-name">Johann Christian Hasse Foundation</div>
-                <div class="org-address">Conflict of Interest Disclosure Form</div>
-                <div class="org-motto">For Board Members and Key Governance Personnel</div>
-            </div>
-
-            <div class="content">
-                <div style="background: var(--gold-pale); border: 1px solid var(--gold); padding: 0.1in; margin-bottom: 0.2in; font-size: 9pt;">
-                    <strong>INSTRUCTIONS:</strong> This form must be completed by all Directors, Officers, and Disqualified Persons within thirty (30) days of appointment and annually thereafter. All information provided is confidential and will be reviewed by the Secretary/Compliance Officer and the Board.
-                </div>
-
-                <!-- Section A -->
-                <div class="section-header">Section A — Personal Information</div>
-                <div class="form-section">
-                    <label class="form-label">Full Legal Name:</label>
-                    <input type="text" class="form-field" placeholder="[FULL NAME]">
-
-                    <div class="checkbox-group">
-                        <label><input type="checkbox"> Rodolfo Rudy Rivera</label>
-                        <label><input type="checkbox"> André Augusto Malcher Meira</label>
-                    </div>
-
-                    <label class="form-label">Date of Birth:</label>
-                    <input type="text" class="form-field" placeholder="__/__/____">
-
-                    <label class="form-label">Nationality:</label>
-                    <input type="text" class="form-field" placeholder="[NATIONALITY]">
-
-                    <label class="form-label">Professional Title(s):</label>
-                    <input type="text" class="form-field" placeholder="[PROFESSIONAL TITLES]">
-
-                    <label class="form-label">Date of Appointment to Board:</label>
-                    <input type="text" class="form-field" placeholder="__/__/____">
-
-                    <label class="form-label">Permanent Address:</label>
-                    <input type="text" class="form-field" placeholder="[FULL ADDRESS]">
-                </div>
-
-                <!-- Section B -->
-                <div class="section-header">Section B — Primary Employment</div>
-                <div class="form-section">
-                    <label class="form-label">B.1 Current Principal Employer/Organization</label>
-                    <input type="text" class="form-field" placeholder="Entity Name">
-                    <input type="text" class="form-field" placeholder="Your Title/Position">
-                    <input type="text" class="form-field" placeholder="Nature of Business/Activity">
-
-                    <div class="checkbox-group">
-                        <label><input type="checkbox"> Publicly traded?</label>
-                        <label><input type="checkbox"> Nonprofit?</label>
-                        <label><input type="checkbox"> Governmental?</label>
-                    </div>
-
-                    <!-- B.2 for Rivera -->
-                    <div style="border-left: 2px solid var(--gold); padding-left: 0.1in; margin: 0.1in 0;">
-                        <label class="form-label">B.2 Corporate Legal Leadership (for R. Rivera)</label>
-                        <div class="checkbox-group">
-                            <label><input type="checkbox"> Fortune 500 legal leadership role (past 36 months)?</label>
-                        </div>
-                        <input type="text" class="form-field" placeholder="Entity">
-                        <input type="text" class="form-field" placeholder="Period of service">
-                        <input type="text" class="form-field" placeholder="Approximate litigation budget managed">
-                        <input type="text" class="form-field" placeholder="Jurisdictions of active litigation oversight">
-                        <div class="checkbox-group">
-                            <label><input type="checkbox"> Entity has operations in climate/environmental risk sectors?</label>
-                        </div>
-                    </div>
-
-                    <!-- B.3 for Meira -->
-                    <div style="border-left: 2px solid var(--gold); padding-left: 0.1in; margin: 0.1in 0;">
-                        <label class="form-label">B.3 Academic/Research Institution Leadership (for A. Meira)</label>
-                        <div class="checkbox-group">
-                            <label><input type="checkbox"> President/Director of research institute or think tank?</label>
-                        </div>
-                        <input type="text" class="form-field" placeholder="Institution Name">
-                        <input type="text" class="form-field" placeholder="Number of researchers/staff">
-                        <input type="text" class="form-field" placeholder="Annual operating budget (approx.)">
-                        <div class="checkbox-group">
-                            <label><input type="checkbox"> Federal government funding</label>
-                            <label><input type="checkbox"> Private foundations</label>
-                            <label><input type="checkbox"> Corporate sponsorship</label>
-                            <label><input type="checkbox"> International organizations</label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Section C -->
-                <div class="section-header">Section C — Multiple Board Positions</div>
-                <div class="form-section">
-                    <label class="form-label">C.1 Current Board Memberships (all entities)</label>
-                    <div class="highlight-box">
-                        <p>1. Entity: <input type="text" class="form-field" style="width: 60%; display: inline;"> Role: <input type="text" class="form-field" style="width: 30%; display: inline;"></p>
-                        <p>2. Entity: <input type="text" class="form-field" style="width: 60%; display: inline;"> Role: <input type="text" class="form-field" style="width: 30%; display: inline;"></p>
-                        <p>3. Entity: <input type="text" class="form-field" style="width: 60%; display: inline;"> Role: <input type="text" class="form-field" style="width: 30%; display: inline;"></p>
-                    </div>
-
-                    <!-- C.2 for Rivera -->
-                    <div style="border-left: 2px solid var(--gold); padding-left: 0.1in; margin: 0.1in 0;">
-                        <label class="form-label">C.2 Professional Association Leadership (for R. Rivera)</label>
-                        <div class="checkbox-group">
-                            <label><input type="checkbox"> Board/governance role in bar association or in-house counsel association (past 24 months)?</label>
-                        </div>
-                        <input type="text" class="form-field" placeholder="Organization">
-                        <input type="text" class="form-field" placeholder="Position">
-                        <div class="checkbox-group">
-                            <label><input type="checkbox"> Role involved policy advocacy on corporate governance, environmental regulation, or international arbitration?</label>
-                        </div>
-                    </div>
-
-                    <!-- C.3 for Meira -->
-                    <div style="border-left: 2px solid var(--gold); padding-left: 0.1in; margin: 0.1in 0;">
-                        <label class="form-label">C.3 Academy Presidencies (for A. Meira)</label>
-                        <div class="checkbox-group">
-                            <label><input type="checkbox"> President/Vice-President of academy of law, letters, or sciences?</label>
-                        </div>
-                        <input type="text" class="form-field" placeholder="Academy Name">
-                        <input type="text" class="form-field" placeholder="Jurisdiction">
-                        <input type="text" class="form-field" placeholder="Number of member academies (if federation)">
-                        <div class="checkbox-group">
-                            <label><input type="checkbox"> Academy issues opinions on environmental law, constitutional law, or regulatory reform?</label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Section D -->
-                <div class="section-header">Section D — Client and Advisory Relationships</div>
-                <div class="form-section">
-                    <label class="form-label">D.1 Current Client Relationships</label>
-                    <div class="checkbox-group" style="flex-direction: column; align-items: flex-start;">
-                        <label><input type="checkbox"> Major extractor/processor of natural resources (mining, oil & gas, timber, agriculture at scale)</label>
-                        <label><input type="checkbox"> Financial institution with climate/nature-related financial risk exposure</label>
-                        <label><input type="checkbox"> Corporation subject to mandatory sustainability disclosure (IFRS S2, TNFD, SEC, CSRD)</label>
-                        <label><input type="checkbox"> Sovereign state or state-owned enterprise (infrastructure/resource concession)</label>
-                        <label><input type="checkbox"> Insurer/reinsurer with catastrophe or environmental risk portfolio</label>
-                        <label><input type="checkbox"> None of the above</label>
-                    </div>
-                    <input type="text" class="form-field" placeholder="If any checked, list clients or describe categories (without breaching confidentiality):">
-
-                    <!-- D.2 for Rivera -->
-                    <div style="border-left: 2px solid var(--gold); padding-left: 0.1in; margin: 0.1in 0;">
-                        <label class="form-label">D.2 Litigation and Arbitration Exposure (for R. Rivera)</label>
-                        <div class="checkbox-group" style="flex-direction: column; align-items: flex-start;">
-                            <label><input type="checkbox"> Environmental liability or remediation claims</label>
-                            <label><input type="checkbox"> Climate-related financial disclosure or greenwashing allegations</label>
-                            <label><input type="checkbox"> Sovereign debt restructuring with environmental conditionality</label>
-                            <label><input type="checkbox"> International investment arbitration with environmental/sustainability measures</label>
-                            <label><input type="checkbox"> None of the above</label>
-                        </div>
-                        <textarea class="form-field" rows="2" placeholder="If any checked, describe general nature without breaching client confidentiality or privilege:"></textarea>
-                    </div>
-
-                    <!-- D.3 for Meira -->
-                    <div style="border-left: 2px solid var(--gold); padding-left: 0.1in; margin: 0.1in 0;">
-                        <label class="form-label">D.3 Publishing and Intellectual Property Royalties (for A. Meira)</label>
-                        <div class="checkbox-group">
-                            <label><input type="checkbox"> Published or anticipate publishing works in systemic governance, environmental law, risk analysis, or transnational legal innovation?</label>
-                        </div>
-                        <input type="text" class="form-field" placeholder="Number of published works in these areas">
-                        <input type="text" class="form-field" placeholder="Pending contracts with publishers">
-                        <div class="checkbox-group">
-                            <label><input type="checkbox"> Works cite, critique, or build upon c-ECO Model Law, TFP, or IOM frameworks?</label>
-                            <label><input type="checkbox"> Not yet, but planned</label>
-                        </div>
-                        <div class="checkbox-group">
-                            <label><input type="checkbox"> Receive royalties, honoraria, or other compensation from publishers for these works?</label>
-                        </div>
-                        <input type="text" class="form-field" placeholder="Annual approximate amount">
-                    </div>
-                </div>
-
-<!-- Section E -->
-                <div class="section-header">Section E — Financial Interests</div>
-                <div class="form-section">
-                    <label class="form-label">E.1 Direct Ownership in Relevant Sectors</label>
-                    <div class="checkbox-group" style="flex-direction: column; align-items: flex-start;">
-                        <label><input type="checkbox"> Environmental monitoring, certification, or verification</label>
-                        <label><input type="checkbox"> Climate risk modeling, data analytics, or ESG software</label>
-                        <label><input type="checkbox"> Carbon credits, biodiversity offsets, or nature-based solutions trading</label>
-                        <label><input type="checkbox"> Sustainable finance, green bonds, or impact investing</label>
-                        <label><input type="checkbox"> Ecological restoration, remediation, or decommissioning services</label>
-                        <label><input type="checkbox"> None of the above</label>
-                    </div>
-                    <textarea class="form-field" rows="2" placeholder="If any checked, describe entity and approximate value:"></textarea>
-
-                    <label class="form-label">E.2 Investment Funds and Portfolio Exposure</label>
-                    <div class="checkbox-group" style="flex-direction: column; align-items: flex-start;">
-                        <label><input type="checkbox"> Climate tech or clean energy</label>
-                        <label><input type="checkbox"> Natural resources or commodities</label>
-                        <label><input type="checkbox"> Sustainability-themed or ESG-integrated investing</label>
-                        <label><input type="checkbox"> None of the above</label>
-                    </div>
-                    <input type="text" class="form-field" placeholder="If any checked, identify fund and general strategy:">
-                </div>
-
-                <!-- Section F -->
-                <div class="section-header">Section F — Governmental and Judicial Relationships</div>
-                <div class="form-section">
-                    <label class="form-label">F.1 Current Government Position or Candidacy</label>
-                    <div class="checkbox-group">
-                        <label><input type="checkbox"> Currently hold elected, appointed, or civil service position?</label>
-                    </div>
-                    <input type="text" class="form-field" placeholder="Position">
-                    <input type="text" class="form-field" placeholder="Jurisdiction">
-                    <div class="checkbox-group">
-                        <label><input type="checkbox"> Position involves regulatory, licensing, or enforcement authority over environmental, financial, or corporate matters?</label>
-                    </div>
-
-                    <!-- F.2 for Meira -->
-                    <div style="border-left: 2px solid var(--gold); padding-left: 0.1in; margin: 0.1in 0; background: rgba(192, 57, 43, 0.05);">
-                        <label class="form-label" style="color: #c0392b;">F.2 Judicial Appointment or Candidacy (for A. Meira) — CRITICAL</label>
-                        <div class="checkbox-group">
-                            <label><input type="checkbox"> Nominated, candidate for, or appointed to judicial office?</label>
-                        </div>
-                        <input type="text" class="form-field" placeholder="Court/Tribunal">
-                        <div class="checkbox-group">
-                            <label><input type="checkbox"> Candidate</label>
-                            <label><input type="checkbox"> Nominated</label>
-                            <label><input type="checkbox"> Appointed</label>
-                            <label><input type="checkbox"> Serving</label>
-                        </div>
-                        <input type="text" class="form-field" placeholder="Expected date of investiture (if applicable)">
-                        <div class="checkbox-group">
-                            <label><input type="checkbox"> Judicial role has jurisdiction over environmental law, administrative law, or regulatory compliance?</label>
-                        </div>
-                        <div class="checkbox-group">
-                            <label><input type="checkbox"> If confirmed as judge, Foundation Board membership would require recusal in categories of cases potentially affected by c-ECO/TFP research?</label>
-                            <label><input type="checkbox"> Uncertain — requires further analysis</label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Section G -->
-                <div class="section-header">Section G — Family and Personal Relationships</div>
-                <div class="form-section">
-                    <label class="form-label">G.1 Family Members in Relevant Positions</label>
-                    <div class="highlight-box">
-                        <p>Spouse/Domestic Partner: Employer: <input type="text" class="form-field" style="width: 40%; display: inline;"> Position: <input type="text" class="form-field" style="width: 40%; display: inline;"></p>
-                        <p>Parent(s): Employer: <input type="text" class="form-field" style="width: 40%; display: inline;"> Position: <input type="text" class="form-field" style="width: 40%; display: inline;"></p>
-                        <p>Child(ren) (adult): Employer: <input type="text" class="form-field" style="width: 40%; display: inline;"> Position: <input type="text" class="form-field" style="width: 40%; display: inline;"></p>
-                    </div>
-
-                    <label class="form-label">G.2 Close Personal Relationships with Foundation Affiliates</label>
-                    <div class="checkbox-group">
-                        <label><input type="checkbox"> Close personal relationship with any current Director, Officer, employee, grantee, or major donor?</label>
-                    </div>
-                    <textarea class="form-field" rows="2" placeholder="If yes, describe relationship and person:"></textarea>
-                </div>
-
-                <!-- Section H -->
-                <div class="section-header">Section H — Political and Advocacy</div>
-                <div class="form-section">
-                    <label class="form-label">H.1 Political Contributions</label>
-                    <div class="checkbox-group">
-                        <label><input type="checkbox"> Political contributions >$5,000 (aggregate, all candidates/committees) in past three election cycles?</label>
-                    </div>
-                    <input type="text" class="form-field" placeholder="If yes, indicate jurisdiction(s) and approximate total:">
-
-                    <label class="form-label">H.2 Lobbying Activities</label>
-                    <div class="checkbox-group">
-                        <label><input type="checkbox"> Registered as lobbyist under any jurisdiction's lobbying disclosure laws?</label>
-                    </div>
-                    <input type="text" class="form-field" placeholder="If yes, jurisdiction(s):">
-                    <div class="checkbox-group">
-                        <label><input type="checkbox"> Lobbying activity touches environmental regulation, financial disclosure, or corporate governance?</label>
-                    </div>
-                </div>
-
-                <!-- Section I -->
-                <div class="section-header">Section I — Specific c-ECO/TFP/IOM Disclosures</div>
-                <div class="form-section">
-                    <label class="form-label">I.1 Direct Involvement with Competing or Adjacent Frameworks</label>
-                    <div class="checkbox-group" style="flex-direction: column; align-items: flex-start;">
-                        <label><input type="checkbox"> c-ECO Model Law</label>
-                        <label><input type="checkbox"> Threshold Function Protocol (TFP)</label>
-                        <label><input type="checkbox"> Integrated Operational Manual (IOM)</label>
-                        <label><input type="checkbox"> "Pre-threshold governance" or "systemic perclusion"</label>
-                        <label><input type="checkbox"> Safe Operating Space (SOS) as legal limit</label>
-                        <label><input type="checkbox"> None of the above</label>
-                    </div>
-                    <textarea class="form-field" rows="2" placeholder="If any checked, describe nature of involvement and current status:"></textarea>
-
-                    <label class="form-label">I.2 Client or Institutional Use of Disclosure Frameworks</label>
-                    <div class="checkbox-group" style="flex-direction: column; align-items: flex-start;">
-                        <label><input type="checkbox"> Climate/nature-related risk disclosure frameworks (TCFD, TNFD, IFRS S2, CSRD)</label>
-                        <label><input type="checkbox"> Sustainability certification or ESG rating services</label>
-                        <label><input type="checkbox"> Project finance environmental/social standards (Equator Principles, IFC)</label>
-                        <label><input type="checkbox"> Carbon accounting or biodiversity offset verification</label>
-                        <label><input type="checkbox"> Environmental insurance or catastrophe bonds</label>
-                        <label><input type="checkbox"> None of the above</label>
-                    </div>
-                    <textarea class="form-field" rows="2" placeholder="If any checked, describe potential intersection with Foundation work:"></textarea>
-
-                    <!-- I.3 differentiated -->
-                    <div style="border-left: 2px solid var(--gold); padding-left: 0.1in; margin: 0.1in 0;">
-                        <label class="form-label">I.3 Academic Freedom and Institutional Loyalty</label>
-
-                        <div style="margin: 0.05in 0; padding: 0.05in; background: #f0f0f0;">
-                            <strong>For A. Meira (ISM/COPAJUB):</strong>
-                            <div class="checkbox-group" style="flex-direction: column; align-items: flex-start;">
-                                <label><input type="checkbox"> ISM restricts independent publication on Foundation-related topics?</label>
-                                <label><input type="checkbox"> ISM restricts honoraria or consulting fees from non-partner entities?</label>
-                                <label><input type="checkbox"> ISM restricts service on boards of non-partner organizations?</label>
-                            </div>
-                        </div>
-
-                        <div style="margin: 0.05in 0; padding: 0.05in; background: #f0f0f0;">
-                            <strong>For R. Rivera (FNF/WashU):</strong>
-                            <div class="checkbox-group" style="flex-direction: column; align-items: flex-start;">
-                                <label><input type="checkbox"> Employment agreement restricts outside board service?</label>
-                                <label><input type="checkbox"> Corporate policy restricts public speaking on employer-related topics?</label>
-                                <label><input type="checkbox"> Restrictions on honoraria, consulting fees, or equity from other entities?</label>
-                            </div>
-                        </div>
-                        <textarea class="form-field" rows="2" placeholder="Describe restriction and management plan:"></textarea>
-                    </div>
-                </div>
-
-                <!-- Section J -->
-                <div class="section-header">Section J — Additional Disclosures</div>
-                <div class="form-section">
-                    <label class="form-label">Any other relationship, interest, or circumstance that could:</label>
-                    <div class="highlight-box">
-                        <p>(a) Be perceived as creating a conflict of interest in Board service;</p>
-                        <p>(b) Impair independence or objectivity in Board deliberations;</p>
-                        <p>(c) Require recusal from specific categories of Foundation business;</p>
-                        <p>(d) Create reputational risk for the Foundation if publicly disclosed;</p>
-                        <p>(e) Affect ability to fulfill fiduciary duties under Missouri law and Bylaws.</p>
-                    </div>
-                    <textarea class="form-field" rows="4" placeholder="Describe fully:"></textarea>
-                </div>
-
-                <!-- Section K -->
-                <div class="section-header">Section K — Certification and Undertaking</div>
-                <div class="form-section">
-                    <div class="highlight-box" style="background: white; border: 2px solid var(--gold);">
-                        <p>I, <input type="text" class="form-field" style="width: 60%; display: inline; border-bottom: 1px solid var(--ink);">, hereby certify, under penalty of perjury and pursuant to the laws of the State of Missouri and the United States, that:</p>
-
-                        <p style="margin-top: 0.1in;">(a) All information provided is true, complete, and correct to the best of my knowledge and belief;</p>
-                        <p>(b) I have not omitted any material fact that could affect the Foundation's assessment of potential conflicts;</p>
-                        <p>(c) I understand this disclosure is a continuing obligation and will promptly update the Secretary/Compliance Officer upon any material change;</p>
-                        <p>(d) I agree to recuse myself from any Board discussion, vote, or decision where I have a real, apparent, or potential conflict of interest;</p>
-                        <p>(e) I acknowledge receipt of and agree to comply with the Foundation's Conflict of Interest Policy, Whistleblower & Governance Integrity Policy, and all other governing documents;</p>
-                        <p>(f) I understand that failure to disclose a material conflict may result in removal from the Board, voiding of actions taken while conflicted, and other remedies under Missouri law and Bylaws.</p>
-                    </div>
-
-                    <div style="margin-top: 0.2in;">
-                        <label class="form-label">Signature:</label>
-                        <div class="signature-line" style="width: 50%;"></div>
-                        <label class="form-label">Date:</label>
-                        <input type="text" class="form-field" style="width: 30%;" placeholder="__/__/____">
-                        <label class="form-label">Place:</label>
-                        <input type="text" class="form-field" style="width: 50%;" placeholder="[CITY, COUNTRY]">
-                    </div>
-                </div>
-
-                <!-- Footer -->
-                <div class="doc-footer" style="margin-top: 0.3in;">
-                    FOR FOUNDATION USE ONLY<br>
-                    Date Received: ____________ &nbsp;&nbsp; Received by: ____________<br>
-                    ☐ No conflicts identified &nbsp;&nbsp; ☐ Potential conflicts identified — see management plan<br>
-                    Approved by Board Chair: ____________ &nbsp;&nbsp; Date: ____________<br>
-                    Ratified by Board: ____________ (Resolution No. _________)<br><br>
-                    Viktoriya Zhelyazkova, Secretary & Compliance Officer<br>
-                    Johann Christian Hasse Foundation
-                </div>
-            </div>
-        </div>
-    </div>
-
-<!-- ===== TAB 5: RECUSAL MATRIX ===== -->
-    <div id="matrix" class="tab-content" style="display:none;">
-        <div class="page">
-            <div class="letterhead">
-                <div class="seal">
-                    <img src="seal.PNG" alt="Johann Christian Hasse Foundation Seal">
-                </div>
-                <div class="org-name">Johann Christian Hasse Foundation</div>
-                <div class="org-address">Pre-Clearance Matrix — Conflict of Interest Management</div>
-                <div class="org-motto">Board Members: Rodolfo Rudy Rivera & André Augusto Malcher Meira</div>
-            </div>
-
-            <div class="content">
-                <div style="text-align: center; margin-bottom: 0.2in;">
-                    <div style="font-family: 'Trajan Pro 3', serif; font-size: 11pt; color: var(--gold-dark); text-transform: uppercase; letter-spacing: 0.1em;">
-                        Pre-Clearance Matrix
-                    </div>
-                    <div style="font-size: 9pt; color: #666; margin-top: 0.05in;">
-                        Conflict of Interest Management — April 2026
-                    </div>
-                </div>
-
-                <div class="highlight-box" style="font-size: 9pt; margin-bottom: 0.2in;">
-                    <strong>LEGEND:</strong>
-                    <span style="color: green; font-weight: bold;">✓</span> Likely exempt —
-                    <span style="color: orange; font-weight: bold;">⚠</span> Potential conflict (monitor) —
-                    <span style="color: red; font-weight: bold;">✗</span> Likely conflict (mandatory recusal) —
-                    <span style="color: gray; font-weight: bold;">?</span> Depends on additional information —
-                    <span style="color: #888; font-weight: bold;">N/A</span> Not applicable
-                </div>
-
-                <!-- RIVERA MATRIX -->
-                <div class="section-header">Rodolfo Rudy Rivera — Corporate Legal & Compliance</div>
-
-                <table style="width: 100%; border-collapse: collapse; font-size: 9pt; margin-bottom: 0.2in;">
-                    <thead>
-                        <tr style="background: var(--gold-pale); border-bottom: 2px solid var(--gold);">
-                            <th style="padding: 0.05in; text-align: left; width: 15%;">Section</th>
-                            <th style="padding: 0.05in; text-align: left; width: 35%;">Item</th>
-                            <th style="padding: 0.05in; text-align: center; width: 10%;">Assess.</th>
-                            <th style="padding: 0.05in; text-align: left; width: 40%;">Proposed Management</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td>A</td>
-                            <td>Basic identification</td>
-                            <td style="text-align: center; color: green; font-weight: bold;">✓</td>
-                            <td>No action required</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td>B.1</td>
-                            <td>Primary employment (FNF)</td>
-                            <td style="text-align: center; color: orange; font-weight: bold;">⚠</td>
-                            <td>Declare scope of activity; recuse if FNF is subject of research or partnership</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td>B.2</td>
-                            <td>Corporate legal leadership</td>
-                            <td style="text-align: center; color: orange; font-weight: bold;">⚠</td>
-                            <td>Monitor if FNF litigation touches systemic governance</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td>C.1</td>
-                            <td>Board memberships</td>
-                            <td style="text-align: center; color: gray; font-weight: bold;">?</td>
-                            <td>Request complete list; assess if entities compete or collaborate</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td>C.2</td>
-                            <td>Professional associations (ACC)</td>
-                            <td style="text-align: center; color: orange; font-weight: bold;">⚠</td>
-                            <td>Recuse if ACC takes position contrary to pre-threshold governance</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee; background: #fff5f5;">
-                            <td>D.1</td>
-                            <td>Client relationships</td>
-                            <td style="text-align: center; color: red; font-weight: bold;">✗</td>
-                            <td><strong>Mandatory recusal</strong> in deliberations on project finance with FNF, environmental insurance, litigation against FNF</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee; background: #fff5f5;">
-                            <td>D.2</td>
-                            <td>Litigation/arbitration exposure</td>
-                            <td style="text-align: center; color: red; font-weight: bold;">✗</td>
-                            <td><strong>Mandatory recusal</strong> in environmental liability, climate disclosure, investment arbitration, sovereign debt</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee; background: #fff5f5;">
-                            <td>I.2</td>
-                            <td>Disclosure frameworks (FNF)</td>
-                            <td style="text-align: center; color: red; font-weight: bold;">✗</td>
-                            <td><strong>Mandatory recusal</strong> in advocacy for SEC/EU; may participate in theoretical discussions</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td>E.1/E.2</td>
-                            <td>Ownership/Investments</td>
-                            <td style="text-align: center; color: gray; font-weight: bold;">?</td>
-                            <td>Request complete declaration</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td>H.2</td>
-                            <td>Lobbying registration</td>
-                            <td style="text-align: center; color: gray; font-weight: bold;">?</td>
-                            <td>Request declaration; if registered, recuse in legislative advocacy</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <!-- MEIRA MATRIX -->
-                <div class="section-header">André Augusto Malcher Meira — Academic & Research Leadership</div>
-
-                <table style="width: 100%; border-collapse: collapse; font-size: 9pt; margin-bottom: 0.2in;">
-                    <thead>
-                        <tr style="background: var(--gold-pale); border-bottom: 2px solid var(--gold);">
-                            <th style="padding: 0.05in; text-align: left; width: 15%;">Section</th>
-                            <th style="padding: 0.05in; text-align: left; width: 35%;">Item</th>
-                            <th style="padding: 0.05in; text-align: center; width: 10%;">Assess.</th>
-                            <th style="padding: 0.05in; text-align: left; width: 40%;">Proposed Management</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td>A</td>
-                            <td>Basic identification</td>
-                            <td style="text-align: center; color: green; font-weight: bold;">✓</td>
-                            <td>No action required</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td>B.1/B.3</td>
-                            <td>Primary employment (ISM)</td>
-                            <td style="text-align: center; color: orange; font-weight: bold;">⚠</td>
-                            <td>Monitor if ISM competes or collaborates with Foundation on events/publications/fundraising</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td>C.1</td>
-                            <td>Board memberships</td>
-                            <td style="text-align: center; color: gray; font-weight: bold;">?</td>
-                            <td>Request list; recuse if entity is subject of deliberation or grant</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee; background: #fff5f5;">
-                            <td>C.3</td>
-                            <td>COPAJUB Presidency</td>
-                            <td style="text-align: center; color: red; font-weight: bold;">✗</td>
-                            <td><strong>Mandatory recusal</strong> if COPAJUB takes public position on c-ECO, Forest Code, or biodiversity framework</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td>D.1</td>
-                            <td>Client relationships</td>
-                            <td style="text-align: center; color: gray; font-weight: bold;">?</td>
-                            <td>Request list; corresponding recusal</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td>D.3</td>
-                            <td>Editorial royalties</td>
-                            <td style="text-align: center; color: orange; font-weight: bold;">⚠</td>
-                            <td>Recuse in Foundation editorial contracts; may be consulted informally</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee; background: #fff5f5;">
-                            <td>F.2</td>
-                            <td>Judicial appointment candidacy</td>
-                            <td style="text-align: center; color: red; font-weight: bold;">✗</td>
-                            <td><strong>Permanent recusal</strong> in Pará state matters; automatic resignation if invested (see special clause)</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee; background: #fff5f5;">
-                            <td>I.3</td>
-                            <td>ISM institutional restrictions</td>
-                            <td style="text-align: center; color: red; font-weight: bold;">✗</td>
-                            <td><strong>Mandatory recusal</strong> if ISM restricts independent publications, honoraria, or external boards</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td>H.2</td>
-                            <td>Lobbying registration</td>
-                            <td style="text-align: center; color: green; font-weight: bold;">✓</td>
-                            <td>Not registered; no action required</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <!-- Recusal Activation Protocol -->
-                <div class="section-header">Recusal Activation Protocol</div>
-
-                <div class="highlight-box">
-                    <p><strong>1. DETECTION:</strong> Self-identification by Director | Identification by Secretary/Compliance Officer | Report by another Director</p>
-                    <p><strong>2. NOTIFICATION:</strong> Director notifies Board Chair in writing | Secretary records in minutes | Urgent: verbal + confirmation within 24h</p>
-                    <p><strong>3. ASSESSMENT:</strong> Board Chair consults disinterested Directors | Majority concurrence = mandatory recusal | Disagreement = majority vote of disinterested</p>
-                    <p><strong>4. DOCUMENTATION:</strong> Recusal recorded in minutes | Director leaves the room | Decision attributed to "Board acting without [Name]"</p>
-                    <p><strong>5. REVIEW:</strong> Conflicts reviewed annually | Underlying condition changes = reassessment</p>
-                </div>
-
-                <!-- Special Clause Meira -->
-                <div class="section-header">Special Clause — Resolutive Condition (A. Meira)</div>
-
-                <div class="highlight-box" style="border: 2px solid #c0392b; background: #fdf2f2;">
-                    <p>The mandate of André Augusto Malcher Meira is subject to the following <strong>resolutive condition</strong>:</p>
-                    <p style="margin-top: 0.1in;">If Meira is appointed, invested, or sworn into the office of trial judge, appellate judge, or equivalent in any court of Brazil, his mandate as Director shall be <strong>automatically suspended</strong> as of the date of investiture.</p>
-                    <p style="margin-top: 0.1in;">(a) If the Board, by majority of disinterested Directors, determines that simultaneous service is compatible, the mandate may be maintained, subject to permanent recusal in all categories of Section F.2;</p>
-                    <p>(b) If such determination is not possible or favorable, the mandate shall be deemed <strong>ipso facto resigned</strong>, without need for further manifestation.</p>
-                </div>
-
-                <div class="signature-block" style="margin-top: 0.3in;">
-                    <div class="signature">
-                        <div class="signature-line"></div>
-                        <div class="signature-name">Jacqueline Alves</div>
-                        <div class="signature-title">President & Treasurer</div>
-                    </div>
-                    <div class="signature">
-                        <div class="signature-line"></div>
-                        <div class="signature-name">Viktoriya Zhelyazkova</div>
-                        <div class="signature-title">Secretary & Compliance Officer</div>
-                    </div>
-                </div>
-
-                <div class="doc-footer">
-                    Pre-Clearance Matrix — Johann Christian Hasse Foundation • April 2026<br>
-                    Confidential document — Restricted to Board and Compliance Officer use
-                </div>
-            </div>
-        </div>
-    </div>
-
-<!-- JAVASCRIPT -->
-    <script>
-        function showTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.style.display = 'none';
-            });
-
-            // Show selected tab
-            document.getElementById(tabName).style.display = 'block';
-
-            // Update nav
-            document.querySelectorAll('.nav-tab').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-
-            // Scroll to top
-            window.scrollTo(0, 0);
+    <div class="org-name">Johann Christian Hasse Foundation</div>
+    <div class="org-address">2504 Grandview Circle, Columbia, Missouri 65203, United States of America</div>
+    <div class="org-motto">Mani Festum Societatis &bull; Caritas &bull; Continuitas &bull; Auctoritas</div>
+</div>
+
+<!-- DOCUMENT HEADER -->
+<div class="doc-header">
+    <div class="doc-title">c-ECO Predictive Governance Framework<br>Institutional Macroprudential Memorandum</div>
+    <div class="doc-subtitle">Phase II Delivery &mdash; Chapters 2 &amp; 3 &mdash; Operational Version v2.2</div>
+    <div class="doc-meta">Restricted Institutional Circulation &bull; May 2026 &bull; Level III Internal Strategic Estimate</div>
+</div>
+
+<div class="content">
+
+<!-- SOURCE CLASSIFICATION -->
+<div class="highlight-box" style="margin-bottom: 0.3in;">
+    <p style="font-family:'Trajan Pro 3',serif; font-size:8.5pt; color:var(--gold-dark); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:0.08in; text-indent:0;"><strong>Source Classification</strong></p>
+    <p style="text-indent:0; font-size:9.5pt;"><strong class="class-a">Class A</strong> &mdash; Primary institutional: BIS, NGFS, Bank of England, Swiss Re Institute, Munich Re</p>
+    <p style="text-indent:0; font-size:9.5pt;"><strong class="class-b">Class B</strong> &mdash; Secondary analytical: Broker reports (Aon, AM Best), think tanks, academic papers</p>
+    <p style="text-indent:0; font-size:9.5pt;"><strong class="class-c">Class C</strong> &mdash; Dissemination: Press releases, trade media articles</p>
+    <p style="text-indent:0; font-size:9.5pt;"><strong class="class-cec">c-ECO</strong> &mdash; Framework sources: TDR Mathematics, TFP Manual, c-ECO Statute</p>
+</div>
+
+     background: linear-gradient(135deg, var(--cream) 0%, var(--gold-pale) 100%);
+            border: 1px solid var(--gold-light); padding: 0.12in 0.15in; margin: 0.15in 0; border-radius: 2px;
+        }
+        .highlight-box p { text-indent: 0; margin-bottom: 0.06in; }
+        .highlight-box p:last-child { margin-bottom: 0; }
+
+        /* ========== TABLES ========== */
+        table {
+            width: 100%; border-collapse: collapse; font-size: 9.5pt;
+            margin: 0.2in 0;
+        }
+        thead tr {
+            background: var(--gold-pale); border-bottom: 2px solid var(--gold);
+        }
+        th {
+            padding: 0.08in 0.06in; text-align: left;
+            font-family: 'Trajan Pro 3', serif; font-size: 8pt;
+            color: var(--gold-dark); text-transform: uppercase; letter-spacing: 0.04em;
+        }
+        td { padding: 0.07in 0.06in; border-bottom: 1px solid #e8e0d0; vertical-align: top; }
+        tr:hover { background: var(--gold-faint); }
+        td:first-child { font-weight: 600; color: var(--ink); }
+
+        /* ========== BULLETS ========== */
+        .bullet-list { margin: 0.1in 0 0.1in 0.3in; }
+        .bullet-list li {
+            margin-bottom: 0.06in; list-style-type: disc; text-indent: 0;
         }
 
-        // Auto-fill from URL parameters
-        document.addEventListener('DOMContentLoaded', function() {
-            const params = new URLSearchParams(window.location.search);
+        /* ========== SOURCE TABLE ========== */
+        .source-table { font-size: 8.5pt; }
+        .source-table th { font-size: 7pt; }
+        .source-table td { padding: 0.05in 0.04in; }
+        .class-a { color: #2E7D32; font-weight: 700; }
+        .class-b { color: var(--gold-dark); font-weight: 600; }
+        .class-c { color: #888; }
+        .class-cec { color: #1565C0; font-weight: 600; }
 
-            // Appointment Letter fields
-            if (params.get('name')) document.getElementById('appt-name').textContent = params.get('name');
-            if (params.get('date')) document.getElementById('appt-date').textContent = params.get('date');
-            if (params.get('resolution')) document.getElementById('appt-resolution').textContent = params.get('resolution');
-            if (params.get('resolutionDate')) document.getElementById('appt-resolution-date').textContent = params.get('resolutionDate');
-            if (params.get('start')) document.getElementById('appt-start').textContent = params.get('start');
+        /* ========== SYNTHESIS TABLE ========== */
+        .synth-table td:first-child { font-weight: 600; color: var(--gold-dark); background: var(--gold-faint); }
+        .synth-table td:nth-child(2) { font-weight: 500; }
+        .synth-table td:nth-child(3) { font-size: 8.5pt; color: #555; }
 
-            // Certificate fields
-            if (params.get('name')) document.getElementById('cert-name').textContent = params.get('name');
-            if (params.get('resolution')) document.getElementById('cert-resolution').textContent = params.get('resolution');
-            if (params.get('adopted')) document.getElementById('cert-adopted').textContent = params.get('adopted');
-            if (params.get('effective')) document.getElementById('cert-effective').textContent = params.get('effective');
+        /* ========== PHASE TABLE ========== */
+        .phase-table td:first-child { font-weight: 700; color: var(--gold-dark); text-align: center; width: 5%; }
+        .phase-table td:nth-child(2) { font-weight: 600; width: 15%; }
+        .phase-table td:nth-child(3) { font-style: italic; color: var(--ink-muted); width: 12%; }
 
-            // Resolution fields
-            if (params.get('resNumber')) document.getElementById('res-number').textContent = params.get('resNumber');
-            if (params.get('resDate')) document.getElementById('res-date').textContent = params.get('resDate');
-            if (params.get('meetingDate')) document.getElementById('res-meeting-date').textContent = params.get('meetingDate');
-            if (params.get('zohoId')) document.getElementById('res-zoho').textContent = params.get('zohoId');
+        /* ========== STAGE TABLE ========== */
+        .stage-table td:first-child { font-weight: 700; color: var(--gold-dark); width: 5%; }
+        .stage-table td:nth-child(2) { font-weight: 600; width: 18%; }
+        .stage-table td:nth-child(3) { font-style: italic; color: var(--ink-muted); width: 12%; }
 
-            // Director-specific fields
-            if (params.get('director') === 'rivera') {
-                document.getElementById('appt-name').textContent = 'Rodolfo Rudy Rivera';
-                document.getElementById('cert-name').textContent = 'Rodolfo Rudy Rivera';
-                document.getElementById('res-nominees').textContent = 'Rodolfo Rudy Rivera';
-                document.getElementById('res-acceptance').textContent = 'Rodolfo Rudy Rivera';
-                document.getElementById('res-term-rivera').textContent = (params.get('start') || '[DATE]') + ' through ' + (params.get('end') || '[DATE + 3 years]');
-            } else if (params.get('director') === 'meira') {
-                document.getElementById('appt-name').textContent = 'André Augusto Malcher Meira';
-                document.getElementById('cert-name').textContent = 'André Augusto Malcher Meira';
-                document.getElementById('res-nominees').textContent = 'André Augusto Malcher Meira';
-                document.getElementById('res-acceptance').textContent = 'André Augusto Malcher Meira';
-                document.getElementById('res-term-meira').textContent = (params.get('start') || '[DATE]') + ' through ' + (params.get('end') || '[DATE + 3 years]');
+        /* ========== TOOL TABLE ========== */
+        .tool-table td:first-child { font-weight: 700; color: #2E7D32; background: rgba(46,125,50,0.06); }
+        .tool-table td:nth-child(2) { font-weight: 600; color: var(--gold-dark); }
+
+        /* ========== PAGE BREAK ========== */
+        .page-break {
+            page-break-before: always;
+            border-top: 1px dashed var(--gold-light); margin: 0.3in 0; padding-top: 0.3in;
+        }
+
+        /* ========== DOC FOOTER ========== */
+        .doc-footer {
+            margin-top: 0.4in; text-align: center; font-size: 8pt; color: #999;
+            border-top: 0.5px solid var(--gold-light); padding-top: 0.1in;
+        }
+
+        /* ========== PRINT BAR ========== */
+        .print-bar {
+            position: fixed; bottom: 0; left: 0; right: 0; background: white;
+            border-top: 2px solid var(--gold); padding: 0.1in;
+            display: flex; justify-content: center; gap: 0.15in;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.1); z-index: 100;
+        }
+        .btn {
+            padding: 0.07in 0.2in; border: 1px solid var(--gold); background: white;
+            color: var(--gold-dark); font-family: 'Trajan Pro 3', serif; font-size: 8pt;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 0.05em;
+            transition: all 0.3s; text-decoration: none; display: inline-block;
+        }
+        .btn:hover { background: var(--gold); color: white; }
+        .btn-primary { background: var(--gold); color: white; }
+        .btn-primary:hover { background: var(--gold-dark); }
+
+        /* ========== ANCHOR OFFSET ========== */
+        .anchor { position: relative; top: -50px; }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .page { padding: 0.3in 0.2in; }
+            .page::before, .page::after { display: none; }
+            .nav-bar a { font-size: 7pt; padding: 0.08in 0.12in; }
+            table { font-size: 8pt; }
+            .doc-title { font-size: 11pt; }
+            .chapter-title { font-size: 12pt; }
+        }
+        @media print {
+            body { background: white; }
+            .page { box-shadow: none; margin: 0; }
+            .print-bar, .nav-bar { display: none !important; }
+            .page::before, .page::after { display: block; }
+            .page-break { border: none; margin: 0; padding: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<div class="nav-bar" id="navbar">
+    <a href="#top" class="active">Top</a>
+    <a href="#ch2">Ch. 2 â Diagnosis</a>
+    <a href="#s21">2.1 Framework</a>
+    <a href="#s22">2.2 Insurance</a>
+    <a href="#s23">2.3 Infrastructure</a>
+    <a href="#s24">2.4 Sovereign</a>
+    <a href="#s25">2.5 Repricing</a>
+    <a href="#s26">2.6 Cascade</a>
+    <a href="#ch3">Ch. 3 â Deficits</a>
+    <a href="#s31">3.1 Speed</a>
+    <a href="#s32">3.2 Silos</a>
+    <a href="#s33">3.3 Reactive</a>
+    <a href="#s34">3.4 Data</a>
+    <a href="#s35">3.5 Inertia</a>
+    <a href="#s36">3.6 Stages</a>
+    <a href="#synth">Synthesis</a>
+    <a href="#refs">References</a>
+</div>
+
+<!-- PRINT BAR -->
+<div class="print-bar">
+    <button class="btn" onclick="window.print()">Print Document</button>
+    <a class="btn btn-primary" href="#ch2">Chapter 2</a>
+    <a class="btn btn-primary" href="#ch3">Chapter 3</a>
+  <a class="btn" href="#synth">Synthesis</a>
+    <a class="btn" href="#refs">References</a>
+</div>
+
+<div class="page-wrap">
+<div class="page">
+
+<!-- LETTERHEAD -->
+<div class="letterhead" id="top">
+    <div class="seal">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Seal_sample.svg/200px-Seal_sample.svg.png" alt="Johann Christian Hasse Foundation Seal">
+    </div>
+    <div class="org-name">Johann Christian Hasse Foundation</div>
+    <div class="org-address">2504 Grandview Circle, Columbia, Missouri 65203, United States of America</div>
+    <div class="org-motto">Mani Festum Societatis &bull; Caritas &bull; Continuitas &bull; Auctoritas</div>
+</div>
+
+<!-- DOCUMENT HEADER -->
+<div class="doc-header">
+    <div class="doc-title">c-ECO Predictive Governance Framework<br>Institutional Macroprudential Memorandum</div>
+    <div class="doc-subtitle">Phase II Delivery &mdash; Chapters 2 &amp; 3 &mdash; Operational Version v2.2</div>
+    <div class="doc-meta">Restricted Institutional Circulation &bull; May 2026 &bull; Level III Internal Strategic Estimate</div>
+</div>
+
+<div class="content">
+
+<!-- SOURCE CLASSIFICATION -->
+<div class="highlight-box" style="margin-bottom: 0.3in;">
+    <p style="font-family:'Trajan Pro 3',serif; font-size:8.5pt; color:var(--gold-dark); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:0.08in; text-indent:0;"><strong>Source Classification</strong></p>
+    <p style="text-indent:0; font-size:9.5pt;"><strong class="class-a">Class A</strong> &mdash; Primary institutional: BIS, NGFS, Bank of England, Swiss Re Institute, Munich Re</p>
+    <p style="text-indent:0; font-size:9.5pt;"><strong class="class-b">Class B</strong> &mdash; Secondary analytical: Broker reports (Aon, AM Best), think tanks, academic papers</p>
+    <p style="text-indent:0; font-size:9.5pt;"><strong class="class-c">Class C</strong> &mdash; Dissemination: Press releases, trade media articles</p>
+    <p style="text-indent:0; font-size:9.5pt;"><strong class="class-cec">c-ECO</strong> &mdash; Framework sources: TDR Mathematics, TFP Manual, c-ECO Statute</p>
+</div>
+
+<!-- ==================== CHAPTER 2 ==================== -->
+<div class="anchor" id="ch2"></div>
+<div class="chapter-title">
+    <span class="chapter-number">Chapter Two</span>
+    Operational Diagnosis: Failures of the Current System
+</div>
+
+<!-- 2.1 -->
+<div class="anchor" id="s21"></div>
+<div class="section-title">2.1 The Post-2008 Framework Cannot Handle Structural Physical Volatility</div>
+
+<div class="body-text">
+    <p><strong>The problem:</strong> The prudential system was designed for self-correcting financial cycles (<em>boom-bust</em>). Climate volatility does not behave this way: it is directional (worsens progressively), generates compound shocks (sequences of events with multiplicative impact), and operates over time horizons that exceed institutional decision-making horizons <span class="class-a">[BIS AER 2025]</span> <span class="class-a">[NGFS Short-Term Scenarios]</span>.</p>
+
+    <div class="problem-box">
+        <span class="label">Operational Failure Points</span>
+        <p>&bull; Historically calibrated models underestimate <em>tail risk</em> because the distribution of climate events is in constant shift</p>
+        <p>&bull; The NGFS models compound extreme events, but the annual/quarterly granularity does not capture sub-annual market response speed</p>
+        <p>&bull; Infrastructure investment horizons (20&ndash;50 years) are aligned with climate risk scale, but governance instruments operate on annual or decadal cycles</p>
+    </div>
+
+    <div class="solution-box">
+        <span class="label">c-ECO Solution &mdash; TFP Real-Time Monitoring</span>
+        <p>The Threshold Function Protocol (TFP) operates in real time. Its variables &mdash; <strong>P</strong> (position relative to the Safe Operating Space), <strong>&Delta;V</strong> (trajectory velocity), <strong>&sigma;</strong> (asymmetric uncertainty), <strong>Lr</strong> (reversibility capacity) &mdash; capture nonlinear and directional dynamics that post-2008 models ignore.</p>
+        <p style="margin-top:0.06in;"><em>Result:</em> The TFP detects threshold approach <em>before</em> the historical distribution becomes obsolete, closing the temporal gap between governance cycles and risk velocity.</p>
+    </div>
+</div>
+
+<!-- 2.2 -->
+<div class="anchor" id="s22"></div>
+<div class="section-title">2.2 The Insurance Market Is Structurally Overloaded</div>
+
+<div class="body-text">
+    <p><strong>The problem:</strong> The insurance market is experiencing a structural transformation that extends beyond conventional pricing cycles.</p>
+
+    <table>
+        <thead>
+            <tr><th>Indicator</th><th>Data</th><th>Source</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Consecutive years &gt;USD 100bn insured losses</td><td>6 years (2020&ndash;2025)</td><td class="class-a">Swiss Re sigma 1/2026</td></tr>
+            <tr><td>2025 insured losses</td><td>USD 107 billion</td><td class="class-a">Swiss Re sigma 1/2026</td></tr>
+            <tr><td>Share from secondary perils (2025)</td><td>92%</td><td class="class-a">Swiss Re sigma 1/2026</td></tr>
+            <tr><td>Los Angeles wildfires alone</td><td>USD 40 billion</td><td class="class-a">Swiss Re</td></tr>
+            <tr><td>Growth rate (real, since 1996)</td><td>5&ndash;7% p.a.</td><td class="class-a">Swiss Re</td></tr>
+            <tr><td>2025 total economic losses</td><td>USD 220 billion</td><td class="class-a">Swiss Re</td></tr>
+            <tr><td>Insured share (2025)</td><td>49% (highest on record)</td><td class="class-a">Swiss Re sigma</td></tr>
+            <tr><td>Uninsured in emerging economies</td><td>80&ndash;90%</td><td class="class-b">IAIS GIMAR; Geneva Association</td></tr>
+        </tbody>
+    </table>
+
+    <div class="problem-box">
+        <span class="label">The Failure Mechanism &mdash; Procyclicality</span>
+        <p>Coverage expands when risk is low (compressing premiums) and contracts when risk is high (raising premiums and leaving regions without protection). The result is a self-reinforcing cycle: <strong>underinsurance &rarr; loss &rarr; capital withdrawal &rarr; greater underinsurance</strong>. Insurance availability is most constrained precisely when it is most needed.</p>
+    </div>
+
+    <div class="solution-box">
+        <span class="label">c-ECO Solution &mdash; Lr + IEX</span>
+        <p>The TFP introduces <strong>Lr</strong> (Reversibility Liquidity), which measures the operational, adaptive, and financial capacity available to reverse a detected trajectory. When Lr contracts, the system triggers preemptive alerts <em>before</em> insurance capital withdraws.</p>
+        <p style="margin-top:0.06in;">The <strong>IEX (Ex-Ante Unenforceability)</strong> (Statute Art. 15&ndash;18) suspends obligation enforceability automatically when certified technical evidence indicates trajectory deviation &mdash; without requiring prior judicial process or board deliberation.</p>
+        <p style="margin-top:0.06in;">The Statute (Art. 31&ndash;34) conditions financial guarantees on the biophysical viability of the underlying asset, preventing financial instruments from disconnecting from the material reality of risk.</p>
+    </div>
+</div>
+
+<!-- 2.3 -->
+<div class="anchor" id="s23"></div>
+<div class="section-title">2.3 Infrastructure: Interdependency Creates Correlated Fragility</div>
+
+<div class="body-text">
+    <p><strong>The problem:</strong> Infrastructure networks constitute the physical backbone of modern economic activity. Their interdependence creates correlated fragilities that sector-specific risk models do not capture.</p>
+
+    <div class="problem-box">
+        <span class="label">Critical Vulnerabilities</span>
+        <p>&bull; Energy grids depend on digital control systems; water systems depend on energy for pumping; transport depends on fuel supply and digital signaling; supply chains depend on ports, roads, and telecommunications. One disruption propagates across others at velocities exceeding institutional response capacity.</p>
+        <p style="margin-top:0.06in;">&bull; The Bank of England projects <strong>6.3 million households</strong> at flood risk (2024) increasing to <strong>8 million</strong> by 2050, with implications for household wealth, mortgage markets, and sovereign fiscal capacity.</p>
+        <p style="margin-top:0.06in;">&bull; Infrastructure is financed through long-duration debt whose service depends on stable revenues. Physical disruption interrupts these cash flows, transmitting impairment to lenders, bondholders, and sovereign guarantors simultaneously.</p>
+        <p style="margin-top:0.06in;">&bull; <strong>Collective action problem:</strong> individual operators underinvest in resilience because benefits accrue to the broader system while costs are borne entirely by the investor. Systemic resilience is underprovided relative to its social value.</p>
+    </div>
+
+    <div class="solution-box">
+        <span class="label">c-ECO Solution &mdash; SOS + P + &sigma;</span>
+        <p>The <strong>Safe Operating Space (SOS)</strong> (Statute Art. 23) defines the material limit within which contracts, assets, and operations are legally valid. It is not a generic environmental indicator but a boundary-referenced, context-locked prudential signal.</p>
+        <p style="margin-top:0.06in;">The TFP translates network interdependency into <strong>P</strong> (position) metrics capturing proximity to <em>systemic</em> thresholds, not merely sectoral ones. The <strong>&sigma;</strong> (uncertainty) variable is applied asymmetrically: data gaps or monitoring failures automatically contract the operational margin, accelerating response rather than justifying inaction.</p>
+    </div>
+</div>
+
+<!-- 2.4 -->
+<div class="anchor" id="s24"></div>
+<div class="section-title">2.4 Transmission to Sovereign Balance Sheets: The Fiscal Channel</div>
+
+<div class="body-text">
+    <p><strong>The problem:</strong> The transmission of physical and infrastructure risk to sovereign balance sheets operates through channels increasingly recognized in macroprudential discourse but remains insufficiently integrated into fiscal risk management practice.</p>
+
+    <div class="problem-box">
+        <span class="label">Transmission Mechanisms</span>
+        <p><strong>Cross-regional propagation:</strong> The NGFS models how climate impacts in one region propagate globally through trade and financial linkages. In the "Disasters and Policy Stagnation" scenario, GDP losses peak at <strong>+3% globally</strong>, with <strong>up to 12.5% of GDP in Africa</strong>.</p>
+        <p style="margin-top:0.06in;"><strong>Fiscal-monetary tension:</strong> Physical disruption compresses tax revenues while simultaneously increasing expenditure needs. Sovereigns face procyclical fiscal pressure: deficits widen during disruption, debt ratios rise, and sovereign risk premiums increase.</p>
+        <p style="margin-top:0.06in;"><strong>Municipal transmission:</strong> Local governments bear primary responsibility for infrastructure maintenance and disaster response, yet possess limited fiscal autonomy. When physical events strain municipal finances, pressure transmits upward to sovereign guarantors through implicit or explicit backstop arrangements.</p>
+    </div>
+<div class="solution-box">
+        <span class="label">c-ECO Solution &mdash; Pre-Threshold Principle + Graduated Triggers</span>
+        <p>The <strong>Pre-Threshold Principle</strong> (Statute Art. 5-A) establishes that legal relevance activates when the system's reversibility capacity enters <em>statistically verifiable contraction</em>, not when damage manifests. This enables intervention <em>before</em> contingent liabilities crystallize on sovereign balance sheets.</p>
+        <p style="margin-top:0.06in;">The <strong>Sliding Scale of Risk</strong> (Art. 5, &sect;1&ordm;) defines three trigger levels:</p>
+        <p style="margin-top:0.04in;"><strong>I &mdash; Systemic-Existential (10&ndash;20%):</strong> Ecological tipping points, Green Swan risks, irreversible damage to vital ecosystem services.</p>
+        <p><strong>II &mdash; Climate and Macro-Financial (50%):</strong> Trajectories threatening SOS stability or generating transboundary systemic effects.</p>
+        <p><strong>III &mdash; Operational and Compliance (80%):</strong> Low systemic complexity, full technical reversibility.</p>
+    </div>
+</div>
+
+<!-- 2.5 -->
+<div class="anchor" id="s25"></div>
+<div class="section-title">2.5 Systemic Repricing and Capital Fragmentation</div>
+
+<div class="body-text">
+    <p><strong>The problem:</strong> The convergence of physical volatility, insurance contraction, infrastructure fragility, and sovereign fiscal stress is generating a systemic repricing of the risk-return landscape for long-duration capital. This repricing is not a market correction in the conventional sense; it is a structural transformation whose full implications are not visible within standard investment horizons.</p>
+
+    <div class="problem-box">
+        <span class="label">Systemic Amplification Channels</span>
+        <p><strong>Leverage + valuation vulnerability:</strong> The BIS AER 2025 identifies elevated public and private debt levels and stretched asset valuations as conditions where even moderate adverse shocks could trigger disproportionate market dislocations.</p>
+        <p style="margin-top:0.06in;"><strong>Non-bank financial intermediation:</strong> Asset managers, hedge funds, insurance companies, and pension funds represent a significant share of total financial assets and are generally subject to lighter regulation than banks. These institutions are significant holders of infrastructure debt, municipal bonds, real estate, and other long-duration assets directly exposed to physical volatility.</p>
+        <p style="margin-top:0.06in;"><strong>Cross-border capital fragmentation:</strong> Global trade policy uncertainty reached unprecedented levels during 2024&ndash;2025. As capital flows reorganize in response to geopolitical and physical risk pressures, the availability of long-duration financing for infrastructure and sovereign investment in high-exposure regions contracts independently of local economic fundamentals. This creates a <strong>capital access asymmetry</strong>: regions most exposed to physical volatility face the greatest constraints on the capital needed to build resilience.</p>
+    </div>
+
+    <div class="solution-box">
+        <span class="label">c-ECO Solution &mdash; Habitability Link + Systemic Look-Through</span>
+        <p>The Statute (Art. 27&ndash;30) establishes the <strong>Habitability Link</strong>: the legal recognition, economic relevance, and enforceability of assets, contracts, and operations are inseparably linked to the preservation of the habitability of the ecosystems and life-support systems upon which they depend.</p>
+        <p style="margin-top:0.06in;">The <strong>Systemic Look-Through Rule</strong> (Art. 30, I) prevents asset-segregation, securitization, and structured finance arrangements from severing the material unity between asset, cash flow, and underlying ecosystem. SPVs, segregated accounts, bankruptcy-remote vehicles, and synthetic risk transfers cannot exclude duties of pre-threshold governance, disclosure, restoration, or liability.</p>
+        <p style="margin-top:0.06in;"><em>Result:</em> Financial valuation is re-tethered to physical reality. Instruments designed to isolate economic returns from ecological integrity produce no legal effects for purposes of valuation, enforceability, or regulatory recognition.</p>
+    </div>
+</div>
+
+<!-- 2.6 -->
+<div class="anchor" id="s26"></div>
+<div class="section-title">2.6 The Cascade Sequence: Why the Intervention Window Is Short</div>
+
+<div class="body-text">
+    <p><strong>The problem:</strong> The transmission from physical event to financial instability follows a 7-phase sequence. The following cascade is not a prediction of any specific event; it is a stylized representation of the dominant transmission pathway.</p>
+
+    <table class="phase-table">
+        <thead>
+            <tr><th>#</th><th>Phase</th><th>Timeframe</th><th>Event &amp; Governance Failure</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Physical Disruption</td>
+                <td>Hours&ndash;Days</td>
+                <td>Compound extreme climate events damage infrastructure. The system detects the event but does not assess financial implications. <span class="class-a">[NGFS scenarios]</span></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Insurance Repricing</td>
+                <td>Days&ndash;Weeks</td>
+                <td>Reinsurers reassess aggregate exposure; primary insurers withdraw coverage or impose restrictive terms. Secondary perils now drive 92% of insured losses, making repricing faster and more dispersed. <span class="class-a">[Swiss Re]</span></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Collateral Impairment</td>
+                <td>Weeks&ndash;Months</td>
+                <td>Physical damage reduces real asset values below loan covenant thresholds; margin calls are issued; REITs, CMBS, and repo markets experience procyclical deleveraging. <span class="class-a">[BIS AER 2025]</span></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Municipal Fiscal Stress</td>
+                <td>Months</td>
+                <td>Revenue compression + expenditure surges strain local governments; borrowing capacity is constrained by credit rating deterioration; contingent liabilities crystallize on sovereign balance sheets. <span class="class-a">[Bank of England]</span></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Sovereign Spread Widening</td>
+                <td>Months&ndash;Quarters</td>
+                <td>Credit rating agencies reassess sovereign creditworthiness; risk premiums increase; debt refinancing costs escalate. The fiscal-monetary interaction becomes acute. <span class="class-a">[NGFS]</span></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Cross-Border Capital Withdrawal</td>
+                <td>Quarters&ndash;Years</td>
+                <td>International investors rebalance portfolios away from exposed sovereigns; development finance institutions reassess exposure limits; high-exposure regions face the greatest constraints on resilience financing. <span class="class-a">[BIS]</span></td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Underinvestment &amp; Productivity Loss</td>
+                <td>Years</td>
+                <td>Persistent capital withdrawal reduces infrastructure investment below depreciation rates; deferred maintenance accumulates; productivity losses become structural. A downward spiral: physical fragility &rarr; financial stress &rarr; underinvestment &rarr; greater fragility. <span class="class-a">[NGFS]</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="problem-box">
+        <span class="label">Critical Path &amp; Amplification</span>
+        <p><strong>Dominant transmission pathway:</strong> Collateral impairment &rarr; Municipal fiscal stress &rarr; Sovereign spread widening &rarr; Cross-border capital withdrawal.</p>
+        <p style="margin-top:0.06in;"><strong>Primary amplification mechanism:</strong> Insurance procyclicality &mdash; coverage contracts precisely when risk is most acute, forcing risk migration onto balance sheets that are less capitalized, less diversified, and less prepared to absorb it.</p>
+        <p style="margin-top:0.06in;"><strong>Systemic implication:</strong> Intervention after Phase 3 becomes progressively less effective at preventing irreversible transitions, because financial losses crystallize faster than physical assets can be repaired or governance cycles can respond.</p>
+    </div>
+
+    <div class="solution-box">
+        <span class="label">c-ECO Solution &mdash; State Machine (Art. 48&ndash;50)</span>
+        <p>The <strong>State Machine</strong> is the legal-operational architecture governing execution, suspension, modulation, and cessation of contracts based on the objective evolution of the monitored systemic trajectory. It operates in <strong>progressive phases</strong> corresponding to predefined technical states:</p>
+        <p style="margin-top:0.06in;"><strong>Normal Execution</strong> &rarr; <strong>Alert</strong> &rarr; <strong>Containment</strong> &rarr; <strong>Unenforceability</strong></p>
+        <p style="margin-top:0.06in;">Automatic continuation of execution is <em>prohibited</em> once transition to alert or containment states is identified. The c-ECO system intervenes operationally between Phase 1 (detection) and Phase 3 (buffer erosion), when the prevention window is still open.</p>
+    </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==================== CHAPTER 3 ==================== -->
+<div class="anchor" id="ch3"></div>
+<div class="chapter-title">
+    <span class="chapter-number">Chapter Three</span>
+    Operational Governance Deficits and How c-ECO Resolves Them
+</div>
+
+<!-- 3.1 -->
+<div class="anchor" id="s31"></div>
+<div class="section-title">3.1 Deficit: Governance Is Slow; Risk Is Fast</div>
+
+<div class="body-text">
+    <p><strong>The problem:</strong> Governance cycles operate on annual/decadal frequencies. Risk dynamics operate on sub-annual/event-driven frequencies. <em>Margin calls</em> and <em>fire sales</em> occur in <strong>hours</strong>; board meetings and legislative processes operate in <strong>months or years</strong>. The asymmetry is not constant &mdash; it is widening, because climate risk accelerates while institutional governance does not.</p>
+
+    <div class="solution-box">
+        <span class="label">c-ECO Solution &mdash; TFP + Systemic Proof + IEX</span>
+        <p><strong>TFP</strong> operates in real time, with continuous measurement of variables P, &Delta;V, &sigma;, Lr. No deliberative process required for detection.</p>
+        <p style="margin-top:0.06in;"><strong>Systemic Proof</strong> (Art. 35&ndash;39) establishes objective technical evidence based on certified, continuously monitored sensory data, capable of producing immediate legal effects without dependence on slow institutional cycles.</p>
+        <p style="margin-top:0.06in;"><strong>IEX (Ex-Ante Unenforceability)</strong> (Art. 15&ndash;18) suspends obligation enforceability <em>automatically</em>, based on certified technical evidence of trajectory deviation. No judicial process. No board vote. No political negotiation. The system responds at the speed of data.</p>
+    </div>
+</div>
+
+<!-- 3.2 -->
+<div class="anchor" id="s32"></div>
+<div class="section-title">3.2 Deficit: No One Sees the Full Picture</div>
+
+<div class="body-text">
+    <p><strong>The problem:</strong> Governance of physical risk, infrastructure, finance, and insurance operates in uncoordinated silos. Environmental agencies track climate events; central banks monitor banking solvency; insurers track claims. No single actor possesses both the mandate and the information to assess systemic exposure across all stages of transmission. The result is a <strong>systemic blind spot</strong>: risk accumulates invisibly until it manifests as a disruptive event.</p>
+   <div class="solution-box">
+        <span class="label">c-ECO Solution &mdash; TFP as Cross-Sectoral Interface</span>
+        <p>The TFP was designed as a <strong>cross-sectoral interface</strong>: the same variables (P, &Delta;V, &sigma;, Lr) are applicable to any monitored system &mdash; infrastructure, insurance market, sovereign balance sheet, ecosystem. The integration is <em>technical, not bureaucratic</em>: the same indicators feed decisions across all sectors.</p>
+        <p style="margin-top:0.06in;">The Statute (Art. 6) establishes the c-&Sigma;CO systemic paradigm: governance is determined by <strong>Functional Integrity</strong> within the Earth System, and legal validity is conditioned on continuous alignment between economic activity and biophysical stability.</p>
+    </div>
+</div>
+
+<!-- 3.3 -->
+<div class="anchor" id="s33"></div>
+<div class="section-title">3.3 Deficit: The System Reacts After the Damage</div>
+
+<div class="body-text">
+    <p><strong>The problem:</strong> The dominant governance modality is reactive: assessment after disruption, allocation after damage, reform after failure. Reactive modalities work for recoverable shocks (flooded building &rarr; repaired). They fail for irreversible shocks (collapsed ecosystem, displaced population, stranded asset). The financial system operates on <em>mark-to-market</em>: the loss crystallizes immediately, even if the physical asset can be repaired later. Physical recovery and financial recovery have incompatible speeds.</p>
+
+    <div class="solution-box">
+        <span class="label">c-ECO Solution &mdash; Pre-Threshold Principle + IEX + Safe Mode</span>
+        <p><strong>Pre-Threshold Principle</strong> (Art. 5-A) shifts the legal intervention point: relevance activates when reversibility capacity enters <em>measurable contraction</em>, not when damage manifests. This is the operational translation of the doctrinal insight that ex post remediation is structurally inadequate for systemic risks characterized by non-linearity, time lag, and irreversibility.</p>
+        <p style="margin-top:0.06in;"><strong>IEX</strong> (Art. 15) operates as an <strong>automatic legal circuit breaker</strong>: suspends enforceability, prohibits acts that aggravate the incompatible trajectory, and prioritizes systemic containment &mdash; all based on certified technical data, not on perception of damage.</p>
+        <p style="margin-top:0.06in;"><strong>Safe Mode</strong> (Art. 44&ndash;47) is the legal state of systemic containment in which contract execution is suspended or reconfigured in a coordinated manner among interdependent agents, to prevent cascade effects. Suspension does <em>not</em> constitute default, delay, or contractual breach; penalties for interruption are unenforceable.</p>
+    </div>
+</div>
+
+<!-- 3.4 -->
+<div class="anchor" id="s34"></div>
+<div class="section-title">3.4 Deficit: Data Exists but Is Not Integrated</div>
+
+<div class="body-text">
+    <p><strong>The problem:</strong> Information on physical risk, infrastructure, insurance, and finance <em>exists</em>, but is in incompatible formats, different frequencies, distinct standards, and frequently under proprietary secrecy. A central bank attempting to assess macro-financial implications of insurance market contraction often discovers that the necessary data is held by private companies and unavailable for systemic risk assessment.</p>
+
+    <div class="solution-box">
+        <span class="label">c-ECO Solution &mdash; Systemic Proof + Data Custodian Certification</span>
+        <p>The <strong>TFP Manual</strong> specifies standardized procedures for data collection, certification, audit, and intervention. Variables P, &Delta;V, &sigma;, Lr are calculated from sources with an established <strong>hierarchy of evidence</strong>:</p>
+        <p style="margin-top:0.04in;"><strong>(1)</strong> IoT sensors and remote sensing (primary pathway)</p>
+        <p><strong>(2)</strong> Scientific models authorized by the Calibration Council (secondary pathway)</p>
+        <p><strong>(3)</strong> Verified corporate records (tertiary pathway)</p>
+        <p style="margin-top:0.06in;"><strong>Systemic Proof</strong> (Art. 35&ndash;39) establishes a probative regime with <em>operational prevalence</em> over declaratory, testimonial, or economic estimate evidence. Data Custodian certification (TFP Manual, Sections 4&ndash;6) ensures non-discretionary, continuous, auditable collection &mdash; eliminating the fragmentation that characterizes the current system.</p>
+    </div>
+</div>
+
+<!-- 3.5 -->
+<div class="anchor" id="s35"></div>
+<div class="section-title">3.5 Deficit: Institutions Cannot Adapt at the Speed of Risk</div>
+
+<div class="body-text">
+    <p><strong>The problem:</strong> Organizations develop routines and cultures that resist change. Adaptation is slow, costly, and politically contested. The <strong>adaptation paradox</strong> arises from the interaction between institutional inertia and the velocity of systemic risk accumulation: institutions adapt slowly; risk accumulates quickly. The faster the accumulation, the greater the adaptation lag. The public sector is constrained by legislative processes; the private sector reacts to market signals, but individually &mdash; protecting its own balance sheets while amplifying systemic risk through correlated behavior.</p>
+
+    <div class="solution-box">
+        <span class="label">c-ECO Solution &mdash; State Machine + Curatorial Trigger</span>
+        <p>The <strong>State Machine</strong> (Art. 48&ndash;50) does not require institutional adaptation to operate: it <strong>automates</strong> the transition between execution states based on objective technical data. It does not depend on board meetings, legislative processes, or political negotiation.</p>
+        <p style="margin-top:0.06in;">The <strong>Curatorial Trigger</strong> (Art. 40&ndash;43) automatically releases resources for correction and restoration when technical data indicate trajectory deviation. Correction of the systemic trajectory and restoration of habitability have <strong>absolute priority</strong> over any form of ex post indemnification. Substitution of the curatorial response by financial compensation detached from reversibility is prohibited.</p>
+    </div>
+</div>
+
+<!-- 3.6 -->
+<div class="anchor" id="s36"></div>
+<div class="section-title">3.6 Deterioration Sequencing Under Stress: Where c-ECO Intervenes</div>
+
+<div class="body-text">
+    <p><strong>The problem:</strong> Governance deterioration under stress follows 5 progressive stages. Conventional intervention only occurs at Stage 4 or 5 &mdash; when it is too late.</p>
+
+    <table class="stage-table">
+        <thead>
+            <tr><th>#</th><th>Stage</th><th>Timeframe</th><th>What Happens</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Silent accumulation</td>
+                <td>Months&ndash;Years</td>
+                <td>Systemic risk accumulates without institutional awareness. Physical exposure increases; insurance coverage contracts; infrastructure resilience degrades; sovereign contingent liabilities expand.</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Blindness window</td>
+                <td>Hours&ndash;Days</td>
+                <td>The physical event occurs. Financial markets respond immediately while institutional governance remains on its normal cycle. Financial amplification proceeds without governance intervention.</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Buffer erosion</td>
+                <td>Days&ndash;Weeks</td>
+                <td>Insurance capital withdraws; collateral values fall below covenant thresholds; municipal finances deteriorate. The first buffer to fail is insurance market capacity; the second is collateral adequacy; the third is municipal fiscal sustainability.</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Irreversibility threshold</td>
+                <td>Weeks&ndash;Months</td>
+                <td>Financial losses crystallize before physical recovery is possible. Insurance coverage withdrawal becomes permanent. The window for recoverable intervention closes.</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>New degraded equilibrium</td>
+                <td>Months&ndash;Years</td>
+                <td>The system settles into a new structural configuration: lower insurance coverage, higher capital costs, reduced infrastructure investment, wider sovereign spreads. Buffers have been consumed.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="problem-box">
+        <span class="label">The Critical Window</span>
+        <p>The critical intervention window is <strong>between Stage 1 and Stage 3</strong>. Conventional governance cannot operate in this window because it lacks predictive capacity, response speed, and cross-sectoral integration.</p>
+    </div>
+
+    <div class="solution-box">
+        <span class="label">c-ECO Intervention Mapping</span>
+    </div>
+
+    <table class="tool-table">
+        <thead>
+            <tr><th>c-ECO Tool</th><th>Stage of Intervention</th><th>Mechanism</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>TFP (P, &Delta;V, &sigma;, Lr)</td>
+                <td>Stage 1</td>
+                <td>Continuous monitoring detects silent accumulation through state variable changes before events manifest. The system measures proximity to thresholds in real time.</td>
+            </tr>
+            <tr>
+                <td>Pre-Threshold Principle + Systemic Proof</td>
+                <td>Stage 2</td>
+                <td>Certified technical evidence automatically activates legal monitoring and prevention obligations. No deliberative cycle required. Standing becomes actionable when &Gamma; &ge; &Gamma;<sub>threshold</sub>.</td>
+            </tr>
+            <tr>
+                <td>IEX + Safe Mode</td>
+                <td>Stage 3</td>
+                <td>Suspends obligation enforceability, reconfigures contract execution, and contains risk propagation <em>before</em> losses crystallize. Coordinated suspension among interdependent agents prevents cascade effects.</td>
+            </tr>
+            <tr>
+                <td>Systemic Perclusion + Curatorial Trigger</td>
+                <td>Stage 4</td>
+                <td>Blocks legally valid acts whose continuation leads to critical resource exhaustion. Automatically releases resources for restoration, correction, and safe decommissioning. Priority: trajectory correction over financial compensation.</td>
+            </tr>
+            <tr>
+                <td>State Machine</td>
+                <td>All stages</td>
+
+                 <td>Orchestrates automatic transition between predefined technical states. Prohibits automatic execution continuation once alert state is identified. Governed by objective data, not institutional discretion.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==================== SYNTHESIS ==================== -->
+<div class="anchor" id="synth"></div>
+<div class="chapter-title" style="font-size:13pt;">
+    <span class="chapter-number">Synthesis</span>
+    Problem &rarr; c-ECO Solution
+</div>
+
+<table class="synth-table">
+    <thead>
+        <tr><th>Operational Problem</th><th>c-ECO Tool</th><th>Statute Article / TFP Component</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Volatility is directional, not cyclical</td><td>TFP with P, &Delta;V, &sigma;, Lr</td><td>TFP Blueprint</td></tr>
+        <tr><td>Insurance market procyclicality</td><td>Lr (Reversibility Liquidity) + IEX</td><td>Art. 15&ndash;18</td></tr>
+        <tr><td>Infrastructure interdependency not modeled</td><td>SOS (Safe Operating Space) + P (systemic position)</td><td>Art. 23; TFP Manual Section 4</td></tr>
+        <tr><td>Sovereign risk crystallizes before detection</td><td>Pre-Threshold Principle + graduated triggers</td><td>Art. 5-A; Art. 5 &sect;1&ordm;</td></tr>
+        <tr><td>Systemic repricing disconnected from physical reality</td><td>Habitability Link + Systemic Look-Through Rule</td><td>Art. 27&ndash;30</td></tr>
+        <tr><td>Governance is slow; risk is fast</td><td>Systemic Proof + IEX (immediate effects)</td><td>Art. 35&ndash;39; Art. 15&ndash;18</td></tr>
+        <tr><td>Information silos</td><td>TFP as cross-sectoral interface</td><td>TFP Manual</td></tr>
+        <tr><td>System reacts after damage</td><td>Pre-Threshold Principle + Safe Mode</td><td>Art. 5-A; Art. 44&ndash;47</td></tr>
+        <tr><td>Fragmented data</td><td>Systemic Proof + Data Custodian certification</td><td>Art. 35&ndash;39; TFP Manual Sections 4&ndash;6</td></tr>
+        <tr><td>Institutional inertia</td><td>State Machine (automated state transition)</td><td>Art. 48&ndash;50</td></tr>
+        <tr><td>Intervention window closes before action</td><td>Sequence: TFP &rarr; Systemic Proof &rarr; IEX &rarr; Safe Mode &rarr; Curatorial Trigger</td><td>Integrated framework</td></tr>
+    </tbody>
+</table>
+
+<div class="page-break"></div>
+
+<!-- ==================== REFERENCES ==================== -->
+<div class="anchor" id="refs"></div>
+<div class="chapter-title" style="font-size:13pt;">
+    <span class="chapter-number">Appendix</span>
+    Bibliographical References by Class
+</div>
+
+<div class="section-title">Class A &mdash; Primary Institutional Sources</div>
+<table class="source-table">
+    <thead><tr><th>Code</th><th>Source</th><th>Document</th></tr></thead>
+    <tbody>
+        <tr><td>[1]</td><td>BIS</td><td><em>Annual Economic Report 2025</em></td></tr>
+        <tr><td>[2]</td><td>BIS</td><td><em>Annual Economic Report 2025 &mdash; Chapter I</em></td></tr>
+        <tr><td>[3]</td><td>Swiss Re Institute</td><td><em>sigma 1/2026: Natural catastrophes in 2025</em></td></tr>
+        <tr><td>[4]</td><td>Swiss Re Institute</td><td><em>2025: A year of hail storms, fire and high water</em></td></tr>
+        <tr><td>[5]</td><td>Swiss Re Institute</td><td>Press Release, 19 March 2026</td></tr>
+        <tr><td>[10]</td><td>NGFS</td><td><em>Short-Term Climate Scenarios &mdash; Technical Documentation V2</em>, May 2025</td></tr>
+        <tr><td>[13]</td><td>NGFS</td><td><em>Short-Term Scenarios: main takeaways</em>, May 2025</td></tr>
+        <tr><td>[14]</td><td>NGFS</td><td><em>Short-Term Scenarios &mdash; Presentation</em>, May 2025</td></tr>
+        <tr><td>[15]</td><td>Bank of England</td><td><em>Financial Stability Report &mdash; December 2025</em></td></tr>
+        <tr><td>[29]</td><td>Swiss Re Institute</td><td><em>sigma 1/2026</em> (full PDF)</td></tr>
+        <tr><td>[32]</td><td>Swiss Re Institute</td><td><em>sigma 1/2025</em></td></tr>
+        <tr><td>[42]</td><td>Swiss Re Institute</td><td><em>Adaptation and insurance</em>, 2026</td></tr>
+        <tr><td>[46]</td><td>IAIS</td><td><em>GIMAR &mdash; Special topic on NatCat protection gaps</em>, 2025</td></tr>
+    </tbody>
+</table>
+
+<div class="section-title">Class B &mdash; Analytical Sources</div>
+<table class="source-table">
+    <thead><tr><th>Code</th><th>Source</th><th>Document</th></tr></thead>
+    <tbody>
+        <tr><td>[9]</td><td>AM Best</td><td><em>Cat Bond Market Expands</em>, 20 March 2026</td></tr>
+        <tr><td>[11]</td><td>BBVA Research / NGFS</td><td><em>NGFS Short-Term Scenarios</em>, May 2025</td></tr>
+        <tr><td>[16]</td><td>CEPR / Monasterolo et al.</td><td><em>NGFS short-term climate scenarios</em>, 2025</td></tr>
+        <tr><td>[22]</td><td>UNCTAD</td><td><em>Global Trade Update</em>, September 2025</td></tr>
+        <tr><td>[26]</td><td>BIS Bulletin</td><td><em>Macroeconomic impact of tariffs</em>, 2025</td></tr>
+        <tr><td>[30]</td><td>AM Best / Guy Carpenter</td><td>Reinsurance capital data 2024&ndash;2025</td></tr>
+        <tr><td>[31]</td><td>Aon plc</td><td><em>Reinsurance Market Dynamics</em>, April 2026</td></tr>
+        <tr><td>[44]</td><td>UK PreventionWeb / Flood Re</td><td><em>How UK keeping flood insurance affordable</em>, 2026</td></tr>
+        <tr><td>[47]</td><td>Geneva Association</td><td><em>Tackling the insurance protection gap</em>, January 2026</td></tr>
+    </tbody>
+</table>
+
+<div class="section-title">Class C &mdash; Dissemination Sources</div>
+<table class="source-table">
+    <thead><tr><th>Code</th><th>Source</th><th>Document</th></tr></thead>
+    <tbody>
+        <tr><td>[6]</td><td>Insurance Journal</td><td>Article, 23 March 2026</td></tr>
+        <tr><td>[43]</td><td>Risk &amp; Insurance</td><td><em>NatCat Insured Losses 2025</em>, 2026</td></tr>
+        <tr><td>[45]</td><td>Reinsurance News</td><td><em>Secondary perils 92% of losses</em>, 2026</td></tr>
+        <tr><td>[52]</td><td>Artemis.bm</td><td><em>Secondary perils drive record 92%</em>, 2026</td></tr>
+    </tbody>
+</table>
+
+<div class="section-title">c-ECO Framework Sources</div>
+<table class="source-table">
+    <thead><tr><th>Code</th><th>Source</th><th>Section / Article</th></tr></thead>
+    <tbody>
+        <tr><td>[185]</td><td>c-ECO / TDR Mathematics</td><td>Variables P, &Delta;V, &sigma;, Lr; dynamical formalism</td></tr>
+        <tr><td>[188]</td><td>c-ECO Statute</td><td>Art. 1&ndash;8: Structural Principles, Pre-Threshold, IEX</td></tr>
+        <tr><td>[190]</td><td>c-ECO Statute</td><td>Art. 9&ndash;50: Conditioned Object, IEX, Perclusion, SOS, Habitability Link, Safe Mode, State Machine, Curatorial Trigger</td></tr>
+        <tr><td>[TFP]</td><td>c-ECO / TFP Manual</td><td>Sections 1&ndash;6: Architecture, variables, scores, Data Custodians, certification</td></tr>
+    </tbody>
+</table>
+
+<!-- FOOTER -->
+<div class="doc-footer">
+    c-ECO Predictive Governance Framework &mdash; Phase II Delivery (Revised v2.2)<br>
+    Johann Christian Hasse Foundation &bull; Restricted Institutional Circulation &bull; May 2026<br>
+    Level III &mdash; Internal Strategic Estimate
+</div>
+
+</div><!-- /content -->
+</div><!-- /page -->
+</div><!-- /page-wrap -->
+
+<!-- JavaScript for navigation highlighting -->
+<script>
+(function() {
+    const navLinks = document.querySelectorAll('.nav-bar a');
+    const sections = document.querySelectorAll('.anchor');
+
+    function onScroll() {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (scrollY >= sectionTop - 80) {
+                current = section.getAttribute('id');
             }
         });
-
-        // Print specific tab
-        function printTab(tabName) {
-            showTab(tabName);
-            setTimeout(() => window.print(), 200);
-        }
-    </script>
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + current) {
+                link.classList.add('active');
+            }
+        });
+    }
+    window.addEventListener('scroll', onScroll);
+    onScroll();
+})();
+</script>
 
 </body>
 </html>
+
+
+
+    
+
+    
+
+    
