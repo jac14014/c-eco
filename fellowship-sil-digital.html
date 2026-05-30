@@ -36,28 +36,26 @@ PARTE 1 - DOCTYPE ATE SIDEBAR HTML
     }
 
     .sidebar{
-      width: var(--sidebar-width);
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
-      background: #fff;
-      border-right: 1px solid var(--border-color);
-      padding: 16px;
-      overflow-y: auto;
-      z-index: 1000;
-      -webkit-overflow-scrolling: touch;
-      transition: transform .3s ease;
-    }
+  width: var(--sidebar-width);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background: #fff;
+  border-right: 1px solid var(--border-color);
+  padding: 16px;
+  overflow-y: auto;
+  z-index: 1000;
+  -webkit-overflow-scrolling: touch;
+  transform: translateX(-100%);
+  transition: transform .3s ease;
+}
 
-    .sidebar-top{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding-bottom: 10px;
-      margin-bottom: 12px;
-      border-bottom: 2px solid var(--gold-accent);
-    }
+.sidebar.open{
+  transform: translateX(0);
+}
+
+
 
     .logo-box{
       display:inline-flex;
@@ -147,7 +145,7 @@ PARTE 1 - DOCTYPE ATE SIDEBAR HTML
     }
 
     .main-content{
-      margin-left: var(--sidebar-width);
+      margin-left: 0;
       padding: 40px 20px;
       display:flex;
       justify-content:center;
@@ -422,22 +420,34 @@ PARTE 1 - DOCTYPE ATE SIDEBAR HTML
 
     .hidden { display: none !important; }
 
-    .mobile-btn{
-      display:none;
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: var(--earth-green);
-      color: #fff;
-      border: none;
-      padding: 14px 22px;
-      font-weight: 800;
-      font-size: 12px;
-      z-index: 2000;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      cursor: pointer;
-      letter-spacing: 0.5px;
-    }
+
+.mobile-btn{
+  display:block;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--earth-green);
+  color: #fff;
+  border: none;
+  padding: 14px 22px;
+  font-weight: 800;
+  font-size: 12px;
+  z-index: 2000;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  cursor: pointer;
+  letter-spacing: 0.5px;
+}
+    .sidebar-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.28);
+  z-index:999;
+}
+
+.sidebar-overlay.show{
+  display:block;
+}
 
 ================================================================================
 PARTE 2 - CSS CONTINUACAO + SIDEBAR + HEADER DO DOCUMENTO
@@ -600,9 +610,11 @@ PARTE 2 - CSS CONTINUACAO + SIDEBAR + HEADER DO DOCUMENTO
 
 <body>
 
-  <button class="mobile-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
-    INDEX
-  </button>
+  <button class="mobile-btn" onclick="toggleSidebar()">
+  INDEX
+</button>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
   <button class="print-btn" onclick="printDocument()" id="printBtn">
     <span>Save PDF / Print</span>
@@ -1951,11 +1963,24 @@ PARTE 7 - JAVASCRIPT E FECHAMENTO DO HTML
     content.classList.toggle('collapsed');
   }
 
+ <script>
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+
+  function toggleSidebar(){
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('show');
+  }
+
+  function closeSidebar(){
+    sidebar.classList.remove('open');
+    overlay.classList.remove('show');
+  }
+
   // Search functionality
   const searchInput = document.getElementById('sidebarSearch');
   const navItems = document.querySelectorAll('.nav-item');
   const sectionTitles = document.querySelectorAll('.nav-section-title, .nav-sub-title');
-  const sidebar = document.getElementById('sidebar');
 
   searchInput.addEventListener('input', function(e) {
     const term = e.target.value.toLowerCase();
@@ -1969,6 +1994,42 @@ PARTE 7 - JAVASCRIPT E FECHAMENTO DO HTML
       title.classList.toggle('hidden', term.length > 0);
     });
   });
+
+  document.querySelectorAll('.nav-item a').forEach(link => {
+    link.addEventListener('click', closeSidebar);
+  });
+
+  function printDocument() {
+    const btn = document.getElementById('printBtn');
+    const status = document.getElementById('pdfStatus');
+
+    status.classList.add('show');
+    btn.classList.add('saving');
+
+    const collapsedSections = document.querySelectorAll('.references-content.collapsed');
+    const wasCollapsed = [];
+
+    collapsedSections.forEach((section) => {
+      wasCollapsed.push(section);
+      section.classList.remove('collapsed');
+      section.previousElementSibling.classList.remove('collapsed');
+    });
+
+    setTimeout(() => {
+      window.print();
+
+      setTimeout(() => {
+        wasCollapsed.forEach(section => {
+          section.classList.add('collapsed');
+          section.previousElementSibling.classList.add('collapsed');
+        });
+
+        status.classList.remove('show');
+        btn.classList.remove('saving');
+      }, 1000);
+    }, 300);
+  }
+
 
   // Close mobile menu on link click
   document.querySelectorAll('.nav-item a').forEach(link => {
