@@ -1,0 +1,2211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>c-ECO Systemic Intelligence Library | Digital Technology & Data Infrastructure</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sidebar-width:340px;
+  --earth-green:#1e3a2f;
+  --deep-green:#122820;
+  --soft-green:#e8f0ec;
+  --gold:#d4a373;
+  --gold-dark:#b8874f;
+  --bg:#f5f7f4;
+  --paper:#ffffff;
+  --ink:#1a1a1a;
+  --muted:#5d675f;
+  --line:#d8ddd8;
+  --soft:#fafcfa;
+  --warning:#8a5a18;
+  --red:#8b2f2f;
+  --blue:#264b73;
+  --shadow:0 12px 32px rgba(0,0,0,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:Inter, sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.75;
+  font-size:16px;
+}
+.layout{
+  display:flex;
+  min-height:100vh;
+}
+.sidebar{
+  width:var(--sidebar-width);
+  position:fixed;
+  top:0;
+  left:0;
+  height:100vh;
+  overflow-y:auto;
+  background:linear-gradient(180deg,var(--deep-green),var(--earth-green));
+  color:white;
+  padding:34px 26px;
+  border-right:4px solid var(--gold);
+}
+.sidebar h1{
+  font-family:"Libre Baskerville", serif;
+  font-size:1.45rem;
+  line-height:1.25;
+  margin-bottom:10px;
+}
+.sidebar .sub{
+  font-size:.78rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:#d9c6a3;
+  margin-bottom:26px;
+}
+.nav-section{
+  margin:24px 0 10px;
+  font-size:.72rem;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:#d4a373;
+  font-weight:800;
+}
+.sidebar a{
+  display:block;
+  color:#f4f7f2;
+  text-decoration:none;
+  padding:8px 0;
+  font-size:.92rem;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.sidebar a:hover{
+  color:var(--gold);
+}
+.main{
+  margin-left:var(--sidebar-width);
+  width:calc(100% - var(--sidebar-width));
+  padding:42px;
+}
+.hero{
+  background:
+    linear-gradient(135deg,rgba(30,58,47,.96),rgba(18,40,32,.96)),
+    radial-gradient(circle at top right,rgba(212,163,115,.25),transparent 40%);
+  color:white;
+  padding:56px;
+  border-radius:24px;
+  box-shadow:var(--shadow);
+  margin-bottom:32px;
+  border:1px solid rgba(212,163,115,.35);
+}
+.hero .eyebrow{
+  color:var(--gold);
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-weight:800;
+  font-size:.78rem;
+  margin-bottom:14px;
+}
+.hero h2{
+  font-family:"Libre Baskerville", serif;
+  font-size:2.6rem;
+  line-height:1.15;
+  max-width:980px;
+  margin-bottom:18px;
+}
+.hero p{
+  max-width:1000px;
+  color:#eef4ee;
+  font-size:1.05rem;
+}
+.meta-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-top:28px;
+}
+.meta-card{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);
+  padding:16px;
+  border-radius:14px;
+}
+.meta-card strong{
+  display:block;
+  color:var(--gold);
+  font-size:.78rem;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+.meta-card span{
+  font-size:.95rem;
+}
+.notice{
+  background:#fff8ed;
+  border-left:5px solid var(--gold);
+  padding:20px 24px;
+  border-radius:14px;
+  margin-bottom:28px;
+  color:#3f3325;
+}
+.section{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:34px;
+  margin-bottom:28px;
+  box-shadow:0 4px 18px rgba(0,0,0,.04);
+}
+.section-header{
+  margin-bottom:22px;
+  border-bottom:1px solid var(--line);
+  padding-bottom:16px;
+}
+.section-header .label{
+  color:var(--gold-dark);
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  font-size:.76rem;
+}
+.section-header h3{
+  font-family:"Libre Baskerville", serif;
+  font-size:2rem;
+  color:var(--earth-green);
+  margin-top:6px;
+}
+.section-header p{
+  color:var(--muted);
+  max-width:980px;
+}
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+}
+.card{
+  background:var(--soft);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:22px;
+}
+.card h4{
+  color:var(--earth-green);
+  font-size:1.12rem;
+  margin-bottom:8px;
+}
+.card p{
+  color:#333;
+}
+.badge-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:14px;
+}
+.badge{
+  display:inline-flex;
+  align-items:center;
+  padding:5px 10px;
+  border-radius:999px;
+  font-size:.72rem;
+  font-weight:800;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  background:#edf2ee;
+  color:#244438;
+  border:1px solid #d4ddd6;
+}
+.badge.gold{
+  background:#fff4df;
+  color:#7a4c12;
+  border-color:#e5c99b;
+}
+.badge.red{
+  background:#f8e9e9;
+  color:#7b2626;
+  border-color:#e4b7b7;
+}
+.badge.blue{
+  background:#e8f0f7;
+  color:#244b72;
+  border-color:#bdd0e1;
+}
+details{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:18px;
+  margin:16px 0;
+  overflow:hidden;
+}
+summary{
+  cursor:pointer;
+  padding:20px 24px;
+  font-weight:800;
+  color:var(--earth-green);
+  background:linear-gradient(90deg,#ffffff,#f8faf7);
+  list-style:none;
+}
+summary::-webkit-details-marker{display:none}
+summary::after{
+  content:"+";
+  float:right;
+  color:var(--gold-dark);
+  font-size:1.4rem;
+}
+details[open] summary::after{content:"–"}
+.detail-body{
+  padding:0 24px 24px;
+  border-top:1px solid var(--line);
+}
+.detail-body p{
+  margin:14px 0;
+}
+.detail-body ul,
+.detail-body ol{
+  margin-left:22px;
+  margin-top:12px;
+}
+.table-wrap{
+  overflow-x:auto;
+  margin:18px 0;
+  border:1px solid var(--line);
+  border-radius:14px;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:white;
+  min-width:760px;
+}
+th{
+  background:var(--earth-green);
+  color:white;
+  text-align:left;
+  padding:12px 14px;
+  font-size:.82rem;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+td{
+  padding:12px 14px;
+  border-bottom:1px solid var(--line);
+  vertical-align:top;
+}
+tr:nth-child(even) td{
+  background:#fbfcfb;
+}
+.callout{
+  background:#eef5f1;
+  border-left:5px solid var(--earth-green);
+  padding:18px 22px;
+  border-radius:14px;
+  margin:20px 0;
+}
+.callout strong{
+  color:var(--earth-green);
+}
+.two-col{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+.footer{
+  margin-top:42px;
+  padding:28px;
+  text-align:center;
+  color:var(--muted);
+  font-size:.86rem;
+}
+@media(max-width:1100px){
+  .sidebar{
+    position:relative;
+    width:100%;
+    height:auto;
+  }
+  .layout{
+    display:block;
+  }
+  .main{
+    margin-left:0;
+    width:100%;
+    padding:22px;
+  }
+  .meta-grid,
+  .card-grid,
+  .two-col{
+    grid-template-columns:1fr;
+  }
+  .hero{
+    padding:34px;
+  }
+  .hero h2{
+    font-size:2rem;
+  }
+}
+.history-dashboard{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin:24px 0;
+}
+
+.history-stat{
+  background:#fafcfa;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:18px;
+}
+
+.history-stat strong{
+  display:block;
+  color:var(--earth-green);
+  font-size:1.6rem;
+  font-family:"Libre Baskerville", serif;
+}
+
+.history-stat span{
+  color:var(--muted);
+  font-size:.85rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-weight:800;
+}
+
+.history-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+}
+
+.history-card{
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:#fff;
+  overflow:hidden;
+}
+
+.history-card summary{
+  padding:18px 22px;
+}
+
+.history-topline{
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  align-items:flex-start;
+}
+
+.history-year{
+  font-family:"Libre Baskerville", serif;
+  color:var(--gold-dark);
+  font-size:1.15rem;
+  font-weight:700;
+}
+
+.history-title{
+  color:var(--earth-green);
+  font-weight:800;
+  font-size:1rem;
+}
+
+.history-tag{
+  font-size:.68rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-weight:800;
+  padding:4px 9px;
+  border-radius:999px;
+  white-space:nowrap;
+}
+
+.tag-failure{
+  background:#f8e9e9;
+  color:#7b2626;
+  border:1px solid #e4b7b7;
+}
+
+.tag-near{
+  background:#fff4df;
+  color:#7a4c12;
+  border:1px solid #e5c99b;
+}
+
+.tag-recovery{
+  background:#e8f0ec;
+  color:#244438;
+  border:1px solid #c9d8cf;
+}
+
+.history-summary{
+  margin-top:8px;
+  color:var(--muted);
+  font-weight:500;
+}
+
+.history-body{
+  padding:0 22px 22px;
+  border-top:1px solid var(--line);
+}
+
+.pattern-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+  margin-top:18px;
+}
+
+.pattern-card{
+  background:#fafcfa;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:22px;
+}
+
+.pattern-card h4{
+  color:var(--earth-green);
+  margin-bottom:10px;
+}
+
+@media(max-width:900px){
+  .history-dashboard,
+  .history-grid,
+  .pattern-grid{
+    grid-template-columns:1fr;
+  }
+}
+.chapter-section{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:34px;
+  margin-bottom:28px;
+  box-shadow:0 4px 18px rgba(0,0,0,.04);
+}
+
+.chapter-number{
+  color:var(--gold-dark);
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  font-size:.76rem;
+  margin-bottom:8px;
+}
+
+.chapter-section h2{
+  font-family:"Libre Baskerville", serif;
+  font-size:2rem;
+  color:var(--earth-green);
+  margin-bottom:12px;
+}
+
+.intro-text{
+  color:var(--muted);
+  max-width:1000px;
+  margin-bottom:22px;
+}
+
+.cards-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.intel-card{
+  background:var(--soft);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:22px;
+}
+
+.card-header h3{
+  color:var(--earth-green);
+  font-size:1.1rem;
+  margin-bottom:4px;
+}
+
+.card-header span{
+  color:var(--gold-dark);
+  font-size:.78rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-weight:800;
+}
+
+.card-summary{
+  margin:12px 0;
+  color:var(--muted);
+  font-weight:500;
+}
+
+.card-expand{
+  margin-top:14px;
+  border-top:1px solid var(--line);
+  padding-top:14px;
+}
+
+.card-expand ul{
+  margin-left:20px;
+}
+
+.card-expand table{
+  margin-top:12px;
+}
+
+.library-footer{
+  margin-top:42px;
+  padding:36px;
+  text-align:center;
+  background:var(--deep-green);
+  color:white;
+  border-radius:22px;
+  border-top:4px solid var(--gold);
+}
+
+.footer-title{
+  font-family:"Libre Baskerville", serif;
+  font-size:1.4rem;
+  margin-bottom:8px;
+}
+
+.footer-subtitle{
+  color:var(--gold);
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  font-size:.78rem;
+  margin-bottom:14px;
+}
+
+.footer-note{
+  max-width:850px;
+  margin:0 auto;
+  color:#e8eee9;
+  font-size:.92rem;
+}
+
+@media(max-width:1100px){
+  .cards-grid{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+  <h1>c-ECO Systemic Intelligence Library</h1>
+  <div class="sub">Digital Technology & Data Infrastructure</div>
+  <div class="nav-section">Document</div>
+  <a href="#overview">Overview</a>
+  <a href="#profile">I — Domain Profile</a>
+  <a href="#risk">II — Systemic Risk Intelligence</a>
+  <a href="#response">III — Systemic Response</a>
+  <a href="#governance">IV — Governance & Legal</a>
+  <a href="#calibration">V — TFP Calibration</a>
+  <a href="#scenarios">VI — Scenarios</a>
+  <a href="#restoration">VII — Restoration</a>
+  <a href="#sources">VIII — Source Library</a>
+  <a href="#matrices">IX — Intelligence Matrices</a>
+  <div class="nav-section">Key Matrices</div>
+  <a href="#source-variable">Source-to-Variable</a>
+  <a href="#source-risk">Source-to-Risk</a>
+  <a href="#gaps">Monitoring Gaps</a>
+  <a href="#dependencies">Dependency Matrix</a>
+  <a href="#historical">Historical Library</a>
+</aside>
+<main class="main">
+<section class="hero" id="overview">
+  <div class="eyebrow">c-ECO Sectoral Architecture — Foundational Knowledge Asset</div>
+  <h2>Systemic Intelligence Library V4.0: Digital Technology & Data Infrastructure</h2>
+  <p>
+    This page functions as the documentary web version of the c-ECO Systemic Intelligence Library for the
+    Digital Technology & Data Infrastructure domain. It consolidates systemic risk intelligence, TFP calibration
+    inputs, governance architecture, restoration logic, source classification, monitoring gaps, and cross-domain
+    dependency mapping into a single reference page for fellows, validators, technical reviewers, and future
+    Calibration Council working groups.
+  </p>
+  <div class="meta-grid">
+    <div class="meta-card">
+      <strong>Version</strong>
+      <span>4.0 — Research-Verified</span>
+    </div>
+    <div class="meta-card">
+      <strong>Date</strong>
+      <span>2026-05-29</span>
+    </div>
+    <div class="meta-card">
+      <strong>Domain</strong>
+      <span>Digital Technology & Data Infrastructure</span>
+    </div>
+    <div class="meta-card">
+      <strong>Status</strong>
+      <span>Production-ready template</span>
+    </div>
+  </div>
+</section>
+<div class="notice">
+  <strong>Calibration Notice:</strong> this library provides a research-verified sectoral intelligence foundation.
+  Where numerical thresholds, stress-test values, recovery times, or scenario parameters are used, they should
+  be treated as calibration inputs requiring validation by the competent c-ECO Calibration Council, Data Custodians,
+  and independent technical reviewers before formal operational deployment.
+</div>
+<section class="section" id="profile">
+  <div class="section-header">
+    <div class="label">Part I</div>
+    <h3>Domain Intelligence Profile</h3>
+    <p>
+      Digital Technology & Data Infrastructure is treated as a systemic substrate: the physical and virtual layer
+      through which finance, healthcare, energy systems, governance, logistics, emergency services, and knowledge
+      systems maintain operational continuity.
+    </p>
+  </div>
+  <div class="card-grid">
+    <div class="card">
+      <h4>Domain Definition</h4>
+      <p>
+        The domain includes fiber optic cables, data centers, satellite constellations, radio-frequency spectrum,
+        cloud computing platforms, DNS infrastructure, IXPs, terrestrial networks, submarine cable landing stations,
+        and the power and cooling systems that sustain computational continuity.
+      </p>
+      <div class="badge-row">
+        <span class="badge">Fiber</span>
+        <span class="badge">Cloud</span>
+        <span class="badge">GNSS</span>
+        <span class="badge">IXPs</span>
+      </div>
+    </div>
+    <div class="card">
+      <h4>Systemic Function</h4>
+      <p>
+        Digital infrastructure acts as the central nervous system of contemporary economic execution. Its failure
+        can propagate rapidly into payment systems, hospital operations, emergency communications, energy dispatch,
+        logistics coordination, public administration, and market functioning.
+      </p>
+      <div class="badge-row">
+        <span class="badge gold">Cross-domain substrate</span>
+        <span class="badge red">Cascade risk</span>
+      </div>
+    </div>
+  </div>
+  <details open>
+    <summary>Dense Content — Domain Overview</summary>
+    <div class="detail-body">
+      <p>
+        The Digital Technology & Data Infrastructure domain consists of the interconnected physical, orbital,
+        electromagnetic, computational, and governance systems that process, store, route, secure, and transmit
+        information. It includes terrestrial fiber networks, submarine cable systems, mobile networks, 5G and future
+        6G systems, hyperscale data centers, cloud platforms, satellite constellations, GNSS timing infrastructure,
+        DNS and routing systems, internet exchange points, spectrum allocation regimes, cybersecurity response
+        systems, and computational infrastructures supporting artificial intelligence.
+      </p>
+      <p>
+        Its systemic relevance derives from dependency concentration. Financial markets depend on digital timing,
+        payment rails, and cloud-hosted infrastructure. Health systems depend on electronic records, telemedicine,
+        diagnostic devices, supply chains, and emergency communications. Energy systems depend on digital control,
+        telemetry, grid dispatch, and cyber-physical monitoring. Public administration increasingly depends on digital
+        identity, digital taxation, online service delivery, and public alerting systems.
+      </p>
+      <p>
+        The domain is therefore not merely a sector. It is a systemic transmission layer through which shocks in
+        energy, space, water, cybersecurity, climate, logistics, and governance can propagate into other domains.
+        A digital failure may begin as a software bug, a cable cut, a routing instability, a power interruption, or
+        a cooling event, but it may become systemic when it disables the ability of other domains to observe,
+        coordinate, transact, respond, or recover.
+      </p>
+    </div>
+  </details>
+  <details>
+    <summary>Dense Content — Historical Evolution and ΔV Calibration Material</summary>
+    <div class="detail-body">
+      <p>
+        Historical digital infrastructure disruptions provide calibration material for trajectory analysis. The
+        1859 Carrington Event remains a benchmark for geomagnetic exposure. The 1989 Quebec blackout demonstrated
+        how geomagnetically induced currents can saturate high-voltage transformers and cause rapid grid failure.
+        The 2006 Hengchun earthquake demonstrated geographical concentration risk when multiple submarine cables
+        were severed simultaneously. The 2010 Stuxnet incident demonstrated cyber-to-physical cascade dynamics.
+      </p>
+      <p>
+        Recent events show increasing coupling among digital systems, power systems, climate stress, and geopolitical
+        risk. The 2022 Tonga eruption exposed the fragility of single-cable island connectivity. The 2022 Google Cloud
+        London cooling incident linked heat stress to cloud availability. The 2024 Red Sea cable cuts demonstrated
+        geopolitical exposure of intercontinental data routes. The 2025 Spain/Portugal blackout illustrates Energy →
+        Digital cascade risk, where grid instability produced major telecommunications and internet traffic degradation.
+      </p>
+      <p>
+        These events are not only historical cases. Under the TFP they function as calibration evidence for ΔV:
+        the velocity of deterioration, the speed of cascade propagation, the timing of recovery, and the institutional
+        latency between detection and response.
+      </p>
+    </div>
+  </details>
+</section>
+<section class="section" id="risk">
+  <div class="section-header">
+    <div class="label">Part II</div>
+    <h3>Systemic Risk Intelligence</h3>
+    <p>
+      The digital domain contains physical, orbital, computational, cyber, legal, and resource-dependent risks.
+      Its systemic character emerges when these risks propagate into finance, healthcare, energy, logistics,
+      emergency services, and public governance.
+    </p>
+  </div>
+  <div class="card-grid">
+    <div class="card">
+      <h4>Primary Risk Logic</h4>
+      <p>
+        Primary risks include fiber cuts, submarine cable rupture, hyperscale data center outage, GNSS spoofing,
+        grid power failure, cooling failure, geomagnetic storms, Kessler Syndrome, BGP hijacking, software supply
+        chain compromise, and certificate authority collapse.
+      </p>
+    </div>
+    <div class="card">
+      <h4>Systemic Amplifiers</h4>
+      <p>
+        Amplification occurs through cloud concentration, GPS timing dependency, water-energy-data coupling,
+        loss of analog fallback capacity, insurance mismatch, regulatory fragmentation, and vendor lock-in.
+      </p>
+    </div>
+  </div>
+  <details>
+    <summary>Dense Content — Primary Systemic Risks</summary>
+    <div class="detail-body">
+      <ol>
+        <li>Terrestrial fiber cuts caused by construction, sabotage, fire, flooding, or conflict.</li>
+        <li>Submarine cable rupture caused by anchors, fishing, seismic activity, volcanic activity, or geopolitical interference.</li>
+        <li>Hyperscale data center outage at cloud concentration points.</li>
+        <li>GNSS spoofing or jamming affecting timing, navigation, financial settlement, and logistics.</li>
+        <li>Cascading grid power failure disabling compute, routing, cooling, and telecom systems.</li>
+        <li>Data center cooling failure caused by heatwaves, water scarcity, HVAC failure, or power interruption.</li>
+        <li>Geomagnetically induced currents damaging high-voltage transformers.</li>
+        <li>Kessler Syndrome or orbital debris cascade affecting LEO services and space-enabled connectivity.</li>
+        <li>Supply chain contamination through compromised hardware, firmware, or embedded software.</li>
+        <li>BGP hijacking, route leaks, and routing instability.</li>
+        <li>DDoS on root servers, DNS infrastructure, or critical cloud services.</li>
+        <li>Global spectrum interference and radio-frequency congestion.</li>
+        <li>Quantum decryption risk against currently encrypted archives.</li>
+        <li>Software supply chain attacks comparable to Log4Shell or SolarWinds-type propagation.</li>
+        <li>Submarine cable repair vessel scarcity and logistical repair bottlenecks.</li>
+        <li>Long-term freshwater shortage affecting cooling-dependent infrastructure.</li>
+        <li>Flooding of cable landing stations and coastal data centers.</li>
+        <li>Wildfire proximity to terrestrial fiber routes and edge infrastructure.</li>
+        <li>Electromagnetic pulse risk affecting solid-state electronics and grid-dependent systems.</li>
+        <li>Digital protocol fragmentation and geopolitical splintering of the internet.</li>
+        <li>Hyperscale carbon regulation creating stranded digital assets.</li>
+        <li>Rare earth and semiconductor dependency affecting infrastructure replacement.</li>
+        <li>Cloud exit contagion where multiple users attempt migration simultaneously.</li>
+        <li>Algorithmic flash crash caused by automated decision systems.</li>
+        <li>AI accelerator overheating caused by compute density exceeding cooling design.</li>
+        <li>LLM prompt injection or agentic attack chains affecting operational systems.</li>
+        <li>Satellite atmospheric drag affecting LEO constellation reliability.</li>
+        <li>Certificate authority compromise affecting trust infrastructure.</li>
+        <li>Nationalization or forced localization of cloud infrastructure.</li>
+        <li>Cross-border failover failure due to legal incompatibility among data regimes.</li>
+      </ol>
+    </div>
+  </details>
+  <details>
+    <summary>Cascade Risk Taxonomy</summary>
+    <div class="detail-body">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Trigger Domain</th>
+              <th>Affected Domain</th>
+              <th>Cascade Pathway</th>
+              <th>TFP Variable</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Energy Systems</td>
+              <td>Digital</td>
+              <td>Power loss → data center collapse within hours</td>
+              <td>P → Lr</td>
+            </tr>
+            <tr>
+              <td>Digital</td>
+              <td>Financial</td>
+              <td>Payment system failure → liquidity disruption → market stress</td>
+              <td>P → σ</td>
+            </tr>
+            <tr>
+              <td>Digital</td>
+              <td>Healthcare</td>
+              <td>Telemedicine and records failure → hospital diversion</td>
+              <td>P → Lr</td>
+            </tr>
+            <tr>
+              <td>Space & Orbital</td>
+              <td>Digital</td>
+              <td>GNSS timing loss → synchronization failure</td>
+              <td>P → ΔV</td>
+            </tr>
+            <tr>
+              <td>Water & Sanitation</td>
+              <td>Digital</td>
+              <td>Cooling water loss → thermal shutdown</td>
+              <td>P → Lr</td>
+            </tr>
+            <tr>
+              <td>Climate / Weather</td>
+              <td>Digital</td>
+              <td>Heatwave → cooling failure → cloud outage</td>
+              <td>ΔV → P</td>
+            </tr>
+            <tr>
+              <td>Cyber Attack</td>
+              <td>Physical Infrastructure</td>
+              <td>Cyber compromise → grid or generator damage</td>
+              <td>σ → P</td>
+            </tr>
+            <tr>
+              <td>Logistics</td>
+              <td>Digital</td>
+              <td>Supply chain halt → no replacement equipment</td>
+              <td>Lr → P</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+</section>
+
+  <section class="section" id="response">
+  <div class="section-header">
+    <div class="label">Part III</div>
+    <h3>Systemic Response Intelligence</h3>
+    <p>
+      Response intelligence translates threshold proximity into institutional readiness. In the digital domain,
+      the time between signal detection and systemic disruption may be measured in seconds, minutes, or hours.
+    </p>
+  </div>
+
+  <details open>
+    <summary>Response States and Pre-Positioned Protocols</summary>
+    <div class="detail-body">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>State</th>
+              <th>Operational Meaning</th>
+              <th>Automatic Preparedness Measures</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Amber — Elevated Risk</td>
+              <td>Early degradation, heightened uncertainty, or rising exposure.</td>
+              <td>Calibration Council convenes; enhanced monitoring begins; cross-domain liaison officers placed on standby.</td>
+            </tr>
+            <tr>
+              <td>Red — Safe Mode</td>
+              <td>Critical proximity or confirmed deterioration trajectory.</td>
+              <td>Restoration Providers pre-position assets; dependent domains activate business continuity plans.</td>
+            </tr>
+            <tr>
+              <td>Black — Restoration First</td>
+              <td>Threshold breach imminent or reversibility materially impaired.</td>
+              <td>Critical workloads evacuated; DNS, cable, financial, and healthcare fallback protocols activated.</td>
+            </tr>
+            <tr>
+              <td>Collapse — Emergency Restoration</td>
+              <td>Systemic failure has occurred.</td>
+              <td>Restoration Protocol activated; mutual aid invoked; analog fallback and forensic investigation begin.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Calibration Council Activation Matrix</summary>
+    <div class="detail-body">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Breach Domain</th>
+              <th>Primary Trigger</th>
+              <th>Response Time</th>
+              <th>Required Quorum</th>
+              <th>Decision Authority</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Digital Only</td>
+              <td>Red / Safe Mode</td>
+              <td>24 hours</td>
+              <td>5 of 9 Councilors</td>
+              <td>Sectoral Directive</td>
+            </tr>
+            <tr>
+              <td>Digital + 1 Domain</td>
+              <td>Cascade detected</td>
+              <td>12 hours</td>
+              <td>7 of 9 Councilors</td>
+              <td>Cross-Domain Directive</td>
+            </tr>
+            <tr>
+              <td>Digital + 3+ Domains</td>
+              <td>Multi-cascade</td>
+              <td>6 hours</td>
+              <td>Full Council + Chair</td>
+              <td>Emergency Statute</td>
+            </tr>
+            <tr>
+              <td>Global Digital Collapse</td>
+              <td>Emergency Restoration</td>
+              <td>Immediate</td>
+              <td>All available</td>
+              <td>Restoration Command</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout">
+        <strong>Operational note:</strong> the original V4.0 uses SPS Level 4/3/2/1 language. For web clarity,
+        this page translates those levels into the c-ECO State Machine: Amber, Red/Safe Mode,
+        Black/Restoration First, and Collapse/Emergency Restoration.
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Communication Blackout Contingencies</summary>
+    <div class="detail-body">
+      <p>
+        Because digital infrastructure may fail precisely when governance coordination is most needed, the digital
+        domain requires fallback communication layers independent from ordinary internet continuity.
+      </p>
+      <ul>
+        <li><strong>Primary:</strong> c-ECO Secure Satellite Network independent of terrestrial fiber.</li>
+        <li><strong>Secondary:</strong> HF Radio Emergency Net using ITU-coordinated emergency frequencies.</li>
+        <li><strong>Tertiary:</strong> physical courier network through pre-positioned institutional liaisons.</li>
+        <li><strong>Quaternary:</strong> amateur radio digital modes for low-bandwidth emergency messaging.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section class="section" id="governance">
+  <div class="section-header">
+    <div class="label">Part IV</div>
+    <h3>Governance & Legal Architecture</h3>
+    <p>
+      The digital domain is governed through overlapping treaty regimes, national cybersecurity authorities,
+      telecom regulators, space governance, maritime cable protections, data protection regimes, and operational
+      resilience frameworks.
+    </p>
+  </div>
+
+  <details open>
+    <summary>Applicable International Treaties and Instruments</summary>
+    <div class="detail-body">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Treaty / Instrument</th>
+              <th>Governing Body</th>
+              <th>Digital Domain Relevance</th>
+              <th>c-ECO Mapping</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ITU Constitution & Convention</td>
+              <td>ITU</td>
+              <td>Spectrum allocation and emergency communications.</td>
+              <td>Mandatory reporting and emergency coordination interface.</td>
+            </tr>
+            <tr>
+              <td>Outer Space Treaty</td>
+              <td>UNOOSA / COPUOS ecosystem</td>
+              <td>Orbital infrastructure, satellite responsibility, and space liability.</td>
+              <td>Orbital cascade and space dependency mapping.</td>
+            </tr>
+            <tr>
+              <td>UNCLOS</td>
+              <td>UN DOALOS</td>
+              <td>Submarine cable protection and maritime obligations.</td>
+              <td>Submarine cable integrity and repair coordination.</td>
+            </tr>
+            <tr>
+              <td>Budapest Convention on Cybercrime</td>
+              <td>Council of Europe</td>
+              <td>Cyber attack investigation and cross-border cooperation.</td>
+              <td>Governance gap and legal response mapping.</td>
+            </tr>
+            <tr>
+              <td>Paris Agreement</td>
+              <td>UNFCCC</td>
+              <td>Carbon accountability for data centers and digital infrastructure.</td>
+              <td>Stranded asset and transition-risk intelligence.</td>
+            </tr>
+            <tr>
+              <td>Sendai Framework</td>
+              <td>UNDRR</td>
+              <td>Disaster risk reduction and critical infrastructure resilience.</td>
+              <td>Alignment with systemic risk reduction and early warning logic.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>National and Regional Regulatory Interfaces</summary>
+    <div class="detail-body">
+      <p>
+        The digital domain is especially exposed to legal fragmentation because operational recovery may require
+        cross-border data transfer, workload migration, cloud failover, incident reporting, cybersecurity coordination,
+        and emergency telecommunications activation.
+      </p>
+      <ul>
+        <li><strong>European Union:</strong> NIS2 Directive, Digital Operational Resilience Act, Cybersecurity Act, ENISA frameworks.</li>
+        <li><strong>United States:</strong> CISA authorities, Executive Order 14028, FCC outage reporting, sectoral CNI protocols.</li>
+        <li><strong>China:</strong> Cybersecurity Law, Data Security Law, Critical Information Infrastructure Protection.</li>
+        <li><strong>Brazil:</strong> LGPD, Marco Civil da Internet, ANATEL emergency protocols.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details>
+    <summary>Liability Cascade Architecture</summary>
+    <div class="detail-body">
+      <p>
+        Liability in this domain is not confined to the initial failure point. A cable owner, cloud provider,
+        data center operator, software vendor, or satellite operator may trigger cascading loss in finance,
+        healthcare, logistics, energy, or public administration.
+      </p>
+      <ul>
+        <li><strong>Primary liability:</strong> infrastructure operator or digital service provider.</li>
+        <li><strong>Secondary liability:</strong> dependent sectors that fail to maintain fallback capacity.</li>
+        <li><strong>Tertiary liability:</strong> insurance and reinsurance structures exposed to systemic digital loss.</li>
+        <li><strong>c-ECO layer:</strong> Restoration Fund or pre-contracted recovery execution where private insurance is insufficient.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details>
+    <summary>Data Sovereignty and Reversibility</summary>
+    <div class="detail-body">
+      <p>
+        Legal fragmentation can reduce Reversibility Liquidity. If a cloud workload cannot move across borders
+        during crisis because of conflicting data localization, privacy, security, or government-access regimes,
+        the technical ability to fail over may exist while legal reversibility is effectively zero.
+      </p>
+      <div class="callout">
+        <strong>TFP implication:</strong> cross-border failover capacity must be evaluated as both a technical
+        and legal Lr component. A redundant system that cannot lawfully activate during crisis should not be
+        treated as fully reversible.
+      </div>
+    </div>
+  </details>
+</section>
+
+<section class="section" id="calibration">
+  <div class="section-header">
+    <div class="label">Part V</div>
+    <h3>TFP Calibration Intelligence</h3>
+    <p>
+      Calibration intelligence identifies candidate indicators for Position, Velocity, Uncertainty, and
+      Reversibility Liquidity. These indicators do not create final formulas; they define the evidence field
+      from which sectoral SPS, TRS, RLS, and trigger rules may later be constructed.
+    </p>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <h4>P — Position</h4>
+      <p>
+        Measures proximity to digital infrastructure failure boundaries: cable redundancy, grid frequency,
+        cooling limits, GNSS health, orbital debris density, DNS latency, and cloud concentration.
+      </p>
+      <div class="badge-row">
+        <span class="badge blue">SPS input</span>
+        <span class="badge gold">Proximity</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>ΔV — Velocity</h4>
+      <p>
+        Measures rate of deterioration: BGP route flaps, thermal rise, solar wind acceleration,
+        cyber exploit growth, cable fault frequency, and AI compute demand growth.
+      </p>
+      <div class="badge-row">
+        <span class="badge blue">TRS input</span>
+        <span class="badge red">Trajectory</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>σ — Uncertainty</h4>
+      <p>
+        Captures forecast error, proprietary data opacity, sensor gaps, model uncertainty, cloud visibility limits,
+        legal uncertainty, and cross-border reporting inconsistency.
+      </p>
+      <div class="badge-row">
+        <span class="badge">Asymmetric treatment</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>Lr — Reversibility Liquidity</h4>
+      <p>
+        Measures recovery capacity: dark fiber, repair vessels, spare transformers, mobile backup power,
+        cyber response capacity, failover rights, and legal permission to restore.
+      </p>
+      <div class="badge-row">
+        <span class="badge gold">RLS input</span>
+        <span class="badge red">Recovery capacity</span>
+      </div>
+    </div>
+  </div>
+
+  <details>
+    <summary>Position (P) Candidate Indicators</summary>
+    <div class="detail-body">
+      <ol>
+        <li>Subsea cable redundancy margin.</li>
+        <li>Data center Power Usage Effectiveness and thermal operating margin.</li>
+        <li>GPS / Galileo / GNSS constellation health.</li>
+        <li>Power grid frequency at data center injection points.</li>
+        <li>Transformer core temperature under geomagnetic stress.</li>
+        <li>Orbital debris density in LEO.</li>
+        <li>Spectrum utilization rate.</li>
+        <li>DNS root server latency.</li>
+        <li>Semiconductor lead times.</li>
+        <li>Fiber backbone utilization percentage.</li>
+        <li>Cooling water temperature relative to design specification.</li>
+        <li>Generator fuel reserve days.</li>
+        <li>Cable landing station elevation and floodplain status.</li>
+        <li>Autonomous System path length.</li>
+        <li>Geomagnetically induced current levels.</li>
+        <li>Solar wind speed and storm class.</li>
+        <li>Hypervisor CPU ready time.</li>
+        <li>Certificate expiration and PKI fragility.</li>
+        <li>Undersea cable repair vessel location.</li>
+        <li>National grid frequency deviation.</li>
+        <li>Dark fiber availability.</li>
+        <li>BGP route flap intensity.</li>
+        <li>SSD wear level.</li>
+        <li>High-voltage transformer age.</li>
+        <li>Intercontinental link latency.</li>
+        <li>Cable ownership concentration.</li>
+        <li>Backup diesel quality and shelf life.</li>
+        <li>Data sovereignty jurisdiction complexity.</li>
+      </ol>
+    </div>
+  </details>
+
+  <details>
+    <summary>Velocity (ΔV) Rate-of-Change Indicators</summary>
+    <div class="detail-body">
+      <ul>
+        <li>Solar wind velocity acceleration exceeding storm-warning thresholds.</li>
+        <li>BGP route flap rate indicating routing instability.</li>
+        <li>Data center temperature rise above design specification.</li>
+        <li>Orbital debris collision probability growth.</li>
+        <li>Subsea cable fault frequency on single routes.</li>
+        <li>Critical vulnerability publication rate.</li>
+        <li>AI training compute demand growth.</li>
+        <li>Quantum computing capability trajectory against cryptographic resilience.</li>
+      </ul>
+      <div class="callout">
+        <strong>Calibration caution:</strong> numerical ΔV triggers must be validated by sectoral experts and
+        evidence sources before operational use.
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Uncertainty (σ) Intelligence</summary>
+    <div class="detail-body">
+      <p>
+        Uncertainty enters the digital domain through proprietary monitoring systems, incomplete outage reporting,
+        invisible dependencies, closed cloud architectures, non-public routing policies, cybersecurity underreporting,
+        space debris model uncertainty, and jurisdictional non-disclosure. In c-ECO logic, uncertainty does not enlarge
+        the permission to continue. It contracts the safe margin.
+      </p>
+      <ul>
+        <li><strong>Measurement uncertainty:</strong> sensor, telemetry, and monitoring limits.</li>
+        <li><strong>Model uncertainty:</strong> space weather, debris cascade, cyber exploit probability, and cloud dependency modeling.</li>
+        <li><strong>Governance uncertainty:</strong> reporting delays, political opacity, private provider opacity, and cross-border legal conflict.</li>
+        <li><strong>Operational uncertainty:</strong> whether recovery capacity can actually be mobilized under simultaneous stress.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details>
+    <summary>Reversibility Liquidity (Lr) Components</summary>
+    <div class="detail-body">
+      <div class="two-col">
+        <div>
+          <h4>Financial and Contractual Lr</h4>
+          <ul>
+            <li>Disaster recovery budget allocation.</li>
+            <li>Cyber insurance limits and exclusions.</li>
+            <li>Contingency contracts with cable repair firms.</li>
+            <li>Cloud failover contracts.</li>
+            <li>Performance-backed restoration agreements.</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Technical and Operational Lr</h4>
+          <ul>
+            <li>Dark fiber and alternative routing capacity.</li>
+            <li>IXP spare bandwidth.</li>
+            <li>Mobile backup power duration.</li>
+            <li>Manual fallback procedures.</li>
+            <li>Satellite backup bandwidth.</li>
+            <li>Truck-roll and fiber repair capacity.</li>
+            <li>Alternative cooling water sources.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </details>
+</section>
+
+  <!-- ========================================= -->
+<!-- PART 3 — SCENARIOS & RESTORATION -->
+<!-- ========================================= -->
+
+<section class="chapter-section" id="scenarios">
+
+    <div class="chapter-number">PART VI</div>
+    <h2>Scenario & Simulation Intelligence</h2>
+
+    <p class="intro-text">
+        Systemic governance requires preparation for events that have not yet occurred.
+        The purpose of scenario intelligence is not prediction but preparedness.
+        TFP simulations test the resilience of digital infrastructure under compound,
+        cascading, and low-probability/high-impact conditions.
+    </p>
+
+    <div class="cards-grid">
+
+        <div class="intel-card">
+            <div class="card-header">
+                <h3>Scenario A</h3>
+                <span>Carrington + Cable Failure</span>
+            </div>
+
+            <div class="card-summary">
+                Simultaneous geomagnetic storm and transatlantic cable disruption.
+            </div>
+
+            <div class="card-expand">
+
+                <p>
+                A Carrington-class solar storm produces geomagnetically induced currents
+                that disable transformers while multiple submarine cable routes are
+                simultaneously disrupted.
+                </p>
+
+                <h4>Expected Cascade</h4>
+
+                <ul>
+                    <li>Grid instability</li>
+                    <li>Data center cooling failures</li>
+                    <li>Telecommunications degradation</li>
+                    <li>Financial market interruption</li>
+                    <li>Healthcare service disruption</li>
+                </ul>
+
+                <h4>Illustrative TFP Variables</h4>
+
+                <table>
+                    <tr><td>P</td><td>0.85</td></tr>
+                    <tr><td>ΔV</td><td>0.92</td></tr>
+                    <tr><td>σ</td><td>0.45</td></tr>
+                    <tr><td>Lr</td><td>0.15</td></tr>
+                </table>
+
+            </div>
+        </div>
+
+        <div class="intel-card">
+            <div class="card-header">
+                <h3>Scenario B</h3>
+                <span>Hyperscale Cloud Failure</span>
+            </div>
+
+            <div class="card-summary">
+                Simultaneous outage of major cloud infrastructure.
+            </div>
+
+            <div class="card-expand">
+
+                <p>
+                Cloud concentration creates a systemic dependency. Failure of
+                multiple hyperscale providers can propagate globally within minutes.
+                </p>
+
+                <ul>
+                    <li>Critical application outages</li>
+                    <li>Supply chain interruption</li>
+                    <li>Loss of SaaS services</li>
+                    <li>Payment system instability</li>
+                    <li>Public sector disruption</li>
+                </ul>
+
+            </div>
+        </div>
+
+        <div class="intel-card">
+            <div class="card-header">
+                <h3>Scenario C</h3>
+                <span>Kessler Syndrome Initiation</span>
+            </div>
+
+            <div class="card-summary">
+                Orbital collision cascade affecting communications.
+            </div>
+
+            <div class="card-expand">
+
+                <p>
+                Progressive orbital debris accumulation eventually reaches a
+                self-reinforcing collision regime.
+                </p>
+
+                <ul>
+                    <li>Satellite service degradation</li>
+                    <li>GNSS timing loss</li>
+                    <li>Communications disruption</li>
+                    <li>Financial synchronization failures</li>
+                    <li>Reduced recovery capacity</li>
+                </ul>
+
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================= -->
+<!-- PART VII -->
+<!-- ========================================= -->
+
+<section class="chapter-section" id="restoration">
+
+    <div class="chapter-number">PART VII</div>
+    <h2>Restoration & Recovery Architecture</h2>
+
+    <p class="intro-text">
+        Restoration Intelligence evaluates the practical ability to reverse,
+        stabilize, or recover from systemic degradation.
+        The focus is operational reality rather than policy intent.
+    </p>
+
+    <div class="cards-grid">
+
+        <div class="intel-card">
+
+            <div class="card-header">
+                <h3>Restoration Providers</h3>
+                <span>Certification Framework</span>
+            </div>
+
+            <div class="card-summary">
+                Minimum requirements for operational intervention.
+            </div>
+
+            <div class="card-expand">
+
+                <ul>
+                    <li>Multi-continent deployment capability</li>
+                    <li>24-hour response readiness</li>
+                    <li>Minimum financial reserve requirements</li>
+                    <li>Independent audit compliance</li>
+                    <li>Demonstrated restoration history</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div class="intel-card">
+
+            <div class="card-header">
+                <h3>Recovery Sequence</h3>
+                <span>Operational Prioritization</span>
+            </div>
+
+            <div class="card-summary">
+                Ordered recovery architecture.
+            </div>
+
+            <div class="card-expand">
+
+                <table>
+
+                    <tr>
+                        <th>Priority</th>
+                        <th>System</th>
+                    </tr>
+
+                    <tr>
+                        <td>1</td>
+                        <td>Power Grid</td>
+                    </tr>
+
+                    <tr>
+                        <td>2</td>
+                        <td>Cooling Systems</td>
+                    </tr>
+
+                    <tr>
+                        <td>3</td>
+                        <td>Core Compute</td>
+                    </tr>
+
+                    <tr>
+                        <td>4</td>
+                        <td>Internet Backbone</td>
+                    </tr>
+
+                    <tr>
+                        <td>5</td>
+                        <td>Cloud Services</td>
+                    </tr>
+
+                    <tr>
+                        <td>6</td>
+                        <td>Financial Systems</td>
+                    </tr>
+
+                    <tr>
+                        <td>7</td>
+                        <td>Healthcare Systems</td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+        </div>
+
+        <div class="intel-card">
+
+            <div class="card-header">
+                <h3>Critical Inventory</h3>
+                <span>Reversibility Liquidity</span>
+            </div>
+
+            <div class="card-summary">
+                Assets that determine recovery capability.
+            </div>
+
+            <div class="card-expand">
+
+                <ul>
+                    <li>HV transformers</li>
+                    <li>Repair vessels</li>
+                    <li>Satellite capacity</li>
+                    <li>Backup power generation</li>
+                    <li>Cooling infrastructure</li>
+                    <li>Spare networking equipment</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================= -->
+<!-- PART VIII -->
+<!-- ========================================= -->
+
+<section class="chapter-section" id="sources">
+
+    <div class="chapter-number">PART VIII</div>
+    <h2>Authoritative Source Library</h2>
+
+    <p class="intro-text">
+        The Systemic Intelligence Library relies on a structured hierarchy
+        of evidence. Sources are classified according to institutional
+        authority, technical specialization, and research value.
+    </p>
+
+    <div class="cards-grid">
+
+        <div class="intel-card">
+
+            <div class="card-header">
+                <h3>Class A</h3>
+                <span>Intergovernmental & Regulatory</span>
+            </div>
+
+            <div class="card-summary">
+                Highest authority sources.
+            </div>
+
+            <div class="card-expand">
+
+                <ul>
+                    <li>ITU</li>
+                    <li>UNDRR</li>
+                    <li>UN-OOSA</li>
+                    <li>WMO</li>
+                    <li>OECD</li>
+                    <li>BIS</li>
+                    <li>FSB</li>
+                    <li>ENISA</li>
+                    <li>CISA</li>
+                    <li>IETF</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div class="intel-card">
+
+            <div class="card-header">
+                <h3>Class B</h3>
+                <span>Industry & Technical</span>
+            </div>
+
+            <div class="card-summary">
+                Operational and infrastructure intelligence.
+            </div>
+
+            <div class="card-expand">
+
+                <ul>
+                    <li>Uptime Institute</li>
+                    <li>TeleGeography</li>
+                    <li>Cloudflare Radar</li>
+                    <li>ICPC</li>
+                    <li>RIPE NCC</li>
+                    <li>Akamai</li>
+                    <li>Cisco</li>
+                    <li>FIRST</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div class="intel-card">
+
+            <div class="card-header">
+                <h3>Class C</h3>
+                <span>Academic & Think Tanks</span>
+            </div>
+
+            <div class="card-summary">
+                Research and horizon scanning.
+            </div>
+
+            <div class="card-expand">
+
+                <ul>
+                    <li>CAIDA</li>
+                    <li>Citizen Lab</li>
+                    <li>ISOC</li>
+                    <li>Oxford Internet Institute</li>
+                    <li>Harvard Berkman Klein</li>
+                    <li>RAND</li>
+                    <li>Brookings</li>
+                    <li>UNU-EHS</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================= -->
+<!-- PART IX -->
+<!-- ========================================= -->
+
+<section class="chapter-section" id="matrices">
+
+    <div class="chapter-number">PART IX</div>
+    <h2>Intelligence Matrices</h2>
+
+    <p class="intro-text">
+        Intelligence matrices transform raw information into governance
+        intelligence by revealing dependencies, blind spots, and
+        calibration pathways.
+    </p>
+
+    <div class="cards-grid">
+
+        <div class="intel-card">
+
+            <div class="card-header">
+                <h3>Source-to-Variable Matrix</h3>
+            </div>
+
+            <div class="card-summary">
+                Maps sources to P, ΔV, σ, Lr, SPS, TRS, and RLS.
+            </div>
+
+            <div class="card-expand">
+
+                <p>
+                Determines which institutions contribute evidence for
+                each TFP variable and governance indicator.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="intel-card">
+
+            <div class="card-header">
+                <h3>Source-to-Risk Matrix</h3>
+            </div>
+
+            <div class="card-summary">
+                Maps sources to risk categories.
+            </div>
+
+            <div class="card-expand">
+
+                <p>
+                Connects intelligence sources with primary,
+                secondary, emerging, and cascade risks.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="intel-card">
+
+            <div class="card-header">
+                <h3>Dependency Matrix</h3>
+            </div>
+
+            <div class="card-summary">
+                Digital sector dependencies across all c-ECO domains.
+            </div>
+
+            <div class="card-expand">
+
+                <p>
+                Reveals how Digital Technology depends upon Energy,
+                Water, Logistics, Finance, Space Systems,
+                Governance, Healthcare, and the remaining domains.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="intel-card">
+
+            <div class="card-header">
+                <h3>Gap Analysis</h3>
+            </div>
+
+            <div class="card-summary">
+                Identifies what current monitoring misses.
+            </div>
+
+            <div class="card-expand">
+
+                <ul>
+                    <li>Cloud concentration risk</li>
+                    <li>GPS dependency</li>
+                    <li>Cable repair scarcity</li>
+                    <li>Energy-water-data nexus</li>
+                    <li>Loss of analog capabilities</li>
+                    <li>Orbital governance gaps</li>
+                    <li>Quantum uncertainty</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- PART 4 — HISTORICAL INTELLIGENCE LIBRARY -->
+<!-- ========================================= -->
+
+<section class="section" id="historical">
+  <div class="section-header">
+    <div class="label">Historical Intelligence Library</div>
+    <h3>Failures, Near Misses, and Successful Recoveries</h3>
+    <p>
+      Historical intelligence converts past disruption into calibration evidence. These events help identify
+      recurring failure patterns, hidden dependencies, recovery limits, and the TFP variables most frequently
+      associated with systemic digital fragility.
+    </p>
+  </div>
+
+  <div class="history-dashboard">
+    <div class="history-stat">
+      <strong>20</strong>
+      <span>Systemic Failures</span>
+    </div>
+    <div class="history-stat">
+      <strong>20</strong>
+      <span>Near Misses</span>
+    </div>
+    <div class="history-stat">
+      <strong>20</strong>
+      <span>Recoveries</span>
+    </div>
+    <div class="history-stat">
+      <strong>4</strong>
+      <span>Core TFP Variables</span>
+    </div>
+  </div>
+
+  <details open>
+    <summary>Section A — Systemic Failures</summary>
+    <div class="detail-body">
+
+      <div class="history-grid">
+
+        <details class="history-card">
+          <summary>
+            <div class="history-topline">
+              <div>
+                <div class="history-year">1859</div>
+                <div class="history-title">Carrington Event</div>
+                <div class="history-summary">Geomagnetic storm disrupted telegraph systems globally.</div>
+              </div>
+              <span class="history-tag tag-failure">Failure</span>
+            </div>
+          </summary>
+          <div class="history-body">
+            <p><strong>Cascade Effect:</strong> telegraph systems failed, with reports of fires and electrical anomalies.</p>
+            <p><strong>TFP Lesson:</strong> benchmark event for geomagnetic SPS calibration and infrastructure exposure.</p>
+          </div>
+        </details>
+
+        <details class="history-card">
+          <summary>
+            <div class="history-topline">
+              <div>
+                <div class="history-year">1989</div>
+                <div class="history-title">Quebec Blackout</div>
+                <div class="history-summary">Geomagnetically induced currents caused a major grid blackout.</div>
+              </div>
+              <span class="history-tag tag-failure">Failure</span>
+            </div>
+          </summary>
+          <div class="history-body">
+            <p><strong>Cascade Effect:</strong> six million people without power for roughly nine hours.</p>
+            <p><strong>TFP Lesson:</strong> P identifies transformer vulnerability; Lr measures fast grid reconfiguration capacity.</p>
+          </div>
+        </details>
+
+        <details class="history-card">
+          <summary>
+            <div class="history-topline">
+              <div>
+                <div class="history-year">2006</div>
+                <div class="history-title">Hengchun Earthquake</div>
+                <div class="history-summary">Multiple submarine cables in Asia were severed simultaneously.</div>
+              </div>
+              <span class="history-tag tag-failure">Failure</span>
+            </div>
+          </summary>
+          <div class="history-body">
+            <p><strong>Cascade Effect:</strong> major international communications disruption and weeks-long repair process.</p>
+            <p><strong>TFP Lesson:</strong> geographic concentration creates low P even before physical failure.</p>
+          </div>
+        </details>
+
+        <details class="history-card">
+          <summary>
+            <div class="history-topline">
+              <div>
+                <div class="history-year">2010</div>
+                <div class="history-title">Stuxnet Attack</div>
+                <div class="history-summary">Cyber operation produced physical infrastructure damage.</div>
+              </div>
+              <span class="history-tag tag-failure">Failure</span>
+            </div>
+          </summary>
+          <div class="history-body">
+            <p><strong>Cascade Effect:</strong> cyber compromise translated into physical degradation of centrifuges.</p>
+            <p><strong>TFP Lesson:</strong> σ and P must include cyber-physical pathways, not only digital service availability.</p>
+          </div>
+        </details>
+
+        <details class="history-card">
+          <summary>
+            <div class="history-topline">
+              <div>
+                <div class="history-year">2017</div>
+                <div class="history-title">NotPetya</div>
+                <div class="history-summary">Malware caused global operational disruption and large economic losses.</div>
+              </div>
+              <span class="history-tag tag-failure">Failure</span>
+            </div>
+          </summary>
+          <div class="history-body">
+            <p><strong>Cascade Effect:</strong> shipping, logistics, corporate networks, and recovery operations were affected.</p>
+            <p><strong>TFP Lesson:</strong> insurance is not equivalent to operational Lr; recovery requires executable capacity.</p>
+          </div>
+        </details>
+
+        <details class="history-card">
+          <summary>
+            <div class="history-topline">
+              <div>
+                <div class="history-year">2021</div>
+                <div class="history-title">Log4Shell</div>
+                <div class="history-summary">A widely embedded software vulnerability exposed global systems.</div>
+              </div>
+              <span class="history-tag tag-failure">Failure</span>
+            </div>
+          </summary>
+          <div class="history-body">
+            <p><strong>Cascade Effect:</strong> enterprise software, cloud services, and public systems required urgent remediation.</p>
+            <p><strong>TFP Lesson:</strong> σ expands when software dependency is hidden inside supply chains.</p>
+          </div>
+        </details>
+
+        <details class="history-card">
+          <summary>
+            <div class="history-topline">
+              <div>
+                <div class="history-year">2022</div>
+                <div class="history-title">Tonga Eruption</div>
+                <div class="history-summary">A submarine cable failure caused national internet isolation.</div>
+              </div>
+              <span class="history-tag tag-failure">Failure</span>
+            </div>
+          </summary>
+          <div class="history-body">
+            <p><strong>Cascade Effect:</strong> communications, banking, emergency coordination, and external connectivity were disrupted.</p>
+            <p><strong>TFP Lesson:</strong> a single-cable system may have Lr near zero even during normal operation.</p>
+          </div>
+        </details>
+
+        <details class="history-card">
+          <summary>
+            <div class="history-topline">
+              <div>
+                <div class="history-year">2025</div>
+                <div class="history-title">Spain / Portugal Blackout</div>
+                <div class="history-summary">Power system disruption cascaded into telecom and internet degradation.</div>
+              </div>
+              <span class="history-tag tag-failure">Failure</span>
+            </div>
+          </summary>
+          <div class="history-body">
+            <p><strong>Cascade Effect:</strong> energy failure propagated into digital communications and critical services.</p>
+            <p><strong>TFP Lesson:</strong> Energy → Digital dependency must be treated as a critical cross-domain cascade path.</p>
+          </div>
+        </details>
+
+      </div>
+
+      <div class="callout">
+        <strong>Note:</strong> the full historical library should preserve all 20 systemic failures from the V4.0 source
+        document. This web section displays key representative events and may be expanded with the remaining cases.
+      </div>
+
+    </div>
+  </details>
+
+  <details>
+    <summary>Section B — Near Misses</summary>
+    <div class="detail-body">
+
+      <div class="history-grid">
+
+        <details class="history-card">
+          <summary>
+            <div class="history-topline">
+              <div>
+                <div class="history-year">2012</div>
+                <div class="history-title">Carrington-Class CME Near Miss</div>
+                <div class="history-summary">A major solar event missed Earth by a small orbital margin.</div>
+              </div>
+              <span class="history-tag tag-near">Near Miss</span>
+            </div>
+          </summary>
+          <div class="history-body">
+            <p><strong>Why catastrophe was avoided:</strong> the event did not directly strike Earth.</p>
+            <p><strong>TFP Lesson:</strong> low-frequency events require prudential treatment; probability is not protection.</p>
+          </div>
+        </details>
+
+        <details class="history-card">
+          <summary>
+            <div class="history-topline">
+              <div>
+                <div class="history-year">2000</div>
+                <div class="history-title">Y2K</div>
+                <div class="history-summary">Large-scale preventive remediation avoided widespread failure.</div>
+              </div>
+              <span class="history-tag tag-near">Near Miss</span>
+            </div>
+          </summary>
+          <div class="history-body">
+            <p><strong>Why catastrophe was avoided:</strong> global pre-emptive coordination, auditing, and patching.</p>
+            <p><strong>TFP Lesson:</strong> early governance intervention can preserve reversibility before visible damage.</p>
+          </div>
+        </details>
+
+        <details class="history-card">
+          <summary>
+            <div class="history-topline">
+              <div>
+                <div class="history-year">2019</div>
+                <div class="history-title">GPS Week Number Rollover</div>
+                <div class="history-summary">Coordinated patching prevented timing disruption.</div>
+              </div>
+              <span class="history-tag tag-near">Near Miss</span>
+            </div>
+          </summary>
+          <div class="history-body">
+            <p><strong>Why catastrophe was avoided:</strong> advance knowledge and aggressive remediation.</p>
+            <p><strong>TFP Lesson:</strong> temporal validity windows matter; action must occur before obsolescence.</p>
+          </div>
+        </details>
+
+        <details class="history-card">
+          <summary>
+            <div class="history-topline">
+              <div>
+                <div class="history-year">2017</div>
+                <div class="history-title">WannaCry Kill Switch</div>
+                <div class="history-summary">A rapidly discovered kill switch limited wider damage.</div>
+              </div>
+              <span class="history-tag tag-near">Near Miss</span>
+            </div>
+          </summary>
+          <div class="history-body">
+            <p><strong>Why catastrophe was avoided:</strong> rapid technical intervention interrupted propagation.</p>
+            <p><strong>TFP Lesson:</strong> Lr includes human expertise, not only money or infrastructure.</p>
+          </div>
+        </details>
+
+      </div>
+
+    </div>
+  </details>
+
+  <details>
+    <summary>Section C — Successful Recoveries</summary>
+    <div class="detail-body">
+
+      <div class="history-grid">
+
+        <details class="history-card">
+          <summary>
+            <div class="history-topline">
+              <div>
+                <div class="history-year">2022</div>
+                <div class="history-title">Tonga Cable Recovery</div>
+                <div class="history-summary">Restoration required mobilization of scarce submarine repair capacity.</div>
+              </div>
+              <span class="history-tag tag-recovery">Recovery</span>
+            </div>
+          </summary>
+          <div class="history-body">
+            <p><strong>Restoration time:</strong> approximately five weeks.</p>
+            <p><strong>Key factor:</strong> cable repair vessel mobilization.</p>
+            <p><strong>TFP Lesson:</strong> Lr must account for geographically available restoration capacity.</p>
+          </div>
+        </details>
+
+        <details class="history-card">
+          <summary>
+            <div class="history-topline">
+              <div>
+                <div class="history-year">1989</div>
+                <div class="history-title">Quebec Grid Recovery</div>
+                <div class="history-summary">Grid reconfiguration enabled relatively rapid recovery.</div>
+              </div>
+              <span class="history-tag tag-recovery">Recovery</span>
+            </div>
+          </summary>
+          <div class="history-body">
+            <p><strong>Restoration time:</strong> approximately nine hours.</p>
+            <p><strong>Key factor:</strong> grid reconfiguration without major transformer loss.</p>
+            <p><strong>TFP Lesson:</strong> fast recovery is possible when infrastructure remains technically reversible.</p>
+          </div>
+        </details>
+
+        <details class="history-card">
+          <summary>
+            <div class="history-topline">
+              <div>
+                <div class="history-year">2021</div>
+                <div class="history-title">Facebook / Meta Outage Recovery</div>
+                <div class="history-summary">BGP and DNS restoration recovered platform availability.</div>
+              </div>
+              <span class="history-tag tag-recovery">Recovery</span>
+            </div>
+          </summary>
+          <div class="history-body">
+            <p><strong>Restoration time:</strong> approximately six hours.</p>
+            <p><strong>Key factor:</strong> configuration reversal and routing restoration.</p>
+            <p><strong>TFP Lesson:</strong> configuration reversibility is a direct Lr component.</p>
+          </div>
+        </details>
+
+        <details class="history-card">
+          <summary>
+            <div class="history-topline">
+              <div>
+                <div class="history-year">2017</div>
+                <div class="history-title">Maersk NotPetya Recovery</div>
+                <div class="history-summary">Operational rebuilding restored corporate infrastructure after systemic malware damage.</div>
+              </div>
+              <span class="history-tag tag-recovery">Recovery</span>
+            </div>
+          </summary>
+          <div class="history-body">
+            <p><strong>Restoration time:</strong> approximately two weeks for core infrastructure rebuilding.</p>
+            <p><strong>Key factor:</strong> rebuild capacity and retained institutional knowledge.</p>
+            <p><strong>TFP Lesson:</strong> recovery depends on executable technical capacity, not claims payment alone.</p>
+          </div>
+        </details>
+
+      </div>
+
+    </div>
+  </details>
+
+  <details open>
+    <summary>Section D — Pattern Recognition Dashboard</summary>
+    <div class="detail-body">
+
+      <div class="pattern-grid">
+
+        <div class="pattern-card">
+          <h4>Most Frequent Root Causes</h4>
+          <ul>
+            <li>Concentration risk</li>
+            <li>Hidden dependency</li>
+            <li>Infrastructure aging</li>
+            <li>Routing or configuration error</li>
+            <li>Governance latency</li>
+            <li>Insufficient fallback capacity</li>
+          </ul>
+        </div>
+
+        <div class="pattern-card">
+          <h4>Most Frequent Cascade Paths</h4>
+          <ul>
+            <li>Energy → Digital</li>
+            <li>Digital → Financial</li>
+            <li>Digital → Healthcare</li>
+            <li>Space → Digital</li>
+            <li>Water → Digital</li>
+            <li>Cyber → Physical Infrastructure</li>
+          </ul>
+        </div>
+
+        <div class="pattern-card">
+          <h4>Most Critical Missing Capacities</h4>
+          <ul>
+            <li>Submarine cable repair capacity</li>
+            <li>High-voltage transformer reserves</li>
+            <li>Alternative timing systems</li>
+            <li>Cloud portability</li>
+            <li>Analog fallback skills</li>
+            <li>Cross-border legal failover</li>
+          </ul>
+        </div>
+
+        <div class="pattern-card">
+          <h4>TFP Variables Most Frequently Exposed</h4>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Observed Pattern</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Lr</td>
+                  <td>Recovery capacity often proves weaker than assumed.</td>
+                </tr>
+                <tr>
+                  <td>P</td>
+                  <td>Single points of failure are frequently invisible during normal operation.</td>
+                </tr>
+                <tr>
+                  <td>ΔV</td>
+                  <td>Digital cascades often accelerate faster than institutional response.</td>
+                </tr>
+                <tr>
+                  <td>σ</td>
+                  <td>Private, proprietary, and underreported systems increase governance uncertainty.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="callout">
+        <strong>Fellowship interpretation:</strong> the historical library is not a catalogue of isolated incidents.
+        It is a pattern-recognition tool. Fellows should identify which events reveal proximity failure, which reveal
+        trajectory acceleration, which reveal uncertainty, and which reveal reversibility insolvency.
+      </div>
+
+    </div>
+  </details>
+</section>
+  
+<!-- ========================================= -->
+<!-- FINAL FOOTER -->
+<!-- ========================================= -->
+
+<footer class="library-footer">
+
+    <div class="footer-title">
+        c-ECO Systemic Intelligence Library
+    </div>
+
+    <div class="footer-subtitle">
+        Digital Technology & Data Infrastructure Domain
+    </div>
+
+    <div class="footer-note">
+        This library functions as a permanent intelligence asset
+        supporting Calibration Councils, Data Custodians,
+        Restoration Providers, Fellowship Programs,
+        Technical Annex Development, and Systemic Governance.
+    </div>
+
+</footer>
+</main>
+</div>
+</body>
+</html>
+  
