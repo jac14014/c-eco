@@ -785,6 +785,44 @@ caption{
   background:white;
   box-shadow:0 20px 60px rgba(0,0,0,.45);
 }
+  .inline-figure{
+  background:#fff;
+  border:1px solid var(--line);
+  padding:.14in;
+  margin:.22in 0;
+  break-inside:avoid;
+  text-align:center;
+}
+
+.inline-figure img{
+  width:100%;
+  max-width:100%;
+  height:auto;
+  display:block;
+  margin:.1in auto;
+  border:1px solid #eee;
+  background:#fff;
+  cursor:zoom-in;
+}
+
+.inline-figure .figure-title{
+  text-align:left;
+  font-family:'Trajan Pro 3','Times New Roman',serif;
+  color:var(--gold-dark);
+  font-size:9pt;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  border-bottom:1px solid var(--gold-light);
+  padding-bottom:.05in;
+}
+  .zoom-hint{
+  font-size:8.5pt;
+  color:#777;
+  font-style:italic;
+  text-align:center;
+  text-indent:0 !important;
+  margin-top:.04in;
+}
 </style>
 </head>
 
@@ -4313,8 +4351,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 </script>
       <script>
 document.addEventListener('click', function(e){
-  const img = e.target.closest('.visual-card img, .figure-box img');
-  if(!img) return;
+ const img = e.target.closest('.visual-card img, .figure-box img, .inline-figure img');
 
   const modal = document.getElementById('img-modal');
   const modalImg = document.getElementById('img-modal-content');
@@ -4328,8 +4365,19 @@ function closeImageModal(){
   document.getElementById('img-modal').style.display = 'none';
   document.getElementById('img-modal-content').src = '';
 }
+        document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.inline-figure img, .visual-card img, .figure-box img').forEach(function(img){
+    const parent = img.closest('.inline-figure, .visual-card, .figure-box');
+    if(parent && !parent.querySelector('.zoom-hint')){
+      const hint = document.createElement('p');
+      hint.className = 'zoom-hint';
+      hint.textContent = 'Click image to enlarge';
+      img.insertAdjacentElement('afterend', hint);
+    }
+  });
+});
+        
 </script>
-
 </body>
 </html>
 
