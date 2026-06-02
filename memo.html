@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>c-ECO Predictive Governance Framework — Institutional Macro-Prudential Memorandum</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Trajan+Pro+3&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -24,6 +24,9 @@
   --red:#7A2F2F;
   --blue:#263F5F;
   --shadow:0 0 30px rgba(0,0,0,.12);
+
+  --font-main:"Cormorant Garamond", Garamond, Georgia, serif;
+  --font-display:"Cormorant Garamond", Garamond, Georgia, serif;
 }
 
 *{
@@ -37,7 +40,7 @@ html{
 }
 
 body{
-  font-family:'Cormorant Garamond', Georgia, serif;
+  font-family:var(--font-main);
   background:linear-gradient(135deg,#f5f0e8 0%,#ede6d8 100%);
   color:var(--ink);
   line-height:1.62;
@@ -62,12 +65,13 @@ body{
   padding:.1in .18in;
   border:none;
   background:transparent;
-  font-family:'Trajan Pro 3','Times New Roman',serif;
-  font-size:8pt;
+  font-family:var(--font-display);
+  font-size:8.5pt;
+  font-weight:600;
   color:#777;
   cursor:pointer;
   text-transform:uppercase;
-  letter-spacing:.05em;
+  letter-spacing:.08em;
   border-bottom:2px solid transparent;
   transition:all .25s ease;
 }
@@ -99,11 +103,12 @@ body{
   border:1px solid var(--gold);
   background:white;
   color:var(--gold-dark);
-  font-family:'Trajan Pro 3','Times New Roman',serif;
+  font-family:var(--font-display);
   font-size:9pt;
+  font-weight:600;
   cursor:pointer;
   text-transform:uppercase;
-  letter-spacing:.05em;
+  letter-spacing:.08em;
 }
 
 .btn:hover,
@@ -128,6 +133,7 @@ body{
   position:relative;
   box-shadow:var(--shadow);
   padding:0 .75in .75in;
+  overflow:hidden;
 }
 
 .page::before{
@@ -173,10 +179,6 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  color:var(--gold-dark);
-  font-family:'Trajan Pro 3','Times New Roman',serif;
-  font-size:8pt;
-  letter-spacing:.08em;
 }
 
 .seal img{
@@ -186,10 +188,11 @@ body{
 }
 
 .org-name{
-  font-family:'Trajan Pro 3','Times New Roman',serif;
+  font-family:var(--font-display);
   font-size:15pt;
+  font-weight:600;
   color:var(--gold-dark);
-  letter-spacing:.08em;
+  letter-spacing:.10em;
   text-transform:uppercase;
 }
 
@@ -220,47 +223,52 @@ body{
 }
 
 .chapter-kicker{
-  font-family:'Trajan Pro 3','Times New Roman',serif;
-  font-size:8pt;
+  font-family:var(--font-display);
+  font-size:8.5pt;
+  font-weight:600;
   color:var(--gold);
   text-transform:uppercase;
-  letter-spacing:.12em;
+  letter-spacing:.14em;
   margin-bottom:.08in;
 }
 
 .doc-title h1{
-  font-family:'Trajan Pro 3','Times New Roman',serif;
-  font-size:16pt;
+  font-family:var(--font-display);
+  font-size:19pt;
+  font-weight:600;
   color:var(--gold-dark);
   text-transform:uppercase;
   letter-spacing:.08em;
-  line-height:1.35;
+  line-height:1.25;
 }
 
 .doc-title .subtitle{
-  font-size:10pt;
+  font-family:var(--font-main);
+  font-size:10.5pt;
   color:#666;
   font-style:italic;
   margin-top:.08in;
 }
 
 .section-header{
-  font-family:'Trajan Pro 3','Times New Roman',serif;
-  font-size:10.5pt;
+  font-family:var(--font-display);
+  font-size:11pt;
+  font-weight:600;
   color:var(--gold-dark);
   text-transform:uppercase;
-  letter-spacing:.06em;
+  letter-spacing:.08em;
   margin:.25in 0 .12in;
   border-left:3px solid var(--gold);
   padding-left:.1in;
 }
 
 .subsection-header{
-  font-family:'Trajan Pro 3','Times New Roman',serif;
-  font-size:9pt;
+  font-family:var(--font-display);
+  font-size:9.5pt;
+  font-weight:600;
   color:var(--green);
   text-transform:uppercase;
-  letter-spacing:.04em;
+  letter-spacing:.06em;
   margin:.18in 0 .08in;
 }
 
@@ -274,7 +282,10 @@ body{
 .body-text .highlight-box p,
 .body-text .note-box p,
 .body-text .figure-box p,
-.body-text .method-box p{
+.body-text .method-box p,
+.body-text .warning-box p,
+.body-text .analysis-box p,
+.body-text .methodology-box p{
   text-indent:0;
 }
 
@@ -291,16 +302,25 @@ body{
 .highlight-box,
 .note-box,
 .method-box,
-.warning-box{
+.warning-box,
+.analysis-box,
+.methodology-box{
   background:linear-gradient(135deg,#FDFCF8 0%,#F5F0E8 100%);
   border:1px solid var(--gold-light);
   border-left:5px solid var(--gold);
   padding:.14in .16in;
   margin:.16in 0;
   border-radius:2px;
+  break-inside:avoid;
 }
 
-.method-box{
+.analysis-box{
+  border-left-color:var(--green);
+  background:#FBFCFA;
+}
+
+.method-box,
+.methodology-box{
   border-left-color:var(--green);
   background:var(--green-soft);
 }
@@ -319,14 +339,41 @@ body{
 }
 
 .figure-title{
-  font-family:'Trajan Pro 3','Times New Roman',serif;
+  font-family:var(--font-display);
   color:var(--gold-dark);
-  font-size:9pt;
+  font-size:9.5pt;
+  font-weight:600;
   text-transform:uppercase;
-  letter-spacing:.05em;
+  letter-spacing:.07em;
   margin-bottom:.1in;
   border-bottom:1px solid var(--gold-light);
   padding-bottom:.05in;
+}
+
+.figure-subtitle{
+  font-size:9pt;
+  color:#666;
+  font-style:italic;
+  margin:-.04in 0 .1in;
+  text-align:center;
+}
+
+.inline-figure,
+.visual-figure-section,
+.visual-table-section{
+  width:100%;
+  max-width:100%;
+  margin:.18in auto;
+  break-inside:avoid;
+}
+
+.inline-figure img{
+  display:block;
+  width:100%;
+  max-width:100%;
+  height:auto;
+  margin:0 auto;
+  border:0;
 }
 
 .figure-source,
@@ -466,50 +513,34 @@ li{
 }
 
 .site-footer{
-  width: 100%;
-  max-width: 760px;
-  margin: 34px auto 0 auto;
-  padding: 12px 18px 4px 18px;
-  box-sizing: border-box;
+  width:100%;
+  max-width:760px;
+  margin:24px auto 0;
+  padding:10px 16px 16px;
+  box-sizing:border-box;
+  text-align:center;
+  color:#555;
+}
 
-  border-top: 0.6px solid rgba(201,162,39,.45);
-  text-align: center;
-  color: #777;
+.footer-rule{
+  width:120px;
+  height:1px;
+  background:var(--gold);
+  opacity:.65;
+  margin:0 auto 10px;
 }
 
 .footer-inner{
-  max-width: 680px;
-  margin: 0 auto;
+  max-width:680px;
+  margin:0 auto;
 }
 
-.footer-logo{
-  font-family: "Libre Baskerville", serif;
-  font-size: 8.5pt;
-  letter-spacing: .04em;
-  color: #6f5a25;
-  margin-bottom: 3px;
-}
-
-.footer-title{
-  font-size: 7.2pt;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: #555;
-  margin-bottom: 2px;
-}
-
-.footer-version{
-  font-size: 6.8pt;
-  color: #8a8a8a;
-  margin-bottom: 6px;
-}
-
-.footer-note{
-  max-width: 560px;
-  margin: 0 auto;
-  font-size: 6.4pt;
-  line-height: 1.35;
-  color: #999;
+.footer-meta{
+  font-family:var(--font-display);
+  font-size:7.8pt;
+  font-weight:500;
+  letter-spacing:.08em;
+  color:#555;
 }
 
 .page-break{
@@ -2622,27 +2653,13 @@ Revised v2.2 — June 2026
 </div>
 </section>
 
-    <footer class="site-footer">
-    <div class="footer-inner">
-
-        <div class="footer-logo">
-            Johann Christian Hasse Foundation
-        </div>
-
-        <div class="footer-title">
-            c-ECO Predictive Governance Framework
-        </div>
-
-        <div class="footer-version">
-            Institutional Macro-Prudential Memorandum · Revised v2.2 · June 2026
-        </div>
-
-        <div class="footer-note">
-            Prepared for institutional research, governance analysis,
-            policy evaluation, and professional discussion.
-        </div>
-
+   <footer class="site-footer">
+  <div class="footer-rule"></div>
+  <div class="footer-inner">
+    <div class="footer-meta">
+      Johann Christian Hasse Foundation · c-ECO Institutional Macro-Prudential Memorandum · Revised v2.2 · June 2026
     </div>
+  </div>
 </footer>
 
 </div>
