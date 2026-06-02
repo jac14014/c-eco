@@ -3123,6 +3123,34 @@ document.addEventListener('keydown', function(e){
   }
 });
 </script>
+      <script>
+document.addEventListener("DOMContentLoaded", function(){
+  const tabs = document.querySelectorAll(".nav-tab");
+  const sections = document.querySelectorAll(".tab-content");
+
+  tabs.forEach(function(tab){
+    tab.addEventListener("click", function(){
+      const targetId = tab.getAttribute("data-tab");
+
+      tabs.forEach(function(t){
+        t.classList.remove("active");
+      });
+
+      sections.forEach(function(section){
+        section.classList.remove("active");
+      });
+
+      tab.classList.add("active");
+
+      const target = document.getElementById(targetId);
+      if(target){
+        target.classList.add("active");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    });
+  });
+});
+</script>
 </body>
 </html>
 
