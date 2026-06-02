@@ -767,6 +767,24 @@ caption{
 .table-wrapper{
   overflow-x:auto;
 }
+  #img-modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.82);
+  z-index:9999;
+  align-items:center;
+  justify-content:center;
+  padding:30px;
+  cursor:zoom-out;
+}
+
+#img-modal img{
+  max-width:95vw;
+  max-height:92vh;
+  background:white;
+  box-shadow:0 20px 60px rgba(0,0,0,.45);
+}
 </style>
 </head>
 
@@ -4022,6 +4040,9 @@ The purpose of this memorandum is therefore not to claim definitive solutions, b
       </div>
     </div>
   </div>
+          <div id="img-modal" onclick="closeImageModal()">
+  <img id="img-modal-content" src="" alt="">
+</div>
 </section>
 
 <div id="references" class="tab-content">
@@ -4299,6 +4320,24 @@ document.addEventListener('DOMContentLoaded',()=>{
     first.classList.add('active');
   }
 });
+</script>
+      <script>
+document.addEventListener('click', function(e){
+  const img = e.target.closest('.visual-card img, .figure-box img');
+  if(!img) return;
+
+  const modal = document.getElementById('img-modal');
+  const modalImg = document.getElementById('img-modal-content');
+
+  modalImg.src = img.src;
+  modalImg.alt = img.alt || '';
+  modal.style.display = 'flex';
+});
+
+function closeImageModal(){
+  document.getElementById('img-modal').style.display = 'none';
+  document.getElementById('img-modal-content').src = '';
+}
 </script>
 
 </body>
