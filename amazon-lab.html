@@ -1,1347 +1,3963 @@
-
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="noindex, nofollow">
-  <title>c-ECO | Amazon Living Lab — Phase Alpha</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+<title>Amazon Living Lab | TDR & TFP Validation</title>
 
-  <style>
-    :root{
-      --sidebar-width: 340px;
-      --legal-blue: #1a2b3c;
-      --gold-accent: #c5a059;
-      --bg-body: #f4f7f9;
-      --text-main: #1a1a1a;
-      --border-color: #dee2e6;
-      --response-bg: #fff8e6;
-      --response-border: #e6d5a8;
-      --emerald: #10b981;
-      --blue: #3b82f6;
-      --amber: #f59e0b;
-      --red: #ef4444;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
-    *{ box-sizing: border-box; }
+<style>
+:root{
+  --gold:#C9A227;
+  --gold-light:#D4AF37;
+  --gold-dark:#8B6914;
+  --gold-pale:#F5F0E8;
 
-    body{
-      margin:0;
-      background: var(--bg-body);
-      font-family: 'Inter', sans-serif;
-      line-height: 1.6;
-    }
+  --green:#1E3A2F;
+  --green-soft:#EEF4EF;
 
-    /* ===== SIDEBAR ===== */
-    .sidebar{
-      width: var(--sidebar-width);
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
-      background: #fff;
-      border-right: 1px solid var(--border-color);
-      padding: 16px;
-      overflow-y: auto;
-      z-index: 1000;
-      -webkit-overflow-scrolling: touch;
-      transition: transform .3s ease;
-    }
+  --blue:#263F5F;
+  --red:#7A2F2F;
 
-    .sidebar-top{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding-bottom: 10px;
-      margin-bottom: 12px;
-      border-bottom: 2px solid var(--gold-accent);
-    }
+  --ink:#1A1A1A;
+  --ink-light:#444;
+  --cream:#FDFCF8;
+  --paper:#FFFFFF;
+  --soft:#F8F5EE;
+  --line:#D8C99A;
 
-    .logo-box{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      width: 40px;
-      height: 40px;
-      border: 1px solid var(--border-color);
-      background: #fff;
-      color: var(--legal-blue);
-      font-weight: 900;
-      font-size: 1.2rem;
-      text-decoration: none;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
+  --shadow:0 0 30px rgba(0,0,0,.12);
 
-    .sidebar-title{
-      font-weight: 800;
-      font-size: 11px;
-      letter-spacing: 1px;
-      color: var(--legal-blue);
-      text-transform: uppercase;
-      line-height: 1.2;
-      margin: 0;
-    }
+  --font-main:"Cormorant Garamond", Garamond, Georgia, serif;
+  --font-display:"Cormorant Garamond", Garamond, Georgia, serif;
+}
 
-    .search-container {
-      margin-bottom: 12px;
-      position: sticky;
-      top: 0;
-      background: #fff;
-      z-index: 10;
-      padding-bottom: 8px;
-    }
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-    #sidebarSearch {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      outline: none;
-    }
+html{
+  scroll-behavior:smooth;
+}
 
-    #sidebarSearch:focus {
-      border-color: var(--gold-accent);
-      box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15);
-    }
+body{
+  font-family:var(--font-main);
+  background:linear-gradient(135deg,#f5f0e8 0%,#ede6d8 100%);
+  color:var(--ink);
+  line-height:1.62;
+  font-size:11pt;
+  min-height:100vh;
+  padding-bottom:.75in;
+}
 
-    .nav-list{ list-style:none; padding:0; margin:0; }
-    
-    .nav-section-title{
-      font-size: 10px;
-      font-weight: 800;
-      color: var(--gold-accent);
-      margin-top: 14px;
-      text-transform: uppercase;
-      border-top: 1px solid #eee;
-      padding-top: 10px;
-      padding-bottom: 5px;
-      letter-spacing: .8px;
-    }
+/* =========================
+   TOP NAVIGATION
+========================= */
 
-    .nav-sub-title{
-      font-size: 9px;
-      font-weight: 700;
-      color: #7a8a99;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      margin: 8px 0 3px 8px;
-    }
+.nav-tabs{
+  display:flex;
+  justify-content:center;
+  gap:0;
+  background:white;
+  border-bottom:1px solid var(--gold);
+  position:sticky;
+  top:0;
+  z-index:50;
+  flex-wrap:wrap;
+}
 
-    .nav-item a{
-      text-decoration:none;
-      color: var(--text-main);
-      font-size: 11px;
-      display:block;
-      padding: 5px 8px;
-      line-height: 1.35;
-      transition: .2s;
-      border-left: 3px solid transparent;
-    }
-    .nav-item a:hover{
-      background: rgba(197,160,89,0.12);
-      border-left-color: var(--gold-accent);
-    }
+.nav-tab{
+  padding:.1in .16in;
+  border:none;
+  background:transparent;
+  font-family:var(--font-display);
+  font-size:8.2pt;
+  font-weight:600;
+  color:#777;
+  cursor:pointer;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  border-bottom:2px solid transparent;
+  transition:all .25s ease;
+}
 
-    /* ===== CONTENT ===== */
-    .main-content{
-      margin-left: var(--sidebar-width);
-      padding: 40px 20px;
-      display:flex;
-      justify-content:center;
-    }
+.nav-tab:hover,
+.nav-tab.active{
+  color:var(--gold-dark);
+  border-bottom-color:var(--gold);
+  background:#fffaf0;
+}
 
-    .document-page{
-      background:#fff;
-      width:100%;
-      max-width: 780px;
-      padding: 50px 50px;
-      box-shadow: 0 4px 25px rgba(0,0,0,0.06);
-    }
+/* =========================
+   PRINT BAR
+========================= */
 
-    /* TIPOGRAFIA */
-    .section-header{
-      font-family:'Libre Baskerville', serif;
-      font-weight:700;
-      font-size:18px;
-      color:var(--legal-blue);
-      margin: 35px 0 20px 0;
-      padding-bottom: 10px;
-      border-bottom: 3px solid var(--gold-accent);
-    }
+.print-bar{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:white;
+  border-top:2px solid var(--gold);
+  padding:.12in;
+  display:flex;
+  justify-content:center;
+  gap:.15in;
+  box-shadow:0 -4px 15px rgba(0,0,0,.1);
+  z-index:100;
+}
 
-    .subsection-header{
-      font-family:'Libre Baskerville', serif;
-      font-weight:700;
-      font-size:15px;
-      color:var(--legal-blue);
-      margin: 25px 0 15px 0;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border-color);
-    }
+.btn{
+  padding:.08in .25in;
+  border:1px solid var(--gold);
+  background:white;
+  color:var(--gold-dark);
+  font-family:var(--font-display);
+  font-size:9pt;
+  font-weight:600;
+  cursor:pointer;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
 
-    /* EXECUTIVE SUMMARY */
-    .exec-box {
-      background: linear-gradient(135deg, var(--legal-blue) 0%, #2c3e50 100%);
-      color: white;
-      padding: 24px;
-      border-radius: 4px;
-      margin-bottom: 24px;
-      border-left: 4px solid var(--gold-accent);
-    }
-    
-    .exec-box h2 {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      color: var(--gold-accent);
-    }
-    
-    .exec-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-    
-    .exec-item {
-      text-align: center;
-    }
-    
-    .exec-item .number {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--gold-accent);
-      line-height: 1;
-    }
-    
-    .exec-item .label {
-      font-size: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: #a8a29e;
-      margin-top: 6px;
-    }
+.btn:hover,
+.btn-primary{
+  background:var(--gold);
+  color:white;
+}
 
-    /* CLAUSULAS / SECTIONS */
-    .clause-box{
-      background: #fafbfc;
-      border-left: 4px solid var(--legal-blue);
-      padding: 20px 24px;
-      margin-bottom: 25px;
-    }
+/* =========================
+   TAB STRUCTURE
+========================= */
 
-    .clause-number{
-      font-size: 11px;
-      font-weight: 800;
-      color: var(--gold-accent);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 8px;
-    }
+.tab-content{
+  display:none;
+}
 
-    .clause-title{
-      font-family:'Libre Baskerville', serif;
-      font-weight:700;
-      font-size:16px;
-      color:var(--legal-blue);
-      margin-bottom:14px;
-    }
+.tab-content.active{
+  display:block;
+}
 
-    .sub-clause{
-      margin-left: 18px;
-      margin-bottom: 12px;
-    }
+/* =========================
+   PAGE STRUCTURE
+========================= */
 
-    .sub-clause-number{
-      font-weight: 700;
-      color: var(--legal-blue);
-      font-size: 12px;
-      margin-bottom: 4px;
-    }
+.page{
+  width:8.5in;
+  min-height:11in;
+  margin:0 auto .35in;
+  background:white;
+  position:relative;
+  box-shadow:var(--shadow);
+  padding:0 .75in .75in;
+  overflow:hidden;
+}
 
-    .caput{ 
-      text-align:justify; 
-      margin-bottom:10px; 
-      font-family:'Libre Baskerville', serif; 
-      line-height:1.7; 
-      font-size:13.5px; 
-    }
+.page::before{
+  content:'';
+  position:absolute;
+  top:.3in;
+  left:.3in;
+  right:.3in;
+  bottom:.3in;
+  border:1.5px solid var(--gold);
+  pointer-events:none;
+  z-index:1;
+}
 
-    .paragraph{ 
-      margin-left:24px; 
-      font-size:12.5px; 
-      margin-bottom:8px; 
-      line-height:1.6; 
-      color:#333; 
-    }
+.page::after{
+  content:'';
+  position:absolute;
+  top:.4in;
+  left:.4in;
+  right:.4in;
+  bottom:.4in;
+  border:.5px solid var(--gold-light);
+  pointer-events:none;
+  opacity:.55;
+  z-index:1;
+}
 
-    .inciso{ 
-      margin-left:48px; 
-      font-size:12.5px; 
-      margin-bottom:6px; 
-      color:#444; 
-    }
+.letterhead{
+  text-align:center;
+  padding:.4in .75in .2in;
+  border-bottom:1px solid var(--gold);
+  background:white;
+  position:relative;
+  z-index:2;
+}
 
-    /* PHASE BADGES */
-    .phase-badge {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 3px;
-      font-size: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      font-weight: 700;
-      margin-left: 8px;
-      color: #fff;
-    }
-    
-    .badge-alpha { background: var(--emerald); }
-    .badge-beta { background: var(--blue); }
-    .badge-gamma { background: var(--amber); }
+.seal{
+  width:1.18in;
+  height:1.18in;
+  margin:0 auto .1in;
+  border:none;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
 
-    /* TABLES */
-    .budget-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 9.5px;
-      margin-top: 12px;
-    }
-    
-    .budget-table th {
-      background: #f5f5f4;
-      color: var(--legal-blue);
-      font-size: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-weight: 700;
-      padding: 8px 10px;
-      text-align: left;
-      border-bottom: 2px solid var(--gold-accent);
-    }
-    
-    .budget-table td {
-      padding: 8px 10px;
-      border-bottom: 1px solid #e7e5e4;
-      vertical-align: top;
-    }
-    
-    .budget-table tr:hover td {
-      background: #fafaf9;
-    }
-    
-    .subtotal-row td {
-      background: #f5f5f4;
-      font-weight: 700;
-      color: var(--legal-blue);
-      border-top: 2px solid var(--border-color);
-      border-bottom: 2px solid var(--border-color);
-    }
-    
-    .total-row td {
-      background: var(--legal-blue);
-      color: white;
-      font-weight: 700;
-      border: none;
-    }
-    
-    .total-row .col-item {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 12px;
-    }
-    
-    .total-row .col-y1, .total-row .col-y2 {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 13px;
-      color: var(--gold-accent);
-    }
-    
-    .col-line { width: 5%; color: #78716c; font-weight: 500; }
-    .col-item { width: 28%; }
-    .col-desc { width: 27%; color: #78716c; font-size: 8.5px; }
-    .col-calc { width: 18%; color: #78716c; font-size: 8.5px; text-align: right; }
-    .col-y1 { width: 11%; text-align: right; font-weight: 500; }
-    .col-y2 { width: 11%; text-align: right; font-weight: 500; }
+.seal img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
 
-    /* MILESTONE TABLE */
-    .milestone-table th { text-align: center; }
-    .milestone-table td { text-align: center; font-size: 8.5px; }
-    .milestone-table td:first-child { text-align: left; font-weight: 500; }
-    
-    .milestone-y1 { background: rgba(16, 185, 129, 0.06); }
-    .milestone-y2 { background: rgba(59, 130, 246, 0.06); }
+.org-name{
+  font-family:var(--font-display);
+  font-size:15pt;
+  font-weight:600;
+  color:var(--gold-dark);
+  letter-spacing:.10em;
+  text-transform:uppercase;
+}
 
-    /* RISK MATRIX */
-    .risk-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    
-    .risk-item {
-      border: 1px solid var(--border-color);
-      padding: 12px;
-      border-radius: 4px;
-      background: #fff;
-    }
-    
-    .risk-item .risk-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-    }
-    
-    .risk-item h5 {
-      font-size: 10px;
-      font-weight: 700;
-      color: var(--legal-blue);
-    }
-    
-    .risk-level {
-      font-size: 7px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      padding: 2px 6px;
-      border-radius: 2px;
-      font-weight: 700;
-    }
-    
-    .risk-low { background: rgba(16, 185, 129, 0.15); color: #059669; }
-    .risk-med { background: rgba(245, 158, 11, 0.15); color: #b45309; }
-    .risk-high { background: rgba(239, 68, 68, 0.15); color: var(--red); }
-    
-    .risk-item p {
-      font-size: 9px;
-      color: #57534e;
-      line-height: 1.5;
-    }
+.org-address{
+  font-size:9pt;
+  color:#666;
+  margin-top:.03in;
+  font-style:italic;
+}
 
-    /* NOTE BOX */
-    .note-box{
-      background: #f8fafc;
-      border-left: 4px solid var(--gold-accent);
-      padding: 14px 16px;
-      margin: 14px 0 22px 0;
-      font-size: 11.5px;
-      line-height: 1.6;
-      color: #333;
-    }
+.org-motto{
+  font-size:8pt;
+  color:var(--gold);
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  margin-top:.05in;
+}
 
-    .note-label{
-      font-size: 10px;
-      font-weight: 800;
-      color: var(--legal-blue);
-      text-transform: uppercase;
-      letter-spacing: 0.7px;
-      margin-bottom: 6px;
-    }
+.content{
+  padding-top:.3in;
+  position:relative;
+  z-index:2;
+}
 
-    /* ASSUMPTIONS */
-    .assumptions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 20px;
-    }
-    
-    .assumption-card {
-      border: 1px solid var(--border-color);
-      padding: 12px;
-      border-radius: 4px;
-      background: #fff;
-    }
-    
-    .assumption-card h4 {
-      font-size: 10px;
-      color: var(--gold-accent);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 8px;
-    }
-    
-    .assumption-card ul {
-      list-style: none;
-      font-size: 8.5px;
-      color: #57534e;
-      padding: 0;
-    }
-    
-    .assumption-card li {
-      padding: 3px 0;
-      padding-left: 12px;
-      position: relative;
-    }
-    
-    .assumption-card li::before {
-      content: "›";
-      position: absolute;
-      left: 0;
-      color: var(--gold-accent);
-      font-weight: 700;
-    }
+.doc-title{
+  text-align:center;
+  margin-bottom:.28in;
+}
 
-    /* SIGNATURE */
-    .signature-block {
-      margin-top: 40px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-    }
-    
-    .signature-line {
-      border-top: 1px solid var(--legal-blue);
-      padding-top: 8px;
-      margin-top: 40px;
-    }
-    
-    .signature-name {
-      font-weight: 700;
-      font-size: 10px;
-      color: var(--legal-blue);
-    }
-    
-    .signature-title {
-      font-size: 8px;
-      color: #78716c;
-      margin-top: 2px;
-    }
+.chapter-kicker{
+  font-family:var(--font-display);
+  font-size:8.5pt;
+  font-weight:600;
+  color:var(--gold);
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  margin-bottom:.08in;
+}
 
-    /* COST SHARING TABLE */
-    .cost-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 9.5px;
-      margin-top: 12px;
-    }
-    
-    .cost-table th {
-      background: #f5f5f4;
-      color: var(--legal-blue);
-      font-size: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-weight: 700;
-      padding: 8px 10px;
-      text-align: left;
-      border-bottom: 2px solid var(--gold-accent);
-    }
-    
-    .cost-table td {
-      padding: 8px 10px;
-      border-bottom: 1px solid #e7e5e4;
-    }
+.doc-title h1{
+  font-family:var(--font-display);
+  font-size:19pt;
+  font-weight:600;
+  color:var(--gold-dark);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  line-height:1.25;
+}
 
-    /* PRINT BUTTON */
-    .print-btn{
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: var(--legal-blue);
-      color: #fff;
-      border: none;
-      padding: 12px 20px;
-      font-weight: 700;
-      font-size: 12px;
-      z-index: 2000;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      cursor: pointer;
-      letter-spacing: 0.5px;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.3s ease;
-    }
+.doc-title .subtitle{
+  font-family:var(--font-main);
+  font-size:10.5pt;
+  color:#666;
+  font-style:italic;
+  margin-top:.08in;
+}
 
-    .print-btn:hover{
-      background: #2c3e50;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-    }
+/* =========================
+   TYPOGRAPHY
+========================= */
 
-    .print-btn::before{
-      content: "🖨️";
-      font-size: 14px;
-    }
+.body-text p{
+  margin-bottom:.12in;
+  text-align:justify;
+  text-indent:.2in;
+}
 
-    /* MOBILE */
-    .mobile-btn{
-      display:none;
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: var(--legal-blue);
-      color: #fff;
-      border: none;
-      padding: 14px 22px;
-      font-weight: 800;
-      font-size: 12px;
-      z-index: 2000;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      cursor: pointer;
-      letter-spacing: 0.5px;
-    }
+.body-text p.no-indent,
+.body-text .highlight-box p,
+.body-text .note-box p,
+.body-text .figure-box p,
+.body-text .method-box p,
+.body-text .warning-box p,
+.body-text .analysis-box p,
+.body-text .methodology-box p{
+  text-indent:0;
+}
 
-    .hidden { display: none !important; }
+.lead-text{
+  font-size:12pt;
+  line-height:1.7;
+  background:#fbfaf6;
+  border-left:5px solid var(--gold);
+  padding:.16in .18in;
+  margin:.18in 0 .25in;
+  text-indent:0 !important;
+}
 
-    @media (max-width: 1024px){
-      .sidebar{ transform: translateX(-100%); }
-      .sidebar.open{ transform: translateX(0); box-shadow: 10px 0 30px rgba(0,0,0,0.22); }
-      .main-content{ margin-left: 0; padding: 16px; }
-      .document-page{ padding: 24px; width:auto; margin:0; }
-      .mobile-btn{ display:block; }
-      .assumptions { grid-template-columns: 1fr; }
-      .risk-grid { grid-template-columns: 1fr; }
-      .exec-grid { grid-template-columns: repeat(2, 1fr); }
-      .print-btn { top: auto; bottom: 80px; right: 20px; }
-    }
+.section-header{
+  font-family:var(--font-display);
+  font-size:11.5pt;
+  font-weight:600;
+  color:var(--gold-dark);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  margin:.25in 0 .12in;
+  border-left:3px solid var(--gold);
+  padding-left:.1in;
+}
 
-    @media (max-width: 1200px) and (min-width: 1025px) {
-      .document-page {
-        max-width: calc(100vw - var(--sidebar-width) - 40px);
-        padding: 40px 30px;
-      }
-    }
+.subsection-header{
+  font-family:var(--font-display);
+  font-size:10pt;
+  font-weight:600;
+  color:var(--green);
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  margin:.18in 0 .08in;
+}
 
-    @media print {
-      .sidebar, .mobile-btn, .print-btn { display: none; }
-      .main-content { margin-left: 0; }
-    }
-  </style>
+/* =========================
+   BOXES
+========================= */
+
+.highlight-box,
+.note-box,
+.method-box,
+.warning-box,
+.analysis-box,
+.methodology-box{
+  background:linear-gradient(135deg,#FDFCF8 0%,#F5F0E8 100%);
+  border:1px solid var(--gold-light);
+  border-left:5px solid var(--gold);
+  padding:.14in .16in;
+  margin:.16in 0;
+  border-radius:2px;
+  break-inside:avoid;
+}
+
+.analysis-box{
+  border-left-color:var(--green);
+  background:#FBFCFA;
+}
+
+.method-box,
+.methodology-box{
+  border-left-color:var(--green);
+  background:var(--green-soft);
+}
+
+.warning-box{
+  border-left-color:var(--red);
+  background:#FBF1EF;
+}
+
+/* =========================
+   GRIDS AND CARDS
+========================= */
+
+.grid-2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:.14in;
+  margin:.15in 0;
+}
+
+.grid-3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:.14in;
+  margin:.15in 0;
+}
+
+.grid-4{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:.14in;
+  margin:.15in 0;
+}
+
+.metric-card,
+.source-card,
+.gap-card,
+.partner-card{
+  border:1px solid var(--line);
+  background:#fff;
+  padding:.13in;
+  border-top:4px solid var(--gold);
+  break-inside:avoid;
+}
+
+.metric-number{
+  font-size:22pt;
+  color:var(--green);
+  font-weight:700;
+  line-height:1;
+}
+
+.metric-label{
+  font-size:9.5pt;
+  color:#555;
+  line-height:1.45;
+  margin-top:.06in;
+}
+
+/* =========================
+   TABLES
+========================= */
+
+.table-wrapper{
+  overflow-x:auto;
+  margin:.16in 0;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:8.8pt;
+  background:#fff;
+  break-inside:auto;
+}
+
+th{
+  background:var(--gold-pale);
+  border-bottom:2px solid var(--gold);
+  padding:.06in;
+  text-align:left;
+  vertical-align:top;
+  color:var(--ink);
+}
+
+td{
+  border-bottom:1px solid #eee;
+  padding:.06in;
+  vertical-align:top;
+}
+
+tr{
+  break-inside:avoid;
+}
+
+caption{
+  caption-side:top;
+  text-align:left;
+  font-family:var(--font-display);
+  color:var(--gold-dark);
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  margin-bottom:.08in;
+}
+
+/* =========================
+   FIGURES
+========================= */
+
+.figure-box{
+  background:#fff;
+  border:1px solid var(--line);
+  padding:.15in;
+  margin:.2in 0;
+  break-inside:avoid;
+  overflow-x:auto;
+}
+
+.figure-title{
+  font-family:var(--font-display);
+  color:var(--gold-dark);
+  font-size:9.5pt;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+  margin-bottom:.1in;
+  border-bottom:1px solid var(--gold-light);
+  padding-bottom:.05in;
+}
+
+.figure-subtitle{
+  font-size:9pt;
+  color:#666;
+  font-style:italic;
+  margin:-.04in 0 .1in;
+  text-align:center;
+}
+
+.inline-figure,
+.visual-figure-section,
+.visual-table-section{
+  width:100%;
+  max-width:100%;
+  margin:.18in auto;
+  break-inside:avoid;
+}
+
+.inline-figure{
+  background:#fff;
+  border:1px solid var(--line);
+  padding:.12in;
+  text-align:center;
+  overflow:hidden;
+}
+
+.inline-figure img{
+  width:auto;
+  max-width:100%;
+  max-height:6.6in;
+  height:auto;
+  display:block;
+  margin:.1in auto .04in;
+  border:1px solid #eee;
+  background:#fff;
+  cursor:zoom-in;
+  object-fit:contain;
+}
+
+.figure-source,
+.table-source,
+.source-note{
+  font-size:8.5pt;
+  color:#666;
+  font-style:italic;
+  margin-top:.08in;
+}
+
+/* =========================
+   LISTS
+========================= */
+
+ul{
+  margin:.08in 0 .14in .22in;
+}
+
+li{
+  margin-bottom:.04in;
+}
+
+/* =========================
+   FLOW DIAGRAMS
+========================= */
+
+.flow{
+  display:flex;
+  align-items:stretch;
+  justify-content:space-between;
+  gap:.08in;
+  margin:.15in 0;
+}
+
+.flow-node{
+  flex:1;
+  border:1px solid var(--line);
+  background:#fff;
+  padding:.08in;
+  text-align:center;
+  font-size:8.8pt;
+  min-height:.55in;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.flow-arrow{
+  display:flex;
+  align-items:center;
+  color:var(--gold-dark);
+  font-size:14pt;
+}
+
+/* =========================
+   TIMELINE
+========================= */
+
+.timeline{
+  border-left:3px solid var(--gold);
+  margin:.16in 0 .16in .1in;
+  padding-left:.16in;
+}
+
+.timeline-item{
+  position:relative;
+  margin-bottom:.14in;
+  padding:.1in .12in;
+  background:#fff;
+  border:1px solid var(--line);
+}
+
+.timeline-item::before{
+  content:'';
+  position:absolute;
+  left:-.235in;
+  top:.18in;
+  width:.09in;
+  height:.09in;
+  border-radius:50%;
+  background:var(--gold);
+  border:2px solid white;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.site-footer{
+  width:100%;
+  max-width:900px;
+  margin:8px auto 0;
+  padding:6px 12px;
+  border-top:.6px solid rgba(201,162,39,.45);
+  font-family:var(--font-main);
+  font-size:9pt;
+  font-weight:400;
+  line-height:1.2;
+  letter-spacing:.02em;
+  text-align:center;
+  color:#666;
+}
+
+/* =========================
+   IMAGE MODAL
+========================= */
+
+#img-modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.86);
+  z-index:99999;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  cursor:zoom-out;
+}
+
+#img-modal.active{
+  display:flex;
+}
+
+#img-modal img{
+  max-width:96vw;
+  max-height:94vh;
+  width:auto;
+  height:auto;
+  background:white;
+  box-shadow:0 20px 60px rgba(0,0,0,.45);
+  cursor:zoom-out;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:900px){
+  body{
+    font-size:12pt;
+  }
+
+  .page{
+    width:100%;
+    min-height:auto;
+    margin:0;
+    padding:0 .35in .55in;
+  }
+
+  .page::before,
+  .page::after{
+    display:none;
+  }
+
+  .grid-2,
+  .grid-3,
+  .grid-4{
+    grid-template-columns:1fr;
+  }
+
+  .flow{
+    flex-direction:column;
+  }
+
+  .flow-arrow{
+    justify-content:center;
+    transform:rotate(90deg);
+  }
+
+  table{
+    display:block;
+    overflow-x:auto;
+    white-space:normal;
+  }
+
+  .print-bar{
+    position:static;
+  }
+}
+
+@media(max-width:768px){
+  .letterhead{
+    padding:.28in .24in .16in;
+  }
+
+  .seal{
+    width:.92in;
+    height:.92in;
+    margin:0 auto .14in;
+  }
+
+  .org-name{
+    font-size:14pt;
+    line-height:1.35;
+    letter-spacing:.075em;
+    max-width:100%;
+    margin:0 auto;
+  }
+
+  .doc-title h1{
+    font-size:16pt;
+  }
+
+  .nav-tab{
+    font-size:7.8pt;
+    padding:.08in .12in;
+  }
+}
+
+/* =========================
+   PRINT
+========================= */
+
+@media print{
+  body{
+    background:white;
+    padding-bottom:0;
+  }
+
+  .nav-tabs,
+  .print-bar{
+    display:none !important;
+  }
+
+  .tab-content{
+    display:block !important;
+  }
+
+  .page{
+    width:8.5in;
+    min-height:11in;
+    margin:0;
+    box-shadow:none;
+    page-break-after:always;
+  }
+
+  .highlight-box,
+  .note-box,
+  .method-box,
+  .warning-box,
+  .figure-box,
+  .metric-card,
+  .source-card,
+  .gap-card,
+  .partner-card{
+    break-inside:avoid;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <button class="mobile-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
-    INDEX
-  </button>
-  
-  <button class="print-btn" onclick="window.print()">
-    <span>Save PDF / Print</span>
-  </button>
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="showTab(event,'executive-summary')">Executive Summary</button>
+  <button class="nav-tab" onclick="showTab(event,'scientific-foundation')">Scientific Foundation</button>
+  <button class="nav-tab" onclick="showTab(event,'tdr')">TDR</button>
+  <button class="nav-tab" onclick="showTab(event,'tfp')">TFP</button>
+  <button class="nav-tab" onclick="showTab(event,'living-lab')">Living Lab</button>
+  <button class="nav-tab" onclick="showTab(event,'location-analysis')">Location</button>
+  <button class="nav-tab" onclick="showTab(event,'work-packages')">Work Packages</button>
+  <button class="nav-tab" onclick="showTab(event,'pilot-applications')">Applications</button>
+  <button class="nav-tab" onclick="showTab(event,'funding')">Funding</button>
+  <button class="nav-tab" onclick="showTab(event,'partners')">Partners</button>
+  <button class="nav-tab" onclick="showTab(event,'outputs')">Outputs</button>
+  <button class="nav-tab" onclick="showTab(event,'references')">References</button>
+</div>
 
-  <!-- Sidebar -->
-  <aside class="sidebar" id="sidebar" aria-label="Amazon Lab Index">
-    <div class="sidebar-top">
-      <a href="c-eco.org" class="logo-box" aria-label="c-ECO Home">Σ</a>
-      <div class="sidebar-title">Amazon Living Lab</div>
-    </div>
-    <div class="search-container">
-      <input type="text" id="sidebarSearch" placeholder="Search section, budget line, or milestone..." aria-label="Search Index">
-    </div>
-    <nav>
-      <ul class="nav-list">
-        <li class="nav-section-title">DOCUMENT</li>
-        <li class="nav-item"><a href="#HEADER">Document Header & Identification</a></li>
-        <li class="nav-item"><a href="#EXEC-SUMMARY">Executive Summary</a></li>
-        <li class="nav-item"><a href="#SCOPE-NOTE">Scope & Context</a></li>
+<div class="print-bar">
+  <button class="btn" onclick="window.print()">Print All</button>
+  <button class="btn btn-primary" onclick="printCurrent()">Print Current</button>
+</div>
 
-        <li class="nav-section-title">BUDGET SECTIONS</li>
-        <li class="nav-item"><a href="#SECTION-1">Section 1 — Personnel</a></li>
-        <li class="nav-item"><a href="#SECTION-2">Section 2 — Technology & Infrastructure</a></li>
-        <li class="nav-item"><a href="#SECTION-3">Section 3 — Field Operations</a></li>
-        <li class="nav-item"><a href="#SECTION-4">Section 4 — Legal & Governance</a></li>
-        <li class="nav-item"><a href="#SECTION-5">Section 5 — Administration & Overhead</a></li>
-        <li class="nav-item"><a href="#GRAND-TOTAL">Grand Total & Contingency</a></li>
+<!-- ===================================================== -->
+<!-- TAB 1 — EXECUTIVE SUMMARY                             -->
+<!-- ===================================================== -->
 
-        <li class="nav-section-title">IMPLEMENTATION</li>
-        <li class="nav-item"><a href="#MILESTONES">Disbursement Milestones</a></li>
-        <li class="nav-item"><a href="#RISK-MATRIX">Risk Matrix & Mitigation</a></li>
-        <li class="nav-item"><a href="#COST-SHARING">In-Kind Contributions</a></li>
+<section id="executive-summary" class="tab-content active">
 
-        <li class="nav-section-title">ASSUMPTIONS & GOVERNANCE</li>
-        <li class="nav-item"><a href="#ASSUMPTIONS">Financial & Operational Assumptions</a></li>
-        <li class="nav-item"><a href="#SIGNATURES">Signatures & Authorization</a></li>
+<div class="page">
 
-        <li class="nav-section-title">PRIMARY SOURCES</li>
-        <li class="nav-item"><a href="law.html" style="font-weight: 700;">c-ECO Model Law — Full Statute</a></li>
-        <li class="nav-item"><a href="manual.html" style="font-weight: 700;">TFP — Integrated Operational Manual</a></li>
-        <li class="nav-item"><a href="english.html" style="font-weight: 700;">c-ECO Global System Map</a></li>
-      </ul>
-    </nav>
-  </aside>
+<div class="letterhead">
 
-  <main class="main-content">
-    <article class="document-page">
+  <div class="seal">
+    <img src="seal.PNG" alt="Johann Christian Hasse Foundation Seal">
+  </div>
 
-      <!-- HEADER -->
-      <div id="HEADER" class="section-header">Amazon Living Lab — Phase Alpha</div>
-      <div class="caput" style="margin-bottom: 18px;">
-        This document presents the detailed budget and implementation plan for the <strong>Amazon Core Living Lab (L1.1 — Belém, Brazil)</strong>, anchor node of Phase Alpha within the c-ECO Systemic Coordination Infrastructure. The Lab operates under the Global Integration Hub (GIH) coordination framework and serves as the primary detection-to-trigger validation site for the Amazon biome.
-      </div>
+  <div class="org-name">
+    Johann Christian Hasse Foundation
+  </div>
 
-      <div class="note-box">
-        <div class="note-label">Document Identification</div>
-        <strong>Document:</strong> BUD-AMZ-2026-001 · <strong>Version:</strong> 1.0 · <strong>Date:</strong> May 2026 · <strong>Currency:</strong> USD · <strong>Exchange:</strong> 1 USD = 5.15 BRL · <strong>Phase:</strong> Alpha (L1.1) · <strong>Duration:</strong> 18 Months
-      </div>
+  <div class="org-address">
+    Belém, Pará, Brazil
+  </div>
 
-      <!-- EXECUTIVE SUMMARY -->
-      <div id="EXEC-SUMMARY" class="exec-box">
-        <h2>Executive Summary</h2>
-        <div class="exec-grid">
-          <div class="exec-item">
-            <div class="number">$1.47M</div>
-            <div class="label">Total Phase Alpha<br>18 Months · 4 Labs</div>
-          </div>
-          <div class="exec-item">
-            <div class="number">$792K</div>
-            <div class="label">Amazon Lab Only<br>Belém, Brazil · L1.1</div>
-          </div>
-          <div class="exec-item">
-            <div class="number">8</div>
-            <div class="label">Core Team<br>FTE Positions</div>
-          </div>
-          <div class="exec-item">
-            <div class="number">&lt;24h</div>
-            <div class="label">Target KPI<br>Detection-to-Decision</div>
-          </div>
-        </div>
-      </div>
+  <div class="org-motto">
+    Governance Before Collapse
+  </div>
 
-      <!-- SCOPE NOTE -->
-      <div id="SCOPE-NOTE" class="note-box">
-        <div class="note-label">Scope Note</div>
-        This budget covers the <strong>Amazon Core Living Lab (L1.1 — Belém, Brazil)</strong> as the anchor node of Phase Alpha. Phase Alpha comprises 4 labs (Belém, Tromsø, London, Geneva) with a combined budget of $5–20M. The Amazon Lab operates under the c-ECO Global Integration Hub (GIH) coordination framework and is designed to validate the Trigger-Function-Protocol (TFP) in a tropical forest biome context.
-      </div>
+</div>
 
-      <!-- SECTION 1: PERSONNEL -->
-      <div id="SECTION-1" class="section">
-        <div class="section-header">
-          Section 1 — Personnel <span class="phase-badge badge-alpha">Alpha</span>
-          <span style="float:right;font-family:'Libre Baskerville',serif;font-size:13px;color:var(--gold-accent);">$480,000</span>
-        </div>
-        <div style="text-align:right;font-size:8px;color:#78716c;margin-bottom:8px;font-style:italic;">All salaries annualized. Benefits calculated at 25% of base.</div>
-        <table class="budget-table">
-          <thead>
-            <tr>
-              <th class="col-line">#</th>
-              <th class="col-item">Position</th>
-              <th class="col-desc">Role & Responsibilities</th>
-              <th class="col-calc">FTE / Rate</th>
-              <th class="col-y1">Year 1</th>
-              <th class="col-y2">Year 2</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="col-line">1.1</td>
-              <td class="col-item"><strong>Science-Policy Lead</strong><br><span style="color:#78716c;font-size:8px;">Earth System Scientist</span></td>
-              <td class="col-desc">Scientific direction, tipping point detection protocols, peer review coordination, INPA/ACTO liaison</td>
-              <td class="col-calc">1.0 FTE<br>$95,000/yr + 25%</td>
-              <td class="col-y1">$118,750</td>
-              <td class="col-y2">$118,750</td>
-            </tr>
-            <tr>
-              <td class="col-line">1.2</td>
-              <td class="col-item"><strong>c-ECO Integration Officer</strong><br><span style="color:#78716c;font-size:8px;">Complex Systems / TFP</span></td>
-              <td class="col-desc">TFP protocol design, cross-layer integration, eigenvector analysis, GIH coordination</td>
-              <td class="col-calc">1.0 FTE<br>$85,000/yr + 25%</td>
-              <td class="col-y1">$106,250</td>
-              <td class="col-y2">$106,250</td>
-            </tr>
-            <tr>
-              <td class="col-line">1.3</td>
-              <td class="col-item"><strong>Domain Expert — Hydrology</strong></td>
-              <td class="col-desc">Amazon hydrological cycle monitoring, flood prediction, river basin analysis, INMET data integration</td>
-              <td class="col-calc">0.75 FTE<br>$72,000/yr + 25%</td>
-              <td class="col-y1">$67,500</td>
-              <td class="col-y2">$67,500</td>
-            </tr>
-            <tr>
-              <td class="col-line">1.4</td>
-              <td class="col-item"><strong>Domain Expert — Ecology</strong></td>
-              <td class="col-desc">Deforestation monitoring, biodiversity-climate nexus, REDD+ verification, MPEG liaison</td>
-              <td class="col-calc">0.75 FTE<br>$68,000/yr + 25%</td>
-              <td class="col-y1">$63,750</td>
-              <td class="col-y2">$63,750</td>
-            </tr>
-            <tr>
-              <td class="col-line">1.5</td>
-              <td class="col-item"><strong>Domain Expert — Climate</strong></td>
-              <td class="col-desc">Climate modeling, tipping element assessment, GCOS/WMO alignment, scenario development</td>
-              <td class="col-calc">0.75 FTE<br>$70,000/yr + 25%</td>
-              <td class="col-y1">$65,625</td>
-              <td class="col-y2">$65,625</td>
-            </tr>
-            <tr>
-              <td class="col-line">1.6</td>
-              <td class="col-item"><strong>Data / AI Engineer (2x)</strong></td>
-              <td class="col-desc">Satellite data pipelines, ML model deployment, sensor network architecture, real-time analytics</td>
-              <td class="col-calc">2.0 FTE<br>$65,000/yr + 25% ea</td>
-              <td class="col-y1">$162,500</td>
-              <td class="col-y2">$162,500</td>
-            </tr>
-            <tr>
-              <td class="col-line">1.7</td>
-              <td class="col-item"><strong>Legal / Regulatory Specialist</strong></td>
-              <td class="col-desc">Brazilian Forest Code compliance, sovereign green bond clauses, contractual framework, ACTO legal liaison</td>
-              <td class="col-calc">0.5 FTE<br>$80,000/yr + 25%</td>
-              <td class="col-y1">$50,000</td>
-              <td class="col-y2">$50,000</td>
-            </tr>
-            <tr>
-              <td class="col-line">1.8</td>
-              <td class="col-item"><strong>Operations & Field Coordinator (2x)</strong></td>
-              <td class="col-desc">Field logistics, sensor maintenance, indigenous community liaison, local procurement, safety protocols</td>
-              <td class="col-calc">1.5 FTE<br>$35,000/yr + 25% ea</td>
-              <td class="col-y1">$65,625</td>
-              <td class="col-y2">$65,625</td>
-            </tr>
-            <tr>
-              <td class="col-line">1.9</td>
-              <td class="col-item"><strong>Network Liaison</strong></td>
-              <td class="col-desc">GIH coordination, partner relationship management, reporting, communications, event coordination</td>
-              <td class="col-calc">0.5 FTE<br>$55,000/yr + 25%</td>
-              <td class="col-y1">$34,375</td>
-              <td class="col-y2">$34,375</td>
-            </tr>
-            <tr class="subtotal-row">
-              <td></td>
-              <td><strong>Subtotal — Personnel</strong></td>
-              <td>8.0 FTE core + benefits (25%)</td>
-              <td></td>
-              <td><strong>$240,000</strong></td>
-              <td><strong>$240,000</strong></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+<div class="content">
 
-      <!-- SECTION 2: TECHNOLOGY -->
-      <div id="SECTION-2" class="section">
-        <div class="section-header">
-          Section 2 — Technology & Infrastructure <span class="phase-badge badge-alpha">Alpha</span>
-          <span style="float:right;font-family:'Libre Baskerville',serif;font-size:13px;color:var(--gold-accent);">$130,000</span>
-        </div>
-        <table class="budget-table">
-          <thead>
-            <tr>
-              <th class="col-line">#</th>
-              <th class="col-item">Item</th>
-              <th class="col-desc">Specification & Purpose</th>
-              <th class="col-calc">Qty / Unit</th>
-              <th class="col-y1">Year 1</th>
-              <th class="col-y2">Year 2</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="col-line">2.1</td>
-              <td class="col-item"><strong>Satellite Data Subscription</strong></td>
-              <td class="col-desc">Planet Labs daily imagery + Sentinel-2 / Landsat-9 via AWS Open Data + INPE/Censipam access</td>
-              <td class="col-calc">Annual licenses<br>$18,000/yr</td>
-              <td class="col-y1">$18,000</td>
-              <td class="col-y2">$18,000</td>
-            </tr>
-            <tr>
-              <td class="col-line">2.2</td>
-              <td class="col-item"><strong>AWS Cloud Infrastructure</strong></td>
-              <td class="col-desc">Compute (EC2 GPU instances), storage (S3), ML pipelines (SageMaker), real-time streaming (Kinesis)</td>
-              <td class="col-calc">Monthly avg<br>$2,500/mo</td>
-              <td class="col-y1">$30,000</td>
-              <td class="col-y2">$30,000</td>
-            </tr>
-            <tr>
-              <td class="col-line">2.3</td>
-              <td class="col-item"><strong>Ground Sensor Network</strong></td>
-              <td class="col-desc">Weather stations, water level sensors, soil moisture probes, methane flux towers (partial, 3 pilot sites)</td>
-              <td class="col-calc">3 sites<br>$8,000/ea</td>
-              <td class="col-y1">$24,000</td>
-              <td class="col-y2">$12,000</td>
-            </tr>
-            <tr>
-              <td class="col-line">2.4</td>
-              <td class="col-item"><strong>Data Integration Platform</strong></td>
-              <td class="col-desc">c-ECO proprietary TFP engine development, API infrastructure, blockchain provenance layer (pilot)</td>
-              <td class="col-calc">Development<br>+ licensing</td>
-              <td class="col-y1">$15,000</td>
-              <td class="col-y2">$10,000</td>
-            </tr>
-            <tr>
-              <td class="col-line">2.5</td>
-              <td class="col-item"><strong>Hardware & Equipment</strong></td>
-              <td class="col-desc">Workstations (2x), field laptops (4x), drones (2x), satellite phones, GPS units, safety equipment</td>
-              <td class="col-calc">One-time + refresh</td>
-              <td class="col-y1">$18,000</td>
-              <td class="col-y2">$5,000</td>
-            </tr>
-            <tr>
-              <td class="col-line">2.6</td>
-              <td class="col-item"><strong>Software Licenses</strong></td>
-              <td class="col-desc">GIS (QGIS Pro), ML frameworks, project management, security, communication tools</td>
-              <td class="col-calc">Annual</td>
-              <td class="col-y1">$5,000</td>
-              <td class="col-y2">$5,000</td>
-            </tr>
-            <tr class="subtotal-row">
-              <td></td>
-              <td><strong>Subtotal — Technology</strong></td>
-              <td>Cloud-first, open-source preference, vendor-neutral</td>
-              <td></td>
-              <td><strong>$110,000</strong></td>
-              <td><strong>$80,000</strong></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+<div class="doc-title">
 
-      <!-- SECTION 3: FIELD OPERATIONS -->
-      <div id="SECTION-3" class="section">
-        <div class="section-header">
-          Section 3 — Field Operations <span class="phase-badge badge-alpha">Alpha</span>
-          <span style="float:right;font-family:'Libre Baskerville',serif;font-size:13px;color:var(--gold-accent);">$100,000</span>
-        </div>
-        <table class="budget-table">
-          <thead>
-            <tr>
-              <th class="col-line">#</th>
-              <th class="col-item">Item</th>
-              <th class="col-desc">Description</th>
-              <th class="col-calc">Freq / Unit</th>
-              <th class="col-y1">Year 1</th>
-              <th class="col-y2">Year 2</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="col-line">3.1</td>
-              <td class="col-item"><strong>Site Deployment & Logistics</strong></td>
-              <td class="col-desc">Transportation to 3 pilot sites (river, road, air), accommodation, local permits, security</td>
-              <td class="col-calc">Monthly missions<br>$3,500/mo avg</td>
-              <td class="col-y1">$42,000</td>
-              <td class="col-y2">$36,000</td>
-            </tr>
-            <tr>
-              <td class="col-line">3.2</td>
-              <td class="col-item"><strong>Local Partnerships & Community</strong></td>
-              <td class="col-desc">Indigenous community engagement, local researcher collaboration, knowledge exchange workshops</td>
-              <td class="col-calc">Quarterly<br>$4,000/ea</td>
-              <td class="col-y1">$16,000</td>
-              <td class="col-y2">$16,000</td>
-            </tr>
-            <tr>
-              <td class="col-line">3.3</td>
-              <td class="col-item"><strong>Sensor Maintenance & Calibration</strong></td>
-              <td class="col-desc">Field technician visits, equipment replacement, calibration services, spare parts inventory</td>
-              <td class="col-calc">Bi-monthly<br>$1,500/ea</td>
-              <td class="col-y1">$9,000</td>
-              <td class="col-y2">$9,000</td>
-            </tr>
-            <tr>
-              <td class="col-line">3.4</td>
-              <td class="col-item"><strong>Emergency & Safety Protocols</strong></td>
-              <td class="col-desc">Medical evacuation insurance, satellite emergency beacons, first aid training, security briefings</td>
-              <td class="col-calc">Annual coverage</td>
-              <td class="col-y1">$8,000</td>
-              <td class="col-y2">$8,000</td>
-            </tr>
-            <tr class="subtotal-row">
-              <td></td>
-              <td><strong>Subtotal — Field Operations</strong></td>
-              <td>3 pilot sites across Western & Eastern Amazon</td>
-              <td></td>
-              <td><strong>$75,000</strong></td>
-              <td><strong>$69,000</strong></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+<div class="chapter-kicker">
+Amazon Living Lab Program
+</div>
 
-      <!-- SECTION 4: LEGAL -->
-      <div id="SECTION-4" class="section">
-        <div class="section-header">
-          Section 4 — Legal & Governance <span class="phase-badge badge-alpha">Alpha</span>
-          <span style="float:right;font-family:'Libre Baskerville',serif;font-size:13px;color:var(--gold-accent);">$50,000</span>
-        </div>
-        <table class="budget-table">
-          <thead>
-            <tr>
-              <th class="col-line">#</th>
-              <th class="col-item">Item</th>
-              <th class="col-desc">Description</th>
-              <th class="col-calc">Scope</th>
-              <th class="col-y1">Year 1</th>
-              <th class="col-y2">Year 2</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="col-line">4.1</td>
-              <td class="col-item"><strong>Contractual Framework Development</strong></td>
-              <td class="col-desc">TFP template contracts, partnership MOUs, data sharing agreements, liability frameworks</td>
-              <td class="col-calc">Legal counsel<br>+ notary</td>
-              <td class="col-y1">$15,000</td>
-              <td class="col-y2">$8,000</td>
-            </tr>
-            <tr>
-              <td class="col-line">4.2</td>
-              <td class="col-item"><strong>Compliance & Audit</strong></td>
-              <td class="col-desc">LRQA or equivalent ESG audit, financial audit, data governance compliance (LGPD/GDPR)</td>
-              <td class="col-calc">Annual audit</td>
-              <td class="col-y1">$12,000</td>
-              <td class="col-y2">$12,000</td>
-            </tr>
-            <tr>
-              <td class="col-line">4.3</td>
-              <td class="col-item"><strong>Insurance & Risk Transfer</strong></td>
-              <td class="col-desc">Professional liability, cyber insurance, equipment insurance, directors & officers coverage</td>
-              <td class="col-calc">Annual premiums</td>
-              <td class="col-y1">$8,000</td>
-              <td class="col-y2">$8,000</td>
-            </tr>
-            <tr>
-              <td class="col-line">4.4</td>
-              <td class="col-item"><strong>IP & Trademark Protection</strong></td>
-              <td class="col-desc">c-ECO trademark registration (BR, US, EU), TFP methodology patent review, open-source licensing</td>
-              <td class="col-calc">One-time + renewals</td>
-              <td class="col-y1">$10,000</td>
-              <td class="col-y2">$2,000</td>
-            </tr>
-            <tr class="subtotal-row">
-              <td></td>
-              <td><strong>Subtotal — Legal & Governance</strong></td>
-              <td>Johann Christian Hasse Foundation as legal entity</td>
-              <td></td>
-              <td><strong>$45,000</strong></td>
-              <td><strong>$30,000</strong></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+<h1>
+Amazon Living Lab for Threshold Dynamics Research (TDR)
+and Threshold Function Protocol (TFP) Validation
+</h1>
 
-      <!-- SECTION 5: ADMIN -->
-      <div id="SECTION-5" class="section">
-        <div class="section-header">
-          Section 5 — Administration & Overhead <span class="phase-badge badge-alpha">Alpha</span>
-          <span style="float:right;font-family:'Libre Baskerville',serif;font-size:13px;color:var(--gold-accent);">$132,000</span>
-        </div>
-        <table class="budget-table">
-          <thead>
-            <tr>
-              <th class="col-line">#</th>
-              <th class="col-item">Item</th>
-              <th class="col-desc">Description</th>
-              <th class="col-calc">Basis</th>
-              <th class="col-y1">Year 1</th>
-              <th class="col-y2">Year 2</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="col-line">5.1</td>
-              <td class="col-item"><strong>Office & Facilities (Belém)</strong></td>
-              <td class="col-desc">Co-working / small office rental, utilities, internet, meeting rooms, storage</td>
-              <td class="col-calc">$1,500/mo</td>
-              <td class="col-y1">$18,000</td>
-              <td class="col-y2">$18,000</td>
-            </tr>
-            <tr>
-              <td class="col-line">5.2</td>
-              <td class="col-item"><strong>Travel & Conferences</strong></td>
-              <td class="col-desc">GIH coordination meetings (Geneva), partner visits, COP / UNFCCC side events, academic conferences</td>
-              <td class="col-calc">$2,500/mo avg</td>
-              <td class="col-y1">$30,000</td>
-              <td class="col-y2">$30,000</td>
-            </tr>
-            <tr>
-              <td class="col-line">5.3</td>
-              <td class="col-item"><strong>Communications & Reporting</strong></td>
-              <td class="col-desc">Website, publications, design, translation, quarterly reports, stakeholder newsletters</td>
-              <td class="col-calc">$1,000/mo</td>
-              <td class="col-y1">$12,000</td>
-              <td class="col-y2">$12,000</td>
-            </tr>
-            <tr>
-              <td class="col-line">5.4</td>
-              <td class="col-item"><strong>Indirect Costs (Overhead)</strong></td>
-              <td class="col-desc">Accounting, banking, HR, administrative support, institutional overhead (15% of direct costs)</td>
-              <td class="col-calc">15% of direct</td>
-              <td class="col-y1">$70,500</td>
-              <td class="col-y2">$70,500</td>
-            </tr>
-            <tr class="subtotal-row">
-              <td></td>
-              <td><strong>Subtotal — Admin & Overhead</strong></td>
-              <td>Includes 15% institutional overhead on direct costs</td>
-              <td></td>
-              <td><strong>$130,500</strong></td>
-              <td><strong>$130,500</strong></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+<div class="subtitle">
+Pilot Research and Validation Program for Pre-Threshold Governance
+</div>
 
-      <!-- GRAND TOTAL -->
-      <div id="GRAND-TOTAL" class="section">
-        <table class="budget-table">
-          <tr class="total-row">
-            <td style="width:5%"></td>
-            <td class="col-item" style="width:28%">GRAND TOTAL — Amazon Living Lab</td>
-            <td style="width:27%; font-size:9px; font-weight:400;">Phase Alpha · 18 months · Belém, Brazil · L1.1</td>
-            <td style="width:18%"></td>
-            <td class="col-y1" style="width:11%">$600,750</td>
-            <td class="col-y2" style="width:11%">$549,500</td>
-          </tr>
-          <tr style="background:#f5f5f4;">
-            <td></td>
-            <td style="padding:8px 10px; font-weight:700; color:var(--legal-blue);">TOTAL 18-MONTH BUDGET</td>
-            <td colspan="2" style="padding:8px 10px; color:#78716c; font-size:9px;">Includes all direct costs, overhead, and contingency</td>
-            <td colspan="2" style="padding:8px 10px; text-align:right; font-family:'Libre Baskerville',serif; font-size:18px; font-weight:700; color:var(--gold-accent);">$792,000</td>
-          </tr>
-        </table>
-      </div>
+</div>
 
-      <div class="note-box">
-        <div class="note-label">Contingency Reserve</div>
-        <strong>5% of total budget ($39,600)</strong> is held in reserve for unforeseen operational risks, currency fluctuation, or emergency field response. Released only upon GIH Director and Science-Policy Lead joint approval.
-      </div>
+<div class="body-text">
 
-      <!-- MILESTONES -->
-      <div id="MILESTONES" class="section">
-        <div class="section-header">Disbursement Milestones & Tranched Release</div>
-        <table class="budget-table milestone-table">
-          <thead>
-            <tr>
-              <th style="width:22%">Milestone</th>
-              <th style="width:12%">Target Date</th>
-              <th style="width:12%">% of Budget</th>
-              <th style="width:27%">Deliverables</th>
-              <th style="width:27%">KPI Verification</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="milestone-y1">
-              <td><strong>M1: Foundation & Team</strong></td>
-              <td>Month 1-3</td>
-              <td>25%<br><span style="font-size:8px;color:#78716c;">($198k)</span></td>
-              <td style="text-align:left;">• MOU with INPA/MPEG<br>• 4 FTE hired<br>• Office operational<br>• Sensor network design</td>
-              <td style="text-align:left;">• Signed agreements<br>• Payroll records<br>• Lease contract<br>• Technical blueprint</td>
-            </tr>
-            <tr class="milestone-y1">
-              <td><strong>M2: Pilot Deployment</strong></td>
-              <td>Month 4-9</td>
-              <td>35%<br><span style="font-size:8px;color:#78716c;">($277k)</span></td>
-              <td style="text-align:left;">• 3 sites active<br>• First detection event<br>• TFP v1.0 tested<br>• Quarterly report #2</td>
-              <td style="text-align:left;">• Sensor data stream<br>• Detection log<br>• TFP execution record<br>• Peer review</td>
-            </tr>
-            <tr class="milestone-y1">
-              <td><strong>M3: Integration & Validation</strong></td>
-              <td>Month 10-12</td>
-              <td>20%<br><span style="font-size:8px;color:#78716c;">($158k)</span></td>
-              <td style="text-align:left;">• GIH integration test<br>• Financial transmission demo<br>• Year 1 audit passed<br>• Alpha review</td>
-              <td style="text-align:left;">• Geneva Hub handshake<br>• Mock TFP activation<br>• LRQA/audit sign-off<br>• Board assessment</td>
-            </tr>
-            <tr class="milestone-y2">
-              <td><strong>M4: Scale & Beta Prep</strong></td>
-              <td>Month 13-18</td>
-              <td>20%<br><span style="font-size:8px;color:#78716c;">($158k)</span></td>
-              <td style="text-align:left;">• 6-month continuous ops<br>• Beta lab specs<br>• Knowledge transfer<br>• Sustainability plan</td>
-              <td style="text-align:left;">• Uptime >95%<br>• Yaoundé/Dhaka specs<br>• Training materials<br>• Revenue model v1</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+<div class="lead-text">
 
-      <div class="note-box">
-        <div class="note-label">Tranche Release Mechanism</div>
-        Funds are released quarterly upon independent verification of milestone completion by the GIH Oversight Committee. Unspent funds roll forward. Failure to meet 2 consecutive milestones triggers project review.
-      </div>
+The Amazon Living Lab is the first proposed real-world validation environment
+for Threshold Dynamics Research (TDR) and the Threshold Function Protocol (TFP).
 
-      <!-- RISK MATRIX -->
-      <div id="RISK-MATRIX" class="section">
-        <div class="section-header">Risk Matrix & Mitigation</div>
-        <div class="risk-grid">
-          <div class="risk-item">
-            <div class="risk-header">
-              <h5>Key-Person Dependency</h5>
-              <span class="risk-level risk-high">High</span>
-            </div>
-            <p>Project currently depends on single founder for vision, partnerships, and execution.</p>
-            <p style="margin-top:6px; color:#059669; font-weight:600; font-size:9px;">Mitigation: Hire Science-Policy Lead and Integration Officer within 60 days. Document all TFP protocols. Establish GIH succession plan.</p>
-          </div>
-          <div class="risk-item">
-            <div class="risk-header">
-              <h5>Partner Formalization Delay</h5>
-              <span class="risk-level risk-med">Medium</span>
-            </div>
-            <p>INPA, MPEG, or ACTO may delay MOU execution due to institutional bureaucracy.</p>
-            <p style="margin-top:6px; color:#059669; font-weight:600; font-size:9px;">Mitigation: Start with Letter of Intent (1 page). Parallel track with 2 institutions. Use Hasse Foundation board connections.</p>
-          </div>
-          <div class="risk-item">
-            <div class="risk-header">
-              <h5>Currency & Inflation Volatility</h5>
-              <span class="risk-level risk-med">Medium</span>
-            </div>
-            <p>BRL volatility may erode purchasing power for local operations and salaries.</p>
-            <p style="margin-top:6px; color:#059669; font-weight:600; font-size:9px;">Mitigation: Hold 40% of local costs in USD reserve. Index salaries to IPCA. Use multi-currency accounting.</p>
-          </div>
-          <div class="risk-item">
-            <div class="risk-header">
-              <h5>Technology & Data Access</h5>
-              <span class="risk-level risk-med">Medium</span>
-            </div>
-            <p>Satellite data gaps, sensor failure in remote areas, or INPE access restrictions.</p>
-            <p style="margin-top:6px; color:#059669; font-weight:600; font-size:9px;">Mitigation: Multi-source redundancy (Planet + Sentinel + Landsat). Spare sensor inventory. Local technician training.</p>
-          </div>
-          <div class="risk-item">
-            <div class="risk-header">
-              <h5>Political & Regulatory Shift</h5>
-              <span class="risk-level risk-med">Medium</span>
-            </div>
-            <p>Changes in Brazilian environmental policy may affect Forest Code enforcement or data access.</p>
-            <p style="margin-top:6px; color:#059669; font-weight:600; font-size:9px;">Mitigation: Diversify regulatory hooks (subnational, private sector, international treaties). Maintain non-partisan positioning.</p>
-          </div>
-          <div class="risk-item">
-            <div class="risk-header">
-              <h5>Funding Continuity</h5>
-              <span class="risk-level risk-high">High</span>
-            </div>
-            <p>18-month runway with no guaranteed Beta phase funding creates cliff-edge risk.</p>
-            <p style="margin-top:6px; color:#059669; font-weight:600; font-size:9px;">Mitigation: Begin Beta fundraising at Month 6. Develop revenue model (TFP licensing, enterprise contracts). Build endowment case.</p>
-          </div>
-        </div>
-      </div>
+Rather than studying systemic risk after collapse, the initiative seeks to
+identify, validate, and operationalize signals that emerge before critical
+thresholds are crossed.
 
-      <!-- COST SHARING -->
-      <div id="COST-SHARING" class="section">
-        <div class="section-header">In-Kind Contributions & Cost Sharing</div>
-        <table class="cost-table">
-          <thead>
-            <tr>
-              <th style="width:30%">Contributor</th>
-              <th style="width:35%">Contribution</th>
-              <th style="width:20%">Est. Value</th>
-              <th style="width:15%">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Johann Christian Hasse Foundation</strong></td>
-              <td>Legal entity, governance, board oversight, administrative infrastructure</td>
-              <td>$45,000</td>
-              <td><span style="color:var(--emerald);font-weight:700;">Active</span></td>
-            </tr>
-            <tr>
-              <td><strong>INMET / INCRA</strong></td>
-              <td>Satellite data access, meteorological baseline data, national alert system integration</td>
-              <td>$60,000</td>
-              <td><span style="color:var(--amber);font-weight:700;">Pending MOU</span></td>
-            </tr>
-            <tr>
-              <td><strong>MPEG (Goeldi Museum)</strong></td>
-              <td>Scientific advisory, biodiversity datasets, research station access, peer review network</td>
-              <td>$35,000</td>
-              <td><span style="color:var(--amber);font-weight:700;">Pending MOU</span></td>
-            </tr>
-            <tr>
-              <td><strong>Planet Labs / AWS</strong></td>
-              <td>Nonprofit imagery credits, cloud compute grants, open data program access</td>
-              <td>$40,000</td>
-              <td><span style="color:var(--amber);font-weight:700;">Application pending</span></td>
-            </tr>
-            <tr>
-              <td><strong>ISM (Instituto Silvio Meira)</strong></td>
-              <td>AI/ML advisory, researcher secondment, technical infrastructure consultation</td>
-              <td>$30,000</td>
-              <td><span style="color:var(--emerald);font-weight:700;">Active</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+</div>
 
-      <div class="note-box">
-        <div class="note-label">Leverage Ratio</div>
-        Every $1 of external funding unlocks approximately <strong>$0.27 in verified in-kind contributions</strong>. Total project value: <strong>$1.00M+</strong> for $792K cash investment — a <strong>1.27x multiplier</strong>.
-      </div>
+<div class="section-header">
+Executive Vision
+</div>
 
-      <!-- ASSUMPTIONS -->
-      <div id="ASSUMPTIONS" class="section">
-        <div class="section-header">Assumptions</div>
-        <div class="assumptions">
-          <div class="assumption-card">
-            <h4>Financial Assumptions</h4>
-            <ul>
-              <li>Exchange rate: 1 USD = 5.15 BRL (avg 2026)</li>
-              <li>Inflation: 3.5% p.a. (Brazilian IPCA)</li>
-              <li>Salary increases: 4% p.a. (Year 2)</li>
-              <li>Overhead rate: 15% (foundation standard)</li>
-              <li>Benefits load: 25% (FGTS, INSS, health)</li>
-            </ul>
-          </div>
-          <div class="assumption-card">
-            <h4>Operational Assumptions</h4>
-            <ul>
-              <li>3 pilot sites: 1 Western Amazon, 2 Eastern</li>
-              <li>Office: shared/co-working in Belém (Year 1)</li>
-              <li>INPA/MPEG: data sharing at no cost (MOU)</li>
-              <li>AWS: nonprofit credits applied (est. $15k/yr)</li>
-              <li>Phase Alpha launch: Q3 2026 (pending funding)</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+<p>
+Ecological, economic, social, and infrastructural systems frequently exhibit
+detectable signals before the occurrence of tipping points, systemic failures,
+or irreversible degradation.
+</p>
 
-      <!-- SIGNATURES -->
-      <div id="SIGNATURES" class="signature-block">
-        <div>
-          <div class="signature-line">
-            <div class="signature-name">Jacqueline A. Ennis</div>
-            <div class="signature-title">Founder & Principal Investigator<br>c-ECO Systemic Coordination Infrastructure<br>Johann Christian Hasse Foundation</div>
-          </div>
-        </div>
-        <div>
-          <div class="signature-line">
-            <div class="signature-name">Rodolfo Rivera</div>
-            <div class="signature-title">Board Member<br>Johann Christian Hasse Foundation<br>Polaris Risk Advisory</div>
-          </div>
-        </div>
-      </div>
+<p>
+Although monitoring capabilities have expanded dramatically over the last
+decade, governance systems remain predominantly reactive. Institutions often
+recognize emerging risks but lack mechanisms capable of converting that
+recognition into timely and operational intervention.
+</p>
 
-      <!-- COPYRIGHT -->
-      <div style="margin-top: 40px; padding-top: 25px; border-top: 2px solid var(--border-color); font-size: 11px; line-height: 1.6; color: #555;">
-        <div style="font-weight: 700; color: var(--legal-blue); margin-bottom: 10px;">© 2026 c-ECO Systemic Governance Initiative. Supported by the Johann Christian Hasse Foundation. All rights reserved.</div>
-        <div style="margin-bottom: 10px;">Licensed under <strong>CC BY-NC-ND 4.0</strong>. Non-commercial use only. No derivatives without authorization.</div>
-        <div style="margin-bottom: 10px;"><strong>Document:</strong> Amazon Living Lab — Phase Alpha Budget & Implementation Plan · <strong>Version:</strong> 1.0 (May 2026)</div>
-        <div style="font-size: 10px; color: #888;"><strong>Disclaimer:</strong> Budget estimates subject to revision upon partner negotiation and funding confirmation. Implementation timeline contingent on milestone achievement.</div>
-      </div>
+<div class="highlight-box">
 
-    </article>
-  </main>
+<p>
+<strong>
+Recognition exists.
+Activation does not.
+</strong>
+</p>
 
-  <script>
-    // Search logic
-    const searchInput = document.getElementById('sidebarSearch');
-    const navItems = document.querySelectorAll('.nav-item');
-    const sectionTitles = document.querySelectorAll('.nav-section-title, .nav-sub-title');
-    const sidebar = document.getElementById('sidebar');
+</div>
 
-    searchInput.addEventListener('input', function(e) {
-      const term = e.target.value.toLowerCase();
-      
-      navItems.forEach(item => {
-        const text = item.textContent.toLowerCase();
-        item.classList.toggle('hidden', !text.includes(term));
-      });
+<p>
+The Amazon Living Lab seeks to bridge this gap through the development,
+calibration, and validation of methodologies capable of identifying
+pre-threshold conditions before critical transitions occur.
+</p>
 
-      sectionTitles.forEach(title => {
-        title.classList.toggle('hidden', term.length > 0);
-      });
+<div class="section-header">
+Mission
+</div>
+
+<p>
+To establish the Amazon as the world's first living laboratory dedicated to
+the scientific study of threshold dynamics and the operational validation of
+pre-threshold governance protocols.
+</p>
+
+<div class="analysis-box">
+
+<p>
+The project combines scientific research, applied monitoring, governance
+innovation, and operational testing within a single integrated framework.
+</p>
+
+</div>
+
+<div class="section-header">
+Why the Amazon
+</div>
+
+<p>
+The Amazon represents one of the most strategically relevant environments on
+Earth for studying threshold behavior.
+</p>
+
+<ul>
+
+<li>Global climate regulation system;</li>
+
+<li>Critical biodiversity reservoir;</li>
+
+<li>Major freshwater system;</li>
+
+<li>Complex infrastructure networks;</li>
+
+<li>Rapid land-use transformation;</li>
+
+<li>High climate vulnerability;</li>
+
+<li>Multi-level governance complexity.</li>
+
+</ul>
+
+<p>
+Few regions combine ecological significance, infrastructure dependence,
+institutional complexity, and systemic vulnerability at comparable scale.
+</p>
+
+<div class="figure-box">
+
+<div class="figure-title">
+Strategic Positioning of the Amazon Living Lab
+</div>
+
+<div class="flow">
+
+<div class="flow-node">
+Earth System Dynamics
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+Threshold Dynamics Research
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+TFP Validation
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+Pre-Threshold Governance
+</div>
+
+</div>
+
+</div>
+
+<div class="section-header">
+Core Objectives
+</div>
+
+<div class="grid-2">
+
+<div class="metric-card">
+
+<div class="metric-number">1</div>
+
+<div class="metric-label">
+
+<strong>Establish TDR</strong>
+
+Develop a scientific framework for threshold dynamics, cascade behavior,
+irreversibility processes, and systemic resilience.
+
+</div>
+
+</div>
+
+<div class="metric-card">
+
+<div class="metric-number">2</div>
+
+<div class="metric-label">
+
+<strong>Validate TFP</strong>
+
+Develop and test operational protocols capable of translating signals into
+governance actions.
+
+</div>
+
+</div>
+
+<div class="metric-card">
+
+<div class="metric-number">3</div>
+
+<div class="metric-label">
+
+<strong>Create the Living Lab</strong>
+
+Deploy a real-world research environment integrating data, institutions,
+communities, and infrastructure.
+
+</div>
+
+</div>
+
+<div class="metric-card">
+
+<div class="metric-number">4</div>
+
+<div class="metric-label">
+
+<strong>Generate Transferable Models</strong>
+
+Produce methodologies capable of replication across sectors, regions, and
+jurisdictions.
+
+</div>
+
+</div>
+
+</div>
+
+<div class="section-header">
+Expected Long-Term Outcome
+</div>
+
+<p>
+The long-term objective is to establish a globally recognized center for
+Threshold Dynamics Research and Pre-Threshold Governance capable of producing
+scientifically validated methodologies for infrastructure resilience,
+ecosystem stewardship, systemic risk management, and institutional adaptation.
+</p>
+
+<div class="highlight-box">
+
+<p>
+<strong>
+The Amazon Living Lab is not an environmental monitoring project.
+</strong>
+</p>
+
+<p>
+It is a scientific and operational platform designed to transform early-warning
+science into actionable governance before irreversible transitions occur.
+</p>
+
+</div>
+
+</div>
+</div>
+</div>
+</section>
+
+<!-- ===================================================== -->
+<!-- TAB 2 — SCIENTIFIC FOUNDATION                         -->
+<!-- ===================================================== -->
+
+<section id="scientific-foundation" class="tab-content">
+
+<div class="page">
+
+<div class="letterhead">
+
+<div class="seal">
+<img src="seal.PNG" alt="Seal">
+</div>
+
+<div class="org-name">
+Johann Christian Hasse Foundation
+</div>
+
+</div>
+
+<div class="content">
+
+<div class="doc-title">
+
+<div class="chapter-kicker">
+Scientific Foundation
+</div>
+
+<h1>
+Threshold Dynamics Research
+</h1>
+
+<div class="subtitle">
+Foundations of the Research Program
+</div>
+
+</div>
+
+<div class="body-text">
+
+<div class="section-header">
+The Scientific Challenge
+</div>
+
+<p>
+Most governance systems are designed around the management of observable
+events.
+</p>
+
+<p>
+Threshold Dynamics Research investigates a different question:
+</p>
+
+<div class="highlight-box">
+
+<p>
+Can critical transitions be detected before they occur?
+</p>
+
+</div>
+
+<p>
+Across multiple domains, evidence suggests that complex systems frequently
+display measurable signals before entering states of instability, collapse,
+or irreversible transformation.
+</p>
+
+<div class="section-header">
+Research Scope
+</div>
+
+<p>
+TDR seeks to establish a unified scientific framework for identifying,
+classifying, and validating pre-threshold signals across diverse systems.
+</p>
+
+<div class="grid-3">
+
+<div class="metric-card">
+
+<div class="metric-number">E</div>
+
+<div class="metric-label">
+Ecological Systems
+</div>
+
+</div>
+
+<div class="metric-card">
+
+<div class="metric-number">I</div>
+
+<div class="metric-label">
+Infrastructure Systems
+</div>
+
+</div>
+
+<div class="metric-card">
+
+<div class="metric-number">S</div>
+
+<div class="metric-label">
+Socioeconomic Systems
+</div>
+
+</div>
+
+</div>
+
+<div class="section-header">
+Core Research Questions
+</div>
+
+<ul>
+
+<li>
+What signals emerge before critical transitions?
+</li>
+
+<li>
+How can threshold trajectories be identified?
+</li>
+
+<li>
+Which indicators demonstrate predictive validity?
+</li>
+
+<li>
+How do systemic cascades propagate?
+</li>
+
+<li>
+Which interventions remain effective before irreversibility?
+</li>
+
+</ul>
+
+<div class="section-header">
+Foundational Concepts
+</div>
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+<tr>
+<th>Concept</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Threshold</td>
+<td>Boundary beyond which system behavior changes materially.</td>
+</tr>
+
+<tr>
+<td>Tipping Point</td>
+<td>Critical transition resulting in accelerated change.</td>
+</tr>
+
+<tr>
+<td>Irreversibility</td>
+<td>Condition in which restoration becomes significantly constrained.</td>
+</tr>
+
+<tr>
+<td>Cascade</td>
+<td>Transmission of disruption across interconnected systems.</td>
+</tr>
+
+<tr>
+<td>Resilience</td>
+<td>Capacity to absorb stress while maintaining core function.</td>
+</tr>
+
+<tr>
+<td>Pre-Threshold Signal</td>
+<td>Observable indicator preceding transition.</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div class="section-header">
+Research Architecture
+</div>
+
+<div class="figure-box">
+
+<div class="flow">
+
+<div class="flow-node">
+Signal Detection
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+Threshold Identification
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+Calibration
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+Validation
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+Operationalization
+</div>
+
+</div>
+
+</div>
+
+<div class="section-header">
+Expected Scientific Outputs
+</div>
+
+<ul>
+
+<li>Threshold Taxonomy;</li>
+
+<li>Cascade Risk Taxonomy;</li>
+
+<li>Indicator Library;</li>
+
+<li>Calibration Framework;</li>
+
+<li>Validation Methodology;</li>
+
+<li>Research Papers;</li>
+
+<li>Operational Protocols.</li>
+
+</ul>
+
+<div class="analysis-box">
+
+<p>
+The purpose of TDR is not merely to understand thresholds. Its purpose is to
+generate knowledge that can be translated into operational governance systems.
+</p>
+
+</div>
+
+</div>
+</div>
+</div>
+</section>
+
+<!-- ===================================================== -->
+<!-- TAB 3 — THRESHOLD DYNAMICS RESEARCH (TDR)             -->
+<!-- ===================================================== -->
+
+<section id="tdr" class="tab-content">
+
+<div class="page">
+
+<div class="letterhead">
+
+<div class="seal">
+<img src="seal.PNG" alt="Seal">
+</div>
+
+<div class="org-name">
+Johann Christian Hasse Foundation
+</div>
+
+</div>
+
+<div class="content">
+
+<div class="doc-title">
+
+<div class="chapter-kicker">
+Research Program
+</div>
+
+<h1>
+Threshold Dynamics Research
+</h1>
+
+<div class="subtitle">
+Scientific Framework for Pre-Threshold Systemic Risk Detection
+</div>
+
+</div>
+
+<div class="body-text">
+
+<div class="section-header">
+1. Purpose of TDR
+</div>
+
+<p>
+Threshold Dynamics Research is the scientific research program dedicated to
+the identification, classification, modeling, and validation of signals that
+emerge before complex systems cross critical thresholds.
+</p>
+
+<p>
+Its central purpose is to move systemic risk governance from retrospective
+diagnosis toward anticipatory recognition.
+</p>
+
+<div class="highlight-box">
+<p>
+<strong>
+TDR asks: what can be known before collapse becomes visible?
+</strong>
+</p>
+</div>
+
+<div class="section-header">
+2. Research Domain
+</div>
+
+<p>
+TDR applies to ecological, infrastructural, financial, legal, social, and
+institutional systems in which degradation may accumulate silently before
+appearing as crisis.
+</p>
+
+<div class="grid-3">
+
+<div class="metric-card">
+<div class="metric-number">01</div>
+<div class="metric-label">
+<strong>Ecological Thresholds</strong><br>
+Forest degradation, hydrological shifts, biodiversity loss, mangrove decline,
+and ecosystem service disruption.
+</div>
+</div>
+
+<div class="metric-card">
+<div class="metric-number">02</div>
+<div class="metric-label">
+<strong>Infrastructure Thresholds</strong><br>
+Energy grids, dams, ports, roads, water systems, sanitation networks, and
+logistics corridors.
+</div>
+</div>
+
+<div class="metric-card">
+<div class="metric-number">03</div>
+<div class="metric-label">
+<strong>Governance Thresholds</strong><br>
+Institutional capacity, enforcement failure, information fragmentation,
+coordination breakdown, and delayed activation.
+</div>
+</div>
+
+</div>
+
+<div class="section-header">
+3. Threshold Taxonomy
+</div>
+
+<p>
+The Threshold Taxonomy classifies tipping elements according to domain,
+trigger type, temporal horizon, reversibility, observability, and governance
+response capacity.
+</p>
+
+<div class="table-wrapper">
+
+<table>
+<caption>Table 3.1 — Threshold Taxonomy Structure</caption>
+
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Analytical Function</th>
+<th>Example</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Domain</td>
+<td>Identifies the system under analysis.</td>
+<td>Forest, grid, port, basin, community, market.</td>
+</tr>
+
+<tr>
+<td>Trigger Type</td>
+<td>Defines the stressor producing transition risk.</td>
+<td>Drought, rainfall, heat, displacement, price shock.</td>
+</tr>
+
+<tr>
+<td>Temporal Horizon</td>
+<td>Defines the speed of threshold approach.</td>
+<td>Acute, seasonal, structural, long-duration.</td>
+</tr>
+
+<tr>
+<td>Reversibility</td>
+<td>Assesses whether intervention can restore prior function.</td>
+<td>Reversible, partially reversible, irreversible.</td>
+</tr>
+
+<tr>
+<td>Observability</td>
+<td>Assesses whether signals can be monitored and verified.</td>
+<td>Satellite, sensor, administrative, community-based.</td>
+</tr>
+
+<tr>
+<td>Governance Response</td>
+<td>Defines the available intervention pathway.</td>
+<td>Watch, capital protection, safe mode, restoration first.</td>
+</tr>
+
+</tbody>
+</table>
+
+</div>
+
+<div class="section-header">
+4. Cascade Risk Taxonomy
+</div>
+
+<p>
+Systemic risks rarely remain confined to their origin sector. A hydrological
+shock may affect energy generation, logistics, food prices, municipal finance,
+insurance availability, and social stability.
+</p>
+
+<p>
+The Cascade Risk Taxonomy maps the transmission of stress across interconnected
+systems.
+</p>
+
+<div class="figure-box">
+
+<div class="figure-title">
+Cascade Transmission Logic
+</div>
+
+<div class="flow">
+
+<div class="flow-node">
+Primary Stressor
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+Sectoral Disruption
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+Cross-Sector Transmission
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+Governance Stress
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+Systemic Risk
+</div>
+
+</div>
+
+</div>
+
+<div class="table-wrapper">
+
+<table>
+<caption>Table 3.2 — Cascade Risk Classes</caption>
+
+<thead>
+<tr>
+<th>Class</th>
+<th>Description</th>
+<th>Amazon Living Lab Example</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Physical → Infrastructure</td>
+<td>Environmental stress disrupts built systems.</td>
+<td>Extreme rainfall affects substations, roads, ports, and water systems.</td>
+</tr>
+
+<tr>
+<td>Infrastructure → Social</td>
+<td>Failure of critical systems affects communities.</td>
+<td>Power interruption disrupts health, sanitation, communication, and food supply.</td>
+</tr>
+
+<tr>
+<td>Ecological → Economic</td>
+<td>Ecosystem degradation affects livelihoods and markets.</td>
+<td>Mangrove degradation reduces fisheries and coastal protection.</td>
+</tr>
+
+<tr>
+<td>Legal → Financial</td>
+<td>Compliance uncertainty produces financing and insurance effects.</td>
+<td>Land-use irregularity affects credit, concessions, and project finance.</td>
+</tr>
+
+<tr>
+<td>Governance → Irreversibility</td>
+<td>Delayed response allows reversible stress to become irreversible damage.</td>
+<td>Failure to activate before floodplain occupation or infrastructure collapse.</td>
+</tr>
+
+</tbody>
+</table>
+
+</div>
+
+<div class="section-header">
+5. Research Agenda
+</div>
+
+<p>
+The initial 24-month research agenda should focus on the conversion of
+theoretical threshold concepts into empirically testable and operationally
+useful governance tools.
+</p>
+
+<div class="timeline">
+
+<div class="timeline-item">
+<strong>Months 1–6:</strong> define taxonomy, select pilot indicators, identify
+data sources, establish methodological standards.
+</div>
+
+<div class="timeline-item">
+<strong>Months 6–12:</strong> calibrate threshold variables, develop early
+warning indicators, test signal reliability.
+</div>
+
+<div class="timeline-item">
+<strong>Months 12–18:</strong> apply TDR methods to pilot cases in Belém,
+Lower Tocantins, and Amapá.
+</div>
+
+<div class="timeline-item">
+<strong>Months 18–24:</strong> validate findings, compare cases, publish
+outputs, and refine the TFP operational protocol.
+</div>
+
+</div>
+
+<div class="analysis-box">
+
+<p>
+TDR is the scientific foundation. TFP is the operational protocol. The Amazon
+Living Lab is the validation environment.
+</p>
+
+</div>
+
+</div>
+</div>
+</div>
+</section>
+
+<!-- ===================================================== -->
+<!-- TAB 4 — THRESHOLD FUNCTION PROTOCOL (TFP)             -->
+<!-- ===================================================== -->
+
+<section id="tfp" class="tab-content">
+
+<div class="page">
+
+<div class="letterhead">
+
+<div class="seal">
+<img src="seal.PNG" alt="Seal">
+</div>
+
+<div class="org-name">
+Johann Christian Hasse Foundation
+</div>
+
+</div>
+
+<div class="content">
+
+<div class="doc-title">
+
+<div class="chapter-kicker">
+Operational Protocol
+</div>
+
+<h1>
+Threshold Function Protocol
+</h1>
+
+<div class="subtitle">
+From Pre-Threshold Signals to Governance Activation
+</div>
+
+</div>
+
+<div class="body-text">
+
+<div class="section-header">
+1. Purpose of the TFP
+</div>
+
+<p>
+The Threshold Function Protocol translates Threshold Dynamics Research into
+an operational governance procedure.
+</p>
+
+<p>
+It defines how signals are collected, certified, calibrated, scored, reviewed,
+and converted into pre-threshold governance actions.
+</p>
+
+<div class="highlight-box">
+<p>
+<strong>
+The TFP is the bridge between early-warning science and institutional action.
+</strong>
+</p>
+</div>
+
+<div class="section-header">
+2. Core Function
+</div>
+
+<p>
+The TFP uses a composite function to assess whether a system is approaching
+a critical transition.
+</p>
+
+<div class="figure-box">
+
+<div class="figure-title">
+Threshold Function Logic
+</div>
+
+<div class="highlight-box">
+<p class="center">
+<strong>Γ = f(P, ΔV, σ, Lr)</strong>
+</p>
+</div>
+
+</div>
+
+<div class="table-wrapper">
+
+<table>
+<caption>Table 4.1 — Core TFP Variables</caption>
+
+<thead>
+<tr>
+<th>Variable</th>
+<th>Meaning</th>
+<th>Governance Function</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Γ</td>
+<td>Composite threshold risk score.</td>
+<td>Determines governance band and activation level.</td>
+</tr>
+
+<tr>
+<td>P</td>
+<td>Pressure variable.</td>
+<td>Measures intensity of stress applied to the system.</td>
+</tr>
+
+<tr>
+<td>ΔV</td>
+<td>Velocity of change.</td>
+<td>Measures acceleration or deterioration over time.</td>
+</tr>
+
+<tr>
+<td>σ</td>
+<td>Systemic volatility.</td>
+<td>Measures instability, variance, and uncertainty.</td>
+</tr>
+
+<tr>
+<td>Lr</td>
+<td>Loss of resilience.</td>
+<td>Measures erosion of recovery capacity.</td>
+</tr>
+
+</tbody>
+</table>
+
+</div>
+
+<div class="section-header">
+3. Processing Sequence
+</div>
+
+<div class="figure-box">
+
+<div class="flow">
+
+<div class="flow-node">
+Data Collection
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+Certification
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+Calibration
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+Scoring
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+Activation
+</div>
+
+</div>
+
+</div>
+
+<div class="section-header">
+4. Governance Bands
+</div>
+
+<p>
+The TFP classifies system status through four governance bands. Each band
+represents a different level of institutional attention and operational response.
+</p>
+
+<div class="table-wrapper">
+
+<table>
+<caption>Table 4.2 — TFP Governance Bands</caption>
+
+<thead>
+<tr>
+<th>Band</th>
+<th>Score Range</th>
+<th>Status</th>
+<th>Governance Effect</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Green</td>
+<td>80–100</td>
+<td>Stable / Watch</td>
+<td>Routine monitoring and baseline reporting.</td>
+</tr>
+
+<tr>
+<td>Amber</td>
+<td>60–79</td>
+<td>Heightened Risk</td>
+<td>Capital protection, increased monitoring, technical review.</td>
+</tr>
+
+<tr>
+<td>Red</td>
+<td>40–59</td>
+<td>Pre-Critical</td>
+<td>Safe Mode, mandatory mitigation, operational restrictions.</td>
+</tr>
+
+<tr>
+<td>Black</td>
+<td>&lt; 40</td>
+<td>Critical / Restoration First</td>
+<td>Emergency restoration priority and protective intervention.</td>
+</tr>
+
+</tbody>
+</table>
+
+</div>
+
+<div class="section-header">
+5. Calibration Framework
+</div>
+
+<p>
+Calibration determines how variables are weighted, normalized, and interpreted
+within each sector and geography.
+</p>
+
+<div class="method-box">
+
+<p>
+Calibration should be sector-specific, evidence-based, transparent, auditable,
+and periodically reviewed by an independent technical body.
+</p>
+
+</div>
+
+<ul>
+
+<li>Define system boundaries;</li>
+
+<li>Select indicators;</li>
+
+<li>Assign data quality classes;</li>
+
+<li>Normalize variables;</li>
+
+<li>Test sensitivity;</li>
+
+<li>Estimate false positives and false negatives;</li>
+
+<li>Review activation consequences;</li>
+
+<li>Document calibration decisions.</li>
+
+</ul>
+
+<div class="section-header">
+6. Validation Logic
+</div>
+
+<p>
+Validation assesses whether the TFP correctly identifies meaningful
+pre-threshold conditions and whether governance activation occurs early enough
+to preserve reversibility.
+</p>
+
+<div class="table-wrapper">
+
+<table>
+<caption>Table 4.3 — Validation Dimensions</caption>
+
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Question</th>
+<th>Evidence Required</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Predictive Accuracy</td>
+<td>Did indicators anticipate material deterioration?</td>
+<td>Historical back-testing, case comparison, sensor records.</td>
+</tr>
+
+<tr>
+<td>Timeliness</td>
+<td>Did the protocol activate before irreversibility?</td>
+<td>Timeline reconstruction, threshold trajectory analysis.</td>
+</tr>
+
+<tr>
+<td>False Positives</td>
+<td>Did activation occur unnecessarily?</td>
+<td>Cost-benefit review, operational impact assessment.</td>
+</tr>
+
+<tr>
+<td>False Negatives</td>
+<td>Did the protocol fail to detect relevant risk?</td>
+<td>Incident review, missed signal analysis.</td>
+</tr>
+
+<tr>
+<td>Governance Effectiveness</td>
+<td>Did activation change outcomes?</td>
+<td>Mitigation records, avoided-loss estimates, stakeholder review.</td>
+</tr>
+
+</tbody>
+</table>
+
+</div>
+
+<div class="section-header">
+7. Institutional Role
+</div>
+
+<p>
+The TFP is not merely a scoring tool. It is an institutional protocol designed
+to connect certified evidence to governance action.
+</p>
+
+<div class="analysis-box">
+
+<p>
+Without TDR, the TFP lacks scientific foundation. Without the TFP, TDR remains
+academic. Without the Amazon Living Lab, both remain insufficiently validated
+under real-world conditions.
+</p>
+
+</div>
+
+</div>
+</div>
+</div>
+</section>
+
+<!-- ===================================================== -->
+<!-- TAB 5 — AMAZON LIVING LAB                             -->
+<!-- ===================================================== -->
+
+<section id="living-lab" class="tab-content">
+
+<div class="page">
+
+<div class="letterhead">
+
+<div class="seal">
+<img src="seal.PNG" alt="Seal">
+</div>
+
+<div class="org-name">
+Johann Christian Hasse Foundation
+</div>
+
+</div>
+
+<div class="content">
+
+<div class="doc-title">
+
+<div class="chapter-kicker">
+Validation Environment
+</div>
+
+<h1>
+Amazon Living Lab
+</h1>
+
+<div class="subtitle">
+Real-World Validation Environment for TDR and TFP
+</div>
+
+</div>
+
+<div class="body-text">
+
+<div class="lead-text">
+
+The Amazon Living Lab serves as the operational environment in which
+Threshold Dynamics Research and the Threshold Function Protocol are tested,
+validated, calibrated, and refined under real-world conditions.
+
+</div>
+
+<div class="section-header">
+1. Purpose of the Living Lab
+</div>
+
+<p>
+The Living Lab is designed to bridge the gap between theoretical research
+and operational implementation.
+</p>
+
+<p>
+Rather than testing threshold dynamics through simulations alone, the program
+applies TDR and TFP methodologies within active ecological, infrastructural,
+economic, and governance systems.
+</p>
+
+<div class="highlight-box">
+
+<p>
+<strong>
+Research generates knowledge.
+The Living Lab generates evidence.
+</strong>
+</p>
+
+</div>
+
+<div class="section-header">
+2. Why the Amazon
+</div>
+
+<p>
+The Amazon Basin represents one of the most complex and strategically
+important socioecological systems on Earth.
+</p>
+
+<p>
+It combines large-scale ecological processes, infrastructure dependency,
+rapid land-use transformation, governance complexity, climate vulnerability,
+and significant global relevance.
+</p>
+
+<div class="grid-3">
+
+<div class="metric-card">
+
+<div class="metric-number">A</div>
+
+<div class="metric-label">
+<strong>Ecological Relevance</strong><br>
+Largest tropical rainforest and one of the world's most important climate
+regulation systems.
+</div>
+
+</div>
+
+<div class="metric-card">
+
+<div class="metric-number">I</div>
+
+<div class="metric-label">
+<strong>Infrastructure Relevance</strong><br>
+Major dams, ports, energy networks, transportation corridors, and urban systems.
+</div>
+
+</div>
+
+<div class="metric-card">
+
+<div class="metric-number">G</div>
+
+<div class="metric-label">
+<strong>Governance Relevance</strong><br>
+Multi-level interactions between federal, state, municipal, Indigenous,
+community, and private-sector actors.
+</div>
+
+</div>
+
+</div>
+
+<div class="section-header">
+3. Strategic Design Logic
+</div>
+
+<div class="figure-box">
+
+<div class="figure-title">
+Amazon Living Lab Architecture
+</div>
+
+<div class="flow">
+
+<div class="flow-node">
+Threshold Dynamics Research
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+Threshold Function Protocol
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+Field Validation
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+Governance Application
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+Replication Framework
+</div>
+
+</div>
+
+</div>
+
+<div class="section-header">
+4. Research Domains
+</div>
+
+<div class="grid-2">
+
+<div class="partner-card">
+
+<h4>Ecological Thresholds</h4>
+
+<ul>
+<li>Forest degradation</li>
+<li>Biodiversity loss</li>
+<li>Mangrove decline</li>
+<li>Hydrological disruption</li>
+<li>Fire regime intensification</li>
+</ul>
+
+</div>
+
+<div class="partner-card">
+
+<h4>Infrastructure Thresholds</h4>
+
+<ul>
+<li>Energy systems</li>
+<li>Dam safety</li>
+<li>Water security</li>
+<li>Port operations</li>
+<li>Transportation resilience</li>
+</ul>
+
+</div>
+
+<div class="partner-card">
+
+<h4>Socioeconomic Thresholds</h4>
+
+<ul>
+<li>Food security</li>
+<li>Climate migration</li>
+<li>Community vulnerability</li>
+<li>Urban resilience</li>
+<li>Livelihood disruption</li>
+</ul>
+
+</div>
+
+<div class="partner-card">
+
+<h4>Governance Thresholds</h4>
+
+<ul>
+<li>Institutional coordination</li>
+<li>Regulatory capacity</li>
+<li>Response activation</li>
+<li>Multi-sector integration</li>
+<li>Decision latency</li>
+</ul>
+
+</div>
+
+</div>
+
+<div class="section-header">
+5. Validation Philosophy
+</div>
+
+<p>
+The Living Lab is not intended to prove predetermined outcomes.
+</p>
+
+<p>
+Its purpose is to evaluate whether threshold indicators, calibration
+procedures, governance triggers, and intervention mechanisms produce reliable,
+auditable, and actionable results.
+</p>
+
+<div class="analysis-box">
+
+<p>
+Validation requires exposure to uncertainty, operational constraints,
+institutional complexity, and real-world decision environments.
+</p>
+
+</div>
+
+<div class="section-header">
+6. Long-Term Objective
+</div>
+
+<p>
+The Amazon Living Lab seeks to become the first permanent international
+research and validation center dedicated to threshold dynamics, pre-threshold
+governance, systemic resilience, and anticipatory risk management.
+</p>
+
+</div>
+</div>
+</div>
+</section>
+
+<!-- ===================================================== -->
+<!-- TAB 6 — LOCATION ANALYSIS                             -->
+<!-- ===================================================== -->
+
+<section id="location-analysis" class="tab-content">
+
+<div class="page">
+
+<div class="letterhead">
+
+<div class="seal">
+<img src="seal.PNG" alt="Seal">
+</div>
+
+<div class="org-name">
+Johann Christian Hasse Foundation
+</div>
+
+</div>
+
+<div class="content">
+
+<div class="doc-title">
+
+<div class="chapter-kicker">
+Site Selection
+</div>
+
+<h1>
+Location Analysis
+</h1>
+
+<div class="subtitle">
+Selection of Pilot Validation Areas
+</div>
+
+</div>
+
+<div class="body-text">
+
+<div class="section-header">
+1. Selection Methodology
+</div>
+
+<p>
+Pilot locations were evaluated according to five strategic dimensions.
+</p>
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+<tr>
+<th>Criterion</th>
+<th>Weight</th>
+<th>Purpose</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Critical Infrastructure</td>
+<td>25%</td>
+<td>Materiality of infrastructure exposure and systemic relevance.</td>
+</tr>
+
+<tr>
+<td>Climate Vulnerability</td>
+<td>20%</td>
+<td>Exposure to physical climate risks and environmental stress.</td>
+</tr>
+
+<tr>
+<td>Institutional Density</td>
+<td>20%</td>
+<td>Availability of partners, regulators, universities, and governance actors.</td>
+</tr>
+
+<tr>
+<td>Replication Potential</td>
+<td>20%</td>
+<td>Transferability of findings to other regions and sectors.</td>
+</tr>
+
+<tr>
+<td>Accessibility</td>
+<td>15%</td>
+<td>Operational feasibility and logistics.</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div class="section-header">
+2. Primary Validation Area
+</div>
+
+<div class="highlight-box">
+
+<p>
+<strong>
+Belém Metropolitan Region
+</strong>
+</p>
+
+<p>
+Weighted Score: 4.85 / 5.00
+</p>
+
+</div>
+
+<p>
+Belém combines climate vulnerability, infrastructure concentration,
+institutional density, and international visibility unmatched elsewhere
+in the Amazon Basin.
+</p>
+
+<div class="grid-2">
+
+<div class="partner-card">
+
+<h4>Key Assets</h4>
+
+<ul>
+
+<li>Port of Belém</li>
+<li>Port of Vila do Conde</li>
+<li>Metropolitan energy grid</li>
+<li>Water infrastructure</li>
+<li>Belém International Airport</li>
+
+</ul>
+
+</div>
+
+<div class="partner-card">
+
+<h4>Institutional Assets</h4>
+
+<ul>
+
+<li>UFPA</li>
+<li>Museu Goeldi</li>
+<li>IBAMA</li>
+<li>ICMBio</li>
+<li>INCRA</li>
+
+</ul>
+
+</div>
+
+</div>
+
+<div class="section-header">
+3. Secondary Validation Area
+</div>
+
+<div class="highlight-box">
+
+<p>
+<strong>
+Lower Tocantins Basin
+</strong>
+</p>
+
+<p>
+Weighted Score: 3.90 / 5.00
+</p>
+
+</div>
+
+<p>
+The Lower Tocantins Basin provides an environment for testing threshold
+dynamics associated with dams, mining, industrial corridors, hydrology,
+land-use transformation, and frontier expansion.
+</p>
+
+<div class="grid-2">
+
+<div class="partner-card">
+
+<h4>Strategic Assets</h4>
+
+<ul>
+
+<li>Tucuruí Dam</li>
+<li>Carajás Mining Complex</li>
+<li>Marabá Industrial Corridor</li>
+<li>Carajás Railway</li>
+<li>Tocantins-Araguaia Waterway</li>
+
+</ul>
+
+</div>
+
+<div class="partner-card">
+
+<h4>Research Value</h4>
+
+<ul>
+
+<li>Mining risk</li>
+<li>Tailings governance</li>
+<li>Hydrological thresholds</li>
+<li>Deforestation frontier</li>
+<li>Land-use transitions</li>
+
+</ul>
+
+</div>
+
+</div>
+
+<div class="section-header">
+4. Tertiary Validation Area
+</div>
+
+<div class="highlight-box">
+
+<p>
+<strong>
+Amapá Isolated Grid System
+</strong>
+</p>
+
+<p>
+Specialized Validation Environment
+</p>
+
+</div>
+
+<p>
+Amapá offers a unique opportunity to study resilience, blackout recovery,
+energy-system fragility, and governance activation under extreme operational
+constraints.
+</p>
+
+<div class="section-header">
+5. Comparative Assessment
+</div>
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+<tr>
+<th>Area</th>
+<th>Role</th>
+<th>Primary Function</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Belém</td>
+<td>Primary Hub</td>
+<td>Governance, urban resilience, infrastructure monitoring.</td>
+</tr>
+
+<tr>
+<td>Lower Tocantins</td>
+<td>Field Validation</td>
+<td>Mining, dams, hydrology, land-use transitions.</td>
+</tr>
+
+<tr>
+<td>Amapá</td>
+<td>Stress-Test Environment</td>
+<td>Energy resilience, blackout prevention, isolated systems.</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div class="section-header">
+6. Replication Strategy
+</div>
+
+<p>
+The selected locations provide complementary conditions for the development
+of transferable methodologies.
+</p>
+
+<div class="figure-box">
+
+<div class="figure-title">
+Replication Logic
+</div>
+
+<div class="flow">
+
+<div class="flow-node">
+Belém
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+Lower Tocantins
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+Amapá
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+Amazon Basin
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+Global Replication
+</div>
+
+</div>
+
+</div>
+
+<div class="analysis-box">
+
+<p>
+Together, the three pilot areas provide urban, industrial, ecological,
+hydrological, energy, and governance conditions sufficient to test the
+core assumptions of Threshold Dynamics Research and the Threshold Function
+Protocol.
+</p>
+
+</div>
+
+</div>
+</div>
+</div>
+</section>
+
+<!-- ===================================================== -->
+<!-- TAB 7 — WORK PACKAGES                                 -->
+<!-- ===================================================== -->
+
+<section id="work-packages" class="tab-content">
+
+<div class="page">
+
+<div class="letterhead">
+
+<div class="seal">
+<img src="seal.PNG" alt="Seal">
+</div>
+
+<div class="org-name">
+Johann Christian Hasse Foundation
+</div>
+
+</div>
+
+<div class="content">
+
+<div class="doc-title">
+
+<div class="chapter-kicker">
+Program Architecture
+</div>
+
+<h1>
+Work Packages
+</h1>
+
+<div class="subtitle">
+Implementation Structure of the Amazon Living Lab
+</div>
+
+</div>
+
+<div class="body-text">
+
+<div class="lead-text">
+
+The Amazon Living Lab is structured through five integrated Work Packages
+designed to transform scientific research into validated operational
+governance tools.
+
+</div>
+
+<div class="section-header">
+Program Timeline
+</div>
+
+<div class="timeline">
+
+<div class="timeline-item">
+<strong>WP1:</strong> Scientific Framework Development (Months 1–6)
+</div>
+
+<div class="timeline-item">
+<strong>WP2:</strong> Protocol Development & Calibration (Months 3–12)
+</div>
+
+<div class="timeline-item">
+<strong>WP3:</strong> Data Infrastructure Deployment (Months 6–18)
+</div>
+
+<div class="timeline-item">
+<strong>WP4:</strong> Pilot Validation (Months 12–24)
+</div>
+
+<div class="timeline-item">
+<strong>WP5:</strong> Capacity Building & Dissemination (Months 6–24)
+</div>
+
+</div>
+
+<div class="section-header">
+WP1 — Threshold Dynamics Research
+</div>
+
+<div class="method-box">
+
+<p>
+Purpose:
+Develop the scientific foundations of Threshold Dynamics Research (TDR).
+</p>
+
+</div>
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+<tr>
+<th>Deliverable</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>TDR Framework v1.0</td>
+<td>Scientific architecture for threshold analysis.</td>
+</tr>
+
+<tr>
+<td>Threshold Taxonomy</td>
+<td>Classification of threshold systems.</td>
+</tr>
+
+<tr>
+<td>Cascade Taxonomy</td>
+<td>Systemic transmission pathways.</td>
+</tr>
+
+<tr>
+<td>Research Agenda</td>
+<td>Validation priorities and hypotheses.</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div class="section-header">
+WP2 — Threshold Function Protocol
+</div>
+
+<div class="method-box">
+
+<p>
+Purpose:
+Develop and calibrate the Threshold Function Protocol (TFP).
+</p>
+
+</div>
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+<tr>
+<th>Deliverable</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>TFP Manual v1.0</td>
+<td>Operational governance protocol.</td>
+</tr>
+
+<tr>
+<td>Calibration Framework</td>
+<td>Sector-specific parameter calibration.</td>
+</tr>
+
+<tr>
+<td>Validation Methodology</td>
+<td>Accuracy and performance assessment.</td>
+</tr>
+
+<tr>
+<td>Indicator Library</td>
+<td>Catalog of validated indicators.</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div class="section-header">
+WP3 — Data Infrastructure
+</div>
+
+<div class="method-box">
+
+<p>
+Purpose:
+Create the technical backbone of the Living Lab.
+</p>
+
+</div>
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+<tr>
+<th>Deliverable</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Data Architecture</td>
+<td>Ingestion, storage, and processing systems.</td>
+</tr>
+
+<tr>
+<td>Data Governance Framework</td>
+<td>Quality assurance and data stewardship.</td>
+</tr>
+
+<tr>
+<td>Indicator Repository</td>
+<td>Validated metadata and indicator database.</td>
+</tr>
+
+<tr>
+<td>Monitoring Dashboard</td>
+<td>Visualization and reporting platform.</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div class="section-header">
+WP4 — Pilot Validation
+</div>
+
+<div class="method-box">
+
+<p>
+Purpose:
+Validate TDR and TFP under real-world operational conditions.
+</p>
+
+</div>
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+<tr>
+<th>Case Study</th>
+<th>Focus Area</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Case Study 1</td>
+<td>Belém Metropolitan Region</td>
+</tr>
+
+<tr>
+<td>Case Study 2</td>
+<td>Lower Tocantins Basin</td>
+</tr>
+
+<tr>
+<td>Case Study 3</td>
+<td>Amapá Isolated Grid System</td>
+</tr>
+
+<tr>
+<td>Comparative Assessment</td>
+<td>Cross-case evaluation and replication potential</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div class="section-header">
+WP5 — Capacity Building
+</div>
+
+<div class="method-box">
+
+<p>
+Purpose:
+Build regional scientific and operational capabilities.
+</p>
+
+</div>
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+<tr>
+<th>Deliverable</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Fellowship Program</td>
+<td>Research fellowships and technical training.</td>
+</tr>
+
+<tr>
+<td>Workshops</td>
+<td>Stakeholder engagement and capacity building.</td>
+</tr>
+
+<tr>
+<td>Technical Manuals</td>
+<td>Replication resources and implementation guides.</td>
+</tr>
+
+<tr>
+<td>Open Knowledge Platform</td>
+<td>Public repository of outputs and learning materials.</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+</div>
+</div>
+</section>
+
+<!-- ===================================================== -->
+<!-- TAB 8 — PILOT APPLICATIONS                            -->
+<!-- ===================================================== -->
+
+<section id="pilot-applications" class="tab-content">
+
+<div class="page">
+
+<div class="letterhead">
+
+<div class="seal">
+<img src="seal.PNG" alt="Seal">
+</div>
+
+<div class="org-name">
+Johann Christian Hasse Foundation
+</div>
+
+</div>
+
+<div class="content">
+
+<div class="doc-title">
+
+<div class="chapter-kicker">
+Operational Validation
+</div>
+
+<h1>
+Pilot Applications
+</h1>
+
+<div class="subtitle">
+Sectoral Demonstration of TDR and TFP
+</div>
+
+</div>
+
+<div class="body-text">
+
+<div class="lead-text">
+
+The pilot applies Threshold Dynamics Research and the Threshold Function
+Protocol across multiple sectors where threshold behavior, cascade risk,
+and governance activation can be observed and validated.
+
+</div>
+
+<div class="section-header">
+Sector 1 — Dam Safety & Tailings Governance
+</div>
+
+<p>
+Validation of pre-threshold indicators related to dam stability, tailings
+storage facilities, hydrological stress, and geotechnical degradation.
+</p>
+
+<div class="grid-2">
+
+<div class="partner-card">
+
+<h4>Locations</h4>
+
+<ul>
+<li>Tucuruí Dam</li>
+<li>Carajás Mining Region</li>
+<li>Associated Tailings Systems</li>
+</ul>
+
+</div>
+
+<div class="partner-card">
+
+<h4>Indicators</h4>
+
+<ul>
+<li>InSAR deformation</li>
+<li>Slope instability</li>
+<li>Rainfall anomalies</li>
+<li>Water pressure changes</li>
+<li>Infrastructure stress</li>
+</ul>
+
+</div>
+
+</div>
+
+<div class="section-header">
+Sector 2 — Energy Grid Resilience
+</div>
+
+<p>
+Assessment of threshold behavior within interconnected and isolated energy
+systems.
+</p>
+
+<div class="grid-2">
+
+<div class="partner-card">
+
+<h4>Locations</h4>
+
+<ul>
+<li>Belém Grid System</li>
+<li>Amapá Isolated Grid</li>
+</ul>
+
+</div>
+
+<div class="partner-card">
+
+<h4>Indicators</h4>
+
+<ul>
+<li>Load volatility</li>
+<li>Substation stress</li>
+<li>Weather exposure</li>
+<li>Transmission reliability</li>
+<li>Recovery capacity</li>
+</ul>
+
+</div>
+
+</div>
+
+<div class="section-header">
+Sector 3 — Water Security & Flood Governance
+</div>
+
+<p>
+Application of TDR and TFP to hydrological thresholds and flood risk
+management.
+</p>
+
+<div class="grid-2">
+
+<div class="partner-card">
+
+<h4>Locations</h4>
+
+<ul>
+<li>Belém Floodplains</li>
+<li>Tocantins Basin</li>
+<li>Moju-Miri Watershed</li>
+</ul>
+
+</div>
+
+<div class="partner-card">
+
+<h4>Indicators</h4>
+
+<ul>
+<li>River levels</li>
+<li>Flood frequency</li>
+<li>Water quality</li>
+<li>Urban drainage stress</li>
+<li>Drought intensity</li>
+</ul>
+
+</div>
+
+</div>
+
+<div class="section-header">
+Sector 4 — Ecosystem Threshold Monitoring
+</div>
+
+<p>
+Monitoring ecological transitions that may precede biodiversity loss,
+ecosystem degradation, or landscape transformation.
+</p>
+
+<div class="grid-2">
+
+<div class="partner-card">
+
+<h4>Locations</h4>
+
+<ul>
+<li>Marajó Archipelago</li>
+<li>RESEX Areas</li>
+<li>Indigenous Territories</li>
+</ul>
+
+</div>
+
+<div class="partner-card">
+
+<h4>Indicators</h4>
+
+<ul>
+<li>Forest cover</li>
+<li>Acoustic biodiversity</li>
+<li>Habitat fragmentation</li>
+<li>Mangrove degradation</li>
+<li>Fire activity</li>
+</ul>
+
+</div>
+
+</div>
+
+<div class="section-header">
+Sector 5 — Supply Chain & Port Resilience
+</div>
+
+<p>
+Evaluation of logistics and trade systems exposed to environmental and
+infrastructure disruptions.
+</p>
+
+<div class="grid-2">
+
+<div class="partner-card">
+
+<h4>Locations</h4>
+
+<ul>
+<li>Port of Belém</li>
+<li>Port of Vila do Conde</li>
+<li>BR-230 Corridor</li>
+</ul>
+
+</div>
+
+<div class="partner-card">
+
+<h4>Indicators</h4>
+
+<ul>
+<li>Port congestion</li>
+<li>Infrastructure condition</li>
+<li>Navigation disruptions</li>
+<li>Climate exposure</li>
+<li>Cargo flow reliability</li>
+</ul>
+
+</div>
+
+</div>
+
+<div class="section-header">
+Integrated Validation Logic
+</div>
+
+<div class="figure-box">
+
+<div class="figure-title">
+Cross-Sector Validation Framework
+</div>
+
+<div class="flow">
+
+<div class="flow-node">
+Dam Safety
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+Energy Systems
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+Water Security
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+Ecosystems
+</div>
+
+<div class="flow-arrow">→</div>
+
+<div class="flow-node">
+Supply Chains
+</div>
+
+</div>
+
+</div>
+
+<div class="analysis-box">
+
+<p>
+Together, the five pilot sectors provide a sufficiently diverse environment
+for evaluating threshold behavior, cascade dynamics, resilience erosion,
+and governance activation across interconnected systems.
+</p>
+
+</div>
+
+</div>
+</div>
+</div>
+</section>
+
+<!-- ===================================================== -->
+<!-- TAB 9 — FUNDING STRATEGY                              -->
+<!-- ===================================================== -->
+
+<section id="funding" class="tab-content">
+
+<div class="page">
+
+<div class="letterhead">
+<div class="seal">
+<img src="seal.PNG" alt="Seal">
+</div>
+<div class="org-name">Johann Christian Hasse Foundation</div>
+</div>
+
+<div class="content">
+
+<div class="doc-title">
+<div class="chapter-kicker">Financial Architecture</div>
+<h1>Funding Strategy</h1>
+<div class="subtitle">Blended Financing Structure for Pilot Implementation</div>
+</div>
+
+<div class="body-text">
+
+<div class="lead-text">
+The Amazon Living Lab is designed as a financeable pilot program combining
+public grants, technical cooperation, philanthropic capital, research funding,
+and strategic private-sector participation.
+</div>
+
+<div class="section-header">1. Funding Logic</div>
+
+<p>
+The project should not be presented as a request to finance a theoretical
+framework. It should be presented as a request to finance the first real-world
+validation environment for pre-threshold governance in the Amazon.
+</p>
+
+<div class="highlight-box">
+<p>
+<strong>
+Fund the pilot. Validate the protocol. Replicate the model.
+</strong>
+</p>
+</div>
+
+<div class="section-header">2. Target Funding Sources</div>
+
+<div class="table-wrapper">
+<table>
+<thead>
+<tr>
+<th>Funder Category</th>
+<th>Potential Targets</th>
+<th>Alignment</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Amazon Climate Finance</td>
+<td>Amazon Fund / BNDES</td>
+<td>Governance, innovation, monitoring, resilience.</td>
+</tr>
+
+<tr>
+<td>Multilateral Development</td>
+<td>IDB Amazonia Forever, World Bank, CAF</td>
+<td>Water security, infrastructure resilience, institutional strengthening.</td>
+</tr>
+
+<tr>
+<td>Climate Adaptation Funds</td>
+<td>Green Climate Fund, Adaptation Fund</td>
+<td>Early warning, adaptation, vulnerability reduction.</td>
+</tr>
+
+<tr>
+<td>Bilateral Cooperation</td>
+<td>Norway, Germany, USAID, JICA, EU</td>
+<td>Forest governance, climate resilience, transparency, technology transfer.</td>
+</tr>
+
+<tr>
+<td>Research Funding</td>
+<td>FINEP, CNPq, FAPESPA, FAPESP, international foundations</td>
+<td>Scientific development of TDR and TFP.</td>
+</tr>
+
+<tr>
+<td>Private & Impact Capital</td>
+<td>Reinsurers, impact investors, infrastructure sponsors</td>
+<td>Risk modeling, avoided loss, resilience finance.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="section-header">3. 24-Month Pilot Budget</div>
+
+<div class="table-wrapper">
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Estimated Budget</th>
+<th>Purpose</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Scientific Coordination</td>
+<td>USD 120,000</td>
+<td>TDR development, research design, academic coordination.</td>
+</tr>
+
+<tr>
+<td>TFP Development</td>
+<td>USD 150,000</td>
+<td>Calibration, validation, indicator library, protocol documentation.</td>
+</tr>
+
+<tr>
+<td>Data Infrastructure</td>
+<td>USD 180,000</td>
+<td>Dashboard, data repository, monitoring architecture.</td>
+</tr>
+
+<tr>
+<td>Pilot Validation</td>
+<td>USD 220,000</td>
+<td>Case studies in Belém, Lower Tocantins, and Amapá.</td>
+</tr>
+
+<tr>
+<td>Capacity Building</td>
+<td>USD 90,000</td>
+<td>Fellowship, workshops, training materials.</td>
+</tr>
+
+<tr>
+<td>Governance & Administration</td>
+<td>USD 90,000</td>
+<td>Legal structure, coordination, reporting, compliance.</td>
+</tr>
+
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>USD 850,000</strong></td>
+<td><strong>24-month pilot program.</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="section-header">4. 36-Month Expansion Budget</div>
+
+<div class="table-wrapper">
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Duration</th>
+<th>Estimated Budget</th>
+<th>Primary Funding Source</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Phase 1 — Design & Calibration</td>
+<td>Months 1–6</td>
+<td>USD 450,000</td>
+<td>Foundation, research grants, technical cooperation.</td>
+</tr>
+
+<tr>
+<td>Phase 2 — Infrastructure Deployment</td>
+<td>Months 7–18</td>
+<td>USD 1,200,000</td>
+<td>Amazon Fund, IDB, climate finance.</td>
+</tr>
+
+<tr>
+<td>Phase 3 — Operational Testing</td>
+<td>Months 19–30</td>
+<td>USD 800,000</td>
+<td>GCF, bilateral donors, research funders.</td>
+</tr>
+
+<tr>
+<td>Phase 4 — Evaluation & Scale</td>
+<td>Months 31–36</td>
+<td>USD 350,000</td>
+<td>Impact investors, reinsurers, institutional partners.</td>
+</tr>
+
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>36 Months</strong></td>
+<td><strong>USD 2,800,000</strong></td>
+<td><strong>Blended finance.</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="section-header">5. Financing Stack</div>
+
+<div class="grid-2">
+
+<div class="partner-card">
+<h4>Public Grants</h4>
+<p>Amazon Fund, IDB, Green Climate Fund, bilateral cooperation, and public innovation programs.</p>
+</div>
+
+<div class="partner-card">
+<h4>Research Funding</h4>
+<p>Scientific grants for TDR, TFP calibration, validation studies, and academic outputs.</p>
+</div>
+
+<div class="partner-card">
+<h4>Technical Cooperation</h4>
+<p>Capacity building, governance training, data infrastructure, and institutional strengthening.</p>
+</div>
+
+<div class="partner-card">
+<h4>Private Participation</h4>
+<p>Reinsurance, infrastructure resilience, parametric risk modeling, and avoided-loss finance.</p>
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+</section>
+
+<!-- ===================================================== -->
+<!-- TAB 10 — STRATEGIC PARTNERS                           -->
+<!-- ===================================================== -->
+
+<section id="partners" class="tab-content">
+
+<div class="page">
+
+<div class="letterhead">
+<div class="seal">
+<img src="seal.PNG" alt="Seal">
+</div>
+<div class="org-name">Johann Christian Hasse Foundation</div>
+</div>
+
+<div class="content">
+
+<div class="doc-title">
+<div class="chapter-kicker">Institutional Ecosystem</div>
+<h1>Strategic Partners</h1>
+<div class="subtitle">Potential Institutional Roles and Contributions</div>
+</div>
+
+<div class="body-text">
+
+<div class="section-header">1. Anchor Institutions</div>
+
+<div class="table-wrapper">
+<table>
+<thead>
+<tr>
+<th>Institution</th>
+<th>Potential Role</th>
+<th>Contribution</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Johann Christian Hasse Foundation</td>
+<td>Lead institutional architect</td>
+<td>Governance design, TFP methodology, legal architecture, coordination.</td>
+</tr>
+
+<tr>
+<td>Instituto Silvio Meira</td>
+<td>Technology and data partner</td>
+<td>Data platform, AI/ML, dashboard, digital infrastructure.</td>
+</tr>
+
+<tr>
+<td>UFPA</td>
+<td>Academic and regional research partner</td>
+<td>Amazonian research capacity, faculty engagement, students, field validation.</td>
+</tr>
+
+<tr>
+<td>INPA</td>
+<td>Amazon science partner</td>
+<td>Ecology, biodiversity, hydrology, tropical systems research.</td>
+</tr>
+
+<tr>
+<td>Museu Paraense Emílio Goeldi</td>
+<td>Scientific and biodiversity partner</td>
+<td>Amazonian collections, ecological expertise, regional credibility.</td>
+</tr>
+
+<tr>
+<td>Fundação Guamá / PCT Guamá</td>
+<td>Innovation and institutional host</td>
+<td>Local innovation infrastructure, convening capacity, Belém-based platform.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="section-header">2. Public Agencies and Data Partners</div>
+
+<div class="grid-3">
+
+<div class="partner-card">
+<h4>INPE</h4>
+<p>Satellite data, remote sensing, deforestation monitoring.</p>
+</div>
+
+<div class="partner-card">
+<h4>ANA</h4>
+<p>Hydrological data, water resources, basin governance.</p>
+</div>
+
+<div class="partner-card">
+<h4>ANEEL</h4>
+<p>Energy regulation, grid resilience, electricity-sector data.</p>
+</div>
+
+<div class="partner-card">
+<h4>ANM</h4>
+<p>Mining governance, dam safety, tailings regulation.</p>
+</div>
+
+<div class="partner-card">
+<h4>IBAMA</h4>
+<p>Environmental enforcement, compliance data, licensing interface.</p>
+</div>
+
+<div class="partner-card">
+<h4>ICMBio</h4>
+<p>Protected areas, biodiversity, conservation governance.</p>
+</div>
+
+</div>
+
+<div class="section-header">3. Community and Territorial Partners</div>
+
+<p>
+The Living Lab should include community-based institutions, Indigenous
+organizations, extractive reserve associations, local municipalities, and
+territorial governance actors.
+</p>
+
+<div class="analysis-box">
+<p>
+Community participation is not an outreach component. It is part of the
+validation architecture because many pre-threshold signals are first observed
+locally before they appear in formal datasets.
+</p>
+</div>
+
+<div class="section-header">4. International Partners</div>
+
+<div class="table-wrapper">
+<table>
+<thead>
+<tr>
+<th>Partner Type</th>
+<th>Potential Contribution</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Universities</td>
+<td>Peer review, research collaboration, validation methodology.</td>
+</tr>
+
+<tr>
+<td>Multilateral Banks</td>
+<td>Financing, safeguards, evaluation, scaling pathways.</td>
+</tr>
+
+<tr>
+<td>Reinsurers</td>
+<td>Risk modeling, parametric insurance, avoided-loss valuation.</td>
+</tr>
+
+<tr>
+<td>Climate Foundations</td>
+<td>Early-stage grant capital, convening, legitimacy.</td>
+</tr>
+
+<tr>
+<td>Technology Partners</td>
+<td>Data infrastructure, AI analytics, sensor integration.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+</div>
+</div>
+</section>
+
+<!-- ===================================================== -->
+<!-- TAB 11 — EXPECTED OUTPUTS                             -->
+<!-- ===================================================== -->
+
+<section id="outputs" class="tab-content">
+
+<div class="page">
+
+<div class="letterhead">
+<div class="seal">
+<img src="seal.PNG" alt="Seal">
+</div>
+<div class="org-name">Johann Christian Hasse Foundation</div>
+</div>
+
+<div class="content">
+
+<div class="doc-title">
+<div class="chapter-kicker">Program Deliverables</div>
+<h1>Expected Outputs</h1>
+<div class="subtitle">Scientific, Operational, and Institutional Results</div>
+</div>
+
+<div class="body-text">
+
+<div class="section-header">1. Scientific Outputs</div>
+
+<ul>
+<li>TDR Framework v1.0;</li>
+<li>Threshold Taxonomy;</li>
+<li>Cascade Risk Taxonomy;</li>
+<li>TFP Calibration Studies;</li>
+<li>Validation Methodology;</li>
+<li>Peer-reviewed research papers;</li>
+<li>Technical reports and comparative assessments.</li>
+</ul>
+
+<div class="section-header">2. Operational Outputs</div>
+
+<ul>
+<li>TFP Operational Manual v1.0;</li>
+<li>Indicator Library;</li>
+<li>Monitoring Dashboard;</li>
+<li>Data Governance Framework;</li>
+<li>Activation Log;</li>
+<li>Case Study Reports;</li>
+<li>Replication Toolkit.</li>
+</ul>
+
+<div class="section-header">3. Institutional Outputs</div>
+
+<ul>
+<li>Governance guidelines for pre-threshold intervention;</li>
+<li>Implementation templates for public and private partners;</li>
+<li>Policy recommendations for regulators and funders;</li>
+<li>Training materials for local institutions;</li>
+<li>Fellowship program documentation;</li>
+<li>Replication roadmap for other Amazonian and international regions.</li>
+</ul>
+
+<div class="section-header">4. Strategic Outcome</div>
+
+<div class="highlight-box">
+<p>
+<strong>
+By the end of the pilot, the project should produce a validated methodology,
+a tested operational protocol, a functioning data architecture, and a replicable
+model for pre-threshold governance.
+</strong>
+</p>
+</div>
+
+<div class="section-header">5. Replication Pathway</div>
+
+<div class="figure-box">
+<div class="figure-title">Replication Pathway</div>
+
+<div class="flow">
+<div class="flow-node">Amazon Living Lab</div>
+<div class="flow-arrow">→</div>
+<div class="flow-node">Validated TFP</div>
+<div class="flow-arrow">→</div>
+<div class="flow-node">Sectoral Toolkits</div>
+<div class="flow-arrow">→</div>
+<div class="flow-node">Regional Replication</div>
+<div class="flow-arrow">→</div>
+<div class="flow-node">Global Pre-Threshold Governance</div>
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+</section>
+
+<!-- ===================================================== -->
+<!-- TAB 12 — REFERENCES                                   -->
+<!-- ===================================================== -->
+
+<section id="references" class="tab-content">
+
+<div class="page">
+
+<div class="letterhead">
+<div class="seal">
+<img src="seal.PNG" alt="Seal">
+</div>
+<div class="org-name">Johann Christian Hasse Foundation</div>
+</div>
+
+<div class="content">
+
+<div class="doc-title">
+<div class="chapter-kicker">Documentation</div>
+<h1>References</h1>
+<div class="subtitle">Source Architecture for the Pilot Website</div>
+</div>
+
+<div class="body-text reference-list">
+
+<div class="section-header">Internal Project Documents</div>
+
+<p>
+[1] Johann Christian Hasse Foundation. <em>Amazon Living Lab for Threshold
+Dynamics Research (TDR) and Threshold Function Protocol (TFP) Validation:
+Pilot Project Concept Note.</em> Belém, Pará, Brazil. June 2026.
+</p>
+
+<p>
+[2] Johann Christian Hasse Foundation. <em>Amazon Living Lab for Pre-Threshold
+Risk Governance: Project Pilot Proposal.</em> Belém, Pará, Brazil. June 2026.
+</p>
+
+<p>
+[3] Johann Christian Hasse Foundation. <em>Strategic Analysis: Optimal Location
+of the Amazon Living Lab.</em> June 2026.
+</p>
+
+<p>
+[4] Johann Christian Hasse Foundation. <em>c-ECO Predictive Governance Framework:
+Institutional Macro-Prudential Memorandum.</em> Revised version.
+</p>
+
+<div class="section-header">Research and Validation Areas</div>
+
+<ul>
+<li>Threshold Dynamics Research;</li>
+<li>Threshold Function Protocol;</li>
+<li>Pre-threshold governance;</li>
+<li>Systemic risk and cascade dynamics;</li>
+<li>Earth system tipping points;</li>
+<li>Amazonian infrastructure resilience;</li>
+<li>Climate adaptation finance;</li>
+<li>Hydrological and ecological monitoring;</li>
+<li>Governance activation before irreversibility.</li>
+</ul>
+
+<div class="section-header">Closing Note</div>
+
+<div class="analysis-box">
+<p>
+This website is intended as a pilot-facing institutional portal. It should be
+used to support funder outreach, academic partnership formation, internal
+coordination, and public presentation of the Amazon Living Lab as the validation
+environment for TDR and TFP.
+</p>
+</div>
+
+</div>
+</div>
+</div>
+</section>
+
+<!-- ===================================================== -->
+<!-- IMAGE MODAL                                           -->
+<!-- ===================================================== -->
+
+<div id="img-modal" onclick="closeImageModal()">
+<img id="modal-img" src="" alt="Expanded image">
+</div>
+
+<!-- ===================================================== -->
+<!-- FOOTER                                                -->
+<!-- ===================================================== -->
+
+<footer class="site-footer">
+Johann Christian Hasse Foundation · Amazon Living Lab · TDR & TFP Validation
+</footer>
+
+<!-- ===================================================== -->
+<!-- JAVASCRIPT                                            -->
+<!-- ===================================================== -->
+
+<script>
+function showTab(event, tabId){
+  const tabs = document.querySelectorAll('.tab-content');
+  const buttons = document.querySelectorAll('.nav-tab');
+
+  tabs.forEach(tab => tab.classList.remove('active'));
+  buttons.forEach(button => button.classList.remove('active'));
+
+  document.getElementById(tabId).classList.add('active');
+
+  if(event && event.currentTarget){
+    event.currentTarget.classList.add('active');
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function printCurrent(){
+  const activeTab = document.querySelector('.tab-content.active');
+
+  if(!activeTab){
+    window.print();
+    return;
+  }
+
+  const allTabs = document.querySelectorAll('.tab-content');
+
+  allTabs.forEach(tab => {
+    if(tab !== activeTab){
+      tab.dataset.originalDisplay = tab.style.display;
+      tab.style.display = 'none';
+    }
+  });
+
+  activeTab.dataset.originalDisplay = activeTab.style.display;
+  activeTab.style.display = 'block';
+
+  window.print();
+
+  allTabs.forEach(tab => {
+    tab.style.display = tab.dataset.originalDisplay || '';
+    delete tab.dataset.originalDisplay;
+  });
+}
+
+function openImageModal(src){
+  const modal = document.getElementById('img-modal');
+  const img = document.getElementById('modal-img');
+
+  img.src = src;
+  modal.classList.add('active');
+}
+
+function closeImageModal(){
+  const modal = document.getElementById('img-modal');
+  const img = document.getElementById('modal-img');
+
+  modal.classList.remove('active');
+  img.src = '';
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  const images = document.querySelectorAll('.inline-figure img');
+
+  images.forEach(function(image){
+    image.addEventListener('click', function(){
+      openImageModal(image.src);
     });
-
-    // Close menu mobile ao clicar link
-    document.querySelectorAll('.nav-item a').forEach(link => {
-      link.addEventListener('click', () => {
-        if (window.innerWidth <= 1024) {
-          sidebar.classList.remove('open');
-        }
-      });
-    });
-  </script>
+  });
+});
+</script>
 
 </body>
 </html>
