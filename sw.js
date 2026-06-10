@@ -1,21 +1,21 @@
 
 // ============================================
 // c-ECO STRUCTURAL REVIEW ENGINE — SERVICE WORKER
-// Version 2.5.0 | July 2026
+// Version 2.6.0 | June 2026
 // ============================================
-const CACHE_NAME = 'c-eco-review-v2-5-0';
-const STATIC_CACHE = 'c-eco-static-v2-5-0';
-const DYNAMIC_CACHE = 'c-eco-dynamic-v2-5-0';
+const CACHE_NAME = 'c-eco-review-v2-6-0';
+const STATIC_CACHE = 'c-eco-static-v2-6-0';
+const DYNAMIC_CACHE = 'c-eco-dynamic-v2-6-0';
 
 // Assets to cache on install
 const STATIC_ASSETS = [
   '/',
-  '/fellowship-app.html',
-  '/fellowship-portal.html',
+  '/fellowship/fellowship-app.html',
+  '/fellowship/fellowship-portal.html',
   '/offline.html',
   '/manifest.json',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png'
+  '/assets/icons/icon-192.png',
+  '/assets/icons/icon-512.jpg'
 ];
 
 // ============================================
@@ -170,11 +170,11 @@ self.addEventListener('push', (event) => {
   const data = event.data?.json() || {};
   const options = {
     body: data.body || 'Structural review update available.',
-    icon: '/icons/icon-192.png',
-    badge: '/icons/icon-72.png',
+    icon: '/assets/icons/icon-192.png',
+    badge: '/assets/icons/icon-72.png',
     tag: data.tag || 'c-eco-review',
     requireInteraction: true,
-    data: { url: data.url || '/fellowship-app.html' }
+    data: { url: data.url || '/fellowship/fellowship-app.html' }
   };
   event.waitUntil(
     self.registration.showNotification(
@@ -187,7 +187,7 @@ self.addEventListener('push', (event) => {
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
   event.waitUntil(
-    clients.openWindow(event.notification.data?.url || '/fellowship-app.html')
+    clients.openWindow(event.notification.data?.url || '/fellowship/fellowship-app.html')
   );
 });
 
@@ -215,4 +215,4 @@ self.addEventListener('message', (event) => {
   }
 });
 
-console.log('[SW] c-ECO Structural Review Engine v2.5.0 loaded');
+console.log('[SW] c-ECO Structural Review Engine v2.6.0 loaded');

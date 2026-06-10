@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Memorial Maria Alvina Hass Gonçalves Curvo Paim. Espaço de memória e homenagem à neta de Eduard Hass, guardiã da linhagem familiar entre Belém e o Rio de Janeiro." />
+  <meta name="theme-color" content="#0c0a09" />
+  
+  <meta property="og:title" content="Maria Alvina | Memorial" />
+  <meta property="og:description" content="Espaço de memória para Maria Alvina Hass Gonçalves Curvo Paim. Compartilhe sua história." />
+  <meta property="og:type" content="website" />
+  
+  <title>Maria Alvina | Memorial</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: "#d6bc7e",
+            stone: { 
+              950: "#0c0a09",
+              900: "#1c1917",
+              800: "#292524",
+              400: "#d6d3d1",
+              500: "#a8a29e",
+              600: "#78716c"
+            }
+          },
+          fontFamily: {
+            serif: ["'Playfair Display'", "serif"],
+            sans: ["'Inter'", "sans-serif"],
+          },
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    :root { 
+      --stone-950: #0c0a09; 
+      --gold: #d6bc7e;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    
+    body { 
+      background-color: var(--stone-950); 
+      color: #e7e5e4; 
+      font-family: 'Inter', sans-serif; 
+      line-height: 2;
+      font-weight: 300;
+      letter-spacing: 0.01em;
+    }
+    
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--gold);
+      color: var(--stone-950);
+      padding: 8px;
+      text-decoration: none;
+      font-size: 12px;
+      z-index: 100;
+      transition: top 0.3s;
+    }
+    
+    .skip-link:focus { top: 0; }
+    
+    :focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 4px;
+    }
+    
+    h1, h2, h3, .serif { 
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+    }
+    
+    .reveal { 
+      opacity: 0; 
+      transform: translateY(30px); 
+      transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); 
+    }
+    
+    .reveal.active { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+    
+    .dropcap::first-letter { 
+      float: left; 
+      font-size: 4rem; 
+      line-height: 0.85; 
+      padding-right: 0.75rem; 
+      padding-top: 0.2rem;
+      color: var(--gold); 
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .prose-custom p { 
+      margin-bottom: 2rem;
+      text-align: justify;
+      text-justify: inter-word;
+      hyphens: auto;
+      line-height: 2.2;
+      color: #d6d3d1;
+    }
+    
+    .prose-custom strong { 
+      color: #fafaf9; 
+      font-weight: 400;
+    }
+    
+    .portrait-container {
+      position: relative;
+      max-width: 400px;
+      margin: 0 auto 3rem;
+    }
+    
+    .portrait-frame {
+      position: relative;
+      border: 1px solid rgba(214, 188, 126, 0.15);
+      padding: 8px;
+      background: rgba(28, 25, 23, 0.3);
+    }
+    
+    .portrait-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: grayscale(20%) contrast(1.05);
+      transition: all 0.8s ease;
+    }
+    
+    .portrait-frame:hover img {
+      filter: grayscale(0%) contrast(1);
+    }
+    
+    .portrait-caption {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      color: #78716c;
+      letter-spacing: 0.1em;
+      font-style: italic;
+    }
+    
+    .friendship-container {
+      position: relative;
+      max-width: 600px;
+      margin: 0 auto 4rem;
+    }
+    
+    .friendship-frame {
+      position: relative;
+      border: 1px solid rgba(214, 188, 126, 0.15);
+      padding: 12px;
+      background: rgba(28, 25, 23, 0.3);
+    }
+    
+    .friendship-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: sepia(10%) contrast(1.02);
+      transition: all 0.8s ease;
+    }
+    
+    .friendship-frame:hover img {
+      filter: sepia(0%) contrast(1.05);
+    }
+    
+    .friendship-caption {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.875rem;
+      color: #a8a29e;
+      line-height: 1.8;
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .friendship-caption .author {
+      display: block;
+      margin-top: 0.75rem;
+      font-size: 0.75rem;
+      color: #78716c;
+      letter-spacing: 0.1em;
+      font-style: normal;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .comment-form {
+      background: rgba(28, 25, 23, 0.4);
+      border: 1px solid rgba(214, 188, 126, 0.1);
+      padding: 2.5rem;
+      margin-bottom: 4rem;
+    }
+    
+    .form-field {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(214, 188, 126, 0.2);
+      color: #e7e5e4;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      padding: 1rem 0;
+      width: 100%;
+      transition: border-color 0.4s ease;
+      outline: none;
+    }
+    
+    .form-field:focus {
+      border-bottom-color: var(--gold);
+    }
+    
+    .form-field::placeholder {
+      color: #78716c;
+      font-weight: 300;
+    }
+    
+    textarea.form-field {
+      min-height: 150px;
+      resize: vertical;
+      line-height: 1.8;
+    }
+    
+    .submit-btn {
+      background: transparent;
+      border: 1px solid rgba(214, 188, 126, 0.3);
+      color: var(--gold);
+      padding: 1rem 2.5rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
+    
+    .submit-btn:hover {
+      background: rgba(214, 188, 126, 0.1);
+      border-color: var(--gold);
+    }
+    
+    .comments-section {
+      margin-top: 4rem;
+      padding-top: 4rem;
+      border-top: 1px solid rgba(214, 188, 126, 0.1);
+    }
+    
+    .comments-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--gold);
+      margin-bottom: 3rem;
+      text-align: center;
+      font-style: italic;
+    }
+    
+    .comment-card {
+      background: rgba(28, 25, 23, 0.3);
+      border-left: 2px solid rgba(214, 188, 126, 0.2);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      transition: all 0.3s ease;
+    }
+    
+    .comment-card:hover {
+      border-left-color: var(--gold);
+      background: rgba(28, 25, 23, 0.5);
+    }
+    
+    .comment-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    
+    .comment-author {
+      color: var(--gold);
+      font-size: 0.875rem;
+      letter-spacing: 0.05em;
+    }
+    
+    .comment-relation {
+      color: #78716c;
+      font-size: 0.75rem;
+      font-style: italic;
+    }
+    
+    .comment-date {
+      color: #57534e;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+    }
+    
+    .comment-text {
+      color: #d6d3d1;
+      line-height: 1.9;
+      font-size: 0.95rem;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: #78716c;
+      font-style: italic;
+      border: 1px dashed rgba(214, 188, 126, 0.15);
+    }
+    
+    .poem-container {
+      border-left: 1px solid rgba(214, 188, 126, 0.2);
+      padding-left: 2.5rem;
+      margin: 3rem 0;
+    }
+    
+    .poem-line {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: #a8a29e;
+      line-height: 2.2;
+      margin-bottom: 0.75rem;
+      font-size: 1.05rem;
+    }
+    
+    .poem-line:last-child {
+      color: var(--gold);
+    }
+    
+    .nav-return {
+      position: fixed;
+      top: 2rem;
+      left: 2rem;
+      z-index: 50;
+      color: #78716c;
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .nav-return:hover {
+      color: var(--gold);
+    }
+    
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: var(--stone-950);
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: rgba(214, 188, 126, 0.2);
+      border-radius: 3px;
+    }
+    
+    ::selection {
+      background: rgba(214, 188, 126, 0.2);
+      color: #fafaf9;
+    }
+    
+    /* Debug panel para Safari */
+    .debug-panel {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0,0,0,0.9);
+      border: 1px solid var(--gold);
+      padding: 10px;
+      font-size: 11px;
+      color: #0f0;
+      font-family: monospace;
+      max-width: 300px;
+      max-height: 200px;
+      overflow: auto;
+      z-index: 9999;
+      display: none;
+    }
+    .debug-panel.visible {
+      display: block;
+    }
+  </style>
+</head>
+
+<body class="antialiased">
+
+  <!-- Painel de debug (pressione D para mostrar) -->
+  <div id="debugPanel" class="debug-panel"></div>
+
+  <a href="#main-content" class="skip-link">Pular para conteúdo principal</a>
+  
+  <a href="/foundation/foundation.html" class="nav-return" aria-label="Retornar à Hasse Foundation">
+    ← Voltar
+  </a>
+
+  <header class="min-h-[60vh] flex flex-col items-center justify-center text-center px-6 pt-24 pb-12">
+    <div class="max-w-3xl reveal">
+      <p class="text-stone-600 uppercase tracking-[0.4em] text-[10px] mb-6">In Memoriam</p>
+      <h1 class="text-5xl md:text-6xl lg:text-7xl mb-6 leading-tight font-normal">
+        Maria Alvina
+      </h1>
+      <p class="text-stone-500 text-xl md:text-2xl serif italic mb-4">Hass Gonçalves Curvo Paim</p>
+      <p class="text-gold/60 text-sm uppercase tracking-[0.3em] mb-12">1939 — 2026</p>
+    </div>
+    
+    <div class="portrait-container reveal">
+      <div class="portrait-frame">
+        <img 
+          src="/assets/img/maria-alvina.png" 
+          alt="Retrato de Maria Alvina Hass Gonçalves Curvo Paim"
+          width="400"
+          height="500"
+          loading="eager"
+        >
+      </div>
+      <p class="portrait-caption">Retrato em lápis, 2026</p>
+    </div>
+    
+    <div class="w-px h-16 bg-gradient-to-b from-gold/30 to-transparent mx-auto"></div>
+    
+    <div class="mt-12 mb-12 flex flex-col items-center">
+    <p class="text-[10px] text-gold/60 uppercase tracking-[0.2em] mb-4">Trilha Sonora Recomendada</p>
+    
+    <div class="w-full max-w-[300px] aspect-video">
+        <iframe 
+            width="100%" 
+            height="100%" 
+            src="https://www.youtube.com/embed/videoseries?list=PLI6kLIhBBwmTNMLhNtX7JfiWQt8Y0k4ko" 
+            title="Playlist Maria Alvina" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+        </iframe>
+    </div>
+</div>
+
+
+  </header>
+
+  <main id="main-content" class="max-w-3xl mx-auto px-6 pb-32">
+
+    <section class="mb-24 reveal">
+      <div class="prose-custom">
+        <p class="dropcap">Maria Alvina nasceu em Belém do Pará, em 19 de maio de 1939. Era filha de Alvina Maria Hass Gonçalves e Heitor da Costa Gonçalves, e neta de <strong>Eduard Johannes Heinrich Hass</strong> — o arquiteto botânico que transformou o pensamento sistêmico europeu em sombra e água na Praça Batista Campos.</p>
+
+        <p>Cresceu entre duas cidades: Belém, onde a família Hass deixara raízes profundas, e o Rio de Janeiro, onde construiria sua vida adulta. Formou-se em Direito e dedicou grande parte de sua carreira à <strong>Petrobras</strong>, navegando pelas estruturas corporativas com a precisão discreta que caracterizava sua linhagem.</p>
+
+        <p>Por volta dos cinquenta anos, casou-se com <strong>Milton Curvo Paim</strong>, músico e pianista. Não tiveram filhos, mas construíram uma vida em torno da música, da cultura e da companhia silenciosa de quem se compreende.</p>
+      </div>
+    </section>
+
+    <section class="mb-24 reveal">
+      <h2 class="text-2xl md:text-3xl serif italic mb-8 text-gold/80">O Cuidado e a Memória</h2>
+      
+      <div class="prose-custom">
+        <p>A ligação de Maria Alvina com a família Hass sempre foi profunda e marcada por um forte senso de responsabilidade afetiva.</p>
+<p>No Rio de Janeiro, ela manteve uma convivência muito próxima com sua mãe, Alvina Maria Hass Gonçalves, e com suas tias Clara Hass e Ida Hass, acompanhando de perto essa geração da família e oferecendo presença e cuidado em diferentes momentos de suas vidas.</p>
+<p>Esse traço de dedicação familiar fazia parte de sua natureza. Era profundamente ligada aos irmãos e tinha um espírito protetor em relação àqueles que amava.</p>
+
+        <p>Para Maria Alvina, <em>cuidado</em> não era abstração. Era presença física, era atenção diária, era a recusa de abandonar — talvez justamente porque ela mesma conhecera a experiência de ser abandonada aos cuidados de um sistema institucional que, na tentativa de curar, também feria. Ela escolheu, como resposta, tornar-se <strong>guardiã</strong>: da tia, da memória, dos vínculos.</p>
+
+        <p>Era profundamente ligada aos antepassados, especialmente aos pais e aos irmãos. E criou, ao longo das décadas, uma rede de proteção afetiva que se estendia pelas gerações. Sua casa no Rio tornou-se porto para muitos: um espaço de acolhimento onde a mesa era conversa e a presença era proteção.</p>
+      </div>
+    </section>
+
+    <section class="mb-24 reveal">
+      <h2 class="text-2xl md:text-3xl serif italic mb-12 text-gold/80 text-center">O Tempo</h2>
+      
+      <p class="text-stone-500 text-sm text-center mb-8 uppercase tracking-[0.2em]">Carlos Drummond de Andrade</p>
+      
+      <div class="poem-container">
+        <p class="poem-line">Quem teve a ideia de cortar o tempo em fatias,</p>
+        <p class="poem-line">a que se deu o nome de ano,</p>
+        <p class="poem-line">foi um individuo genial.</p>
+        <p class="poem-line">Industrializou a esperança,</p>
+        <p class="poem-line">fazendo-a funcionar no limite da exaustão.</p>
+        <p class="poem-line">Doze meses dão para qualquer ser humano se cansar</p>
+        <p class="poem-line mb-6">e entregar os pontos.</p>
+        
+        <p class="poem-line">Aí entra o milagre da renovação</p>
+        <p class="poem-line">e tudo começa outra vez, com outro número</p>
+        <p class="poem-line mb-6">e outra vontade de acreditar</p>
+        <p class="poem-line mb-6">que daqui para diante tudo vai ser diferente.</p>
+        
+        <p class="poem-line">Para você, desejo o sonho realizado,</p>
+        <p class="poem-line">o amor esperado,</p>
+        <p class="poem-line">a esperança renovada.</p>
+        <p class="poem-line">Para você, desejo todas as cores desta vida,</p>
+        <p class="poem-line">todas as alegrias que puder sorrir,</p>
+        <p class="poem-line mb-6">todas as músicas que puder emocionar.</p>
+        
+        <p class="poem-line">Para você, neste novo ano,</p>
+        <p class="poem-line">desejo que os amigos sejam mais cúmplices,</p>
+        <p class="poem-line">que sua família seja mais unida,</p>
+        <p class="poem-line mb-6">que sua vida seja mais bem vivida.</p>
+        
+        <p class="poem-line">Gostaria de lhe desejar tantas coisas…</p>
+        <p class="poem-line mb-6">Mas nada seria suficiente…</p>
+        
+        <p class="poem-line">Então desejo apenas que você tenha muitos desejos,</p>
+        <p class="poem-line">desejos grandes.</p>
+        <p class="poem-line">E que eles possam mover você a cada minuto</p>
+        <p class="poem-line">ao rumo da sua felicidade.</p>
+      </div>
+      
+      <p class="text-stone-400 text-center mt-12 italic text-sm">
+        Última mensagem enviada, dezembro de 2025:<br>
+        <span class="text-gold/60">"Um ano de 2026 com muita saúde e paz."</span>
+      </p>
+    </section>
+
+    <section class="mb-24 reveal">
+      <h2 class="text-2xl md:text-3xl serif italic mb-8 text-gold/80">A Vida em Sua Complexidade</h2>
+      
+      <div class="prose-custom">
+        <p>Maria Alvina tinha um temperamento único, alegre e festivo. Gostava de celebrar, especialmente seus aniversários, cercada de amigos e família. Mas quem a conhecia de perto sabia que essa alegria era também <em>escolha</em> — resistência contra a escuridão que, em alguns momentos da vida, a tocou de perto.</p>
+
+        <p>Em certos momentos da vida, ela atravessou períodos difíceis e conheceu de perto as limitações das formas de cuidado de seu tempo. Essa experiência, no entanto, não define sua história. Apenas acrescenta profundidade à sua trajetória: a de alguém que compreendeu, de forma íntima, a fragilidade das estruturas humanas — inclusive daquelas que existem para proteger.</p>
+
+        <p>E talvez fosse exatamente essa compreensão que a tornasse tão capaz de proteger, de acolher, de criar <em>lar</em> para quem ela conseguisse alcançar. Quem conhece a quebra desenvolve, muitas vezes, uma habilidade especial em sustentar. Ela escolheu, como resposta à própria vulnerabilidade, tornar-se <strong>guardiã</strong>.</p>
+      </div>
+    </section>
+
+    <section class="mb-32 reveal border-t border-white/5 pt-16">
+      <h2 class="text-2xl md:text-3xl serif italic mb-8 text-center">Posição na Linhagem</h2>
+      
+      <div class="prose-custom">
+        <p>Dentro da arquitetura genealógica da família Hass, Maria Alvina ocupa um lugar singular. Não foi teórica nem praticante de sistemas — foi <em>herdeira</em>, no sentido mais profundo: aquela que recebe, guarda, transmite e <em>sobrevive</em>.</p>
+
+        <p>Ela representa a prova de que o legado de Eduard Hass não se extinguiu em 1908, mas reverberou através de gerações em formas inesperadas: uma advogada no Rio de Janeiro, uma ouvinte sensível de música, alguém que transformou a experiência da vulnerabilidade em capacidade de amor.</p>
+
+        <p>O poema que ela enviou fala de <em>renovação</em>, de <em>desejos grandes</em>, de <em>felicidade</em>. Maria Alvina, que conhecera a exaustão, desejava para outros a capacidade de recomeçar. Ela mesma, tantas vezes, havia recomeçado.</p>
+
+        <p class="text-center text-gold serif italic text-xl mt-12 mb-8">
+          O tempo é cortado em fatias chamadas anos.<br>
+          Maria Alvina passou por muitos deles.<br>
+          E em cada um, deixou de si: proteção, poesia, e presença.
+        </p>
+      </div>
+      
+      <div class="text-center mt-16">
+        <p class="text-stone-500 text-xs uppercase tracking-[0.3em]">Belém do Pará — 19 de maio de 1939</p>
+        <p class="text-stone-500 text-xs uppercase tracking-[0.3em] mt-2">Rio de Janeiro — 10 de março de 2026</p>
+        <p class="text-gold/40 text-[10px] uppercase tracking-[0.4em] mt-8">🕊️</p>
+      </div>
+    </section>
+
+    <section id="memorial" class="reveal border-t border-gold/10 pt-16">
+      <h2 class="text-3xl md:text-4xl serif italic mb-4 text-center">Memorial</h2>
+      <p class="text-stone-500 text-center mb-16 text-sm">Compartilhe sua memória de Maria Alvina</p>
+
+      <div class="friendship-container reveal">
+        <div class="friendship-frame">
+          <img 
+            src="/assets/img/amizade.jpg" 
+            alt="Maria Alvina em momento de celebração com amigos e familiares"
+            width="600"
+            height="750"
+            loading="lazy"
+          >
+        </div>
+        <p class="friendship-caption">
+          "A poesia (de viver) é incomunicável."
+          <span class="author">— Carlos Drummond de Andrade</span>
+        </p>
+      </div>
+
+      <div class="comment-form">
+        <form id="commentForm">
+          <div class="mb-8">
+            <label for="nome" class="sr-only">Seu nome</label>
+            <input 
+              type="text" 
+              id="nome" 
+              name="nome" 
+              class="form-field" 
+              placeholder="Seu nome"
+              required
+            >
+          </div>
+          
+          <div class="mb-8">
+            <label for="relacao" class="sr-only">Como a conheceu</label>
+            <input 
+              type="text" 
+              id="relacao" 
+              name="relacao" 
+              class="form-field" 
+              placeholder="Como a conheceu (família, amigo, colega...)"
+            >
+          </div>
+          
+          <div class="mb-8">
+            <label for="mensagem" class="sr-only">Sua mensagem</label>
+            <textarea 
+              id="mensagem" 
+              name="mensagem" 
+              class="form-field" 
+              placeholder="Compartilhe uma memória, uma história, um momento..."
+              required
+            ></textarea>
+          </div>
+          
+          <button type="submit" class="submit-btn">
+            Publicar homenagem
+          </button>
+        </form>
+      </div>
+
+      <!-- Seção de comentários publicados -->
+      <div class="comments-section">
+        <h3 class="comments-title">Homenagens</h3>
+        
+        <div id="commentsList">
+          <!-- Estado vazio inicial -->
+          <div class="empty-state" id="emptyState">
+            <p>Nenhuma homenagem publicada ainda.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.875rem;">Seja o primeiro a compartilhar uma memória de Maria Alvina.</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="py-20 px-6 text-center border-t border-white/5 bg-stone-900/20">
+    <div class="max-w-xl mx-auto">
+      <p class="text-gold serif italic text-xl mb-6">Time is life as memory</p>
+      <p class="text-stone-600 text-xs uppercase tracking-[0.2em]">
+        <a href="/foundation/foundation.html" class="hover:text-gold transition-colors">Johann Christian Hasse Foundation</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+// ============================================
+// CONFIGURAÇÃO FIREBASE
+// ============================================
+const firebaseConfig = {
+  apiKey: "AIzaSyCt0GjXk1UtsJlH7lFfUSukq_t7gmJI5lQ",
+  authDomain: "maria-alvina-memorial-6d92e.firebaseapp.com",
+  databaseURL: "https://maria-alvina-memorial-6d92e-default-rtdb.firebaseio.com",
+  projectId: "maria-alvina-memorial-6d92e",
+  storageBucket: "maria-alvina-memorial-6d92e.firebasestorage.app",
+  messagingSenderId: "934873795505",
+  appId: "1:934873795505:web:7cbb88ffed4d3de6870b90"
+};
+
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+const commentsRef = database.ref('homenagens');
+
+const commentForm = document.getElementById('commentForm');
+const commentsList = document.getElementById('commentsList');
+const emptyState = document.getElementById('emptyState');
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function createCommentCard(comment) {
+  const card = document.createElement('div');
+  card.className = 'comment-card';
+  const date = new Date(comment.date).toLocaleDateString('pt-BR', {
+    day: 'numeric', month: 'long', year: 'numeric'
+  });
+  card.innerHTML = `
+    <div class="comment-header">
+      <div>
+        <span class="comment-author">${escapeHtml(comment.nome)}</span>
+        ${comment.relacao ? `<span class="comment-relation">${escapeHtml(comment.relacao)}</span>` : ''}
+      </div>
+      <span class="comment-date">${date}</span>
+    </div>
+    <p class="comment-text">${escapeHtml(comment.mensagem)}</p>
+  `;
+  return card;
+}
+
+// Carrega comentários
+commentsRef.on('value', (snapshot) => {
+  const comments = snapshot.val();
+  commentsList.innerHTML = '';
+  if (!comments) {
+    emptyState.style.display = 'block';
+    return;
+  }
+  emptyState.style.display = 'none';
+  const commentsArray = Object.entries(comments).map(([id, data]) => ({
+    id, ...data
+  })).sort((a, b) => new Date(b.date) - new Date(a.date));
+  commentsArray.forEach(comment => {
+    commentsList.appendChild(createCommentCard(comment));
+  });
+});
+
+// Envia comentário
+commentForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const btn = this.querySelector('.submit-btn');
+  btn.textContent = 'Publicando...';
+  btn.disabled = true;
+  const comment = {
+    nome: document.getElementById('nome').value.trim(),
+    relacao: document.getElementById('relacao').value.trim(),
+    mensagem: document.getElementById('mensagem').value.trim(),
+    date: new Date().toISOString()
+  };
+  commentsRef.push(comment).then(() => {
+    this.reset();
+    btn.textContent = 'Publicado ✓';
+    setTimeout(() => {
+      btn.textContent = 'Publicar homenagem';
+      btn.disabled = false;
+    }, 2000);
+  });
+});
+
+// Animações
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('active');
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ===== INICIALIZAÇÃO =====
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    log('=== Inicialização ===');
+    loadComments();
+    log('=== Pronto ===');
+  });
+  </script>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+  let player;
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+      height: '0',
+      width: '0',
+      playerVars: {
+        'listType': 'playlist',
+        'list': 'PLI6kLIhBBwmTNMLhNtX7JfiWQt8Y0k4ko',
+        'autoplay': 0,
+        'loop': 1
+      },
+      events: {
+        'onReady': onPlayerReady
+      }
+    });
+  }
+
+  function onPlayerReady(event) {
+    document.getElementById('playMusicBtn').addEventListener('click', function() {
+      player.playVideo();
+      this.style.display = 'none';
+    });
+  }
+</script>
+
+
+</body>
+</html>
