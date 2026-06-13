@@ -80,7 +80,10 @@
     }
     .nav-links a:hover { color: var(--ink); }
 
-    .mobile-clean-header { display: none; }
+    .mobile-clean-header,
+    .mobile-menu {
+      display: none;
+    }
 
     @media (max-width: 768px) {
       body { padding-top: 58px; }
@@ -128,6 +131,31 @@
         color: var(--ink);
         text-align: right;
         cursor: pointer;
+      }
+
+      .mobile-menu {
+        position: fixed;
+        top: 58px;
+        left: 0;
+        right: 0;
+        background: var(--bg);
+        border-bottom: 1px solid var(--rule);
+        z-index: 899;
+        flex-direction: column;
+      }
+
+      .mobile-menu.open {
+        display: flex;
+      }
+
+      .mobile-menu a {
+        padding: 16px 22px;
+        border-top: 1px solid var(--rule-lt);
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
       }
     }
 
@@ -387,10 +415,19 @@
 <body>
 
   <header class="mobile-clean-header">
-    <a href="index.html" class="mobile-sigma"><span>Σ</span></a>
-    <a href="index.html" class="mobile-logo">c-ECO</a>
-    <button class="mobile-menu-btn" aria-label="Open menu">☰</button>
+    <a href="../index.html" class="mobile-sigma"><span>Σ</span></a>
+    <a href="../index.html" class="mobile-logo">c-ECO</a>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Open menu">☰</button>
   </header>
+
+  <nav id="mobile-menu" class="mobile-menu">
+    <a href="../index.html#lead">Case File</a>
+    <a href="../index.html#observatory">Observatory</a>
+    <a href="../index.html#analysis">Analysis</a>
+    <a href="../index.html#science-clause">Science → Clause</a>
+    <a href="../index.html#field-notes">Field Notes</a>
+    <a href="../index.html#about">About</a>
+  </nav>
 
   <!-- NAV -->
   <nav class="site-nav">
@@ -557,6 +594,18 @@
     <span class="footer-brand mono">c-eco.org</span>
     <span class="footer-copy mono">Edition Nº 1 · 2026</span>
   </footer>
+
+  <script>
+    function toggleMobileMenu() {
+      document.getElementById('mobile-menu').classList.toggle('open');
+    }
+
+    document.querySelectorAll('#mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('mobile-menu').classList.remove('open');
+      });
+    });
+  </script>
 
 </body>
 </html>
