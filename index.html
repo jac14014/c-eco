@@ -1159,11 +1159,115 @@
   .fn-table {
     table-layout: fixed;
   }
+} 
+   .mobile-clean-header,
+.mobile-menu {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-clean-header {
+    display: grid;
+    grid-template-columns: 44px 1fr 44px;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 58px;
+    padding: 0 18px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--rule);
+    z-index: 900;
+  }
+
+  .mobile-sigma {
+    width: 34px;
+    height: 34px;
+    background: var(--sigma-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-sigma span {
+    font-family: 'IBM Plex Sans', 'Arial Black', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: #fff;
+    line-height: 1;
+  }
+
+  .mobile-logo {
+    font-family: 'EB Garamond', serif;
+    font-size: 30px;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    text-align: center;
+  }
+
+  .mobile-menu-btn {
+    background: none;
+    border: none;
+    font-size: 30px;
+    color: var(--ink);
+    text-align: right;
+    cursor: pointer;
+  }
+
+  .mobile-menu {
+    position: fixed;
+    top: 58px;
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--rule);
+    z-index: 899;
+    flex-direction: column;
+  }
+
+  .mobile-menu.open {
+    display: flex;
+  }
+
+  .mobile-menu a {
+    padding: 16px 22px;
+    border-top: 1px solid var(--rule-lt);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  #masthead {
+    padding-top: 58px;
+  }
 }   
   </style>
 </head>
 <body>
 
+  <header class="mobile-clean-header">
+  <a href="#" class="mobile-sigma">
+    <span>Σ</span>
+  </a>
+
+  <a href="#" class="mobile-logo">c-ECO</a>
+
+  <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Open menu">
+    ☰
+  </button>
+</header>
+
+<nav id="mobile-menu" class="mobile-menu">
+  <a href="#lead">Case File</a>
+  <a href="#observatory">Observatory</a>
+  <a href="#analysis">Analysis</a>
+  <a href="#science-clause">Science → Clause</a>
+  <a href="#field-notes">Field Notes</a>
+  <a href="#about">About</a>
+</nav>
 <!-- ═══════════════════════════════════════════════════
      STICKY NAV
 ════════════════════════════════════════════════════ -->
@@ -1936,6 +2040,16 @@
     }, { threshold: 0.35 }).observe(el);
   });
 </script>
+<script>
+function toggleMobileMenu() {
+  document.getElementById('mobile-menu').classList.toggle('open');
+}
 
+document.querySelectorAll('#mobile-menu a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.remove('open');
+  });
+});
+</script>
 </body>
 </html>
