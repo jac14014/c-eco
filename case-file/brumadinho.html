@@ -380,55 +380,52 @@
       .dossier, .aside { position: static; }
       .aside { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     }
-    @media (max-width: 640px) {
-      #sticky-nav { background: var(--bg); }
-      .sn-inner {
-        height: 58px;
-        padding: 0 18px;
+    .mobile-clean-header { display: none; }
+    @media (max-width: 768px) {
+      #sticky-nav { display: none; }
+      .mobile-clean-header {
         display: grid;
         grid-template-columns: 44px 1fr 44px;
         align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 58px;
+        padding: 0 18px;
+        background: var(--bg);
+        border-bottom: 1px solid var(--rule);
+        z-index: 900;
       }
-      .sn-brand {
-        display: contents;
-      }
-      .sn-brand > a:first-child {
-        grid-column: 1;
-        justify-self: start;
-        display: inline-flex;
-      }
-      .sn-brand > a:nth-child(2) {
-        grid-column: 2;
-        justify-self: center;
-      }
-      .sn-inner::after {
-        content: "☰";
-        grid-column: 3;
-        justify-self: end;
-        color: var(--ink);
-        font-family: 'IBM Plex Sans', sans-serif;
-        font-size: 30px;
-        line-height: 1;
-      }
-      .sn-brand .sigma-icon {
+      .mobile-sigma {
         width: 34px;
         height: 34px;
         background: #c70e0e;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
-      .sn-brand .sigma-icon span {
-        color: #fff;
+      .mobile-sigma span {
+        font-family: 'IBM Plex Sans', 'Arial Black', sans-serif;
+        font-weight: 700;
         font-size: 20px;
+        color: #fff;
+        line-height: 1;
       }
-      .sn-wordmark {
+      .mobile-logo {
         font-family: 'EB Garamond', serif;
         font-size: 30px;
         letter-spacing: 0.04em;
-        text-transform: none;
+        color: var(--ink);
+        text-align: center;
       }
-      .sn-sep,
-      .sn-ctx,
-      .sn-links {
-        display: none;
+      .mobile-menu-btn {
+        background: none;
+        border: none;
+        font-size: 30px;
+        color: var(--ink);
+        text-align: right;
+        cursor: pointer;
       }
       .article-wrap { padding: 56px 20px 60px; }
       .aside { grid-template-columns: 1fr; }
@@ -438,6 +435,12 @@
   </style>
 </head>
 <body>
+
+<header class="mobile-clean-header">
+  <a href="index.html" class="mobile-sigma"><span>Σ</span></a>
+  <a href="index.html" class="mobile-logo">c-ECO</a>
+  <button class="mobile-menu-btn" aria-label="Open menu">☰</button>
+</header>
 
 <!-- NAV -->
 <nav id="sticky-nav">

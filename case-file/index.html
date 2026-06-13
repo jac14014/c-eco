@@ -80,55 +80,54 @@
     }
     .nav-links a:hover { color: var(--ink); }
 
-    .mobile-brand { display: none; }
+    .mobile-clean-header { display: none; }
 
-    @media (max-width: 640px) {
-      .site-nav {
+    @media (max-width: 768px) {
+      body { padding-top: 58px; }
+      .site-nav { display: none; }
+      .mobile-clean-header {
         display: grid;
         grid-template-columns: 44px 1fr 44px;
         align-items: center;
-        gap: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
         height: 58px;
         padding: 0 18px;
+        background: var(--bg);
+        border-bottom: 1px solid var(--rule);
+        z-index: 900;
       }
-
-      .site-nav::after {
-        content: "☰";
-        grid-column: 3;
-        justify-self: end;
-        color: var(--ink);
-        font-family: 'IBM Plex Sans', sans-serif;
-        font-size: 30px;
-        line-height: 1;
-      }
-
-      .site-nav .sigma-icon {
-        grid-column: 1;
-        justify-self: start;
+      .mobile-sigma {
         width: 34px;
         height: 34px;
         background: var(--sigma-bg);
-        color: #fff;
-        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
-
-      .site-nav .nav-brand {
-        grid-column: 2;
-        justify-self: center;
-        font-family: 'EB Garamond', Georgia, serif;
+      .mobile-sigma span {
+        font-family: 'IBM Plex Sans', 'Arial Black', sans-serif;
+        font-weight: 700;
+        font-size: 20px;
+        color: #fff;
+        line-height: 1;
+      }
+      .mobile-logo {
+        font-family: 'EB Garamond', serif;
         font-size: 30px;
         letter-spacing: 0.04em;
-        text-transform: none;
+        color: var(--ink);
+        text-align: center;
       }
-
-      .desktop-brand,
-      .nav-section,
-      .nav-links {
-        display: none;
-      }
-
-      .mobile-brand {
-        display: inline;
+      .mobile-menu-btn {
+        background: none;
+        border: none;
+        font-size: 30px;
+        color: var(--ink);
+        text-align: right;
+        cursor: pointer;
       }
     }
 
@@ -387,10 +386,16 @@
 </head>
 <body>
 
+  <header class="mobile-clean-header">
+    <a href="index.html" class="mobile-sigma"><span>Σ</span></a>
+    <a href="index.html" class="mobile-logo">c-ECO</a>
+    <button class="mobile-menu-btn" aria-label="Open menu">☰</button>
+  </header>
+
   <!-- NAV -->
   <nav class="site-nav">
     <a href="index.html" class="sigma-icon" aria-label="c-eco.org home">Σ</a>
-    <a href="index.html" class="nav-brand"><span class="desktop-brand">c-eco.org</span><span class="mobile-brand">c-ECO</span></a>
+    <a href="index.html" class="nav-brand">c-eco.org</a>
     <span class="nav-section mono">Case Files</span>
     <ul class="nav-links">
       <li><a href="index.html">← Edition Nº 1</a></li>
