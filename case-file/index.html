@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Case Files — c-eco.org</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:        #FAF8F2;
+      --bg-warm:   #F2EFE6;
+      --ink:       #111111;
+      --body:      #2E2C28;
+      --muted:     #6B675E;
+      --dim:       #9A9490;
+      --red:       #670712;
+      --rule:      #D8D1C3;
+      --rule-lt:   #EAE6DC;
+      --sigma-bg:  #c70e0e;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--body);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .disp { font-family: 'EB Garamond', Georgia, serif; }
+    .mono { font-family: 'IBM Plex Mono', monospace; }
+
+    /* ─── NAV ─── */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 0 40px;
+      height: 52px;
+    }
+
+    .sigma-icon {
+      display: flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px;
+      background: var(--sigma-bg);
+      color: #fff;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 700; font-size: 17px;
+      flex-shrink: 0; text-decoration: none;
+    }
+
+    .nav-brand {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--ink);
+      text-decoration: none; font-weight: 500;
+    }
+
+    .nav-section {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--dim);
+    }
+
+    .nav-links { display: flex; align-items: center; gap: 24px; list-style: none; margin-left: auto; }
+    .nav-links a {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--muted); text-decoration: none;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ─── PAGE HEADER ─── */
+    .page-header {
+      border-bottom: 1px solid var(--rule);
+      padding: 64px 40px 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 0 60px;
+      align-items: end;
+    }
+
+    .page-header-left {}
+
+    .page-header-meta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: 0.24em;
+      text-transform: uppercase; color: var(--red);
+      margin-bottom: 16px;
+    }
+
+    .page-header h1 {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 44px; font-weight: 400;
+      line-height: 1.12; color: var(--ink);
+      margin-bottom: 16px;
+    }
+
+    .page-header-desc {
+      font-size: 15px; color: var(--muted);
+      max-width: 520px; line-height: 1.65;
+    }
+
+    .page-header-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-bottom: 4px;
+    }
+
+    .header-stat {}
+
+    .header-stat-n {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 40px; color: var(--ink);
+      line-height: 1;
+    }
+
+    .header-stat-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--dim);
+      margin-top: 2px;
+    }
+
+    /* ─── SERIES BAND ─── */
+    .series-band {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px;
+      border-bottom: 1px solid var(--rule-lt);
+    }
+
+    .series-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 0 14px;
+      border-bottom: 2px solid var(--red);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--red);
+    }
+
+    /* ─── MAIN ─── */
+    .page-body {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+
+    /* ─── CASE FILE CARD ─── */
+    .cf-card {
+      display: grid;
+      grid-template-columns: 60px 1fr 220px;
+      gap: 0 40px;
+      padding: 40px 0;
+      border-bottom: 1px solid var(--rule-lt);
+      text-decoration: none;
+      color: inherit;
+      align-items: start;
+    }
+
+    .cf-card:hover .cf-title { text-decoration: underline; text-decoration-color: var(--rule); }
+
+    .cf-number {
+      padding-top: 6px;
+    }
+
+    .cf-num-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 8px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--dim);
+      margin-bottom: 2px;
+    }
+
+    .cf-num-val {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 28px; color: var(--ink);
+      line-height: 1;
+    }
+
+    .cf-body {}
+
+    .cf-series {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--red);
+      margin-bottom: 8px;
+    }
+
+    .cf-title {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 26px; font-weight: 400;
+      line-height: 1.22; color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .cf-subtitle {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 16px; font-style: italic;
+      color: var(--muted); margin-bottom: 14px;
+      line-height: 1.4;
+    }
+
+    .cf-excerpt {
+      font-size: 13.5px; line-height: 1.75;
+      color: var(--body); max-width: 580px;
+      margin-bottom: 18px;
+    }
+
+    .cf-tags {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .cf-tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--muted);
+      border: 1px solid var(--rule); padding: 2px 7px;
+      border-radius: 2px;
+    }
+
+    .cf-readtime {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--dim);
+    }
+
+    .cf-sep {
+      width: 3px; height: 3px; border-radius: 50%;
+      background: var(--rule); flex-shrink: 0;
+    }
+
+    /* right meta column */
+    .cf-meta {
+      padding-top: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .cf-meta-block {}
+
+    .cf-meta-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 8px; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--dim);
+      margin-bottom: 3px;
+    }
+
+    .cf-meta-val {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; color: var(--body);
+      line-height: 1.5;
+    }
+
+    .cf-meta-val.alert { color: var(--red); }
+
+    .cf-arrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; color: var(--red);
+      margin-top: auto;
+    }
+
+    /* ─── PATTERN NOTE ─── */
+    .pattern-note {
+      margin-top: 48px;
+      padding: 28px 32px;
+      background: var(--bg-warm);
+      border-left: 3px solid var(--red);
+    }
+
+    .pattern-note-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--red);
+      margin-bottom: 12px;
+    }
+
+    .pattern-note p {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 18px; line-height: 1.6;
+      color: var(--ink); max-width: 680px;
+    }
+
+    .pattern-note-sub {
+      font-size: 13px !important;
+      font-family: 'Inter', sans-serif !important;
+      color: var(--muted) !important;
+      margin-top: 10px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--ink); color: #fff;
+      padding: 40px;
+      display: flex; align-items: center; gap: 20px;
+    }
+
+    .footer-sigma {
+      display: flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px;
+      background: var(--sigma-bg); color: #fff;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 700; font-size: 17px; flex-shrink: 0;
+    }
+
+    .footer-brand {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: rgba(255,255,255,0.7);
+    }
+
+    .footer-copy {
+      margin-left: auto;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.35);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <a href="index.html" class="sigma-icon" aria-label="c-eco.org home">Σ</a>
+    <a href="index.html" class="nav-brand">c-eco.org</a>
+    <span class="nav-section mono">Case Files</span>
+    <ul class="nav-links">
+      <li><a href="index.html">← Edition Nº 1</a></li>
+      <li><a href="analyses.html">Analysis</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <div class="page-header-left">
+      <p class="page-header-meta mono">c-eco.org · Case Files</p>
+      <h1 class="disp">The pattern<br />governance refuses<br />to break.</h1>
+      <p class="page-header-desc">
+        Each case file documents a failure that was not an accident.
+        The monitoring worked. The certifications were issued. The legal frameworks existed.
+        What was missing was a non-discretionary trigger — a threshold past which
+        the law required action, regardless of expert judgment.
+      </p>
+    </div>
+    <div class="page-header-stats">
+      <div class="header-stat">
+        <p class="header-stat-n disp">02</p>
+        <p class="header-stat-label mono">Cases documented</p>
+      </div>
+      <div class="header-stat">
+        <p class="header-stat-n disp">289</p>
+        <p class="header-stat-label mono">Deaths, combined</p>
+      </div>
+      <div class="header-stat">
+        <p class="header-stat-n disp">3y 81d</p>
+        <p class="header-stat-label mono">Between Fundão and Brumadinho</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- SERIES BAND -->
+  <div class="series-band">
+    <div class="series-tab mono">Anatomy of a Collapse — Ongoing Series</div>
+  </div>
+
+  <!-- MAIN -->
+  <main class="page-body">
+
+    <!-- CASE FILE 01: BRUMADINHO -->
+    <a href="case-file-brumadinho.html" class="cf-card">
+      <div class="cf-number">
+        <p class="cf-num-label mono">Case</p>
+        <p class="cf-num-val disp">01</p>
+      </div>
+      <div class="cf-body">
+        <p class="cf-series mono">Anatomy of a Collapse</p>
+        <h2 class="cf-title disp">Brumadinho gave warning.<br />The contract wasn't listening.</h2>
+        <p class="cf-subtitle disp">Vale · Córrego do Feijão dam · January 2019</p>
+        <p class="cf-excerpt">
+          In the 47 days before Vale's Córrego do Feijão tailings dam collapsed, the
+          dam's own monitoring system recorded anomalous readings. The data was logged.
+          It was reviewed. It was assessed against a stability model that had been
+          certified four months earlier by TÜV SÜD. The model said the dam was safe.
+          On January 25, 2019, the dam collapsed. 270 people died.
+        </p>
+        <div class="cf-tags">
+          <span class="cf-readtime mono">12 min read</span>
+          <span class="cf-sep"></span>
+          <span class="cf-tag">Brazil</span>
+          <span class="cf-tag">Mining</span>
+          <span class="cf-tag">Tailings</span>
+          <span class="cf-tag">Law</span>
+        </div>
+      </div>
+      <div class="cf-meta">
+        <div class="cf-meta-block">
+          <p class="cf-meta-label mono">Date</p>
+          <p class="cf-meta-val mono">25 Jan 2019</p>
+        </div>
+        <div class="cf-meta-block">
+          <p class="cf-meta-label mono">Deaths</p>
+          <p class="cf-meta-val mono alert">270</p>
+        </div>
+        <div class="cf-meta-block">
+          <p class="cf-meta-label mono">Location</p>
+          <p class="cf-meta-val mono">Brumadinho<br />Minas Gerais, BR</p>
+        </div>
+        <div class="cf-meta-block">
+          <p class="cf-meta-label mono">Days cert → collapse</p>
+          <p class="cf-meta-val mono alert">47 days</p>
+        </div>
+        <p class="cf-arrow mono">Read case file →</p>
+      </div>
+    </a>
+
+    <!-- CASE FILE 02: SAMARCO -->
+    <a href="case-file-samarco.html" class="cf-card">
+      <div class="cf-number">
+        <p class="cf-num-label mono">Case</p>
+        <p class="cf-num-val disp">02</p>
+      </div>
+      <div class="cf-body">
+        <p class="cf-series mono">Anatomy of a Collapse</p>
+        <h2 class="cf-title disp">The contract was working.<br />The dam was not listening.</h2>
+        <p class="cf-subtitle disp">Samarco · Fundão dam · November 2015</p>
+        <p class="cf-excerpt">
+          In 2015, the Fundão tailings dam at Samarco collapsed — 19 dead, the Rio Doce
+          contaminated for 663 kilometers, the largest environmental disaster in Brazilian
+          history. Months of anomalous pore pressure readings had been logged and reviewed.
+          The dam had been certified stable in September. The pattern is not accidental.
+          It is architectural. Four years later, Brumadinho.
+        </p>
+        <div class="cf-tags">
+          <span class="cf-readtime mono">10 min read</span>
+          <span class="cf-sep"></span>
+          <span class="cf-tag">Brazil</span>
+          <span class="cf-tag">Mining</span>
+          <span class="cf-tag">Rio Doce</span>
+          <span class="cf-tag">Infrastructure</span>
+        </div>
+      </div>
+      <div class="cf-meta">
+        <div class="cf-meta-block">
+          <p class="cf-meta-label mono">Date</p>
+          <p class="cf-meta-val mono">5 Nov 2015</p>
+        </div>
+        <div class="cf-meta-block">
+          <p class="cf-meta-label mono">Deaths</p>
+          <p class="cf-meta-val mono alert">19</p>
+        </div>
+        <div class="cf-meta-block">
+          <p class="cf-meta-label mono">Location</p>
+          <p class="cf-meta-val mono">Mariana<br />Minas Gerais, BR</p>
+        </div>
+        <div class="cf-meta-block">
+          <p class="cf-meta-label mono">Rio Doce contaminated</p>
+          <p class="cf-meta-val mono alert">663 km</p>
+        </div>
+        <p class="cf-arrow mono">Read case file →</p>
+      </div>
+    </a>
+
+    <!-- PATTERN NOTE -->
+    <div class="pattern-note">
+      <p class="pattern-note-label mono">The pattern</p>
+      <p class="disp">
+        Both dams had monitoring systems that worked.
+        Both had legal frameworks. Both had recent certifications.
+        Neither had a non-discretionary trigger.
+      </p>
+      <p class="pattern-note-sub">
+        The doctrine that explains this gap is published at
+        <a href="https://hasse.foundation" style="color:var(--red);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:11px;">hasse.foundation</a>.
+        The analysis applying it to these cases is at
+        <a href="analyses.html" style="color:var(--red);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:11px;">Analysis →</a>
+      </p>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-sigma">Σ</div>
+    <span class="footer-brand mono">c-eco.org</span>
+    <span class="footer-copy mono">Edition Nº 1 · 2026</span>
+  </footer>
+
+</body>
+</html>

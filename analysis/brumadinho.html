@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analysis — c-eco.org</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:        #FAF8F2;
+      --bg-warm:   #F2EFE6;
+      --ink:       #111111;
+      --body:      #2E2C28;
+      --muted:     #6B675E;
+      --dim:       #9A9490;
+      --red:       #670712;
+      --rule:      #D8D1C3;
+      --rule-lt:   #EAE6DC;
+      --sigma-bg:  #c70e0e;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--body);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .disp  { font-family: 'EB Garamond', Georgia, serif; }
+    .mono  { font-family: 'IBM Plex Mono', monospace; }
+
+    /* ─── NAV ─── */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 0 40px;
+      height: 52px;
+    }
+
+    .sigma-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: var(--sigma-bg);
+      color: #fff;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+
+    .nav-brand {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .nav-section {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-left: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    .mobile-brand { display: none; }
+
+    @media (max-width: 640px) {
+      .site-nav {
+        display: grid;
+        grid-template-columns: 32px 1fr 32px;
+        align-items: center;
+        gap: 0;
+        height: 52px;
+        padding: 0 20px;
+      }
+
+      .site-nav::after {
+        content: "☰";
+        grid-column: 3;
+        justify-self: end;
+        color: var(--ink);
+        font-family: 'IBM Plex Sans', sans-serif;
+        font-size: 22px;
+        line-height: 1;
+      }
+
+      .site-nav .sigma-icon {
+        grid-column: 1;
+        justify-self: start;
+        width: 32px;
+        height: 32px;
+        background: transparent;
+        color: var(--sigma-bg);
+        font-size: 22px;
+        text-shadow: 0 1px 0 #fff;
+      }
+
+      .site-nav .nav-brand {
+        grid-column: 2;
+        justify-self: center;
+        font-family: 'EB Garamond', Georgia, serif;
+        font-size: 21px;
+        letter-spacing: 0.03em;
+        text-transform: none;
+      }
+
+      .desktop-brand,
+      .nav-section,
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-brand {
+        display: inline;
+      }
+    }
+
+    /* ─── PAGE HEADER ─── */
+    .page-header {
+      border-bottom: 1px solid var(--rule);
+      padding: 64px 40px 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .page-header-meta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 16px;
+    }
+
+    .page-header h1 {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 42px;
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+
+    .page-header-desc {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.65;
+    }
+
+    /* ─── MAIN LAYOUT ─── */
+    .page-body {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+
+    /* ─── SECTION LABEL ─── */
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--dim);
+      padding: 40px 0 20px;
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .section-label::after {
+      content: '';
+      display: block;
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    /* ─── ARTICLE ENTRY ─── */
+    .entry {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 0 40px;
+      padding: 40px 0;
+      border-bottom: 1px solid var(--rule-lt);
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.15s;
+    }
+
+    .entry:hover { background: var(--bg-warm); margin: 0 -20px; padding: 40px 20px; }
+
+    .entry-number {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--dim);
+      padding-top: 4px;
+    }
+
+    .entry-body {}
+
+    .entry-kicker {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 10px;
+    }
+
+    .entry-title {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 26px;
+      font-weight: 400;
+      line-height: 1.25;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .entry-subtitle {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 17px;
+      font-style: italic;
+      color: var(--muted);
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+
+    .entry-excerpt {
+      font-size: 14px;
+      line-height: 1.72;
+      color: var(--body);
+      max-width: 640px;
+      margin-bottom: 20px;
+    }
+
+    .entry-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .entry-meta-item {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    .entry-meta-sep {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--rule);
+      flex-shrink: 0;
+    }
+
+    .entry-tag {
+      display: inline-block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--rule);
+      padding: 2px 7px;
+      border-radius: 2px;
+    }
+
+    .entry-arrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--red);
+      margin-left: auto;
+      align-self: flex-start;
+      padding-top: 6px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--ink);
+      color: #fff;
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .footer-sigma {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: var(--sigma-bg);
+      color: #fff;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+
+    .footer-brand {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .footer-copy {
+      margin-left: auto;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <a href="index.html" class="sigma-icon" aria-label="c-eco.org home">Σ</a>
+    <a href="index.html" class="nav-brand"><span class="desktop-brand">c-eco.org</span><span class="mobile-brand">c-ECO</span></a>
+    <span class="nav-section mono">Analysis</span>
+    <ul class="nav-links">
+      <li><a href="index.html">← Edition Nº 1</a></li>
+      <li><a href="case-file-brumadinho.html">Case Files</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <p class="page-header-meta mono">c-eco.org · Analysis</p>
+    <h1 class="disp">Doctrine applied<br />to case.</h1>
+    <p class="page-header-desc">
+      Each piece in this section takes a canonical doctrine from
+      <a href="https://hasse.foundation" style="color:var(--red);text-decoration:none;">hasse.foundation</a>
+      and applies it to documented cases — asking not what happened,
+      but what the law was designed to prevent, and why it did not.
+    </p>
+  </header>
+
+  <!-- MAIN -->
+  <main class="page-body">
+
+    <!-- ANALYSIS SECTION -->
+    <div class="section-label mono">Analysis</div>
+
+    <a href="#" class="entry">
+      <div class="entry-number mono">01</div>
+      <div class="entry-body">
+        <p class="entry-kicker mono">Doctrine: Temporal Integrity of Law</p>
+        <h2 class="entry-title disp">When waiting becomes governance failure</h2>
+        <p class="entry-subtitle disp">How time-neutral legal architecture converts monitoring success into regulatory collapse</p>
+        <p class="entry-excerpt">
+          In every case documented in this edition — Brumadinho, the EU Deforestation
+          Regulation, the Brazilian dam inventory — the monitoring system worked. The data
+          was certified. The science was not in dispute. What failed was not measurement
+          but architecture: legal systems designed as if time is neutral, as if a right
+          enforced in 2028 carries the same weight as one enforced before a threshold is
+          crossed. In ecological and financial governance, that assumption is catastrophic.
+          This analysis applies the doctrine of temporal integrity — the principle that
+          delay has irreversible legal consequences — to the cases documented in this
+          edition. The canonical version of this doctrine is published at hasse.foundation.
+        </p>
+        <div class="entry-meta">
+          <span class="entry-meta-item">22 min read</span>
+          <span class="entry-meta-sep"></span>
+          <span class="entry-meta-item">Source A</span>
+          <span class="entry-meta-sep"></span>
+          <span class="entry-tag">Doctrine → Case</span>
+        </div>
+      </div>
+      <span class="entry-arrow">→</span>
+    </a>
+
+    <!-- CASE FILE SECTION -->
+    <div class="section-label mono">Case File</div>
+
+    <a href="case-file-brumadinho.html" class="entry">
+      <div class="entry-number mono">01</div>
+      <div class="entry-body">
+        <p class="entry-kicker mono">Samarco · Brumadinho · Structural Failure</p>
+        <h2 class="entry-title disp">The pattern governance refuses to break</h2>
+        <p class="entry-subtitle disp">Samarco · Brumadinho · and the structural architecture of failure</p>
+        <p class="entry-excerpt">
+          In 2015, the Fundão tailings dam at Samarco collapsed — 19 dead, the Rio Doce
+          contaminated for 600 kilometers, the largest environmental disaster in Brazilian
+          history. Four years later, Brumadinho. Both had monitoring programs. Both had
+          legal frameworks. Neither had a non-discretionary trigger mechanism. The pattern
+          is not accidental. It is architectural. This case file documents the structural
+          gap that connects both failures and asks what a governance system designed to
+          interrupt that pattern would look like.
+        </p>
+        <div class="entry-meta">
+          <span class="entry-meta-item">8 min read</span>
+          <span class="entry-meta-sep"></span>
+          <span class="entry-meta-item">Source A</span>
+          <span class="entry-meta-sep"></span>
+          <span class="entry-tag">Infrastructure</span>
+          <span class="entry-tag">Law</span>
+        </div>
+      </div>
+      <span class="entry-arrow">→</span>
+    </a>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-sigma">Σ</div>
+    <span class="footer-brand mono">c-eco.org</span>
+    <span class="footer-copy mono">Edition Nº 1 · 2026</span>
+  </footer>
+
+</body>
+</html>

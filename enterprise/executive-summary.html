@@ -173,6 +173,12 @@
             color: var(--gold-dark);
             background: linear-gradient(135deg, #FDFCF8 0%, #F5F0E8 100%);
         }
+        .tab-button {
+    width: 100%;
+}
+.eco-grid {
+    grid-template-columns: 1fr;
+}
         
         @media (max-width: 768px) {
             .page { width: 100%; min-height: auto; padding: 0.2in; }
@@ -188,6 +194,69 @@
             .print-bar { display: none !important; }
             .page::before, .page::after { display: block; }
         }
+        /* =========================
+c-ECO TAB NAVIGATION
+========================= */
+
+.tab-nav {
+    display: flex;
+    justify-content: center;
+    gap: 0.08in;
+    margin: 0.15in 0 0.25in;
+    border-bottom: 1px solid var(--gold-light);
+    padding-bottom: 0.08in;
+}
+
+.tab-button {
+    padding: 0.07in 0.18in;
+    border: 1px solid var(--gold-light);
+    background: #fff;
+    color: var(--gold-dark);
+    font-family: 'Trajan Pro 3', 'Times New Roman', serif;
+    font-size: 8.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+}
+
+.tab-button:hover,
+.tab-button.active {
+    background: var(--gold);
+    color: white;
+    border-color: var(--gold);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.eco-grid {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 0.1in;
+margin: 0.15in 0;
+}
+
+.eco-card {
+border-left: 2.5px solid var(–gold);
+background: linear-gradient(135deg, #FDFCF8 0%, #F5F0E8 100%);
+padding: 0.1in 0.12in;
+font-size: 10pt;
+}
+
+.eco-card strong {
+color: var(–gold-dark);
+}
+
+@media (max-width: 768px) {
+.tab-nav {
+flex-direction: column;
+}
+
     </style>
 </head>
 <body>
@@ -216,15 +285,21 @@
         </div>
 
         <div class="content">
-            <div class="date-place">
-                Columbia, Missouri, May 2026
-            </div>
 
-            <div class="salutation">
-                Executive Summary — c-ECO (Contractual Equity & Ecological Co-Responsibility)
-            </div>
+    <div class="tab-nav">
+        <button class="tab-button active" onclick="openTab(event, 'executive-summary')">
+            Executive Summary
+        </button>
 
-            <div class="body-text">
+        <button class="tab-button" onclick="openTab(event, 'ecological-systems')">
+            Ecological Systems
+        </button>
+    </div>
+
+    <div id="executive-summary" class="tab-content active">
+        <div class="body-text">
+            <div class="section-header">Executive Summary — c-ECO</div>
+
                 <p class="no-indent"><strong>c-ECO (Contractual Equity & Ecological Co-Responsibility)</strong> is a predictive systemic governance architecture that integrates Earth system science, contract law, and prudential risk infrastructure. Developed by jurist <strong>Jacqueline A. Ennis</strong>, c-ECO reconceptualizes contracts as "temporal architectures of decision," conditioning the validity, enforceability, and continuity of legal obligations on continuous compatibility with biophysical stability and systemic reversibility.</p>
 
                 <p class="no-indent">c-ECO is not traditional environmental law nor a sanctioning regime. It is a <strong>market prudential infrastructure</strong> that operates <em>ex ante</em> — before damage materializes — converting certified scientific signals into automatic, non-discretionary legal effects.</p>
@@ -461,26 +536,151 @@
 
                 <p class="no-indent">c-ECO represents a legal innovation originating from the Amazon — where the boundary between formal compliance and material collapse is most visible — designed for global scale. It is a response to the growing institutional demand for mechanisms that convert Earth system science into executable legal action, preserving reversibility before irreversibility becomes structurally locked in.</p>
             </div>
-
-            <div class="signature-block">
-                <div class="signature">
-                    <div class="signature-line"></div>
-                    <div class="signature-name">Jacqueline A. Ennis</div>
-                    <div class="signature-title">Lead Architect & Founder, c-ECO</div>
-                </div>
-                <div class="signature">
-                    <div class="signature-line"></div>
-                    <div class="signature-name">Johann Christian Hasse Foundation</div>
-                    <div class="signature-title">Amazon Living Lab · c-eco.org</div>
-                </div>
-            </div>
-
-            <div class="doc-footer">
-                c-ECO Executive Summary · Johann Christian Hasse Foundation · May 2026<br>
-                For inquiries: board@c-eco.org · c-eco.org
-            </div>
         </div>
+
+            <div id="ecological-systems" class="tab-content">
+
+    <div class="body-text">
+
+        <div class="section-header">TDR Applications in Ecological Systems</div>
+
+        <p class="no-indent"><strong>Threshold Dynamics Research (TDR)</strong> is the scientific component of the c-ECO framework. It investigates how ecological and socio-environmental systems approach critical thresholds, tipping points, irreversible degradation, and loss of adaptive capacity.</p>
+
+        <p class="no-indent">The central premise is simple: <strong>complex systems rarely collapse without warning.</strong> Forests, river basins, fisheries, wetlands, mangroves, aquatic ecosystems, biodiversity networks, and climate-sensitive territories often exhibit measurable signals of stress long before collapse becomes visible.</p>
+
+        <div class="highlight-box">
+
+            <p><strong>TDR asks:</strong> What is happening to the system?</p>
+
+            <p><strong>TFP asks:</strong> What should governance do about it?</p>
+
+            <p><strong>c-ECO asks:</strong> How can scientific signals become timely legal and institutional action before reversibility is lost?</p>
+
+        </div>
+
+        <div class="section-header">1. Why Ecological Systems Matter</div>
+
+        <p>Ecological systems are among the most threshold-sensitive systems on Earth. They may absorb cumulative pressure for years with limited visible disturbance, but once critical thresholds are crossed, degradation may accelerate rapidly and become self-reinforcing.</p>
+
+        <p>Traditional governance mechanisms often respond after impacts become observable, litigable, or economically measurable. TDR focuses on the earlier stage: the period in which scientific indicators show declining resilience while meaningful intervention remains possible.</p>
+
+        <div class="eco-grid">
+
+            <div class="eco-card"><strong>Fisheries:</strong><br>recruitment decline, stock depletion, species composition shifts, loss of reproductive resilience.</div>
+
+            <div class="eco-card"><strong>Aquatic Ecosystems:</strong><br>contamination, trophic disruption, sediment degradation, altered water quality.</div>
+
+            <div class="eco-card"><strong>Amazon Hydrology:</strong><br>river discharge shifts, drought frequency, rainfall instability, evapotranspiration loss.</div>
+
+            <div class="eco-card"><strong>Biodiversity Integrity:</strong><br>habitat fragmentation, species abundance decline, functional diversity loss.</div>
+
+        </div>
+
+        <div class="section-header">2. Fisheries Collapse</div>
+
+        <p>Fish populations may appear stable until a critical reproductive threshold is crossed. Before collapse occurs, warning indicators may include reduced recruitment rates, increased variability in population estimates, changes in species composition, loss of age-class diversity, and reduced resilience to environmental disturbances.</p>
+
+        <div class="section-header">3. Mercury and Aquatic Contamination</div>
+
+        <p>Mercury contamination is a cumulative ecological process. By the time contamination becomes visible in public health statistics, degradation may already be widespread across sediments, fish species, trophic chains, and human communities dependent on aquatic resources.</p>
+
+        <div class="highlight-box">
+
+            <p><strong>Core TDR question:</strong> Is contamination stabilizing, improving, or moving toward a threshold beyond which ecological restoration becomes substantially more difficult?</p>
+
+        </div>
+
+        <div class="section-header">4. Amazonian Hydrological Systems</div>
+
+        <p>The Amazon functions as an interconnected hydrological system linking forests, rivers, rainfall patterns, biodiversity, carbon cycling, and regional climate stability. Declining resilience may appear through altered river discharge regimes, reduced seasonal predictability, increased drought frequency, changes in evapotranspiration, and forest fragmentation.</p>
+
+        <div class="section-header">5. Relevance for the Amazon Living Lab</div>
+
+        <p>Within the Manaus – Lower Tocantins River – Amapá – Belém Amazon Core Living Lab, TDR can support scientific evaluation of hydrological regimes, forest resilience dynamics, fisheries sustainability, aquatic ecosystem integrity, biodiversity indicators, contamination pathways, and territorial reversibility.</p>
+
+        <div class="highlight-box">
+
+            <p><strong>Amazon Core:</strong></p>
+
+            <p>• Hydrological regime monitoring</p>
+
+            <p>• Fisheries and aquatic ecosystem indicators</p>
+
+            <p>• Forest resilience and territorial reversibility</p>
+
+            <p>• Biodiversity integrity and adaptive capacity</p>
+
+            <p>• Contamination pathways and restoration thresholds</p>
+
+        </div>
+
+        <div class="section-header">6. From Science to Governance</div>
+
+        <p>TDR does not replace ecological science, public policy, environmental licensing, or judicial enforcement. Its function is to organize threshold-sensitive scientific knowledge into a governance-ready structure.</p>
+
+        <p>Within c-ECO, scientific assessments generated through TDR may be translated by the TFP into prudential bands, trigger conditions, restoration duties, contractual reconfiguration, or temporary suspension of obligations when continued performance would undermine systemic reversibility.</p>
+
+        <div class="quote-block">
+
+            <p>"The purpose is not to govern nature by contract.<br>It is to prevent contracts from accelerating ecological collapse."</p>
+
+        </div>
+
+        <p class="no-indent">For ecological scientists, c-ECO offers a bridge between early-warning science and institutional response. It creates a pathway through which measurable signals of ecological stress can become actionable before damage becomes irreversible.</p>
+
     </div>
+
+</div>
+
+<div class="signature-block">
+
+    <div class="signature">
+
+        <div class="signature-line"></div>
+
+        <div class="signature-name">Jacqueline A. Ennis</div>
+
+        <div class="signature-title">Lead Architect & Founder, c-ECO</div>
+
+    </div>
+
+    <div class="signature">
+
+        <div class="signature-line"></div>
+
+        <div class="signature-name">Johann Christian Hasse Foundation</div>
+
+        <div class="signature-title">Amazon Living Lab · c-eco.org</div>
+
+    </div>
+
+</div>
+
+<div class="doc-footer">
+
+    c-ECO Executive Summary · Johann Christian Hasse Foundation · May 2026<br>
+
+    For inquiries: board@c-eco.org · c-eco.org
+
+</div>
+    
+<script>
+function openTab(event, tabId) {
+    const contents = document.querySelectorAll('.tab-content');
+    const buttons = document.querySelectorAll('.tab-button');
+
+    contents.forEach(content => {
+        content.classList.remove('active');
+    });
+
+    buttons.forEach(button => {
+        button.classList.remove('active');
+    });
+
+    document.getElementById(tabId).classList.add('active');
+    event.currentTarget.classList.add('active');
+}
+</script>
 
 </body>
 </html>
