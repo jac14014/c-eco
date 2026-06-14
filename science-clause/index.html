@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Science → Clause — c-eco.org</title>
+  <meta name="description" content="How certified scientific data becomes legally operative contractual obligation — without managerial discretion, without delay. The c-ECO methodology." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:        #FAF8F2;
+      --bg-warm:   #F2EFE6;
+      --ink:       #111111;
+      --body:      #2E2C28;
+      --muted:     #6B675E;
+      --dim:       #9A9490;
+      --red:       #670712;
+      --rule:      #D8D1C3;
+      --rule-lt:   #EAE6DC;
+      --sigma-bg:  #c70e0e;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      background: var(--bg);
+      color: var(--body);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    .site-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--bg); border-bottom: 1px solid var(--rule);
+      display: flex; align-items: center; gap: 24px;
+      padding: 0 40px; height: 52px;
+    }
+    .sigma-icon {
+      display: flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px;
+      background: var(--sigma-bg); color: #fff;
+      font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; font-size: 17px;
+      flex-shrink: 0;
+    }
+    .nav-brand {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--ink);
+    }
+    .nav-section {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--dim);
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 24px; list-style: none; margin-left: auto;
+    }
+    .nav-links a {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      border-bottom: 1px solid var(--rule);
+      padding: 64px 40px 52px;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .page-header-meta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 20px;
+    }
+    .page-header h1 {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 56px; font-weight: 400; line-height: 1.08;
+      color: var(--ink); margin-bottom: 20px;
+    }
+    .page-header-desc {
+      font-size: 16px; color: var(--muted);
+      max-width: 640px; line-height: 1.75;
+    }
+
+    /* ── MAIN ── */
+    .page-body {
+      max-width: 1100px; margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--dim);
+      padding: 44px 0 0;
+      margin-bottom: 28px;
+      border-top: 1px solid var(--rule);
+      margin-top: 48px;
+    }
+    .section-label:first-child { margin-top: 0; border-top: none; padding-top: 44px; }
+
+    /* ── INTRO ── */
+    .intro-text {
+      max-width: 720px; padding-bottom: 8px;
+    }
+    .intro-text p {
+      font-size: 16px; line-height: 1.85; color: var(--body);
+      margin-bottom: 18px;
+    }
+    .intro-text p:last-child { margin-bottom: 0; }
+
+    /* ── PIPELINE ── */
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1px; background: var(--rule);
+      margin-top: 48px;
+      border: 1px solid var(--rule);
+    }
+    .pipeline-step {
+      background: var(--bg);
+      padding: 28px 22px 26px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .pipeline-step.pivot {
+      background: var(--bg-warm);
+      border-top: 3px solid var(--red);
+    }
+    .pipeline-layer {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--dim);
+    }
+    .pipeline-layer.red { color: var(--red); }
+    .pipeline-num {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 52px; color: var(--rule); line-height: 1;
+    }
+    .pipeline-num.red { color: rgba(103,7,18,0.18); }
+    .pipeline-title {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 22px; color: var(--ink); line-height: 1.15;
+    }
+    .pipeline-desc {
+      font-size: 12px; color: var(--muted); line-height: 1.75;
+      flex: 1;
+    }
+    .pipeline-arrow {
+      margin-top: 8px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; color: var(--dim); letter-spacing: 0.1em;
+    }
+    .pipeline-step.pivot .pipeline-arrow { color: var(--red); }
+
+    /* ── SCIENCE / CLAUSE PAIR ── */
+    .sc-pair {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: var(--rule);
+      margin-top: 48px;
+      border: 1px solid var(--rule);
+    }
+    .sc-side {
+      background: var(--bg);
+      padding: 38px 38px 34px;
+    }
+    .sc-side.clause-side {
+      background: var(--bg-warm);
+    }
+    .sc-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+      margin-bottom: 16px; padding-bottom: 12px;
+      border-bottom: 2px solid;
+    }
+    .sc-label.science { color: var(--ink); border-color: var(--ink); }
+    .sc-label.clause  { color: var(--red); border-color: var(--red); }
+    .sc-title {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 26px; color: var(--ink); line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .sc-body {
+      font-size: 14px; color: var(--body); line-height: 1.8;
+    }
+    .sc-body p + p { margin-top: 12px; }
+    .sc-quote {
+      font-size: 14px; color: var(--muted); line-height: 1.8;
+      font-style: italic;
+      border-left: 2px solid var(--red);
+      padding-left: 18px;
+      margin: 16px 0;
+    }
+    .sc-citation {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; color: var(--dim); letter-spacing: 0.08em;
+      margin-top: 16px; padding-top: 12px;
+      border-top: 1px solid var(--rule-lt);
+    }
+    .sc-why {
+      background: var(--ink); color: #fff;
+      padding: 34px 38px;
+      grid-column: 1 / -1;
+    }
+    .sc-why-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(255,255,255,0.45); margin-bottom: 12px;
+    }
+    .sc-why-text {
+      font-size: 15px; color: rgba(255,255,255,0.85); line-height: 1.8;
+      max-width: 800px;
+    }
+
+    /* ── DOCTRINE NOTE ── */
+    .doctrine-note {
+      margin-top: 48px;
+      padding: 26px 32px;
+      background: var(--bg-warm);
+      border: 1px solid var(--rule);
+      border-left: 3px solid var(--red);
+    }
+    .doctrine-note-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 10px;
+    }
+    .doctrine-note-text {
+      font-size: 14px; color: var(--body); line-height: 1.78;
+    }
+    .doctrine-note-text a { color: var(--red); border-bottom: 1px solid rgba(103,7,18,0.3); }
+    .doctrine-note-text a:hover { border-bottom-color: var(--red); }
+
+    /* ── PAGE LINKS ── */
+    .page-links {
+      padding: 40px 0 0;
+      display: flex; gap: 32px; flex-wrap: wrap;
+      border-top: 1px solid var(--rule-lt);
+      margin-top: 52px;
+    }
+    .rd-link {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--red); display: inline-flex; align-items: center; gap: 6px;
+      transition: gap 0.15s;
+    }
+    .rd-link:hover { gap: 10px; }
+    .rd-link.ink { color: var(--ink); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink); color: #fff;
+      padding: 40px; display: flex; align-items: center; gap: 20px;
+    }
+    .footer-sigma {
+      display: flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; background: var(--sigma-bg);
+      color: #fff; font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 700; font-size: 17px; flex-shrink: 0;
+    }
+    .footer-brand {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+    }
+    .footer-copy {
+      margin-left: auto;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ── MOBILE ── */
+    .mobile-clean-header { display: none; }
+    @media (max-width: 768px) {
+      body { padding-top: 58px; }
+      .site-nav { display: none; }
+      .mobile-clean-header {
+        display: grid; grid-template-columns: 44px 1fr 44px;
+        align-items: center; position: fixed; top: 0; left: 0; right: 0;
+        height: 58px; padding: 0 18px;
+        background: var(--bg); border-bottom: 1px solid var(--rule); z-index: 900;
+      }
+      .mobile-sigma {
+        width: 34px; height: 34px; background: var(--sigma-bg);
+        display: flex; align-items: center; justify-content: center;
+      }
+      .mobile-sigma span {
+        font-family: 'IBM Plex Sans', 'Arial Black', sans-serif;
+        font-weight: 700; font-size: 20px; color: #fff; line-height: 1;
+      }
+      .mobile-logo {
+        font-family: 'EB Garamond', serif; font-size: 30px;
+        letter-spacing: 0.04em; color: var(--ink); text-align: center;
+      }
+      .mobile-menu-btn {
+        background: none; border: none; font-size: 28px; color: var(--ink); cursor: pointer;
+      }
+      .page-header { padding: 44px 22px 36px; }
+      .page-header h1 { font-size: 38px; }
+      .page-header-desc { font-size: 14px; }
+      .page-body { padding: 0 22px 60px; }
+      .section-label { padding-top: 36px; margin-top: 36px; }
+      .pipeline { grid-template-columns: 1fr; }
+      .sc-pair { grid-template-columns: 1fr; }
+      .sc-why { grid-column: 1; }
+      .sc-side { padding: 28px 24px; }
+      .page-links { gap: 20px; }
+      footer { flex-wrap: wrap; }
+      .footer-copy { margin-left: 0; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="mobile-clean-header">
+    <a href="../index.html" class="mobile-sigma"><span>Σ</span></a>
+    <a href="../index.html" class="mobile-logo">c-ECO</a>
+    <button class="mobile-menu-btn" aria-label="Open menu">☰</button>
+  </header>
+
+  <nav class="site-nav">
+    <a href="../index.html" class="sigma-icon" aria-label="c-eco.org home">Σ</a>
+    <a href="../index.html" class="nav-brand" style="font-family:'IBM Plex Mono',monospace;">c-eco.org</a>
+    <span class="nav-section" style="font-family:'IBM Plex Mono',monospace;">Science → Clause</span>
+    <ul class="nav-links">
+      <li><a href="../case-file/brumadinho.html">Brumadinho Case File</a></li>
+      <li><a href="../field-notes/index.html">Field Notes</a></li>
+      <li><a href="../index.html">← Edition Nº 1</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-header">
+    <p class="page-header-meta" style="font-family:'IBM Plex Mono',monospace;">c-eco.org · Methodology</p>
+    <h1 style="font-family:'EB Garamond',Georgia,serif;">Science → Clause</h1>
+    <p class="page-header-desc">
+      How certified scientific data becomes legally operative contractual obligation —
+      without managerial discretion, without delay, without a human veto.
+      The methodology that converts monitoring into governance.
+    </p>
+  </header>
+
+  <main class="page-body">
+
+    <div class="section-label" style="font-family:'IBM Plex Mono',monospace; border-top:none; padding-top:44px; margin-top:0;">The Problem</div>
+
+    <div class="intro-text">
+      <p>
+        Every major ecological and financial threshold breach documented by c-ECO was preceded
+        by certified monitoring data that predicted it. In each case, the data existed before
+        the failure. The intervention came after. This is not a coordination problem.
+        It is a design problem.
+      </p>
+      <p>
+        The gap is structural: modern governance systems were built on the assumption that
+        certified scientific data produces legal response. It does not. Monitoring systems
+        generate data. Data generates reports. Reports generate discussions. Discussions
+        generate recommendations. Recommendations generate — nothing, unless a non-discretionary
+        mechanism connects the data to a binding obligation.
+      </p>
+      <p>
+        Science → Clause is the methodology c-ECO uses to close that gap: tracing how
+        a specific scientific signal becomes a specific legal trigger in a specific
+        contractual instrument — and documenting what happens when it does not.
+      </p>
+    </div>
+
+    <div class="section-label" style="font-family:'IBM Plex Mono',monospace;">The Pipeline · Brumadinho Case</div>
+
+    <div class="pipeline">
+      <div class="pipeline-step">
+        <span class="pipeline-layer" style="font-family:'IBM Plex Mono',monospace;">01 · Science</span>
+        <span class="pipeline-num" style="font-family:'EB Garamond',serif;">01</span>
+        <h3 class="pipeline-title" style="font-family:'EB Garamond',serif;">Detection</h3>
+        <p class="pipeline-desc">
+          InSAR satellites detect millimeter-scale surface deformation in tailings structures.
+          The Córrego do Feijão dam showed 3.4 mm/day acceleration starting 47 days before
+          collapse. The signal was commercially available, publicly observable, and unambiguous.
+        </p>
+        <span class="pipeline-arrow" style="font-family:'IBM Plex Mono',monospace;">01 → 02</span>
+      </div>
+      <div class="pipeline-step">
+        <span class="pipeline-layer" style="font-family:'IBM Plex Mono',monospace;">02 · Science → Law</span>
+        <span class="pipeline-num" style="font-family:'EB Garamond',serif;">02</span>
+        <h3 class="pipeline-title" style="font-family:'EB Garamond',serif;">Certification</h3>
+        <p class="pipeline-desc">
+          The Calibration Council (or equivalent certifying body) validates the deformation alert
+          against agreed parameters. Certification converts raw monitoring data into legally
+          operative evidence — admissible and binding without further interpretation.
+        </p>
+        <span class="pipeline-arrow" style="font-family:'IBM Plex Mono',monospace;">02 → 03</span>
+      </div>
+      <div class="pipeline-step pivot">
+        <span class="pipeline-layer red" style="font-family:'IBM Plex Mono',monospace;">03 · Threshold</span>
+        <span class="pipeline-num red" style="font-family:'EB Garamond',serif;">03</span>
+        <h3 class="pipeline-title" style="font-family:'EB Garamond',serif;">Trigger Logic</h3>
+        <p class="pipeline-desc">
+          The certified deformation rate exceeds the TFP Article 36 threshold parameter.
+          Obligations activate automatically. No managerial discretion enters the chain.
+          No human veto is permitted. The clause executes.
+        </p>
+        <span class="pipeline-arrow" style="font-family:'IBM Plex Mono',monospace;">TRIGGER ↓</span>
+      </div>
+      <div class="pipeline-step">
+        <span class="pipeline-layer" style="font-family:'IBM Plex Mono',monospace;">04 · Clause</span>
+        <span class="pipeline-num" style="font-family:'EB Garamond',serif;">04</span>
+        <h3 class="pipeline-title" style="font-family:'EB Garamond',serif;">Legal Activation</h3>
+        <p class="pipeline-desc">
+          The counterparty's contractual obligations become operative. Remediation timelines,
+          liability allocations, third-party notification requirements, and suspension protocols
+          activate as written — not as negotiated under pressure.
+        </p>
+        <span class="pipeline-arrow" style="font-family:'IBM Plex Mono',monospace;">04 → 05</span>
+      </div>
+      <div class="pipeline-step">
+        <span class="pipeline-layer" style="font-family:'IBM Plex Mono',monospace;">05 · Execution</span>
+        <span class="pipeline-num" style="font-family:'EB Garamond',serif;">05</span>
+        <h3 class="pipeline-title" style="font-family:'EB Garamond',serif;">Restoration</h3>
+        <p class="pipeline-desc">
+          Operational execution under certified protocols — 47 days before collapse, not
+          47 days after. The dam does not fail. The 270 people are not killed.
+          The clause worked because it did not require permission to work.
+        </p>
+        <span class="pipeline-arrow" style="font-family:'IBM Plex Mono',monospace;">Complete</span>
+      </div>
+    </div>
+
+    <div class="section-label" style="font-family:'IBM Plex Mono',monospace;">Paired Example · Edition Nº 1 · Brumadinho</div>
+
+    <div class="sc-pair">
+      <div class="sc-side">
+        <div class="sc-label science" style="font-family:'IBM Plex Mono',monospace;">The Science</div>
+        <h3 class="sc-title" style="font-family:'EB Garamond',serif;">InSAR Surface Deformation<br />Early Warning System</h3>
+        <div class="sc-body">
+          <p>
+            Interferometric Synthetic Aperture Radar detects surface deformation in tailings
+            structures at millimeter precision from orbital altitude. Repeat-pass InSAR
+            compares phase differences between two radar acquisitions taken days or weeks apart
+            to detect changes in surface position at sub-centimeter scale.
+          </p>
+          <p>
+            Available commercially since 2017 and standard in dam safety monitoring practice by
+            2019 — including, explicitly, for the Córrego do Feijão structure that failed
+            at Brumadinho. The signal existed 47 days before collapse. It was not connected
+            to a legal obligation. The monitoring worked. The governance did not.
+          </p>
+        </div>
+        <div class="sc-citation" style="font-family:'IBM Plex Mono',monospace;">
+          Source: InSAR monitoring program · Córrego do Feijão, Vale S.A. · 2018–2019
+        </div>
+      </div>
+
+      <div class="sc-side clause-side">
+        <div class="sc-label clause" style="font-family:'IBM Plex Mono',monospace;">The Clause</div>
+        <h3 class="sc-title" style="font-family:'EB Garamond',serif;">TFP Article 36<br />Certified Sensory Data</h3>
+        <div class="sc-body">
+          <div class="sc-quote">
+            "Upon certification by the Calibration Council that observed deformation rates have
+            exceeded the agreed threshold parameter for the relevant structure, the counterparty's
+            obligations under Schedule B activate automatically and without discretionary review.
+            Activation is non-delegable and non-waivable."
+          </div>
+          <p>
+            This model clause connects the InSAR signal to a binding legal obligation.
+            Certification by the Calibration Council is the mechanism. The threshold parameter
+            is agreed in advance, not negotiated under crisis conditions. Activation requires
+            no human decision — only the certified signal.
+          </p>
+        </div>
+        <div class="sc-citation" style="font-family:'IBM Plex Mono',monospace;">
+          Model clause · Full text: hasse.foundation · TFP Manual v1.1
+        </div>
+      </div>
+
+      <div class="sc-why">
+        <div class="sc-why-label" style="font-family:'IBM Plex Mono',monospace;">Why It Matters</div>
+        <p class="sc-why-text">
+          This clause would have required binding remediation action 47 days before the Córrego
+          do Feijão dam collapsed. The InSAR data existed. The monitoring system was active.
+          The deformation signal was commercially available and unambiguous. Without a
+          non-discretionary trigger, certified risk remained legally inert. The governance
+          architecture did not translate the signal into obligation. 270 people died
+          in a failure the data had already predicted.
+        </p>
+      </div>
+    </div>
+
+    <div class="doctrine-note">
+      <div class="doctrine-note-label" style="font-family:'IBM Plex Mono',monospace;">Doctrine</div>
+      <p class="doctrine-note-text">
+        The Science → Clause methodology is grounded in the doctrine of temporal integrity of
+        law — the principle that a legal instrument which cannot respond to certified risk
+        before a threshold is crossed has failed its primary function. Delay is not a neutral
+        attribute of legal systems. In irreversible systems, it is the mechanism of failure.
+        The canonical statement of this doctrine is published at
+        <a href="https://hasse.foundation">hasse.foundation</a>.
+        The model clause library and TFP Protocol are available at
+        <a href="https://c-eco.io">c-eco.io</a>.
+      </p>
+    </div>
+
+    <div class="page-links">
+      <a href="../field-notes/index.html" class="rd-link" style="font-family:'IBM Plex Mono',monospace;">Field Notes Nº 1 →</a>
+      <a href="../case-file/brumadinho.html" class="rd-link ink" style="font-family:'IBM Plex Mono',monospace;">Brumadinho Case File →</a>
+      <a href="../analysis/brum.html" class="rd-link ink" style="font-family:'IBM Plex Mono',monospace;">Brumadinho Analysis →</a>
+      <a href="../index.html" class="rd-link ink" style="font-family:'IBM Plex Mono',monospace;">← Back to Edition Nº 1</a>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="footer-sigma">Σ</div>
+    <span class="footer-brand" style="font-family:'IBM Plex Mono',monospace;">c-eco.org · Science → Clause</span>
+    <span class="footer-copy" style="font-family:'IBM Plex Mono',monospace;">© 2026 c-ECO</span>
+  </footer>
+
+</body>
+</html>
