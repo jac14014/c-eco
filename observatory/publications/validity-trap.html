@@ -1,305 +1,247 @@
-<!-- =========================================
-     FILE: /pt/observatory/publications/validity-trap.html
-     c-eco.org — Observatório / Publicações
-     Validity Trap: Why 2025 revealed the limits of legality
-     FULL TEXT — AUTHORIAL VERSION (NO CUTS)
-========================================== -->
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <title>Validity Trap — Observatório c-ECO</title>
-
-  <!-- SEO / Sharing -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Validity Trap — c-ECO Observatory</title>
   <meta name="description" content="Why 2025 revealed the limits of legality in a world of irreversible thresholds. An institutional essay by Jacqueline A. Ennis." />
-  <link rel="canonical" href="https://c-eco.org/pt/observatory/publications/validity-trap.html" />
-
-  <meta property="og:title" content="Validity Trap — Observatório c-ECO" />
+  <link rel="canonical" href="https://c-eco.org/observatory/publications/validity-trap.html" />
+  <meta property="og:title" content="Validity Trap — c-ECO Observatory" />
   <meta property="og:description" content="Why 2025 revealed the limits of legality in a world of irreversible thresholds." />
   <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://c-eco.org/pt/observatory/publications/validity-trap.html" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
 
   <style>
-    :root{
-      --bg:#0A1C26;
-      --fg:#FFFFFF;
-      --fg-muted: rgba(255,255,255,.86);
-      --card: rgba(255,255,255,.08);
-      --border: rgba(255,255,255,.14);
+    :root {
+      --bg:        #FAF8F2;
+      --bg-warm:   #F2EFE6;
+      --ink:       #111111;
+      --body:      #2E2C28;
+      --muted:     #6B675E;
+      --dim:       #9A9490;
+      --red:       #670712;
+      --rule:      #D8D1C3;
+      --rule-lt:   #EAE6DC;
+      --sigma-bg:  #c70e0e;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      background: var(--bg);
+      color: var(--body);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .disp { font-family: 'EB Garamond', Georgia, serif; }
+    .mono { font-family: 'IBM Plex Mono', monospace; }
+
+    /* NAV */
+    .site-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--bg); border-bottom: 1px solid var(--rule);
+      display: flex; align-items: center; gap: 24px;
+      padding: 0 40px; height: 52px;
+    }
+    .sigma-icon {
+      display: flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px;
+      background: var(--sigma-bg); color: #fff;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 700; font-size: 17px;
+      flex-shrink: 0; text-decoration: none;
+    }
+    .nav-brand {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--ink); text-decoration: none; font-weight: 500;
+    }
+    .nav-section {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--dim);
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 24px;
+      list-style: none; margin-left: auto;
+    }
+    .nav-links a {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ARTICLE */
+    .article-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 60px 40px 80px;
+    }
+    .art-kicker {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--dim); margin-bottom: 20px;
+    }
+    .art-title {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 400; line-height: 1.2;
+      color: var(--ink); margin-bottom: 14px;
+    }
+    .art-subtitle {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 1.3rem; line-height: 1.4;
+      color: var(--muted); margin-bottom: 24px;
+    }
+    .art-meta {
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--dim); margin-bottom: 48px;
+      padding-bottom: 24px; border-bottom: 1px solid var(--rule);
+    }
+    .art-meta-sep::before { content: '·'; }
+    .art-tag {
+      border: 1px solid var(--rule); padding: 2px 8px;
+      font-size: 8.5px; letter-spacing: 0.12em; color: var(--muted);
     }
 
-    *{ box-sizing:border-box; }
-
-    html, body{
-      margin:0;
-      padding:0;
-      background:var(--bg);
-      color:var(--fg);
-      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    /* BODY TEXT */
+    .art-body p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--body);
+      margin-bottom: 1.5em;
     }
+    .art-body p strong { color: var(--ink); font-weight: 600; }
+    .art-body p em { font-style: italic; }
 
-    .wrap{
-      max-width:900px;
-      margin:0 auto;
-      padding:32px 24px 64px;
+    /* CLOSING */
+    .art-byline {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--rule);
     }
-
-    a.back{
-      color:var(--fg);
-      text-decoration:none;
-      font-weight:600;
-      opacity:.9;
+    .art-byline p {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.8rem; letter-spacing: 0.06em;
+      color: var(--muted);
     }
-    a.back:hover{ opacity:1; text-decoration:underline; }
+    .art-byline strong { color: var(--ink); }
 
-    h1{
-      margin-top:14px;
-      font-size:30px;
-      letter-spacing:-.02em;
+    /* FOOTER */
+    footer {
+      margin-top: 60px; padding: 28px 40px;
+      border-top: 1px solid var(--rule);
+      display: flex; align-items: center; gap: 20px;
     }
+    .footer-sigma { font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; font-size: 17px; color: var(--sigma-bg); }
+    .footer-brand { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); }
+    .footer-copy { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--dim); margin-left: auto; }
 
-    .subtitle{
-      margin-top:10px;
-      font-size:16px;
-      font-weight:500;
-      color:var(--fg-muted);
-    }
-
-    .meta{
-      margin-top:8px;
-      font-size:.78rem;
-      letter-spacing:.10em;
-      text-transform:uppercase;
-      color:rgba(255,255,255,.70);
-    }
-
-    .card{
-      margin-top:28px;
-      padding:24px;
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:18px;
-    }
-
-    p{
-      margin:14px 0;
-      line-height:1.75;
-      color:var(--fg-muted);
-    }
-
-    footer{
-      margin-top:52px;
-      padding-top:18px;
-      border-top:1px solid var(--border);
-      font-size:13px;
-      color:var(--fg-muted);
-      text-align:right;
-    }
-
-    @media (max-width:520px){
-      footer{ text-align:left; }
+    @media (max-width: 768px) {
+      .site-nav { display: none; }
+      .article-wrap { padding: 32px 20px 60px; }
+      footer { padding: 20px; }
     }
   </style>
 </head>
-
 <body>
-  <div class="wrap">
 
-    <a class="back" href="/pt/observatory/publications/">← Publications</a>
+  <nav class="site-nav">
+    <a href="../../index.html" class="sigma-icon" aria-label="c-eco.org home">Σ</a>
+    <a href="../../index.html" class="nav-brand">c-eco.org</a>
+    <span class="nav-section">Observatory · Publication</span>
+    <ul class="nav-links">
+      <li><a href="../index.html">← Observatory</a></li>
+      <li><a href="from-orbit-to-the-high-seas.html">From Orbit →</a></li>
+      <li><a href="../../science-clause/index.html">Science → Clause</a></li>
+    </ul>
+  </nav>
 
-    <h1>Validity Trap</h1>
-    <div class="subtitle">
-      Why 2025 revealed the limits of legality in a world of irreversible thresholds
+  <article class="article-wrap">
+
+    <p class="art-kicker">// Observatory · Institutional Essay · 2025</p>
+    <h1 class="art-title disp">Validity Trap</h1>
+    <p class="art-subtitle disp">Why 2025 revealed the limits of legality in a world of irreversible thresholds</p>
+
+    <div class="art-meta">
+      <span>2025 Retrospective</span>
+      <span class="art-meta-sep"></span>
+      <span>Institutional Essay</span>
+      <span class="art-meta-sep"></span>
+      <span>Jacqueline A. Ennis · c-ECO</span>
+      <span class="art-meta-sep"></span>
+      <span class="art-tag">Doctrine</span>
+      <span class="art-tag">Systemic Risk</span>
+      <span class="art-tag">Legality</span>
     </div>
 
-    <div class="meta">
-      Institutional Essay · c-ECO Observatory · 2025
-    </div>
+    <div class="art-body">
 
-    <div class="card">
+      <p>By the end of 2025, an uncomfortable truth had become impossible to ignore. The year's most consequential failures did not arise from lawlessness, regulatory absence, or a lack of information. They emerged from decisions that were entirely legal — and yet crossed irreversible thresholds.</p>
 
-      <p>
-        By the end of 2025, an uncomfortable truth had become impossible to ignore.
-        The year’s most consequential failures did not arise from lawlessness,
-        regulatory absence, or a lack of information.
-        They emerged from decisions that were entirely legal — and yet crossed irreversible thresholds.
-      </p>
+      <p>Across climate, technology, trade, and infrastructure, the governing question quietly shifted from <em>"Is this legal?"</em> to something far more destabilizing: <strong>at what point must legality itself cease to confer authorization to prevent catastrophe?</strong></p>
 
-      <p>
-        Across climate, technology, trade, and infrastructure,
-        the governing question quietly shifted from
-        <em>“Is this legal?”</em>
-        to something far more destabilizing:
-        <strong>at what point must legality itself cease to confer authorization to prevent catastrophe?</strong>
-      </p>
+      <p>That question became tangible in November, when world leaders gathered in Belém for COP30, negotiating climate commitments in the symbolic heart of the Amazon.</p>
 
-      <p>
-        That question became tangible in November,
-        when world leaders gathered in Belém for COP30,
-        negotiating climate commitments in the symbolic heart of the Amazon.
-      </p>
+      <p>Just kilometers away, however, the past refused to remain contained. The tenth anniversary of the <em>MV Haidar</em> shipwreck marked a decade since the livestock carrier sank at the Port of Vila do Conde with nearly 5,000 animals aboard.</p>
 
-      <p>
-        Just kilometers away, however, the past refused to remain contained.
-        The tenth anniversary of the <em>MV Haidar</em> shipwreck marked a decade
-        since the livestock carrier sank at the Port of Vila do Conde
-        with nearly 5,000 animals aboard.
-      </p>
+      <p>The image of the submerged hull off Barcarena has since become a grim metonym for the lag embedded in global legal architectures. Despite years of litigation, the wreck remains in place, still harboring an estimated 215,000 liters of oily residues and the skeletal remains of its cargo.</p>
 
-      <p>
-        The image of the submerged hull off Barcarena has since become
-        a grim metonym for the lag embedded in global legal architectures.
-        Despite years of litigation, the wreck remains in place,
-        still harboring an estimated 215,000 liters of oily residues
-        and the skeletal remains of its cargo.
-      </p>
+      <p>As COP30 delegates debated future climate finance, Brazilian federal prosecutors filed a new, urgent lawsuit in late November 2025 demanding the hull's immediate removal.</p>
 
-      <p>
-        As COP30 delegates debated future climate finance,
-        Brazilian federal prosecutors filed a new, urgent lawsuit
-        in late November 2025 demanding the hull’s immediate removal.
-      </p>
+      <p>The Haidar is no longer merely a local tragedy of impunity or cruelty. It has become a systemic warning. It illustrates a world in which legal validity persists long after a system has entered a state of constant threat — allowing damage to harden into permanence while the mechanisms of response remain trapped within the procedural certainties they were designed to uphold.</p>
 
-      <p>
-        The Haidar is no longer merely a local tragedy of impunity or cruelty.
-        It has become a systemic warning.
-        It illustrates a world in which legal validity persists
-        long after a system has entered a state of constant threat —
-        allowing damage to harden into permanence
-        while the mechanisms of response remain trapped
-        within the procedural certainties they were designed to uphold.
-      </p>
+      <p>Throughout 2025, this pattern repeated across geographies and sectors. Climate destruction increasingly entered public discourse not as a failure of governance, but as a matter of accounting.</p>
 
-      <p>
-        Throughout 2025, this pattern repeated across geographies and sectors.
-        Climate destruction increasingly entered public discourse
-        not as a failure of governance,
-        but as a matter of accounting.
-      </p>
+      <p>Disasters were framed in financial terms — insured losses, reconstruction costs, economic exposure — rather than as signals of systemic breakdown. The normalization mattered. When destruction becomes a line item, it indicates that risk has been fully absorbed into pricing models, even where the underlying harm is irreversible.</p>
 
-      <p>
-        Disasters were framed in financial terms —
-        insured losses, reconstruction costs, economic exposure —
-        rather than as signals of systemic breakdown.
-        The normalization mattered.
-        When destruction becomes a line item,
-        it indicates that risk has been fully absorbed into pricing models,
-        even where the underlying harm is irreversible.
-      </p>
+      <p>What remained conspicuously absent was a legal mechanism capable of stating that an activity may remain profitable, <strong>yet no longer deserves authorization to proceed.</strong></p>
 
-      <p>
-        What remained conspicuously absent
-        was a legal mechanism capable of stating
-        that an activity may remain profitable,
-        yet no longer deserves authorization to proceed.
-      </p>
+      <p>A parallel lesson emerged from artificial-intelligence governance. In 2025, oversight moved decisively from abstract ethical principles to concrete enforcement as the EU AI Act entered its applicability phase.</p>
 
-      <p>
-        A parallel lesson emerged from artificial-intelligence governance.
-        In 2025, oversight moved decisively
-        from abstract ethical principles to concrete enforcement
-        as the EU AI Act entered its applicability phase.
-      </p>
+      <p>The transition clarified a point often obscured by debates about transparency and disclosure: information alone does not prevent harm. Signals matter only when they alter legal authorization.</p>
 
-      <p>
-        The transition clarified a point often obscured by debates
-        about transparency and disclosure:
-        information alone does not prevent harm.
-        Signals matter only when they alter legal authorization.
-      </p>
+      <p>AI regulation offered a case study in what happens when systems begin to encode limits — and how late such encoding often arrives, after architectures, incentives, and dependencies have already hardened.</p>
 
-      <p>
-        AI regulation offered a case study
-        in what happens when systems begin to encode limits —
-        and how late such encoding often arrives,
-        after architectures, incentives, and dependencies
-        have already hardened.
-      </p>
+      <p>At the same time, regulators began to reassess contracts themselves. Terms and conditions were no longer treated as administrative fine print, but as infrastructure — structures that shape markets, allocate power, and pre-configure behavior.</p>
 
-      <p>
-        At the same time, regulators began to reassess contracts themselves.
-        Terms and conditions were no longer treated as administrative fine print,
-        but as infrastructure —
-        structures that shape markets,
-        allocate power,
-        and pre-configure behavior.
-      </p>
+      <p>Antitrust and platform actions reflected a growing recognition that contracts are not neutral instruments. When mis-designed, they do not merely facilitate exchange; they amplify systemic risk. When constrained, they can prevent it.</p>
 
-      <p>
-        Antitrust and platform actions reflected
-        a growing recognition that contracts are not neutral instruments.
-        When mis-designed, they do not merely facilitate exchange;
-        they amplify systemic risk.
-        When constrained, they can prevent it.
-      </p>
+      <p>All of this unfolded amid overlapping shocks. Throughout 2025, geopolitical conflict, technological acceleration, and ecological stress interacted in ways that defied compartmentalized legal responses.</p>
 
-      <p>
-        All of this unfolded amid overlapping shocks.
-        Throughout 2025, geopolitical conflict,
-        technological acceleration,
-        and ecological stress interacted
-        in ways that defied compartmentalized legal responses.
-      </p>
+      <p>Failures were rarely sudden or spectacular. They were procedural — decisions made "by the book," within systems optimized for speed, continuity, and efficiency rather than endurance.</p>
 
-      <p>
-        Failures were rarely sudden or spectacular.
-        They were procedural —
-        decisions made “by the book,”
-        within systems optimized for speed,
-        continuity,
-        and efficiency
-        rather than endurance.
-      </p>
+      <p>Taken together, the year made one structural truth difficult to dispute: <strong>liability after harm is no substitute for validity before harm.</strong></p>
 
-      <p>
-        Taken together, the year made one structural truth
-        difficult to dispute:
-        <strong>liability after harm is no substitute for validity before harm.</strong>
-      </p>
+      <p>Systems that rely primarily on compensation, insurance, or ex post accountability concede too much to momentum already in motion.</p>
 
-      <p>
-        Systems that rely primarily on compensation,
-        insurance,
-        or ex post accountability
-        concede too much to momentum already in motion.
-      </p>
+      <p>In the information-saturated landscape of early 2026, the critical weakness is no longer ignorance, but lag — the gap between material stress and legal response.</p>
 
-      <p>
-        In the information-saturated landscape of early 2026,
-        the critical weakness is no longer ignorance,
-        but lag —
-        the gap between material stress and legal response.
-      </p>
+      <p>The unresolved question is whether legal architectures can register strain before it hardens into catastrophe.</p>
 
-      <p>
-        The unresolved question is whether legal architectures
-        can register strain before it hardens into catastrophe.
-      </p>
-
-      <p>
-        Some emerging approaches, including c-ECO,
-        reflect this shift by treating contracts
-        not as fixed commitments,
-        but as instruments whose validity is designed to erode in advance —
-        not after collapse,
-        but while intervention is still possible.
-      </p>
-
-      <p>
-        <strong>Jacqueline A. Ennis</strong><br>
-        Founder · c-ECO
-      </p>
+      <p>Some emerging approaches, including c-ECO, reflect this shift by treating contracts not as fixed commitments, but as instruments whose validity is designed to erode in advance — not after collapse, but while intervention is still possible.</p>
 
     </div>
 
-    <footer>
-      © 2025 c-ECO. All rights reserved.<br>
-      No part of this publication may be reproduced or distributed without prior written permission,
-      except for brief quotations with attribution.
-    </footer>
+    <div class="art-byline">
+      <p><strong>Jacqueline A. Ennis</strong></p>
+      <p>Founder · c-ECO · 2025</p>
+    </div>
 
-  </div>
+  </article>
+
+  <footer>
+    <div class="footer-sigma">Σ</div>
+    <span class="footer-brand mono">c-eco.org</span>
+    <span class="footer-copy mono">Observatory · 2025</span>
+  </footer>
+
 </body>
 </html>
