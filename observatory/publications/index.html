@@ -1,1 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Publications — Observatory — c-eco.org</title>
+  <meta name="description" content="Observatory publications — institutional essays and applied analyses on legality, governability, and systemic risk. c-ECO." />
+  <link rel="canonical" href="https://c-eco.org/observatory/publications/index.html" />
 
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg:#FAF8F2; --bg-warm:#F2EFE6; --ink:#111111; --body:#2E2C28;
+      --muted:#6B675E; --dim:#9A9490; --red:#670712;
+      --rule:#D8D1C3; --rule-lt:#EAE6DC; --sigma-bg:#c70e0e;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body { background: var(--bg); color: var(--body); font-family: 'Inter', sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .disp { font-family: 'EB Garamond', Georgia, serif; }
+    .mono { font-family: 'IBM Plex Mono', monospace; }
+
+    .site-nav { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--rule); display: flex; align-items: center; gap: 24px; padding: 0 40px; height: 52px; }
+    .sigma-icon { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: var(--sigma-bg); color: #fff; font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; font-size: 17px; flex-shrink: 0; text-decoration: none; }
+    .nav-brand { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); text-decoration: none; font-weight: 500; }
+    .nav-section { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); }
+    .nav-links { display: flex; align-items: center; gap: 24px; list-style: none; margin-left: auto; }
+    .nav-links a { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
+    .nav-links a:hover { color: var(--ink); }
+
+    .page-header { padding: 60px 40px 36px; border-bottom: 1px solid var(--rule); max-width: 860px; }
+    .page-kicker { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dim); margin-bottom: 18px; }
+    .page-title { font-family: 'EB Garamond', Georgia, serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 400; line-height: 1.2; color: var(--ink); margin-bottom: 14px; }
+    .page-desc { font-size: 0.95rem; color: var(--muted); max-width: 560px; line-height: 1.75; }
+
+    .entries { padding: 0 40px; max-width: 860px; }
+    .entry { display: grid; grid-template-columns: 48px 1fr 24px; gap: 20px; align-items: start; padding: 32px 0; border-bottom: 1px solid var(--rule-lt); text-decoration: none; color: inherit; transition: background 0.15s; }
+    .entry:last-child { border-bottom: none; }
+    .entry:hover { background: var(--bg-warm); margin: 0 -16px; padding: 32px 16px; }
+    .entry-number { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--dim); padding-top: 6px; }
+    .entry-kicker { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .entry-title { font-family: 'EB Garamond', Georgia, serif; font-size: 1.4rem; font-weight: 400; line-height: 1.3; color: var(--ink); margin-bottom: 6px; }
+    .entry-subtitle { font-family: 'EB Garamond', Georgia, serif; font-style: italic; font-size: 1rem; color: var(--muted); margin-bottom: 10px; }
+    .entry-excerpt { font-size: 0.875rem; color: var(--body); line-height: 1.65; margin-bottom: 12px; }
+    .entry-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--dim); }
+    .entry-meta-sep::before { content: '·'; }
+    .entry-tag { border: 1px solid var(--rule); padding: 2px 7px; font-size: 8.5px; letter-spacing: 0.12em; color: var(--muted); }
+    .entry-arrow { color: var(--dim); font-size: 1.1rem; padding-top: 4px; transition: color 0.15s; }
+    .entry:hover .entry-arrow { color: var(--red); }
+
+    footer { margin-top: 60px; padding: 28px 40px; border-top: 1px solid var(--rule); display: flex; align-items: center; gap: 20px; }
+    .footer-sigma { font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; font-size: 17px; color: var(--sigma-bg); }
+    .footer-brand { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); }
+    .footer-copy { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--dim); margin-left: auto; }
+
+    @media (max-width: 768px) { .site-nav { display: none; } .page-header, .entries { padding-left: 20px; padding-right: 20px; } .entry { grid-template-columns: 32px 1fr 16px; gap: 12px; } .entry:hover { margin: 0; padding: 32px 0; } footer { padding: 20px; } }
+  </style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <a href="../../index.html" class="sigma-icon" aria-label="c-eco.org home">Σ</a>
+    <a href="../../index.html" class="nav-brand">c-eco.org</a>
+    <span class="nav-section">Observatory · Publications</span>
+    <ul class="nav-links">
+      <li><a href="../index.html">← Observatory</a></li>
+      <li><a href="../case-studies/index.html">Case Studies</a></li>
+      <li><a href="../playbooks/index.html">Playbooks</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-header">
+    <p class="page-kicker">// Observatory · Publications</p>
+    <h1 class="page-title disp">Institutional essays &amp; applied analyses</h1>
+    <p class="page-desc">Analyses grounded in observable events, not normative prescriptions. Subject: the structural conditions under which legality persists after material governability has already been consumed.</p>
+  </header>
+
+  <div class="entries">
+
+    <a href="validity-trap.html" class="entry">
+      <div class="entry-number mono">01</div>
+      <div class="entry-body">
+        <p class="entry-kicker mono">Editorial — Systemic Risk · Legality · 2025</p>
+        <h2 class="entry-title disp">Validity Trap</h2>
+        <p class="entry-subtitle disp">Why 2025 revealed the limits of legality in a world of irreversible thresholds</p>
+        <p class="entry-excerpt">At what point must legality itself cease to confer authorization to prevent catastrophe? This retrospective examines five factual observations from 2025 that reveal a recurring structural pattern: the persistence of legal authorization even after the erosion of material governability.</p>
+        <div class="entry-meta">
+          <span>2025 Retrospective</span>
+          <span class="entry-meta-sep"></span>
+          <span>Essay</span>
+          <span class="entry-meta-sep"></span>
+          <span>Jacqueline A. Ennis</span>
+          <span class="entry-meta-sep"></span>
+          <span class="entry-tag">Doctrine</span>
+          <span class="entry-tag">Systemic risk</span>
+        </div>
+      </div>
+      <span class="entry-arrow">→</span>
+    </a>
+
+    <a href="from-orbit-to-the-high-seas.html" class="entry">
+      <div class="entry-number mono">02</div>
+      <div class="entry-body">
+        <p class="entry-kicker mono">Applied Study — Space · BBNJ · 2026</p>
+        <h2 class="entry-title disp">From Orbit to the High Seas</h2>
+        <p class="entry-subtitle disp">Why c-ECO is the missing link for BBNJ compliance</p>
+        <p class="entry-excerpt">Space operations, reentry, and ocean biodiversity governance collide in 2026. This essay describes a structural gap between compartmentalized regimes and how c-ECO translates cross-domain obligations into auditable contractual and licensing clauses.</p>
+        <div class="entry-meta">
+          <span>2026</span>
+          <span class="entry-meta-sep"></span>
+          <span>Applied Study</span>
+          <span class="entry-meta-sep"></span>
+          <span class="entry-tag">BBNJ</span>
+          <span class="entry-tag">Space Law</span>
+          <span class="entry-tag">Cumulativity</span>
+        </div>
+      </div>
+      <span class="entry-arrow">→</span>
+    </a>
+
+  </div>
+
+  <footer>
+    <div class="footer-sigma">Σ</div>
+    <span class="footer-brand mono">c-eco.org</span>
+    <span class="footer-copy mono">Observatory · Publications · 2026</span>
+  </footer>
+
+</body>
+</html>
