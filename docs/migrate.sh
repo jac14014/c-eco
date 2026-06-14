@@ -179,9 +179,9 @@ Botanickiel .PNG|assets/img/botanickiel.png
 daniel.PNG|assets/img/daniel.png
 eduard.PNG|assets/img/eduard.png
 erelyn-alves.PNG|assets/img/erelyn-alves.png
-fellow-poster-pt.PNG|assets/img/fellow-poster-pt.png
-fellow-poster.PNG|assets/img/fellow-poster.png
-fellow.PNG|assets/img/fellow.png
+fellow-poster-pt.PNG|assets/img/fellowship/fellow-poster-pt.png
+fellow-poster.PNG|assets/img/fellowship/fellow-poster.png
+fellow.PNG|assets/img/fellowship/fellowcoin.png
 flavia.PNG|assets/img/flavia.png
 flavia.jpg|assets/img/flavia.jpg
 hasse-memory.png|assets/img/hasse-memory.png
@@ -193,19 +193,19 @@ kiel-university.PNG|assets/img/kiel-university.png
 lineage.PNG|assets/img/lineage.png
 logo.png|assets/img/logo.png
 logoblack.png|assets/img/logoblack.png
-logofundopreto.PNG|assets/img/logofundopreto.png
+logofundopreto.PNG|assets/img/fellowship/shieldfundored.png
 logoiconblack.png|assets/img/logoiconblack.png
 logoiconwhite.png|assets/img/logoiconwhite.png
 logonoblack.png|assets/img/logonoblack.png
 logonowhite.png|assets/img/logonowhite.png
-logowhite.png|assets/img/logowhite.png
+logowhite.png|assets/img/fellowship/shield-logo.PNG
 mangotree .JPG|assets/img/mangotree.jpg
 manuscript .JPG|assets/img/manuscript.jpg
 maria-alvina.PNG|assets/img/maria-alvina.png
-red.PNG|assets/img/red.png
+red.PNG|assets/img/fellowship/shieldred.png
 seal.PNG|assets/img/seal.png
 sign.png|assets/img/sign.png
-signx.png|assets/img/signx.png
+signx.png|assets/img/fellowship/fellowship-logo.PNG
 vika.png|assets/img/vika.png
 icon-1024.PNG|assets/icons/icon-1024.png
 icon-1254.PNG|assets/icons/icon-1254.png
