@@ -1,678 +1,1649 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Systemic Intelligence Library V4.0 | Defense &amp; Strategic Security Systems | c-ECO</title>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg: #f6f7f9;
-  --text: #1a1a1a;
-  --text-light: #4a4a4a;
-  --accent: #1d3a5f;
-  --accent-light: #2c5282;
-  --accent-dark: #122438;
-  --border: #c2d0de;
-  --card-bg: #ffffff;
-  --sidebar-bg: #eef2f6;
-  --header-gradient: linear-gradient(135deg, #122438 0%, #1d3a5f 50%, #2c5282 100%);
-  --code-bg: #eef2f6;
-  --warning: #c0392b;
-  --success: #27ae60;
-  --info: #2980b9;
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow">
+  <title>SIL — DSSS: Defense &amp; Strategic Security Systems | c-ECO Fellowship</title>
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
 
-body {
-  font-family: 'Inter', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.7;
-  font-size: 15px;
-}
+  <style>
+  :root{
+    --sidebar-width: 340px;
+    --earth-green: #1e3a2f;
+    --gold-accent: #d4a373;
+    --bg-body: #f5f7f4;
+    --text-main: #1a1a1a;
+    --border-color: #d4d8d4;
+    --soft-bg: #fafcfa;
+    --soft-blue: #f0f7ff;
+    --submission-accent: #2c5282;
+    --muted-text: #596559;
+    --alert-red: #9b2c2c;
+    --warning-amber: #b7791f;
+  }
 
-/* Header */
-.site-header {
-  background: var(--header-gradient);
-  color: white;
-  padding: 2.5rem 3rem;
-  position: relative;
-  overflow: hidden;
-}
-.site-header::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -10%;
-  width: 500px;
-  height: 500px;
-  background: rgba(255,255,255,0.05);
-  border-radius: 50%;
-}
-.header-meta {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  opacity: 0.85;
-  margin-bottom: 0.5rem;
-}
-.header-title {
-  font-family: 'Libre Baskerville', serif;
-  font-size: 2.2rem;
-  font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 0.5rem;
-}
-.header-subtitle {
-  font-size: 1rem;
-  opacity: 0.9;
-  font-weight: 300;
-}
-.header-badge {
-  display: inline-block;
-  background: rgba(255,255,255,0.2);
-  padding: 0.3rem 0.8rem;
-  border-radius: 4px;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: 1rem;
-}
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
 
-/* Layout */
-.container {
-  display: flex;
-  max-width: 1600px;
-  margin: 0 auto;
-}
+  body{
+    margin:0;
+    background:var(--bg-body);
+    color:var(--text-main);
+    font-family:'Inter', sans-serif;
+    line-height:1.65;
+  }
 
-/* Sidebar */
-.sidebar {
-  width: 320px;
-  background: var(--sidebar-bg);
-  border-right: 1px solid var(--border);
-  height: 100vh;
-  position: sticky;
-  top: 0;
-  overflow-y: auto;
-  padding: 1.5rem;
-}
-.sidebar-search {
-  width: 100%;
-  padding: 0.7rem 1rem;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.85rem;
-  margin-bottom: 1.5rem;
-  background: white;
-}
-.sidebar-search:focus {
-  outline: none;
-  border-color: var(--accent);
-}
+  /* ===== SIDEBAR ===== */
+  .sidebar{
+    width:var(--sidebar-width);
+    position:fixed;
+    top:0; left:0;
+    height:100vh;
+    background:#fff;
+    border-right:1px solid var(--border-color);
+    padding:16px;
+    overflow-y:auto;
+    z-index:1000;
+    -webkit-overflow-scrolling:touch;
+    transition:transform .3s ease;
+  }
 
-.nav-section {
-  margin-bottom: 1.2rem;
-}
-.nav-section-title {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--accent);
-  font-weight: 700;
-  margin-bottom: 0.6rem;
-  padding-left: 0.5rem;
-}
-.nav-link {
-  display: block;
-  padding: 0.4rem 0.8rem;
-  color: var(--text-light);
-  text-decoration: none;
-  font-size: 0.82rem;
-  border-radius: 4px;
-  transition: all 0.2s;
-  border-left: 3px solid transparent;
-}
-.nav-link:hover, .nav-link.active {
-  background: rgba(29,58,95,0.08);
-  color: var(--accent-dark);
-  border-left-color: var(--accent);
-}
-.nav-link.sub {
-  padding-left: 1.5rem;
-  font-size: 0.78rem;
-}
+  .sidebar-top{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding-bottom:10px;
+    margin-bottom:12px;
+    border-bottom:2px solid var(--gold-accent);
+  }
 
-/* Main Content */
-.main-content {
-  flex: 1;
-  padding: 2.5rem 3rem;
-  max-width: 1100px;
-}
+  .logo-box{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:40px; height:40px;
+    border:1px solid var(--border-color);
+    background:#fff;
+    color:var(--earth-green);
+    font-weight:900;
+    font-size:1.2rem;
+    text-decoration:none;
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+    flex-shrink:0;
+  }
 
-/* Part Headers */
-.part-header {
-  background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 100%);
-  color: white;
-  padding: 1.5rem 2rem;
-  border-radius: 8px;
-  margin: 2rem 0 1.5rem;
-  position: relative;
-}
-.part-header::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: rgba(255,255,255,0.3);
-  border-radius: 0 0 8px 8px;
-}
-.part-number {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  opacity: 0.85;
-  margin-bottom: 0.3rem;
-}
-.part-title {
-  font-family: 'Libre Baskerville', serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-}
+  .sidebar-title{
+    font-weight:800;
+    font-size:11px;
+    letter-spacing:1px;
+    color:var(--earth-green);
+    text-transform:uppercase;
+    line-height:1.2;
+    margin:0;
+  }
 
-/* Section styling */
-.section {
-  margin-bottom: 2rem;
-}
-.section-title {
-  font-family: 'Libre Baskerville', serif;
-  font-size: 1.25rem;
-  color: var(--accent-dark);
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--border);
-}
-.subsection-title {
-  font-family: 'Libre Baskerville', serif;
-  font-size: 1rem;
-  color: var(--accent-dark);
-  margin: 1.5rem 0 0.5rem;
-}
+  .search-container{
+    margin-bottom:12px;
+    position:sticky;
+    top:0;
+    background:#fff;
+    z-index:10;
+    padding-bottom:8px;
+  }
 
-/* Clause/Article boxes */
-.clause-box {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-}
-.clause-header {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  margin-bottom: 0.8rem;
-}
-.clause-number {
-  background: var(--accent);
-  color: white;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 6px;
-  font-weight: 700;
-  font-size: 0.85rem;
-  flex-shrink: 0;
-}
-.clause-title {
-  font-weight: 600;
-  font-size: 1rem;
-  color: var(--accent-dark);
-}
+  #sidebarSearch{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid var(--border-color);
+    border-radius:4px;
+    font-family:'Inter', sans-serif;
+    font-size:13px;
+    outline:none;
+  }
 
-/* Tables */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1rem 0;
-  font-size: 0.85rem;
-  background: white;
-  border-radius: 6px;
-  overflow: hidden;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-}
-th {
-  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
-  color: white;
-  padding: 0.7rem 0.9rem;
-  text-align: left;
-  font-weight: 600;
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-td {
-  padding: 0.7rem 0.9rem;
-  border-bottom: 1px solid #eee;
-  vertical-align: top;
-}
-tr:nth-child(even) { background: #f7f9fb; }
-tr:hover { background: #eef3f8; }
+  #sidebarSearch:focus{
+    border-color:var(--gold-accent);
+    box-shadow:0 0 0 3px rgba(212,163,115,.15);
+  }
 
-/* Risk level badges */
-.badge {
-  display: inline-block;
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-.badge-critical { background: #fde8e8; color: #c0392b; }
-.badge-high { background: #fef3e2; color: #d68910; }
-.badge-medium { background: #e8f6f3; color: #1e8449; }
-.badge-low { background: #eaf2f8; color: #2471a3; }
+  .nav-list{ list-style:none; padding:0; margin:0; }
 
-/* TFP Variable tags */
-.tfp-tag {
-  display: inline-block;
-  padding: 0.15rem 0.4rem;
-  border-radius: 3px;
-  font-size: 0.7rem;
-  font-weight: 700;
-  margin-right: 0.3rem;
-}
-.tfp-p { background: #fde8e8; color: #922b21; }
-.tfp-dv { background: #fef3e2; color: #b7950b; }
-.tfp-s { background: #eaf2f8; color: #1f618d; }
-.tfp-lr { background: #e8f6f3; color: #1e8449; }
+  .nav-section-title{
+    font-size:10px;
+    font-weight:800;
+    color:var(--submission-accent);
+    margin-top:14px;
+    text-transform:uppercase;
+    border-top:1px solid #eee;
+    padding-top:10px;
+    padding-bottom:5px;
+    letter-spacing:.8px;
+  }
 
-/* SPS Level indicators */
-.sps-level {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.3rem 0.7rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 600;
-}
-.sps-l1 { background: #1a1a1a; color: white; }
-.sps-l2 { background: #c0392b; color: white; }
-.sps-l3 { background: #d68910; color: white; }
-.sps-l4 { background: #f39c12; color: white; }
-.sps-l5 { background: #27ae60; color: white; }
+  .nav-sub-title{
+    font-size:9px;
+    font-weight:700;
+    color:#6b7c6b;
+    letter-spacing:.5px;
+    text-transform:uppercase;
+    margin:8px 0 3px 8px;
+  }
 
-/* Print button */
-.print-btn {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  background: var(--accent);
-  color: white;
-  border: none;
-  padding: 0.9rem 1.5rem;
-  border-radius: 50px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(29,58,95,0.3);
-  transition: all 0.3s;
-  z-index: 100;
-}
-.print-btn:hover {
-  background: var(--accent-dark);
-  transform: translateY(-2px);
-}
+  .nav-item a{
+    text-decoration:none;
+    color:var(--text-main);
+    font-size:11px;
+    display:block;
+    padding:5px 8px;
+    line-height:1.35;
+    transition:.2s;
+    border-left:3px solid transparent;
+  }
 
-/* Figures */
-.figure-box {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1.5rem;
-  margin: 1.5rem 0;
-  text-align: center;
-}
-.figure-title {
-  font-family: 'Libre Baskerville', serif;
-  font-size: 1rem;
-  color: var(--accent-dark);
-  margin-bottom: 1rem;
-}
-.figure-placeholder {
-  background: var(--code-bg);
-  border: 2px dashed var(--border);
-  border-radius: 6px;
-  padding: 3rem;
-  color: var(--text-light);
-  font-style: italic;
-}
-.metric-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 1rem;
-  margin: 1rem 0;
-}
-.metric-card {
-  background: var(--code-bg);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 1rem;
-  text-align: center;
-}
-.metric-value {
-  font-family: 'Libre Baskerville', serif;
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: var(--accent);
-}
-.metric-label {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--text-light);
-  margin-top: 0.3rem;
-}
-.bar-row {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  margin: 0.4rem 0;
-  text-align: left;
-}
-.bar-label { width: 130px; font-size: 0.8rem; flex-shrink: 0; }
-.bar-track { flex: 1; background: #eee; border-radius: 4px; height: 18px; overflow: hidden; }
-.bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent-light), var(--accent-dark)); }
-.bar-value { width: 40px; font-size: 0.8rem; font-weight: 600; text-align: right; }
+  .nav-item a:hover{
+    background:rgba(44,82,130,.08);
+    border-left-color:var(--submission-accent);
+  }
 
-/* Glossary and References */
-.glossary-term {
-  font-weight: 600;
-  color: var(--accent-dark);
-}
-.reference-item {
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #eee;
-  font-size: 0.85rem;
-}
+  .nav-item a.active{
+    background:rgba(44,82,130,.1);
+    border-left-color:var(--submission-accent);
+    font-weight:700;
+  }
 
-/* Responsive */
-@media (max-width: 1024px) {
-  .sidebar { display: none; }
-  .main-content { padding: 1.5rem; }
-  .site-header { padding: 1.5rem; }
-  .header-title { font-size: 1.6rem; }
-}
+  /* ===== PAGE / HERO ===== */
+  .main-content{
+    margin-left:var(--sidebar-width);
+    padding:40px 20px;
+    display:flex;
+    justify-content:center;
+  }
 
-@media print {
-  .sidebar, .print-btn { display: none; }
-  .container { display: block; }
-  .main-content { max-width: 100%; padding: 1rem; margin-left: 0; }
-  .site-header { background: none !important; border-bottom: 2px solid #000; padding: 1rem 1.5rem; }
-  .site-header .header-title { color: #000 !important; font-size: 1.6rem; }
-  .site-header .header-meta, .site-header .header-subtitle { color: #333 !important; }
-  .header-badge { background: #f0f0f0 !important; color: #000 !important; border: 1px solid #ccc !important; }
-  .part-header { background: none !important; color: #000 !important; border-left: 4px solid #000 !important; page-break-before: always; }
-  .clause-box { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; page-break-inside: avoid; }
-  .highlight-box { background: #f9f9f9 !important; border-left-color: #555 !important; }
-  .highlight-box.warning { background: #fff8f8 !important; border-left-color: #c00 !important; }
-  .figure-box { border: 1px solid #ccc; break-inside: avoid; page-break-inside: avoid; }
-  .bar-fill { background: #888 !important; }
-  .metric-value { color: #000 !important; }
-  .badge-critical, .badge-high, .badge-medium, .badge-low { background: white !important; }
-  .sps-l1, .sps-l2, .sps-l3, .sps-l4, .sps-l5 { border: 1px solid #333 !important; }
-  h2, h3, h4 { break-after: avoid; page-break-after: avoid; }
-  table { page-break-inside: auto; font-size: 8pt; }
-  tr { break-inside: avoid; page-break-inside: avoid; }
-  th { background: #f0f0f0 !important; color: #000 !important; }
-  a { color: #000 !important; text-decoration: none; }
-  body { font-size: 10pt; line-height: 1.5; }
-}
+  .document-page{
+    background:#fff;
+    width:100%;
+    max-width:840px;
+    padding:50px;
+    box-shadow:0 4px 25px rgba(0,0,0,.06);
+  }
 
-/* Scrollbar styling */
-.sidebar::-webkit-scrollbar { width: 6px; }
-.sidebar::-webkit-scrollbar-track { background: transparent; }
-.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  .hero-header{
+    background:linear-gradient(135deg, #1e3a2f 0%, #2c5282 100%);
+    color:#fff;
+    padding:28px 30px;
+    margin:-50px -50px 30px -50px;
+    border-bottom:3px solid var(--gold-accent);
+  }
 
-/* Definition lists */
-.dl-grid {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 0.5rem 1.5rem;
-  margin: 1rem 0;
-}
-.dt-term {
-  font-weight: 600;
-  color: var(--accent-dark);
-  font-size: 0.85rem;
-}
-.dd-def {
-  color: var(--text-light);
-  font-size: 0.85rem;
-}
+  .hero-eyebrow{
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    opacity:.92;
+    margin-bottom:10px;
+  }
 
-/* Highlight boxes */
-.highlight-box {
-  background: linear-gradient(135deg, #eef4fa 0%, #e3edf6 100%);
-  border-left: 4px solid var(--accent);
-  padding: 1rem 1.5rem;
-  border-radius: 0 6px 6px 0;
-  margin: 1rem 0;
-}
-.highlight-box.warning {
-  background: linear-gradient(135deg, #fdf2f2 0%, #f5e0e0 100%);
-  border-left-color: var(--warning);
-}
+  .hero-title{
+    font-family:'Libre Baskerville', serif;
+    font-size:28px;
+    line-height:1.25;
+    margin:0 0 12px 0;
+  }
 
-/* Matrix cells */
-.matrix-cell {
-  text-align: center;
-  font-weight: 700;
-}
-.matrix-primary { color: #922b21; }
-.matrix-secondary { color: #7f8c8d; }
-.matrix-none { color: #bdc3c7; }
+  .hero-subtitle{
+    font-size:13px;
+    opacity:.93;
+    line-height:1.6;
+    max-width:760px;
+  }
 
-/* Footer */
-.doc-footer {
-  margin-top: 3rem;
-  padding: 2rem;
-  background: var(--sidebar-bg);
-  border-top: 1px solid var(--border);
-  text-align: center;
-  font-size: 0.8rem;
-  color: var(--text-light);
-}
-</style>
+  .hero-meta{
+    margin-top:16px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+
+  .hero-badge{
+    display:inline-block;
+    background:rgba(255,255,255,0.15);
+    border:1px solid rgba(255,255,255,0.3);
+    padding:4px 10px;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.8px;
+    text-transform:uppercase;
+  }
+
+  /* ===== HEADINGS / TEXT ===== */
+  .section-header{
+    font-family:'Libre Baskerville', serif;
+    font-weight:700;
+    font-size:18px;
+    color:var(--earth-green);
+    margin:35px 0 20px 0;
+    padding-bottom:10px;
+    border-bottom:3px solid var(--submission-accent);
+    scroll-margin-top:24px;
+  }
+
+  .subsection-header{
+    font-family:'Libre Baskerville', serif;
+    font-weight:700;
+    font-size:15px;
+    color:var(--earth-green);
+    margin:25px 0 14px 0;
+    padding-bottom:8px;
+    border-bottom:1px solid var(--border-color);
+    scroll-margin-top:24px;
+  }
+
+  .subsubsection-header{
+    font-weight:700;
+    font-size:13px;
+    color:var(--earth-green);
+    margin:20px 0 10px 0;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+  }
+
+  .caput{
+    text-align:justify;
+    margin-bottom:12px;
+    font-family:'Libre Baskerville', serif;
+    line-height:1.72;
+    font-size:13.5px;
+  }
+
+  .paragraph{
+    margin-left:24px;
+    font-size:12.5px;
+    margin-bottom:8px;
+    line-height:1.65;
+    color:#333;
+  }
+
+  .inciso{
+    margin-left:48px;
+    font-size:12.5px;
+    margin-bottom:7px;
+    color:#444;
+  }
+
+  /* ===== BOXES ===== */
+  .note-box,
+  .principle-box,
+  .framework-box,
+  .cta-box,
+  .track-box,
+  .criteria-box,
+  .contract-box,
+  .policy-box,
+  .institution-box,
+  .callout-box,
+  .alert-box,
+  .warning-box{
+    margin:18px 0 24px 0;
+    padding:18px 20px;
+    border-left:4px solid var(--submission-accent);
+  }
+
+  .note-box,
+  .framework-box,
+  .callout-box,
+  .institution-box{ background:var(--soft-bg); }
+
+  .principle-box,
+  .policy-box,
+  .contract-box{ background:var(--soft-blue); }
+
+  .cta-box,
+  .track-box,
+  .criteria-box{ background:#f8faf8; }
+
+  .alert-box{
+    background:#fff5f5;
+    border-left-color:var(--alert-red);
+  }
+
+  .warning-box{
+    background:#fffaf0;
+    border-left-color:var(--warning-amber);
+  }
+
+  .box-title{
+    font-size:11px;
+    font-weight:800;
+    color:var(--earth-green);
+    text-transform:uppercase;
+    letter-spacing:.7px;
+    margin-bottom:8px;
+  }
+
+  .alert-box .box-title{ color:var(--alert-red); }
+  .warning-box .box-title{ color:var(--warning-amber); }
+
+  /* ===== GRIDS ===== */
+  .sector-grid,
+  .criteria-grid,
+  .info-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin:18px 0 24px 0;
+  }
+
+  .grid-card{
+    border:1px solid var(--border-color);
+    background:#fff;
+    padding:16px 18px;
+    border-left:4px solid var(--gold-accent);
+    transition:all .25s ease;
+  }
+
+  .grid-card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+  }
+
+  .grid-card-title{
+    font-family:'Libre Baskerville', serif;
+    font-size:14px;
+    color:var(--earth-green);
+    margin-bottom:8px;
+    font-weight:700;
+  }
+
+  .grid-card p{
+    margin:0;
+    font-size:12.5px;
+    color:#333;
+    line-height:1.65;
+  }
+
+  /* ===== SECTOR NAVIGATION CARDS ===== */
+  .sector-link{
+    text-decoration:none;
+    color:inherit;
+    display:block;
+    height:100%;
+  }
+
+  .sector-card{
+    border:1px solid var(--border-color);
+    background:#fff;
+    padding:18px 18px 26px 18px;
+    cursor:pointer;
+    position:relative;
+    transition:all .25s ease;
+    min-height:120px;
+  }
+
+  .sector-card::before{
+    content:"";
+    position:absolute;
+    top:0; left:0;
+    width:100%; height:3px;
+    background:linear-gradient(to right, var(--gold-accent), transparent);
+    opacity:.6;
+  }
+
+  .sector-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 26px rgba(0,0,0,.08);
+    border-color:var(--gold-accent);
+  }
+
+  .sector-card::after{
+    content:"ENTER →";
+    position:absolute;
+    bottom:10px; right:16px;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:.6px;
+    color:var(--submission-accent);
+    opacity:.6;
+  }
+
+  .sector-card:hover::after{ opacity:1; }
+
+  .sector-card.current{
+    background:#f0f7ff;
+    border-color:var(--submission-accent);
+    border-left:4px solid var(--submission-accent);
+  }
+
+  .sector-card.current::after{
+    content:"CURRENT DOMAIN";
+    color:var(--submission-accent);
+    opacity:1;
+  }
+
+  .sector-number{
+    font-size:10px;
+    font-weight:800;
+    color:var(--submission-accent);
+    text-transform:uppercase;
+    letter-spacing:.8px;
+    margin-bottom:6px;
+  }
+
+  .sector-title{
+    font-family:'Libre Baskerville', serif;
+    font-size:14px;
+    color:var(--earth-green);
+    margin-bottom:8px;
+    font-weight:700;
+    line-height:1.35;
+  }
+
+  .sector-text{
+    font-size:12px;
+    color:#3a3a3a;
+    line-height:1.6;
+  }
+
+  /* ===== TABLES ===== */
+  .protocol-table{
+    width:100%;
+    border-collapse:collapse;
+    margin:18px 0;
+    font-size:12px;
+  }
+
+  .protocol-table th{
+    background:var(--earth-green);
+    color:#fff;
+    padding:10px 12px;
+    text-align:left;
+    font-weight:700;
+    text-transform:uppercase;
+    font-size:10px;
+    letter-spacing:.5px;
+  }
+
+  .protocol-table td{
+    padding:10px 12px;
+    border-bottom:1px solid var(--border-color);
+    vertical-align:top;
+  }
+
+  .protocol-table tr:nth-child(even){ background:var(--soft-bg); }
+  .protocol-table tr:hover{ background:#f0f7ff; }
+
+  /* ===== BAND INDICATORS ===== */
+  .band-indicator{
+    display:inline-block;
+    padding:2px 8px;
+    border-radius:3px;
+    font-size:10px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+  }
+
+  .band-green{ background:#c6f6d5; color:#22543d; }
+  .band-amber{ background:#fefcbf; color:#744210; }
+  .band-red{ background:#fed7d7; color:#742a2a; }
+  .band-black{ background:#1a202c; color:#fff; }
+  .band-blue{ background:#bee3f8; color:#2c5282; }
+
+  /* ===== TFP VARIABLE TAGS ===== */
+  .tfp-tag{
+    display:inline-block;
+    padding:2px 7px;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.3px;
+    margin-right:3px;
+  }
+
+  .tfp-p{ background:#fed7d7; color:#742a2a; }
+  .tfp-dv{ background:#fefcbf; color:#744210; }
+  .tfp-s{ background:#bee3f8; color:#2c5282; }
+  .tfp-lr{ background:#c6f6d5; color:#22543d; }
+
+  /* ===== LISTS ===== */
+  .clean-list{
+    margin:10px 0 0 0;
+    padding-left:18px;
+    font-size:12.5px;
+    color:#333;
+  }
+
+  .clean-list li{ margin-bottom:6px; }
+
+  /* ===== REFERENCES ===== */
+  .references-section{
+    margin-top:35px;
+    border-top:3px solid var(--submission-accent);
+    padding-top:20px;
+  }
+
+  .references-title{
+    font-family:'Libre Baskerville', serif;
+    font-weight:700;
+    font-size:16px;
+    color:var(--earth-green);
+    margin-bottom:16px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-bottom:8px;
+    border-bottom:2px solid var(--earth-green);
+    user-select:none;
+  }
+
+  .references-title::after{
+    content:"▼";
+    font-size:11px;
+    transition:transform .3s;
+  }
+
+  .references-title.collapsed::after{ transform:rotate(-90deg); }
+
+  .references-content{
+    max-height:8000px;
+    overflow:hidden;
+    transition:max-height .4s ease;
+  }
+
+  .references-content.collapsed{ max-height:0; }
+
+  .reference-item{
+    margin-bottom:8px;
+    font-size:11.5px;
+    line-height:1.5;
+    color:#333;
+    padding-bottom:8px;
+    border-bottom:1px solid var(--border-color);
+  }
+
+  .reference-item .author{ color:var(--earth-green); font-weight:600; }
+  .reference-item .title{ font-style:italic; }
+
+  /* ===== FOOTER ===== */
+  .copyright-footer{
+    margin-top:40px;
+    padding-top:25px;
+    border-top:2px solid var(--border-color);
+    font-size:11px;
+    line-height:1.6;
+    color:#555;
+  }
+
+  .copyright-notice{
+    font-weight:700;
+    color:var(--earth-green);
+    margin-bottom:10px;
+  }
+
+  .hidden{ display:none !important; }
+
+  /* ===== FLOATING CONTROLS ===== */
+  .mobile-btn{
+    display:none;
+    position:fixed;
+    bottom:20px; right:20px;
+    background:var(--earth-green);
+    color:#fff;
+    border:none;
+    padding:14px 22px;
+    font-weight:800;
+    font-size:12px;
+    z-index:2000;
+    box-shadow:0 4px 15px rgba(0,0,0,.3);
+    cursor:pointer;
+    letter-spacing:.5px;
+  }
+
+  .print-btn{
+    position:fixed;
+    top:20px; right:20px;
+    background:var(--earth-green);
+    color:#fff;
+    border:none;
+    padding:12px 20px;
+    font-weight:700;
+    font-size:12px;
+    z-index:2000;
+    box-shadow:0 4px 15px rgba(0,0,0,.2);
+    cursor:pointer;
+    letter-spacing:.5px;
+    border-radius:4px;
+    transition:all .3s ease;
+  }
+
+  .print-btn:hover{
+    background:#2c5282;
+    transform:translateY(-2px);
+    box-shadow:0 6px 20px rgba(0,0,0,.25);
+  }
+
+  .print-btn::before{ content:"🖨️ "; font-size:14px; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width:1024px){
+    .sidebar{ transform:translateX(-100%); }
+    .sidebar.open{ transform:translateX(0); box-shadow:10px 0 30px rgba(0,0,0,.22); }
+
+    .main-content{
+      margin-left:0;
+      padding:16px;
+      overflow-x:hidden;
+      width:100%;
+    }
+
+    .document-page{
+      padding:24px;
+      width:100%;
+      max-width:100%;
+      margin:0;
+      overflow-x:hidden;
+    }
+
+    .hero-header{
+      margin:-24px -24px 20px -24px;
+      padding:24px;
+    }
+
+    .hero-title{ font-size:22px; word-wrap:break-word; }
+    .hero-subtitle{ font-size:12px; }
+    .section-header{ font-size:16px; }
+    .caput{ font-size:13px; text-align:left; }
+    .inciso{ margin-left:24px; }
+    .paragraph{ margin-left:16px; }
+    .mobile-btn{ display:block; }
+
+    .print-btn{
+      top:auto;
+      bottom:80px; right:20px;
+      padding:14px 18px;
+    }
+
+    .print-btn span{ display:none; }
+
+    .sector-grid,
+    .criteria-grid,
+    .info-grid{ grid-template-columns:1fr; }
+
+    .protocol-table{
+      font-size:11px;
+      display:block;
+      overflow-x:auto;
+      white-space:nowrap;
+    }
+
+    .protocol-table th,
+    .protocol-table td{ padding:8px; }
+
+    img, table{ max-width:100%; height:auto; }
+  }
+
+  @media (max-width:1200px) and (min-width:1025px){
+    .document-page{
+      max-width:calc(100vw - var(--sidebar-width) - 40px);
+      padding:40px 30px;
+    }
+  }
+
+  @media print{
+    .sidebar, .mobile-btn, .print-btn{ display:none !important; }
+    .main-content{ margin-left:0; }
+    .references-content{ max-height:none !important; }
+    .document-page{ box-shadow:none; max-width:100%; padding:30px; }
+    .hero-header{ margin:0 0 24px 0; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    body{ background:#fff; }
+    .sector-card{ break-inside:avoid; }
+    table{ page-break-inside:auto; }
+    tr{ break-inside:avoid; }
+    h2, h3{ break-after:avoid; }
+  }
+
+  /* Sidebar scrollbar */
+  .sidebar::-webkit-scrollbar{ width:4px; }
+  .sidebar::-webkit-scrollbar-track{ background:transparent; }
+  .sidebar::-webkit-scrollbar-thumb{ background:var(--border-color); border-radius:2px; }
+  </style>
 </head>
+
 <body>
-<header class="site-header">
-  <div class="header-meta">c-ECO SECTOR 19 OF 19 | DEFENSE &amp; STRATEGIC SECURITY SYSTEMS</div>
-  <h1 class="header-title">SYSTEMIC INTELLIGENCE LIBRARY</h1>
-  <p class="header-subtitle">TFP Calibration · Strategic Continuity · Security Governance | Research-Verified | 2026-06-16</p>
-  <span class="header-badge">Sectoral Architecture — Foundational Knowledge Asset</span>
-</header>
-<div class="container">
-<nav class="sidebar">
-  <input type="text" class="sidebar-search" placeholder="Search sections..." id="searchBox">
-  <div class="nav-section">
-    <div class="nav-section-title">Document Structure</div>
-    <a href="#part1" class="nav-link">Part I — Domain Intelligence Profile</a>
-    <a href="#part2" class="nav-link">Part II — Systemic Risk Intelligence</a>
-    <a href="#part3" class="nav-link">Part III — Systemic Response Intelligence</a>
-    <a href="#part4" class="nav-link">Part IV — Governance &amp; Legal Architecture</a>
-    <a href="#part5" class="nav-link">Part V — TFP Calibration Intelligence</a>
-    <a href="#part6" class="nav-link">Part VI — Scenario &amp; Simulation Intelligence</a>
-    <a href="#part7" class="nav-link">Part VII — Restoration &amp; Recovery Architecture</a>
-    <a href="#part8" class="nav-link">Part VIII — Authoritative Source Library</a>
-    <a href="#part9" class="nav-link">Part IX — Source Matrices &amp; Historical Intelligence</a>
+
+<button class="mobile-btn" onclick="document.getElementById('sidebar').classList.toggle('open')" aria-label="Toggle navigation">INDEX</button>
+
+<button class="print-btn" onclick="window.print()" type="button"><span>Save PDF / Print</span></button>
+
+<aside class="sidebar" id="sidebar" aria-label="DSSS SIL Navigation">
+  <div class="sidebar-top">
+    <a href="/english.html" class="logo-box" aria-label="Back to c-ECO">Σ</a>
+    <div class="sidebar-title">c-ECO Fellowship Portal</div>
   </div>
 
-  <div class="nav-section">
-    <div class="nav-section-title">Sector SIL Index</div>
-    <a href="/fellowship/fellowship-sil-min.html" class="nav-link sub">01. MIN — Mining &amp; Mineral Extraction</a>
-    <a href="/fellowship/fellowship-sil-ene.html" class="nav-link sub">03. ENE — Energy Systems</a>
-    <a href="/fellowship/fellowship-sil-wat.html" class="nav-link sub">04. WAT — Water &amp; Sanitation</a>
-    <a href="/fellowship/fellowship-sil-dig.html" class="nav-link sub">08. DIG — Digital Technology &amp; Data Infrastructure</a>
-    <a href="/fellowship/fellowship-sil-fin.html" class="nav-link sub">10. FIN — Financial Systems</a>
-    <a href="/fellowship/fellowship-sil-sovk.html" class="nav-link sub">18. SOVK — Scientific Observation, Verification &amp; Knowledge Systems</a>
-    <a href="/fellowship/fellowship-sil-dsss.html" class="nav-link sub">19. DSSS — Defense &amp; Strategic Security Systems</a>
+  <div class="search-container">
+    <input type="text" id="sidebarSearch" placeholder="Search section..." aria-label="Search Index">
   </div>
 
-  <div class="nav-section">
-    <div class="nav-section-title">Quick Access</div>
-    <a href="#s1" class="nav-link sub">1. Domain Overview</a>
-    <a href="#s2" class="nav-link sub">2. Historical Evolution</a>
-    <a href="#s3" class="nav-link sub">3. Institutional Landscape</a>
-    <a href="#s4" class="nav-link sub">4. Primary Systemic Risks</a>
-    <a href="#s5" class="nav-link sub">5. Secondary Risks</a>
-    <a href="#s6" class="nav-link sub">6. Emerging Risks</a>
-    <a href="#s7" class="nav-link sub">7. Cascade Risk Taxonomy</a>
-    <a href="#s8" class="nav-link sub">8. Response Protocols</a>
-    <a href="#s9" class="nav-link sub">9. Calibration Council Matrix</a>
-    <a href="#s10" class="nav-link sub">10. Communication Contingencies</a>
-    <a href="#s11" class="nav-link sub">11. International Frameworks</a>
-    <a href="#s12" class="nav-link sub">12. National Frameworks</a>
-    <a href="#s13" class="nav-link sub">13. Liability Cascade</a>
-    <a href="#s14" class="nav-link sub">14. Data Sovereignty</a>
-    <a href="#s15" class="nav-link sub">15. Position (P) Indicators</a>
-    <a href="#s16" class="nav-link sub">16. Velocity (ΔV) Indicators</a>
-    <a href="#s17" class="nav-link sub">17. Uncertainty (σ) Intelligence</a>
-    <a href="#s18" class="nav-link sub">18. Reversibility (Lr)</a>
-    <a href="#s19" class="nav-link sub">19. Stress Test Scenarios</a>
-    <a href="#s20" class="nav-link sub">20. Monte Carlo Parameters</a>
-    <a href="#s21" class="nav-link sub">21. Continuity Recovery</a>
-    <a href="#s22" class="nav-link sub">22. Restoration Standards</a>
-    <a href="#s23" class="nav-link sub">23. Recovery Sequencing</a>
-    <a href="#s24" class="nav-link sub">24. Spare Capacity Inventory</a>
-    <a href="#s25" class="nav-link sub">25. Mutual Aid Agreements</a>
-    <a href="#s26" class="nav-link sub">26. Source Classification</a>
-    <a href="#s27" class="nav-link sub">27. Class A Sources</a>
-    <a href="#s28" class="nav-link sub">28. Class B Sources</a>
-    <a href="#s29" class="nav-link sub">29. Class C Sources</a>
-    <a href="#s30" class="nav-link sub">30. Source-to-Variable Matrix</a>
-    <a href="#s31" class="nav-link sub">31. Source-to-Risk Matrix</a>
-    <a href="#s32" class="nav-link sub">32. Monitoring Gap Analysis</a>
-    <a href="#s33" class="nav-link sub">33. Dependency Matrix</a>
-    <a href="#s34" class="nav-link sub">34. Historical Intelligence</a>
-    <a href="#s35" class="nav-link sub">35. Cross-Domain Sources</a>
-  </div>
-</nav>
+  <nav>
+    <ul class="nav-list">
+      <li class="nav-section-title">Portal Navigation</li>
+      <li class="nav-item"><a href="/fellowship/fellowship-portal.html">← Fellowship Portal</a></li>
+      <li class="nav-item"><a href="#DOMAIN-OVERVIEW">Domain Overview</a></li>
+
+      <li class="nav-section-title">Part I — Domain Intelligence</li>
+      <li class="nav-item"><a href="#s1">1. Domain Overview</a></li>
+      <li class="nav-item"><a href="#s2">2. Historical Evolution</a></li>
+      <li class="nav-item"><a href="#s3">3. Institutional Landscape</a></li>
+
+      <li class="nav-section-title">Part II — Risk Intelligence</li>
+      <li class="nav-item"><a href="#s4">4. Primary Systemic Risks</a></li>
+      <li class="nav-item"><a href="#s5">5. Secondary Risks</a></li>
+      <li class="nav-item"><a href="#s6">6. Emerging Risks</a></li>
+      <li class="nav-item"><a href="#s7">7. Cascade Risk Taxonomy</a></li>
+
+      <li class="nav-section-title">Part III — Response Intelligence</li>
+      <li class="nav-item"><a href="#s8">8. Response Protocols</a></li>
+      <li class="nav-item"><a href="#s9">9. Calibration Council Matrix</a></li>
+      <li class="nav-item"><a href="#s10">10. Communication Contingencies</a></li>
+
+      <li class="nav-section-title">Part IV — Governance & Legal</li>
+      <li class="nav-item"><a href="#s11">11. International Frameworks</a></li>
+      <li class="nav-item"><a href="#s12">12. National Frameworks</a></li>
+      <li class="nav-item"><a href="#s13">13. Liability Cascade</a></li>
+      <li class="nav-item"><a href="#s14">14. Data Sovereignty</a></li>
+
+      <li class="nav-section-title">Part V — TFP Calibration</li>
+      <li class="nav-item"><a href="#s15">15. Position (P) Indicators</a></li>
+      <li class="nav-item"><a href="#s16">16. Velocity (ΔV) Indicators</a></li>
+      <li class="nav-item"><a href="#s17">17. Uncertainty (σ) Intelligence</a></li>
+      <li class="nav-item"><a href="#s18">18. Reversibility (Lr)</a></li>
+
+      <li class="nav-section-title">Part VI — Scenario Intelligence</li>
+      <li class="nav-item"><a href="#s19">19. Stress Test Scenarios</a></li>
+      <li class="nav-item"><a href="#s20">20. Monte Carlo Parameters</a></li>
+      <li class="nav-item"><a href="#s21">21. Continuity Recovery</a></li>
+
+      <li class="nav-section-title">Part VII — Recovery Architecture</li>
+      <li class="nav-item"><a href="#s22">22. Restoration Standards</a></li>
+      <li class="nav-item"><a href="#s23">23. Recovery Sequencing</a></li>
+      <li class="nav-item"><a href="#s24">24. Spare Capacity Inventory</a></li>
+      <li class="nav-item"><a href="#s25">25. Mutual Aid Agreements</a></li>
+
+      <li class="nav-section-title">Part VIII — Source Library</li>
+      <li class="nav-item"><a href="#s26">26. Source Classification</a></li>
+      <li class="nav-item"><a href="#s27">27. Class A Sources</a></li>
+      <li class="nav-item"><a href="#s28">28. Class B Sources</a></li>
+      <li class="nav-item"><a href="#s29">29. Class C Sources</a></li>
+
+      <li class="nav-section-title">Part IX — Source Matrices</li>
+      <li class="nav-item"><a href="#s30">30. Source-to-Variable Matrix</a></li>
+      <li class="nav-item"><a href="#s31">31. Source-to-Risk Matrix</a></li>
+      <li class="nav-item"><a href="#s32">32. Monitoring Gap Analysis</a></li>
+      <li class="nav-item"><a href="#s33">33. Dependency Matrix</a></li>
+      <li class="nav-item"><a href="#s34">34. Historical Intelligence</a></li>
+      <li class="nav-item"><a href="#s35">35. Cross-Domain Sources</a></li>
+
+      <li class="nav-section-title">SIL Domain Index</li>
+      <li class="nav-item"><a href="/fellowship/fellowship-sil-min.html">01 — MIN: Mining &amp; Mineral Extraction</a></li>
+      <li class="nav-item"><a href="/fellowship/fellowship-sil-ene.html">03 — ENE: Energy Systems</a></li>
+      <li class="nav-item"><a href="/fellowship/fellowship-sil-wat.html">04 — WAT: Water &amp; Sanitation</a></li>
+      <li class="nav-item"><a href="/fellowship/fellowship-sil-dig.html">08 — DIG: Digital Technology</a></li>
+      <li class="nav-item"><a href="/fellowship/fellowship-sil-fin.html">10 — FIN: Financial Systems</a></li>
+      <li class="nav-item"><a href="/fellowship/fellowship-sil-sovk.html">18 — SOVK: Scientific Observation</a></li>
+      <li class="nav-item"><a href="/fellowship/fellowship-sil-dsss.html"><strong>19 — DSSS: Defense &amp; Strategic Security ←</strong></a></li>
+
+      <li class="nav-section-title">Reference</li>
+      <li class="nav-item"><a href="#COPYRIGHT">Copyright &amp; Classification</a></li>
+    </ul>
+  </nav>
+</aside>
+
 <main class="main-content">
-<div class="part-header" id="part1"><div class="part-number">Part I</div><div class="part-title">Domain Intelligence Profile</div></div>
-<div class="section" id="s1"><h2 class="section-title">1. Domain Overview</h2><div class="clause-box"><div class="clause-header"><div class="clause-number">1.1</div><div class="clause-title">Definition &amp; Scope</div></div><p><strong>Definition:</strong> The defense, strategic security, civil protection, critical infrastructure protection, continuity-of-government, and strategic logistics systems that preserve organized collective security under systemic environmental, technological, geopolitical, and infrastructure stress.</p><p style="margin-top:0.8rem"><strong>Scope:</strong> Defense institutions, strategic bases, command and control, dual-use logistics, critical supply chains, cyber and space security, continuity planning, emergency mobilization, strategic reserves, and institutional mechanisms for lawful security response.</p></div><div class="clause-box"><div class="clause-header"><div class="clause-number">1.2</div><div class="clause-title">Systemic Relevance</div></div><p>DSSS becomes systemic when security capacity depends on the same energy, water, digital, space, financial, health, and industrial systems exposed to threshold deterioration. The domain is not exempt from c-ECO; it requires stricter boundary discipline because security necessity can mask physical incompatibility.</p></div></div>
-<div class="section" id="s2"><h2 class="section-title">2. Historical Evolution</h2><p>This SIL treats the domain as an evolving systemic infrastructure rather than a static sector. Historical analysis tracks how technical complexity, interdependence, and governance dependence have increased the cost of late intervention.</p></div>
-<div class="section" id="s3"><h2 class="section-title">3. Institutional Landscape</h2><table><thead><tr><th>Actor Class</th><th>Systemic Function</th><th>c-ECO Relevance</th></tr></thead><tbody><tr><td>Defense institutions and security agencies</td><td>Maintains or governs a critical portion of Defense &amp; Strategic Security Systems.</td><td>Defines evidence access, response authority, and reversibility capacity.</td></tr>
-<tr><td>Civil protection authorities</td><td>Maintains or governs a critical portion of Defense &amp; Strategic Security Systems.</td><td>Defines evidence access, response authority, and reversibility capacity.</td></tr>
-<tr><td>Critical infrastructure operators</td><td>Maintains or governs a critical portion of Defense &amp; Strategic Security Systems.</td><td>Defines evidence access, response authority, and reversibility capacity.</td></tr>
-<tr><td>Strategic suppliers and logistics providers</td><td>Maintains or governs a critical portion of Defense &amp; Strategic Security Systems.</td><td>Defines evidence access, response authority, and reversibility capacity.</td></tr>
-<tr><td>Legislative and judicial oversight bodies</td><td>Maintains or governs a critical portion of Defense &amp; Strategic Security Systems.</td><td>Defines evidence access, response authority, and reversibility capacity.</td></tr></tbody></table></div>
-<div class="part-header" id="part2"><div class="part-number">Part II</div><div class="part-title">Systemic Risk Intelligence</div></div>
-<div class="section" id="s4"><h2 class="section-title">4. Primary Systemic Risks</h2><table><thead><tr><th>Risk</th><th>TFP Relevance</th><th>Governance Question</th></tr></thead><tbody><tr><td>1</td><td>Mission-critical infrastructure failure under climate stress</td><td>P / ΔV</td><td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td></tr>
-<tr><td>2</td><td>Cyber-physical disruption of command and control</td><td>σ</td><td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td></tr>
-<tr><td>3</td><td>Strategic supply chain exhaustion</td><td>Lr</td><td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td></tr>
-<tr><td>4</td><td>Base habitability loss from heat, flood, water, or energy stress</td><td>P / Lr</td><td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td></tr>
-<tr><td>5</td><td>Emergency powers used without reversibility discipline</td><td>ΔV / σ</td><td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td></tr></tbody></table></div>
-<div class="section" id="s5"><h2 class="section-title">5. Secondary Risks</h2><table><thead><tr><th>Risk</th><th>TFP Relevance</th><th>Governance Question</th></tr></thead><tbody><tr><td>1</td><td>Mission-critical infrastructure failure under climate stress</td><td>P / ΔV</td><td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td></tr>
-<tr><td>2</td><td>Cyber-physical disruption of command and control</td><td>σ</td><td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td></tr>
-<tr><td>3</td><td>Strategic supply chain exhaustion</td><td>Lr</td><td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td></tr>
-<tr><td>4</td><td>Base habitability loss from heat, flood, water, or energy stress</td><td>P / Lr</td><td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td></tr>
-<tr><td>5</td><td>Emergency powers used without reversibility discipline</td><td>ΔV / σ</td><td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td></tr></tbody></table></div>
-<div class="section" id="s6"><h2 class="section-title">6. Emerging Risks</h2><table><thead><tr><th>Risk</th><th>TFP Relevance</th><th>Governance Question</th></tr></thead><tbody><tr><td>1</td><td>Mission-critical infrastructure failure under climate stress</td><td>P / ΔV</td><td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td></tr>
-<tr><td>2</td><td>Cyber-physical disruption of command and control</td><td>σ</td><td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td></tr>
-<tr><td>3</td><td>Strategic supply chain exhaustion</td><td>Lr</td><td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td></tr>
-<tr><td>4</td><td>Base habitability loss from heat, flood, water, or energy stress</td><td>P / Lr</td><td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td></tr>
-<tr><td>5</td><td>Emergency powers used without reversibility discipline</td><td>ΔV / σ</td><td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td></tr></tbody></table></div>
-<div class="section" id="s7"><h2 class="section-title">7. Cascade Risk Taxonomy</h2><table><thead><tr><th>Risk</th><th>TFP Relevance</th><th>Governance Question</th></tr></thead><tbody><tr><td>1</td><td>Mission-critical infrastructure failure under climate stress</td><td>P / ΔV</td><td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td></tr>
-<tr><td>2</td><td>Cyber-physical disruption of command and control</td><td>σ</td><td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td></tr>
-<tr><td>3</td><td>Strategic supply chain exhaustion</td><td>Lr</td><td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td></tr>
-<tr><td>4</td><td>Base habitability loss from heat, flood, water, or energy stress</td><td>P / Lr</td><td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td></tr>
-<tr><td>5</td><td>Emergency powers used without reversibility discipline</td><td>ΔV / σ</td><td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td></tr></tbody></table></div>
-<div class="part-header" id="part3"><div class="part-number">Part III</div><div class="part-title">Systemic Response Intelligence</div></div>
-<div class="section" id="s8"><h2 class="section-title">8. Response Protocols</h2><div class="clause-box"><p>Response design must preserve evidence continuity, lawful authority, and reversibility. Fellows use this material to identify when monitoring, escalation, Safe Mode conduct, or Restoration First analysis becomes appropriate.</p></div></div>
-<div class="section" id="s9"><h2 class="section-title">9. Calibration Council Matrix</h2><div class="clause-box"><p>Response design must preserve evidence continuity, lawful authority, and reversibility. Fellows use this material to identify when monitoring, escalation, Safe Mode conduct, or Restoration First analysis becomes appropriate.</p></div></div>
-<div class="section" id="s10"><h2 class="section-title">10. Communication Contingencies</h2><div class="clause-box"><p>Response design must preserve evidence continuity, lawful authority, and reversibility. Fellows use this material to identify when monitoring, escalation, Safe Mode conduct, or Restoration First analysis becomes appropriate.</p></div></div>
-<div class="part-header" id="part4"><div class="part-number">Part IV</div><div class="part-title">Governance &amp; Legal Architecture</div></div>
-<div class="section" id="s11"><h2 class="section-title">11. International Frameworks</h2><div class="clause-box"><p>Governance analysis asks which institution can observe, verify, decide, fund, and execute without confusing analytical work with unauthorized deployment.</p></div></div>
-<div class="section" id="s12"><h2 class="section-title">12. National Frameworks</h2><div class="clause-box"><p>Governance analysis asks which institution can observe, verify, decide, fund, and execute without confusing analytical work with unauthorized deployment.</p></div></div>
-<div class="section" id="s13"><h2 class="section-title">13. Liability Cascade</h2><div class="clause-box"><p>Governance analysis asks which institution can observe, verify, decide, fund, and execute without confusing analytical work with unauthorized deployment.</p></div></div>
-<div class="section" id="s14"><h2 class="section-title">14. Data Sovereignty</h2><div class="clause-box"><p>Governance analysis asks which institution can observe, verify, decide, fund, and execute without confusing analytical work with unauthorized deployment.</p></div></div>
-<div class="part-header" id="part5"><div class="part-number">Part V</div><div class="part-title">TFP Calibration Intelligence</div></div>
-<div class="section" id="s15"><h2 class="section-title">15. Position (P) Indicators</h2><p><strong>Position (P):</strong> The current state of an activity, asset, environment, or system within its systemic stability space, measured relative to relevant thresholds, Safe Operating Space boundaries, and potential failure conditions.</p><table><thead><tr><th>Indicator</th><th>Boundary Logic</th><th>Evidence Need</th></tr></thead><tbody><tr><td>1</td><td>Mission-critical infrastructure failure under climate stress</td><td>P</td><td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td></tr>
-<tr><td>2</td><td>Cyber-physical disruption of command and control</td><td>P</td><td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td></tr>
-<tr><td>3</td><td>Strategic supply chain exhaustion</td><td>P</td><td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td></tr>
-<tr><td>4</td><td>Base habitability loss from heat, flood, water, or energy stress</td><td>P</td><td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td></tr></tbody></table></div>
-<div class="section" id="s16"><h2 class="section-title">16. Velocity (ΔV) Indicators</h2><p>ΔV measures whether the system is moving toward or away from threshold conditions and at what speed.</p></div>
-<div class="section" id="s17"><h2 class="section-title">17. Uncertainty (σ) Intelligence</h2><p>σ captures uncertainty in measurement, model design, coverage, institutional reporting, and disputed evidence.</p></div>
-<div class="section" id="s18"><h2 class="section-title">18. Reversibility (Lr)</h2><p>Lr measures remaining capacity to stabilize, recover, or reconfigure before irreversibility emerges.</p></div>
-<div class="part-header" id="part6"><div class="part-number">Part VI</div><div class="part-title">Scenario &amp; Simulation Intelligence</div></div>
-<div class="section" id="s19"><h2 class="section-title">19. Stress Test Scenarios</h2><div class="clause-box"><p>Scenario work converts signal libraries into structured exercises for cohort use. Parameters are illustrative until institutional calibration assigns live values.</p></div></div>
-<div class="section" id="s20"><h2 class="section-title">20. Monte Carlo Parameters</h2><div class="clause-box"><p>Scenario work converts signal libraries into structured exercises for cohort use. Parameters are illustrative until institutional calibration assigns live values.</p></div></div>
-<div class="section" id="s21"><h2 class="section-title">21. Continuity Recovery</h2><div class="clause-box"><p>Scenario work converts signal libraries into structured exercises for cohort use. Parameters are illustrative until institutional calibration assigns live values.</p></div></div>
-<div class="part-header" id="part7"><div class="part-number">Part VII</div><div class="part-title">Restoration &amp; Recovery Architecture</div></div>
-<div class="section" id="s22"><h2 class="section-title">22. Restoration Standards</h2><table><thead><tr><th>Instrument</th><th>Purpose</th><th>Boundary</th></tr></thead><tbody><tr><td>Strategic continuity covenant</td><td>Supports pre-threshold governance and reversibility protection.</td><td>Analytical use under institutional supervision.</td></tr>
-<tr><td>Safe Mode security protocol</td><td>Supports pre-threshold governance and reversibility protection.</td><td>Analytical use under institutional supervision.</td></tr>
-<tr><td>Critical supplier reversibility clause</td><td>Supports pre-threshold governance and reversibility protection.</td><td>Analytical use under institutional supervision.</td></tr>
-<tr><td>Base habitability threshold register</td><td>Supports pre-threshold governance and reversibility protection.</td><td>Analytical use under institutional supervision.</td></tr>
-<tr><td>Oversight and emergency-power boundary memo</td><td>Supports pre-threshold governance and reversibility protection.</td><td>Analytical use under institutional supervision.</td></tr></tbody></table></div>
-<div class="section" id="s23"><h2 class="section-title">23. Recovery Sequencing</h2><table><thead><tr><th>Instrument</th><th>Purpose</th><th>Boundary</th></tr></thead><tbody><tr><td>Strategic continuity covenant</td><td>Supports pre-threshold governance and reversibility protection.</td><td>Analytical use under institutional supervision.</td></tr>
-<tr><td>Safe Mode security protocol</td><td>Supports pre-threshold governance and reversibility protection.</td><td>Analytical use under institutional supervision.</td></tr>
-<tr><td>Critical supplier reversibility clause</td><td>Supports pre-threshold governance and reversibility protection.</td><td>Analytical use under institutional supervision.</td></tr>
-<tr><td>Base habitability threshold register</td><td>Supports pre-threshold governance and reversibility protection.</td><td>Analytical use under institutional supervision.</td></tr>
-<tr><td>Oversight and emergency-power boundary memo</td><td>Supports pre-threshold governance and reversibility protection.</td><td>Analytical use under institutional supervision.</td></tr></tbody></table></div>
-<div class="section" id="s24"><h2 class="section-title">24. Spare Capacity Inventory</h2><table><thead><tr><th>Instrument</th><th>Purpose</th><th>Boundary</th></tr></thead><tbody><tr><td>Strategic continuity covenant</td><td>Supports pre-threshold governance and reversibility protection.</td><td>Analytical use under institutional supervision.</td></tr>
-<tr><td>Safe Mode security protocol</td><td>Supports pre-threshold governance and reversibility protection.</td><td>Analytical use under institutional supervision.</td></tr>
-<tr><td>Critical supplier reversibility clause</td><td>Supports pre-threshold governance and reversibility protection.</td><td>Analytical use under institutional supervision.</td></tr>
-<tr><td>Base habitability threshold register</td><td>Supports pre-threshold governance and reversibility protection.</td><td>Analytical use under institutional supervision.</td></tr>
-<tr><td>Oversight and emergency-power boundary memo</td><td>Supports pre-threshold governance and reversibility protection.</td><td>Analytical use under institutional supervision.</td></tr></tbody></table></div>
-<div class="section" id="s25"><h2 class="section-title">25. Mutual Aid Agreements</h2><table><thead><tr><th>Instrument</th><th>Purpose</th><th>Boundary</th></tr></thead><tbody><tr><td>Strategic continuity covenant</td><td>Supports pre-threshold governance and reversibility protection.</td><td>Analytical use under institutional supervision.</td></tr>
-<tr><td>Safe Mode security protocol</td><td>Supports pre-threshold governance and reversibility protection.</td><td>Analytical use under institutional supervision.</td></tr>
-<tr><td>Critical supplier reversibility clause</td><td>Supports pre-threshold governance and reversibility protection.</td><td>Analytical use under institutional supervision.</td></tr>
-<tr><td>Base habitability threshold register</td><td>Supports pre-threshold governance and reversibility protection.</td><td>Analytical use under institutional supervision.</td></tr>
-<tr><td>Oversight and emergency-power boundary memo</td><td>Supports pre-threshold governance and reversibility protection.</td><td>Analytical use under institutional supervision.</td></tr></tbody></table></div>
-<div class="part-header" id="part8"><div class="part-number">Part VIII</div><div class="part-title">Authoritative Source Library</div></div>
-<div class="section" id="s26"><h2 class="section-title">26. Source Classification</h2><ul><li>NATO climate and security materials</li>
-<li>UNDRR disaster risk frameworks</li>
-<li>CISA critical infrastructure guidance</li>
-<li>ISO 22301 business continuity standards</li>
-<li>National defense climate adaptation strategies</li></ul></div>
-<div class="section" id="s27"><h2 class="section-title">27. Class A Sources</h2><ul><li>NATO climate and security materials</li>
-<li>UNDRR disaster risk frameworks</li>
-<li>CISA critical infrastructure guidance</li>
-<li>ISO 22301 business continuity standards</li>
-<li>National defense climate adaptation strategies</li></ul></div>
-<div class="section" id="s28"><h2 class="section-title">28. Class B Sources</h2><ul><li>NATO climate and security materials</li>
-<li>UNDRR disaster risk frameworks</li>
-<li>CISA critical infrastructure guidance</li>
-<li>ISO 22301 business continuity standards</li>
-<li>National defense climate adaptation strategies</li></ul></div>
-<div class="section" id="s29"><h2 class="section-title">29. Class C Sources</h2><ul><li>NATO climate and security materials</li>
-<li>UNDRR disaster risk frameworks</li>
-<li>CISA critical infrastructure guidance</li>
-<li>ISO 22301 business continuity standards</li>
-<li>National defense climate adaptation strategies</li></ul></div>
-<div class="part-header" id="part9"><div class="part-number">Part IX</div><div class="part-title">Source Matrices &amp; Historical Intelligence</div></div>
-<div class="section" id="s30"><h2 class="section-title">30. Source-to-Variable Matrix</h2><div class="clause-box"><p>This matrix is used by Fellows to connect evidence, thresholds, actors, and intervention options across the 19-sector c-ECO architecture.</p></div></div>
-<div class="section" id="s31"><h2 class="section-title">31. Source-to-Risk Matrix</h2><div class="clause-box"><p>This matrix is used by Fellows to connect evidence, thresholds, actors, and intervention options across the 19-sector c-ECO architecture.</p></div></div>
-<div class="section" id="s32"><h2 class="section-title">32. Monitoring Gap Analysis</h2><div class="clause-box"><p>This matrix is used by Fellows to connect evidence, thresholds, actors, and intervention options across the 19-sector c-ECO architecture.</p></div></div>
-<div class="section" id="s33"><h2 class="section-title">33. Dependency Matrix</h2><div class="clause-box"><p>This matrix is used by Fellows to connect evidence, thresholds, actors, and intervention options across the 19-sector c-ECO architecture.</p></div></div>
-<div class="section" id="s34"><h2 class="section-title">34. Historical Intelligence</h2><div class="clause-box"><p>This matrix is used by Fellows to connect evidence, thresholds, actors, and intervention options across the 19-sector c-ECO architecture.</p></div></div>
-<div class="section" id="s35"><h2 class="section-title">35. Cross-Domain Sources</h2><div class="clause-box"><p>This matrix is used by Fellows to connect evidence, thresholds, actors, and intervention options across the 19-sector c-ECO architecture.</p></div></div>
-<div class="section" id="copyright"><h2 class="section-title">Copyright &amp; Classification</h2><div class="clause-box"><p><strong>Systemic Intelligence Library V4.0 — Defense &amp; Strategic Security Systems (c-ECO Sector 19 of 19).</strong></p><p style="margin-top:0.6rem">Complete for Calibration Council, Fellowship Training, Restoration Providers, and Legal &amp; Governance. Architecture reusable for the remaining 18 c-ECO domains by replacing sector-specific sources.</p><p style="margin-top:0.6rem"><strong>Document ID:</strong> SIL-DSSS-V4.0-20260616 · <strong>Classification:</strong> c-ECO Sectoral Architecture — Foundational Knowledge Asset · <strong>Compliance:</strong> c-ECO Systemic Governance Statute — All 9 Parts Mandatory · <strong>Date:</strong> 2026-06-16.</p></div></div>
+  <article class="document-page" id="mainDocument">
+
+    <!-- ===== HERO ===== -->
+    <header class="hero-header" id="DOMAIN-OVERVIEW">
+      <div class="hero-eyebrow">c-ECO Fellowship — Systemic Intelligence Library · Sector 19 of 19</div>
+      <h1 class="hero-title">DSSS — Defense &amp; Strategic Security Systems</h1>
+      <div class="hero-subtitle">
+        TFP Calibration · Strategic Continuity · Security Governance under Planetary Boundary Logic. This domain addresses the defense, strategic security, civil protection, critical infrastructure protection, continuity-of-government, and strategic logistics systems that preserve organized collective security under systemic environmental, technological, geopolitical, and infrastructure stress.
+      </div>
+      <div class="hero-meta">
+        <span class="hero-badge">Document ID: SIL-DSSS-V4.0-20260616</span>
+        <span class="hero-badge">Sector 19 · All 9 Parts</span>
+        <span class="hero-badge">Research-Verified · 2026-06-16</span>
+        <span class="hero-badge">Foundational Knowledge Asset</span>
+      </div>
+    </header>
+
+    <!-- ===== DOMAIN METADATA ===== -->
+    <div class="info-grid">
+      <div class="grid-card">
+        <div class="grid-card-title">Domain Code</div>
+        <p>DSSS — Defense &amp; Strategic Security Systems</p>
+      </div>
+      <div class="grid-card">
+        <div class="grid-card-title">Sector Position</div>
+        <p>Sector 19 of 19 in the c-ECO Sectoral Architecture</p>
+      </div>
+      <div class="grid-card">
+        <div class="grid-card-title">Classification</div>
+        <p>c-ECO Sectoral Architecture — Foundational Knowledge Asset</p>
+      </div>
+      <div class="grid-card">
+        <div class="grid-card-title">Compliance Requirement</div>
+        <p>c-ECO Systemic Governance Statute — All 9 Parts Mandatory</p>
+      </div>
+    </div>
+
+    <!-- ===== PART I ===== -->
+    <section id="part1">
+      <div class="section-header">PART I — DOMAIN INTELLIGENCE PROFILE</div>
+
+      <div class="subsection-header" id="s1">1. Domain Overview</div>
+
+      <div class="framework-box">
+        <div class="box-title">1.1 — Definition &amp; Scope</div>
+        <p class="caput" style="margin-bottom:8px;"><strong>Definition:</strong> The defense, strategic security, civil protection, critical infrastructure protection, continuity-of-government, and strategic logistics systems that preserve organized collective security under systemic environmental, technological, geopolitical, and infrastructure stress.</p>
+        <p class="caput" style="margin-bottom:0;"><strong>Scope:</strong> Defense institutions, strategic bases, command and control, dual-use logistics, critical supply chains, cyber and space security, continuity planning, emergency mobilization, strategic reserves, and institutional mechanisms for lawful security response.</p>
+      </div>
+
+      <div class="callout-box">
+        <div class="box-title">1.2 — Systemic Relevance</div>
+        <p class="caput" style="margin-bottom:0;">DSSS becomes systemic when security capacity depends on the same energy, water, digital, space, financial, health, and industrial systems exposed to threshold deterioration. The domain is not exempt from c-ECO; it requires stricter boundary discipline because security necessity can mask physical incompatibility.</p>
+      </div>
+
+      <div class="subsection-header" id="s2">2. Historical Evolution</div>
+
+      <div class="caput">
+        This SIL treats the domain as an evolving systemic infrastructure rather than a static sector. Historical analysis tracks how technical complexity, interdependence, and governance dependence have increased the cost of late intervention.
+      </div>
+
+      <div class="note-box">
+        <div class="box-title">Analytical Lens</div>
+        <p style="margin:0; font-size:12.5px; color:#333;">Historical cases are evaluated not for military outcomes but for their governance implications: what threshold signals were available, which institutions held response authority, and whether reversibility was preserved or foreclosed by the decisions made.</p>
+      </div>
+
+      <div class="subsection-header" id="s3">3. Institutional Landscape</div>
+
+      <table class="protocol-table" aria-label="Institutional Actors">
+        <thead>
+          <tr>
+            <th>Actor Class</th>
+            <th>Systemic Function</th>
+            <th>c-ECO Relevance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Defense institutions and security agencies</td>
+            <td>Maintains or governs a critical portion of Defense &amp; Strategic Security Systems.</td>
+            <td>Defines evidence access, response authority, and reversibility capacity.</td>
+          </tr>
+          <tr>
+            <td>Civil protection authorities</td>
+            <td>Maintains or governs a critical portion of Defense &amp; Strategic Security Systems.</td>
+            <td>Defines evidence access, response authority, and reversibility capacity.</td>
+          </tr>
+          <tr>
+            <td>Critical infrastructure operators</td>
+            <td>Maintains or governs a critical portion of Defense &amp; Strategic Security Systems.</td>
+            <td>Defines evidence access, response authority, and reversibility capacity.</td>
+          </tr>
+          <tr>
+            <td>Strategic suppliers and logistics providers</td>
+            <td>Maintains or governs a critical portion of Defense &amp; Strategic Security Systems.</td>
+            <td>Defines evidence access, response authority, and reversibility capacity.</td>
+          </tr>
+          <tr>
+            <td>Legislative and judicial oversight bodies</td>
+            <td>Maintains or governs a critical portion of Defense &amp; Strategic Security Systems.</td>
+            <td>Defines evidence access, response authority, and reversibility capacity.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ===== PART II ===== -->
+    <section id="part2">
+      <div class="section-header">PART II — SYSTEMIC RISK INTELLIGENCE</div>
+
+      <div class="subsection-header" id="s4">4. Primary Systemic Risks</div>
+
+      <table class="protocol-table" aria-label="Primary Systemic Risks">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Risk</th>
+            <th>TFP Variable</th>
+            <th>Governance Question</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Mission-critical infrastructure failure under climate stress</td>
+            <td><span class="tfp-tag tfp-p">P</span> <span class="tfp-tag tfp-dv">ΔV</span></td>
+            <td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Cyber-physical disruption of command and control</td>
+            <td><span class="tfp-tag tfp-s">σ</span></td>
+            <td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Strategic supply chain exhaustion</td>
+            <td><span class="tfp-tag tfp-lr">Lr</span></td>
+            <td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Base habitability loss from heat, flood, water, or energy stress</td>
+            <td><span class="tfp-tag tfp-p">P</span> <span class="tfp-tag tfp-lr">Lr</span></td>
+            <td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Emergency powers used without reversibility discipline</td>
+            <td><span class="tfp-tag tfp-dv">ΔV</span> <span class="tfp-tag tfp-s">σ</span></td>
+            <td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="subsection-header" id="s5">5. Secondary Risks</div>
+
+      <table class="protocol-table" aria-label="Secondary Risks">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Risk</th>
+            <th>TFP Variable</th>
+            <th>Governance Question</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Mission-critical infrastructure failure under climate stress</td>
+            <td><span class="tfp-tag tfp-p">P</span> <span class="tfp-tag tfp-dv">ΔV</span></td>
+            <td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Cyber-physical disruption of command and control</td>
+            <td><span class="tfp-tag tfp-s">σ</span></td>
+            <td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Strategic supply chain exhaustion</td>
+            <td><span class="tfp-tag tfp-lr">Lr</span></td>
+            <td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Base habitability loss from heat, flood, water, or energy stress</td>
+            <td><span class="tfp-tag tfp-p">P</span> <span class="tfp-tag tfp-lr">Lr</span></td>
+            <td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Emergency powers used without reversibility discipline</td>
+            <td><span class="tfp-tag tfp-dv">ΔV</span> <span class="tfp-tag tfp-s">σ</span></td>
+            <td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="subsection-header" id="s6">6. Emerging Risks</div>
+
+      <table class="protocol-table" aria-label="Emerging Risks">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Risk</th>
+            <th>TFP Variable</th>
+            <th>Governance Question</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Mission-critical infrastructure failure under climate stress</td>
+            <td><span class="tfp-tag tfp-p">P</span> <span class="tfp-tag tfp-dv">ΔV</span></td>
+            <td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Cyber-physical disruption of command and control</td>
+            <td><span class="tfp-tag tfp-s">σ</span></td>
+            <td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Strategic supply chain exhaustion</td>
+            <td><span class="tfp-tag tfp-lr">Lr</span></td>
+            <td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Base habitability loss from heat, flood, water, or energy stress</td>
+            <td><span class="tfp-tag tfp-p">P</span> <span class="tfp-tag tfp-lr">Lr</span></td>
+            <td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Emergency powers used without reversibility discipline</td>
+            <td><span class="tfp-tag tfp-dv">ΔV</span> <span class="tfp-tag tfp-s">σ</span></td>
+            <td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="subsection-header" id="s7">7. Cascade Risk Taxonomy</div>
+
+      <table class="protocol-table" aria-label="Cascade Risk Taxonomy">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Risk</th>
+            <th>TFP Variable</th>
+            <th>Governance Question</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Mission-critical infrastructure failure under climate stress</td>
+            <td><span class="tfp-tag tfp-p">P</span> <span class="tfp-tag tfp-dv">ΔV</span></td>
+            <td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Cyber-physical disruption of command and control</td>
+            <td><span class="tfp-tag tfp-s">σ</span></td>
+            <td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Strategic supply chain exhaustion</td>
+            <td><span class="tfp-tag tfp-lr">Lr</span></td>
+            <td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Base habitability loss from heat, flood, water, or energy stress</td>
+            <td><span class="tfp-tag tfp-p">P</span> <span class="tfp-tag tfp-lr">Lr</span></td>
+            <td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Emergency powers used without reversibility discipline</td>
+            <td><span class="tfp-tag tfp-dv">ΔV</span> <span class="tfp-tag tfp-s">σ</span></td>
+            <td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ===== PART III ===== -->
+    <section id="part3">
+      <div class="section-header">PART III — SYSTEMIC RESPONSE INTELLIGENCE</div>
+
+      <div class="subsection-header" id="s8">8. Response Protocols</div>
+
+      <div class="callout-box">
+        <div class="box-title">Response Design Principle</div>
+        <p class="caput" style="margin-bottom:0;">Response design must preserve evidence continuity, lawful authority, and reversibility. Fellows use this material to identify when monitoring, escalation, Safe Mode conduct, or Restoration First analysis becomes appropriate.</p>
+      </div>
+
+      <div class="subsection-header" id="s9">9. Calibration Council Matrix</div>
+
+      <div class="callout-box">
+        <div class="box-title">Calibration Council Function</div>
+        <p class="caput" style="margin-bottom:0;">Response design must preserve evidence continuity, lawful authority, and reversibility. Fellows use this material to identify when monitoring, escalation, Safe Mode conduct, or Restoration First analysis becomes appropriate.</p>
+      </div>
+
+      <div class="subsection-header" id="s10">10. Communication Contingencies</div>
+
+      <div class="callout-box">
+        <div class="box-title">Communication Architecture</div>
+        <p class="caput" style="margin-bottom:0;">Response design must preserve evidence continuity, lawful authority, and reversibility. Fellows use this material to identify when monitoring, escalation, Safe Mode conduct, or Restoration First analysis becomes appropriate.</p>
+      </div>
+    </section>
+
+    <!-- ===== PART IV ===== -->
+    <section id="part4">
+      <div class="section-header">PART IV — GOVERNANCE &amp; LEGAL ARCHITECTURE</div>
+
+      <div class="warning-box">
+        <div class="box-title">Governance Boundary</div>
+        <p style="margin:0; font-size:12.5px;">Governance analysis asks which institution can observe, verify, decide, fund, and execute without confusing analytical work with unauthorized deployment.</p>
+      </div>
+
+      <div class="subsection-header" id="s11">11. International Frameworks</div>
+
+      <div class="framework-box">
+        <div class="box-title">International Governance Layer</div>
+        <p class="caput" style="margin-bottom:0;">Governance analysis asks which institution can observe, verify, decide, fund, and execute without confusing analytical work with unauthorized deployment.</p>
+      </div>
+
+      <div class="subsection-header" id="s12">12. National Frameworks</div>
+
+      <div class="framework-box">
+        <div class="box-title">National Governance Layer</div>
+        <p class="caput" style="margin-bottom:0;">Governance analysis asks which institution can observe, verify, decide, fund, and execute without confusing analytical work with unauthorized deployment.</p>
+      </div>
+
+      <div class="subsection-header" id="s13">13. Liability Cascade</div>
+
+      <div class="framework-box">
+        <div class="box-title">Liability Architecture</div>
+        <p class="caput" style="margin-bottom:0;">Governance analysis asks which institution can observe, verify, decide, fund, and execute without confusing analytical work with unauthorized deployment.</p>
+      </div>
+
+      <div class="subsection-header" id="s14">14. Data Sovereignty</div>
+
+      <div class="framework-box">
+        <div class="box-title">Data Sovereignty Framework</div>
+        <p class="caput" style="margin-bottom:0;">Governance analysis asks which institution can observe, verify, decide, fund, and execute without confusing analytical work with unauthorized deployment.</p>
+      </div>
+    </section>
+
+    <!-- ===== PART V ===== -->
+    <section id="part5">
+      <div class="section-header">PART V — TFP CALIBRATION INTELLIGENCE</div>
+
+      <div class="note-box">
+        <div class="box-title">TFP Variable Legend</div>
+        <p style="margin:0; font-size:12.5px;">
+          <span class="tfp-tag tfp-p">P</span> <strong>Position</strong> — Current state relative to threshold ·
+          <span class="tfp-tag tfp-dv">ΔV</span> <strong>Velocity</strong> — Rate and direction of change ·
+          <span class="tfp-tag tfp-s">σ</span> <strong>Uncertainty</strong> — Measurement and model uncertainty ·
+          <span class="tfp-tag tfp-lr">Lr</span> <strong>Reversibility</strong> — Remaining recovery capacity
+        </p>
+      </div>
+
+      <div class="subsection-header" id="s15">15. Position (P) Indicators</div>
+
+      <div class="caput">
+        <strong>Position (P):</strong> The current state of an activity, asset, environment, or system within its systemic stability space, measured relative to relevant thresholds, Safe Operating Space boundaries, and potential failure conditions.
+      </div>
+
+      <table class="protocol-table" aria-label="Position Indicators">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Indicator</th>
+            <th>Boundary Logic</th>
+            <th>Evidence Need</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Mission-critical infrastructure failure under climate stress</td>
+            <td><span class="tfp-tag tfp-p">P</span></td>
+            <td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Cyber-physical disruption of command and control</td>
+            <td><span class="tfp-tag tfp-p">P</span></td>
+            <td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Strategic supply chain exhaustion</td>
+            <td><span class="tfp-tag tfp-p">P</span></td>
+            <td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Base habitability loss from heat, flood, water, or energy stress</td>
+            <td><span class="tfp-tag tfp-p">P</span></td>
+            <td>Define threshold, evidence source, monitoring frequency, and intervention consequence.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="subsection-header" id="s16">16. Velocity (ΔV) Indicators</div>
+
+      <div class="caput">
+        ΔV measures whether the system is moving toward or away from threshold conditions and at what speed.
+      </div>
+
+      <div class="subsection-header" id="s17">17. Uncertainty (σ) Intelligence</div>
+
+      <div class="caput">
+        σ captures uncertainty in measurement, model design, coverage, institutional reporting, and disputed evidence.
+      </div>
+
+      <div class="subsection-header" id="s18">18. Reversibility (Lr)</div>
+
+      <div class="caput">
+        Lr measures remaining capacity to stabilize, recover, or reconfigure before irreversibility emerges.
+      </div>
+    </section>
+
+    <!-- ===== PART VI ===== -->
+    <section id="part6">
+      <div class="section-header">PART VI — SCENARIO &amp; SIMULATION INTELLIGENCE</div>
+
+      <div class="note-box">
+        <div class="box-title">Scenario Calibration Notice</div>
+        <p style="margin:0; font-size:12.5px;">Scenario work converts signal libraries into structured exercises for cohort use. Parameters are illustrative until institutional calibration assigns live values.</p>
+      </div>
+
+      <div class="subsection-header" id="s19">19. Stress Test Scenarios</div>
+
+      <div class="callout-box">
+        <div class="box-title">Stress Test Framework</div>
+        <p class="caput" style="margin-bottom:0;">Scenario work converts signal libraries into structured exercises for cohort use. Parameters are illustrative until institutional calibration assigns live values.</p>
+      </div>
+
+      <div class="subsection-header" id="s20">20. Monte Carlo Parameters</div>
+
+      <div class="callout-box">
+        <div class="box-title">Monte Carlo Framework</div>
+        <p class="caput" style="margin-bottom:0;">Scenario work converts signal libraries into structured exercises for cohort use. Parameters are illustrative until institutional calibration assigns live values.</p>
+      </div>
+
+      <div class="subsection-header" id="s21">21. Continuity Recovery</div>
+
+      <div class="callout-box">
+        <div class="box-title">Continuity Architecture</div>
+        <p class="caput" style="margin-bottom:0;">Scenario work converts signal libraries into structured exercises for cohort use. Parameters are illustrative until institutional calibration assigns live values.</p>
+      </div>
+    </section>
+
+    <!-- ===== PART VII ===== -->
+    <section id="part7">
+      <div class="section-header">PART VII — RESTORATION &amp; RECOVERY ARCHITECTURE</div>
+
+      <div class="subsection-header" id="s22">22. Restoration Standards</div>
+
+      <table class="protocol-table" aria-label="Restoration Standards">
+        <thead>
+          <tr>
+            <th>Instrument</th>
+            <th>Purpose</th>
+            <th>Boundary</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Strategic continuity covenant</td>
+            <td>Supports pre-threshold governance and reversibility protection.</td>
+            <td>Analytical use under institutional supervision.</td>
+          </tr>
+          <tr>
+            <td>Safe Mode security protocol</td>
+            <td>Supports pre-threshold governance and reversibility protection.</td>
+            <td>Analytical use under institutional supervision.</td>
+          </tr>
+          <tr>
+            <td>Critical supplier reversibility clause</td>
+            <td>Supports pre-threshold governance and reversibility protection.</td>
+            <td>Analytical use under institutional supervision.</td>
+          </tr>
+          <tr>
+            <td>Base habitability threshold register</td>
+            <td>Supports pre-threshold governance and reversibility protection.</td>
+            <td>Analytical use under institutional supervision.</td>
+          </tr>
+          <tr>
+            <td>Oversight and emergency-power boundary memo</td>
+            <td>Supports pre-threshold governance and reversibility protection.</td>
+            <td>Analytical use under institutional supervision.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="subsection-header" id="s23">23. Recovery Sequencing</div>
+
+      <table class="protocol-table" aria-label="Recovery Sequencing">
+        <thead>
+          <tr>
+            <th>Instrument</th>
+            <th>Purpose</th>
+            <th>Boundary</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Strategic continuity covenant</td>
+            <td>Supports pre-threshold governance and reversibility protection.</td>
+            <td>Analytical use under institutional supervision.</td>
+          </tr>
+          <tr>
+            <td>Safe Mode security protocol</td>
+            <td>Supports pre-threshold governance and reversibility protection.</td>
+            <td>Analytical use under institutional supervision.</td>
+          </tr>
+          <tr>
+            <td>Critical supplier reversibility clause</td>
+            <td>Supports pre-threshold governance and reversibility protection.</td>
+            <td>Analytical use under institutional supervision.</td>
+          </tr>
+          <tr>
+            <td>Base habitability threshold register</td>
+            <td>Supports pre-threshold governance and reversibility protection.</td>
+            <td>Analytical use under institutional supervision.</td>
+          </tr>
+          <tr>
+            <td>Oversight and emergency-power boundary memo</td>
+            <td>Supports pre-threshold governance and reversibility protection.</td>
+            <td>Analytical use under institutional supervision.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="subsection-header" id="s24">24. Spare Capacity Inventory</div>
+
+      <table class="protocol-table" aria-label="Spare Capacity Inventory">
+        <thead>
+          <tr>
+            <th>Instrument</th>
+            <th>Purpose</th>
+            <th>Boundary</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Strategic continuity covenant</td>
+            <td>Supports pre-threshold governance and reversibility protection.</td>
+            <td>Analytical use under institutional supervision.</td>
+          </tr>
+          <tr>
+            <td>Safe Mode security protocol</td>
+            <td>Supports pre-threshold governance and reversibility protection.</td>
+            <td>Analytical use under institutional supervision.</td>
+          </tr>
+          <tr>
+            <td>Critical supplier reversibility clause</td>
+            <td>Supports pre-threshold governance and reversibility protection.</td>
+            <td>Analytical use under institutional supervision.</td>
+          </tr>
+          <tr>
+            <td>Base habitability threshold register</td>
+            <td>Supports pre-threshold governance and reversibility protection.</td>
+            <td>Analytical use under institutional supervision.</td>
+          </tr>
+          <tr>
+            <td>Oversight and emergency-power boundary memo</td>
+            <td>Supports pre-threshold governance and reversibility protection.</td>
+            <td>Analytical use under institutional supervision.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="subsection-header" id="s25">25. Mutual Aid Agreements</div>
+
+      <table class="protocol-table" aria-label="Mutual Aid Agreements">
+        <thead>
+          <tr>
+            <th>Instrument</th>
+            <th>Purpose</th>
+            <th>Boundary</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Strategic continuity covenant</td>
+            <td>Supports pre-threshold governance and reversibility protection.</td>
+            <td>Analytical use under institutional supervision.</td>
+          </tr>
+          <tr>
+            <td>Safe Mode security protocol</td>
+            <td>Supports pre-threshold governance and reversibility protection.</td>
+            <td>Analytical use under institutional supervision.</td>
+          </tr>
+          <tr>
+            <td>Critical supplier reversibility clause</td>
+            <td>Supports pre-threshold governance and reversibility protection.</td>
+            <td>Analytical use under institutional supervision.</td>
+          </tr>
+          <tr>
+            <td>Base habitability threshold register</td>
+            <td>Supports pre-threshold governance and reversibility protection.</td>
+            <td>Analytical use under institutional supervision.</td>
+          </tr>
+          <tr>
+            <td>Oversight and emergency-power boundary memo</td>
+            <td>Supports pre-threshold governance and reversibility protection.</td>
+            <td>Analytical use under institutional supervision.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ===== PART VIII ===== -->
+    <section id="part8">
+      <div class="section-header">PART VIII — AUTHORITATIVE SOURCE LIBRARY</div>
+
+      <div class="subsection-header" id="s26">26. Source Classification</div>
+
+      <ul class="clean-list">
+        <li>NATO climate and security materials</li>
+        <li>UNDRR disaster risk frameworks</li>
+        <li>CISA critical infrastructure guidance</li>
+        <li>ISO 22301 business continuity standards</li>
+        <li>National defense climate adaptation strategies</li>
+      </ul>
+
+      <div class="subsection-header" id="s27">27. Class A Sources</div>
+
+      <ul class="clean-list">
+        <li>NATO climate and security materials</li>
+        <li>UNDRR disaster risk frameworks</li>
+        <li>CISA critical infrastructure guidance</li>
+        <li>ISO 22301 business continuity standards</li>
+        <li>National defense climate adaptation strategies</li>
+      </ul>
+
+      <div class="subsection-header" id="s28">28. Class B Sources</div>
+
+      <ul class="clean-list">
+        <li>NATO climate and security materials</li>
+        <li>UNDRR disaster risk frameworks</li>
+        <li>CISA critical infrastructure guidance</li>
+        <li>ISO 22301 business continuity standards</li>
+        <li>National defense climate adaptation strategies</li>
+      </ul>
+
+      <div class="subsection-header" id="s29">29. Class C Sources</div>
+
+      <ul class="clean-list">
+        <li>NATO climate and security materials</li>
+        <li>UNDRR disaster risk frameworks</li>
+        <li>CISA critical infrastructure guidance</li>
+        <li>ISO 22301 business continuity standards</li>
+        <li>National defense climate adaptation strategies</li>
+      </ul>
+    </section>
+
+    <!-- ===== PART IX ===== -->
+    <section id="part9">
+      <div class="section-header">PART IX — SOURCE MATRICES &amp; HISTORICAL INTELLIGENCE</div>
+
+      <div class="note-box">
+        <div class="box-title">Matrix Use</div>
+        <p style="margin:0; font-size:12.5px;">This matrix is used by Fellows to connect evidence, thresholds, actors, and intervention options across the 19-sector c-ECO architecture.</p>
+      </div>
+
+      <div class="subsection-header" id="s30">30. Source-to-Variable Matrix</div>
+      <div class="callout-box">
+        <div class="box-title">Matrix: Source → TFP Variable</div>
+        <p class="caput" style="margin-bottom:0;">This matrix is used by Fellows to connect evidence, thresholds, actors, and intervention options across the 19-sector c-ECO architecture.</p>
+      </div>
+
+      <div class="subsection-header" id="s31">31. Source-to-Risk Matrix</div>
+      <div class="callout-box">
+        <div class="box-title">Matrix: Source → Risk</div>
+        <p class="caput" style="margin-bottom:0;">This matrix is used by Fellows to connect evidence, thresholds, actors, and intervention options across the 19-sector c-ECO architecture.</p>
+      </div>
+
+      <div class="subsection-header" id="s32">32. Monitoring Gap Analysis</div>
+      <div class="callout-box">
+        <div class="box-title">Monitoring Coverage</div>
+        <p class="caput" style="margin-bottom:0;">This matrix is used by Fellows to connect evidence, thresholds, actors, and intervention options across the 19-sector c-ECO architecture.</p>
+      </div>
+
+      <div class="subsection-header" id="s33">33. Dependency Matrix</div>
+      <div class="callout-box">
+        <div class="box-title">Cross-Domain Dependencies</div>
+        <p class="caput" style="margin-bottom:0;">This matrix is used by Fellows to connect evidence, thresholds, actors, and intervention options across the 19-sector c-ECO architecture.</p>
+      </div>
+
+      <div class="subsection-header" id="s34">34. Historical Intelligence</div>
+      <div class="callout-box">
+        <div class="box-title">Historical Record</div>
+        <p class="caput" style="margin-bottom:0;">This matrix is used by Fellows to connect evidence, thresholds, actors, and intervention options across the 19-sector c-ECO architecture.</p>
+      </div>
+
+      <div class="subsection-header" id="s35">35. Cross-Domain Sources</div>
+      <div class="callout-box">
+        <div class="box-title">Cross-Domain Evidence</div>
+        <p class="caput" style="margin-bottom:0;">This matrix is used by Fellows to connect evidence, thresholds, actors, and intervention options across the 19-sector c-ECO architecture.</p>
+      </div>
+    </section>
+
+    <!-- ===== SECTOR CROSS-NAVIGATION ===== -->
+    <section id="SECTOR-NAV">
+      <div class="section-header">SIL DOMAIN CROSS-NAVIGATION</div>
+
+      <div class="caput">
+        The c-ECO Fellowship organizes analytical work across 19 systemic sectors. Navigate to other SIL domain pages below. Each domain page follows the same architecture as this document.
+      </div>
+
+      <div class="sector-grid">
+
+        <a href="/fellowship/fellowship-sil-min.html" class="sector-link">
+          <div class="sector-card">
+            <div class="sector-number">Sector 01 — MIN</div>
+            <div class="sector-title">Mining &amp; Mineral Extraction</div>
+            <div class="sector-text">Tailings risk, extraction systems, aquifer contamination, geotechnical instability, and restoration-linked legal conditioning.</div>
+          </div>
+        </a>
+
+        <a href="/fellowship/fellowship-sil-ene.html" class="sector-link">
+          <div class="sector-card">
+            <div class="sector-number">Sector 03 — ENE</div>
+            <div class="sector-title">Energy Systems</div>
+            <div class="sector-text">Energy-water interdependence, infrastructure resilience, reversibility liquidity, and systemic instability in power systems.</div>
+          </div>
+        </a>
+
+        <a href="/fellowship/fellowship-sil-wat.html" class="sector-link">
+          <div class="sector-card">
+            <div class="sector-number">Sector 04 — WAT</div>
+            <div class="sector-title">Water &amp; Sanitation</div>
+            <div class="sector-text">Freshwater scarcity, hydrological thresholds, aquifer stress, sanitation infrastructure, and water-system instability.</div>
+          </div>
+        </a>
+
+        <a href="/fellowship/fellowship-sil-dig.html" class="sector-link">
+          <div class="sector-card">
+            <div class="sector-number">Sector 08 — DIG</div>
+            <div class="sector-title">Digital Technology &amp; Data Infrastructure</div>
+            <div class="sector-text">Data center externalities, computational expansion, digital infrastructure burdens, energy-water pressure, and algorithmic dependency.</div>
+          </div>
+        </a>
+
+        <a href="/fellowship/fellowship-sil-fin.html" class="sector-link">
+          <div class="sector-card">
+            <div class="sector-number">Sector 10 — FIN</div>
+            <div class="sector-title">Financial Systems</div>
+            <div class="sector-text">Transmission of systemic environmental risk into guarantees, portfolios, credit instruments, insurance, and reversibility-linked finance.</div>
+          </div>
+        </a>
+
+        <a href="/fellowship/fellowship-sil-sovk.html" class="sector-link">
+          <div class="sector-card">
+            <div class="sector-number">Sector 18 — SOVK</div>
+            <div class="sector-title">Scientific Observation, Verification &amp; Knowledge Systems</div>
+            <div class="sector-text">Monitoring architectures, validation protocols, evidentiary chains, scientific uncertainty, knowledge integrity, and verification-linked governance.</div>
+          </div>
+        </a>
+
+        <a href="/fellowship/fellowship-sil-dsss.html" class="sector-link">
+          <div class="sector-card current">
+            <div class="sector-number">Sector 19 — DSSS</div>
+            <div class="sector-title">Defense &amp; Strategic Security Systems</div>
+            <div class="sector-text">Strategic security planning, defense infrastructure, civil-military coordination, supply continuity, and systemic resilience under high-sensitivity conditions.</div>
+          </div>
+        </a>
+
+      </div>
+
+      <div class="note-box" style="margin-top:8px;">
+        <div class="box-title">Additional SIL Domains</div>
+        <p style="margin:0; font-size:12.5px;">Domains AGR, CHE, INF, URB, LOG, AI, FOR, SPA, NUC, HEA, EME, and GOV are part of the full 19-sector c-ECO architecture. SIL pages for these domains are in active development. Return to the <a href="/fellowship/fellowship-portal.html" style="color:var(--submission-accent); font-weight:700;">Fellowship Portal</a> for the complete sector index.</p>
+      </div>
+    </section>
+
+    <!-- ===== COPYRIGHT ===== -->
+    <div class="copyright-footer" id="COPYRIGHT">
+      <div class="copyright-notice">Copyright &amp; Classification — SIL-DSSS-V4.0</div>
+      <p><strong>Systemic Intelligence Library V4.0 — Defense &amp; Strategic Security Systems (c-ECO Sector 19 of 19).</strong></p>
+      <p style="margin-top:8px;">Complete for Calibration Council, Fellowship Training, Restoration Providers, and Legal &amp; Governance. Architecture reusable for the remaining 18 c-ECO domains by replacing sector-specific sources.</p>
+      <p style="margin-top:8px;"><strong>Document ID:</strong> SIL-DSSS-V4.0-20260616 · <strong>Classification:</strong> c-ECO Sectoral Architecture — Foundational Knowledge Asset · <strong>Compliance:</strong> c-ECO Systemic Governance Statute — All 9 Parts Mandatory · <strong>Date:</strong> 2026-06-16.</p>
+      <p style="margin-top:8px;">© c-ECO. All rights reserved. Developed under the Johann Christian Hasse Foundation in collaboration with Instituto Silvio Meira (ISM). Unauthorized reproduction or operational deployment outside Fellowship supervision is prohibited.</p>
+    </div>
+
+  </article>
 </main>
-</div>
-<div class="doc-footer">Systemic Intelligence Library V4.0 — Defense &amp; Strategic Security Systems · c-ECO Sector 19 of 19 · Document ID SIL-DSSS-V4.0-20260616 · © c-ECO. All rights reserved.</div>
-<button class="print-btn" onclick="window.print()">Print Document</button>
-<script>(function(){const searchBox=document.getElementById('searchBox');if(!searchBox)return;const links=[...document.querySelectorAll('.nav-link')];searchBox.addEventListener('input',function(){const q=this.value.toLowerCase();links.forEach(l=>{l.style.display=l.textContent.toLowerCase().includes(q)||!q?'block':'none';});});})();</script>
+
+<script>
+(function(){
+  // Sidebar search
+  const searchInput = document.getElementById('sidebarSearch');
+  if(searchInput){
+    const navItems = document.querySelectorAll('.nav-item a');
+    searchInput.addEventListener('input', function(){
+      const q = this.value.toLowerCase().trim();
+      navItems.forEach(function(a){
+        const li = a.parentElement;
+        li.style.display = (!q || a.textContent.toLowerCase().includes(q)) ? '' : 'none';
+      });
+    });
+  }
+
+  // Active nav highlighting on scroll
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.nav-item a');
+
+  function setActiveLink(){
+    let current = '';
+    sections.forEach(function(sec){
+      const rect = sec.getBoundingClientRect();
+      if(rect.top <= 80){ current = sec.id; }
+    });
+    navLinks.forEach(function(a){
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  }
+
+  window.addEventListener('scroll', setActiveLink, { passive: true });
+  setActiveLink();
+
+  // Close sidebar on nav item click (mobile)
+  navLinks.forEach(function(a){
+    a.addEventListener('click', function(){
+      if(window.innerWidth <= 1024){
+        document.getElementById('sidebar').classList.remove('open');
+      }
+    });
+  });
+})();
+</script>
+
 </body>
 </html>
