@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 2: TFP Variables: The Mathematics of AI Systems Systemic Risk</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+:root{--harvard-crimson:#A51C30;--harvard-dark:#1E1E1E;--harvard-gray:#6C757D;--harvard-light:#F8F9FA;--accent-teal:#4A9B8E;--math-bg:#F0F4F8;--accent-gold:#C4A35A;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;line-height:1.7;color:var(--harvard-dark);background:#fff;}
+.module-header{background:linear-gradient(135deg,var(--harvard-crimson) 0%,#7A1525 100%);color:#fff;padding:60px 80px;}
+.module-number{font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:2px;opacity:.9;margin-bottom:16px;}
+h1{font-family:'Crimson Pro',serif;font-size:44px;font-weight:700;line-height:1.2;margin-bottom:20px;}
+.module-meta{display:flex;gap:32px;font-size:14px;opacity:.92;flex-wrap:wrap;}
+.content-body{max-width:920px;margin:0 auto;padding:60px 40px;}
+h2{font-family:'Crimson Pro',serif;font-size:32px;font-weight:600;margin:50px 0 25px;color:var(--harvard-dark);}
+h3{font-family:'Crimson Pro',serif;font-size:24px;font-weight:600;margin:35px 0 18px;}
+p{margin:14px 0;}
+.learning-objectives{background:var(--harvard-light);border-left:4px solid var(--accent-teal);padding:30px 35px;margin:40px 0;}
+.learning-objectives h3{font-family:'Crimson Pro',serif;font-size:22px;color:var(--accent-teal);margin:0 0 20px;}
+.learning-objectives ul,.clean-list{list-style:none;}
+.learning-objectives li,.clean-list li{padding:8px 0 8px 28px;position:relative;}
+.learning-objectives li::before,.clean-list li::before{content:"→";position:absolute;left:0;color:var(--accent-teal);font-weight:600;}
+.doctrine-box{background:#fff8f3;border-left:4px solid var(--accent-gold);padding:25px 30px;margin:30px 0;}
+.doctrine-box h3{margin-top:0;color:var(--harvard-crimson);}
+.variable-card{background:#fff;border-left:4px solid var(--accent-teal);padding:25px 30px;margin:25px 0;box-shadow:0 2px 8px rgba(0,0,0,.08);}
+.variable-symbol{font-family:'Crimson Pro',serif;font-size:42px;font-weight:700;color:var(--accent-teal);margin-bottom:8px;}
+.variable-name{font-family:'Crimson Pro',serif;font-size:20px;font-weight:600;margin-bottom:12px;}
+.data-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:14px;}
+.data-table th{background:var(--harvard-dark);color:#fff;padding:12px 15px;text-align:left;font-weight:600;}
+.data-table td{padding:12px 15px;border-bottom:1px solid #dee2e6;vertical-align:top;}
+.data-table tr:nth-child(even){background:var(--harvard-light);}
+.problem-set{background:#fff;border:2px solid var(--harvard-crimson);padding:35px;margin:35px 0;}
+.problem-header{background:var(--harvard-crimson);color:#fff;padding:12px 20px;margin:-35px -35px 25px;font-weight:600;font-size:14px;text-transform:uppercase;letter-spacing:1px;}
+.problem{margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid #dee2e6;}
+.problem:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.problem-number{display:inline-block;width:32px;height:32px;background:var(--accent-teal);color:#fff;border-radius:50%;text-align:center;line-height:32px;font-size:14px;font-weight:700;margin-right:12px;}
+.problem-title{font-family:'Crimson Pro',serif;font-size:20px;font-weight:600;display:inline;}
+.phase-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin:28px 0;}
+.phase-card{border:1px solid #dee2e6;background:#fff;padding:22px;border-top:3px solid var(--accent-teal);}
+.phase-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--harvard-crimson);margin-bottom:10px;}
+.timeline{display:flex;align-items:center;gap:10px;margin:30px 0;flex-wrap:wrap;}
+.timeline-step{background:var(--harvard-light);border:1px solid #dee2e6;border-left:4px solid var(--harvard-crimson);padding:14px 16px;font-weight:600;flex:1;min-width:150px;}
+.timeline-arrow{color:var(--harvard-crimson);font-size:24px;font-weight:700;}
+.question-block{background:var(--harvard-light);padding:25px 30px;margin:25px 0;border-radius:4px;}
+.deliverable{background:#fff;border:1px solid #dee2e6;border-left:4px solid var(--harvard-crimson);padding:22px 26px;margin:20px 0;}
+.deliverable-title{font-family:'Crimson Pro',serif;font-size:20px;font-weight:600;color:var(--harvard-crimson);margin-bottom:10px;}
+.module-navigation{display:flex;justify-content:space-between;align-items:center;margin-top:50px;padding-top:30px;border-top:2px solid var(--harvard-light);gap:20px;}
+.nav-btn{text-decoration:none;font-size:14px;font-weight:600;padding:10px 18px;border-radius:4px;transition:all .2s ease;}
+.nav-back{color:var(--harvard-gray);border:1px solid #dee2e6;background:transparent;}
+.nav-back:hover{color:var(--harvard-dark);border-color:var(--harvard-gray);}
+.nav-next{background:var(--harvard-crimson);color:#fff;border:1px solid var(--harvard-crimson);}
+.nav-next:hover{background:#7A1525;}
+.footer-note{margin-top:45px;padding-top:26px;border-top:2px solid var(--harvard-light);font-size:13px;color:var(--harvard-gray);}
+@media(max-width:760px){.module-header{padding:42px 28px;}h1{font-size:34px;}.content-body{padding:42px 24px;}.phase-grid{grid-template-columns:1fr;}.module-navigation{flex-direction:column;align-items:stretch;}.timeline{display:block;}.timeline-arrow{text-align:center;margin:8px 0;}.data-table{font-size:13px;}}
+</style>
+</head>
+<body>
+<header class="module-header">
+  <div class="module-number">Module 02 of 06 — AI &amp; Algorithmic Systems</div>
+  <h1>TFP Variables: The Mathematics of AI Systems Systemic Risk</h1>
+  <div class="module-meta">
+      <span>4 Hours Preparation</span>
+      <span>90-Minute Quantitative Workshop</span>
+      <span>Case Calibration</span>
+  </div>
+</header>
+<main class="content-body">
+  <div class="learning-objectives">
+    <h3>Learning Objectives</h3>
+    <ul>
+      <li>Translate AI and algorithmic systems facts into P, ΔV, σ, and Lr variables.</li>
+      <li>Identify the relevant thresholds, stability zones, and failure boundaries for AI Systems.</li>
+      <li>Distinguish data availability from evidentiary reliability under uncertainty.</li>
+      <li>Prepare the first technical annex for the AI Systems CSAM.</li>
+    </ul>
+  </div>
+
+  
+<h2>Module Function</h2>
+<p>Module 2 converts the common doctrine of Module 1 into sector-specific measurement logic. In the AI &amp; Algorithmic Systems track, the Threshold Function Protocol is not treated as a generic scoring device. It is a disciplined method for locating a concrete case inside its systemic stability space, measuring movement toward or away from threshold conditions, weighting uncertainty, and assessing remaining reversibility.</p>
+
+<div class="doctrine-box">
+  <h3>Sector Calibration Principle</h3>
+  <p>The same TFP variables apply across all Fellowship tracks, but their empirical content changes by domain. For AI Systems, calibration begins by asking which system is being protected, which thresholds matter, which signals can be observed, and which decisions remain reversible.</p>
+</div>
+
+<h2>Core Variables</h2>
+<div class="variable-card"><div class="variable-symbol">P</div><div class="variable-name">Position</div><p>The current state of an activity, asset, environment, or system within its systemic stability space, measured relative to relevant thresholds, Safe Operating Space boundaries, and potential failure conditions.</p><p><strong>AI Systems application:</strong> position is assessed through acceptable error and drift boundaries, human oversight capacity limits, data integrity and bias thresholds, and the proximity of the case to operational or ecological failure.</p></div>
+<div class="variable-card"><div class="variable-symbol">ΔV</div><div class="variable-name">Velocity</div><p>The rate and direction of systemic change toward or away from a threshold. A slow deterioration may be manageable; a rapid deterioration may require immediate Safe Mode escalation.</p><p><strong>AI Systems application:</strong> Fellows examine signals such as model drift and performance degradation, data bias or representational failure, compute and energy burden acceleration.</p></div>
+<div class="variable-card"><div class="variable-symbol">σ</div><div class="variable-name">Uncertainty</div><p>The degree of uncertainty associated with evidence, measurement quality, data continuity, model assumptions, and institutional visibility. In c-ECO, uncertainty does not excuse delay when reversibility is shrinking.</p><p><strong>AI Systems application:</strong> uncertainty is mapped across observation gaps, institutional blind spots, and contested evidence.</p></div>
+<div class="variable-card"><div class="variable-symbol">Lr</div><div class="variable-name">Reversibility Liquidity</div><p>The remaining capacity of the system to stabilize, recover, redesign, or reconfigure before damage becomes irreversible or response windows close.</p><p><strong>AI Systems application:</strong> Lr is evaluated through technical redundancy, governance capacity, restoration options, financing flexibility, and time-sensitive intervention pathways.</p></div>
+
+<h2>Sector Signal Library</h2>
+<table class="data-table"><tr><th>Signal</th><th>Why It Matters</th><th>Initial TFP Use</th></tr><tr><td>Model drift and performance degradation</td><td>Indicates whether the AI Systems system is stabilizing, degrading, or approaching a critical decision boundary.</td><td>P proximity</td></tr><tr><td>Data bias or representational failure</td><td>Indicates whether the AI Systems system is stabilizing, degrading, or approaching a critical decision boundary.</td><td>ΔV direction</td></tr><tr><td>Compute and energy burden acceleration</td><td>Indicates whether the AI Systems system is stabilizing, degrading, or approaching a critical decision boundary.</td><td>σ weighting</td></tr><tr><td>Automation dependency and human oversight erosion</td><td>Indicates whether the AI Systems system is stabilizing, degrading, or approaching a critical decision boundary.</td><td>Lr pressure</td></tr><tr><td>Adverse decision clustering or systemic externality</td><td>Indicates whether the AI Systems system is stabilizing, degrading, or approaching a critical decision boundary.</td><td>Safe Mode relevance</td></tr></table>
+
+<div class="problem-set"><div class="problem-header">Applied Problem Set</div>
+  <div class="problem"><span class="problem-number">1</span><div class="problem-title">Define the System</div><p>Using an automated decision, model deployment, algorithmic governance process, or AI infrastructure dependency with systemic risk or public-interest exposure, define the system boundary, affected actors, and primary threshold exposure.</p></div>
+  <div class="problem"><span class="problem-number">2</span><div class="problem-title">Assign Variables</div><p>Prepare a one-page variable map showing P, ΔV, σ, and Lr. Identify which variable is most sensitive to missing data.</p></div>
+  <div class="problem"><span class="problem-number">3</span><div class="problem-title">CSAM Annex</div><p>Draft the first CSAM technical annex: evidence sources, threshold assumptions, signal frequency, and intervention implications.</p></div>
+</div>
+
+  <div class="module-navigation">
+    <a href="/fellowship/modules/fellowship-module1.html" class="nav-btn nav-back">← Module 1</a>
+    <a href="/fellowship/modules/fellowship-module3-ai.html" class="nav-btn nav-next">Module 03 →</a>
+  </div>
+
+  <div class="footer-note">
+    <p><strong>Sectoral Status:</strong> This module belongs to the AI &amp; Algorithmic Systems track and is released through institutional cohort allocation.</p>
+    <p style="margin-top:15px;"><strong>Next Step:</strong> Threshold Logic — AI Systems Pre-Threshold Signals and Early Warning.</p>
+    <p style="margin-top:15px;"><strong>Program Boundary:</strong> Fellowship work is analytical and supervised. It does not create independent authority to deploy c-ECO or represent institutional determinations outside authorized channels.</p>
+  </div>
+</main>
+</body>
+</html>
