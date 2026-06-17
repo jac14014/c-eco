@@ -529,8 +529,8 @@ If a backend is later added to the site, replace the action URL with that route.
 
 <div class="form-row">
 <div class="form-group">
-<label for="linkedin">LinkedIn Profile <span class="required">*</span></label>
-<input id="linkedin" type="url" name="linkedin" required placeholder="https://linkedin.com/in/yourprofile">
+<label for="linkedin">LinkedIn Profile</label>
+<input id="linkedin" type="text" name="linkedin" placeholder="LinkedIn profile or name, if available">
 </div>
 <div class="form-group">
 <label for="currentPosition">Current Position <span class="required">*</span></label>
@@ -653,15 +653,6 @@ function validate(){
     if(field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)){
       isValid = false;
       showError(field, 'Please enter a valid email address.');
-    }
-
-    if(field.type === 'url' && value){
-      try {
-        new URL(value);
-      } catch(error){
-        isValid = false;
-        showError(field, 'Please enter a valid link.');
-      }
     }
   });
 
