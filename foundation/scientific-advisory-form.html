@@ -558,77 +558,42 @@ If a backend is later added to the site, replace the action URL with that route.
 
 <section class="form-card">
 <div class="section-header">
-<span class="section-number">03</span>
-<h2 class="section-title">Research Governance &amp; Advisory Experience</h2>
-</div>
-
-<div class="form-group">
-<label for="researchGovernance">Describe your experience with research governance, scientific advisory boards, peer review, research strategy, ethics, evidence assessment, or institutional research oversight. <span class="required">*</span></label>
-<textarea id="researchGovernance" name="researchGovernance" required placeholder="Describe your experience helping institutions evaluate evidence, guide research priorities, assess scientific quality, advise leadership, or build research governance structures..."></textarea>
-</div>
-</section>
 
 <section class="form-card">
 <div class="section-header">
-<span class="section-number">04</span>
+<span class="section-number">03</span>
 <h2 class="section-title">Scientific Judgment</h2>
 </div>
 
 <div class="form-group">
 <p class="question-context">
-A scientific organization receives early evidence suggesting that a potentially significant systemic risk may emerge within the next decade, but the available data remains incomplete, uncertain, and distributed across multiple disciplines.
+A scientific organization receives early evidence suggesting a potentially significant systemic risk, but the available data remains incomplete and uncertain.
 </p>
 
-<label for="scientificJudgment">How would you approach scientific assessment, prioritization of research efforts, communication of uncertainty, and decision-making under these conditions? <span class="required">*</span></label>
+<label for="scientificJudgment">How would you approach scientific assessment, communication of uncertainty, and prioritization of research efforts under these conditions? <span class="required">*</span></label>
 <textarea id="scientificJudgment" class="long-response" name="scientificJudgment" required></textarea>
 </div>
 </section>
 
 <section class="form-card">
 <div class="section-header">
-<span class="section-number">05</span>
+<span class="section-number">03</span>
 <h2 class="section-title">Mission Alignment</h2>
 </div>
 
 <div class="form-group">
-<p class="question-context">
-The Johann Christian Hasse Foundation works at the intersection of science, governance, systemic risk, resilience, complex systems, and long-term institutional development.
-</p>
-<label for="missionAlignment">Why are you interested in the mission of the Johann Christian Hasse Foundation, and how does your background align with it? <span class="required">*</span></label>
+<label for="missionAlignment">Why are you interested in the mission of the Johann Christian Hasse Foundation, and what perspective would you bring to the Founding Scientific Advisory Chair role? <span class="required">*</span></label>
 <textarea id="missionAlignment" class="long-response" name="missionAlignment" required></textarea>
 </div>
 </section>
 
 <section class="form-card">
 <div class="section-header">
-<span class="section-number">06</span>
-<h2 class="section-title">Final Statement</h2>
-</div>
-
-<div class="form-group">
-<label for="finalStatement">What unique perspective, experience, or value would you bring to the Founding Scientific Advisory Chair role? <span class="required">*</span></label>
-<textarea id="finalStatement" class="long-response" name="finalStatement" required></textarea>
-</div>
-</section>
 
 <section class="form-card">
 <div class="section-header">
-<span class="section-number">07</span>
+<span class="section-number">03</span>
 <h2 class="section-title">Consent &amp; Submission</h2>
-</div>
-
-<div class="checkbox-group">
-<label>
-<input type="checkbox" name="consentFoundingRole" required>
-<span>I understand this is a founding governance role within the Johann Christian Hasse Foundation's organizational development phase. <span class="required">*</span></span>
-</label>
-</div>
-
-<div class="checkbox-group">
-<label>
-<input type="checkbox" name="consentRoleScope" required>
-<span>I understand this role is focused on scientific advisory leadership, research governance, and institutional development. <span class="required">*</span></span>
-</label>
 </div>
 
 <div class="checkbox-group">
@@ -649,7 +614,7 @@ The Johann Christian Hasse Foundation works at the intersection of science, gove
 
 <div class="submit-area">
 <button type="submit" class="btn btn-primary" id="submitBtn" style="padding:.08in .35in;font-size:10pt;">
-Open Email to Submit Interest Form
+Submit Interest Form
 </button>
 </div>
 </form>
@@ -657,7 +622,7 @@ Open Email to Submit Interest Form
 <div class="confirmation" id="confirmation" aria-live="polite">
 <div class="confirmation-seal">&#10003;</div>
 <h2>Email Draft Opened</h2>
-<p>Your email application should now open with the completed candidate interest form addressed to pres@hasse.foundation.</p>
+<p>Your email should now open with the completed candidate interest form addressed to pres@hasse.foundation.</p>
 <p class="confirmation-note">Please review the message and send it from your email account.</p>
 </div>
 
@@ -691,9 +656,6 @@ function showError(field, message){
   group.appendChild(err);
 }
 
-function countWords(value){
-  return value.trim().split(/\s+/).filter(Boolean).length;
-}
 
 function validate(){
   var isValid = true;
@@ -756,7 +718,7 @@ function getValue(id){
 
 function buildEmailBody(){
   return [
-    'Founding Grant Strategy Committee Chair — Candidate Interest Form',
+    'Founding Scientific Advisory Chair — Candidate Interest Form',
     '',
     'Candidate Information',
     'Full Name: ' + getValue('fullName'),
@@ -768,17 +730,13 @@ function buildEmailBody(){
     'Scientific Leadership',
 getValue('scientificLeadership'),
 
-'Research Governance & Advisory Experience',
-getValue('researchGovernance'),
-
 'Scientific Judgment',
 getValue('scientificJudgment'),
-    'Consent',
-    'Volunteer governance position: Yes',
-    'Strategic oversight only / no day-to-day fundraising or grant writing: Yes',
-    'Accuracy certified: Yes',
-    'Review authorized: Yes'
-  ].join('\n');
+
+'Mission Alignment',
+getValue('missionAlignment')
+  ].join('
+');
 }
 
 form.addEventListener('input', function(event){
@@ -806,7 +764,7 @@ form.addEventListener('submit', function(event){
   }
 
   var recipient = 'pres@hasse.foundation';
-  var subject = 'Founding Grant Strategy Committee Chair — Candidate Interest Form';
+  var subject = 'Founding Scientific Advisory Chair — Candidate Interest Form';
   var emailBody = buildEmailBody();
 
   window.location.href =
