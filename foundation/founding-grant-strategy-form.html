@@ -676,98 +676,79 @@ Johann Christian Hasse Foundation
 <span class="footer-confidential">Confidential Candidate Interest Form — Internal Review Only</span>
 </footer>
 </main>
-
 <script>
 (function(){
 var form = document.getElementById('assessmentForm');
 var confirmation = document.getElementById('confirmation');
-var submitBtn = document.getElementById('submitBtn');
 
-function clearFieldError(field){
-  field.classList.remove('field-error');
-  var group = field.closest('.form-group');
-  if(group){
-    var msg = group.querySelector('.error-message');
-    if(msg) msg.remove();
-  }
+function getValue(id){
+  var field = document.getElementById(id);
+  return field ? field.value.trim() : '';
 }
 
 function showError(field, message){
+  field.classList.add('field-error');
+
   var group = field.closest('.form-group') || field.parentElement;
-  if(group.querySelector('.error-message')) return;
+  if(!group || group.querySelector('.error-message')) return;
+
   var err = document.createElement('p');
   err.className = 'error-message';
   err.textContent = message;
   group.appendChild(err);
 }
 
-function countWords(value){
-  return value.trim().split(/\s+/).filter(Boolean).length;
+function clearErrors(){
+  form.querySelectorAll('.field-error').forEach(function(field){
+    field.classList.remove('field-error');
+  });
+
+  form.querySelectorAll('.checkbox-error').forEach(function(group){
+    group.classList.remove('checkbox-error');
+  });
+
+  form.querySelectorAll('.error-message').forEach(function(message){
+    message.remove();
+  });
 }
 
 function validate(){
   var isValid = true;
-
-  form.querySelectorAll('.field-error').forEach(function(el){
-    el.classList.remove('field-error');
-  });
-
-  form.querySelectorAll('.checkbox-error').forEach(function(el){
-    el.classList.remove('checkbox-error');
-  });
-
-  form.querySelectorAll('.error-message').forEach(function(el){
-    el.remove();
-  });
+  clearErrors();
 
   form.querySelectorAll('input[required]:not([type="checkbox"]), textarea[required], select[required]').forEach(function(field){
     var value = field.value.trim();
 
     if(!value){
       isValid = false;
-      field.classList.add('field-error');
-      showError(field, 'This field is required.');
+      showError(field, 'Please complete this field.');
       return;
     }
 
     if(field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)){
       isValid = false;
-      field.classList.add('field-error');
       showError(field, 'Please enter a valid email address.');
     }
 
-    if(field.type === 'url'){
+    if(field.type === 'url' && value){
       try {
         new URL(value);
       } catch(error){
         isValid = false;
-        field.classList.add('field-error');
-        showError(field, 'Please enter a valid URL.');
+        showError(field, 'Please enter a valid link.');
       }
-    }
-
-    if(field.tagName.toLowerCase() === 'textarea' && countWords(value) < 1){
-      isValid = false;
-      field.classList.add('field-error');
-      showError(field, 'Please provide a more detailed response.');
     }
   });
 
   form.querySelectorAll('input[type="checkbox"][required]').forEach(function(field){
-    var wrapper = field.closest('.checkbox-group');
-
     if(!field.checked){
       isValid = false;
+      var wrapper = field.closest('.checkbox-group');
       if(wrapper) wrapper.classList.add('checkbox-error');
     }
   });
 
   return isValid;
-}
-
-function getValue(id){
-  var field = document.getElementById(id);
-  return field ? field.value.trim() : '';
 }
 
 function buildEmailBody(){
@@ -797,16 +778,20 @@ function buildEmailBody(){
     getValue('finalStatement'),
     '',
     'Consent',
-    'Volunteer governance position: Yes',
-    'Strategic oversight only / no day-to-day fundraising or grant writing: Yes',
-    'Accuracy certified: Yes',
+    'Information certified as accurate: Yes',
     'Review authorized: Yes'
   ].join('\n');
 }
 
 form.addEventListener('input', function(event){
   if(event.target.matches('input, textarea, select')){
-    clearFieldError(event.target);
+    event.target.classList.remove('field-error');
+
+    var group = event.target.closest('.form-group');
+    if(group){
+      var message = group.querySelector('.error-message');
+      if(message) message.remove();
+    }
   }
 });
 
